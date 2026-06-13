@@ -1,0 +1,34 @@
+---
+description: Core agent directives — plan-first, read-before-write, 3-strike rule
+alwaysApply: true
+---
+
+# Core Directives
+
+On session start, read docs/START_HERE.md before any edits.
+
+## Plan First, Code Second
+
+- Use Plan Mode for all non-trivial tasks
+- Include mandatory ### Critique subsection in every plan
+
+## Read-Before-Write
+
+- Inspect types/interfaces via @filename before altering code
+
+## BUILD_PLAN Protocol
+
+- Sequential lane before Parallel lane
+- Respect AGENT, HUMAN, ADB, AUTO labels
+
+## 3-Strike Rule
+
+Halt after 3 consecutive failed fix attempts; escalate to human.
+
+## Memory Files
+
+Update only at session start, milestone boundary, or architectural pivot.
+
+## Token Economy
+
+Max 250 lines views, 150 lines logic. Read active module/example only.

@@ -1,0 +1,20 @@
+---
+description: Require inspecting types and interfaces before code changes
+alwaysApply: true
+---
+
+# Read-Before-Write Rule
+
+Before modifying any file:
+
+1. Identify boundaries — interfaces, types, schemas
+2. Read upstream via @filename
+3. State signatures in plan
+4. Then edit
+
+## Critique Checklist
+
+- Null/empty values
+- Network timeouts
+- Race conditions
+- Unhandled exceptions
