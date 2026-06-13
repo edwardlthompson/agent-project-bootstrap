@@ -10,6 +10,10 @@ if ! command -v gh >/dev/null 2>&1; then
   exit 1
 fi
 
+if [ -z "${GH_TOKEN:-${GITHUB_TOKEN:-}}" ]; then
+  echo "WARN: GH_TOKEN/GITHUB_TOKEN not set; gh api may rate-limit or fail"
+fi
+
 mapfile -t USES_LINES < <(grep -rhoE 'uses:[[:space:]]*[^[:space:]]+/[^@[:space:]]+@[^[:space:]]+' .github/workflows/*.yml \
   | sed -E 's/^uses:[[:space:]]*//' | sort -u)
 
@@ -19,6 +23,10 @@ if [ "${#USES_LINES[@]}" -eq 0 ]; then
 fi
 
 ERRORS=0
+
+gh_ref_exists() {
+  gh api "$1" >/dev/null 2>&1
+}
 
 action_repo() {
   local action_path="$1"
@@ -34,12 +42,12 @@ action_repo() {
 
 resolve_ref() {
   local repo="$1" ref="$2"
-  if gh api "repos/${repo}/git/ref/tags/${ref}" --silent 2>/dev/null; then return 0; fi
-  if gh api "repos/${repo}/git/ref/heads/${ref}" --silent 2>/dev/null; then return 0; fi
-  if [[ "${ref}" =~ ^[0-9a-f]{7,40}$ ]] && gh api "repos/${repo}/commits/${ref}" --silent 2>/dev/null; then return 0; fi
-  if [[ "${ref}" =~ ^[0-9a-f]{7,40}$ ]] && gh api "repos/${repo}/contents/README.md?ref=${ref}" --silent 2>/dev/null; then return 0; fi
+  if gh_ref_exists "repos/${repo}/git/ref/tags/${ref}"; then return 0; fi
+  if gh_ref_exists "repos/${repo}/git/ref/heads/${ref}"; then return 0; fi
+  if [[ "${ref}" =~ ^[0-9a-f]{7,40}$ ]] && gh_ref_exists "repos/${repo}/commits/${ref}"; then return 0; fi
+  if [[ "${ref}" =~ ^[0-9a-f]{7,40}$ ]] && gh_ref_exists "repos/${repo}/contents/README.md?ref=${ref}"; then return 0; fi
   if [[ "${ref}" =~ ^v ]]; then return 1; fi
-  if [[ "${ref}" =~ ^[0-9] ]] && gh api "repos/${repo}/git/ref/tags/v${ref}" --silent 2>/dev/null; then
+  if [[ "${ref}" =~ ^[0-9] ]] && gh_ref_exists "repos/${repo}/git/ref/tags/v${ref}"; then
     echo "HINT: ${repo}@${ref} missing — did you mean v${ref}?"
     return 1
   fi
