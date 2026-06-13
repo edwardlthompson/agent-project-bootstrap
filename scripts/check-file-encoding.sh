@@ -10,7 +10,7 @@ import os, sys
 
 root = sys.argv[1]
 targets = sys.argv[2:] if len(sys.argv) > 2 else None
-exts = {".md", ".json", ".yml", ".yaml", ".sh", ".ps1", ".mdc", ".toml", ".ts", ".tsx"}
+exts = {".md", ".json", ".yml", ".yaml", ".sh", ".ps1", ".mdc", ".toml", ".ts", ".tsx", ".html", ".css"}
 skip_dirs = {".git", "node_modules", ".venv"}
 errors = []
 

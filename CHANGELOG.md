@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Python: ruff format on greet.py
 - Index/pre-commit: CONTRIBUTING.md in TEMPLATE_INDEX; encoding hook covers .ts/.tsx/.toml
 - License script: --excludePrivatePackages for private stub packages
+- Encoding: normalize UTF-16 index.html and style.css; extend encoding scan to .html/.css
 
 ## [0.2.0] - 2026-06-12
 
