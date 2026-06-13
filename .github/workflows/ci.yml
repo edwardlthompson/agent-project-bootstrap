@@ -81,7 +81,7 @@ jobs:
       - run: npm run lighthouse
       - name: Upload web coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-web
           path: examples/web/coverage/coverage-summary.json
@@ -108,7 +108,7 @@ jobs:
       - run: uv run pytest --cov-report=json:coverage/coverage-summary.json
       - name: Upload python coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-python
           path: examples/python/coverage/coverage-summary.json
@@ -135,7 +135,7 @@ jobs:
       - run: npm test
       - name: Upload node coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-node
           path: examples/node/coverage/coverage-summary.json
@@ -192,7 +192,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           pattern: coverage-*
           merge-multiple: true
