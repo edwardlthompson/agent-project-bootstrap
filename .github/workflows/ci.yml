@@ -198,7 +198,7 @@ jobs:
           merge-multiple: true
           path: coverage-artifacts
       - name: Post coverage summary
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799c1da # v7.0.1
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const fs = require('fs');

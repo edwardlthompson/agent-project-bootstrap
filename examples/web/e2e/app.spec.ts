@@ -3,7 +3,8 @@ import AxeBuilder from "@axe-core/playwright";
 
 test("renders golden path heading", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Hello, FOSS!" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Golden Path PWA" })).toBeVisible();
+  await expect(page.getByText("Hello, FOSS!")).toBeVisible();
   await expect(page.getByTestId("status")).toContainText("Golden Path PWA");
 });
 
@@ -27,10 +28,12 @@ test("serves cached shell offline via service worker", async ({ page, context })
   });
   await page.reload();
   await page.waitForLoadState("networkidle");
-  await expect(page.getByRole("heading", { name: "Hello, FOSS!" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Golden Path PWA" })).toBeVisible();
+  await expect(page.getByText("Hello, FOSS!")).toBeVisible();
 
   await context.setOffline(true);
   await page.reload();
-  await expect(page.getByRole("heading", { name: "Hello, FOSS!" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Golden Path PWA" })).toBeVisible();
+  await expect(page.getByText("Hello, FOSS!")).toBeVisible();
   await expect(page.getByTestId("status")).toBeVisible();
 });
