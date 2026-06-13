@@ -19,6 +19,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.7.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.6.0...v0.7.0) (2026-06-13)
+
+
+### Added
+
+* design system, web layout docs, and Golden Path UI refresh ([912ebbe](https://github.com/edwardlthompson/agent-project-bootstrap/commit/912ebbe2c57fb2d47223c49b3332f3037cc9c80f))
+* initial agent-project-bootstrap template v0.1.0 ([d71c23c](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d71c23c22dd97b96f3ef91435319d5df04bb28b6))
+* template v0.2.0 with UTF-8 gates, lockfiles, and build verification ([2317440](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2317440eeecec0ef961bb9cf54ea3830c183d8cf))
+
+
+### Fixed
+
+* add gradle.properties with android.useAndroidX for assembleDebug ([ea87f7d](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ea87f7dfd40500a7550759fb4466418de5ed2aae))
+* Android CI — google maven for AGP and FOSS grep comment false positive ([b907c46](https://github.com/edwardlthompson/agent-project-bootstrap/commit/b907c46628f05275ecefb149bc230ea08ac47845))
+* bind vite preview to 127.0.0.1 for Playwright CI and extend pre-commit encoding ([9a3f935](https://github.com/edwardlthompson/agent-project-bootstrap/commit/9a3f9357ab4ca2d2afcdf8250ce955a6f46e9c60))
+* **ci:** repair workflow action SHAs, e2e selectors, and shell line endings ([38ce003](https://github.com/edwardlthompson/agent-project-bootstrap/commit/38ce003771c04cdc043ffc79bf8ee2296fac19aa))
+* **ci:** use full git history for Gitleaks on Release Please PRs ([01d585b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/01d585bcc1183633139cf46d4ca4932c3dbd8ee3))
+* correct gh api calls in validate-workflow-actions.sh ([100df56](https://github.com/edwardlthompson/agent-project-bootstrap/commit/100df5649aee5724b22a70c84742453a106f1f1a))
+* **deps:** override transitive tmp and uuid for @lhci/cli alerts ([222fb59](https://github.com/edwardlthompson/agent-project-bootstrap/commit/222fb59f5aa2d11b66c79496c23ad0980108b620))
+* extend encoding scan to Android kts/kt/xml/properties ([8f52c55](https://github.com/edwardlthompson/agent-project-bootstrap/commit/8f52c550f52231520c76dd0a12326c0838db07e4))
+* improve CI configs for python packaging and vitest ([36fbb39](https://github.com/edwardlthompson/agent-project-bootstrap/commit/36fbb394c5c1aa414c812334aa8628abfc47f178))
+* normalize Android example UTF-16 files for Gradle CI ([39a78d3](https://github.com/edwardlthompson/agent-project-bootstrap/commit/39a78d36844739a9b5b77cb1f9876feb229accca))
+* normalize UTF-16 index.html and extend encoding scan to html/css ([e16272e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/e16272eded9901380c086dad4da6189e548209f4))
+* playwright preview server host and timeout for CI e2e ([99188fa](https://github.com/edwardlthompson/agent-project-bootstrap/commit/99188faff52638196366aa8f967cfa832900e37e))
+* repair Security Scan workflow and add GH CI automation ([80f9fc0](https://github.com/edwardlthompson/agent-project-bootstrap/commit/80f9fc03a5ada9ef795b39111d2de6b508a982c6))
+* resolve CI failures in web lint, python format, and android grep ([444ad7b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/444ad7b4c713257bb749371c7c9882b0e883bd19))
+* stabilize Lighthouse CI with 3-run median ([f41c48d](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f41c48daff6d8a148d86ba5cfabf800d015c806d))
+
+
+### Changed
+
+* **deps:** Bump the github-actions group across 1 directory with 10 updates ([#3](https://github.com/edwardlthompson/agent-project-bootstrap/issues/3)) ([648f5d2](https://github.com/edwardlthompson/agent-project-bootstrap/commit/648f5d202b1b2820e10b59c680b6980109290f77))
+* release v0.2.1 full bootstrap hardening ([a2749a3](https://github.com/edwardlthompson/agent-project-bootstrap/commit/a2749a30cfac1b3bf3f2d450666592453ca3aca2))
+
+
+### Documentation
+
+* harden initialization prompt against CI failure patterns ([ec5ee91](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ec5ee914332e7697e6168676c88eaca341cff643))
+* mark v0.2.1 About and release human tasks complete ([33dc47f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/33dc47fa934728a4b1b0247e14af95e95d031db0))
+
 ## [0.6.0] - 2026-06-12
 
 ### Added
@@ -516,5 +556,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [0.1.0]: https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.1.0
-
-

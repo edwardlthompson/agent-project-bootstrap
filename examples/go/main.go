@@ -4,10 +4,10 @@ package main
 import "fmt"
 
 func main() {
-    fmt.Println(Greet())
+	fmt.Println(Greet())
 }
 
 // Greet returns the Golden Path greeting (testable pure function).
 func Greet() string {
-    return "hello FOSS"
+	return "hello FOSS"
 }
