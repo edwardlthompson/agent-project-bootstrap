@@ -214,14 +214,14 @@ jobs:
             } else {
               for (const file of fs.readdirSync(dir)) {
                 if (!file.endsWith('.json')) continue;
+                const label = file.replace('coverage-summary.json', '').replace(/-$/, '') || 'root';
                 let data;
                 try {
                   data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
                 } catch (err) {
-                  lines.push(\- **\**: coverage artifact parse failed (\)\);
+                  lines.push(`- **${label}**: coverage artifact parse failed (${file})`);
                   continue;
                 }
-                const label = file.replace('coverage-summary.json', '').replace(/-$/, '') || 'root';
                 if (data.total && data.total.lines) {
                   const pct = data.total.lines.pct;
                   lines.push(`- **${label}**: ${pct}% lines`);
