@@ -39,7 +39,9 @@ Verify all quality gates pass. Only then update CHANGELOG.md and create a GitHub
 ```
 Run the Build Verification Gate from INITIALIZATION_PROMPT.md Section 7.
 Execute: check-file-encoding, validate-template-index, validate-bootstrap,
-check-license-compliance, pre-commit run --all-files.
+validate-workflow-actions, check-license-compliance, pre-commit run --all-files.
+After pushing to main, run scripts/check-github-ci.sh --wait 300
+(or scripts/check-github-ci.ps1 -WaitSeconds 300 on Windows).
 Report pass/fail per script. Do not mark BUILD_PLAN items complete until all pass.
 ```
 
@@ -59,7 +61,9 @@ Fix any failures before Sprint 0 sign-off.
 
 ```
 Follow docs/SECURITY_TRIAGE.md weekly triage pass.
-Review Dependabot alerts (Critical/High first), triage open PRs, confirm CI green.
+Review Dependabot alerts (Critical/High first), triage open PRs.
+Confirm all three required workflows are green on main: CI, Security Scan, CodeQL.
+Run scripts/check-github-ci.sh after any workflow or dependency change.
 ```
 
 ## Entry 7 — Pre-Release SBOM Audit
@@ -69,4 +73,27 @@ Review Dependabot alerts (Critical/High first), triage open PRs, confirm CI gree
 ```
 Before tagging a release, verify release workflow attaches SBOM and provenance.
 Review THIRD_PARTY_LICENSES.md and run check-license-compliance.sh after locked installs.
+```
+
+## Entry 8 — Workflow Action Validation
+
+**Prompt:**
+
+```
+Before committing changes to .github/workflows/, run scripts/validate-workflow-actions.sh.
+If gh is unavailable locally, rely on scripts/check-workflow-action-ref-format.sh
+(pre-commit) and the CI workflow-actions job. Fix any invalid or bare-semver refs
+before push. SHA-pin third-party actions per docs/SECURITY_TRIAGE.md.
+```
+
+## Entry 9 — Post-Push GitHub Gate
+
+**Prompt:**
+
+```
+After pushing to main, poll required GitHub workflows until green:
+  bash scripts/check-github-ci.sh --wait 300
+  # Windows: scripts/check-github-ci.ps1 -WaitSeconds 300
+Required workflows: CI, Security Scan, CodeQL.
+Do not mark release or Sprint 0 complete while any are failing.
 ```

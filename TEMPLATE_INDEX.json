@@ -1,5 +1,5 @@
 {
-  "template_version": "0.2.0",
+  "template_version": "0.2.1",
   "entry_points": {
     "bootstrap": "docs/START_HERE.md",
     "reference": "docs/FOR_AGENTS.md",
@@ -226,6 +226,27 @@
     {
       "path": "scripts/check-github-ci.ps1",
       "purpose": "Windows wrapper to poll GitHub Actions workflow status",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-workflow-action-ref-format.sh",
+      "purpose": "Pre-commit guard against bare-semver GitHub Action refs in workflows",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/health-check.yml",
+      "purpose": "Weekly scheduled poll of CI + Security Scan + CodeQL status on main",
+      "read_when": "security_triage",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "purpose": "SBOM, provenance attestation, and GitHub Release on version tags",
       "read_when": "release",
       "update_when": "milestone_boundary",
       "owner": "maintainer"

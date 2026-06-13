@@ -11,7 +11,7 @@
 
 - [ ] Add `manifest.webmanifest` with required fields
 - [ ] Implement offline-first service worker
-- [ ] Configure Lighthouse CI budgets (`.lighthouserc.json`)
+- [ ] Configure Lighthouse CI budgets (`.lighthouserc.json`) with `numberOfRuns: 3` and median assertion; keep `minScore: 0.9` for performance (do not lower budget for CI flake)
 - [ ] Set up axe-core accessibility tests in Playwright
 - [ ] Review `examples/web/` Golden Path stub
 - [ ] Add visual regression snapshots for key pages

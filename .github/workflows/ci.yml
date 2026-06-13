@@ -122,7 +122,25 @@ jobs:
           test -f examples/android/settings.gradle.kts
           test -f examples/android/app/build.gradle.kts
           test -f examples/android/gradle/wrapper/gradle-wrapper.properties
+          test -f examples/android/gradlew
+          test -f examples/android/gradle/wrapper/gradle-wrapper.jar
           grep -q "SOURCE_DATE_EPOCH" examples/android/README.md
+
+  android-build:
+    name: Android — assembleDebug
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
+      - name: assembleDebug
+        working-directory: examples/android
+        run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
 
   template-update-check:
     name: Template Update Check

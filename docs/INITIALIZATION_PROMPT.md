@@ -44,7 +44,7 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
 
 **File Encoding & Parseability:**
 
-- **`[AGENT]`** All text files MUST be **UTF-8 without BOM**. Never save source or config as UTF-16 — especially on Windows. Applies to `.md`, `.json`, `.yml`, `.yaml`, `.sh`, `.ps1`, `.mdc`, `.ts`, `.tsx`, `.html`, `.css`, `.toml`, and `.py`.
+- **`[AGENT]`** All text files MUST be **UTF-8 without BOM**. Never save source or config as UTF-16 — especially on Windows. Applies to `.md`, `.json`, `.yml`, `.yaml`, `.sh`, `.ps1`, `.mdc`, `.ts`, `.tsx`, `.html`, `.css`, `.toml`, `.py`, and root `.gitignore`.
 - **`[AUTO]`** `scripts/check-file-encoding.sh` enforced in CI and pre-commit; keep the pre-commit `file-encoding` hook regex aligned with the script's extension list.
 - After editing any JSON/YAML, verify parseability before committing (`python -c "import json; json.load(open(...))"` or equivalent).
 - **`[AGENT]`** After any batch of agent edits on Windows, re-run the encoding check before commit — editor tools may silently write UTF-16. For bulk doc edits on Windows, write via Python `Path.write_text(..., encoding='utf-8')` or PowerShell `[System.IO.File]::WriteAllText` instead of editor save paths that default to UTF-16.

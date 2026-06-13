@@ -116,6 +116,10 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 - [ ] [AUTO] Regression tests: zero failures
 - [ ] [AUTO] Static analysis and vulnerability scans clean
+- [x] [AUTO] Workflow action refs validated (scripts/validate-workflow-actions.sh)
+- [x] [AUTO] Pre-commit bare-semver guard (scripts/check-workflow-action-ref-format.sh)
+- [x] [AUTO] Android assembleDebug CI smoke on xamples/android/
+- [x] [AUTO] Weekly health-check workflow polls CI + Security Scan + CodeQL
 - [ ] [AUTO] UTF-8 encoding check clean (`scripts/check-file-encoding.sh`)
 - [ ] [AUTO] Lockfiles present and CI uses locked installs (`npm ci`, `uv sync --locked`)
 - [ ] [AUTO] `TEMPLATE_INDEX.json` complete (`scripts/validate-template-index.sh`)

@@ -15,7 +15,7 @@ dependabot.yml schedules version-update PRs; **Dependabot alerts** are a separat
 
 ## Weekly Triage Pass
 
-Recommended cadence: **Monday** (aligned with scheduled security scans).
+Recommended cadence: **Monday** (aligned with scheduled security scans and `health-check.yml`).
 
 | Step | Owner | Action |
 |------|-------|--------|
@@ -24,6 +24,7 @@ Recommended cadence: **Monday** (aligned with scheduled security scans).
 | 3 | AGENT | Apply dependency bumps, run tests locally, open PR |
 | 4 | AUTO | CI (Trivy, CodeQL, matrix tests) validates merge |
 | 5 | HUMAN | Merge PR or escalate deferred items |
+| 6 | AUTO | Review `health-check.yml` weekly run (Monday 07:00 UTC); confirm CI + Security Scan + CodeQL green on main HEAD |
 
 ## Triage Decisions
 
@@ -34,6 +35,18 @@ Recommended cadence: **Monday** (aligned with scheduled security scans).
 | **Dismiss** | False positive or not applicable | Document rationale in issue or ADR |
 
 After triage, confirm Trivy and CodeQL workflows are green on main.
+
+## GitHub Actions Pin Policy
+
+Third-party workflow actions must use **immutable refs** to reduce supply-chain risk (see Trivy action advisory, March 2026).
+
+| Rule | Detail |
+|------|--------|
+| **Allowed** | `@vX.Y.Z` (v-prefix semver) or full commit SHA with `# vX.Y.Z` comment |
+| **Forbidden** | Bare semver (`@0.28.0`), floating `@v0` / `@main`, unpinned third-party actions |
+| **Pre-push** | Run `scripts/validate-workflow-actions.sh` (requires `gh` + `GH_TOKEN`) |
+| **Local fast guard** | `scripts/check-workflow-action-ref-format.sh` (pre-commit; no network) |
+| **Post-push** | `scripts/check-github-ci.sh --wait 300` — required workflows: **CI**, **Security Scan**, **CodeQL** |
 
 ## Release Gate (mandatory before tag)
 
@@ -56,5 +69,9 @@ If a Critical/High alert has no upstream fix, release may proceed only when:
 | .github/dependabot.yml | Weekly grouped version-update PRs |
 | .github/workflows/security.yml | Trivy filesystem scan |
 | .github/workflows/codeql.yml | CodeQL static analysis |
+| .github/workflows/health-check.yml | Weekly CI + Security Scan + CodeQL status on main |
+| scripts/validate-workflow-actions.sh | Resolve action refs via GitHub API |
+| scripts/check-workflow-action-ref-format.sh | Local bare-semver guard |
+| scripts/check-github-ci.sh | Post-push workflow gate |
 | docs/MAINTAINING_THE_TEMPLATE.md | Maintainer release checklist |
 | docs/INITIALIZATION_PROMPT.md | Section 7 pre-release gate |

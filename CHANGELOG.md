@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-06-13
+
+### Added
+
+- `scripts/check-workflow-action-ref-format.sh` — local pre-commit guard against bare-semver action refs
+- `.github/workflows/health-check.yml` — weekly Monday 07:00 UTC poll of CI + Security Scan + CodeQL on main
+- CI `android-build` job — `./gradlew assembleDebug` smoke for `examples/android/`
+- Gradle wrapper binaries (`gradlew`, `gradlew.bat`, `gradle-wrapper.jar`) in `examples/android/`
+- `KNOWLEDGE_BASE.md` — six structured entries from v0.2.0 CI/security fix round
+- `PROMPT_LIBRARY.md` entries 8–9 — workflow action validation and post-push GitHub gate
+- Devcontainer `github-cli` feature; postStart runs encoding check + CI gate reminder
+- README GitHub CI Gate section; init scripts run `validate-workflow-actions` and remind `check-github-ci`
+
+### Changed
+
+- Normalized root `.gitignore` from UTF-16 to UTF-8; added to encoding scan and pre-commit hook
+- SHA-pinned `release.yml` actions: `anchore/sbom-action`, `softprops/action-gh-release`, `actions/attest-build-provenance`
+- `docs/SECURITY_TRIAGE.md` — GitHub Actions pin policy, health-check in weekly triage table
+- `modules/web/MODULE.md` — Lighthouse 3-run median policy documented
+- `modules/android/MODULE.md` — CI assembleDebug documented; fixed corrupted path characters
+- `docs/INITIALIZATION_PROMPT.md` — root `.gitignore` in encoding extension list
+- `PROMPT_LIBRARY.md` entries 4 and 6 — validate-workflow-actions, three-workflow sign-off
+
 ### Fixed
 
 - CI: Lighthouse CI uses 3 runs with median assertion to reduce shared-runner flake while keeping 0.9 performance budget
@@ -42,17 +65,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `docs/SECURITY_TRIAGE.md` — private vulnerability reporting in setup
 - `docs/UPGRADING_FROM_TEMPLATE.md` — cherry-pick rows for new scripts/workflows
 - `BUILD_PLAN.md` — encoding, lockfiles, Build Verification Gate in Sprint 0 and Milestone Gates
-- `README.md` — link `THIRD_PARTY_LICENSES.md` and `LICENSE`
+- `README.md` — links THREAT_MODEL, PRIVACY, RUNBOOK, THIRD_PARTY_LICENSES, LICENSE
 - CI: license check after locked installs; `uv sync --locked`; encoding-check job first
-- `docs/MAINTAINING_THE_TEMPLATE.md` — release dry-run step
-- Init scripts — CODEOWNERS replacement, SECURITY/playbooks/`.env.example` reminders
+- `docs/MAINTAINING_THE_TEMPLATE.md` — release dry-run steps
+- Init scripts — CODEOWNERS replacement, GITHUB_ABOUT.md draft, update checker config
 
 ### Human-only (not automated)
 
 - Enable Dependabot alerts + private vulnerability reporting on GitHub
 - Branch protection on `main` with required CI checks (`encoding-check`, `validate-bootstrap`)
 - Replace `@[PROJECT_OWNER]` in CODEOWNERS with real GitHub username
-- Paste GitHub About description
+- Paste GitHub About description from `docs/GITHUB_ABOUT.md`
 
 ## [0.1.0] - 2026-06-12
 
@@ -60,8 +83,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Verbatim Project Initialization Prompt (`docs/INITIALIZATION_PROMPT.md`)
 - Agent routing: `docs/START_HERE.md`, `docs/FOR_AGENTS.md`, `TEMPLATE_INDEX.json`
-- Workspace memory files: `AGENTS.md`, `AGENT_MEMORY.md`, `BUILD_PLAN.md`, and related docs
-- Owner-labeled sprint structure (AGENT / HUMAN / ADB / AUTO) with Sequential and Parallel lanes
+- Workspace memory files: `AGENT_MEMORY.md`, `DECISION_LOG.md`, `KNOWLEDGE_BASE.md`, `BUILD_PLAN.md`
 - Multi-stack Golden Path stubs: Web (Vite PWA), Python (uv CLI), Android (FOSS Gradle skeleton)
 - Ecosystem module guides: Android, Web, Python, Lightroom
 - CI/CD guardrails: matrix CI, CodeQL, Trivy, Dependabot, release workflow
@@ -77,4 +99,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.cursor/rules/destructive-ops.mdc` — human-in-the-loop gates for destructive agent operations
 
 [0.2.0]: https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.2.0
+[0.2.1]: https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.2.1
 [0.1.0]: https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.1.0

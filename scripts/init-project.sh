@@ -44,11 +44,11 @@ if [ -n "$CODEOWNER" ]; then
     sed -i '' "s/@\[PROJECT_OWNER\]/@$CODEOWNER/g" .github/CODEOWNERS
 fi
 
-ABOUT="$PROJECT_NAME — $PROJECT_PURPOSE. Built with agent-project-bootstrap. FOSS MIT."
+ABOUT="$PROJECT_NAME - $PROJECT_PURPOSE. Built with agent-project-bootstrap. FOSS MIT."
 cat > docs/GITHUB_ABOUT.md << EOF
 # GitHub About Block
 
-## Draft Description (edit to ≤350 chars)
+## Draft Description (edit to <=350 chars)
 
 $ABOUT
 
@@ -69,6 +69,20 @@ if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
 fi
 
 echo ""
+echo "=== Workflow validation ==="
+if command -v gh >/dev/null 2>&1; then
+  if bash scripts/validate-workflow-actions.sh; then
+    echo "Workflow action refs validated via GitHub API."
+  else
+    echo "WARN: validate-workflow-actions.sh failed. Fix refs before first push."
+  fi
+else
+  echo "WARN: gh CLI not found. Install GitHub CLI and run:"
+  echo "  bash scripts/validate-workflow-actions.sh"
+  echo "See README.md and docs/SECURITY_TRIAGE.md for setup."
+fi
+
+echo ""
 echo "=== Done ==="
 echo ""
 echo "Next steps:"
@@ -80,5 +94,8 @@ echo ""
 echo "  Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md."
 echo "  Follow Section 8 Startup Sequence."
 echo "  Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels."
+echo ""
+echo "  5. After first push to main, poll required workflows:"
+echo "     bash scripts/check-github-ci.sh --wait 300"
 echo ""
 echo "GitHub About draft: docs/GITHUB_ABOUT.md"

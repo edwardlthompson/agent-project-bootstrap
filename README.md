@@ -87,6 +87,20 @@ pwsh scripts/check-template-updates.ps1
 
 Runs automatically on devcontainer start. When a new version is available, see [`docs/UPGRADING_FROM_TEMPLATE.md`](docs/UPGRADING_FROM_TEMPLATE.md).
 
+The devcontainer also runs `check-file-encoding.sh` on start, includes the **GitHub CLI** (`gh`) for `validate-workflow-actions.sh`, and prints a reminder to run `check-github-ci.sh --wait 300` after pushing to `main`.
+
+## GitHub CI Gate (post-push)
+
+After pushing workflow or dependency changes to `main`, poll required workflows:
+
+```bash
+bash scripts/check-github-ci.sh --wait 300
+# Windows:
+pwsh scripts/check-github-ci.ps1 -WaitSeconds 300
+```
+
+Required workflows: **CI**, **Security Scan**, **CodeQL**.
+
 ## Security
 
 ### Dependabot alerts (one-time setup)

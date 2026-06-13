@@ -40,11 +40,11 @@ if ($CodeOwner) {
     }
 }
 
-$About = "$ProjectName — $ProjectPurpose. Built with agent-project-bootstrap. FOSS MIT."
+$About = "$ProjectName - $ProjectPurpose. Built with agent-project-bootstrap. FOSS MIT."
 @"
 # GitHub About Block
 
-## Draft Description (edit to ≤350 chars)
+## Draft Description (edit to <=350 chars)
 
 $About
 
@@ -64,6 +64,21 @@ if ($Prune -eq "y" -or $Prune -eq "Y") {
 }
 
 Write-Host ""
+Write-Host "=== Workflow validation ===" -ForegroundColor Cyan
+if (Get-Command gh -ErrorAction SilentlyContinue) {
+    bash scripts/validate-workflow-actions.sh
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "Workflow action refs validated via GitHub API."
+    } else {
+        Write-Host "WARN: validate-workflow-actions.sh failed. Fix refs before first push."
+    }
+} else {
+    Write-Host "WARN: gh CLI not found. Install GitHub CLI and run:"
+    Write-Host "  bash scripts/validate-workflow-actions.sh"
+    Write-Host "See README.md and docs/SECURITY_TRIAGE.md for setup."
+}
+
+Write-Host ""
 Write-Host "=== Done ===" -ForegroundColor Green
 Write-Host ""
 Write-Host "Next steps:"
@@ -75,5 +90,8 @@ Write-Host ""
 Write-Host "  Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md."
 Write-Host "  Follow Section 8 Startup Sequence."
 Write-Host "  Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels."
+Write-Host ""
+Write-Host "  5. After first push to main, poll required workflows:"
+Write-Host "     pwsh scripts/check-github-ci.ps1 -WaitSeconds 300"
 Write-Host ""
 Write-Host "GitHub About draft: docs/GITHUB_ABOUT.md"

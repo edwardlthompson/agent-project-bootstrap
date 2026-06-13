@@ -35,6 +35,11 @@ def iter_files():
             if os.path.splitext(fn)[1].lower() in exts:
                 yield os.path.join(dirpath, fn)
 
+gitignore = os.path.join(root, ".gitignore")
+if os.path.isfile(gitignore):
+    if is_bad_encoding(gitignore):
+        errors.append(".gitignore")
+
 for fp in iter_files():
     if is_bad_encoding(fp):
         errors.append(os.path.relpath(fp, root))

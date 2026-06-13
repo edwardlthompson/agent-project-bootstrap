@@ -9,10 +9,10 @@
 
 ## Activation Checklist
 
-- [ ] Confirm no proprietary SDKs in uild.gradle.kts / uild.gradle dependencies
+- [ ] Confirm no proprietary SDKs in `build.gradle.kts` / `build.gradle` dependencies
 - [ ] Set SOURCE_DATE_EPOCH in build scripts and CI
-- [ ] Pin Gradle wrapper and dependency versions with hashes
-- [ ] Review xamples/android/ Golden Path stub
+- [ ] Pin Gradle wrapper (`gradlew`, `gradle-wrapper.jar`, `gradle-wrapper.properties`) and dependency versions
+- [ ] Review `examples/android/` Golden Path stub
 - [ ] Add [ADB] tasks to BUILD_PLAN for device/emulator verification
 - [ ] Document F-Droid metadata path (Fastlane or manual)
 
@@ -20,14 +20,14 @@
 
 - [ ] Crash reporting via FOSS channel only (no proprietary trackers)
 - [ ] UnifiedPush or native OS notification provider configured
-- [ ] Reproducible build verified locally (./gradlew assembleRelease with fixed SOURCE_DATE_EPOCH)
+- [ ] Reproducible build verified locally (`./gradlew assembleRelease` with fixed SOURCE_DATE_EPOCH)
 - [ ] Signing keys stored outside repo; CI uses protected secrets
 - [ ] Rollback procedure documented in docs/RUNBOOK.md
 - [ ] F-Droid submission checklist reviewed before release
 
 ## Golden Path Reference
 
-See xamples/android/ for FOSS Gradle/Kotlin skeleton.
+See `examples/android/` for FOSS Gradle/Kotlin skeleton. CI runs `./gradlew assembleDebug` on every push to `main`.
 
 ## Owner Labels for This Module
 
