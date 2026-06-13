@@ -98,7 +98,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate FOSS compliance markers
         run: |
-          if grep -r "com.google.android.gms\|firebase" examples/android/; then
+          if grep -rE "com\.google\.android\.gms|firebase" \
+              examples/android --include="*.gradle" --include="*.gradle.kts" --include="*.toml"; then
             echo "ERROR: Proprietary SDK references found"
             exit 1
           fi

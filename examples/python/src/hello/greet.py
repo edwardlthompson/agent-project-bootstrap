@@ -1,5 +1,6 @@
 """Typed greeting logic — pure business logic, decoupled from CLI."""
 
+
 def greet(name: str) -> str:
     """Return a greeting for the given name."""
     trimmed = name.strip()

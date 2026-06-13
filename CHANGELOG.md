@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- CI: Web TS null narrowing in main.ts, MIT license on web package, scoped Android FOSS grep to Gradle files
+- Python: ruff format on greet.py
+- Index/pre-commit: CONTRIBUTING.md in TEMPLATE_INDEX; encoding hook covers .ts/.tsx/.toml
+- License script: --excludePrivatePackages for private stub packages
+
 ## [0.2.0] - 2026-06-12
 
 ### Added

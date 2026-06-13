@@ -5,14 +5,15 @@ const app = document.querySelector<HTMLDivElement>("#app");
 if (!app) {
   throw new Error("App root element not found");
 }
+const root = app;
 
 function render(): void {
   const online = isOnline();
-  app.innerHTML = `
+  root.innerHTML = `
     <main>
       <h1>${greet("FOSS")}</h1>
       <p class="status" data-testid="status">
-        ${online ? "Online" : "Offline"} — Golden Path PWA stub
+        ${online ? "Online" : "Offline"} - Golden Path PWA stub
       </p>
     </main>
   `;

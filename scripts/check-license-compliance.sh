@@ -30,7 +30,7 @@ check_web() {
     return 0
   fi
   cd examples/web
-  if ! npx --yes license-checker --production --onlyAllow "$ALLOWED"; then
+  if ! npx --yes license-checker --production --excludePrivatePackages --onlyAllow "$ALLOWED"; then
     echo "ERROR: Web dependencies include disallowed licenses"
     ERRORS=$((ERRORS + 1))
   else

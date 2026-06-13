@@ -84,6 +84,13 @@
       "owner": "agent+human"
     },
     {
+      "path": "CONTRIBUTING.md",
+      "purpose": "Contribution guidelines and PR expectations",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "agent+human"
+    },
+    {
       "path": "docs/SECURITY_TRIAGE.md",
       "purpose": "Dependabot alerts setup, weekly CVE triage, release security gate",
       "read_when": "security_triage",
@@ -190,7 +197,7 @@
     },
     {
       "path": ".github/workflows/dependency-review.yml",
-      "purpose": "PR dependency review — fail on new High/Critical vulnerabilities",
+      "purpose": "PR dependency review \u2014 fail on new High/Critical vulnerabilities",
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
