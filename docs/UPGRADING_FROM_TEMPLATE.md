@@ -18,6 +18,13 @@ Read the upstream release notes at `github.com/edwardlthompson/agent-project-boo
 | `.cursor/rules/` | Copy new/changed `.mdc` files | AGENT |
 | `docs/INITIALIZATION_PROMPT.md` | Manual review; do not blind overwrite | HUMAN |
 | `scripts/` | Copy updated scripts | AGENT |
+| `scripts/check-file-encoding.sh` | Copy + add CI/pre-commit gate | AGENT |
+| `scripts/validate-bootstrap.sh` | Copy expanded validation | AGENT |
+| `scripts/check-license-compliance.sh` | Copy strict license gate | AGENT |
+| `.github/workflows/dependency-review.yml` | Cherry-pick workflow | AGENT + HUMAN review |
+| `.cursor/rules/destructive-ops.mdc` | Copy new rule file | AGENT |
+| `.env.example` | Merge new vars; never overwrite local `.env` | AGENT |
+| `LICENSE` | Verify MIT still applies | HUMAN |
 | `examples/` | Reference only unless adopting new stack | HUMAN decision |
 | `TEMPLATE_INDEX.json` | Run validate script after merge | AGENT |
 

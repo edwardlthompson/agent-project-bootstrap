@@ -18,3 +18,9 @@ Before modifying any file:
 - Network timeouts
 - Race conditions
 - Unhandled exceptions
+
+## UTF-8 & Verification
+
+- Write all text files as UTF-8 without BOM (never UTF-16)
+- Never mark BUILD_PLAN tasks complete without running validate scripts
+- Run `scripts/validate-bootstrap.sh` after creating Sprint 0 artifacts

@@ -13,12 +13,13 @@
 
 ## Bootstrap Read Order
 
-1. `docs/START_HERE.md`
-2. `docs/INITIALIZATION_PROMPT.md`
-3. `AGENTS.md`
-4. `BUILD_PLAN.md` Sequential lane
-5. Active `modules/{stack}/MODULE.md` only
-6. Active `examples/{stack}/` only
+1. `README.md`
+2. `docs/START_HERE.md`
+3. `docs/INITIALIZATION_PROMPT.md`
+4. `AGENTS.md`
+5. `BUILD_PLAN.md` Sequential lane
+6. Active `modules/{stack}/MODULE.md` only
+7. Active `examples/{stack}/` only
 
 ## Reference Read Order
 
@@ -37,6 +38,10 @@
 ## BUILD_PLAN Labels
 
 `AGENT` | `HUMAN` | `ADB` | `AUTO` — filter with `grep '\[AGENT\]' BUILD_PLAN.md`
+
+## Security
+
+Enable Dependabot alerts on GitHub (Settings → Code security and analysis). Weekly CVE triage: `docs/SECURITY_TRIAGE.md`. Vulnerability reporting: `SECURITY.md`.
 
 ## Agent Prompts
 

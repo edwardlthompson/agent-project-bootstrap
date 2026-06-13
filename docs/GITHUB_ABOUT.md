@@ -2,7 +2,7 @@
 
 ## Template Repo Description (350 chars max)
 
-Cursor agent bootstrap template for FOSS projects. Verbatim initialization prompt, labeled BUILD_PLAN sprints, CI guardrails, workspace memory files, and multi-stack Golden Path stubs (Web, Python, Android). MIT.
+Cursor agent bootstrap template for FOSS projects. Labeled BUILD_PLAN sprints, configurable GitHub update checker, Dependabot CVE triage, CI guardrails, workspace memory, and Golden Path stubs (Web, Python, Android). MIT.
 
 ## Topics
 
