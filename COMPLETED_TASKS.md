@@ -14,9 +14,10 @@
 - [x] [AGENT] Add `health-check.yml` weekly workflow
 - [x] [AGENT] Bootstrap Gradle wrapper; CI `android-build` assembleDebug job
 - [x] [AGENT] Bump to v0.2.1; sync `TEMPLATE_INDEX.json`, `CHANGELOG.md`, `README.md`
+- [x] [HUMAN] Set GitHub About from `docs/GITHUB_ABOUT.md` (via `gh repo edit`)
+- [x] [HUMAN] Create GitHub Release tag `v0.2.1` (https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.2.1)
 - [ ] [HUMAN] GitHub settings: Dependabot alerts, private vulnerability reporting, branch protection (CI + Security Scan + CodeQL)
-- [ ] [HUMAN] Replace `@[PROJECT_OWNER]` in CODEOWNERS with real GitHub username
-- [ ] [HUMAN] Set GitHub About from `docs/GITHUB_ABOUT.md`; create GitHub Release tag `v0.2.1`
+- [ ] [HUMAN] Replace `@[PROJECT_OWNER]` in CODEOWNERS with real GitHub username (template placeholder; run `init-project.sh` in child repos)
 
 ## Template Maintainer — v0.2.0 Backlog Fix (2026-06-12)
 
