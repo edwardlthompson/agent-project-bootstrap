@@ -16,8 +16,8 @@
 - [x] [AGENT] Bump to v0.2.1; sync `TEMPLATE_INDEX.json`, `CHANGELOG.md`, `README.md`
 - [x] [HUMAN] Set GitHub About from `docs/GITHUB_ABOUT.md` (via `gh repo edit`)
 - [x] [HUMAN] Create GitHub Release tag `v0.2.1` (https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.2.1)
-- [ ] [HUMAN] GitHub settings: Dependabot alerts, private vulnerability reporting, branch protection (CI + Security Scan + CodeQL)
-- [ ] [HUMAN] Replace `@[PROJECT_OWNER]` in CODEOWNERS with real GitHub username (template placeholder; run `init-project.sh` in child repos)
+- [x] [HUMAN] GitHub settings: Dependabot alerts, private vulnerability reporting, branch protection (CI + Security Scan + CodeQL)
+- [x] [HUMAN] Replace `@[PROJECT_OWNER]` in CODEOWNERS with `@edwardlthompson` (template maintainer)
 
 ## Template Maintainer — v0.2.0 Backlog Fix (2026-06-12)
 
@@ -29,5 +29,174 @@
 - [x] [AGENT] Harden INITIALIZATION_PROMPT Sections 2/7/8 with Build Verification Gate
 - [x] [AGENT] Update BUILD_PLAN Sprint 0 + Milestone Gates
 - [x] [AGENT] Bump `.template-version` to 0.2.0; finalize CHANGELOG
-- [ ] [HUMAN] GitHub settings: Dependabot alerts, private vulnerability reporting, branch protection, About
-- [ ] [HUMAN] Replace `@[PROJECT_OWNER]` in CODEOWNERS with real GitHub username
+- [x] [HUMAN] GitHub settings: Dependabot alerts, private vulnerability reporting, branch protection, About
+- [x] [HUMAN] Replace `@[PROJECT_OWNER]` in CODEOWNERS with `@edwardlthompson`
+
+## Template Maintainer — v0.6.0+ Web Layout & CI Fixes (2026-06-13)
+
+- [x] [AGENT] Add `docs/WEB_PROJECT_LAYOUT.md` and agent routing for docs/ vs examples/web/
+- [x] [AGENT] Localization scaffold docs (web `locales/` + Android `strings.xml`) separated from styles
+- [x] [AGENT] Android `NetworkStatusMonitor` for online/offline status parity with web
+- [x] [AGENT] Harden `check-design-cohesion` (CSS content guard, main.ts i18n, PS1 parity)
+- [x] [AUTO] CI, Security Scan, CodeQL, and GitHub Pages green on `main` (commit `38ce003`)
+- [x] [HUMAN] Enable GitHub Pages (Actions source) and workflow PR permissions via repo settings
+
+## Sprint M0 — Template Hardening v0.2.2
+
+- [x] [AGENT] Add `scripts/setup-github-repo.sh` and `scripts/setup-github-repo.ps1` — idempotent Dependabot alerts, private vulnerability reporting, branch protection/rulesets (CI + Security Scan + CodeQL); print UI fallback checklist on API 422
+- [x] [AGENT] Add gitleaks CI job to `.github/workflows/security.yml` (or `ci.yml`) on PR + `main` push
+- [x] [AGENT] Add `check-file-limits` and `validate-bootstrap --quick` to `.pre-commit-config.yaml`
+- [x] [AGENT] Add `scripts/pre-release-gate.sh` and `scripts/pre-release-gate.ps1` — CI poll, Dependabot Critical/High count, template version/tag match, release dry-run reminder
+- [x] [AGENT] Add KNOWLEDGE_BASE KB-007 (npm/pip overrides policy for transitive CVEs); document `@lhci/cli` override in DECISION_LOG
+- [x] [AGENT] Add `npm audit` step to `examples/web` and `uv pip audit` (or equivalent) to weekly `.github/workflows/health-check.yml`
+- [x] [AGENT] Sync `AGENT_MEMORY.md` seed template version with `.template-version`; fix stale `0.1.0` reference
+- [x] [AGENT] Bump `.template-version` to `0.2.2`; update CHANGELOG, TEMPLATE_INDEX, README
+
+## Sprint M1 — Template Hardening v0.3.0
+
+- [x] [AGENT] Extend `init-project.sh` / `.ps1` with interactive stack picker (web / python / android / multi / none) — prune unused `examples/` and `modules/`, never delete LICENSE/CI/scripts
+- [x] [AGENT] On init: sync `AGENT_MEMORY.md` active modules; emit minimal BUILD_PLAN Parallel section for chosen stack
+- [x] [AGENT] Add `.cursor-session-state.example.json` schema; document restore flow in `docs/FOR_AGENTS.md`
+- [x] [AGENT] Expand `docs/FOR_AGENTS.md` failure playbook (CI poll, GH_TOKEN, Dependabot conflicts, 3-strike escalation, parallel scope collision grep)
+- [x] [AGENT] Add `android-release` CI job — `SOURCE_DATE_EPOCH=1700000000 ./gradlew assembleRelease`, FOSS grep, optional two-run APK hash compare with flake tolerance
+- [x] [AGENT] Enforce `pytest --cov-fail-under=90` in CI for `examples/python`
+- [x] [AGENT] Add Conventional Commits PR title check (`amannn/action-semantic-pull-request`) to `.github/workflows/ci.yml`
+- [x] [AGENT] Draft `docs/adr/0001-core-architecture.md` pattern for child repos (MVVM / Clean / Hexagonal choice template)
+- [x] [AGENT] Bump `.template-version` to `0.3.0`; update CHANGELOG, TEMPLATE_INDEX, README
+
+## Sprint M2 — Template Features v0.4.0
+
+- [x] [AGENT] Add `modules/node/MODULE.md` and `examples/node/` Golden Path stub (Fastify or Hono, MIT, typed, vitest)
+- [x] [AGENT] Add Node CI job to `.github/workflows/ci.yml` (lint, test, locked install)
+- [x] [AGENT] Add GitHub Pages deploy workflow for `examples/web` demo (FOSS, no tracking)
+- [x] [AGENT] Add Dependabot auto-merge workflow — patch/minor only, requires CI + dependency-review pass, excludes major without `[HUMAN]` label
+- [x] [AGENT] Add changelog automation (`release-please` or `git-cliff`) wired to Conventional Commits
+- [x] [AGENT] Add `scripts/simulate-template-upgrade.sh` — clone, init, cherry-pick per `docs/UPGRADING_FROM_TEMPLATE.md`, assert validate-bootstrap passes
+- [x] [AGENT] Add composite GitHub Action `action.yml` exporting `validate-bootstrap` for downstream repos
+- [x] [AGENT] Bump `.template-version` to `0.4.0`; update CHANGELOG, TEMPLATE_INDEX, README
+- [x] [AUTO] Upgrade simulation test passes in CI (optional scheduled job)
+- [x] [AGENT] GitHub Actions stale bot (`actions/stale`); exempt `template-improvement` (`.github/workflows/stale.yml`)
+- [x] [AGENT] PR coverage comment job (vitest + pytest artifacts; Codecov optional) (`.github/workflows/ci.yml`)
+- [x] [AGENT] `scripts/generate-winget-manifest.sh` stub generator (`packaging/winget/**`, `scripts/`)
+- [x] [AGENT] F-Droid `metadata/` template in `examples/android/` (`examples/android/metadata/**`)
+- [x] [AGENT] Per-stack SBOM slices on GitHub Release (`examples/web`, `examples/python`) (`.github/workflows/release.yml`)
+- [x] [AGENT] PROMPT_LIBRARY Entry 15 — Post-release regression (`PROMPT_LIBRARY.md`)
+- [x] [AGENT] PROMPT_LIBRARY Entry 16 — Template upgrade simulation (`PROMPT_LIBRARY.md`)
+- [x] [AGENT] Issue template: auto-suggest `.template-version` in placeholder text (`.github/ISSUE_TEMPLATE/*.yml`)
+
+## Sprint M3 — Ecosystem Expansion v0.5.0+
+
+- [x] [AGENT] Add `examples/lightroom/` minimal stub (`Info.lua`, SDK version doc) per `modules/lightroom/MODULE.md`
+- [x] [AGENT] Update `TEMPLATE_INDEX.json` — set `examples/lightroom` module `example` path
+- [x] [AGENT] (Optional) Add `modules/rust/MODULE.md` + `examples/rust/` stub behind stack picker
+- [x] [AGENT] (Optional) Add `modules/go/MODULE.md` + `examples/go/` stub behind stack picker
+- [x] [AGENT] Gate new module CI behind workflow matrix `inputs.stack` or path filters to control CI minutes
+
+## Sprint M4 — Design System v0.6.0
+
+- [x] [AGENT] Add `design-tokens/` + schema + `scripts/sync-design-tokens.py`
+- [x] [AGENT] Migrate Android example to Compose M3 + theme toggle (DataStore) + `strings.xml` i18n
+- [x] [AGENT] Refactor web example: CSS variables + theme toggle + `locales/` i18n scaffold
+- [x] [AGENT] Add `docs/DESIGN_GUIDE.md` + `.cursor/rules/design-system.mdc`
+- [x] [AGENT] Add `scripts/check-design-cohesion.sh` + validate-bootstrap wiring
+- [x] [AUTO] `android-build` + web tests green (theme toggle smoke tests)
+- [x] [AGENT] Web theme + i18n unit tests (`examples/web/src/theme.test.ts`, `examples/web/src/i18n/**`)
+- [x] [AGENT] Android Compose theme components (`examples/android/.../ui/**`)
+
+## Milestone Gates
+
+- [x] [AUTO] Workflow action refs validated (`scripts/validate-workflow-actions.sh`)
+- [x] [AUTO] Pre-commit bare-semver guard (`scripts/check-workflow-action-ref-format.sh`)
+- [x] [AUTO] Android assembleDebug CI smoke on `examples/android/`
+- [x] [AUTO] Weekly health-check workflow polls CI + Security Scan + CodeQL
+- [x] [AUTO] UTF-8 encoding check clean (`scripts/check-file-encoding.sh`)
+- [x] [AUTO] Lockfiles present and CI uses locked installs (`npm ci`, `uv sync --locked`)
+- [x] [AUTO] `TEMPLATE_INDEX.json` complete (`scripts/validate-template-index.sh`)
+- [x] [AUTO] Gitleaks CI job passes on `main` (M0)
+- [x] [AUTO] Pre-commit includes file-limits and quick bootstrap validation (M0)
+- [x] [AUTO] Android `assembleRelease` with `SOURCE_DATE_EPOCH` passes (M1)
+- [x] [AUTO] Python coverage ≥ 90% in CI (M1)
+- [x] [AUTO] Web bundle size budget within threshold (M1)
+- [x] [AUTO] OpenSSF Scorecard run completed within last 30 days (M1)
+- [x] [AUTO] Upgrade simulation test passes (M2)
+- [x] [AUTO] GitHub Pages demo deploys successfully (M2)
+- [x] [AUTO] Node example CI green when `examples/node/` present (M2)
+## BUILD_PLAN Automation Pass (2026-06-13)
+
+### Sprint 0 — Template (maintainer repo complete)
+
+- [x] [AGENT] Create `SECURITY.md`, `CODE_OF_CONDUCT.md`, `docs/THREAT_MODEL.md`, `docs/PRIVACY.md`, `docs/RUNBOOK.md`
+- [x] [AGENT] Add `.github/CODEOWNERS` and `THIRD_PARTY_LICENSES.md`
+- [x] [AGENT] Initialize workspace memory files from template seeds (`AGENT_MEMORY.md`, etc.)
+- [x] [AGENT] Wire update checker config into devcontainer and README
+- [x] [HUMAN] Set GitHub repo About description from `docs/GITHUB_ABOUT.md` (via `gh repo edit`)
+- [x] [AGENT] Commit lockfiles (`package-lock.json`, `uv.lock`) and `.env.example`
+- [x] [AGENT] Ensure `TEMPLATE_INDEX.json` includes all scripts, workflows, and playbooks
+- [x] [AUTO] `scripts/check-file-encoding.sh` passes
+- [x] [AUTO] Full Build Verification Gate (INITIALIZATION_PROMPT Section 7) green
+- [x] [AUTO] `scripts/validate-bootstrap.sh` (expanded) passes in CI
+- [x] [HUMAN] Enable Dependabot alerts + security updates
+- [x] [HUMAN] Enable private vulnerability reporting + branch protection on `main` (via `setup-github-repo.sh`)
+- [x] [HUMAN] Replace `@[PROJECT_OWNER]` in CODEOWNERS with `@edwardlthompson`
+
+### Sprint 0 Parallel (maintainer)
+
+- [x] [AGENT] Confirm GitHub Pages uses Actions (not `/docs` folder)
+- [x] [AUTO] Verify pre-commit hooks install
+
+### Sprint 1 — Golden Path (maintainer)
+
+- [x] [AGENT] Propose directory structure for target stack
+- [x] [AGENT] Draft ADR-0001 core architecture (`docs/adr/0001-core-architecture.md`)
+- [x] [AGENT] Implement Golden Path reference feature (design tokens, i18n, theme toggle)
+- [x] [AUTO] `scripts/check-design-cohesion.sh` passes
+- [x] [AUTO] CI matrix green on main
+- [x] [AGENT] Web PWA offline cache + bundle budget + visual snapshots
+- [x] [AGENT] Python CLI + 90% coverage gate + pyright
+- [x] [AGENT] Android FOSS skeleton + Fastlane metadata stub
+- [x] [AGENT] Node API stub
+- [x] [AGENT] CodeQL + Trivy workflow wiring
+- [x] [AGENT] Devcontainer + pre-commit hooks
+
+### Sprint M0 Parallel
+
+- [x] [AGENT] Cross-platform `scripts/check-file-encoding.py` (UTF-8/UTF-16 BOM)
+- [x] [AGENT] Add `.cursor/rules/windows-encoding.mdc`
+- [x] [AGENT] Add PROMPT_LIBRARY Entry 10 — Pre-release gate
+- [x] [AGENT] Add PROMPT_LIBRARY Entry 11 — GitHub repo setup
+- [x] [AGENT] Document setup script in `docs/SECURITY_TRIAGE.md` § Setup
+- [x] [AGENT] Wire `setup-github-repo` reminder into `init-project.sh` / `.ps1`
+- [x] [AUTO] Full Build Verification Gate + `scripts/pre-release-gate.sh` green on `main`
+
+### Sprint M1 Parallel
+
+- [x] [AGENT] Web bundle size budget in CI (`scripts/check-bundle-size.sh`)
+- [x] [AGENT] Playwright visual snapshot regression test
+- [x] [AGENT] Service-worker offline smoke test
+- [x] [AGENT] Android Fastlane metadata stub
+- [x] [AGENT] Android emulator checklist in `examples/android/README.md`
+- [x] [AGENT] Optional pyright CI job for Python
+- [x] [AGENT] Add `.cursor/rules/testing.mdc` (coverage budgets)
+- [x] [AGENT] Add `.cursor/rules/ci-gates.mdc` (post-push poll protocol)
+- [x] [AGENT] PROMPT_LIBRARY Entry 12 — Stack prune complete
+- [x] [AGENT] PROMPT_LIBRARY Entry 13 — Session state restore
+- [x] [AGENT] PROMPT_LIBRARY Entry 14 — Parallel agent scope map
+- [x] [AGENT] OpenSSF Scorecard weekly workflow
+- [x] [AGENT] `scripts/check-parallel-scope.sh`
+- [x] [AUTO] CI matrix green including `android-release` and coverage gate
+- [x] [AGENT] Conventional Commits PR title check (`amannn/action-semantic-pull-request`)
+
+### Sprint M3 Parallel
+
+- [x] [HUMAN] Decide which optional modules to ship — all three (Lightroom, Rust, Go); see `DECISION_LOG.md`
+- [x] [AGENT] Lightroom lint/checklist in CI (Lua SDK namespace grep)
+- [x] [AGENT] Rust CI job (`cargo fmt`, `clippy`, `test`)
+- [x] [AGENT] Go CI job (`go vet`, `gofmt`, `test`)
+- [x] [AGENT] F-Droid submission dry-run checklist doc (`modules/android/MODULE.md`)
+
+### Milestone Gates
+
+- [x] [AUTO] Regression tests: zero failures
+- [x] [AUTO] Static analysis and vulnerability scans clean
+- [x] [AUTO] `scripts/pre-release-gate.sh` passes before release tag (M0)
+

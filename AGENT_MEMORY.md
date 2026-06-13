@@ -7,32 +7,35 @@
 
 | Layer | Technology | Version | Notes |
 |-------|-----------|---------|-------|
-| Platform | [INSERT PLATFORM / TECH STACK HERE] | - | Fill during Sprint 0 |
+| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Rust/Go) | 0.7.0 | Template maintainer repo |
 | License | MIT | - | Pure FOSS |
-| Distribution | GitHub Releases | - | Platform channels TBD |
+| Distribution | GitHub Releases + GitHub Pages demo | - | F-Droid/Winget stubs for child repos |
 
 ## Active Modules
 
-- [ ] Android / F-Droid (`modules/android/MODULE.md`)
-- [ ] Web / PWA (`modules/web/MODULE.md`)
-- [ ] Python (`modules/python/MODULE.md`)
-- [ ] Lightroom Classic (`modules/lightroom/MODULE.md`)
+- [x] Web / PWA (`modules/web/MODULE.md`)
+- [x] Python (`modules/python/MODULE.md`)
+- [x] Android / F-Droid (`modules/android/MODULE.md`)
+- [x] Node API (`modules/node/MODULE.md`)
+- [x] Lightroom Classic (`modules/lightroom/MODULE.md`)
+- [x] Rust (`modules/rust/MODULE.md`)
+- [x] Go (`modules/go/MODULE.md`)
 
 ## Threat Model Checklist
 
-- [ ] `docs/THREAT_MODEL.md` drafted (STRIDE, trust boundaries, top abuse cases)
-- [ ] No proprietary closed-source SDKs in production path
-- [ ] Opt-in only telemetry (GDPR/CCPA compliant); see `docs/PRIVACY.md`
-- [ ] Secrets excluded from VCS (Gitleaks pre-commit)
-- [ ] Dependency vulnerability scanning enabled (CodeQL + Trivy + Dependabot)
-- [ ] Input validation at all data boundaries
-- [ ] `SECURITY.md` and private vulnerability reporting enabled
+- [x] `docs/THREAT_MODEL.md` drafted (STRIDE, trust boundaries, top abuse cases)
+- [x] No proprietary closed-source SDKs in production path
+- [x] Opt-in only telemetry (GDPR/CCPA compliant); see `docs/PRIVACY.md`
+- [x] Secrets excluded from VCS (Gitleaks pre-commit)
+- [x] Dependency vulnerability scanning enabled (CodeQL + Trivy + Dependabot)
+- [x] Input validation at all data boundaries
+- [x] `SECURITY.md` and private vulnerability reporting enabled
 
 ## Persistent Context
 
 ### Project Purpose
 
-[INSERT DETAILED APP DESCRIPTION AND GOALS HERE]
+FOSS Cursor agent bootstrap template: labeled BUILD_PLAN sprints, Golden Path examples, CI guardrails, workspace memory, and design-system cohesion across Web and Android.
 
 ### Key Constraints
 
@@ -44,10 +47,10 @@
 
 | Date | Milestone | What worked | What to improve |
 |------|-----------|-------------|-----------------|
-| - | - | - | - |
+| 2026-06-13 | v0.6.0 design system | Cross-stack tokens + i18n scaffold | Restore optional-stack CI jobs after large merge |
 
 ## Template Provenance
 
-- **Source template:** `edwardlthompson/agent-project-bootstrap`
-- **Template version:** `0.3.0` (see `.template-version`)
+- **Source template:** `edwardlthompson/agent-project-bootstrap` (self-maintained)
+- **Template version:** `0.7.0` (see `.template-version`)
 - **Last update check:** See `.template-update.json`

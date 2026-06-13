@@ -76,6 +76,9 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+      - name: Bundle size budget
+        working-directory: ${{ github.workspace }}
+        run: bash scripts/check-bundle-size.sh
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test
       - run: npm run lighthouse
@@ -105,6 +108,7 @@ jobs:
       - run: uv run ruff check .
       - run: uv run ruff format --check .
       - run: uv run mypy src
+      - run: uv run pyright
       - run: uv run pytest --cov-report=json:coverage/coverage-summary.json
       - name: Upload python coverage
         if: always()
@@ -264,3 +268,108 @@ jobs:
       - uses: actions/checkout@v6
       - name: Check for upstream template updates
         run: bash scripts/check-template-updates.sh --verbose
+  pr-title:
+    name: Conventional Commits PR Title
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      pull-requests: read
+    steps:
+      - uses: amannn/action-semantic-pull-request@e32d7e603df1aa1ba07e981f2a23455dee596825 # v5.5.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  android-release:
+    name: Android - assembleRelease
+    runs-on: ubuntu-latest
+    if: hashFiles('examples/android/gradlew') != ''
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v4
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
+      - name: FOSS compliance grep
+        run: |
+          if grep -rE "com\.google\.android\.gms|firebase" \
+              examples/android --include="*.gradle" --include="*.gradle.kts" --include="*.toml" \
+              | grep -vE '//|/\*'; then
+            echo "ERROR: Proprietary SDK references found"
+            exit 1
+          fi
+      - name: assembleRelease with SOURCE_DATE_EPOCH
+        working-directory: examples/android
+        env:
+          SOURCE_DATE_EPOCH: "1700000000"
+        run: chmod +x gradlew && ./gradlew assembleRelease --no-daemon
+      - name: Compare APK hashes (flake tolerance)
+        working-directory: examples/android
+        env:
+          SOURCE_DATE_EPOCH: "1700000000"
+        run: |
+          APK=$(find app/build/outputs/apk/release -name '*.apk' | head -1)
+          HASH1=$(sha256sum "$APK" | awk '{print $1}')
+          ./gradlew clean assembleRelease --no-daemon -q
+          APK2=$(find app/build/outputs/apk/release -name '*.apk' | head -1)
+          HASH2=$(sha256sum "$APK2" | awk '{print $1}')
+          if [ "$HASH1" != "$HASH2" ]; then
+            echo "WARN: APK hashes differ between builds (documented flake tolerance)"
+            echo "  Run 1: $HASH1"
+            echo "  Run 2: $HASH2"
+          else
+            echo "OK   Reproducible APK hash: $HASH1"
+          fi
+
+  lightroom:
+    name: Lightroom - SDK Namespace Check
+    runs-on: ubuntu-latest
+    if: hashFiles('examples/lightroom/Info.lua') != ''
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate Lr* SDK compliance
+        run: |
+          set -euo pipefail
+          test -f examples/lightroom/Info.lua
+          grep -q 'LrSdkVersion' examples/lightroom/Info.lua
+          while IFS= read -r -d '' f; do
+            if grep -nE "require\s*\(\s*['\"]" "$f" | grep -vE '^[[:space:]]*--'; then
+              echo "ERROR: Generic Lua require() forbidden in $f (use Lr* SDK only)"
+              exit 1
+            fi
+          done < <(find examples/lightroom -name '*.lua' -print0)
+          echo "Lightroom SDK namespace check passed"
+
+  rust:
+    name: Rust - Fmt, Clippy, Test
+    runs-on: ubuntu-latest
+    if: hashFiles('examples/rust/Cargo.toml') != ''
+    defaults:
+      run:
+        working-directory: examples/rust
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo fmt --check
+      - run: cargo clippy -- -D warnings
+      - run: cargo test
+
+  go:
+    name: Go - Vet, Fmt, Test
+    runs-on: ubuntu-latest
+    if: hashFiles('examples/go/go.mod') != ''
+    defaults:
+      run:
+        working-directory: examples/go
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+          cache-dependency-path: examples/go/go.mod
+      - run: go vet ./...
+      - run: test -z "$(gofmt -l .)"
+      - run: go test ./...
+
