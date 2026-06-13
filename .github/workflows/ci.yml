@@ -125,6 +125,7 @@ jobs:
           test -f examples/android/gradle/wrapper/gradle-wrapper.properties
           test -f examples/android/gradlew
           test -f examples/android/gradle/wrapper/gradle-wrapper.jar
+          test -f examples/android/gradle.properties
           grep -q "SOURCE_DATE_EPOCH" examples/android/README.md
 
   android-build:
