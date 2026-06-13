@@ -23,8 +23,9 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
   - **`[AUTO]`** Trivy + CodeQL workflows complement but do not replace Dependabot alerts.
   - **`[AUTO]`** `dependency-review-action` on PRs — fail on new High/Critical vulnerabilities.
   - **`[AUTO]`** Generate SBOM (CycloneDX) per release via `syft`; attach to GitHub Release. Optional: SLSA build provenance attestation.
-  - **`[AUTO]`** License compliance check in CI (`scripts/check-license-compliance.sh`).
+  - **`[AUTO]`** License compliance check in CI (`scripts/check-license-compliance.sh`) after locked dependency install.
   - **`[AGENT]`** Maintain `THIRD_PARTY_LICENSES.md` or `NOTICE` for bundled dependencies.
+  - **`[AGENT]`** Declare SPDX license in package manifests (`"license": "MIT"` in `package.json` even when `"private": true`) so production dependency audits pass; CI excludes the private root package via `--excludePrivatePackages`.
 - **Branch Protection & PR Hygiene:**
   - **`[HUMAN]`** Branch protection on `main`: required status checks, linear history, no force-push.
   - **`[HUMAN]`** Require PR reviews for `.github/`, `SECURITY.md`, and secrets-adjacent config.
@@ -41,9 +42,10 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
 
 **File Encoding & Parseability:**
 
-- **`[AGENT]`** All text files MUST be **UTF-8 without BOM**. Never save `.md`, `.json`, `.yml`, `.sh` as UTF-16.
-- **`[AUTO]`** `scripts/check-file-encoding.sh` enforced in CI and pre-commit.
-- After editing any JSON/YAML, verify parseability before committing.
+- **`[AGENT]`** All text files MUST be **UTF-8 without BOM**. Never save source or config as UTF-16 — especially on Windows. Applies to `.md`, `.json`, `.yml`, `.yaml`, `.sh`, `.ps1`, `.mdc`, `.ts`, `.tsx`, `.html`, `.css`, `.toml`, and `.py`.
+- **`[AUTO]`** `scripts/check-file-encoding.sh` enforced in CI and pre-commit; keep the pre-commit `file-encoding` hook regex aligned with the script's extension list.
+- After editing any JSON/YAML, verify parseability before committing (`python -c "import json; json.load(open(...))"` or equivalent).
+- **`[AGENT]`** After any batch of agent edits on Windows, re-run the encoding check before commit — editor tools may silently write UTF-16. For bulk doc edits on Windows, write via Python `Path.write_text(..., encoding='utf-8')` or PowerShell `[System.IO.File]::WriteAllText` instead of editor save paths that default to UTF-16.
 
 **Reproducible dependency locking:**
 
@@ -53,7 +55,17 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
 **Index completeness:**
 
 - **`[AGENT]`** Every new script, workflow, or playbook → add entry to `TEMPLATE_INDEX.json` in the same change.
+- **`[AGENT]`** Every file in `scripts/validate-bootstrap.sh` REQUIRED list must be indexed (including `CONTRIBUTING.md`, `LICENSE`, `.env.example`, and security playbooks).
 - **`[AUTO]`** `validate-template-index.sh` must pass before Sprint 0 sign-off.
+
+
+**CI implementation discipline (prevent false greens):**
+
+- **`[AGENT]`** FOSS compliance grep in CI must scan **build manifests only** (`*.gradle`, `*.gradle.kts`, `*.toml`) — never README or docs that mention prohibited SDK names in compliance bullets.
+- **`[AGENT]`** TypeScript `strict` mode: DOM elements null-checked at module scope must be copied to a `const` (e.g. `const root = app`) before use inside nested functions — narrowing does not cross function boundaries.
+- **`[AGENT]`** Python CI must run `ruff format --check` alongside `ruff check`; module docstrings require a blank line before the first `def`.
+- **`[AGENT]`** Web e2e: Playwright `webServer` must bind preview to `127.0.0.1` (e.g. `npm run preview -- --port 4173 --host 127.0.0.1`); serve the existing production build only — do not chain `build && preview` in `webServer` when CI already runs `npm run build` separately. Run `npm run lint`, `npm test`, `npm run build`, and Playwright locally before Sprint 0 sign-off.
+- **`[AGENT]`** Do not mark BUILD_PLAN complete until **GitHub Actions CI is green on `main`**, not only local partial checks.
 
 ## 3. Persistent Agent Workspace & Memory
 
@@ -110,17 +122,19 @@ Every task in `BUILD_PLAN.md` must carry an owner label so automated and human w
 ### Module A: Android / F-Droid Pure Compliance
 
 - **Absolute FOSS Isolation:** No commercial or proprietary closed-source SDKs are permitted (e.g., no Google Play Services, Firebase, or closed telemetry trackers). Rely exclusively on open alternatives (e.g., UnifiedPush or native OS providers).
+- **CI FOSS scans:** Automated checks must grep Gradle/TOML manifests only — documentation may reference prohibited SDKs when stating compliance; do not fail CI on README prose.
 - **Reproducible Build Environment:** Lock down all compiler toolchains and build dependencies using cryptographic hashes or strict versioning. Enforce determinism by eliminating compilation timestamps (using `SOURCE_DATE_EPOCH` or platform equivalents) to ensure byte-for-byte reproducible binaries matching F-Droid build verification targets.
 
 ### Module B: Web / Static Sites / Progressive Web Apps (PWAs)
 
 - **PWA & Cache Integrity:** Enforce fully compliant PWA manifests, offline-first service workers, and responsive, high-performance offline caching strategies.
 - **Asset Optimization & Audits:** Enforce automated asset minification, image compression, responsive media rendering, and build-time HTML/CSS validation. Builds must fail if Lighthouse performance, accessibility, or best-practice scores fall below target budgets.
+- **TypeScript & E2E:** With `strict` enabled, assign narrowed DOM refs to module-level `const` before use in render handlers. Playwright e2e must serve the production build via `vite preview` on `127.0.0.1`; include `index.html` and static assets in UTF-8 encoding checks.
 
 ### Module C: Python Applications
 
 - **Environment & Dependency Locking:** Enforce strict package pinning and environment encapsulation utilizing precise tool-specific lockfiles (e.g., `uv.lock`, `poetry.lock`, or `requirements.txt` with strict hashes).
-- **Static Analysis & Type Hygiene:** Enforce complete, strict type-hinting across the codebase validated via type checkers (mypy or pyright). Utilize standard modern tools (such as ruff) to run optimization, styling, and linting suites on every check-in.
+- **Static Analysis & Type Hygiene:** Enforce complete, strict type-hinting across the codebase validated via type checkers (mypy or pyright). Utilize ruff for lint **and** format; CI must pass `ruff format --check` — PEP 257 requires a blank line after module docstrings.
 
 ### Module D: Adobe Lightroom Classic Plugins
 
@@ -169,7 +183,7 @@ Before any version bump, release tag, or production deployment, activate a focus
 - Memory profiling validation (ensuring resource cleanup and no uncontrolled heap growth).
 - State persistence sanity checks (settings survive simulated upgrades/wipes).
 - **Metadata & Packaging Sync:** Ensure app description files, changelogs, and asset configurations match the standardized target structure (e.g., Fastlane directories for Android, configuration setups for web apps, `.lrplugin` wrapper parameters within `Info.lua` for Lightroom).
-- **License compliance:** `THIRD_PARTY_LICENSES.md` current; no unapproved copyleft dependencies in distribution artifacts.
+- **License compliance:** `THIRD_PARTY_LICENSES.md` current; SPDX declared in package manifests (`package.json` `"license"` field); no unapproved copyleft dependencies in distribution artifacts.
 - **UTF-8 encoding check clean** (`scripts/check-file-encoding.sh`).
 - **Lockfiles committed** and in sync with manifests; CI uses locked installs.
 - **`TEMPLATE_INDEX.json` includes all referenced paths** (`scripts/validate-template-index.sh`).
@@ -186,6 +200,14 @@ Before claiming any sprint complete or requesting `[HUMAN]` approval:
 [AUTO] pre-commit run --all-files
 [AUTO] CI-equivalent local run (stack test commands from examples/)
 ```
+
+**Stack-specific CI-equivalent commands (run before claiming Sprint 0 done):**
+
+| Stack | Commands |
+|-------|----------|
+| Web | `npm ci` → `npm run lint` → `npm test` → `npm run build` → `npx playwright test` |
+| Python | `uv sync --locked --all-extras` → `uv run ruff check .` → `uv run ruff format --check .` → `uv run mypy src` → `uv run pytest` |
+| Android | Gradle structure + FOSS manifest grep (not README) per `examples/android/` CI pattern |
 
 **Agent rule:** Do NOT mark BUILD_PLAN items complete or move to `COMPLETED_TASKS.md` until all `[AUTO]` checks above exit 0. If a check fails, fix root cause — do not weaken the gate.
 
@@ -208,7 +230,7 @@ Only when all quality checks return clean may you update the `CHANGELOG.md` (Kee
 13. `[HUMAN]` Paste `docs/GITHUB_ABOUT.md` description and topics into **GitHub → Settings → General → About**.
 14. `[AGENT]` Verify `.github/dependabot.yml` covers all active package ecosystems.
 15. `[AUTO]` Run `scripts/validate-bootstrap.sh` to confirm Sprint 0 artifacts exist.
-16. `[AGENT]` Run full **Build Verification Gate** (Section 7 checklist); fix all failures.
+16. `[AGENT]` Run full **Build Verification Gate** (Section 7 checklist) including stack-specific commands; fix all failures. Re-run encoding check after fixes on Windows.
 17. `[AGENT]` Cross-link all playbooks in `README.md`; sync `UPGRADING_FROM_TEMPLATE.md` and `PROMPT_LIBRARY.md`.
 18. `[HUMAN]` Approve Sprint 0 only after `[AUTO]` CI green on `main` and Build Verification Gate passes.
 
