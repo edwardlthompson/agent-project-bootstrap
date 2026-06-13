@@ -19,6 +19,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.7.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.7.0...v0.7.1) (2026-06-13)
+
+
+### Fixed
+
+* **android:** bump compileSdk to 37 for androidx 1.19 dependencies ([3a74f0c](https://github.com/edwardlthompson/agent-project-bootstrap/commit/3a74f0c08d32aff7a14d6fb7eff829578cbe73da))
+* **android:** migrate Golden Path example to AGP 9 built-in Kotlin ([a84a16c](https://github.com/edwardlthompson/agent-project-bootstrap/commit/a84a16c8fa7e67d3179b820962aead03add7be34))
+* **android:** rewrite Gradle Kotlin DSL files as UTF-8 ([11bc782](https://github.com/edwardlthompson/agent-project-bootstrap/commit/11bc78233b804ccaaca318f630f9eb1501cf10b8))
+* **ci:** gofmt Go example and harden PR coverage comment parsing ([0423990](https://github.com/edwardlthompson/agent-project-bootstrap/commit/0423990b4ece9559a42db6c6bc66cec0eab518c8))
+* **ci:** remove job-level hashFiles guards from ci.yml ([36fdbc1](https://github.com/edwardlthompson/agent-project-bootstrap/commit/36fdbc118f25e5865fb18aee653728ee87613f09))
+* **ci:** repair corrupted template literals in coverage comment job ([a64ad04](https://github.com/edwardlthompson/agent-project-bootstrap/commit/a64ad04b1fd5ec301110925d8783ed8a1653a6ab))
+
+
+### Changed
+
+* **deps:** Bump the github-actions group across 1 directory with 12 updates ([c70ce00](https://github.com/edwardlthompson/agent-project-bootstrap/commit/c70ce00d5d2bd89525aa928ef279ffe66d82e720))
+* **deps:** Bump the github-actions group across 1 directory with 12 updates ([c242785](https://github.com/edwardlthompson/agent-project-bootstrap/commit/c2427853e0aec0c0680b68beb0497cbed4da7e8c))
+* **deps:** Bump the node-dependencies group in /examples/node with 2 updates ([42b87eb](https://github.com/edwardlthompson/agent-project-bootstrap/commit/42b87eb548942b4197fe67194698d1eaf49028e4))
+* sync v0.7.0 and complete BUILD_PLAN automation pass ([369e17e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/369e17ea198e671a4e0cec5943282e6f5e1f2786))
+
 ## [0.7.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.6.0...v0.7.0) (2026-06-13)
 
 
