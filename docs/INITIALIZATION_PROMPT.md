@@ -21,13 +21,15 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
   - **`[HUMAN]` Enable Dependabot alerts** on GitHub: **Settings → Code security and analysis** → enable **Dependabot alerts** and **Dependabot security updates** (FOSS-native CVE notifications; free on public repos). See `docs/SECURITY_TRIAGE.md` for setup.
   - **`[AGENT]`** Scaffold `.github/dependabot.yml` for each active package ecosystem (npm, pip, github-actions, gradle for Android) with **weekly** grouped updates. Note: `dependabot.yml` schedules version-update PRs; **Dependabot alerts** are a separate GitHub repo setting for CVE advisories — both are required.
   - **`[AUTO]`** Trivy + CodeQL workflows complement but do not replace Dependabot alerts.
+  - **`[AGENT]`** Scaffold `.github/workflows/security.yml` (Trivy filesystem scan) and `.github/workflows/codeql.yml` as **separate workflows** from the main CI workflow — do not assume CI green means security scans passed.
+  - **`[AGENT]`** Third-party `uses:` pins must resolve on GitHub before push: use **`v`-prefixed tags** (e.g. `aquasecurity/trivy-action@v0.36.0`) or a **full commit SHA** — never bare semver (`@0.28.0` fails with "unable to find version"). Prefer SHA pins for security scanners (comment the release tag, e.g. `# v0.36.0`). Run `scripts/validate-workflow-actions.sh` locally before committing workflow changes.
   - **`[AUTO]`** `dependency-review-action` on PRs — fail on new High/Critical vulnerabilities.
   - **`[AUTO]`** Generate SBOM (CycloneDX) per release via `syft`; attach to GitHub Release. Optional: SLSA build provenance attestation.
   - **`[AUTO]`** License compliance check in CI (`scripts/check-license-compliance.sh`) after locked dependency install.
   - **`[AGENT]`** Maintain `THIRD_PARTY_LICENSES.md` or `NOTICE` for bundled dependencies.
   - **`[AGENT]`** Declare SPDX license in package manifests (`"license": "MIT"` in `package.json` even when `"private": true`) so production dependency audits pass; CI excludes the private root package via `--excludePrivatePackages`.
 - **Branch Protection & PR Hygiene:**
-  - **`[HUMAN]`** Branch protection on `main`: required status checks, linear history, no force-push.
+  - **`[HUMAN]`** Branch protection on `main`: required status checks (**CI**, **Security Scan**, **CodeQL** at minimum), linear history, no force-push.
   - **`[HUMAN]`** Require PR reviews for `.github/`, `SECURITY.md`, and secrets-adjacent config.
   - **`[HUMAN]`** Enable GitHub **Private vulnerability reporting** (Settings → Code security).
   - **`[AGENT]`** Add `.github/CODEOWNERS` mapping critical paths to owners.
@@ -65,7 +67,7 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
 - **`[AGENT]`** TypeScript `strict` mode: DOM elements null-checked at module scope must be copied to a `const` (e.g. `const root = app`) before use inside nested functions — narrowing does not cross function boundaries.
 - **`[AGENT]`** Python CI must run `ruff format --check` alongside `ruff check`; module docstrings require a blank line before the first `def`.
 - **`[AGENT]`** Web e2e: Playwright `webServer` must bind preview to `127.0.0.1` (e.g. `npm run preview -- --port 4173 --host 127.0.0.1`); serve the existing production build only — do not chain `build && preview` in `webServer` when CI already runs `npm run build` separately. Run `npm run lint`, `npm test`, `npm run build`, and Playwright locally before Sprint 0 sign-off.
-- **`[AGENT]`** Do not mark BUILD_PLAN complete until **GitHub Actions CI is green on `main`**, not only local partial checks.
+- **`[AGENT]`** Do not mark BUILD_PLAN complete until **all required GitHub workflows are green on `main`**: **CI**, **Security Scan**, and **CodeQL** — not only the CI workflow or local partial checks. Run `scripts/check-github-ci.sh --wait 300` (or `.ps1 -WaitSeconds 300`) after push to poll all three.
 
 ## 3. Persistent Agent Workspace & Memory
 
@@ -170,7 +172,7 @@ To maximize reasoning accuracy, eliminate architectural drift, and maintain cris
 - **Operational Readiness:** For services, expose `/health` and `/ready` endpoints. Maintain `docs/RUNBOOK.md` (deploy, rollback, common failures, escalation). Use structured logging (JSON, correlation IDs). `[HUMAN]` defines SLOs for user-facing features.
 - **Token Economy:** Keep functions highly modular and files small to stay well within optimal token performance windows.
 - **Template Update Notifications:** Child repos track upstream template version via `.template-version` and `.template-update.json`. Intervals: `off` | `daily` | `weekly` | `monthly` | `on_session`. Human selects interval during `scripts/init-project.sh` / `init-project.ps1` or by editing JSON. Checker scripts (`scripts/check-template-updates.sh` / `.ps1`) run on devcontainer start and manually; on new release they print a stdout banner. See `docs/UPGRADING_FROM_TEMPLATE.md`. `[HUMAN]` owns interval preference; `[AUTO]` owns scheduled runs.
-- **Weekly Security Triage:** `[HUMAN]` runs a weekly CVE triage pass (recommended: Monday, aligned with Trivy scheduled scan). Follow `docs/SECURITY_TRIAGE.md`: review GitHub → Security → Dependabot alerts (Critical/High first), triage open Dependabot PRs, fix/defer/dismiss each alert, confirm Trivy + CodeQL CI green. Log deferred Critical/High items in `DECISION_LOG.md` or `BUILD_PLAN.md` Ongoing Maintenance section.
+- **Weekly Security Triage:** `[HUMAN]` runs a weekly CVE triage pass (recommended: Monday, aligned with Trivy scheduled scan). Follow `docs/SECURITY_TRIAGE.md`: review GitHub → Security → Dependabot alerts (Critical/High first), triage open Dependabot PRs, fix/defer/dismiss each alert, confirm **Security Scan** (Trivy), **CodeQL**, and **CI** workflows green on `main`. Log deferred Critical/High items in `DECISION_LOG.md` or `BUILD_PLAN.md` Ongoing Maintenance section.
 
 ## 7. Mandatory Pre-Release Quality Gate
 
@@ -194,6 +196,7 @@ Before claiming any sprint complete or requesting `[HUMAN]` approval:
 
 ```text
 [AUTO] scripts/check-file-encoding.sh
+[AUTO] scripts/validate-workflow-actions.sh
 [AUTO] scripts/validate-template-index.sh
 [AUTO] scripts/validate-bootstrap.sh
 [AUTO] scripts/check-license-compliance.sh (after deps installed)
@@ -209,7 +212,15 @@ Before claiming any sprint complete or requesting `[HUMAN]` approval:
 | Python | `uv sync --locked --all-extras` → `uv run ruff check .` → `uv run ruff format --check .` → `uv run mypy src` → `uv run pytest` |
 | Android | Gradle structure + FOSS manifest grep (not README) per `examples/android/` CI pattern |
 
-**Agent rule:** Do NOT mark BUILD_PLAN items complete or move to `COMPLETED_TASKS.md` until all `[AUTO]` checks above exit 0. If a check fails, fix root cause — do not weaken the gate.
+**Post-push GitHub gate (after first push to `main`):**
+
+```text
+[AUTO] scripts/check-github-ci.sh --wait 300
+```
+
+Polls **CI**, **Security Scan**, and **CodeQL** on the pushed commit. A green CI job alone does not satisfy Sprint 0 — Security Scan failures (e.g. invalid `trivy-action` version pins) must be fixed before sign-off.
+
+**Agent rule:** Do NOT mark BUILD_PLAN items complete or move to `COMPLETED_TASKS.md` until all `[AUTO]` checks above exit 0 **and** the post-push GitHub gate passes. If a check fails, fix root cause — do not weaken the gate.
 
 Only when all quality checks return clean may you update the `CHANGELOG.md` (Keep a Changelog format), bump the version, and draft the GitHub Release.
 
@@ -226,12 +237,12 @@ Only when all quality checks return clean may you update the `CHANGELOG.md` (Kee
 9. `[AGENT]` Add `.github/CODEOWNERS` and `THIRD_PARTY_LICENSES.md`.
 10. `[AGENT]` Draft `docs/GITHUB_ABOUT.md` with a description ≤ 350 characters and 5–10 relevant topics for the GitHub repo About preview.
 11. `[HUMAN]` Enable Dependabot alerts, security updates, and private vulnerability reporting in GitHub repo settings (see `docs/SECURITY_TRIAGE.md` § Setup).
-12. `[HUMAN]` Configure branch protection on `main` (required checks, linear history, no force-push).
+12. `[HUMAN]` Configure branch protection on `main` (required checks: CI, Security Scan, CodeQL; linear history, no force-push).
 13. `[HUMAN]` Paste `docs/GITHUB_ABOUT.md` description and topics into **GitHub → Settings → General → About**.
 14. `[AGENT]` Verify `.github/dependabot.yml` covers all active package ecosystems.
 15. `[AUTO]` Run `scripts/validate-bootstrap.sh` to confirm Sprint 0 artifacts exist.
-16. `[AGENT]` Run full **Build Verification Gate** (Section 7 checklist) including stack-specific commands; fix all failures. Re-run encoding check after fixes on Windows.
+16. `[AGENT]` Run full **Build Verification Gate** (Section 7 checklist) including `validate-workflow-actions.sh` and stack-specific commands; fix all failures. Re-run encoding check after fixes on Windows.
 17. `[AGENT]` Cross-link all playbooks in `README.md`; sync `UPGRADING_FROM_TEMPLATE.md` and `PROMPT_LIBRARY.md`.
-18. `[HUMAN]` Approve Sprint 0 only after `[AUTO]` CI green on `main` and Build Verification Gate passes.
+18. `[HUMAN]` Approve Sprint 0 only after `[AUTO]` **CI**, **Security Scan**, and **CodeQL** green on `main` (verify via `check-github-ci.sh`) and Build Verification Gate passes.
 
 **Begin now.**

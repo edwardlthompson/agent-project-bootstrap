@@ -208,6 +208,27 @@
       "read_when": "session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "scripts/validate-workflow-actions.sh",
+      "purpose": "Verify GitHub Actions workflow refs resolve before push",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-github-ci.sh",
+      "purpose": "Poll GitHub Actions CI/Security/CodeQL status for a commit",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-github-ci.ps1",
+      "purpose": "Windows wrapper to poll GitHub Actions workflow status",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     }
   ],
   "modules": {

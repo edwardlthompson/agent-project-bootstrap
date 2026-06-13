@@ -62,6 +62,7 @@ if ! grep -q '\[AGENT\]' BUILD_PLAN.md && ! grep -q '\[HUMAN\]' BUILD_PLAN.md; t
 fi
 
 run_check bash scripts/check-file-encoding.sh
+run_check bash scripts/validate-workflow-actions.sh
 run_check bash scripts/validate-template-index.sh
 
 if [ "$ERRORS" -gt 0 ]; then

@@ -39,6 +39,17 @@ jobs:
       - name: Validate TEMPLATE_INDEX.json paths
         run: bash scripts/validate-template-index.sh
 
+
+  workflow-actions:
+    name: Validate Workflow Action Refs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify action tags and SHAs resolve on GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/validate-workflow-actions.sh
+
   validate-bootstrap:
     name: Validate Bootstrap Artifacts
     runs-on: ubuntu-latest
