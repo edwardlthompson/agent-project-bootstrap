@@ -52,7 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * add gradle.properties with android.useAndroidX for assembleDebug ([ea87f7d](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ea87f7dfd40500a7550759fb4466418de5ed2aae))
-* Android CI — google maven for AGP and FOSS grep comment false positive ([b907c46](https://github.com/edwardlthompson/agent-project-bootstrap/commit/b907c46628f05275ecefb149bc230ea08ac47845))
+* Android CI ΓÇö google maven for AGP and FOSS grep comment false positive ([b907c46](https://github.com/edwardlthompson/agent-project-bootstrap/commit/b907c46628f05275ecefb149bc230ea08ac47845))
 * bind vite preview to 127.0.0.1 for Playwright CI and extend pre-commit encoding ([9a3f935](https://github.com/edwardlthompson/agent-project-bootstrap/commit/9a3f9357ab4ca2d2afcdf8250ce955a6f46e9c60))
 * **ci:** repair workflow action SHAs, e2e selectors, and shell line endings ([38ce003](https://github.com/edwardlthompson/agent-project-bootstrap/commit/38ce003771c04cdc043ffc79bf8ee2296fac19aa))
 * **ci:** use full git history for Gitleaks on Release Please PRs ([01d585b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/01d585bcc1183633139cf46d4ca4932c3dbd8ee3))
@@ -119,7 +119,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optional `modules/go/MODULE.md` + `examples/go/` hello stub (vet/fmt/test CI)
 
 
-- `docs/OPTIONAL_STACKS.md` — Rust/Go/Lightroom/Node opt-in outside default init stack picker
+- `docs/OPTIONAL_STACKS.md` ΓÇö Rust/Go/Lightroom/Node opt-in outside default init stack picker
 
 
 - CI `stack-filters` job; `lightroom`, `node`, `rust`, `go` jobs gated on directory existence and path changes
@@ -137,10 +137,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-- `TEMPLATE_INDEX.json` — `modules.lightroom.example` → `examples/lightroom/`; added `rust` and `go` modules
+- `TEMPLATE_INDEX.json` ΓÇö `modules.lightroom.example` ΓåÆ `examples/lightroom/`; added `rust` and `go` modules
 
 
-- `.template-version` → `0.5.0`
+- `.template-version` ΓåÆ `0.5.0`
 
 
 - README Supported Stacks table includes Lightroom example path and optional stacks note
@@ -308,22 +308,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-- `scripts/check-workflow-action-ref-format.sh` — local pre-commit guard against bare-semver action refs
+- `scripts/check-workflow-action-ref-format.sh` ΓÇö local pre-commit guard against bare-semver action refs
 
 
-- `.github/workflows/health-check.yml` — weekly Monday 07:00 UTC poll of CI + Security Scan + CodeQL on main
+- `.github/workflows/health-check.yml` ΓÇö weekly Monday 07:00 UTC poll of CI + Security Scan + CodeQL on main
 
 
-- CI `android-build` job — `./gradlew assembleDebug` smoke for `examples/android/`
+- CI `android-build` job ΓÇö `./gradlew assembleDebug` smoke for `examples/android/`
 
 
 - Gradle wrapper binaries (`gradlew`, `gradlew.bat`, `gradle-wrapper.jar`) in `examples/android/`
 
 
-- `KNOWLEDGE_BASE.md` — six structured entries from v0.2.0 CI/security fix round
+- `KNOWLEDGE_BASE.md` ΓÇö six structured entries from v0.2.0 CI/security fix round
 
 
-- `PROMPT_LIBRARY.md` entries 8–9 — workflow action validation and post-push GitHub gate
+- `PROMPT_LIBRARY.md` entries 8ΓÇô9 ΓÇö workflow action validation and post-push GitHub gate
 
 
 - Devcontainer `github-cli` feature; postStart runs encoding check + CI gate reminder
@@ -347,19 +347,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SHA-pinned `release.yml` actions: `anchore/sbom-action`, `softprops/action-gh-release`, `actions/attest-build-provenance`
 
 
-- `docs/SECURITY_TRIAGE.md` — GitHub Actions pin policy, health-check in weekly triage table
+- `docs/SECURITY_TRIAGE.md` ΓÇö GitHub Actions pin policy, health-check in weekly triage table
 
 
-- `modules/web/MODULE.md` — Lighthouse 3-run median policy documented
+- `modules/web/MODULE.md` ΓÇö Lighthouse 3-run median policy documented
 
 
-- `modules/android/MODULE.md` — CI assembleDebug documented; fixed corrupted path characters
+- `modules/android/MODULE.md` ΓÇö CI assembleDebug documented; fixed corrupted path characters
 
 
-- `docs/INITIALIZATION_PROMPT.md` — root `.gitignore` in encoding extension list
+- `docs/INITIALIZATION_PROMPT.md` ΓÇö root `.gitignore` in encoding extension list
 
 
-- `PROMPT_LIBRARY.md` entries 4 and 6 — validate-workflow-actions, three-workflow sign-off
+- `PROMPT_LIBRARY.md` entries 4 and 6 ΓÇö validate-workflow-actions, three-workflow sign-off
 
 
 
@@ -410,13 +410,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-- `scripts/check-file-encoding.sh` — UTF-8 enforcement in CI and pre-commit
+- `scripts/check-file-encoding.sh` ΓÇö UTF-8 enforcement in CI and pre-commit
 
 
-- `.env.example` — documented environment variable stub
+- `.env.example` ΓÇö documented environment variable stub
 
 
-- `examples/web/package-lock.json` and `examples/python/uv.lock` — reproducible locked installs
+- `examples/web/package-lock.json` and `examples/python/uv.lock` ΓÇö reproducible locked installs
 
 
 - Build Verification Gate in `INITIALIZATION_PROMPT.md` Section 7 (Sprint 0 + release)
@@ -449,37 +449,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Normalized ~46 UTF-16 corrupted files to UTF-8
 
 
-- `scripts/validate-bootstrap.sh` — encoding, index, lockfile, and LICENSE checks
+- `scripts/validate-bootstrap.sh` ΓÇö encoding, index, lockfile, and LICENSE checks
 
 
-- `scripts/check-license-compliance.sh` — strict fail on disallowed licenses; stack-scoped CI steps
+- `scripts/check-license-compliance.sh` ΓÇö strict fail on disallowed licenses; stack-scoped CI steps
 
 
-- `TEMPLATE_INDEX.json` — added LICENSE, scripts, dependency-review, destructive-ops, `.env.example`; version 0.2.0
+- `TEMPLATE_INDEX.json` ΓÇö added LICENSE, scripts, dependency-review, destructive-ops, `.env.example`; version 0.2.0
 
 
-- `.github/CODEOWNERS` — `@[PROJECT_OWNER]` placeholder; init scripts replace during Sprint 0
+- `.github/CODEOWNERS` ΓÇö `@[PROJECT_OWNER]` placeholder; init scripts replace during Sprint 0
 
 
-- `docs/SECURITY_TRIAGE.md` — private vulnerability reporting in setup
+- `docs/SECURITY_TRIAGE.md` ΓÇö private vulnerability reporting in setup
 
 
-- `docs/UPGRADING_FROM_TEMPLATE.md` — cherry-pick rows for new scripts/workflows
+- `docs/UPGRADING_FROM_TEMPLATE.md` ΓÇö cherry-pick rows for new scripts/workflows
 
 
-- `BUILD_PLAN.md` — encoding, lockfiles, Build Verification Gate in Sprint 0 and Milestone Gates
+- `BUILD_PLAN.md` ΓÇö encoding, lockfiles, Build Verification Gate in Sprint 0 and Milestone Gates
 
 
-- `README.md` — links THREAT_MODEL, PRIVACY, RUNBOOK, THIRD_PARTY_LICENSES, LICENSE
+- `README.md` ΓÇö links THREAT_MODEL, PRIVACY, RUNBOOK, THIRD_PARTY_LICENSES, LICENSE
 
 
 - CI: license check after locked installs; `uv sync --locked`; encoding-check job first
 
 
-- `docs/MAINTAINING_THE_TEMPLATE.md` — release dry-run steps
+- `docs/MAINTAINING_THE_TEMPLATE.md` ΓÇö release dry-run steps
 
 
-- Init scripts — CODEOWNERS replacement, GITHUB_ABOUT.md draft, update checker config
+- Init scripts ΓÇö CODEOWNERS replacement, GITHUB_ABOUT.md draft, update checker config
 
 
 
@@ -545,25 +545,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Devcontainer, pre-commit hooks, init scripts (bash + PowerShell)
 
 
-- `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS` — community health and responsible disclosure
+- `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS` ΓÇö community health and responsible disclosure
 
 
-- `docs/THREAT_MODEL.md`, `docs/PRIVACY.md`, `docs/RUNBOOK.md` — threat model, privacy-by-design, operations
+- `docs/THREAT_MODEL.md`, `docs/PRIVACY.md`, `docs/RUNBOOK.md` ΓÇö threat model, privacy-by-design, operations
 
 
-- `THIRD_PARTY_LICENSES.md` + `scripts/check-license-compliance.sh` — license compliance
+- `THIRD_PARTY_LICENSES.md` + `scripts/check-license-compliance.sh` ΓÇö license compliance
 
 
-- `scripts/validate-bootstrap.sh` — Sprint 0 artifact verification in CI
+- `scripts/validate-bootstrap.sh` ΓÇö Sprint 0 artifact verification in CI
 
 
-- `.github/workflows/dependency-review.yml` — PR dependency review (fail on High/Critical)
+- `.github/workflows/dependency-review.yml` ΓÇö PR dependency review (fail on High/Critical)
 
 
 - Release workflow: SBOM (CycloneDX) + SLSA build provenance attestation
 
 
-- `.cursor/rules/destructive-ops.mdc` — human-in-the-loop gates for destructive agent operations
+- `.cursor/rules/destructive-ops.mdc` ΓÇö human-in-the-loop gates for destructive agent operations
 
 
 
