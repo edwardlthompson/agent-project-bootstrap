@@ -11,16 +11,18 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 ## Release Checklist
 
 1. All CI checks green on main
-2. Bump `.template-version`
-3. Update `CHANGELOG.md` (Keep a Changelog)
-4. Update `TEMPLATE_INDEX.json` version and file entries
-5. Run `scripts/validate-template-index.sh`
-6. Tag `vX.Y.Z` and create GitHub Release with migration notes
-7. **Dry-run:** use **Actions → Release → Run workflow** (`workflow_dispatch`) to validate SBOM/provenance steps before tagging
-8. Update repo About if description changed
-8. Weekly CVE triage completed within last 7 days (`docs/SECURITY_TRIAGE.md`)
-9. Zero open Critical/High Dependabot alerts (or documented exception with linked issue)
-10. `THIRD_PARTY_LICENSES.md` reviewed; SBOM attached to release
+2. Run `scripts/pre-release-gate.sh` (or `.ps1`) — CI poll, Dependabot Critical/High count, version/tag match
+3. Bump `.template-version`
+4. Update `CHANGELOG.md` (Keep a Changelog)
+5. Update `TEMPLATE_INDEX.json` version and file entries
+6. Run `scripts/validate-template-index.sh`
+7. Tag `vX.Y.Z` and create GitHub Release with migration notes
+8. **Dry-run:** use **Actions → Release → Run workflow** (`workflow_dispatch`) to validate SBOM/provenance steps before tagging
+9. Update repo About if description changed
+10. Weekly CVE triage completed within last 7 days (`docs/SECURITY_TRIAGE.md`)
+11. Zero open Critical/High Dependabot alerts (or documented exception with linked issue)
+12. `THIRD_PARTY_LICENSES.md` reviewed; SBOM attached to release
+13. Move completed Sprint M* items to `COMPLETED_TASKS.md`
 
 ## Safe Edit Zones
 
@@ -43,3 +45,7 @@ Encourage `template_improvement` issues. Triage labels:
 ## Regression
 
 Template CI must pass before every release. The template eats its own dogfood.
+
+## Roadmap Index
+
+`TEMPLATE_INDEX.json` includes a `roadmap` object listing planned paths per maintainer sprint (M0–M3). These paths are **not** validated until implemented; move each path into the `files` array (and `modules` when applicable) when the corresponding BUILD_PLAN sprint item ships.

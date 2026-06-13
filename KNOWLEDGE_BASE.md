@@ -64,3 +64,12 @@
 | **Cause** | `strictNullChecks` + `document.getElementById` return type includes null |
 | **Fix** | Assign narrowed ref at module scope: `const root = document.getElementById('root')!` or guard once |
 | **Prevention** | Module-level `const root = app` pattern in `examples/web/src/main.ts` |
+
+### KB-007 — npm/pip overrides policy for transitive CVEs
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | Dependabot or `npm audit` / `uv pip audit` reports CVE in a transitive dependency with no direct upgrade path |
+| **Cause** | Parent package pins or bundles a vulnerable sub-dependency; fix not yet published upstream |
+| **Fix** | **npm:** add `overrides` in `package.json` to force patched semver (see `examples/web` `@lhci/cli` overrides). **Python:** prefer `uv`/`pip` constraint or bump direct dep; document in DECISION_LOG if override is temporary |
+| **Prevention** | Prefer overrides over `--force` installs; remove overrides when upstream ships fix; weekly triage per `docs/SECURITY_TRIAGE.md`; see KB-007 before dismissing Dependabot alerts |

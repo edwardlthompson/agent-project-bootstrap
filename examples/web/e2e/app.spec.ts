@@ -13,8 +13,24 @@ test("passes accessibility audit", async ({ page }) => {
   expect(results.violations).toEqual([]);
 });
 
-test("layout structure is stable", async ({ page }) => {
+test("homepage visual snapshot", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("main")).toBeVisible();
-  await expect(page.locator("h1")).toHaveCSS("color", "rgb(233, 69, 96)");
+  await expect(page).toHaveScreenshot("homepage.png", { maxDiffPixelRatio: 0.02 });
+});
+
+test("serves cached shell offline via service worker", async ({ page, context }) => {
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  await page.waitForFunction(() => navigator.serviceWorker?.controller != null, null, {
+    timeout: 15_000,
+  });
+  await page.reload();
+  await page.waitForLoadState("networkidle");
+  await expect(page.getByRole("heading", { name: "Hello, FOSS!" })).toBeVisible();
+
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "Hello, FOSS!" })).toBeVisible();
+  await expect(page.getByTestId("status")).toBeVisible();
 });

@@ -10,7 +10,15 @@ echo ""
 
 read -rp "Project name: " PROJECT_NAME
 read -rp "One-line purpose: " PROJECT_PURPOSE
-read -rp "Primary stack (web/python/android/multi): " STACK
+read -rp "Primary stack (web/python/android/multi/none): " STACK
+STACK="${STACK:-none}"
+case "$STACK" in
+  web|python|android|multi|none) ;;
+  *)
+    echo "Invalid stack '$STACK'; defaulting to none (keep all examples)."
+    STACK=none
+    ;;
+esac
 read -rp "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]: " INTERVAL
 INTERVAL="${INTERVAL:-weekly}"
 
@@ -30,10 +38,10 @@ fi
 python3 - "$INTERVAL" "$ROOT/.template-update.json" << 'PY'
 import json, sys
 interval, path = sys.argv[1], sys.argv[2]
-with open(path) as f:
+with open(path, encoding="utf-8") as f:
     d = json.load(f)
 d["check_interval"] = interval
-with open(path, "w") as f:
+with open(path, "w", encoding="utf-8") as f:
     json.dump(d, f, indent=2)
     f.write("\n")
 PY
@@ -45,28 +53,50 @@ if [ -n "$CODEOWNER" ]; then
 fi
 
 ABOUT="$PROJECT_NAME - $PROJECT_PURPOSE. Built with agent-project-bootstrap. FOSS MIT."
-cat > docs/GITHUB_ABOUT.md << EOF
-# GitHub About Block
+python3 - "$ABOUT" "$ROOT/docs/GITHUB_ABOUT.md" << 'PY'
+import sys
+from pathlib import Path
+about, path = sys.argv[1], Path(sys.argv[2])
+path.write_text(
+    f"""# GitHub About Block
 
 ## Draft Description (edit to <=350 chars)
 
-$ABOUT
+{about}
 
 ## Topics
 
 Add topics relevant to your project and stack.
-EOF
+""",
+    encoding="utf-8",
+)
+PY
 
 # Prune unused examples/modules
-read -rp "Prune unused examples/modules? (y/N): " PRUNE
-if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
-  case "$STACK" in
-    web) rm -rf examples/python examples/android modules/python modules/android modules/lightroom 2>/dev/null || true ;;
-    python) rm -rf examples/web examples/android modules/web modules/android modules/lightroom 2>/dev/null || true ;;
-    android) rm -rf examples/web examples/python modules/web modules/python modules/lightroom 2>/dev/null || true ;;
-    *) echo "Keeping all examples (multi-stack)" ;;
-  esac
+PRUNED=false
+if [ "$STACK" = "none" ]; then
+  echo "Stack 'none': keeping all examples and modules."
+elif [ "$STACK" = "multi" ]; then
+  read -rp "Prune unused examples/modules? (y/N): " PRUNE
+  if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
+    PRUNED=true
+    echo "Keeping all examples (multi-stack)."
+  fi
+else
+  read -rp "Prune unused examples/modules? (y/N): " PRUNE
+  if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
+    PRUNED=true
+    case "$STACK" in
+      web) rm -rf examples/python examples/android modules/python modules/android modules/lightroom 2>/dev/null || true ;;
+      python) rm -rf examples/web examples/android modules/web modules/android modules/lightroom 2>/dev/null || true ;;
+      android) rm -rf examples/web examples/python modules/web modules/python modules/lightroom 2>/dev/null || true ;;
+    esac
+  fi
 fi
+
+python3 scripts/init-stack-sync.py "$STACK" "$ROOT" "$PRUNED"
+python3 scripts/sync-design-tokens.py || true
+echo "Wrote .cursor/stack-selection.json and synced AGENT_MEMORY active modules."
 
 echo ""
 echo "=== Workflow validation ==="
@@ -87,8 +117,8 @@ echo "=== Done ==="
 echo ""
 echo "Next steps:"
 echo "  1. Review SECURITY.md, CODEOWNERS, playbooks, and .env.example"
-echo "  2. Enable Dependabot alerts + private vulnerability reporting: docs/SECURITY_TRIAGE.md"
-echo "  3. Configure branch protection on main (required checks, linear history)"
+echo "  2. Run scripts/setup-github-repo.sh (or .ps1) for Dependabot alerts, private reporting, branch protection"
+echo "     See docs/SECURITY_TRIAGE.md if the script prints a manual checklist (API 422)"
 echo "  4. Open Cursor and paste:"
 echo ""
 echo "  Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md."
@@ -99,3 +129,4 @@ echo "  5. After first push to main, poll required workflows:"
 echo "     bash scripts/check-github-ci.sh --wait 300"
 echo ""
 echo "GitHub About draft: docs/GITHUB_ABOUT.md"
+echo "Stack selection: .cursor/stack-selection.json"

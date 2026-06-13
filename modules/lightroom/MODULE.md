@@ -18,7 +18,7 @@
 
 ## Golden Path Reference
 
-No runnable example (Adobe SDK is proprietary). Use Module D rules when scaffolding plugin structure.
+See `examples/lightroom/` for `Info.lua` metadata stub and SDK version documentation. Adobe SDK is proprietary; CI checks Lr* namespace compliance only.
 
 ## Owner Labels for This Module
 

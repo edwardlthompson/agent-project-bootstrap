@@ -132,6 +132,8 @@ Every task in `BUILD_PLAN.md` must carry an owner label so automated and human w
 - **PWA & Cache Integrity:** Enforce fully compliant PWA manifests, offline-first service workers, and responsive, high-performance offline caching strategies.
 - **Asset Optimization & Audits:** Enforce automated asset minification, image compression, responsive media rendering, and build-time HTML/CSS validation. Builds must fail if Lighthouse performance, accessibility, or best-practice scores fall below target budgets.
 - **TypeScript & E2E:** With `strict` enabled, assign narrowed DOM refs to module-level `const` before use in render handlers. Playwright e2e must serve the production build via `vite preview` on `127.0.0.1`; include `index.html` and static assets in UTF-8 encoding checks.
+- **Repository layout:** `docs/` is agent documentation only — not the public website. App source lives in `examples/web/` (or your app root after pruning); GitHub Pages publishes `dist/` via Actions (see `docs/WEB_PROJECT_LAYOUT.md`). **`[HUMAN]`** sets Pages source to GitHub Actions, not "Deploy from `/docs`".
+- **Localization:** User-visible strings in `src/locales/en.json`; use `t()` from `src/i18n/index.ts`. No copy in CSS or hardcoded markup in `main.ts`. Styles (`style.css`, `design-tokens.css`) and strings are separate — see `docs/DESIGN_GUIDE.md`.
 
 ### Module C: Python Applications
 

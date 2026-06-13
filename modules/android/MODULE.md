@@ -25,6 +25,29 @@
 - [ ] Rollback procedure documented in docs/RUNBOOK.md
 - [ ] F-Droid submission checklist reviewed before release
 
+
+## Design system
+
+- [ ] Read docs/DESIGN_GUIDE.md before UI work
+- [ ] Use Jetpack Compose Material 3 via GoldenPathTheme (see examples/android/)
+- [ ] Edit tokens in design-tokens/design-tokens.json; run scripts/sync-design-tokens.py
+- [ ] Theme toggle: system / light / dark (DataStore persistence)
+- [ ] FOSS only: androidx.compose.* and androidx.datastore (no Play Services / Firebase)
+
+## Localization
+
+Strings are separate from styles. Theme colors and spacing live in `ui/theme/`; all user-visible copy lives in resource files.
+
+| Layer | Path | API |
+|-------|------|-----|
+| Strings | `res/values/strings.xml` | `stringResource(R.string.*)` in Compose |
+| Styles | `ui/theme/` (generated `Color.kt`, `Type.kt`, `Dimens.kt`) | `MaterialTheme.colorScheme`, `Dimens.kt` |
+| Forbidden | Kotlin string literals in composables | Use `stringResource`, not `Text("...")` |
+
+Default locale: English only (`res/values/strings.xml`). Add `res/values-{lang}/strings.xml` when shipping translations. Plurals: `res/values/plurals.xml` when needed.
+
+Shared key naming with web: `app.title`, `theme.toggle.label`, `theme.mode.*` — see [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md). For website folder conventions in multi-stack repos, see [`docs/WEB_PROJECT_LAYOUT.md`](../../docs/WEB_PROJECT_LAYOUT.md).
+
 ## Golden Path Reference
 
 See `examples/android/` for FOSS Gradle/Kotlin skeleton. CI runs `./gradlew assembleDebug` on every push to `main`.
@@ -37,3 +60,34 @@ See `examples/android/` for FOSS Gradle/Kotlin skeleton. CI runs `./gradlew asse
 | Emulator/device testing, F-Droid submit | ADB |
 | FOSS dependency audit approval | HUMAN |
 | CI Gradle compile / structure validation | AUTO |
+
+## F-Droid Submission Dry-Run Checklist
+
+`[ADB]` dry-run before first F-Droid release. Full metadata lives under `examples/android/metadata/` when present.
+
+### Build reproducibility
+
+- [ ] Set `SOURCE_DATE_EPOCH` (fixed Unix timestamp) in release build scripts and CI
+- [ ] Run `./gradlew assembleRelease` twice locally; compare APK hashes (allow flake tolerance documented in DECISION_LOG)
+- [ ] Confirm no proprietary SDK grep failures match CI (`android-structure` job)
+- [ ] Verify Gradle wrapper and dependency lockfiles committed
+
+### Metadata and policy
+
+- [ ] Complete F-Droid `metadata/` (`summary`, `description`, `license`, `sourceCode`, `build` blocks)
+- [ ] Screenshots and feature graphic paths valid (Fastlane or manual `metadata/en-US/`)
+- [ ] Version code/name align with `CHANGELOG` and tag
+- [ ] Anti-feature flags accurate (ads, tracking, non-free network services)
+
+### Device verification (ADB)
+
+- [ ] Install release APK on physical device or emulator: `adb install -r app/build/outputs/apk/release/*.apk`
+- [ ] Smoke test cold start, core flow, offline behavior, and notification path (if applicable)
+- [ ] Capture `adb logcat` during smoke test; confirm no crash stack traces
+- [ ] Uninstall/reinstall upgrade path from previous release version
+
+### Submission dry-run
+
+- [ ] Open draft merge request to [fdroiddata](https://gitlab.com/fdroid/fdroiddata) or run `fdroid lint` locally if using repomaker workflow
+- [ ] Record maintainer notes and blockers in `BUILD_PLAN.md` `[ADB]` items
+- [ ] `[HUMAN]` sign off before tagging store release

@@ -14,7 +14,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+
       - name: Verify CI + Security Scan + CodeQL green on HEAD
         env:
           GH_TOKEN: ${{ github.token }}
         run: bash scripts/check-github-ci.sh "$(git rev-parse HEAD)"
+
+      - name: Setup Node for npm audit
+        if: hashFiles('examples/web/package-lock.json') != ''
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: examples/web/package-lock.json
+
+      - name: npm audit (examples/web)
+        if: hashFiles('examples/web/package-lock.json') != ''
+        run: |
+          cd examples/web
+          npm ci
+          npm audit --audit-level=high
+
+      - name: Setup uv for Python audit
+        if: hashFiles('examples/python/uv.lock') != ''
+        uses: astral-sh/setup-uv@v7
+
+      - name: uv pip audit (examples/python)
+        if: hashFiles('examples/python/uv.lock') != ''
+        run: |
+          cd examples/python
+          uv sync --locked
+          uv pip audit

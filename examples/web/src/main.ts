@@ -1,5 +1,8 @@
 import "./style.css";
-import { greet, isOnline } from "./greet";
+import { createThemeToggle } from "./components/ThemeToggle";
+import { isOnline } from "./greet";
+import { t } from "./i18n";
+import { initTheme } from "./theme";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 if (!app) {
@@ -9,16 +12,25 @@ const root = app;
 
 function render(): void {
   const online = isOnline();
+  const statusKey = online ? "app.status.online" : "app.status.offline";
+
   root.innerHTML = `
     <main>
-      <h1>${greet("FOSS")}</h1>
-      <p class="status" data-testid="status">
-        ${online ? "Online" : "Offline"} - Golden Path PWA stub
-      </p>
+      <div class="gp-header">
+        <h1 class="gp-title">${t("app.title")}</h1>
+      </div>
+      <p class="gp-headline">${t("app.greeting")}</p>
+      <p class="gp-body" data-testid="status">${t(statusKey)}</p>
     </main>
   `;
+
+  const header = root.querySelector<HTMLDivElement>(".gp-header");
+  if (header) {
+    header.appendChild(createThemeToggle());
+  }
 }
 
+initTheme();
 render();
 window.addEventListener("online", render);
 window.addEventListener("offline", render);

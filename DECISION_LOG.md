@@ -17,3 +17,10 @@
 ## Entries
 
 _No project-specific decisions yet. The seed ADR is at `docs/adr/0001-template-baseline.md`._
+
+### 2026-06-13 — @lhci/cli npm overrides for transitive CVEs
+- **Status:** Accepted
+- **Context:** Lighthouse CI (`@lhci/cli`) bundles transitive dependencies (`tmp`, `uuid`) with known CVEs; no patched `@lhci/cli` release available at triage time
+- **Decision:** Add npm `overrides` in `examples/web/package.json` forcing `tmp >= 0.2.6` and `uuid >= 11.1.1`; document in KB-007
+- **Alternatives considered:** Dismiss Dependabot alert (rejected: hides real risk); remove Lighthouse CI job (rejected: loses performance gate)
+- **Consequences:** Lockfile must be regenerated after override changes; overrides should be removed when `@lhci/cli` ships fixed dependencies

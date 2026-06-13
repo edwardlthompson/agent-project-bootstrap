@@ -1,5 +1,5 @@
 {
-  "template_version": "0.2.1",
+  "template_version": "0.6.0",
   "entry_points": {
     "bootstrap": "docs/START_HERE.md",
     "reference": "docs/FOR_AGENTS.md",
@@ -250,6 +250,293 @@
       "read_when": "release",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "scripts/setup-github-repo.sh",
+      "purpose": "Idempotent gh api: Dependabot alerts, private reporting, branch protection",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/setup-github-repo.ps1",
+      "purpose": "Windows wrapper for setup-github-repo.sh",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/pre-release-gate.sh",
+      "purpose": "Pre-release gate: CI poll, Dependabot alerts, template version, release reminder",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/pre-release-gate.ps1",
+      "purpose": "Windows wrapper for pre-release-gate.sh",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-file-encoding.py",
+      "purpose": "Cross-platform UTF-8/UTF-16 BOM validation",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/rules/windows-encoding.mdc",
+      "purpose": "Windows UTF-8 write rule for agents",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor-session-state.example.json",
+      "purpose": "Session restore schema for agents after chat clear",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/adr/0001-core-architecture.md",
+      "purpose": "Child repo MVVM/Clean/Hexagonal architecture choice template",
+      "read_when": "architectural_decision",
+      "update_when": "project_customization",
+      "owner": "agent+human"
+    },
+    {
+      "path": "docs/PARALLEL_AGENT_SCOPES.md",
+      "purpose": "Isolated scopes for BUILD_PLAN Parallel agents",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/rules/testing.mdc",
+      "purpose": "Coverage budgets and snapshot conventions",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/rules/ci-gates.mdc",
+      "purpose": "Post-push CI poll protocol",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-parallel-scope.sh",
+      "purpose": "Detect overlapping Parallel scopes in BUILD_PLAN",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-bundle-size.sh",
+      "purpose": "Vite dist JS gzip bundle budget gate",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/init-stack-sync.py",
+      "purpose": "Sync AGENT_MEMORY modules and stack-selection.json on init",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/scorecard.yml",
+      "purpose": "Weekly OpenSSF Scorecard analysis",
+      "read_when": "security_triage",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/OPTIONAL_STACKS.md",
+      "purpose": "Optional stack modules (Lightroom, Rust, Go, Node) not in default init picker",
+      "read_when": "stack_selection",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "modules/node/MODULE.md",
+      "purpose": "Node.js API module guide (Hono Golden Path)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "examples/node/",
+      "purpose": "Hono + TypeScript + Vitest API stub",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "action.yml",
+      "purpose": "Composite GitHub Action wrapping validate-bootstrap --quick",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/simulate-template-upgrade.sh",
+      "purpose": "Simulate child-repo upgrade; assert bootstrap validation",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/generate-winget-manifest.sh",
+      "purpose": "Generate Winget manifest YAML stub",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/pages.yml",
+      "purpose": "Deploy examples/web to GitHub Pages (no tracking)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/dependabot-automerge.yml",
+      "purpose": "Auto-merge Dependabot patch/minor when CI + dependency-review pass",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/release-please.yml",
+      "purpose": "Conventional Commits changelog and release PR automation",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/stale.yml",
+      "purpose": "Mark stale issues/PRs; exempt template-improvement",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "release-please-config.json",
+      "purpose": "Release Please package configuration",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".release-please-manifest.json",
+      "purpose": "Release Please version manifest",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "examples/lightroom/Info.lua",
+      "purpose": "Lightroom plugin Info.lua stub",
+      "read_when": "stack_selection",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "examples/lightroom/README.md",
+      "purpose": "Lightroom SDK version and compliance notes",
+      "read_when": "stack_selection",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "modules/rust/MODULE.md",
+      "purpose": "Optional Rust module guide",
+      "read_when": "stack_selection",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "examples/rust/Cargo.toml",
+      "purpose": "Rust hello-world stub manifest",
+      "read_when": "stack_selection",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "modules/go/MODULE.md",
+      "purpose": "Optional Go module guide",
+      "read_when": "stack_selection",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "examples/go/go.mod",
+      "purpose": "Go hello-world stub module",
+      "read_when": "stack_selection",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "design-tokens/design-tokens.json",
+      "purpose": "Canonical color, typography, spacing tokens",
+      "read_when": "ui_work",
+      "update_when": "design_change",
+      "owner": "agent+human"
+    },
+    {
+      "path": "design-tokens/schema.json",
+      "purpose": "JSON Schema for design-tokens.json",
+      "read_when": "design_change",
+      "update_when": "design_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sync-design-tokens.py",
+      "purpose": "Generate web CSS and Android theme Kotlin from tokens",
+      "read_when": "design_change",
+      "update_when": "design_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-design-cohesion.sh",
+      "purpose": "Fail on hardcoded colors and UI string literals",
+      "read_when": "ci_failure",
+      "update_when": "design_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-design-cohesion.ps1",
+      "purpose": "Windows wrapper for design cohesion check",
+      "read_when": "ci_failure",
+      "update_when": "design_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/DESIGN_GUIDE.md",
+      "purpose": "Cross-stack design system, theme toggle, i18n rules",
+      "read_when": "ui_work",
+      "update_when": "design_change",
+      "owner": "agent+human"
+    },
+    {
+      "path": "docs/WEB_PROJECT_LAYOUT.md",
+      "purpose": "Website folder roles, GitHub Pages deploy path, i18n vs styles layout",
+      "read_when": "web_hosting",
+      "update_when": "layout_change",
+      "owner": "agent+human"
+    },
+    {
+      "path": ".cursor/rules/design-system.mdc",
+      "purpose": "Agent guardrails for tokens, themes, localization",
+      "read_when": "ui_work",
+      "update_when": "design_change",
+      "owner": "maintainer"
     }
   ],
   "modules": {
@@ -270,8 +557,29 @@
     },
     "lightroom": {
       "guide": "modules/lightroom/MODULE.md",
-      "example": null,
+      "example": "examples/lightroom",
       "activate_when": "stack includes Adobe Lightroom Classic plugin"
+    },
+    "rust": {
+      "guide": "modules/rust/MODULE.md",
+      "example": "examples/rust",
+      "activate_when": "optional stack; see docs/OPTIONAL_STACKS.md"
+    },
+    "go": {
+      "guide": "modules/go/MODULE.md",
+      "example": "examples/go",
+      "activate_when": "optional stack; see docs/OPTIONAL_STACKS.md"
+    },
+    "node": {
+      "guide": "modules/node/MODULE.md",
+      "example": "examples/node",
+      "activate_when": "stack includes Node.js HTTP API"
     }
+  },
+  "roadmap": {
+    "sprint_m0": [],
+    "sprint_m1": [],
+    "sprint_m2": [],
+    "sprint_m3": []
   }
 }

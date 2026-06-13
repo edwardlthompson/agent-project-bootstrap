@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Golden Path</string>
+    <string name="app_title">Golden Path</string>
+    <string name="app_greeting">Hello, FOSS!</string>
+    <string name="app_status_online">Online — Golden Path PWA stub</string>
+    <string name="app_status_offline">Offline — Golden Path PWA stub</string>
+    <string name="theme_toggle_label">Switch theme</string>
+    <string name="theme_mode_system">System theme</string>
+    <string name="theme_mode_light">Light theme</string>
+    <string name="theme_mode_dark">Dark theme</string>
+</resources>

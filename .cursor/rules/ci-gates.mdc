@@ -1,0 +1,29 @@
+---
+description: Post-push CI poll protocol and gate ordering
+globs:
+  - ".github/workflows/**"
+  - "scripts/check-github-ci.*"
+  - "BUILD_PLAN.md"
+---
+
+# CI Gates
+
+## Post-Push Poll (required)
+
+After push to `main` or before release sign-off:
+
+```bash
+bash scripts/check-github-ci.sh --wait 300
+```
+
+## Gate Order (local)
+
+1. `scripts/check-file-encoding.py`
+2. `scripts/validate-template-index.sh`
+3. `scripts/validate-bootstrap.sh`
+4. `pre-commit run --all-files`
+
+## Do Not Mark Complete
+
+- BUILD_PLAN `[AUTO]` items while CI / Security Scan / CodeQL red
+- Sprint sign-off without `scripts/pre-release-gate.sh` on template releases

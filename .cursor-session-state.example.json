@@ -1,0 +1,16 @@
+{
+  "$comment": "Copy to .cursor-session-state.json to restore agent context after clearing chat.",
+  "version": 1,
+  "saved_at": "2026-06-13T12:00:00Z",
+  "mode": "bootstrap",
+  "stack": "web",
+  "active_sprint": "0",
+  "sequential_step": 8,
+  "parallel_tasks_in_flight": [],
+  "last_files_touched": [
+    "BUILD_PLAN.md",
+    "examples/web/src/main.ts"
+  ],
+  "build_plan_lane": "sequential",
+  "notes": "Optional free-text checkpoint for the next session."
+}

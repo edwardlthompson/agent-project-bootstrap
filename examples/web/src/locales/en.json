@@ -1,0 +1,10 @@
+{
+  "app.title": "Golden Path PWA",
+  "app.greeting": "Hello, FOSS!",
+  "app.status.online": "Online — Golden Path PWA stub",
+  "app.status.offline": "Offline — Golden Path PWA stub",
+  "theme.toggle.label": "Switch theme",
+  "theme.mode.system": "System theme",
+  "theme.mode.light": "Light theme",
+  "theme.mode.dark": "Dark theme"
+}

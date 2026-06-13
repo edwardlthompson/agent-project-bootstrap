@@ -7,9 +7,9 @@
 
 | Layer | Technology | Version | Notes |
 |-------|-----------|---------|-------|
-| Platform | [INSERT PLATFORM / TECH STACK HERE] | — | Fill during Sprint 0 |
-| License | MIT | — | Pure FOSS |
-| Distribution | GitHub Releases | — | Platform channels TBD |
+| Platform | [INSERT PLATFORM / TECH STACK HERE] | - | Fill during Sprint 0 |
+| License | MIT | - | Pure FOSS |
+| Distribution | GitHub Releases | - | Platform channels TBD |
 
 ## Active Modules
 
@@ -44,10 +44,10 @@
 
 | Date | Milestone | What worked | What to improve |
 |------|-----------|-------------|-----------------|
-| — | — | — | — |
+| - | - | - | - |
 
 ## Template Provenance
 
 - **Source template:** `edwardlthompson/agent-project-bootstrap`
-- **Template version:** `0.1.0` (see `.template-version`)
+- **Template version:** `0.3.0` (see `.template-version`)
 - **Last update check:** See `.template-update.json`

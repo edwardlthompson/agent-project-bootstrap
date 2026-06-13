@@ -16,6 +16,14 @@ updates:
       web-dependencies:
         patterns: ["*"]
 
+  - package-ecosystem: npm
+    directory: /examples/node
+    schedule:
+      interval: weekly
+    groups:
+      node-dependencies:
+        patterns: ["*"]
+
   - package-ecosystem: pip
     directory: /examples/python
     schedule:

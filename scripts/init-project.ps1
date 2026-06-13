@@ -7,7 +7,13 @@ Write-Host ""
 
 $ProjectName = Read-Host "Project name"
 $ProjectPurpose = Read-Host "One-line purpose"
-$Stack = Read-Host "Primary stack (web/python/android/multi)"
+$Stack = Read-Host "Primary stack (web/python/android/multi/none)"
+if (-not $Stack) { $Stack = "none" }
+$ValidStacks = @("web", "python", "android", "multi", "none")
+if ($ValidStacks -notcontains $Stack) {
+    Write-Host "Invalid stack '$Stack'; defaulting to none (keep all examples)."
+    $Stack = "none"
+}
 $Interval = Read-Host "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]"
 if (-not $Interval) { $Interval = "weekly" }
 
@@ -22,7 +28,7 @@ foreach ($file in $files) {
         $content = Get-Content $path -Raw
         $content = $content -replace '\[INSERT PLATFORM / TECH STACK HERE\]', $Stack
         $content = $content -replace '\[INSERT DETAILED APP DESCRIPTION AND GOALS HERE\]', $ProjectPurpose
-        Set-Content $path $content -Encoding UTF8
+        [System.IO.File]::WriteAllText($path, $content, (New-Object System.Text.UTF8Encoding $false))
     }
 }
 
@@ -36,12 +42,12 @@ if ($CodeOwner) {
     if (Test-Path $codeownersPath) {
         $co = Get-Content $codeownersPath -Raw
         $co = $co -replace '@\[PROJECT_OWNER\]', "@$CodeOwner"
-        [System.IO.File]::WriteAllText($codeownersPath, $co)
+        [System.IO.File]::WriteAllText($codeownersPath, $co, (New-Object System.Text.UTF8Encoding $false))
     }
 }
 
 $About = "$ProjectName - $ProjectPurpose. Built with agent-project-bootstrap. FOSS MIT."
-@"
+$aboutContent = @"
 # GitHub About Block
 
 ## Draft Description (edit to <=350 chars)
@@ -51,17 +57,38 @@ $About
 ## Topics
 
 Add topics relevant to your project and stack.
-"@ | Set-Content (Join-Path $Root "docs/GITHUB_ABOUT.md") -Encoding UTF8
+"@
+[System.IO.File]::WriteAllText((Join-Path $Root "docs/GITHUB_ABOUT.md"), $aboutContent, (New-Object System.Text.UTF8Encoding $false))
 
-$Prune = Read-Host "Prune unused examples/modules? (y/N)"
-if ($Prune -eq "y" -or $Prune -eq "Y") {
-    switch ($Stack) {
-        "web" { Remove-Item -Recurse -Force examples/python, examples/android, modules/python, modules/android, modules/lightroom -ErrorAction SilentlyContinue }
-        "python" { Remove-Item -Recurse -Force examples/web, examples/android, modules/web, modules/android, modules/lightroom -ErrorAction SilentlyContinue }
-        "android" { Remove-Item -Recurse -Force examples/web, examples/python, modules/web, modules/python, modules/lightroom -ErrorAction SilentlyContinue }
-        default { Write-Host "Keeping all examples (multi-stack)" }
+$Pruned = $false
+if ($Stack -eq "none") {
+    Write-Host "Stack 'none': keeping all examples and modules."
+} elseif ($Stack -eq "multi") {
+    $Prune = Read-Host "Prune unused examples/modules? (y/N)"
+    if ($Prune -eq "y" -or $Prune -eq "Y") {
+        $Pruned = $true
+        Write-Host "Keeping all examples (multi-stack)."
+    }
+} else {
+    $Prune = Read-Host "Prune unused examples/modules? (y/N)"
+    if ($Prune -eq "y" -or $Prune -eq "Y") {
+        $Pruned = $true
+        $toRemove = switch ($Stack) {
+            "web" { @("examples/python", "examples/android", "modules/python", "modules/android", "modules/lightroom") }
+            "python" { @("examples/web", "examples/android", "modules/web", "modules/android", "modules/lightroom") }
+            "android" { @("examples/web", "examples/python", "modules/web", "modules/python", "modules/lightroom") }
+            default { @() }
+        }
+        foreach ($item in $toRemove) {
+            $target = Join-Path $Root $item
+            if (Test-Path $target) { Remove-Item -Recurse -Force $target }
+        }
     }
 }
+
+python3 scripts/init-stack-sync.py $Stack $Root ($Pruned.ToString().ToLower())
+python3 scripts/sync-design-tokens.py 2> | Out-Null
+Write-Host "Wrote .cursor/stack-selection.json and synced AGENT_MEMORY active modules."
 
 Write-Host ""
 Write-Host "=== Workflow validation ===" -ForegroundColor Cyan
@@ -83,8 +110,8 @@ Write-Host "=== Done ===" -ForegroundColor Green
 Write-Host ""
 Write-Host "Next steps:"
 Write-Host "  1. Review SECURITY.md, CODEOWNERS, playbooks, and .env.example"
-Write-Host "  2. Enable Dependabot alerts + private vulnerability reporting: docs/SECURITY_TRIAGE.md"
-Write-Host "  3. Configure branch protection on main (required checks, linear history)"
+Write-Host "  2. Run scripts/setup-github-repo.sh (or .ps1) for Dependabot alerts, private reporting, branch protection"
+Write-Host "     See docs/SECURITY_TRIAGE.md if the script prints a manual checklist (API 422)"
 Write-Host "  4. Open Cursor and paste:"
 Write-Host ""
 Write-Host "  Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md."
@@ -95,3 +122,4 @@ Write-Host "  5. After first push to main, poll required workflows:"
 Write-Host "     pwsh scripts/check-github-ci.ps1 -WaitSeconds 300"
 Write-Host ""
 Write-Host "GitHub About draft: docs/GITHUB_ABOUT.md"
+Write-Host "Stack selection: .cursor/stack-selection.json"

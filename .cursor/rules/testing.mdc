@@ -1,0 +1,30 @@
+---
+description: Test coverage budgets and snapshot conventions
+globs:
+  - "examples/**"
+  - "tests/**"
+  - "**/*.test.*"
+  - "**/*.spec.*"
+---
+
+# Testing Rules
+
+## Coverage Budgets
+
+- Python: `pytest --cov-fail-under=90` (enforced in CI)
+- Web unit: Vitest coverage via `npm test`
+- E2E: Playwright visual snapshots use `maxDiffPixelRatio: 0.02`
+
+## When to Add Tests
+
+- Golden Path features: unit + one integration/e2e path
+- Bug fixes: regression test required
+- Template-only doc changes: no new tests
+
+## Snapshot Updates
+
+Playwright `toHaveScreenshot` baselines live under `e2e/*-snapshots/`. Update intentionally:
+
+```bash
+cd examples/web && npx playwright test --update-snapshots
+```

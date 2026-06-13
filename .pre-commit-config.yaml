@@ -19,6 +19,16 @@ repos:
         language: system
         pass_filenames: false
         files: ^\.github/workflows/.*\.ya?ml$
+      - id: file-limits
+        name: Check file line limits
+        entry: bash scripts/check-file-limits.sh
+        language: system
+        pass_filenames: false
+      - id: validate-bootstrap-quick
+        name: Quick bootstrap validation
+        entry: bash scripts/validate-bootstrap.sh --quick
+        language: system
+        pass_filenames: false
 
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.21.2

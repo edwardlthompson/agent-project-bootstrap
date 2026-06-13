@@ -16,6 +16,7 @@ dev = [
     "pytest>=8.3.0",
     "pytest-cov>=6.0.0",
     "ruff>=0.8.0",
+    "pyright>=1.1.390",
 ]
 
 [build-system]
@@ -48,3 +49,7 @@ source = ["hello"]
 
 [tool.coverage.report]
 fail_under = 90
+
+[tool.pyright]
+include = ["src"]
+typeCheckingMode = "basic"

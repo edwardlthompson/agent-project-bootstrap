@@ -19,7 +19,7 @@ check_files() {
       ERRORS=$((ERRORS + 1))
     fi
   done < <(find "$ROOT" -type f \( -name "*.tsx" -o -name "*.jsx" -o -name "*.vue" -o -name "*_view.*" \) \
-    ! -path "*/node_modules/*" ! -path "*/.git/*" ! -path "*/dist/*" -print0 2>/dev/null)
+    ! -path "*/node_modules/*" ! -path "*/.venv/*" ! -path "*/.git/*" ! -path "*/dist/*" -print0 2>/dev/null)
 }
 
 check_logic() {
@@ -30,7 +30,7 @@ check_logic() {
       ERRORS=$((ERRORS + 1))
     fi
   done < <(find "$ROOT/examples" -type f \( -name "*.ts" -o -name "*.py" -o -name "*.kt" \) \
-    ! -name "*.test.*" ! -name "*.spec.*" ! -path "*/node_modules/*" ! -path "*/.git/*" -print0 2>/dev/null)
+    ! -name "*.test.*" ! -name "*.spec.*" ! -path "*/node_modules/*" ! -path "*/.venv/*" ! -path "*/.git/*" -print0 2>/dev/null)
 }
 
 echo "Checking view file limits (max $VIEW_LIMIT lines)..."

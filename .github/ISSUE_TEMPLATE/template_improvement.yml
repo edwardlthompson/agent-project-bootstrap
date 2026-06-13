@@ -42,4 +42,4 @@ body:
     id: template-version
     attributes:
       label: Template Version
-      placeholder: "0.1.0"
+      placeholder: "0.4.0"

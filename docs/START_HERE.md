@@ -20,6 +20,8 @@
 5. `BUILD_PLAN.md` Sequential lane
 6. Active `modules/{stack}/MODULE.md` only
 7. Active `examples/{stack}/` only
+8. `docs/WEB_PROJECT_LAYOUT.md` when stack includes web (folder roles, GitHub Pages)
+9. `docs/DESIGN_GUIDE.md` when stack includes web or Android UI (tokens, themes, i18n)
 
 ## Reference Read Order
 

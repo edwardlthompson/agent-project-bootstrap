@@ -1,0 +1,27 @@
+name: Release Please
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: Changelog and release PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+      - name: Release created
+        if: steps.release.outputs.release_created == 'true'
+        run: |
+          echo "Release ${{ steps.release.outputs.tag_name }} created"
+          echo "Run scripts/pre-release-gate.sh before tagging if not using Release Please merge flow"

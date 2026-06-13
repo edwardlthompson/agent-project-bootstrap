@@ -39,7 +39,6 @@ jobs:
       - name: Validate TEMPLATE_INDEX.json paths
         run: bash scripts/validate-template-index.sh
 
-
   workflow-actions:
     name: Validate Workflow Action Refs
     runs-on: ubuntu-latest
@@ -61,7 +60,7 @@ jobs:
         run: bash scripts/validate-bootstrap.sh
 
   web:
-    name: Web — Lint, Test, Build
+    name: Web - Lint, Test, Build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -80,12 +79,19 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test
       - run: npm run lighthouse
+      - name: Upload web coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-web
+          path: examples/web/coverage/coverage-summary.json
+          if-no-files-found: ignore
       - name: License compliance (web)
         working-directory: ${{ github.workspace }}
         run: bash scripts/check-license-compliance.sh web
 
   python:
-    name: Python — Lint, Type, Test
+    name: Python - Lint, Type, Test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -99,13 +105,47 @@ jobs:
       - run: uv run ruff check .
       - run: uv run ruff format --check .
       - run: uv run mypy src
-      - run: uv run pytest
+      - run: uv run pytest --cov-report=json:coverage/coverage-summary.json
+      - name: Upload python coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-python
+          path: examples/python/coverage/coverage-summary.json
+          if-no-files-found: ignore
       - name: License compliance (python)
         working-directory: ${{ github.workspace }}
         run: bash scripts/check-license-compliance.sh python
 
+  node:
+    name: Node - Lint, Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/node
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: examples/node/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - name: Upload node coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-node
+          path: examples/node/coverage/coverage-summary.json
+          if-no-files-found: ignore
+      - name: License compliance (node)
+        working-directory: ${{ github.workspace }}
+        run: bash scripts/check-license-compliance.sh node
+
   android-structure:
-    name: Android — Structure Validation
+    name: Android - Structure Validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -129,7 +169,7 @@ jobs:
           grep -q "SOURCE_DATE_EPOCH" examples/android/README.md
 
   android-build:
-    name: Android — assembleDebug
+    name: Android - assembleDebug
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -143,6 +183,78 @@ jobs:
       - name: assembleDebug
         working-directory: examples/android
         run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+
+  coverage-comment:
+    name: PR Coverage Summary
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [web, python, node]
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-*
+          merge-multiple: true
+          path: coverage-artifacts
+      - name: Post coverage summary
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799c1da # v7.0.1
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const dir = 'coverage-artifacts';
+            const lines = ['## Coverage summary', ''];
+            if (!fs.existsSync(dir)) {
+              lines.push('_No coverage artifacts uploaded._');
+            } else {
+              for (const file of fs.readdirSync(dir)) {
+                if (!file.endsWith('.json')) continue;
+                const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
+                const label = file.replace('coverage-summary.json', '').replace(/-$/, '') || 'root';
+                if (data.total && data.total.lines) {
+                  const pct = data.total.lines.pct;
+                  lines.push(`- **${label}**: ${pct}% lines`);
+                } else if (data.totals) {
+                  lines.push(`- **${label}**: ${data.totals.percent_covered_display} lines`);
+                } else {
+                  lines.push(`- **${label}**: see artifact \`${file}\``);
+                }
+              }
+              if (lines.length === 2) lines.push('_Coverage JSON present but format not recognized._');
+            }
+            lines.push('', '_Codecov integration optional; artifacts retained for 90 days._');
+            const body = lines.join('\n');
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find((c) => c.user.type === 'Bot' && c.body.includes('## Coverage summary'));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+  upgrade-simulation:
+    name: Template Upgrade Simulation
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v6
+      - name: Simulate child-repo upgrade path
+        run: bash scripts/simulate-template-upgrade.sh
 
   template-update-check:
     name: Template Update Check
