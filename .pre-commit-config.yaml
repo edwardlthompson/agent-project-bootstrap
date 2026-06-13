@@ -12,7 +12,7 @@ repos:
         entry: bash scripts/check-file-encoding.sh
         language: system
         pass_filenames: true
-        files: (\.(md|json|yml|yaml|sh|ps1|mdc|ts|tsx|toml|html|css)$|^\.gitignore$)
+        files: (\.(md|json|yml|yaml|sh|ps1|mdc|ts|tsx|toml|html|css|properties|kts|kt|xml)$|^\.gitignore$)
       - id: workflow-action-refs
         name: Check workflow action ref format
         entry: bash scripts/check-workflow-action-ref-format.sh
