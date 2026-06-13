@@ -249,4 +249,4 @@ Repo description draft for the short About preview: [`docs/GITHUB_ABOUT.md`](doc
 
 ## Maintainer Release
 
-Current template version: **0.6.0** (see `.template-version`, Release Please, and `scripts/pre-release-gate.sh`).
+Current template version: **0.7.0** (see `.template-version`, Release Please, and `scripts/pre-release-gate.sh`).
