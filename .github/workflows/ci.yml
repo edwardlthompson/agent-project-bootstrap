@@ -81,7 +81,7 @@ jobs:
       - run: npm run lighthouse
       - name: Upload web coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-web
           path: examples/web/coverage/coverage-summary.json
@@ -108,7 +108,7 @@ jobs:
       - run: uv run pytest --cov-report=json:coverage/coverage-summary.json
       - name: Upload python coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-python
           path: examples/python/coverage/coverage-summary.json
@@ -135,7 +135,7 @@ jobs:
       - run: npm test
       - name: Upload node coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-node
           path: examples/node/coverage/coverage-summary.json
@@ -192,13 +192,13 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           pattern: coverage-*
           merge-multiple: true
           path: coverage-artifacts
       - name: Post coverage summary
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const fs = require('fs');
