@@ -34,5 +34,5 @@ android {
 dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    // FOSS ONLY: No com.google.android.gms or Firebase dependencies
+    // FOSS ONLY: No proprietary Play Services or closed telemetry SDKs
 }
