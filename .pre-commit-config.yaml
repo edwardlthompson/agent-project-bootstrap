@@ -12,7 +12,7 @@ repos:
         entry: bash scripts/check-file-encoding.sh
         language: system
         pass_filenames: true
-        files: \.(md|json|yml|yaml|sh|ps1|mdc|ts|tsx|toml)$
+        files: \.(md|json|yml|yaml|sh|ps1|mdc|ts|tsx|toml|html|css)$
 
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.21.2
