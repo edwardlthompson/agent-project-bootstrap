@@ -2,6 +2,15 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint M5 — README Visual Refresh (2026-06-12)
+
+- [x] [AGENT] Harden `scripts/normalize-markdown-whitespace.py` — table-aware blank-line collapse
+- [x] [AGENT] Add `scripts/check-markdown-tables.sh`; hook into `validate-bootstrap.sh`
+- [x] [AGENT] Redesign README sections — shields.io badges + HTML `<dl>`/tables for What's Included, BUILD_PLAN Labels, Template Update Checker, Supported Stacks
+- [x] [AGENT] Add README badge conventions to `docs/MAINTAINING_THE_TEMPLATE.md`
+- [x] [AGENT] Run verification — encoding, design cohesion, markdown table lint, TEMPLATE_INDEX validation
+- [ ] [HUMAN] Visual review on GitHub after push — badges load, links resolve
+
 ## Template Maintainer — v0.2.1 Full Bootstrap Hardening (2026-06-13)
 
 - [x] [AGENT] Normalize `.gitignore` UTF-16 to UTF-8; extend encoding scan and pre-commit hook

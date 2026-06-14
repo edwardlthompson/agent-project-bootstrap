@@ -217,9 +217,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
 
-
-
+- README (M5.1): hero badges, table of contents, GitHub alert callouts, collapsible detail sections, audience dividers
+- README (M5): shields.io badges + HTML definition lists/tables for What's Included, BUILD_PLAN Labels, Template Update Checker, and Supported Stacks
+- `scripts/normalize-markdown-whitespace.py`: table-aware blank-line collapse
+- `scripts/check-markdown-tables.sh`: fail on broken GFM table rows; wired into `validate-bootstrap.sh`
+- `docs/MAINTAINING_THE_TEMPLATE.md`: README badge conventions and hero/TOC sync notes
 
 ## [0.3.0] - 2026-06-13
 

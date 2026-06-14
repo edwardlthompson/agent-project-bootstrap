@@ -2,9 +2,12 @@
 """Normalize markdown whitespace: strip trailing space, max one blank line between blocks."""
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
+
+
+def is_table_row(line: str) -> bool:
+    return line.strip().startswith("|")
 
 
 def normalize_markdown(text: str) -> str:
@@ -12,6 +15,7 @@ def normalize_markdown(text: str) -> str:
     out: list[str] = []
     in_fence = False
     blank_run = 0
+    prev_was_table_row = False
 
     for line in lines:
         if line.startswith("```"):
@@ -23,13 +27,19 @@ def normalize_markdown(text: str) -> str:
                     out.append("")
             out.append(line)
             blank_run = 0
+            prev_was_table_row = False
             continue
 
         if in_fence:
             out.append(line)
             continue
 
+        current_is_table_row = is_table_row(line)
+
         if line == "":
+            if prev_was_table_row:
+                blank_run += 1
+                continue
             blank_run += 1
             if blank_run == 1:
                 out.append("")
@@ -37,6 +47,7 @@ def normalize_markdown(text: str) -> str:
 
         blank_run = 0
         out.append(line)
+        prev_was_table_row = current_is_table_row
 
     result = "\n".join(out)
     if result and not result.endswith("\n"):

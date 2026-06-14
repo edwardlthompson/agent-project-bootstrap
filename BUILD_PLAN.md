@@ -11,7 +11,6 @@
 | `HUMAN` | Human developer | Approvals, credentials, GitHub settings, product decisions |
 | `ADB` | Human (Android) | Android SDK, emulator/device testing, F-Droid submission |
 | `AUTO` | CI/scripts/bots | GitHub Actions, Dependabot, pre-commit, update checker |
-
 **Task format:** `- [ ] [OWNER] Description`
 
 **Filter by label:**
@@ -21,11 +20,12 @@ grep '\[AGENT\]' BUILD_PLAN.md
 grep '\[HUMAN\]' BUILD_PLAN.md
 grep '\[ADB\]' BUILD_PLAN.md
 grep '\[AUTO\]' BUILD_PLAN.md
+
 ```
 
 **Agent rule:** Execute all `[AGENT]` Sequential items first, then dispatch Parallel agents with isolated file scopes. Shared schema/types are Sequential-only.
 
-> **Sprint M0–M4** are template-maintainer sprints (this repo). Child repos created from the template use Sprint 0–2 only.
+> **Sprint M0–M5** are template-maintainer sprints (this repo). Child repos created from the template use Sprint 0–2 only.
 
 ---
 
@@ -73,6 +73,14 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ---
 
+## Template Maintainer — Sprint M5: README Visual Refresh
+
+> AGENT work complete. Pending human visual review after push.
+
+1. [ ] [HUMAN] Visual review on GitHub — badges load, `<dl>`/tables render as single blocks, all relative links resolve
+
+---
+
 ## Template Maintainer — Release Approvals
 
 > Sequential gates before tagging. Automation handles CI and pre-release checks.
@@ -85,7 +93,6 @@ grep '\[AUTO\]' BUILD_PLAN.md
 | v0.5.0 | Ready | [ ] [HUMAN] Approve v0.5.0 release scope |
 | v0.6.0 | Ready | [ ] [HUMAN] Approve v0.6.0 release |
 | v0.7.0 | Open PR | [ ] [HUMAN] Review and merge Release Please PR #7 |
-
 ---
 
 ## Milestone Gates — Release Sign-off (every version)
