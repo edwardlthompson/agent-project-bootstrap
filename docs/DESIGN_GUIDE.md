@@ -100,3 +100,20 @@ theme.toggle.label, theme.mode.system, theme.mode.light, theme.mode.dark
 ## Extending the system
 
 Add new semantic colors to `design-tokens.json` under `color`, re-run sync, then reference via `MaterialTheme` or CSS vars. For new components, copy patterns from `GoldenPathScreen` (Android) or `main.ts` + `style.css` (web) — do not introduce one-off styles.
+
+
+## About screen
+
+Cross-stack in-app About (not GitHub repo About):
+
+| Key prefix | Purpose |
+|------------|---------|
+| `about.title`, `about.close`, `about.open` | Navigation |
+| `about.version`, `about.format` | Installed metadata |
+| `about.update.interval.*` | Check interval selector (`off`, `daily`, `weekly`, `monthly`, `on_session`) |
+| `about.update.current`, `about.update.available`, `about.update.no_compatible` | Status copy |
+| `about.donations.*` | Optional donation encouragement |
+
+**Update rules:** persist `installed_artifact_format` on first run; `selectReleaseAsset()` exact match only; seamless apply + single restart with `pending_restart` guard.
+
+**Donations:** external links only; hide block when `donations.json` disabled or empty.

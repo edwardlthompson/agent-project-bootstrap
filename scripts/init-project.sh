@@ -46,6 +46,33 @@ with open(path, "w", encoding="utf-8") as f:
     f.write("\n")
 PY
 
+
+read -rp "GitHub owner/repo for app release checks (OWNER/REPO) [skip]: " RELEASE_REPO
+read -rp "Donation URL [skip]: " DONATION_URL
+
+python3 - "$ROOT" "$RELEASE_REPO" "$DONATION_URL" << 'PY'
+import json, shutil, sys
+from pathlib import Path
+root, repo, url = sys.argv[1], sys.argv[2], sys.argv[3]
+root = Path(root)
+src_app = root / ".app-update.json.example"
+dst_app = root / ".app-update.json"
+if src_app.exists() and not dst_app.exists():
+    shutil.copy(src_app, dst_app)
+if repo.strip():
+    data = json.loads(dst_app.read_text(encoding="utf-8"))
+    data["release_repo"] = repo.strip()
+    dst_app.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+src_don = root / "donations.json.example"
+dst_don = root / "donations.json"
+if src_don.exists() and not dst_don.exists():
+    shutil.copy(src_don, dst_don)
+if url.strip() and dst_don.exists():
+    data = json.loads(dst_don.read_text(encoding="utf-8"))
+    data["links"] = [{"label": "Donate", "url": url.strip()}]
+    dst_don.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+PY
+
 read -rp "GitHub username for CODEOWNERS (without @): " CODEOWNER
 if [ -n "$CODEOWNER" ]; then
   sed -i "s/@\[PROJECT_OWNER\]/@$CODEOWNER/g" .github/CODEOWNERS 2>/dev/null || \

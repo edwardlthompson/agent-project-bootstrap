@@ -9,6 +9,12 @@
 | _Example: app settings_ | _Feature functionality_ | _Legitimate interest_ | _Until user deletes_ |
 | _Example: crash logs (opt-in)_ | _Debugging_ | _Consent_ | _90 days_ |
 
+## App update checks
+
+- Release endpoint: GitHub Releases API or configured manifest URL
+- Stored locally: `last_checked`, `installed_artifact_format`, `check_interval`
+- No PII transmitted
+
 ## Data We Do Not Collect
 
 - No tracking without explicit opt-in

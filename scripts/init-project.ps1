@@ -36,6 +36,26 @@ $config = Get-Content (Join-Path $Root ".template-update.json") -Raw | ConvertFr
 $config.check_interval = $Interval
 $config | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $Root ".template-update.json") -Encoding UTF8
 
+
+$ReleaseRepo = Read-Host "GitHub owner/repo for app release checks (OWNER/REPO) [skip]"
+$DonationUrl = Read-Host "Donation URL [skip]"
+$AppExample = Join-Path $Root ".app-update.json.example"
+$AppConfig = Join-Path $Root ".app-update.json"
+if ((Test-Path $AppExample) -and -not (Test-Path $AppConfig)) { Copy-Item $AppExample $AppConfig }
+if ($ReleaseRepo) {
+  $app = Get-Content $AppConfig -Raw | ConvertFrom-Json
+  $app.release_repo = $ReleaseRepo.Trim()
+  $app | ConvertTo-Json -Depth 5 | Set-Content $AppConfig -Encoding UTF8
+}
+$DonExample = Join-Path $Root "donations.json.example"
+$DonConfig = Join-Path $Root "donations.json"
+if ((Test-Path $DonExample) -and -not (Test-Path $DonConfig)) { Copy-Item $DonExample $DonConfig }
+if ($DonationUrl) {
+  $don = Get-Content $DonConfig -Raw | ConvertFrom-Json
+  $don.links = @(@{ label = "Donate"; url = $DonationUrl.Trim() })
+  $don | ConvertTo-Json -Depth 5 | Set-Content $DonConfig -Encoding UTF8
+}
+
 $CodeOwner = Read-Host "GitHub username for CODEOWNERS (without @)"
 if ($CodeOwner) {
     $codeownersPath = Join-Path $Root ".github/CODEOWNERS"

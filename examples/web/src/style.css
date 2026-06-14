@@ -90,3 +90,39 @@ main {
   margin-block-start: var(--gp-space-lg);
   opacity: 0.9;
 }
+
+
+.gp-about-btn {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: var(--gp-space-sm);
+  border-radius: var(--gp-radius-md);
+  border: 1px solid var(--gp-color-outline);
+  background: var(--gp-color-surface-variant);
+  color: var(--gp-color-on-surface-variant);
+  cursor: pointer;
+}
+
+.gp-about-panel {
+  margin-block-start: var(--gp-space-lg);
+  padding: var(--gp-space-md);
+  border: 1px solid var(--gp-color-outline);
+  border-radius: var(--gp-radius-md);
+  text-align: start;
+}
+
+.gp-about-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gp-about-interval select {
+  margin-inline-start: var(--gp-space-sm);
+}
+
+.gp-about-donate-links {
+  padding-inline-start: var(--gp-space-lg);
+}
+
+.gp-header-actions { display: flex; align-items: center; gap: var(--gp-space-sm); }

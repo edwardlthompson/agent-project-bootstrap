@@ -44,7 +44,9 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### Sprint 1 — Golden Path Foundation
 
-1. [ ] [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
+1. [x] [AGENT] Scaffold in-app About screen with update checker (format-locked) and donation placeholders per active UI stack
+2. [ ] [HUMAN] Fill `.app-update.json` `release_repo` and `donations.json` links
+3. [ ] [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
 
 ### Sprint 2 — First Real Feature
 

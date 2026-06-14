@@ -59,6 +59,7 @@ Default locale: English only. Add `src/locales/{lang}.json` when shipping transl
 - [ ] Health/readiness endpoints or documented static equivalent
 - [ ] Structured logging standard per `docs/RUNBOOK.md`
 
+- [x] In-app About panel with PWA update checker and donation block
 ## Golden Path Reference
 
 See `examples/web/` for Vite + TypeScript PWA with Vitest, Playwright, and Lighthouse CI.

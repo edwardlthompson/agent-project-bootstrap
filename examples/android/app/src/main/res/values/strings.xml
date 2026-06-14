@@ -9,4 +9,11 @@
     <string name="theme_mode_system">System theme</string>
     <string name="theme_mode_light">Light theme</string>
     <string name="theme_mode_dark">Dark theme</string>
+    <string name="about_title">About</string>
+    <string name="about_open">About</string>
+    <string name="about_close">Close</string>
+    <string name="about_version">Version: %1$s</string>
+    <string name="about_format">Installed format: %1$s</string>
+    <string name="about_donations_message">If this project helps you, consider supporting development.</string>
+    <string name="about_update_current">You are on the latest version.</string>
 </resources>
