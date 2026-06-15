@@ -37,6 +37,17 @@
 
 > Completed 2026-06-15. P2 backlog post-0.9.0. See `COMPLETED_TASKS.md`.
 
+## Sprint M16 (template maintainer) — active
+
+> Post-M15 code review on `ac1377c`. Tag-gate timing, SBOM version validation, docs/CI parity.
+
+| Agent | Scope |
+|-------|-------|
+| A — Release + CI gates | `release.yml`, `check-github-ci.sh`, `ci.yml` |
+| B — Init + upgrade sim | `init-project.ps1`, `simulate-template-upgrade.sh` |
+| C — Web a11y + e2e | `AboutPanel.ts`, `e2e/app.spec.ts` |
+| D — Docs hygiene | `OPTIONAL_STACKS.md`, `MAINTAINING_THE_TEMPLATE.md`, `SECURITY_TRIAGE.md` |
+
 ## Sprint M12 (template maintainer) — archived
 
 > Completed 2026-06-15. CodeQL init order + Kotlin 2.3.20 pin; tag gate `--jobs`; bootstrap coverage.

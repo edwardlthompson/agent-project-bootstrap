@@ -369,6 +369,11 @@
 - ✅ [AGENT] `connectedDebugAndroidTest` CI job (`android-instrumented`); documented in `modules/android/MODULE.md`
 - ✅ [AGENT] `release.yml` SBOM upload on `release` published + Release Please dispatch; tag push gate-only split
 - ✅ [AUTO] CI + Feature Gate green on `main` (`5195c46`)
+- ✅ [AGENT] SBOM backfill for v0.9.0; dispatch skip pre-release gate when `tag` input set
+
+## Sprint M16 — Post-M15 code review (planned, 2026-06-15)
+
+> Added from full code review on `ac1377c`. See BUILD_PLAN.md Sprint M16.
 
 ## BUILD_PLAN cleanup (2026-06-15, M15 complete)
 

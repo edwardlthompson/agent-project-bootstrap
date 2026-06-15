@@ -22,7 +22,58 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
-> **Template maintainer:** **M15 complete** (`main`). Weekly maintenance below. **Child repos:** copy the playbook.
+> **Template maintainer:** Sprint **M16** active (post-M15 code review on `ac1377c`). **Child repos:** copy the playbook.
+
+---
+
+## Template Maintainer — Sprint M16: Post-M15 code review remediation
+
+> **Source:** full code review on `ac1377c` (2026-06-15). Verified: tag-gate polls full CI/CodeQL rollup with 300s wait while `android-instrumented` runs up to 45m; `sbom-assets` skips tag/version validation; docs drift in OPTIONAL_STACKS and MAINTAINING_THE_TEMPLATE.
+
+### Critique
+
+- **Null/empty:** `sbom-assets` resolves tag from `release` event or dispatch input without asserting tag == `.template-version`.
+- **Network timeouts:** Tag-gate `--wait 300` expires before CI workflow (emulator job) completes — false-red Release workflow on tag push.
+- **Race conditions:** Triple SBOM triggers (`release` published + Release Please dispatch + optional tag push) can race; `--clobber` mitigates assets only.
+- **Unhandled exceptions:** `init-project.ps1` `Set-Content -Encoding UTF8` may emit BOM on Windows PowerShell 5, breaking strict JSON parsers.
+
+### Sequential (must complete in order)
+
+1. ⬜ [AGENT] **P0 — Tag gate timing:** fix `release.yml` tag-gate to poll only `--jobs "Repo Hygiene,Feature Gate"` without blocking on CI/CodeQL rollup, **or** raise `--wait` ≥45m; add `check-github-ci.sh --workflows-only` / `--skip-workflows` flag if needed
+2. ⬜ [AGENT] **P0 — SBOM version gate:** add tag ↔ `.template-version` assert at start of `sbom-assets` before SBOM generation
+3. ⬜ [AGENT] **P1 — Docs accuracy:** fix `SECURITY_TRIAGE.md` tag-gate table (full rollup vs jobs-only); renumber `MAINTAINING_THE_TEMPLATE.md` release checklist (steps 4–8 order: dry-run before merge)
+4. ⬜ [AGENT] **P1 — CI/docs parity:** align `OPTIONAL_STACKS.md` CI claims with `ci.yml` (add path filters **or** document always-on jobs); gate `android-instrumented` behind `paths: examples/android/**` **or** update `modules/android/MODULE.md` wording
+5. ⬜ [AGENT] **P1 — FOSS emulator:** switch `android-instrumented` from `google_apis` to AOSP/default target; document in `modules/android/MODULE.md`
+6. ⬜ [AGENT] **P1 — Upgrade sim gate:** remove `continue-on-error` from `upgrade-simulation` CI job (keep on `template-update-check`)
+7. ⬜ [AGENT] **P1 — Init encoding:** replace `Set-Content -Encoding UTF8` with BOM-less write in `init-project.ps1` for JSON configs
+8. ⬜ [AGENT] **P1 — Playwright e2e:** mock `/app-update.json` + GitHub API in About update-status test; assert distinct post-toggle status (no live network)
+9. ⬜ [AGENT] **P1 — Release workflow hygiene:** remove duplicate checkout in `release.yml`; dedupe SBOM triggers (prefer `release` published only, drop redundant dispatch from Release Please if redundant)
+10. ⬜ [AUTO] CI + Feature Gate green on `main` after rows 1–2
+
+### Parallel (safe after Sequential step 2)
+
+| # | Task | Owner | Isolated scope |
+|---|------|-------|----------------|
+| A | Release + CI gates | AGENT | `release.yml`, `check-github-ci.sh`, `ci.yml` |
+| B | Init + upgrade sim | AGENT | `init-project.ps1`, `simulate-template-upgrade.sh`, `ci.yml` upgrade-simulation |
+| C | Web a11y + e2e | AGENT | `AboutPanel.ts`, `e2e/app.spec.ts`, `appBootstrap.test.ts` |
+| D | Docs hygiene | AGENT | `OPTIONAL_STACKS.md`, `MAINTAINING_THE_TEMPLATE.md`, `SECURITY_TRIAGE.md` |
+
+### P2 backlog (after M16 sequential)
+
+- ⬜ [AGENT] Add `--prune-optional` smoke pass to `simulate-template-upgrade.sh`
+- ⬜ [AGENT] Document `--keep-optional` / `--prune-optional` in `docs/OPTIONAL_STACKS.md`
+- ⬜ [AGENT] `AboutPanel.ts`: `aria-live="polite"` on update status for screen readers
+- ⬜ [AGENT] Fix `appBootstrap.test.ts` i18n mock drift (assert translated strings or stop identity mock for update path)
+- ⬜ [AGENT] Stale `SECURITY_TRIAGE.md` L113 “Pre-tag gate” wording → “pre-merge workflow_dispatch dry-run”
+
+### Open after M16 (human judgment only)
+
+| Item | Owner | Command / gate |
+|------|-------|----------------|
+| F-Droid dry-run on device/emulator | ADB | `modules/android/MODULE.md` checklist |
+| F-Droid listing / anti-feature sign-off | HUMAN | After `verify-fdroid-metadata.sh` |
+| `gh auth refresh -s security_events` (one-time OAuth) | HUMAN | Then `run-maintainer-gates.sh` full |
 
 ---
 
@@ -101,21 +152,12 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ---
 
-## Open (template maintainer — human judgment only)
-
-| Item | Owner | Command / gate |
-|------|-------|----------------|
-| F-Droid dry-run on device/emulator | ADB | `modules/android/MODULE.md` checklist |
-| F-Droid listing / anti-feature sign-off | HUMAN | After `verify-fdroid-metadata.sh` |
-| `gh auth refresh -s security_events` (one-time OAuth) | HUMAN | Then `run-maintainer-gates.sh` full |
-
----
-
 ## Archived Sprints
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
 | M5–M15 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
+| M16 Post-M15 review | Active | `BUILD_PLAN.md` |
 | v0.9.0 release (`fd699bc`) | Complete | `COMPLETED_TASKS.md` |
 | M14 Post-M13 review (`fc71433`) | Complete | `COMPLETED_TASKS.md` |
 | Child Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
