@@ -238,3 +238,44 @@
 - [x] [AGENT] Archive Sprint M6 completions to `COMPLETED_TASKS.md`
 - [x] [AGENT] Index hygiene `.ps1` twins in `TEMPLATE_INDEX.json`
 
+## Maintainer gate cycle (2026-06-15)
+
+- [x] [AUTO] `check-security-triage.sh --wait-ci 120` — zero Critical/High Dependabot; CI + Security Scan + CodeQL green on `f3013a0`
+- [x] [AUTO] `pre-release-gate.sh` — feature-gate, CI, Dependabot, `.template-version` 0.7.1
+- [x] [AUTO] `simulate-template-upgrade.sh` passed
+- [x] [AUTO] `run-maintainer-gates.sh --quick` — readme, fdroid metadata, feature-gate, CI jobs Repo Hygiene + Feature Gate
+- [x] [AUTO] `check-license-compliance.sh web` passed
+- [x] [AGENT] Fix Scorecard workflow job-level permissions (was failing publish_results)
+- [x] [AGENT] Add `docs/features/_template.md`, `docs/features/settings.md`, `verify-fdroid-metadata.sh`, `run-maintainer-gates.sh`
+- [x] [AGENT] F-Droid metadata scaffold: changelogs/1.txt, images/README.md
+- [x] [AUTO] Release Please PR #11 open (`chore(main): release 0.8.0`); pre-release gate green on `main`
+
+## Sprint 2 starter scaffold (template maintainer, 2026-06-15)
+
+- [x] [AGENT] Feature acceptance template + Settings feature draft in `docs/features/`
+- [x] [AGENT] About screen remains Sprint 1 reference exemplar (not duplicated as Sprint 2 feature)
+- [x] [AGENT] BUILD_PLAN Sprint 2+ feature template rows indexed for child repos
+
+## BUILD_PLAN cleanup (2026-06-15)
+
+- [x] [AGENT] Archive completed M5–M8 sprints; remove stale `[x]` rows from active board
+- [x] [AGENT] Consolidate milestone gates into recurring pre-release + `run-maintainer-gates.sh`
+- [x] [AGENT] Split child-repo playbook from template-maintainer open items
+
+## Code review → Sprint M9 integration (2026-06-15)
+
+- [x] [AGENT] Integrate 46 code-review findings into BUILD_PLAN Sprint M9 (Sequential + Parallel + Critique)
+- [x] [AGENT] Update PARALLEL_AGENT_SCOPES.md with M9 active scopes
+- [x] [AGENT] Reconcile child-repo Sprint 0 sign-off; simplify per-feature checklist; restore lane structure
+
+## Sprint M9 — Sequential 1–7 (2026-06-15)
+
+- [x] [HUMAN/AGENT] Commit maintainer artifacts; scorecard fix; feature docs; metadata scaffold
+- [x] [AGENT] Fix 3-strike logic; `verify-agent-strikes.sh`
+- [x] [AGENT] `agent-progress.sh next --lane maintainer`; default `--step gate`
+- [x] [AGENT] `feature-gate.sh`: file-limits, python mypy/pyright; CI-only web gates documented
+- [x] [AGENT] Paginated Dependabot; `pre-release-gate` in `release.yml` workflow_dispatch
+- [x] [AGENT] TEMPLATE_INDEX bulk index + reverse validate-template-index scan
+- [x] [AGENT] About exemplar: AppShell refactor, Android UpdateStatusEvaluator, expanded about unit tests
+
+

@@ -698,6 +698,174 @@
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-about-feature-gate.sh",
+      "purpose": "About add/remove lego verification for feature-gate",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-about-feature-gate.ps1",
+      "purpose": "Windows wrapper for verify-about-feature-gate.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-security-triage.sh",
+      "purpose": "Weekly Dependabot Critical/High + required workflow triage",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-security-triage.ps1",
+      "purpose": "Windows wrapper for check-security-triage.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-readme-health.sh",
+      "purpose": "README link/table/encoding health check",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-readme-health.ps1",
+      "purpose": "Windows wrapper for check-readme-health.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-fdroid-metadata.sh",
+      "purpose": "Validate F-Droid/Fastlane metadata scaffold before ADB submit",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-fdroid-metadata.ps1",
+      "purpose": "Windows wrapper for verify-fdroid-metadata.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/run-maintainer-gates.sh",
+      "purpose": "Orchestrate weekly/monthly template maintainer AUTO gates",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/run-maintainer-gates.ps1",
+      "purpose": "Windows wrapper for run-maintainer-gates.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/_template.md",
+      "purpose": "Per-feature acceptance criteria stub for Sprint 2+",
+      "read_when": "feature_work",
+      "update_when": "feature_work",
+      "owner": "human+agent"
+    },
+    {
+      "path": "scripts/init-project.sh",
+      "purpose": "Post-template clone customization and stack picker",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "human+agent"
+    },
+    {
+      "path": "scripts/init-project.ps1",
+      "purpose": "Windows wrapper for init-project.sh",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "human+agent"
+    },
+    {
+      "path": "scripts/validate-template-index.sh",
+      "purpose": "Validate TEMPLATE_INDEX.json paths and reverse inventory scan",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-file-limits.sh",
+      "purpose": "Enforce 250-line view and 150-line logic file limits",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-markdown-tables.sh",
+      "purpose": "Lint markdown table formatting",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-template-updates.sh",
+      "purpose": "Poll upstream template for updates",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-tracked-artifacts.sh",
+      "purpose": "Detect forbidden tracked build artifacts",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-large-tracked-files.sh",
+      "purpose": "Warn on large tracked files in git",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/count-critical-high-dependabot.sh",
+      "purpose": "Paginated Critical/High Dependabot alert count",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-agent-strikes.sh",
+      "purpose": "Regression test for 3-strike agent gate logic",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "purpose": "Primary CI matrix: lint, test, build, hygiene, feature gate",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/security.yml",
+      "purpose": "Trivy and gitleaks security scan",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/codeql.yml",
+      "purpose": "CodeQL static analysis",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     }
   ],
   "modules": {

@@ -23,6 +23,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Sprint M9 execution: 3-strike fix, maintainer lane routing, gate/CI parity, About exemplar tests
+- `scripts/count-critical-high-dependabot.sh`, `scripts/verify-agent-strikes.sh`
+- Web `AppShell.ts` composition refactor; Android `UpdateStatusEvaluator` + unit tests
+- `TEMPLATE_INDEX.json` reverse scan in `validate-template-index.sh`
+
+### Fixed
+
+- OpenSSF Scorecard workflow job-level permissions (publish_results API requirement)
+- F-Droid metadata validator: `verify-fdroid-metadata.sh` (+ `.ps1`); changelog and images README under `examples/android/metadata/`
+- Sprint 2 feature docs: `docs/features/_template.md`, proposed first slice `docs/features/settings.md`
+- `TEMPLATE_INDEX.json` entries for verify-about, security-triage, readme-health, fdroid-metadata, maintainer-gates scripts
+
+### Fixed
+
+- OpenSSF Scorecard workflow: move `security-events` and `id-token` write permissions to job level (publish_results API requirement)
+
 - Incremental feature assembly: `docs/FEATURE_MODULES.md`, vertical-slice Sprint 2+ BUILD_PLAN template
 - Autonomous agent gates: `feature-gate.sh`, `feature-autofix.sh`, `agent-progress.sh`, `watch-agent-gates.sh`, `smoke-stack.sh` (+ PowerShell twins)
 - Cursor rules: `feature-modules.mdc`; extended `testing.mdc`, `ci-gates.mdc`, `destructive-ops.mdc` for auto-fix protocol

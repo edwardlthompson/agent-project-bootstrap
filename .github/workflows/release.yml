@@ -18,6 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Pre-release gate
+        if: github.event_name == 'workflow_dispatch'
+        run: bash scripts/pre-release-gate.sh
+
       - name: Verify template version matches tag
         run: |
           TAG="${GITHUB_REF#refs/tags/v}"

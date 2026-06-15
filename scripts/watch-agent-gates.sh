@@ -29,6 +29,7 @@ while [ $# -gt 0 ]; do
     *) shift ;;
   esac
 done
+STEP="${STEP:-gate}"
 
 if [ "$ONCE" = true ]; then
   MAX_ATTEMPTS=1

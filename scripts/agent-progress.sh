@@ -121,12 +121,14 @@ if cmd == "set-feature":
 if cmd == "record":
     rec = parse_record_args(args[1:])
     data = load()
-    prev_exit = (data.get("last_gate") or {}).get("exit_code")
-    same_step = (data.get("last_gate") or {}).get("step") == rec["step"]
-    if rec["exit"] != 0 and prev_exit != 0 and same_step and rec["step"]:
-        data["strikes"] = int(data.get("strikes", 0)) + 1
-    elif rec["exit"] == 0:
-        data["strikes"] = 0
+    gate = rec["gate"]
+    if gate in ("feature-gate", "feature-gate.sh"):
+        if rec["exit"] == 0:
+            data["strikes"] = 0
+        else:
+            data["strikes"] = int(data.get("strikes", 0)) + 1
+    elif not rec.get("autofix"):
+        pass
     if rec.get("autofix"):
         data["autofix_attempts"] = int(data.get("autofix_attempts", 0)) + 1
         data["last_autofix"] = "feature-autofix.sh"
@@ -154,15 +156,46 @@ if cmd == "record":
     sys.exit(0)
 
 if cmd == "next":
+    lane = "child"
+    i = 1
+    while i < len(args):
+        if args[i] == "--lane" and i + 1 < len(args):
+            lane = args[i + 1]
+            i += 2
+        elif args[i] == "--json":
+            i += 1
+        else:
+            i += 1
     bp = root / "BUILD_PLAN.md"
     if not bp.exists():
         print("BUILD_PLAN.md not found", file=sys.stderr)
         sys.exit(1)
     text = bp.read_text(encoding="utf-8")
+    in_maintainer = False
     for line in text.splitlines():
-        m = re.match(r"^\d+\.\s+\[ \]\s+\[(AGENT|AUTO|HUMAN)\]\s+(.+)$", line)
+        if line.startswith("## Template Maintainer"):
+            in_maintainer = True
+            continue
+        if in_maintainer and line.startswith("## ") and not line.startswith("## Template Maintainer"):
+            if line.startswith("## Archived"):
+                break
+            if lane == "maintainer":
+                break
+        if lane == "child" and line.startswith("## Template Maintainer"):
+            break
+        if lane == "maintainer" and not in_maintainer:
+            continue
+        m = re.match(r"^\d+\.\s+\[ \]\s+\[(AGENT|AUTO|HUMAN|ADB)\]\s+(.+)$", line)
         if m:
-            result = {"owner": m.group(1), "task": m.group(2).strip()}
+            result = {"owner": m.group(1), "task": m.group(2).strip(), "lane": lane}
+            if json_out:
+                print(json.dumps(result, indent=2))
+            else:
+                print(f"[{result['owner']}] {result['task']}")
+            sys.exit(0)
+        m2 = re.match(r"^- \[ \] \[(AGENT|AUTO|HUMAN|ADB)\]\s+(.+)$", line)
+        if m2 and lane == "maintainer":
+            result = {"owner": m2.group(1), "task": m2.group(2).strip(), "lane": lane}
             if json_out:
                 print(json.dumps(result, indent=2))
             else:

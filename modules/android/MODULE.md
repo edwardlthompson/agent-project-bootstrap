@@ -14,7 +14,7 @@
 - [ ] Pin Gradle wrapper (`gradlew`, `gradle-wrapper.jar`, `gradle-wrapper.properties`) and dependency versions
 - [ ] Review `examples/android/` Golden Path stub
 - [ ] Add [ADB] tasks to BUILD_PLAN for device/emulator verification
-- [ ] Document F-Droid metadata path (Fastlane or manual)
+- [ ] Document F-Droid metadata path (Fastlane or manual) — validate with `bash scripts/verify-fdroid-metadata.sh`
 
 ## Operations Checklist
 

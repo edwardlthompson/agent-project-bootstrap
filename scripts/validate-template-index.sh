@@ -8,7 +8,7 @@ INDEX="$ROOT/TEMPLATE_INDEX.json"
 if ! command -v jq &>/dev/null; then
   echo "jq not found; using python fallback"
   python3 - "$INDEX" "$ROOT" << 'PY'
-import json, sys, os
+import glob, json, sys, os
 index_path, root = sys.argv[1], sys.argv[2]
 with open(index_path) as f:
     data = json.load(f)
@@ -26,6 +26,21 @@ for mod in data.get("modules", {}).values():
         errors.append(mod["example"])
 if errors:
     print("Missing paths:", *errors, sep="\n  ")
+    sys.exit(1)
+indexed = set()
+for item in data.get("files", []):
+    indexed.add(item["path"])
+unindexed = []
+for sh in sorted(glob.glob(os.path.join(root, "scripts", "*.sh"))):
+    rel = os.path.relpath(sh, root).replace("\\", "/")
+    if rel not in indexed and not rel.endswith(".ps1"):
+        unindexed.append(rel)
+for wf in sorted(glob.glob(os.path.join(root, ".github", "workflows", "*.yml"))):
+    rel = os.path.relpath(wf, root).replace("\\", "/")
+    if rel not in indexed:
+        unindexed.append(rel)
+if unindexed:
+    print("Unindexed paths (add to TEMPLATE_INDEX.json):", *unindexed, sep="\n  ")
     sys.exit(1)
 print("TEMPLATE_INDEX.json validation passed")
 PY
@@ -60,5 +75,27 @@ if [ "$ERRORS" -gt 0 ]; then
   echo "$ERRORS path(s) missing"
   exit 1
 fi
+
+python3 - "$INDEX" "$ROOT" << 'PY' || exit 1
+import glob, json, os, sys
+index_path, root = sys.argv[1], sys.argv[2]
+with open(index_path) as f:
+    data = json.load(f)
+indexed = {item["path"] for item in data.get("files", [])}
+unindexed = []
+for sh in sorted(glob.glob(os.path.join(root, "scripts", "*.sh"))):
+    rel = os.path.relpath(sh, root).replace("\\", "/")
+    if rel not in indexed:
+        unindexed.append(rel)
+for wf in sorted(glob.glob(os.path.join(root, ".github", "workflows", "*.yml"))):
+    rel = os.path.relpath(wf, root).replace("\\", "/")
+    if rel not in indexed:
+        unindexed.append(rel)
+if unindexed:
+    print("Unindexed paths (add to TEMPLATE_INDEX.json):")
+    for p in unindexed:
+        print(f"  {p}")
+    sys.exit(1)
+PY
 
 echo "TEMPLATE_INDEX.json validation passed"

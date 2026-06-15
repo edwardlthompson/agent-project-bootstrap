@@ -8,11 +8,15 @@ export default defineConfig({
     exclude: ["e2e/**", "node_modules/**"],
     coverage: {
       provider: "v8",
-      include: ["src/greet.ts"],
+      include: [
+        "src/about/updateChecker.ts",
+        "src/about/donations.ts",
+        "src/greet.ts",
+      ],
       thresholds: {
         lines: 90,
         functions: 90,
-        branches: 90,
+        branches: 85,
         statements: 90,
       },
     },

@@ -16,4 +16,5 @@
     <string name="about_format">Installed format: %1$s</string>
     <string name="about_donations_message">If this project helps you, consider supporting development.</string>
     <string name="about_update_current">You are on the latest version.</string>
+    <string name="about_update_available">Update available: %1$s</string>
 </resources>

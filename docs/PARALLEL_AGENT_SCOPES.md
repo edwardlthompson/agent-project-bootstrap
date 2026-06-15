@@ -19,7 +19,20 @@
 | multi | One scope per stack row; no overlap |
 | none | Match `AGENT_MEMORY.md` checked modules |
 
-## Sprint M1 (template maintainer) completed scopes
+## Sprint M9 (template maintainer) — active
+
+> Safe after BUILD_PLAN M9 Sequential step 7. See `BUILD_PLAN.md` Parallel table.
+
+| Agent | Scope |
+|-------|-------|
+| A — Web | `examples/web/src/**`, `examples/web/e2e/**` |
+| B — Android | `examples/android/app/**` |
+| C — Gates/CI | `scripts/feature-gate.sh`, `scripts/feature-autofix.sh`, `scripts/run-maintainer-gates.sh`, `scripts/pre-release-gate.sh`, `scripts/check-security-triage.sh`, `.github/workflows/release.yml`, `.github/workflows/ci.yml` |
+| D — Docs | `docs/**`, `.cursor/rules/**`, `TEMPLATE_INDEX.json`, `modules/**` |
+
+**Sequential-only (no Parallel):** `BUILD_PLAN.md`, `scripts/agent-progress.sh`, `scripts/watch-agent-gates.sh`, shared `design-tokens/`
+
+## Sprint M1 (template maintainer) — archived
 
 | Task | Scope |
 |------|-------|

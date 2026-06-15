@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   clearRestartGuard,
+  getRestartGuardKey,
+  applyPwaUpdate,
   isRestartPending,
   scheduleSingleReload,
   setRestartPending,
@@ -30,5 +32,16 @@ describe("restart guard", () => {
     scheduleSingleReload("test-guard");
     scheduleSingleReload("test-guard");
     expect(reload).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses custom restart guard key", () => {
+    expect(getRestartGuardKey("custom")).toBe("custom");
+  });
+});
+
+describe("applyPwaUpdate", () => {
+  it("returns false when no waiting worker", async () => {
+    const reg = { waiting: null } as ServiceWorkerRegistration;
+    await expect(applyPwaUpdate(reg)).resolves.toBe(false);
   });
 });

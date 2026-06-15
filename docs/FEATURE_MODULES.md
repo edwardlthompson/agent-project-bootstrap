@@ -28,6 +28,8 @@
 
 **Reference exemplar:** In-app About — `examples/web/src/about/`, `examples/android/.../about/`, `examples/android/.../ui/about/`.
 
+**Feature docs:** Copy `docs/features/_template.md` per feature; see `docs/features/settings.md` for the proposed first Sprint 2 slice.
+
 ## Per-feature Definition of Done
 
 - [ ] `[HUMAN]` Acceptance criteria + one smoke scenario documented
@@ -68,6 +70,8 @@ Progress file: `.cursor/agent-progress.json` (gitignored). See `.cursor-session-
 | `scripts/watch-agent-gates.sh` | Gate loop with autofix + progress tracking |
 | `scripts/agent-progress.sh` | Read/write agent progress JSON |
 | `scripts/smoke-stack.sh` | Alias for `feature-gate.sh` |
+
+**CI-only gates (not in local `feature-gate.sh`):** Playwright e2e, Lighthouse budgets, bundle-size, license compliance — see `.github/workflows/ci.yml`. Use `watch-agent-gates.sh --wait-ci 300` after push.
 
 ## Anti-patterns
 

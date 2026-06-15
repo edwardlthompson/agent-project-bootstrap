@@ -1,7 +1,6 @@
 # Build Plan
 
-> Prioritized task board with owner labels, Sequential and Parallel lanes per sprint.
-> Move completed items to `COMPLETED_TASKS.md`.
+> Prioritized task board with owner labels. **Completed sprints:** `COMPLETED_TASKS.md`.
 
 ## Owner Label Legend
 
@@ -11,172 +10,155 @@
 | `HUMAN` | Human developer | Approvals, credentials, GitHub settings, product decisions |
 | `ADB` | Human (Android) | Android SDK, emulator/device testing, F-Droid submission |
 | `AUTO` | CI/scripts/bots | GitHub Actions, Dependabot, pre-commit, update checker |
-**Task format:** `- [ ] [OWNER] Description`
 
-**Filter by label:**
+**Task format:** `- [ ] [OWNER] Description`
 
 ```bash
 grep '\[AGENT\]' BUILD_PLAN.md
 grep '\[HUMAN\]' BUILD_PLAN.md
 grep '\[ADB\]' BUILD_PLAN.md
 grep '\[AUTO\]' BUILD_PLAN.md
-
 ```
 
-**Agent rule:** Execute all `[AGENT]` Sequential items first, then dispatch Parallel agents with isolated file scopes. Shared schema/types are Sequential-only.
+**Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
-> **Sprint M0–M8** are template-maintainer sprints (this repo). Child repos use Sprint 0–2+ with automated `feature-gate.sh` between steps.
+> **Template maintainer:** work **Sprint M9** below. **Child repos:** copy the playbook after **Use this template**.
 
 ---
 
-## Child Repo — Sprint 0–2 (not applicable to template maintainer)
+## Child Repo Playbook (copy after Use this template)
 
-> **Template maintainer:** skip this section. Copy-paste for child projects after **Use this template**.
+> Init scripts, feature docs (`docs/features/_template.md`), and About exemplar ship with the template. Mirror the Sequential + Parallel lane structure from Sprint M9 when customizing.
 
 ### Sprint 0 — Template Customization
 
+#### Sequential
+
 1. [ ] [HUMAN] Click **Use this template** on GitHub to create your project repo
 2. [ ] [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
-3. [ ] [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (child repo bootstrap)
-4. [ ] [AGENT] Run `scripts/setup-github-repo.sh` (Dependabot, branch protection — requires `gh` auth)
-5. [ ] [HUMAN] Select stack during init (web / python / android / multi) to prune unused examples and modules
-6. [ ] [AUTO] Sprint 0 sign-off when `validate-bootstrap.sh` + `check-github-ci.sh --wait 300` pass on `main`
+3. [ ] [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1`
+4. [ ] [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
+5. [ ] [HUMAN] Select stack during init (web / python / android / node / multi)
+6. [ ] [AUTO] Sprint 0 sign-off (all green on `main`):
+   - `validate-bootstrap.sh --quick`
+   - `feature-gate.sh --stack <active>`
+   - `check-github-ci.sh --wait 300`
+   - `check-license-compliance.sh` (after `npm ci` / `uv sync`)
 
 ### Sprint 1 — Golden Path Foundation
 
-1. [x] [AGENT] Scaffold in-app About screen with update checker (format-locked) and donation placeholders per active UI stack
-2. [ ] [HUMAN] Fill `.app-update.json` `release_repo` and `donations.json` links _(child repo only)_
-3. [ ] [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack _(child repo only)_
+#### Sequential
 
-### Sprint 2+ — Incremental Features (vertical slices, one at a time)
+1. [ ] [AGENT] Verify About screen scaffold for your active stack (`examples/{stack}/`)
+2. [ ] [HUMAN] Fill `.app-update.json` `release_repo` and `donations.json` links
+3. [ ] [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
 
-> Slow lego assembly. Sequential only. See `docs/FEATURE_MODULES.md`. Agents run automated gates without human polling.
+### Sprint 2+ — Incremental Features
 
-**Agent rule:** After every `[AGENT]` step, run `bash scripts/watch-agent-gates.sh --once --autofix`. On failure, agent auto-fixes from JSON diagnostics and re-runs until pass or 3-strike. Feature sign-off: `[AUTO]` gate pass + optional `[HUMAN]` product approval in child repos.
+> One vertical slice at a time. See `docs/FEATURE_MODULES.md`. Draft: `docs/features/settings.md`. Second exemplar ships after template Sprint M9.
 
-#### Feature template (duplicate per feature)
+**Agent rule:** After every `[AGENT]` step → `bash scripts/watch-agent-gates.sh --once --autofix --step <scaffold|tests|wire>`.
 
-1. [ ] [AGENT] Scaffold acceptance criteria stub in `docs/features/{name}.md` _(or [HUMAN] refines criteria)_
-2. [ ] [AGENT] Scaffold feature container; public API boundary only
-3. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix` (post-scaffold; agent fixes until green)
-4. [ ] [AGENT] Unit tests for feature pure logic
-5. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix` (post-unit-tests)
-6. [ ] [AGENT] Wire view/adapter; composition root ≤10 lines
-7. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix --wait-ci 300` (after push to branch)
-8. [ ] [AUTO] `feature-gate.sh` green; `[HUMAN]` optional product smoke in child repos
+#### Per-feature Sequential (duplicate each feature)
 
-#### Sprint 2 starter
+1. [ ] [AGENT] Copy `docs/features/_template.md` → `docs/features/{name}.md`; refine acceptance criteria
+2. [ ] [AGENT] Scaffold feature container (public API boundary only)
+3. [ ] [AGENT] Unit tests for feature pure logic
+4. [ ] [AGENT] Wire view/adapter; composition root ≤10 lines
+5. [ ] [HUMAN] Optional product smoke after `[AUTO]` gate pass
 
-1. [ ] [AGENT] Propose first feature name + acceptance criteria draft in `docs/features/`
-2. [ ] [AGENT] Implement first feature per `docs/FEATURE_MODULES.md` (About = reference shape)
-3. [ ] [AUTO] Feature template duplicated for Sprint 3 when gates pass
+#### Per-feature Parallel (safe after Sequential step 2)
 
-> **Note:** About screen (Sprint 1) is the reference exemplar. M7 row 5 uses automated add/remove verification — not the first Sprint 2 feature.
+| Task | Owner | Isolated scope |
+|------|-------|----------------|
+| Logic + tests | AGENT | `examples/{stack}/src/{feature}/` or stack equivalent |
+| View + i18n | AGENT | `examples/{stack}/src/components/` or `ui/{feature}/`, `locales/` / `strings.xml` |
 
----
-
-## Ongoing Maintenance (template + child repos)
-
-### Weekly (recurring)
-
-- [ ] [AUTO] `bash scripts/check-security-triage.sh --wait-ci 300` (Dependabot Critical/High + CI green)
-- [ ] [AGENT] Apply Dependabot dependency bumps and open PRs as needed
-- [ ] [AUTO] Trivy + CodeQL + CI matrix green after merges
-- [ ] [AUTO] Repo Hygiene CI job green on `main`
-- [ ] [AUTO] OpenSSF Scorecard workflow result reviewed
-- [ ] [AUTO] `scripts/pre-release-gate.sh` run before any version bump
-- [ ] [AUTO] `bash scripts/feature-gate.sh` on active stack before maintainer release tags
-- [ ] [AGENT] Triage Scorecard findings into BUILD_PLAN `[AUTO]` items
-
-### Monthly (recurring)
-
-- [ ] [AUTO] Run `scripts/simulate-template-upgrade.sh` on schedule (first Monday)
-- [ ] [AUTO] `check-license-compliance.sh` + SBOM artifact present on latest release
-- [ ] [AGENT] Dependabot auto-merge PRs reviewed for override/transitive policy (KB-007)
+> Gates (`watch-agent-gates.sh`) run Sequential-side after each AGENT step — not in Parallel.
 
 ---
 
-## Template Maintainer — Sprint M5: README Visual Refresh
+## Ongoing Maintenance (recurring)
 
-> AGENT work complete. Automated health check replaces manual visual review.
+> **Template maintainer:** `bash scripts/run-maintainer-gates.sh` weekly (omit `--quick` for full CI wait).
 
-1. [x] [AUTO] `bash scripts/check-readme-health.sh` (relative links, markdown tables, encoding)
+### Weekly
 
----
+- [ ] [AUTO] `check-security-triage.sh --wait-ci 300` (Dependabot + CI; Scorecard after M9-11)
+- [ ] [AGENT] Apply Dependabot bumps; triage Scorecard SARIF findings
+- [ ] [AUTO] CI matrix + Repo Hygiene + Feature Gate green on `main`
 
-## Template Maintainer — Sprint M6: Repo Hygiene Automation
+### Monthly
 
-> Industry-standard track-vs-ephemeral gates. Sequential before child-repo adoption.
+- [ ] [AUTO] `simulate-template-upgrade.sh`
+- [ ] [AUTO] `check-license-compliance.sh` + SBOM on latest release
+- [ ] [AGENT] Review Dependabot auto-merge PRs (KB-007)
 
-1. [x] [AGENT] Add `.gitattributes`, `.editorconfig`, `.cursorignore`; expand `.gitignore`
-2. [x] [AGENT] Add `check-tracked-artifacts`, `check-large-tracked-files`, `check-repo-hygiene`, `purge-ephemeral` scripts
-3. [x] [AGENT] Wire repo-hygiene into pre-commit, `validate-bootstrap.sh`, and CI `repo-hygiene` job
-4. [x] [AGENT] Add `docs/REPO_HYGIENE.md` and `.cursor/rules/repo-hygiene.mdc`
-5. [x] [AUTO] `bash scripts/setup-github-repo.sh` adds **Repo Hygiene** to branch protection _(requires `gh` admin)_
-6. [x] [AUTO] CI **Repo Hygiene** job green after merge
-7. [x] [AGENT] Archive Sprint M6 completions to `COMPLETED_TASKS.md`
-8. [x] [AGENT] Index `check-repo-hygiene.ps1` and `purge-ephemeral.ps1` in `TEMPLATE_INDEX.json`
+### Pre-release (every version)
 
----
-
-## Template Maintainer — Sprint M7: Incremental Feature Assembly + Agent Gates
-
-> Vertical-slice / lego-container workflow with autonomous lint/smoke gates.
-
-1. [x] [AGENT] Add `docs/FEATURE_MODULES.md` and `.cursor/rules/feature-modules.mdc`
-2. [x] [AGENT] Add `feature-gate.sh`, `feature-autofix.sh`, `agent-progress.sh`, `watch-agent-gates.sh`, `smoke-stack.sh` (+ `.ps1`)
-3. [x] [AGENT] Extend session-state example, `ci-gates.mdc`, `testing.mdc`, `destructive-ops.mdc`; gitignore `agent-progress.json`
-4. [x] [AGENT] Update BUILD_PLAN Sprint 2+ template, INITIALIZATION_PROMPT, FOR_AGENTS, PROMPT_LIBRARY
-7. [x] [AGENT] Harden agent handoff: populate `gates_passed`, `failed_stage`, `log_tail` in `agent-progress.sh`; forward `--step` from `feature-gate.sh`
-8. [x] [AGENT] Fix `watch-agent-gates.sh` JSON capture (stdout-only); pass `--paths` to `feature-autofix.sh` for active feature scope
-9. [x] [AGENT] Add `docs/FEATURE_MODULES.md` to `validate-bootstrap.sh` REQUIRED; cross-link in `docs/START_HERE.md`; add Feature gate section to `modules/node/MODULE.md`
-10. [x] [AGENT] Commit M7+M7-closeout changes; archive completed AGENT rows to `COMPLETED_TASKS.md`
-11. [x] [AUTO] Push to `origin/main` when `feature-gate.sh` + `validate-bootstrap.sh --quick` pass locally
-12. [x] [AGENT] Add Feature gate section to `modules/lightroom/MODULE.md` (plan: `modules/*`)
-13. [x] [AGENT] Populate `build_plan_step` in `agent-progress.sh`; `feature-autofix.sh` exit 1 on fixer failure
-14. [x] [AGENT] Index remaining gate/hygiene `.ps1` twins in `TEMPLATE_INDEX.json`
-5. [x] [AUTO] `bash scripts/verify-about-feature-gate.sh` (About add/remove lego test)
-6. [x] [AUTO] `feature-gate.sh` + CI green after merge
+- [ ] [AUTO] `pre-release-gate.sh` + `run-maintainer-gates.sh`
+- [ ] [AUTO] Release Please PR merged; CHANGELOG + manifest bumped
+- [ ] [HUMAN] Approve release tag when product-ready
 
 ---
 
-## Template Maintainer — Sprint M8: Feature Gate CI Enforcement
+## Template Maintainer — Sprint M9: Agent Gate Fidelity + Exemplar Completion
 
-> CI becomes source of truth for feature-gate; `--strict` in CI only.
+> **Source:** code review 2026-06-15. Restores agent protocol integrity, gate/CI parity, and credible feature exemplars. Sequential before Parallel.
 
-1. [x] [AGENT] Add CI job **Feature Gate** calling `feature-gate.sh --stack multi --strict`
-2. [x] [AGENT] Add `--strict` to `feature-gate.sh` (exit 2 if stack skipped in multi mode)
-3. [x] [AGENT] Wire `scripts/pre-release-gate.sh` to run `feature-gate.sh`
-4. [x] [AUTO] `bash scripts/setup-github-repo.sh` adds **Feature Gate** to branch protection _(requires `gh` admin)_
-5. [x] [AUTO] CI green including feature-gate job after merge
+### Critique
+
+- **Null/empty:** Dependabot pagination must handle empty alert pages; `agent-progress` strikes must work when `--step` omitted.
+- **Network timeouts:** `watch-agent-gates --wait-ci 300` may expire on slow CI — re-run or extend wait.
+- **Race conditions:** Parallel agents must not edit shared types (`design-tokens`, `TEMPLATE_INDEX.json`) — Sequential only.
+- **Unhandled exceptions:** Release workflow must fail closed if `pre-release-gate.sh` errors; branch protection context mismatch may block merges silently.
+
+### Sequential (must complete in order)
+
+1. [x] [HUMAN] Commit pending maintainer artifacts (`run-maintainer-gates`, `verify-fdroid-metadata`, `scorecard.yml` fix, `docs/features/`, metadata changelogs); CI green on `main`
+2. [x] [AGENT] Fix 3-strike logic in `agent-progress.sh` + `watch-agent-gates.sh` (strikes without `--step`; no reset on autofix-only pass); add `scripts/verify-agent-strikes.sh`
+3. [x] [AGENT] Restore lane discipline: `agent-progress.sh next --lane maintainer`; integrate `set-feature` + `--step` defaults in gate docs
+4. [x] [AGENT] Align `feature-gate.sh` with CI: add `check-file-limits.sh`; python mypy/pyright stages; document CI-only web gates (Playwright, Lighthouse, bundle)
+5. [x] [AGENT] Harden release path: paginate Dependabot in `pre-release-gate.sh` + `check-security-triage.sh`; enforce `pre-release-gate.sh` in `release.yml` workflow_dispatch
+6. [x] [AGENT] Index `init-project`, undocumented scripts, and `ci.yml` / `security.yml` / `codeql.yml` in `TEMPLATE_INDEX.json`; reverse scan in `validate-template-index.sh`
+7. [x] [AGENT] Complete About exemplar: wire Android update flow; unit tests for `UpdateChecker` / `AppUpdatePreferences`; expand web vitest coverage to `src/about/**`; refactor `main.ts` composition root ≤10 lines About wiring
+8. [ ] [AGENT] Scaffold settings vertical slice per `docs/features/settings.md` (web + android containers, tests, i18n)
+9. [ ] [AGENT] Extend `check-file-limits.sh` for `.kt` Compose + `components/*.ts` views; add node to `init-project.sh` stack picker
+10. [ ] [AGENT] Reconcile Sprint 0 sign-off lists across BUILD_PLAN, `INITIALIZATION_PROMPT.md`, `read-before-write.mdc`
+11. [ ] [AGENT] Extend `check-security-triage.sh` for Scorecard workflow; update `SECURITY.md`, `MAINTAINING_THE_TEMPLATE.md`, `START_HERE.md`, `FEATURE_MODULES.md` (Node column)
+12. [ ] [AGENT] Resolve Module D ID collision (node vs lightroom); renumber/index template ADR; add `security-triage.mdc`
+13. [ ] [HUMAN] Verify branch protection check names in GitHub UI; fix `setup-github-repo.sh` contexts if mismatched
+14. [ ] [HUMAN] Merge Release Please PR #11 (`v0.8.0`) after rows 1–5 green
+15. [ ] [HUMAN] Approve release tag after pre-release gates pass
+
+### Parallel (safe after Sequential step 7)
+
+| # | Task | Owner | Isolated scope |
+|---|------|-------|----------------|
+| A | Web About refactor + settings slice | AGENT | `examples/web/src/**`, `examples/web/e2e/**` |
+| B | Android About wiring + settings slice | AGENT | `examples/android/app/**`, `examples/android/app/src/test/**` |
+| C | Gate/CI hardening | AGENT | `scripts/feature-gate.sh`, `scripts/feature-autofix.sh`, `scripts/run-maintainer-gates.sh`, `.github/workflows/release.yml`, `.github/workflows/ci.yml` |
+| D | Docs + rules + index | AGENT | `docs/**`, `.cursor/rules/**`, `TEMPLATE_INDEX.json`, `modules/**` |
+
+Run `bash scripts/check-parallel-scope.sh` before dispatch. Do not edit `BUILD_PLAN.md` from Parallel agents.
+
+### Distribution (ADB — after Sequential step 8)
+
+- [ ] [AGENT] F-Droid image asset paths or placeholders under `metadata/en-US/images/`; document fdroiddata handoff in `modules/android/MODULE.md`
+- [ ] [ADB] F-Droid dry-run on device/emulator (`modules/android/MODULE.md` checklist)
+- [ ] [ADB] Verify reproducible APK hashes locally (`assembleRelease` ×2, `SOURCE_DATE_EPOCH` set)
+- [ ] [HUMAN] Sign off anti-feature flags and store listing copy before F-Droid draft MR
 
 ---
 
-## Template Maintainer — Release Approvals
+## Archived Sprints
 
-> Superseded releases archived in `COMPLETED_TASKS.md`. Current target via Release Please.
-
-| Release | Status | Remaining |
-|---------|--------|-----------|
-| v0.8.0+ | Release Please | [ ] [AUTO] `pre-release-gate.sh` + CI green before merge |
-| Next tag | Pending | [ ] [HUMAN] Approve release tag only when product-ready _(irreducible)_ |
-
----
-
-## Milestone Gates — Release Sign-off (every version)
-
-- [ ] [AUTO] `check-security-triage.sh` — CVE triage within policy
-- [ ] [AUTO] Zero open Critical/High Dependabot alerts (`pre-release-gate.sh`)
-- [ ] [AUTO] `simulate-template-upgrade.sh` passes
-- [ ] [AUTO] CHANGELOG.md updated via Release Please
-- [ ] [AUTO] Version bumped via Release Please manifest
-- [ ] [AUTO] SBOM attached to GitHub Release (release workflow)
-- [ ] [AUTO] `check-license-compliance.sh` on release artifacts
-- [ ] [AUTO] Conventional Commits enforced (`semantic-pull-request` CI check)
-
----
-
-## Template Maintainer — Device / Distribution (ADB)
-
-- [ ] [ADB] Run F-Droid submission dry-run checklist (`modules/android/MODULE.md`) on physical device or emulator before first F-Droid release
-- [ ] [ADB] Complete F-Droid `metadata/` blocks and verify reproducible APK hashes locally
+| Sprint | Status | Archive |
+|--------|--------|---------|
+| M5 README refresh | Complete | `COMPLETED_TASKS.md` |
+| M6 Repo hygiene | Complete | `COMPLETED_TASKS.md` |
+| M7 Feature assembly + agent gates | Complete | `COMPLETED_TASKS.md` |
+| M8 Feature gate CI | Complete | `COMPLETED_TASKS.md` |
+| Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
+| Maintainer gate cycle 2026-06-15 | Complete | `COMPLETED_TASKS.md` |
+| BUILD_PLAN cleanup 2026-06-15 | Complete | `COMPLETED_TASKS.md` |

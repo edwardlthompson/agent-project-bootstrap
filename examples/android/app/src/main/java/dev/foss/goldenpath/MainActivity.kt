@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -12,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.foss.goldenpath.about.AppUpdatePreferences
+import dev.foss.goldenpath.about.UpdateStatusEvaluator
 import dev.foss.goldenpath.network.NetworkStatusMonitor
 import dev.foss.goldenpath.ui.GoldenPathScreen
 import dev.foss.goldenpath.ui.theme.GoldenPathTheme
@@ -49,6 +51,18 @@ class MainActivity : ComponentActivity() {
                 initialValue = "apk",
             )
             var showAbout by remember { mutableStateOf(false) }
+            var updateStatus by remember {
+                mutableStateOf(getString(R.string.about_update_current))
+            }
+
+            LaunchedEffect(Unit) {
+                when (val result = UpdateStatusEvaluator.evaluate("0.1.0", null)) {
+                    is UpdateStatusEvaluator.Result.Current ->
+                        updateStatus = getString(R.string.about_update_current)
+                    is UpdateStatusEvaluator.Result.Available ->
+                        updateStatus = getString(R.string.about_update_available, result.version)
+                }
+            }
 
             GoldenPathTheme(themeMode = themeMode) {
                 GoldenPathScreen(
@@ -57,7 +71,7 @@ class MainActivity : ComponentActivity() {
                     showAbout = showAbout,
                     appVersion = "0.1.0",
                     installedFormat = installedFormat ?: "apk",
-                    updateStatus = getString(R.string.about_update_current),
+                    updateStatus = updateStatus,
                     onThemeToggle = {
                         lifecycleScope.launch {
                             val nextMode = themeMode.next()

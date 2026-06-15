@@ -89,7 +89,9 @@ fail_gate() {
     web-test) SUGGESTED=("fix failing vitest in src/{feature}/" "run npm test in examples/web") ;;
     web-build) SUGGESTED=("fix build errors" "run npm run build in examples/web") ;;
     python-lint) SUGGESTED=("run uv run ruff check --fix in examples/python") ;;
+    python-type) SUGGESTED=("fix mypy/pyright errors in examples/python") ;;
     python-test) SUGGESTED=("fix pytest failures in examples/python") ;;
+    file-limits) SUGGESTED=("split oversized view/logic files per AGENTS.md limits") ;;
     android-test) SUGGESTED=("fix JUnit failures" "run ./gradlew test in examples/android") ;;
     node-lint) SUGGESTED=("fix lint in examples/node") ;;
     node-test) SUGGESTED=("fix tests in examples/node") ;;
@@ -159,6 +161,11 @@ if ! bash scripts/check-file-encoding.sh >/dev/null 2>&1; then
 fi
 GATES_PASSED+=("encoding")
 
+if ! bash scripts/check-file-limits.sh >/dev/null 2>&1; then
+  fail_gate "file-limits" "$(bash scripts/check-file-limits.sh 2>&1 | tail -n 20)"
+fi
+GATES_PASSED+=("file-limits")
+
 if should_run web && [ -f examples/web/package.json ]; then
   if ! command -v npm >/dev/null 2>&1; then
     if [ "$STACK" = "web" ]; then
@@ -183,6 +190,8 @@ if should_run python && [ -f examples/python/pyproject.toml ]; then
   else
     run_in_dir examples/python python-lint uv run ruff check .
     run_in_dir examples/python python-format uv run ruff format --check .
+    run_in_dir examples/python python-type-mypy uv run mypy src
+    run_in_dir examples/python python-type-pyright uv run pyright
     run_in_dir examples/python python-test uv run pytest -q
   fi
 fi

@@ -29,8 +29,7 @@ fi
 
 echo "=== Security triage (automated) for ${REPO} ==="
 
-ALERT_COUNT="$(gh api "repos/${REPO}/dependabot/alerts?state=open&per_page=100" \
-  --jq '[.[] | select(.security_vulnerability.severity == "critical" or .security_vulnerability.severity == "high")] | length' 2>/dev/null || echo error)"
+ALERT_COUNT="$(bash scripts/count-critical-high-dependabot.sh 2>/dev/null || echo error)"
 
 if [ "$ALERT_COUNT" = "error" ]; then
   echo "WARN: could not fetch Dependabot alerts"
