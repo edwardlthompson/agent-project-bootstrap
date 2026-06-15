@@ -68,25 +68,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * mark Sprint M6 repo-hygiene CI gate complete ([7ed666b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7ed666ba8c4b482f948b22a8e29e87dad2cef2e1))
 * refresh README with badges, TOC, and collapsible sections ([008140e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/008140ed6eed951a788cfdb1832f5b035bb7a582))
 
-## [Unreleased]
-
-### Added
-
-- Sprint M13: `verify-branch-protection`, `verify-reproducible-apk`, init `--stack` CLI, unicode checklists in BUILD_PLAN
-- Sprint M14: init `--non-interactive`, Android SBOM slice in release workflow, manifest coherence check in `pre-release-gate.sh`
-
-### Fixed
-
-- Version coherence: sync `.template-version`, `TEMPLATE_INDEX.json`, and `AGENT_MEMORY.md` to 0.8.0
-- `init-project.ps1` stderr redirect (`2>$null`); Python placeholder replacement in both init scripts
-- `AboutPanel.ts` donation links via DOM APIs; `APP_VERSION` from `package.json` via Vite `define`
-- `check-file-limits.sh` coverage for `GoldenPathApp.kt` / `GoldenPathScreen.kt`; home-screen update status banner
-
-### Changed
-
-- `run-maintainer-gates.sh` wires `verify-reproducible-apk.sh` (full mode, `--skip-apk` opt-out); rejects unknown CLI flags
-- `verify-branch-protection.sh` asserts `strict: true` and disallows force pushes
-
 ## [0.7.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.7.0...v0.7.1) (2026-06-13)
 
 
