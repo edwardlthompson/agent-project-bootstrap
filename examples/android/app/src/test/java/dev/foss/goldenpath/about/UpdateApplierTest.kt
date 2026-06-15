@@ -18,7 +18,8 @@ class UpdateApplierTest {
 
     @Test
     fun buildInstallIntentTargetsApkMimeType() {
-        val apk = File(context.cacheDir, "test-update.apk")
+        val updatesDir = File(context.cacheDir, "updates").apply { mkdirs() }
+        val apk = File(updatesDir, "test-update.apk")
         apk.writeBytes(byteArrayOf(0x50, 0x4b, 0x03, 0x04))
 
         val intent = UpdateApplier.buildInstallIntent(context, apk)
