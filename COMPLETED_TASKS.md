@@ -317,7 +317,7 @@
 - [x] [AGENT] Android `pendingRestart` UI stub in `GoldenPathApp`; DESIGN_GUIDE parity note
 - [x] [AGENT] Composition-root docs (`FEATURE_MODULES.md`, `feature-modules.mdc`, BUILD_PLAN Sprint 2)
 - [x] [AGENT] CHANGELOG M10/M11/M12; exemplar vs `.template-version` in MAINTAINING_THE_TEMPLATE; bug_report placeholder
-- [ ] [AUTO] CodeQL workflow green on `main` after push
+- [x] [AUTO] CodeQL workflow green on `main` after push (`7055255`)
 - [ ] [HUMAN] Merge Release Please PR #11 after CodeQL + branch-protection checks green
 
 ## Sprint M10 — Code review remediation (AGENT, 2026-06-15)

@@ -120,9 +120,9 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 - [ ] [HUMAN] `gh auth` with security-alerts scope for local Dependabot triage; re-run `run-maintainer-gates.sh` full (not `--quick`) before v0.8.0 tag
 
-### CI sign-off (AUTO)
+- CI sign-off (AUTO)
 
-- [ ] [AUTO] CI green on `main` after Sprint M11 — **CI + Feature Gate OK** on `daa9d85`; **CodeQL java-kotlin FAIL** (`no source code seen during build`; init runs after Gradle build)
+- [x] [AUTO] CI green on `main` after Sprint M12 — **CI + Feature Gate + CodeQL OK** on `7055255`
 
 ---
 
@@ -147,7 +147,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 6. [x] [AGENT] Android `pendingRestart` UI stub: observe flag in `GoldenPathApp`, show `about_update_restarting` string; document gap vs web `applyUpdate.ts` in `DESIGN_GUIDE.md`
 7. [x] [AGENT] Composition-root docs: update `FEATURE_MODULES.md`, `feature-modules.mdc`, BUILD_PLAN Sprint 2 row 4 to name `appBootstrap.ts` / `GoldenPathApp.kt` as composition roots (≤150 lines logic)
 8. [x] [AGENT] Version/docs hygiene: document exemplar `0.1.0` vs `.template-version` in `MAINTAINING_THE_TEMPLATE.md`; update `CHANGELOG.md` Unreleased for M10/M11; fix `bug_report.yml` placeholder version
-9. [ ] [AUTO] CodeQL workflow green on `main` after row 1
+9. [x] [AUTO] CodeQL workflow green on `main` after row 1
 10. [ ] [HUMAN] Merge Release Please PR #11 after CodeQL + 5 branch-protection checks green
 
 ### Parallel (safe after Sequential step 2)
