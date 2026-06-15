@@ -384,9 +384,23 @@
 - ✅ [AGENT] P2 `AboutPanel` `aria-live="polite"`; `appBootstrap.test.ts` en.json strings
 - ✅ [AGENT] Fix `examples/lightroom` removal on `--prune-optional` in init scripts
 
-## Sprint M17 — Post-M16 code review (planned, 2026-06-15)
+## Sprint M17 — Post-M16 code review (AGENT, 2026-06-15)
 
-> Added from full code review on `7e4a50e`. See BUILD_PLAN.md Sprint M17.
+- ✅ [AGENT] P0 Android INTERNET permission + `ReleaseTagFetcherTest` (manifest + invalid-repo fetch)
+- ✅ [AGENT] P0 Web update timing: `lastChecked` after successful fetch; unit tests for failure retry
+- ✅ [AGENT] P0 Prune + template index: `init-stack-sync.py` prune index; simulate post-prune asserts
+- ✅ [AGENT] P0 Release SBOM gate: `check-github-ci.sh --wait` on `release` published before SBOM
+- ✅ [AGENT] P1 `check-github-ci.ps1` in-progress WAIT parity; `health-check.yml` `--wait 600`
+- ✅ [AGENT] P1 `init-stack-sync`: emoji sync, rust/go MODULE_LINES, multi+prune `pruned` fix
+- ✅ [AGENT] P1 Docs drift: INITIALIZATION_PROMPT step 5, Node in OPTIONAL_STACKS/README
+- ✅ [AGENT] P1 FOSS grep: Kotlin/manifest/XML in `ci.yml`; path-changes android triggers
+- ✅ [AGENT] P1 Pre-release: `check-license-compliance.sh`; manifest missing = FAIL
+- ✅ [AGENT] Fix prune regression: `sync-design-tokens.py` + design cohesion stack-aware checks
+- ✅ [AUTO] CI + Feature Gate green on `main` (`5d9be3e`)
+
+## BUILD_PLAN cleanup (2026-06-15, M17 complete)
+
+- ✅ [AGENT] Archive M17 sprint body; slim board to P2 backlog + human open items
 
 ## BUILD_PLAN cleanup (2026-06-15, M16 complete)
 
