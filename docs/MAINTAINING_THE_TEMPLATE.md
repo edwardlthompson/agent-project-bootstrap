@@ -20,8 +20,8 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 4. Update `CHANGELOG.md` (Keep a Changelog)
 5. Update `TEMPLATE_INDEX.json` version and file entries
 6. Run `scripts/validate-template-index.sh`
-7. Tag `vX.Y.Z` and create GitHub Release with migration notes
-8. **Dry-run:** use **Actions → Release → Run workflow** (`workflow_dispatch`) to validate SBOM/provenance steps before tagging
+7. Merge Release Please PR; **Release Please** auto-dispatches `release.yml` to attach SBOM assets
+8. **Dry-run:** **Actions → Release → Run workflow** (`workflow_dispatch`) to validate SBOM/provenance before merge
 9. Update repo About if description changed
 10. Weekly CVE triage completed within last 7 days (`docs/SECURITY_TRIAGE.md`)
 11. Zero open Critical/High Dependabot alerts (or documented exception with linked issue)

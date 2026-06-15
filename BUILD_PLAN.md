@@ -22,7 +22,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
-> **Template maintainer:** Sprint **M15** active (P2 backlog). **Child repos:** copy the playbook below.
+> **Template maintainer:** **M15 complete** (`main`). Weekly maintenance below. **Child repos:** copy the playbook.
 
 ---
 
@@ -101,21 +101,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ---
 
-## Template Maintainer — Sprint M15: P2 backlog (post-0.9.0)
-
-> **Source:** M14 P2 carry-over after **v0.9.0** (`fd699bc`). Archive: `COMPLETED_TASKS.md` (M14).
-
-### Sequential
-
-1. ✅ [AGENT] Extend init `--prune` with `--keep-optional` / `--prune-optional` for rust/go/lightroom
-2. ✅ [AGENT] Document CodeQL exclusion for `examples/rust` / `examples/go` in workflow + module docs
-3. ✅ [AGENT] Playwright e2e: enable update check → open About → assert status text
-4. ✅ [AGENT] `simulate-template-upgrade.sh` smoke with `init-project.sh --non-interactive`
-5. ✅ [AGENT] Modernize `MainActivitySmokeTest` (`ActivityScenarioRule`)
-6. ⬜ [AGENT] Optional `connectedDebugAndroidTest` CI job (emulator); document in `modules/android/MODULE.md`
-7. ⬜ [AGENT] Wire `release.yml` SBOM upload after Release Please tag (or document `workflow_dispatch` post-release step)
-
-### Open (human judgment only)
+## Open (template maintainer — human judgment only)
 
 | Item | Owner | Command / gate |
 |------|-------|----------------|
@@ -129,7 +115,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
-| M5–M15 maintainer sprints | See active row | `COMPLETED_TASKS.md` |
+| M5–M15 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
 | v0.9.0 release (`fd699bc`) | Complete | `COMPLETED_TASKS.md` |
 | M14 Post-M13 review (`fc71433`) | Complete | `COMPLETED_TASKS.md` |
 | Child Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |

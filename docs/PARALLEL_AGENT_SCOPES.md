@@ -33,16 +33,9 @@
 
 > Completed 2026-06-15. Version sync, init.ps1 fix, gate wiring, web/Android hardening. See `COMPLETED_TASKS.md`.
 
-## Sprint M15 (template maintainer) — active
+## Sprint M15 (template maintainer) — archived
 
-> P2 backlog post-0.9.0. Init optional-stack prune, CodeQL docs, Playwright About e2e, upgrade sim.
-
-| Agent | Scope |
-|-------|-------|
-| A — Init + upgrade sim | `scripts/init-project.*`, `simulate-template-upgrade.sh` |
-| B — Web e2e | `examples/web/e2e/app.spec.ts` |
-| C — Android smoke | `MainActivitySmokeTest.kt`, `modules/android/MODULE.md` |
-| D — CI/docs | `codeql.yml`, `modules/rust|go/MODULE.md`, `release.yml` |
+> Completed 2026-06-15. P2 backlog post-0.9.0. See `COMPLETED_TASKS.md`.
 
 ## Sprint M12 (template maintainer) — archived
 

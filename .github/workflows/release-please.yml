@@ -7,6 +7,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 jobs:
   release-please:
@@ -22,6 +23,8 @@ jobs:
 
       - name: Release created
         if: steps.release.outputs.release_created == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Release ${{ steps.release.outputs.tag_name }} created"
-          echo "Run scripts/pre-release-gate.sh before tagging if not using Release Please merge flow"
+          gh workflow run release.yml -f tag="${{ steps.release.outputs.tag_name }}"

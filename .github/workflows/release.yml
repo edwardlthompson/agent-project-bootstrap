@@ -5,6 +5,13 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag for SBOM upload (e.g. v0.9.0); defaults to v.template-version
+        required: false
+        type: string
+  release:
+    types: [published]
 
 permissions:
   contents: write
@@ -12,20 +19,14 @@ permissions:
   attestations: write
 
 jobs:
-  release:
-    name: Create Release
+  tag-gate:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    name: Tag gate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Pre-release gate (workflow_dispatch)
-        if: github.event_name == 'workflow_dispatch'
-        run: bash scripts/pre-release-gate.sh
-
-      - name: Tag release lightweight gate
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Verify tag matches .template-version
         run: |
           TAG="${GITHUB_REF#refs/tags/v}"
           VERSION=$(tr -d '[:space:]' < .template-version)
@@ -33,10 +34,37 @@ jobs:
             echo "Tag v$TAG does not match .template-version ($VERSION)"
             exit 1
           fi
-          bash scripts/check-github-ci.sh HEAD --wait 300 --jobs "Repo Hygiene,Feature Gate"
 
-      - name: Run CI checks reminder
-        run: echo "Ensure all CI checks passed before tagging. See CHANGELOG.md."
+      - name: Poll required CI checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/check-github-ci.sh HEAD --wait 300 --jobs "Repo Hygiene,Feature Gate"
+
+  sbom-assets:
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    name: SBOM and release assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Resolve release tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ inputs.tag }}" ]; then
+            echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=v$(tr -d '[:space:]' < .template-version)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+
+      - name: Pre-release gate (workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        run: bash scripts/pre-release-gate.sh
 
       - name: Generate root SBOM
         uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.20.6
@@ -81,14 +109,20 @@ jobs:
         with:
           subject-path: sbom.cyclonedx.json
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
-        with:
-          generate_release_notes: true
-          files: |
-            packaging/winget/manifest.stub.yaml
-            sbom.cyclonedx.json
-            sbom-web.cyclonedx.json
-            sbom-python.cyclonedx.json
-            sbom-node.cyclonedx.json
-            sbom-android.cyclonedx.json
+      - name: Upload SBOM assets to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            echo "FAIL: release $TAG not found (merge Release Please PR first)"
+            exit 1
+          fi
+          gh release upload "$TAG" \
+            packaging/winget/manifest.stub.yaml \
+            sbom.cyclonedx.json \
+            sbom-web.cyclonedx.json \
+            sbom-python.cyclonedx.json \
+            sbom-node.cyclonedx.json \
+            sbom-android.cyclonedx.json \
+            --clobber

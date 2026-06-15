@@ -85,12 +85,13 @@ Before any version bump or GitHub Release:
 
 **Release workflow gates (`.github/workflows/release.yml`):**
 
-| Trigger | Gate |
-|---------|------|
-| `workflow_dispatch` | Full `pre-release-gate.sh` (feature-gate strict, security triage, file limits, manifest coherence) |
-| Tag push `v*` | Lightweight gate: tag must match `.template-version`; polls **Repo Hygiene** + **Feature Gate** with `--wait 300` |
+| Trigger | Gate / action |
+|---------|----------------|
+| `workflow_dispatch` | Full `pre-release-gate.sh`; generate SBOM slices; `gh release upload` to existing tag |
+| `release` published | Auto after Release Please: SBOM + Winget stub upload via `gh release upload --clobber` |
+| Tag push `v*` | Lightweight gate only: tag must match `.template-version`; polls **Repo Hygiene** + **Feature Gate** |
 
-Use `workflow_dispatch` for maintainer dry-runs before tagging. Tag push is the production release path after human approval.
+Release Please dispatches `release.yml` when it creates a tag. Use `workflow_dispatch` for maintainer dry-runs before merging the Release Please PR.
 
 If a Critical/High alert has no upstream fix, release may proceed only when:
 

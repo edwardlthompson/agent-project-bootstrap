@@ -366,8 +366,12 @@
 - ✅ [AGENT] `simulate-template-upgrade.sh` non-interactive init smoke
 - ✅ [AGENT] `MainActivitySmokeTest` migrated to `ActivityScenarioRule`
 - ✅ [AUTO] CI + Feature Gate green on `main` (`a5f3199`)
-- ⬜ [AGENT] Optional `connectedDebugAndroidTest` CI job
-- ⬜ [AGENT] Release Please + `release.yml` SBOM asset wiring
+- ✅ [AGENT] `connectedDebugAndroidTest` CI job (`android-instrumented`); documented in `modules/android/MODULE.md`
+- ✅ [AGENT] `release.yml` SBOM upload on `release` published + Release Please dispatch; tag push gate-only split
+
+## BUILD_PLAN cleanup (2026-06-15, M15 complete)
+
+- ✅ [AGENT] Archive M15 sprint body; slim board to maintenance + human open items
 
 ## BUILD_PLAN cleanup (2026-06-15, M14 + v0.9.0 archive)
 

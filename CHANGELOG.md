@@ -24,10 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Sprint M15: init `--keep-optional` / `--prune-optional`; `simulate-template-upgrade.sh` non-interactive init smoke; Playwright About update-status e2e
+- CI `android-instrumented` job for `connectedDebugAndroidTest`
 
 ### Changed
 
 - `MainActivitySmokeTest` uses `ActivityScenarioRule`; CodeQL rust/go exclusion documented in workflow + module guides
+- `release.yml` splits tag gate vs SBOM upload; Release Please dispatches SBOM assets on publish
 
 ## [0.9.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.8.0...v0.9.0) (2026-06-15)
 
