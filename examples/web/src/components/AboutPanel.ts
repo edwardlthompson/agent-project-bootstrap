@@ -45,6 +45,7 @@ export function createAboutPanel(
   const statusP = document.createElement("p");
   statusP.className = "gp-about-status";
   statusP.dataset.testid = "about-status";
+  statusP.setAttribute("aria-live", "polite");
   statusP.textContent = state.updateStatus;
 
   panel.append(header, versionP, formatP, statusP);

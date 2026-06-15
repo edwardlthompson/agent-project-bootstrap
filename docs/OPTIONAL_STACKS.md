@@ -19,6 +19,29 @@ rm -rf examples/rust examples/go examples/lightroom
 rm -rf modules/rust modules/go modules/lightroom
 ```
 
+### Non-interactive prune flags
+
+`--non-interactive` alone **skips** pruning. To prune in scripts, pass `--prune` explicitly.
+
+| Flag | Effect |
+|------|--------|
+| `--keep-optional` | When pruning, retain `rust` / `go` / `lightroom` examples and modules (**default**) |
+| `--prune-optional` | When pruning, also remove optional stacks |
+
+```bash
+# Web-only fork; keep optional stacks for later
+bash scripts/init-project.sh --non-interactive --stack web --prune --keep-optional \
+  --project-name "My App" --purpose "PWA"
+
+# Web-only fork; drop optional stacks too
+bash scripts/init-project.sh --non-interactive --stack web --prune --prune-optional \
+  --project-name "My App" --purpose "PWA"
+```
+
+PowerShell equivalents: `-Prune -KeepOptional` (default) or `-Prune -PruneOptional`.
+
+`scripts/simulate-template-upgrade.sh` runs both paths in CI (`--no-prune` then `--prune --prune-optional`).
+
 ## CI behavior
 
 Optional example CI jobs (`rust`, `go`, `lightroom`) and the instrumented Android job run when:

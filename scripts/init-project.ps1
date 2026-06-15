@@ -26,7 +26,7 @@ function Write-Utf8NoBom {
 
 function Remove-OptionalStacks {
     if ($KeepOptional) { return }
-    @("examples/rust", "examples/go", "modules/rust", "modules/go", "modules/lightroom") | ForEach-Object {
+    @("examples/rust", "examples/go", "examples/lightroom", "modules/rust", "modules/go", "modules/lightroom") | ForEach-Object {
         $target = Join-Path $Root $_
         if (Test-Path $target) { Remove-Item -Recurse -Force $target }
     }
@@ -35,10 +35,10 @@ function Remove-OptionalStacks {
 function Remove-PrimaryStack {
     param([string]$ActiveStack)
     $toRemove = switch ($ActiveStack) {
-        "web" { @("examples/python", "examples/android", "examples/node", "modules/python", "modules/android", "modules/node", "modules/lightroom") }
-        "python" { @("examples/web", "examples/android", "examples/node", "modules/web", "modules/android", "modules/node", "modules/lightroom") }
-        "android" { @("examples/web", "examples/python", "examples/node", "modules/web", "modules/python", "modules/node", "modules/lightroom") }
-        "node" { @("examples/web", "examples/python", "examples/android", "modules/web", "modules/python", "modules/android", "modules/lightroom") }
+        "web" { @("examples/python", "examples/android", "examples/node", "modules/python", "modules/android", "modules/node") }
+        "python" { @("examples/web", "examples/android", "examples/node", "modules/web", "modules/android", "modules/node") }
+        "android" { @("examples/web", "examples/python", "examples/node", "modules/web", "modules/python", "modules/node") }
+        "node" { @("examples/web", "examples/python", "examples/android", "modules/web", "modules/python", "modules/android") }
         default { @() }
     }
     foreach ($item in $toRemove) {

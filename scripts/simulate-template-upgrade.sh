@@ -39,4 +39,25 @@ bash scripts/init-project.sh \
 
 bash scripts/validate-bootstrap.sh --quick
 
+echo "==> Non-interactive init smoke with --prune --prune-optional"
+git clone --quiet "file://$ROOT" "$WORKDIR/child-prune"
+cd "$WORKDIR/child-prune"
+
+bash scripts/init-project.sh \
+  --non-interactive \
+  --stack web \
+  --project-name "Upgrade Sim Prune" \
+  --purpose "Prune optional validation" \
+  --prune \
+  --prune-optional
+
+for path in examples/rust examples/go examples/lightroom modules/rust modules/go modules/lightroom; do
+  if [ -e "$path" ]; then
+    echo "FAIL: $path still present after --prune-optional"
+    exit 1
+  fi
+done
+
+bash scripts/validate-bootstrap.sh --quick
+
 echo "Upgrade simulation passed"

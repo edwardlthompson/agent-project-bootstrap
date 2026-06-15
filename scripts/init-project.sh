@@ -62,16 +62,16 @@ prune_optional_stacks() {
   if [ "$KEEP_OPTIONAL" = true ]; then
     return 0
   fi
-  rm -rf examples/rust examples/go modules/rust modules/go modules/lightroom 2>/dev/null || true
+  rm -rf examples/rust examples/go examples/lightroom modules/rust modules/go modules/lightroom 2>/dev/null || true
 }
 
 prune_primary_stack() {
   local stack="$1"
   case "$stack" in
-    web) rm -rf examples/python examples/android examples/node modules/python modules/android modules/node modules/lightroom 2>/dev/null || true ;;
-    python) rm -rf examples/web examples/android examples/node modules/web modules/android modules/node modules/lightroom 2>/dev/null || true ;;
-    android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node modules/lightroom 2>/dev/null || true ;;
-    node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android modules/lightroom 2>/dev/null || true ;;
+    web) rm -rf examples/python examples/android examples/node modules/python modules/android modules/node 2>/dev/null || true ;;
+    python) rm -rf examples/web examples/android examples/node modules/web modules/android modules/node 2>/dev/null || true ;;
+    android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node 2>/dev/null || true ;;
+    node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android 2>/dev/null || true ;;
   esac
   prune_optional_stacks
 }

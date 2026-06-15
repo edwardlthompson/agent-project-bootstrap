@@ -61,11 +61,11 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### P2 backlog (after M16 sequential)
 
-- ⬜ [AGENT] Add `--prune-optional` smoke pass to `simulate-template-upgrade.sh`
-- ⬜ [AGENT] Document `--keep-optional` / `--prune-optional` in `docs/OPTIONAL_STACKS.md`
-- ⬜ [AGENT] `AboutPanel.ts`: `aria-live="polite"` on update status for screen readers
-- ⬜ [AGENT] Fix `appBootstrap.test.ts` i18n mock drift (assert translated strings or stop identity mock for update path)
-- ⬜ [AGENT] Stale `SECURITY_TRIAGE.md` L113 “Pre-tag gate” wording → “pre-merge workflow_dispatch dry-run”
+- ✅ [AGENT] Add `--prune-optional` smoke pass to `simulate-template-upgrade.sh`
+- ✅ [AGENT] Document `--keep-optional` / `--prune-optional` in `docs/OPTIONAL_STACKS.md`
+- ✅ [AGENT] `AboutPanel.ts`: `aria-live="polite"` on update status for screen readers
+- ✅ [AGENT] Fix `appBootstrap.test.ts` i18n mock drift (assert translated strings or stop identity mock for update path)
+- ✅ [AGENT] Stale `SECURITY_TRIAGE.md` L113 “Pre-tag gate” wording → “pre-merge workflow_dispatch dry-run” (done in M16 P1)
 
 ### Open after M16 (human judgment only)
 
