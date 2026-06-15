@@ -42,24 +42,24 @@ Default locale: English only. Add `src/locales/{lang}.json` when shipping transl
 
 ## Activation Checklist
 
-- [ ] Add `manifest.webmanifest` with required fields
-- [ ] Implement offline-first service worker
-- [ ] Configure Lighthouse CI budgets (`.lighthouserc.json`) with `numberOfRuns: 3` and median assertion; keep `minScore: 0.9` for performance (do not lower budget for CI flake)
-- [ ] Set up axe-core accessibility tests in Playwright
-- [ ] Review `examples/web/` Golden Path stub
-- [ ] Add visual regression snapshots for key pages
-- [ ] Enforce bundle size budgets in CI
-- [ ] Keyboard-only navigation smoke test checklist
-- [ ] Respect `prefers-reduced-motion` and `prefers-color-scheme`
-- [x] i18n scaffold (`src/locales/`, `src/i18n/`) — see `docs/DESIGN_GUIDE.md`
-- [ ] Confirm GitHub Pages uses Actions workflow (not `/docs` folder source)
+- ⬜ Add `manifest.webmanifest` with required fields
+- ⬜ Implement offline-first service worker
+- ⬜ Configure Lighthouse CI budgets (`.lighthouserc.json`) with `numberOfRuns: 3` and median assertion; keep `minScore: 0.9` for performance (do not lower budget for CI flake)
+- ⬜ Set up axe-core accessibility tests in Playwright
+- ⬜ Review `examples/web/` Golden Path stub
+- ⬜ Add visual regression snapshots for key pages
+- ⬜ Enforce bundle size budgets in CI
+- ⬜ Keyboard-only navigation smoke test checklist
+- ⬜ Respect `prefers-reduced-motion` and `prefers-color-scheme`
+- ✅ i18n scaffold (`src/locales/`, `src/i18n/`) — see `docs/DESIGN_GUIDE.md`
+- ⬜ Confirm GitHub Pages uses Actions workflow (not `/docs` folder source)
 
 ## Operations (when deployed as service)
 
-- [ ] Health/readiness endpoints or documented static equivalent
-- [ ] Structured logging standard per `docs/RUNBOOK.md`
+- ⬜ Health/readiness endpoints or documented static equivalent
+- ⬜ Structured logging standard per `docs/RUNBOOK.md`
 
-- [x] In-app About panel with PWA update checker and donation block
+- ✅ In-app About panel with PWA update checker and donation block
 ## Golden Path Reference
 
 See `examples/web/` for Vite + TypeScript PWA with Vitest, Playwright, and Lighthouse CI.

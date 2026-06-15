@@ -4,11 +4,11 @@
 
 ## Acceptance criteria
 
-- [x] User can open a Settings panel/screen from the main navigation
-- [x] Theme preference (light/dark/system) persists across restarts
-- [x] Update-check toggle respects opt-in telemetry policy (`docs/PRIVACY.md`)
-- [x] Offline: settings load last persisted values; no network required for display
-- [x] i18n: all user-visible strings under `settings.*` keys
+- ✅ User can open a Settings panel/screen from the main navigation
+- ✅ Theme preference (light/dark/system) persists across restarts
+- ✅ Update-check toggle respects opt-in telemetry policy (`docs/PRIVACY.md`)
+- ✅ Offline: settings load last persisted values; no network required for display
+- ✅ i18n: all user-visible strings under `settings.*` keys
 
 ## Smoke scenario
 

@@ -10,10 +10,10 @@
 
 ## Activation Checklist
 
-- [ ] Copy or keep `examples/go/` Golden Path stub
-- [ ] Set Go version in `go.mod` and CI
-- [ ] Enable vet/fmt/test in CI
-- [ ] Document Go version in `AGENT_MEMORY.md`
+- ⬜ Copy or keep `examples/go/` Golden Path stub
+- ⬜ Set Go version in `go.mod` and CI
+- ⬜ Enable vet/fmt/test in CI
+- ⬜ Document Go version in `AGENT_MEMORY.md`
 
 ## Golden Path Reference
 

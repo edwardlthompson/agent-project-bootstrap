@@ -33,6 +33,9 @@ run_step() {
 
 run_step "readme-health" bash scripts/check-readme-health.sh
 run_step "fdroid-metadata" bash scripts/verify-fdroid-metadata.sh
+if command -v gh >/dev/null 2>&1; then
+  run_step "branch-protection" bash scripts/verify-branch-protection.sh
+fi
 run_step "simulate-upgrade" bash scripts/simulate-template-upgrade.sh
 run_step "feature-gate" bash scripts/feature-gate.sh --stack multi --strict
 

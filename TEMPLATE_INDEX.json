@@ -763,6 +763,34 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/verify-branch-protection.sh",
+      "purpose": "Verify GitHub branch protection required checks match template defaults",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-branch-protection.ps1",
+      "purpose": "Windows wrapper for verify-branch-protection.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-reproducible-apk.sh",
+      "purpose": "Local double-build APK hash check (SOURCE_DATE_EPOCH parity with CI)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-reproducible-apk.ps1",
+      "purpose": "Windows wrapper for verify-reproducible-apk.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/run-maintainer-gates.sh",
       "purpose": "Orchestrate weekly/monthly template maintainer AUTO gates",
       "read_when": "milestone_boundary",

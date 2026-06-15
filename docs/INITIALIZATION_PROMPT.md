@@ -92,7 +92,7 @@ Every task in `BUILD_PLAN.md` must carry an owner label so automated and human w
 | `ADB` | Human (Android) | Android SDK, emulator/device testing, F-Droid submission |
 | `AUTO` | CI/scripts/bots | GitHub Actions, Dependabot, pre-commit, update checker |
 
-- **Task format:** `- [ ] [OWNER] Description`
+- **Task format:** `- ⬜ [OWNER] Description`
 - **Sprint structure:** every sprint has two subsections:
   - `### Sequential (must complete in order)` — numbered checklist
   - `### Parallel (safe after Sequential step N)` — table with Task | Owner | Isolated scope
@@ -107,9 +107,9 @@ Every task in `BUILD_PLAN.md` must carry an owner label so automated and human w
 
 ### Sequential (must complete in order)
 
-1. [ ] [AGENT] Draft ADR-0001 core architecture
-2. [ ] [HUMAN] Approve ADR-0001
-3. [ ] [AGENT] Implement Golden Path (shared schema/types first)
+1. ⬜ [AGENT] Draft ADR-0001 core architecture
+2. ⬜ [HUMAN] Approve ADR-0001
+3. ⬜ [AGENT] Implement Golden Path (shared schema/types first)
 
 ### Parallel (safe after Sequential step 3)
 
@@ -177,7 +177,7 @@ To maximize reasoning accuracy, eliminate architectural drift, and maintain cris
 - **Privacy & Telemetry:** Enforce opt-in only telemetry. Adhere strictly to GDPR/CCPA standards. Maintain `docs/PRIVACY.md`: data collected, retention, deletion, lawful basis. Data minimization: no PII in logs without consent. `[HUMAN]` completes DPIA checklist if processing EU personal data.
 - **Operational Readiness:** For services, expose `/health` and `/ready` endpoints. Maintain `docs/RUNBOOK.md` (deploy, rollback, common failures, escalation). Use structured logging (JSON, correlation IDs). `[HUMAN]` defines SLOs for user-facing features.
 - **Token Economy:** Keep functions highly modular and files small to stay well within optimal token performance windows.
-- **Template Update Notifications:** Child repos track upstream template version via `.template-version` and `.template-update.json`. Intervals: `off` | `daily` | `weekly` | `monthly` | `on_session`. Human selects interval during `scripts/init-project.sh` / `init-project.ps1` or by editing JSON. Checker scripts (`scripts/check-template-updates.sh` / `.ps1`) run on devcontainer start and manually; on new release they print a stdout banner. See `docs/UPGRADING_FROM_TEMPLATE.md`. `[HUMAN]` owns interval preference; `[AUTO]` owns scheduled runs.
+- **Template Update Notifications:** Child repos track upstream template version via `.template-version` and `.template-update.json`. Intervals: `off` | `daily` | `weekly` | `monthly` | `on_session`. Human selects interval during `scripts/init-project.sh` / `init-project.ps1` (or pass `--stack web --interval weekly` for non-interactive init) or by editing JSON. Checker scripts (`scripts/check-template-updates.sh` / `.ps1`) run on devcontainer start and manually; on new release they print a stdout banner. See `docs/UPGRADING_FROM_TEMPLATE.md`. `[HUMAN]` owns interval preference; `[AUTO]` owns scheduled runs.
 - **In-App About Screen & App Update Checker (product UI — not GitHub About, not template checker):**
   - **`[AGENT]`** Scaffold an accessible **About** screen reachable from primary navigation: app name, version, license/project URL, update-check preference, optional donation block.
   - **Update intervals (user-selectable, persisted locally):** `off` | `daily` | `weekly` (default) | `monthly` | `on_session`.

@@ -1,20 +1,32 @@
 # Post-template clone customization helper
+param(
+    [string]$Stack = "",
+    [string]$ProjectName = "",
+    [string]$ProjectPurpose = "",
+    [string]$Interval = "",
+    [string]$ReleaseRepo = "",
+    [string]$DonationUrl = "",
+    [string]$CodeOwner = "",
+    [switch]$Prune,
+    [switch]$NoPrune
+)
+
 $Root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Set-Location $Root
 
 Write-Host "=== agent-project-bootstrap init ===" -ForegroundColor Cyan
 Write-Host ""
 
-$ProjectName = Read-Host "Project name"
-$ProjectPurpose = Read-Host "One-line purpose"
-$Stack = Read-Host "Primary stack (web/python/android/node/multi/none)"
+if (-not $ProjectName) { $ProjectName = Read-Host "Project name" }
+if (-not $ProjectPurpose) { $ProjectPurpose = Read-Host "One-line purpose" }
+if (-not $Stack) { $Stack = Read-Host "Primary stack (web/python/android/node/multi/none)" }
 if (-not $Stack) { $Stack = "none" }
 $ValidStacks = @("web", "python", "android", "node", "multi", "none")
 if ($ValidStacks -notcontains $Stack) {
     Write-Host "Invalid stack '$Stack'; defaulting to none (keep all examples)."
     $Stack = "none"
 }
-$Interval = Read-Host "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]"
+if (-not $Interval) { $Interval = Read-Host "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]" }
 if (-not $Interval) { $Interval = "weekly" }
 
 $files = @(
@@ -37,8 +49,8 @@ $config.check_interval = $Interval
 $config | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $Root ".template-update.json") -Encoding UTF8
 
 
-$ReleaseRepo = Read-Host "GitHub owner/repo for app release checks (OWNER/REPO) [skip]"
-$DonationUrl = Read-Host "Donation URL [skip]"
+if (-not $ReleaseRepo) { $ReleaseRepo = Read-Host "GitHub owner/repo for app release checks (OWNER/REPO) [skip]" }
+if (-not $DonationUrl) { $DonationUrl = Read-Host "Donation URL [skip]" }
 $AppExample = Join-Path $Root ".app-update.json.example"
 $AppConfig = Join-Path $Root ".app-update.json"
 if ((Test-Path $AppExample) -and -not (Test-Path $AppConfig)) { Copy-Item $AppExample $AppConfig }
@@ -56,7 +68,7 @@ if ($DonationUrl) {
   $don | ConvertTo-Json -Depth 5 | Set-Content $DonConfig -Encoding UTF8
 }
 
-$CodeOwner = Read-Host "GitHub username for CODEOWNERS (without @)"
+if (-not $CodeOwner) { $CodeOwner = Read-Host "GitHub username for CODEOWNERS (without @)" }
 if ($CodeOwner) {
     $codeownersPath = Join-Path $Root ".github/CODEOWNERS"
     if (Test-Path $codeownersPath) {
@@ -84,14 +96,20 @@ $Pruned = $false
 if ($Stack -eq "none") {
     Write-Host "Stack 'none': keeping all examples and modules."
 } elseif ($Stack -eq "multi") {
-    $Prune = Read-Host "Prune unused examples/modules? (y/N)"
-    if ($Prune -eq "y" -or $Prune -eq "Y") {
+    if ($Prune) {
         $Pruned = $true
         Write-Host "Keeping all examples (multi-stack)."
+    } elseif ($NoPrune) {
+        Write-Host "Skipping prune (-NoPrune)."
+    } else {
+        $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
+        if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
+            $Pruned = $true
+            Write-Host "Keeping all examples (multi-stack)."
+        }
     }
 } else {
-    $Prune = Read-Host "Prune unused examples/modules? (y/N)"
-    if ($Prune -eq "y" -or $Prune -eq "Y") {
+    if ($Prune) {
         $Pruned = $true
         $toRemove = switch ($Stack) {
             "web" { @("examples/python", "examples/android", "examples/node", "modules/python", "modules/android", "modules/node", "modules/lightroom") }
@@ -103,6 +121,24 @@ if ($Stack -eq "none") {
         foreach ($item in $toRemove) {
             $target = Join-Path $Root $item
             if (Test-Path $target) { Remove-Item -Recurse -Force $target }
+        }
+    } elseif ($NoPrune) {
+        Write-Host "Skipping prune (-NoPrune)."
+    } else {
+        $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
+        if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
+            $Pruned = $true
+            $toRemove = switch ($Stack) {
+                "web" { @("examples/python", "examples/android", "examples/node", "modules/python", "modules/android", "modules/node", "modules/lightroom") }
+                "python" { @("examples/web", "examples/android", "examples/node", "modules/web", "modules/android", "modules/node", "modules/lightroom") }
+                "android" { @("examples/web", "examples/python", "examples/node", "modules/web", "modules/python", "modules/node", "modules/lightroom") }
+                "node" { @("examples/web", "examples/python", "examples/android", "modules/web", "modules/python", "modules/android", "modules/lightroom") }
+                default { @() }
+            }
+            foreach ($item in $toRemove) {
+                $target = Join-Path $Root $item
+                if (Test-Path $target) { Remove-Item -Recurse -Force $target }
+            }
         }
     }
 }

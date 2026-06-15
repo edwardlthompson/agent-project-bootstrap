@@ -12,7 +12,7 @@ Choose a primary architecture pattern for the application layer. Document the ch
 
 ## Decision
 
-**Selected pattern:** [ ] MVVM  [ ] Clean Architecture  [ ] Hexagonal (Ports & Adapters)
+**Selected pattern:** ⬜ MVVM  ⬜ Clean Architecture  ⬜ Hexagonal (Ports & Adapters)
 
 ### MVVM
 

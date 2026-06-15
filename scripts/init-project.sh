@@ -1,16 +1,67 @@
 #!/usr/bin/env bash
 # Post-template clone customization helper
+# Usage: scripts/init-project.sh [options]
+#   --stack web|python|android|node|multi|none
+#   --project-name NAME  --purpose TEXT  --interval INTERVAL
+#   --release-repo OWNER/REPO  --donation-url URL  --codeowner USER
+#   --prune  --no-prune
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+usage() {
+  cat <<'EOF'
+Usage: scripts/init-project.sh [options]
+  --stack STACK          web|python|android|node|multi|none
+  --project-name NAME
+  --purpose TEXT
+  --interval INTERVAL    off|daily|weekly|monthly|on_session
+  --release-repo OWNER/REPO
+  --donation-url URL
+  --codeowner USER       GitHub username without @
+  --prune                Prune unused examples/modules without prompting
+  --no-prune             Never prune (overrides --prune)
+  -h, --help
+EOF
+}
+
+STACK=""
+PROJECT_NAME=""
+PROJECT_PURPOSE=""
+INTERVAL=""
+RELEASE_REPO=""
+DONATION_URL=""
+CODEOWNER=""
+PRUNE_FLAG=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --stack) STACK="${2:-}"; shift 2 ;;
+    --project-name) PROJECT_NAME="${2:-}"; shift 2 ;;
+    --purpose) PROJECT_PURPOSE="${2:-}"; shift 2 ;;
+    --interval) INTERVAL="${2:-}"; shift 2 ;;
+    --release-repo) RELEASE_REPO="${2:-}"; shift 2 ;;
+    --donation-url) DONATION_URL="${2:-}"; shift 2 ;;
+    --codeowner) CODEOWNER="${2:-}"; shift 2 ;;
+    --prune) PRUNE_FLAG="yes"; shift ;;
+    --no-prune) PRUNE_FLAG="no"; shift ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "Unknown option: $1" >&2; usage >&2; exit 1 ;;
+  esac
+done
+
 echo "=== agent-project-bootstrap init ==="
 echo ""
 
-read -rp "Project name: " PROJECT_NAME
-read -rp "One-line purpose: " PROJECT_PURPOSE
-read -rp "Primary stack (web/python/android/node/multi/none): " STACK
+if [ -z "$PROJECT_NAME" ]; then
+  read -rp "Project name: " PROJECT_NAME
+fi
+if [ -z "$PROJECT_PURPOSE" ]; then
+  read -rp "One-line purpose: " PROJECT_PURPOSE
+fi
+if [ -z "$STACK" ]; then
+  read -rp "Primary stack (web/python/android/node/multi/none): " STACK
+fi
 STACK="${STACK:-none}"
 case "$STACK" in
   web|python|android|node|multi|none) ;;
@@ -19,7 +70,9 @@ case "$STACK" in
     STACK=none
     ;;
 esac
-read -rp "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]: " INTERVAL
+if [ -z "$INTERVAL" ]; then
+  read -rp "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]: " INTERVAL
+fi
 INTERVAL="${INTERVAL:-weekly}"
 
 # Replace placeholders
@@ -47,8 +100,12 @@ with open(path, "w", encoding="utf-8") as f:
 PY
 
 
-read -rp "GitHub owner/repo for app release checks (OWNER/REPO) [skip]: " RELEASE_REPO
-read -rp "Donation URL [skip]: " DONATION_URL
+if [ -z "$RELEASE_REPO" ]; then
+  read -rp "GitHub owner/repo for app release checks (OWNER/REPO) [skip]: " RELEASE_REPO
+fi
+if [ -z "$DONATION_URL" ]; then
+  read -rp "Donation URL [skip]: " DONATION_URL
+fi
 
 python3 - "$ROOT" "$RELEASE_REPO" "$DONATION_URL" << 'PY'
 import json, shutil, sys
@@ -73,7 +130,9 @@ if url.strip() and dst_don.exists():
     dst_don.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 PY
 
-read -rp "GitHub username for CODEOWNERS (without @): " CODEOWNER
+if [ -z "$CODEOWNER" ]; then
+  read -rp "GitHub username for CODEOWNERS (without @): " CODEOWNER
+fi
 if [ -n "$CODEOWNER" ]; then
   sed -i "s/@\[PROJECT_OWNER\]/@$CODEOWNER/g" .github/CODEOWNERS 2>/dev/null || \
     sed -i '' "s/@\[PROJECT_OWNER\]/@$CODEOWNER/g" .github/CODEOWNERS
@@ -104,14 +163,20 @@ PRUNED=false
 if [ "$STACK" = "none" ]; then
   echo "Stack 'none': keeping all examples and modules."
 elif [ "$STACK" = "multi" ]; then
-  read -rp "Prune unused examples/modules? (y/N): " PRUNE
-  if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
+  if [ "$PRUNE_FLAG" = "yes" ]; then
     PRUNED=true
     echo "Keeping all examples (multi-stack)."
+  elif [ "$PRUNE_FLAG" = "no" ]; then
+    echo "Skipping prune (--no-prune)."
+  else
+    read -rp "Prune unused examples/modules? (y/N): " PRUNE
+    if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
+      PRUNED=true
+      echo "Keeping all examples (multi-stack)."
+    fi
   fi
 else
-  read -rp "Prune unused examples/modules? (y/N): " PRUNE
-  if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
+  if [ "$PRUNE_FLAG" = "yes" ]; then
     PRUNED=true
     case "$STACK" in
       web) rm -rf examples/python examples/android examples/node modules/python modules/android modules/node modules/lightroom 2>/dev/null || true ;;
@@ -119,6 +184,19 @@ else
       android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node modules/lightroom 2>/dev/null || true ;;
       node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android modules/lightroom 2>/dev/null || true ;;
     esac
+  elif [ "$PRUNE_FLAG" = "no" ]; then
+    echo "Skipping prune (--no-prune)."
+  else
+    read -rp "Prune unused examples/modules? (y/N): " PRUNE
+    if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
+      PRUNED=true
+      case "$STACK" in
+        web) rm -rf examples/python examples/android examples/node modules/python modules/android modules/node modules/lightroom 2>/dev/null || true ;;
+        python) rm -rf examples/web examples/android examples/node modules/web modules/android modules/node modules/lightroom 2>/dev/null || true ;;
+        android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node modules/lightroom 2>/dev/null || true ;;
+        node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android modules/lightroom 2>/dev/null || true ;;
+      esac
+    fi
   fi
 fi
 

@@ -13,23 +13,23 @@
 
 ## Active Modules
 
-- [x] Web / PWA (`modules/web/MODULE.md`)
-- [x] Python (`modules/python/MODULE.md`)
-- [x] Android / F-Droid (`modules/android/MODULE.md`)
-- [x] Node API (`modules/node/MODULE.md`)
-- [x] Lightroom Classic (`modules/lightroom/MODULE.md`)
-- [x] Rust (`modules/rust/MODULE.md`)
-- [x] Go (`modules/go/MODULE.md`)
+- ✅ Web / PWA (`modules/web/MODULE.md`)
+- ✅ Python (`modules/python/MODULE.md`)
+- ✅ Android / F-Droid (`modules/android/MODULE.md`)
+- ✅ Node API (`modules/node/MODULE.md`)
+- ✅ Lightroom Classic (`modules/lightroom/MODULE.md`)
+- ✅ Rust (`modules/rust/MODULE.md`)
+- ✅ Go (`modules/go/MODULE.md`)
 
 ## Threat Model Checklist
 
-- [x] `docs/THREAT_MODEL.md` drafted (STRIDE, trust boundaries, top abuse cases)
-- [x] No proprietary closed-source SDKs in production path
-- [x] Opt-in only telemetry (GDPR/CCPA compliant); see `docs/PRIVACY.md`
-- [x] Secrets excluded from VCS (Gitleaks pre-commit)
-- [x] Dependency vulnerability scanning enabled (CodeQL + Trivy + Dependabot)
-- [x] Input validation at all data boundaries
-- [x] `SECURITY.md` and private vulnerability reporting enabled
+- ✅ `docs/THREAT_MODEL.md` drafted (STRIDE, trust boundaries, top abuse cases)
+- ✅ No proprietary closed-source SDKs in production path
+- ✅ Opt-in only telemetry (GDPR/CCPA compliant); see `docs/PRIVACY.md`
+- ✅ Secrets excluded from VCS (Gitleaks pre-commit)
+- ✅ Dependency vulnerability scanning enabled (CodeQL + Trivy + Dependabot)
+- ✅ Input validation at all data boundaries
+- ✅ `SECURITY.md` and private vulnerability reporting enabled
 
 ## Persistent Context
 

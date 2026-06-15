@@ -8,13 +8,13 @@
 
 ## Activation Checklist
 
-- [ ] Verify all code uses `Lr*` SDK namespaces only
-- [ ] No generic Lua module imports (stdlib exceptions documented in ADR)
-- [ ] No direct OS system calls outside SDK boundaries
-- [ ] Configure `Info.lua` with correct `.lrplugin` wrapper parameters
-- [ ] Set up `LrLogger` for structured debug output
-- [ ] Document SDK version compatibility in AGENT_MEMORY.md
-- [ ] Add Lua lint rules if applicable
+- ⬜ Verify all code uses `Lr*` SDK namespaces only
+- ⬜ No generic Lua module imports (stdlib exceptions documented in ADR)
+- ⬜ No direct OS system calls outside SDK boundaries
+- ⬜ Configure `Info.lua` with correct `.lrplugin` wrapper parameters
+- ⬜ Set up `LrLogger` for structured debug output
+- ⬜ Document SDK version compatibility in AGENT_MEMORY.md
+- ⬜ Add Lua lint rules if applicable
 
 ## Golden Path Reference
 

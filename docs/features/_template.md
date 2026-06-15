@@ -4,10 +4,10 @@
 
 ## Acceptance criteria
 
-- [ ] User-visible behavior: _describe the happy path_
-- [ ] Offline/error behavior: _describe degraded mode_
-- [ ] Accessibility: _keyboard/screen reader expectations (web/Android)_
-- [ ] i18n: keys added under `{feature}.*` (web `locales/`, Android `strings.xml`)
+- ⬜ User-visible behavior: _describe the happy path_
+- ⬜ Offline/error behavior: _describe degraded mode_
+- ⬜ Accessibility: _keyboard/screen reader expectations (web/Android)_
+- ⬜ i18n: keys added under `{feature}.*` (web `locales/`, Android `strings.xml`)
 
 ## Smoke scenario
 

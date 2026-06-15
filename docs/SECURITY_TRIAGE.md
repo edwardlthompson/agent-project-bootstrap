@@ -74,10 +74,10 @@ Third-party workflow actions must use **immutable refs** to reduce supply-chain 
 
 Before any version bump or GitHub Release:
 
-- [ ] Weekly triage completed within last **7 days**
-- [ ] Zero open **Critical/High** Dependabot alerts (or documented exception with [HUMAN] approval + linked issue/ADR)
-- [ ] Deferred vulnerabilities have a linked issue and [HUMAN] sign-off in release notes or DECISION_LOG.md
-- [ ] All [AUTO] security scans green on main (Trivy, CodeQL)
+- ⬜ Weekly triage completed within last **7 days**
+- ⬜ Zero open **Critical/High** Dependabot alerts (or documented exception with [HUMAN] approval + linked issue/ADR)
+- ⬜ Deferred vulnerabilities have a linked issue and [HUMAN] sign-off in release notes or DECISION_LOG.md
+- ⬜ All [AUTO] security scans green on main (Trivy, CodeQL)
 
 If a Critical/High alert has no upstream fix, release may proceed only when:
 

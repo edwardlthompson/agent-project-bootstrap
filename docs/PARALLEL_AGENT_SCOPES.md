@@ -19,9 +19,19 @@
 | multi | One scope per stack row; no overlap |
 | none | Match `AGENT_MEMORY.md` checked modules |
 
-## Sprint M12 (template maintainer) — active
+## Sprint M13 (template maintainer) — archived
 
-> Safe after BUILD_PLAN M12 Sequential step 2. CodeQL blocked on `daa9d85` until row 1.
+> Completed 2026-06-15. Branch protection verify, init `--stack`, local APK hash wrapper.
+
+| Agent | Scope |
+|-------|-------|
+| A — Branch protection | `scripts/verify-branch-protection.sh`, `.ps1`, `run-maintainer-gates.sh` |
+| B — Init CLI | `scripts/init-project.sh`, `scripts/init-project.ps1` |
+| C — APK reproducibility | `scripts/verify-reproducible-apk.sh`, `.ps1`, `modules/android/MODULE.md` |
+
+## Sprint M12 (template maintainer) — archived
+
+> Completed 2026-06-15. CodeQL init order + Kotlin 2.3.20 pin; tag gate `--jobs`; bootstrap coverage.
 
 | Agent | Scope |
 |-------|-------|

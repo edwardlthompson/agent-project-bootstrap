@@ -91,11 +91,11 @@ theme.toggle.label, theme.mode.system, theme.mode.light, theme.mode.dark
 
 ## Agent checklist (before UI PR)
 
-- [ ] Tokens changed only in `design-tokens/design-tokens.json` with sync run
-- [ ] No `#RRGGBB` literals in UI source (except generated files)
-- [ ] No string literals in composables or `main.ts` markup
-- [ ] Theme toggle still cycles system → light → dark
-- [ ] `scripts/check-design-cohesion.sh` passes
+- ⬜ Tokens changed only in `design-tokens/design-tokens.json` with sync run
+- ⬜ No `#RRGGBB` literals in UI source (except generated files)
+- ⬜ No string literals in composables or `main.ts` markup
+- ⬜ Theme toggle still cycles system → light → dark
+- ⬜ `scripts/check-design-cohesion.sh` passes
 
 ## Extending the system
 
