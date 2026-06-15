@@ -107,7 +107,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 ### Release (HUMAN)
 
 1. [ ] [HUMAN] Verify branch protection check names in GitHub UI; fix `setup-github-repo.sh` contexts if mismatched
-2. [ ] [HUMAN] Merge Release Please PR #11 (`v0.8.0`) after pre-release gates green on `main`
+2. [ ] [HUMAN] Merge Release Please PR #11 (`v0.8.0`) after CI green on `main`
 3. [ ] [HUMAN] Approve release tag after pre-release gates pass
 
 ### Distribution (ADB + HUMAN)
@@ -120,6 +120,10 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 - [ ] [HUMAN] `gh auth` with security-alerts scope for local Dependabot triage; re-run `run-maintainer-gates.sh` full (not `--quick`) before v0.8.0 tag
 
+### CI sign-off (AUTO)
+
+- [ ] [AUTO] CI green on `main` after Sprint M11 (Feature Gate + CodeQL + Android build)
+
 ---
 
 ## Archived Sprints
@@ -131,7 +135,8 @@ grep '\[AUTO\]' BUILD_PLAN.md
 | M7 Feature assembly + agent gates | Complete | `COMPLETED_TASKS.md` |
 | M8 Feature gate CI | Complete | `COMPLETED_TASKS.md` |
 | M9 Agent gate fidelity + exemplars | Complete | `COMPLETED_TASKS.md` |
-| M10 Code review remediation (AGENT) | Complete | `COMPLETED_TASKS.md` |
+| M10 Code review remediation | Complete | `COMPLETED_TASKS.md` |
+| M11 Post-M10 hardening (AGENT) | Complete | `COMPLETED_TASKS.md` |
 | Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
 | Maintainer gate cycle 2026-06-15 | Complete | `COMPLETED_TASKS.md` |
 | BUILD_PLAN cleanup 2026-06-15 | Complete | `COMPLETED_TASKS.md` |

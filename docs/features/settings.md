@@ -23,7 +23,7 @@
 | Logic | `examples/web/src/settings/` | `examples/android/.../settings/` |
 | View | `examples/web/src/components/SettingsPanel.ts` | `examples/android/.../ui/settings/` |
 | Tests | `settings/*.test.ts` | `src/test/.../settings/` |
-| Wiring | `AppShell.ts` nav hook | `MainActivity` nav hook |
+| Wiring | `appBootstrap.ts` + `AppShell.ts` | `GoldenPathApp.kt` (composition root) |
 
 ## Out of scope (Sprint 2)
 

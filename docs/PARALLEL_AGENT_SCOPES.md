@@ -19,6 +19,10 @@
 | multi | One scope per stack row; no overlap |
 | none | Match `AGENT_MEMORY.md` checked modules |
 
+## Sprint M11 (template maintainer) — archived
+
+> Completed 2026-06-15. CI blocker fixes on `9163dab` follow-up.
+
 ## Sprint M10 (template maintainer) — archived
 
 > Completed 2026-06-15. Reference scopes for future maintainer parallel work.

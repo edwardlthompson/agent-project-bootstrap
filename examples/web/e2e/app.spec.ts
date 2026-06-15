@@ -37,6 +37,22 @@ test("persists dark theme after reload", async ({ page }) => {
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });
 
+test("toggles update check in settings", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  const toggle = page.locator("[data-settings-update]");
+  await expect(toggle).not.toBeChecked();
+  await toggle.check();
+  await expect(toggle).toBeChecked();
+});
+
+test("opens about panel with version", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "About" }).click();
+  await expect(page.getByRole("heading", { name: "About" })).toBeVisible();
+  await expect(page.getByTestId("about-status")).toBeVisible();
+});
+
 test("serves cached shell offline via service worker", async ({ page, context }) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");

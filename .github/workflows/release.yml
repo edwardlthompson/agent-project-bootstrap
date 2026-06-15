@@ -18,17 +18,22 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Pre-release gate
+      - name: Pre-release gate (workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch'
         run: bash scripts/pre-release-gate.sh
 
-      - name: Verify template version matches tag
+      - name: Tag release lightweight gate
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           TAG="${GITHUB_REF#refs/tags/v}"
-          VERSION=$(cat .template-version | tr -d '[:space:]')
+          VERSION=$(tr -d '[:space:]' < .template-version)
           if [ "$TAG" != "$VERSION" ]; then
             echo "Tag v$TAG does not match .template-version ($VERSION)"
             exit 1
           fi
+          bash scripts/check-github-ci.sh HEAD
 
       - name: Run CI checks reminder
         run: echo "Ensure all CI checks passed before tagging. See CHANGELOG.md."

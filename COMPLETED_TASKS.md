@@ -295,6 +295,18 @@
 
 - [x] [AGENT] Archive completed M9 AGENT rows; slim active board to release + distribution open items
 
+## Sprint M11 — Post-M10 hardening (AGENT, 2026-06-15)
+
+- [x] [AGENT] Fix Android compile errors (`MainActivity` launch import; `GoldenPathApp` scope.launch)
+- [x] [AGENT] CodeQL java-kotlin: setup-java, Android SDK, Gradle assembleDebug before analyze
+- [x] [AGENT] ReleaseTagFetcher on Dispatchers.IO; offline + CheckSchedule gating; ReleaseAssetSelector wired
+- [x] [AGENT] release.yml: full pre-release on workflow_dispatch; lightweight tag gate (version + CI snapshot)
+- [x] [AGENT] Robolectric DataStore tests: ThemePreferencesTest, AppUpdatePreferencesTest
+- [x] [AGENT] About parity: clickable donations, no_compatible string, header nav toggle, BuildConfig.VERSION_NAME
+- [x] [AGENT] Web appBootstrap.ts composition root; settings.md wiring map updated
+- [x] [AGENT] Gate dedupe: run-maintainer-gates full mode uses pre-release only; check-github-ci --jobs
+- [x] [AGENT] Prune stale about.update.interval.* i18n; web e2e for update-check + About panel
+
 ## Sprint M10 — Code review remediation (AGENT, 2026-06-15)
 
 - [x] [AGENT] M9-8 settings slice + parallel A–D committed; BUILD_PLAN cleanup

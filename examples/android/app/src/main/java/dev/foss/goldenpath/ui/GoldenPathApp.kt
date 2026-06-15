@@ -8,10 +8,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dev.foss.goldenpath.BuildConfig
 import dev.foss.goldenpath.R
 import dev.foss.goldenpath.about.AppUpdatePreferences
 import dev.foss.goldenpath.about.CheckSchedule
 import dev.foss.goldenpath.about.DonationsLoader
+import dev.foss.goldenpath.about.ReleaseAssetSelector
 import dev.foss.goldenpath.about.ReleaseTagFetcher
 import dev.foss.goldenpath.about.UpdateStatusEvaluator
 import dev.foss.goldenpath.network.NetworkStatusMonitor
@@ -22,8 +24,6 @@ import dev.foss.goldenpath.ui.theme.ThemePreferences
 import dev.foss.goldenpath.ui.theme.next
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-
-private const val APP_VERSION = "0.1.0"
 
 @Composable
 fun GoldenPathApp(
@@ -42,13 +42,20 @@ fun GoldenPathApp(
     var showSettings by remember { mutableStateOf(false) }
     var updateStatus by remember { mutableStateOf(context.getString(R.string.about_update_current)) }
     val donations = remember { DonationsLoader.load(context) }
+    val appVersion = BuildConfig.VERSION_NAME
 
-    LaunchedEffect(checkInterval, lastChecked) {
+    LaunchedEffect(checkInterval, lastChecked, isOnline, installedFormat) {
+        if (!isOnline) return@LaunchedEffect
         if (!CheckSchedule.shouldCheck(checkInterval, lastChecked, System.currentTimeMillis())) return@LaunchedEffect
         val repo = ReleaseTagFetcher.loadReleaseRepo(context) ?: return@LaunchedEffect
-        val tag = ReleaseTagFetcher.fetchLatestTag(repo)
+        val release = ReleaseTagFetcher.fetchLatestRelease(repo) ?: return@LaunchedEffect
+        val format = installedFormat ?: "apk"
+        if (release.assets.isNotEmpty() && ReleaseAssetSelector.select(release.assets, format) == null) {
+            updateStatus = context.getString(R.string.about_update_no_compatible)
+            return@LaunchedEffect
+        }
         appUpdatePreferences.setLastChecked(System.currentTimeMillis())
-        updateStatus = when (val result = UpdateStatusEvaluator.evaluate(APP_VERSION, tag)) {
+        updateStatus = when (val result = UpdateStatusEvaluator.evaluate(appVersion, release.tag)) {
             is UpdateStatusEvaluator.Result.Current -> context.getString(R.string.about_update_current)
             is UpdateStatusEvaluator.Result.Available ->
                 context.getString(R.string.about_update_available, result.version)
@@ -62,35 +69,23 @@ fun GoldenPathApp(
             showAbout = showAbout,
             showSettings = showSettings,
             updateCheckEnabled = SettingsLogic.isUpdateCheckEnabled(checkInterval),
-            appVersion = APP_VERSION,
+            appVersion = appVersion,
             installedFormat = installedFormat ?: "apk",
             updateStatus = updateStatus,
             donations = donations,
-            onThemeToggle = {
-                scope.launchTheme(themePreferences, themeMode.next())
-            },
-            onThemeModeSelect = { mode ->
-                scope.launchTheme(themePreferences, mode)
-            },
-            onAboutOpen = { showAbout = true; showSettings = false },
+            onThemeToggle = { scope.launch { themePreferences.setThemeMode(themeMode.next()) } },
+            onThemeModeSelect = { mode -> scope.launch { themePreferences.setThemeMode(mode) } },
+            onAboutOpen = { showAbout = !showAbout; if (showAbout) showSettings = false },
             onAboutClose = { showAbout = false },
-            onSettingsOpen = { showSettings = true; showAbout = false },
+            onSettingsOpen = { showSettings = !showSettings; if (showSettings) showAbout = false },
             onSettingsClose = { showSettings = false },
             onUpdateCheckChange = { enabled ->
-                scope.launchInterval(appUpdatePreferences, SettingsLogic.intervalForToggle(enabled, checkInterval))
+                scope.launch {
+                    appUpdatePreferences.setCheckInterval(
+                        SettingsLogic.intervalForToggle(enabled, checkInterval),
+                    )
+                }
             },
         )
-    }
-}
-
-private fun CoroutineScope.launchTheme(prefs: ThemePreferences, mode: ThemeMode) {
-    kotlinx.coroutines.launch {
-        prefs.setThemeMode(mode)
-    }
-}
-
-private fun CoroutineScope.launchInterval(prefs: AppUpdatePreferences, interval: String) {
-    kotlinx.coroutines.launch {
-        prefs.setCheckInterval(interval)
     }
 }

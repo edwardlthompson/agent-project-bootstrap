@@ -9,6 +9,7 @@ import dev.foss.goldenpath.about.AppUpdatePreferences
 import dev.foss.goldenpath.network.NetworkStatusMonitor
 import dev.foss.goldenpath.ui.GoldenPathApp
 import dev.foss.goldenpath.ui.theme.ThemePreferences
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private var networkStatusMonitor: NetworkStatusMonitor? = null

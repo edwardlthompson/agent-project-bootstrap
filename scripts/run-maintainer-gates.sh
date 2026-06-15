@@ -38,32 +38,13 @@ run_step "feature-gate" bash scripts/feature-gate.sh --stack multi --strict
 
 if [ "$QUICK" = true ]; then
   run_step "security-triage" bash scripts/check-security-triage.sh
+  if command -v gh >/dev/null 2>&1; then
+    run_step "ci-jobs" bash scripts/check-github-ci.sh HEAD --jobs "Repo Hygiene,Feature Gate"
+  fi
 else
-  run_step "security-triage" bash scripts/check-security-triage.sh --wait-ci "$WAIT_CI"
   run_step "pre-release" bash scripts/pre-release-gate.sh
-fi
-
-if command -v gh >/dev/null 2>&1; then
-  REF="$(git rev-parse HEAD)"
-  REPO="$(gh repo view --json nameWithOwner -q .nameWithOwner 2>/dev/null || true)"
-  if [ -n "$REPO" ]; then
-    echo ""
-    echo "=== ci-jobs (Repo Hygiene + Feature Gate) ==="
-    RUN_ID="$(gh run list --repo "$REPO" --commit "$REF" --workflow CI --json databaseId -q '.[0].databaseId' 2>/dev/null || true)"
-    if [ -z "$RUN_ID" ]; then
-      echo "WARN no CI run for HEAD"
-      ERRORS=$((ERRORS + 1))
-    else
-      for job in "Repo Hygiene" "Feature Gate"; do
-        conclusion="$(gh run view "$RUN_ID" --repo "$REPO" --json jobs \
-          -q ".jobs[] | select(.name == \"${job}\") | .conclusion" 2>/dev/null | head -1 || true)"
-        case "$conclusion" in
-          success) echo "OK   CI job: ${job}" ;;
-          "") echo "WARN CI job not found: ${job}"; ERRORS=$((ERRORS + 1)) ;;
-          *) echo "FAIL CI job ${job} (${conclusion})"; ERRORS=$((ERRORS + 1)) ;;
-        esac
-      done
-    fi
+  if command -v gh >/dev/null 2>&1; then
+    run_step "ci-jobs" bash scripts/check-github-ci.sh HEAD --wait "$WAIT_CI" --jobs "Repo Hygiene,Feature Gate"
   fi
 fi
 
