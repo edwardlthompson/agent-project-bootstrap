@@ -56,11 +56,18 @@ while true; do
     if [ "$SKIP_WORKFLOWS" -eq 1 ]; then
       break
     fi
-    line="$(printf '%s\n' "${RUNS[@]}" | grep "^${wf}"$'\t' | head -1 || true)"
-    if [ -z "$line" ]; then
+    wf_lines="$(printf '%s\n' "${RUNS[@]}" | grep "^${wf}"$'\t' || true)"
+    if [ -z "$wf_lines" ]; then
       echo "WAIT ${wf}: no run yet"
       PENDING=$((PENDING + 1))
       continue
+    fi
+    line="$(printf '%s\n' "$wf_lines" | awk -F'\t' '$3=="success" {print; exit}')"
+    if [ -z "$line" ]; then
+      line="$(printf '%s\n' "$wf_lines" | awk -F'\t' '$2!="completed" {print; exit}')"
+    fi
+    if [ -z "$line" ]; then
+      line="$(printf '%s\n' "$wf_lines" | head -1)"
     fi
     IFS=$'\t' read -r _ status conclusion url <<<"$line"
     case "$conclusion" in

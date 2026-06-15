@@ -207,14 +207,12 @@ if [ "$STACK" = "none" ]; then
   echo "Stack 'none': keeping all examples and modules."
 elif [ "$STACK" = "multi" ]; then
   if [ "$PRUNE_FLAG" = "yes" ]; then
-    PRUNED=true
     echo "Keeping all examples (multi-stack)."
   elif [ "$PRUNE_FLAG" = "no" ] || [ "$NONINTERACTIVE" = true ]; then
     echo "Skipping prune (--no-prune or --non-interactive)."
   else
     read -rp "Prune unused examples/modules? (y/N): " PRUNE
     if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
-      PRUNED=true
       echo "Keeping all examples (multi-stack)."
     fi
   fi

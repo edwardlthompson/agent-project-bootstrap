@@ -209,7 +209,7 @@ Before any version bump, release tag, or production deployment, activate a focus
 
 ### Sprint 0 / Milestone Build Verification Gate
 
-> **Canonical sign-off list:** `BUILD_PLAN.md` Child Repo Playbook Sprint 0 step 6 (`validate-bootstrap.sh --quick`, `feature-gate.sh`, `check-github-ci.sh --wait 300`, `check-license-compliance.sh`). Extended checks below are recommended before first push.
+> **Canonical sign-off list:** `BUILD_PLAN.md` Child Repo Playbook Sprint 0 step 5 (`validate-bootstrap.sh --quick`, `feature-gate.sh --stack <active>`, `check-github-ci.sh --wait 300`, `check-license-compliance.sh`). Extended checks below are recommended before first push.
 
 Before claiming any sprint complete or requesting `[HUMAN]` approval:
 

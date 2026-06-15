@@ -39,16 +39,16 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### Sequential (must complete in order)
 
-1. ⬜ [AGENT] **P0 — Android INTERNET:** add `android.permission.INTERNET` to manifest; add unit test or instrumented assertion that `ReleaseTagFetcher` is reachable when network enabled
-2. ⬜ [AGENT] **P0 — Web update timing:** move `LAST_CHECKED_KEY` write in `aboutSession.ts` to after successful GitHub fetch (or clear on failure); add unit test for failed-fetch retry
-3. ⬜ [AGENT] **P0 — Prune + template index:** after prune, update `TEMPLATE_INDEX.json` (or prune-aware `validate-template-index.sh` using `.cursor/stack-selection.json`); extend `simulate-template-upgrade.sh` with post-prune `validate-bootstrap.sh --quick` + primary-stack removal asserts
-4. ⬜ [AGENT] **P0 — Release SBOM gate:** add pre-SBOM poll on `release` published (`check-github-ci.sh --wait` full rollup or `needs:` workflow_run) so assets attach only after post-merge CI green
-5. ⬜ [AGENT] **P1 — check-github-ci.ps1:** treat empty/in-progress job `conclusion` as WAIT (parity with `.sh`); add `--wait` to `health-check.yml` or schedule offset
-6. ⬜ [AGENT] **P1 — init-stack-sync:** sync `AGENT_MEMORY.md` ✅/❌ emoji lines (not `[ ]` checkboxes); add rust/go to `MODULE_LINES`; fix `multi`+`--prune` `pruned: true` when nothing deleted
-7. ⬜ [AGENT] **P1 — Docs P0 drift:** fix `INITIALIZATION_PROMPT.md` Sprint 0 “step 6” → step 5; reconcile Node as init stack vs optional across `OPTIONAL_STACKS.md`, `README.md`, `TEMPLATE_INDEX.json`
-8. ⬜ [AGENT] **P1 — FOSS grep scope:** extend Android proprietary-SDK scan to Kotlin/manifest/XML in `ci.yml` (not only `*.gradle*`)
-9. ⬜ [AGENT] **P1 — Pre-release completeness:** add `check-license-compliance.sh` to `pre-release-gate.sh`; fail on missing `.release-please-manifest.json` (not WARN-only)
-10. ⬜ [AGENT] **P1 — path-changes:** include `modules/android/**`, `.github/workflows/ci.yml`, and shared scripts in android-instrumented trigger paths
+1. ✅ [AGENT] **P0 — Android INTERNET:** add `android.permission.INTERNET` to manifest; add unit test or instrumented assertion that `ReleaseTagFetcher` is reachable when network enabled
+2. ✅ [AGENT] **P0 — Web update timing:** move `LAST_CHECKED_KEY` write in `aboutSession.ts` to after successful GitHub fetch (or clear on failure); add unit test for failed-fetch retry
+3. ✅ [AGENT] **P0 — Prune + template index:** after prune, update `TEMPLATE_INDEX.json` (or prune-aware `validate-template-index.sh` using `.cursor/stack-selection.json`); extend `simulate-template-upgrade.sh` with post-prune `validate-bootstrap.sh --quick` + primary-stack removal asserts
+4. ✅ [AGENT] **P0 — Release SBOM gate:** add pre-SBOM poll on `release` published (`check-github-ci.sh --wait` full rollup or `needs:` workflow_run) so assets attach only after post-merge CI green
+5. ✅ [AGENT] **P1 — check-github-ci.ps1:** treat empty/in-progress job `conclusion` as WAIT (parity with `.sh`); add `--wait` to `health-check.yml` or schedule offset
+6. ✅ [AGENT] **P1 — init-stack-sync:** sync `AGENT_MEMORY.md` ✅/❌ emoji lines (not `[ ]` checkboxes); add rust/go to `MODULE_LINES`; fix `multi`+`--prune` `pruned: true` when nothing deleted
+7. ✅ [AGENT] **P1 — Docs P0 drift:** fix `INITIALIZATION_PROMPT.md` Sprint 0 “step 6” → step 5; reconcile Node as init stack vs optional across `OPTIONAL_STACKS.md`, `README.md`, `TEMPLATE_INDEX.json`
+8. ✅ [AGENT] **P1 — FOSS grep scope:** extend Android proprietary-SDK scan to Kotlin/manifest/XML in `ci.yml` (not only `*.gradle*`)
+9. ✅ [AGENT] **P1 — Pre-release completeness:** add `check-license-compliance.sh` to `pre-release-gate.sh`; fail on missing `.release-please-manifest.json` (not WARN-only)
+10. ✅ [AGENT] **P1 — path-changes:** include `modules/android/**`, `.github/workflows/ci.yml`, and shared scripts in android-instrumented trigger paths
 11. ⬜ [AUTO] CI + Feature Gate green on `main` after rows 1–4
 
 ### Parallel (safe after Sequential step 4)

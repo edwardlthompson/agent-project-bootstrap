@@ -89,7 +89,7 @@ Before any version bump or GitHub Release:
 |---------|----------------|
 | `workflow_dispatch` (no tag input) | Full `pre-release-gate.sh` dry-run before next release |
 | `workflow_dispatch` (with `tag` input) | SBOM upload only — backfill assets on an existing release |
-| `release` published | Auto after Release Please: SBOM + Winget stub upload via `gh release upload --clobber` |
+| `release` published | Polls full CI rollup (`check-github-ci.sh --wait 3600`) then SBOM + Winget stub upload |
 | Tag push `v*` | Lightweight gate only: tag must match `.template-version`; polls **Repo Hygiene** + **Feature Gate** via `check-github-ci.sh --skip-workflows` (does **not** wait on CI/CodeQL rollup or emulator jobs) |
 
 Release Please publishes the GitHub Release; the `release` published event attaches SBOM assets. Use `workflow_dispatch` (no tag input) for maintainer dry-runs before merging the Release Please PR.

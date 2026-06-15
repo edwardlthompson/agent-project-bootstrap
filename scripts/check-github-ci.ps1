@@ -42,11 +42,18 @@ while ($true) {
 
     if (-not $SkipWorkflows) {
         foreach ($wf in $Required) {
-            $run = $runs | Where-Object { $_.workflowName -eq $wf } | Select-Object -First 1
-            if (-not $run) {
+            $wfRuns = @($runs | Where-Object { $_.workflowName -eq $wf })
+            if ($wfRuns.Count -eq 0) {
                 Write-Host "WAIT ${wf}: no run yet"
                 $pending++
                 continue
+            }
+            $run = $wfRuns | Where-Object { $_.conclusion -eq "success" } | Select-Object -First 1
+            if (-not $run) {
+                $run = $wfRuns | Where-Object { $_.status -ne "completed" } | Select-Object -First 1
+            }
+            if (-not $run) {
+                $run = $wfRuns | Select-Object -First 1
             }
             switch ($run.conclusion) {
                 "success" { Write-Host "OK   ${wf}: $($run.url)" }
@@ -82,6 +89,9 @@ while ($true) {
                     $pending++
                 } elseif ($job.conclusion -eq "success") {
                     Write-Host "OK   CI job: $jobName"
+                } elseif (-not $job.conclusion -or $job.status -ne "completed") {
+                    Write-Host "WAIT CI job: $jobName ($($job.status))"
+                    $pending++
                 } else {
                     Write-Host "FAIL CI job ${jobName} ($($job.conclusion))"
                     $failed++

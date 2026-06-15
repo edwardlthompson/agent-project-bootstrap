@@ -114,7 +114,7 @@ if ($ReleaseRepo) {
 $DonExample = Join-Path $Root "donations.json.example"
 $DonConfig = Join-Path $Root "donations.json"
 if ((Test-Path $DonExample) -and -not (Test-Path $DonConfig)) { Copy-Item $DonExample $DonConfig }
-if ($DonationUrl) {
+if ($DonationUrl -and (Test-Path $DonConfig)) {
   $don = Get-Content $DonConfig -Raw | ConvertFrom-Json
   $don.links = @(@{ label = "Donate"; url = $DonationUrl.Trim() })
   Write-Utf8NoBom $DonConfig ($don | ConvertTo-Json -Depth 5)
@@ -151,14 +151,12 @@ if ($Stack -eq "none") {
     Write-Host "Stack 'none': keeping all examples and modules."
 } elseif ($Stack -eq "multi") {
     if ($Prune) {
-        $Pruned = $true
         Write-Host "Keeping all examples (multi-stack)."
     } elseif ($NoPrune -or $NonInteractive) {
         Write-Host "Skipping prune (-NoPrune or -NonInteractive)."
     } else {
         $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
         if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
-            $Pruned = $true
             Write-Host "Keeping all examples (multi-stack)."
         }
     }

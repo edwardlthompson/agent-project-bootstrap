@@ -18,7 +18,7 @@ jobs:
       - name: Verify CI + Security Scan + CodeQL green on HEAD
         env:
           GH_TOKEN: ${{ github.token }}
-        run: bash scripts/check-github-ci.sh "$(git rev-parse HEAD)"
+        run: bash scripts/check-github-ci.sh "$(git rev-parse HEAD)" --wait 600
 
       - name: Setup Node for npm audit
         if: hashFiles('examples/web/package-lock.json') != ''

@@ -110,7 +110,7 @@ Active modules are synced to `AGENT_MEMORY.md` and recorded in `.cursor/stack-se
   <dt>Stack modules</dt>
   <dd><code>modules/{web,python,android,lightroom,rust,go}/MODULE.md</code></dd>
   <dt>Golden Path examples</dt>
-  <dd><code>examples/{web,python,android,lightroom}/</code>; optional <code>rust/</code>, <code>go/</code> — see <a href="docs/OPTIONAL_STACKS.md"><code>docs/OPTIONAL_STACKS.md</code></a></dd>
+  <dd><code>examples/{web,python,android,node}/</code>; optional <code>lightroom/</code>, <code>rust/</code>, <code>go/</code> — see <a href="docs/OPTIONAL_STACKS.md"><code>docs/OPTIONAL_STACKS.md</code></a></dd>
   <dt>Agent documentation</dt>
   <dd><code>docs/</code> — prompts, security, design guide (<strong>not</strong> the public website)</dd>
   <dt>Public website source</dt>
@@ -328,10 +328,10 @@ Community standards: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 
 <p>
   <strong>Optional stacks:</strong>
+  <img src="https://img.shields.io/badge/Node-stack%20picker-2ea44f?style=flat-square" alt="Node" />
   <img src="https://img.shields.io/badge/Rust-optional-656d76?style=flat-square" alt="Rust" />
   <img src="https://img.shields.io/badge/Go-optional-656d76?style=flat-square" alt="Go" />
-  <img src="https://img.shields.io/badge/Node-optional-656d76?style=flat-square" alt="Node" />
-  — documented in <a href="docs/OPTIONAL_STACKS.md"><code>docs/OPTIONAL_STACKS.md</code></a>; not in the default init stack picker.
+  — optional stacks in <a href="docs/OPTIONAL_STACKS.md"><code>docs/OPTIONAL_STACKS.md</code></a>.
 </p>
 
 Machine-readable catalog: [`TEMPLATE_INDEX.json`](TEMPLATE_INDEX.json)

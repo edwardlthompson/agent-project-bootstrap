@@ -1,13 +1,13 @@
 # Optional Stack Modules
 
-The init script stack picker (`web` / `python` / `android` / `multi`) does **not** include optional ecosystems. Enable them manually when needed.
+The init script stack picker (`web` / `python` / `android` / `node` / `multi` / `none`) does **not** include optional ecosystems (rust, go, lightroom). Enable them manually when needed.
 
 | Module | Guide | Example | When to keep |
 |--------|-------|---------|--------------|
 | Lightroom plugin | `modules/lightroom/MODULE.md` | `examples/lightroom/` | Adobe Lightroom Classic plugin work |
 | Rust | `modules/rust/MODULE.md` | `examples/rust/` | Rust CLI, services, or libraries |
 | Go | `modules/go/MODULE.md` | `examples/go/` | Go CLI, services, or libraries |
-| Node API | `modules/node/MODULE.md` | `examples/node/` | Node HTTP API (when present) |
+| Node API | `modules/node/MODULE.md` | `examples/node/` | Primary stack via `--stack node`; optional when pruning other stacks |
 
 ## Opt-in during init
 

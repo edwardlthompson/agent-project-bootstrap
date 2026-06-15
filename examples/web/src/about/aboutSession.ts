@@ -40,7 +40,6 @@ export async function checkForUpdates(): Promise<string> {
   const interval = getInterval();
   if (!shouldCheck(interval, last, now)) return t("about.update.current");
 
-  localStorage.setItem(LAST_CHECKED_KEY, String(now));
   const format = config.installed_artifact_format ?? detectInstalledFormat();
   if (format !== "pwa") return t("about.update.no_compatible");
   if (!config.release_repo) return t("about.update.current");
@@ -50,6 +49,7 @@ export async function checkForUpdates(): Promise<string> {
       `https://api.github.com/repos/${config.release_repo}/releases/latest`,
     );
     if (!res.ok) return t("about.update.current");
+    localStorage.setItem(LAST_CHECKED_KEY, String(now));
     const body = (await res.json()) as { tag_name?: string };
     const latest = body.tag_name ? parseReleaseVersion(body.tag_name) : null;
     if (latest && isNewerVersion(APP_VERSION, latest)) {

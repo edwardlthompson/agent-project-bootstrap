@@ -48,8 +48,16 @@ PY
       echo "OK   release-please manifest matches .template-version"
     fi
   else
-    echo "WARN: .release-please-manifest.json not found"
+    echo "FAIL: .release-please-manifest.json not found"
+    ERRORS=$((ERRORS + 1))
   fi
+fi
+
+if ! bash scripts/check-license-compliance.sh; then
+  echo "FAIL: check-license-compliance.sh"
+  ERRORS=$((ERRORS + 1))
+else
+  echo "OK   check-license-compliance.sh passed"
 fi
 
 echo ""

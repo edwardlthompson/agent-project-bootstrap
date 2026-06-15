@@ -62,7 +62,10 @@ jobs:
             exit 0
           fi
           changed() { git diff --name-only "$BASE" "$HEAD" | grep -q "^$1"; }
-          for spec in android:examples/android rust:examples/rust go:examples/go lightroom:examples/lightroom; do
+          android_changed() {
+            git diff --name-only "$BASE" "$HEAD" | grep -qE '^(examples/android|modules/android|\.github/workflows/ci\.yml|scripts/)'
+          }
+          for spec in rust:examples/rust go:examples/go lightroom:examples/lightroom; do
             key="${spec%%:*}"
             prefix="${spec#*:}"
             if [ -d "$prefix" ] && changed "$prefix"; then
@@ -71,6 +74,11 @@ jobs:
               echo "${key}=false" >> "$GITHUB_OUTPUT"
             fi
           done
+          if [ -d "examples/android" ] && android_changed; then
+            echo "android=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "android=false" >> "$GITHUB_OUTPUT"
+          fi
 
   encoding-check:
     name: File Encoding (UTF-8)
@@ -248,8 +256,10 @@ jobs:
       - name: Validate FOSS compliance markers
         run: |
           if grep -rE "com\.google\.android\.gms|firebase" \
-              examples/android --include="*.gradle" --include="*.gradle.kts" --include="*.toml" \
-              | grep -vE '//|/\*'; then
+              examples/android \
+              --include="*.gradle" --include="*.gradle.kts" --include="*.toml" \
+              --include="*.kt" --include="*.kts" --include="*.xml" \
+              | grep -vE '//|/\*|<!--'; then
             echo "ERROR: Proprietary SDK references found"
             exit 1
           fi
@@ -417,8 +427,10 @@ jobs:
       - name: FOSS compliance grep
         run: |
           if grep -rE "com\.google\.android\.gms|firebase" \
-              examples/android --include="*.gradle" --include="*.gradle.kts" --include="*.toml" \
-              | grep -vE '//|/\*'; then
+              examples/android \
+              --include="*.gradle" --include="*.gradle.kts" --include="*.toml" \
+              --include="*.kt" --include="*.kts" --include="*.xml" \
+              | grep -vE '//|/\*|<!--'; then
             echo "ERROR: Proprietary SDK references found"
             exit 1
           fi

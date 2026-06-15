@@ -76,6 +76,12 @@ jobs:
           fi
           echo "EFFECTIVE_TAG=v${VERSION}" >> "$GITHUB_ENV"
 
+      - name: Poll post-merge CI before SBOM upload
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/check-github-ci.sh HEAD --wait 3600
+
       - name: Pre-release gate (workflow_dispatch dry-run)
         if: github.event_name == 'workflow_dispatch' && inputs.tag == ''
         run: bash scripts/pre-release-gate.sh

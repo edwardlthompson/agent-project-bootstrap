@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sync AGENT_MEMORY module checkboxes and emit .cursor/stack-selection.json."""
+"""Sync AGENT_MEMORY module markers, emit stack-selection.json, prune TEMPLATE_INDEX."""
 from __future__ import annotations
 
 import json
@@ -14,6 +14,8 @@ MODULE_LINES = {
     "python": "Python",
     "node": "Node API",
     "lightroom": "Lightroom Classic",
+    "rust": "Rust",
+    "go": "Go",
 }
 
 PARALLEL_NOTES = {
@@ -39,10 +41,37 @@ def sync_agent_memory(root: Path, stack: str) -> None:
     text = path.read_text(encoding="utf-8")
     active = set(active_modules(stack))
     for key, label in MODULE_LINES.items():
-        mark = "x" if key in active else " "
-        pattern = rf"^- \[.\] {re.escape(label)}"
-        text = re.sub(pattern, f"- [{mark}] {label}", text, count=1)
+        mark = "✅" if key in active else "❌"
+        pattern = rf"^- [✅❌] {re.escape(label)}"
+        text = re.sub(pattern, f"- {mark} {label}", text, count=1)
     path.write_text(text, encoding="utf-8")
+
+
+def prune_template_index(root: Path) -> None:
+    index_path = root / "TEMPLATE_INDEX.json"
+    data = json.loads(index_path.read_text(encoding="utf-8"))
+
+    def exists(rel: str) -> bool:
+        return (root / rel).exists()
+
+    entry_points = data.get("entry_points", {})
+    data["entry_points"] = {k: v for k, v in entry_points.items() if exists(v)}
+
+    data["files"] = [item for item in data.get("files", []) if exists(item["path"])]
+
+    modules = data.get("modules", {})
+    pruned_modules = {}
+    for key, mod in modules.items():
+        guide = mod.get("guide", "")
+        example = mod.get("example", "")
+        if guide and not exists(guide):
+            continue
+        if example and not exists(example):
+            continue
+        pruned_modules[key] = mod
+    data["modules"] = pruned_modules
+
+    index_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 
 
 def write_stack_selection(root: Path, stack: str, pruned: bool) -> None:
@@ -66,8 +95,11 @@ def main() -> None:
         sys.exit(1)
     stack, root_s, pruned_s = sys.argv[1], sys.argv[2], sys.argv[3]
     root = Path(root_s)
+    pruned = pruned_s.lower() == "true"
     sync_agent_memory(root, stack)
-    write_stack_selection(root, stack, pruned_s.lower() == "true")
+    if pruned:
+        prune_template_index(root)
+    write_stack_selection(root, stack, pruned)
 
 
 if __name__ == "__main__":

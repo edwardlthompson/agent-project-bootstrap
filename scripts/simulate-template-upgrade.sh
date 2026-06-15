@@ -57,6 +57,13 @@ for path in examples/rust examples/go examples/lightroom modules/rust modules/go
     exit 1
   fi
 done
+for path in examples/python examples/android examples/node modules/python modules/android modules/node; do
+  if [ -e "$path" ]; then
+    echo "FAIL: $path still present after web-stack prune"
+    exit 1
+  fi
+done
+bash scripts/validate-bootstrap.sh --quick
 echo "Prune-optional smoke passed"
 
 echo "Upgrade simulation passed"
