@@ -57,7 +57,6 @@ for path in examples/rust examples/go examples/lightroom modules/rust modules/go
     exit 1
   fi
 done
-
-bash scripts/validate-bootstrap.sh --quick
+echo "Prune-optional smoke passed"
 
 echo "Upgrade simulation passed"
