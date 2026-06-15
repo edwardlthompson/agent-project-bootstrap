@@ -14,19 +14,19 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 
 1. All CI checks green on main
 2. `bash scripts/check-repo-hygiene.sh` passes
-3. Run `scripts/pre-release-gate.sh` (or `.ps1`) — CI poll, Dependabot Critical/High count, version/tag match
-4. Run `scripts/run-maintainer-gates.sh` for weekly maintainer cycle (readme, fdroid metadata, feature-gate, CI jobs)
-5. Bump `.template-version`
-4. Update `CHANGELOG.md` (Keep a Changelog)
-5. Update `TEMPLATE_INDEX.json` version and file entries
-6. Run `scripts/validate-template-index.sh`
-7. Merge Release Please PR; **Release Please** auto-dispatches `release.yml` to attach SBOM assets
-8. **Dry-run:** **Actions → Release → Run workflow** (`workflow_dispatch`) to validate SBOM/provenance before merge
-9. Update repo About if description changed
-10. Weekly CVE triage completed within last 7 days (`docs/SECURITY_TRIAGE.md`)
-11. Zero open Critical/High Dependabot alerts (or documented exception with linked issue)
-12. `THIRD_PARTY_LICENSES.md` reviewed; SBOM attached to release
-13. Move completed Sprint M* items to `COMPLETED_TASKS.md`
+3. **Dry-run:** **Actions → Release → Run workflow** (`workflow_dispatch`, no tag input) to validate SBOM/provenance **before** merge
+4. Run `scripts/pre-release-gate.sh` (or `.ps1`) — CI poll, Dependabot Critical/High count, version/tag match
+5. Run `scripts/run-maintainer-gates.sh` for weekly maintainer cycle (readme, fdroid metadata, feature-gate, CI jobs)
+6. Bump `.template-version` (or merge Release Please PR which bumps it)
+7. Update `CHANGELOG.md` (Keep a Changelog; Release Please PR covers this)
+8. Update `TEMPLATE_INDEX.json` version and file entries
+9. Run `scripts/validate-template-index.sh`
+10. Merge Release Please PR; **release published** event attaches SBOM assets automatically
+11. Update repo About if description changed
+12. Weekly CVE triage completed within last 7 days (`docs/SECURITY_TRIAGE.md`)
+13. Zero open Critical/High Dependabot alerts (or documented exception with linked issue)
+14. `THIRD_PARTY_LICENSES.md` reviewed; SBOM attached to release
+15. Move completed Sprint M* items to `COMPLETED_TASKS.md`
 
 ## Safe Edit Zones
 

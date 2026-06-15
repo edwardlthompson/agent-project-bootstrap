@@ -90,9 +90,9 @@ Before any version bump or GitHub Release:
 | `workflow_dispatch` (no tag input) | Full `pre-release-gate.sh` dry-run before next release |
 | `workflow_dispatch` (with `tag` input) | SBOM upload only — backfill assets on an existing release |
 | `release` published | Auto after Release Please: SBOM + Winget stub upload via `gh release upload --clobber` |
-| Tag push `v*` | Lightweight gate only: tag must match `.template-version`; polls **Repo Hygiene** + **Feature Gate** |
+| Tag push `v*` | Lightweight gate only: tag must match `.template-version`; polls **Repo Hygiene** + **Feature Gate** via `check-github-ci.sh --skip-workflows` (does **not** wait on CI/CodeQL rollup or emulator jobs) |
 
-Release Please dispatches `release.yml` when it creates a tag. Use `workflow_dispatch` for maintainer dry-runs before merging the Release Please PR.
+Release Please publishes the GitHub Release; the `release` published event attaches SBOM assets. Use `workflow_dispatch` (no tag input) for maintainer dry-runs before merging the Release Please PR.
 
 If a Critical/High alert has no upstream fix, release may proceed only when:
 
@@ -110,7 +110,7 @@ If a Critical/High alert has no upstream fix, release may proceed only when:
 | `scripts/validate-workflow-actions.sh` | Resolve action refs via GitHub API |
 | `scripts/check-workflow-action-ref-format.sh` | Local bare-semver guard |
 | `scripts/check-security-triage.sh` | Weekly Dependabot + workflow + Scorecard gate |
-| `scripts/pre-release-gate.sh` | Pre-tag gate (`feature-gate --strict`, `check-security-triage --strict`) |
+| `scripts/pre-release-gate.sh` | Pre-merge `workflow_dispatch` dry-run (`feature-gate --strict`, `check-security-triage --strict`) |
 | `.github/workflows/scorecard.yml` | OpenSSF Scorecard SARIF upload |
 | `scripts/setup-github-repo.sh` | One-time Dependabot + reporting + branch protection setup |
 | `scripts/verify-branch-protection.sh` | Post-setup branch protection + strict/force-push verification |

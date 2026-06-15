@@ -21,4 +21,9 @@ rm -rf modules/rust modules/go modules/lightroom
 
 ## CI behavior
 
-Optional example CI jobs (`node`, `rust`, `go`, `lightroom`) run only when the corresponding directory **exists** and **changed** on the push/PR (or on `workflow_dispatch`). This limits CI minutes for child repos that removed optional examples.
+Optional example CI jobs (`rust`, `go`, `lightroom`) and the instrumented Android job run when:
+
+1. The corresponding `examples/{stack}/` directory **exists** (skipped after you delete the folder), and
+2. Files under that directory **changed** on the push/PR (or on `workflow_dispatch`, which runs all present optional jobs).
+
+The `node` example job runs on every push when `examples/node/` exists. Core jobs (web, python, android build, feature-gate) always run on every push to `main`.

@@ -19,6 +19,11 @@ Set-Location $Root
 
 if ($PruneOptional) { $KeepOptional = $false }
 
+function Write-Utf8NoBom {
+    param([string]$Path, [string]$Content)
+    [System.IO.File]::WriteAllText($Path, $Content, (New-Object System.Text.UTF8Encoding $false))
+}
+
 function Remove-OptionalStacks {
     if ($KeepOptional) { return }
     @("examples/rust", "examples/go", "modules/rust", "modules/go", "modules/lightroom") | ForEach-Object {
@@ -89,7 +94,7 @@ for rel in ("docs/INITIALIZATION_PROMPT.md", "AGENT_MEMORY.md"):
 
 $config = Get-Content (Join-Path $Root ".template-update.json") -Raw | ConvertFrom-Json
 $config.check_interval = $Interval
-$config | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $Root ".template-update.json") -Encoding UTF8
+Write-Utf8NoBom (Join-Path $Root ".template-update.json") ($config | ConvertTo-Json -Depth 5)
 
 
 if (-not $ReleaseRepo -and -not $NonInteractive) {
@@ -104,7 +109,7 @@ if ((Test-Path $AppExample) -and -not (Test-Path $AppConfig)) { Copy-Item $AppEx
 if ($ReleaseRepo) {
   $app = Get-Content $AppConfig -Raw | ConvertFrom-Json
   $app.release_repo = $ReleaseRepo.Trim()
-  $app | ConvertTo-Json -Depth 5 | Set-Content $AppConfig -Encoding UTF8
+  Write-Utf8NoBom $AppConfig ($app | ConvertTo-Json -Depth 5)
 }
 $DonExample = Join-Path $Root "donations.json.example"
 $DonConfig = Join-Path $Root "donations.json"
@@ -112,7 +117,7 @@ if ((Test-Path $DonExample) -and -not (Test-Path $DonConfig)) { Copy-Item $DonEx
 if ($DonationUrl) {
   $don = Get-Content $DonConfig -Raw | ConvertFrom-Json
   $don.links = @(@{ label = "Donate"; url = $DonationUrl.Trim() })
-  $don | ConvertTo-Json -Depth 5 | Set-Content $DonConfig -Encoding UTF8
+  Write-Utf8NoBom $DonConfig ($don | ConvertTo-Json -Depth 5)
 }
 
 if (-not $CodeOwner -and -not $NonInteractive) {

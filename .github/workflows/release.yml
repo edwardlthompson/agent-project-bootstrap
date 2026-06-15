@@ -38,15 +38,13 @@ jobs:
       - name: Poll required CI checks
         env:
           GH_TOKEN: ${{ github.token }}
-        run: bash scripts/check-github-ci.sh HEAD --wait 300 --jobs "Repo Hygiene,Feature Gate"
+        run: bash scripts/check-github-ci.sh HEAD --wait 300 --skip-workflows --jobs "Repo Hygiene,Feature Gate"
 
   sbom-assets:
     if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
     name: SBOM and release assets
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-
       - name: Resolve release tag
         id: tag
         run: |
@@ -55,12 +53,28 @@ jobs:
           elif [ -n "${{ inputs.tag }}" ]; then
             echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
           else
-            echo "tag=v$(tr -d '[:space:]' < .template-version)" >> "$GITHUB_OUTPUT"
+            echo "tag=" >> "$GITHUB_OUTPUT"
           fi
 
       - uses: actions/checkout@v6
         with:
-          ref: ${{ steps.tag.outputs.tag }}
+          ref: ${{ steps.tag.outputs.tag || github.ref }}
+
+      - name: Finalize release tag from .template-version
+        if: steps.tag.outputs.tag == ''
+        id: tag_ver
+        run: echo "tag=v$(tr -d '[:space:]' < .template-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Verify tag matches .template-version
+        run: |
+          TAG="${{ steps.tag.outputs.tag || steps.tag_ver.outputs.tag }}"
+          TAG="${TAG#v}"
+          VERSION=$(tr -d '[:space:]' < .template-version)
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "Tag v$TAG does not match .template-version ($VERSION)"
+            exit 1
+          fi
+          echo "EFFECTIVE_TAG=v${VERSION}" >> "$GITHUB_ENV"
 
       - name: Pre-release gate (workflow_dispatch dry-run)
         if: github.event_name == 'workflow_dispatch' && inputs.tag == ''
@@ -113,7 +127,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="${{ steps.tag.outputs.tag }}"
+          TAG="${EFFECTIVE_TAG:-${{ steps.tag.outputs.tag || steps.tag_ver.outputs.tag }}}"
           if ! gh release view "$TAG" >/dev/null 2>&1; then
             echo "FAIL: release $TAG not found (merge Release Please PR first)"
             exit 1

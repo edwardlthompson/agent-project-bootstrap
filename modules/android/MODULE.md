@@ -55,7 +55,7 @@ See `examples/android/` for FOSS Gradle/Kotlin skeleton. CI runs `./gradlew asse
 
 ## Instrumented tests (CI)
 
-Optional emulator job **Android - connectedDebugAndroidTest** in `.github/workflows/ci.yml` runs `MainActivitySmokeTest` via `reactivecircus/android-emulator-runner` (API 34, x86_64). Local equivalent:
+Optional emulator job **Android - connectedDebugAndroidTest** in `.github/workflows/ci.yml` runs `MainActivitySmokeTest` via `reactivecircus/android-emulator-runner` (API 34, x86_64, **AOSP `default` target** — no Google APIs). Runs when `examples/android/**` changes (or on `workflow_dispatch`). Local equivalent:
 
 ```bash
 cd examples/android

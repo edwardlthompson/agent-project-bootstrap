@@ -39,15 +39,15 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### Sequential (must complete in order)
 
-1. ⬜ [AGENT] **P0 — Tag gate timing:** fix `release.yml` tag-gate to poll only `--jobs "Repo Hygiene,Feature Gate"` without blocking on CI/CodeQL rollup, **or** raise `--wait` ≥45m; add `check-github-ci.sh --workflows-only` / `--skip-workflows` flag if needed
-2. ⬜ [AGENT] **P0 — SBOM version gate:** add tag ↔ `.template-version` assert at start of `sbom-assets` before SBOM generation
-3. ⬜ [AGENT] **P1 — Docs accuracy:** fix `SECURITY_TRIAGE.md` tag-gate table (full rollup vs jobs-only); renumber `MAINTAINING_THE_TEMPLATE.md` release checklist (steps 4–8 order: dry-run before merge)
-4. ⬜ [AGENT] **P1 — CI/docs parity:** align `OPTIONAL_STACKS.md` CI claims with `ci.yml` (add path filters **or** document always-on jobs); gate `android-instrumented` behind `paths: examples/android/**` **or** update `modules/android/MODULE.md` wording
-5. ⬜ [AGENT] **P1 — FOSS emulator:** switch `android-instrumented` from `google_apis` to AOSP/default target; document in `modules/android/MODULE.md`
-6. ⬜ [AGENT] **P1 — Upgrade sim gate:** remove `continue-on-error` from `upgrade-simulation` CI job (keep on `template-update-check`)
-7. ⬜ [AGENT] **P1 — Init encoding:** replace `Set-Content -Encoding UTF8` with BOM-less write in `init-project.ps1` for JSON configs
-8. ⬜ [AGENT] **P1 — Playwright e2e:** mock `/app-update.json` + GitHub API in About update-status test; assert distinct post-toggle status (no live network)
-9. ⬜ [AGENT] **P1 — Release workflow hygiene:** remove duplicate checkout in `release.yml`; dedupe SBOM triggers (prefer `release` published only, drop redundant dispatch from Release Please if redundant)
+1. ✅ [AGENT] **P0 — Tag gate timing:** fix `release.yml` tag-gate to poll only `--jobs "Repo Hygiene,Feature Gate"` without blocking on CI/CodeQL rollup, **or** raise `--wait` ≥45m; add `check-github-ci.sh --workflows-only` / `--skip-workflows` flag if needed
+2. ✅ [AGENT] **P0 — SBOM version gate:** add tag ↔ `.template-version` assert at start of `sbom-assets` before SBOM generation
+3. ✅ [AGENT] **P1 — Docs accuracy:** fix `SECURITY_TRIAGE.md` tag-gate table (full rollup vs jobs-only); renumber `MAINTAINING_THE_TEMPLATE.md` release checklist (steps 4–8 order: dry-run before merge)
+4. ✅ [AGENT] **P1 — CI/docs parity:** align `OPTIONAL_STACKS.md` CI claims with `ci.yml` (add path filters **or** document always-on jobs); gate `android-instrumented` behind `paths: examples/android/**` **or** update `modules/android/MODULE.md` wording
+5. ✅ [AGENT] **P1 — FOSS emulator:** switch `android-instrumented` from `google_apis` to AOSP/default target; document in `modules/android/MODULE.md`
+6. ✅ [AGENT] **P1 — Upgrade sim gate:** remove `continue-on-error` from `upgrade-simulation` CI job (keep on `template-update-check`)
+7. ✅ [AGENT] **P1 — Init encoding:** replace `Set-Content -Encoding UTF8` with BOM-less write in `init-project.ps1` for JSON configs
+8. ✅ [AGENT] **P1 — Playwright e2e:** mock `/app-update.json` + GitHub API in About update-status test; assert distinct post-toggle status (no live network)
+9. ✅ [AGENT] **P1 — Release workflow hygiene:** remove duplicate checkout in `release.yml`; dedupe SBOM triggers (prefer `release` published only, drop redundant dispatch from Release Please if redundant)
 10. ⬜ [AUTO] CI + Feature Gate green on `main` after rows 1–2
 
 ### Parallel (safe after Sequential step 2)

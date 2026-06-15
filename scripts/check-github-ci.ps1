@@ -1,9 +1,10 @@
 # Poll GitHub Actions for required workflows on a commit.
-# Usage: scripts/check-github-ci.ps1 [-Ref SHA] [-WaitSeconds 300] [-Jobs "Repo Hygiene,Feature Gate"]
+# Usage: scripts/check-github-ci.ps1 [-Ref SHA] [-WaitSeconds 300] [-Jobs "Repo Hygiene,Feature Gate"] [-SkipWorkflows]
 param(
     [string]$Ref = "",
     [int]$WaitSeconds = 0,
-    [string]$Jobs = ""
+    [string]$Jobs = "",
+    [switch]$SkipWorkflows
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,6 +18,11 @@ if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
 
 if (-not $Ref) { $Ref = "HEAD" }
 $Ref = (git rev-parse $Ref).Trim()
+if ($SkipWorkflows -and -not $Jobs) {
+    Write-Host "ERROR: -SkipWorkflows requires -Jobs"
+    exit 1
+}
+
 $Required = @("CI", "Security Scan", "CodeQL")
 
 $RepoJson = gh repo view --json nameWithOwner 2>$null
@@ -34,26 +40,28 @@ while ($true) {
     $pending = 0
     $failed = 0
 
-    foreach ($wf in $Required) {
-        $run = $runs | Where-Object { $_.workflowName -eq $wf } | Select-Object -First 1
-        if (-not $run) {
-            Write-Host "WAIT ${wf}: no run yet"
-            $pending++
-            continue
-        }
-        switch ($run.conclusion) {
-            "success" { Write-Host "OK   ${wf}: $($run.url)" }
-            { $_ -in @("failure", "cancelled", "timed_out", "action_required") } {
-                Write-Host "FAIL ${wf} ($($run.conclusion)): $($run.url)"
-                $failed++
+    if (-not $SkipWorkflows) {
+        foreach ($wf in $Required) {
+            $run = $runs | Where-Object { $_.workflowName -eq $wf } | Select-Object -First 1
+            if (-not $run) {
+                Write-Host "WAIT ${wf}: no run yet"
+                $pending++
+                continue
             }
-            default {
-                if ($run.status -eq "completed") {
+            switch ($run.conclusion) {
+                "success" { Write-Host "OK   ${wf}: $($run.url)" }
+                { $_ -in @("failure", "cancelled", "timed_out", "action_required") } {
                     Write-Host "FAIL ${wf} ($($run.conclusion)): $($run.url)"
                     $failed++
-                } else {
-                    Write-Host "WAIT ${wf} ($($run.status)): $($run.url)"
-                    $pending++
+                }
+                default {
+                    if ($run.status -eq "completed") {
+                        Write-Host "FAIL ${wf} ($($run.conclusion)): $($run.url)"
+                        $failed++
+                    } else {
+                        Write-Host "WAIT ${wf} ($($run.status)): $($run.url)"
+                        $pending++
+                    }
                 }
             }
         }

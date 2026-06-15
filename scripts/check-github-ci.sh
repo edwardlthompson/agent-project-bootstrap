@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Poll GitHub Actions for required workflows on a commit.
-# Usage: scripts/check-github-ci.sh [REF] [--wait SECONDS] [--jobs JOB1,JOB2]
+# Usage: scripts/check-github-ci.sh [REF] [--wait SECONDS] [--jobs JOB1,JOB2] [--skip-workflows]
+#   --skip-workflows  Poll only --jobs (no CI/Security Scan/CodeQL rollup); requires --jobs
 # Requires: gh CLI authenticated to the repo.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -9,10 +10,12 @@ cd "$ROOT"
 REF="HEAD"
 WAIT=0
 JOBS_CSV=""
+SKIP_WORKFLOWS=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --wait) WAIT="${2:-300}"; shift 2 ;;
     --jobs) JOBS_CSV="${2:-}"; shift 2 ;;
+    --skip-workflows) SKIP_WORKFLOWS=1; shift ;;
     *)
       REF="$1"
       shift
@@ -20,6 +23,11 @@ while [ $# -gt 0 ]; do
   esac
 done
 REF="$(git rev-parse "$REF")"
+
+if [ "$SKIP_WORKFLOWS" -eq 1 ] && [ -z "$JOBS_CSV" ]; then
+  echo "ERROR: --skip-workflows requires --jobs"
+  exit 1
+fi
 
 REQUIRED=("CI" "Security Scan" "CodeQL")
 
@@ -45,6 +53,9 @@ while true; do
   FAILED=0
 
   for wf in "${REQUIRED[@]}"; do
+    if [ "$SKIP_WORKFLOWS" -eq 1 ]; then
+      break
+    fi
     line="$(printf '%s\n' "${RUNS[@]}" | grep "^${wf}"$'\t' | head -1 || true)"
     if [ -z "$line" ]; then
       echo "WAIT ${wf}: no run yet"
