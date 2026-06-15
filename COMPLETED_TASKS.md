@@ -365,6 +365,7 @@
 - ✅ [AGENT] Playwright e2e: update check enabled → About status assertion
 - ✅ [AGENT] `simulate-template-upgrade.sh` non-interactive init smoke
 - ✅ [AGENT] `MainActivitySmokeTest` migrated to `ActivityScenarioRule`
+- ✅ [AUTO] CI + Feature Gate green on `main` (`a5f3199`)
 - ⬜ [AGENT] Optional `connectedDebugAndroidTest` CI job
 - ⬜ [AGENT] Release Please + `release.yml` SBOM asset wiring
 
