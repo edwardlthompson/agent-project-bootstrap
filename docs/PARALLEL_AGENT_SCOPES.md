@@ -19,6 +19,17 @@
 | multi | One scope per stack row; no overlap |
 | none | Match `AGENT_MEMORY.md` checked modules |
 
+## Sprint M12 (template maintainer) — active
+
+> Safe after BUILD_PLAN M12 Sequential step 2. CodeQL blocked on `daa9d85` until row 1.
+
+| Agent | Scope |
+|-------|-------|
+| A — CodeQL + release gate | `.github/workflows/codeql.yml`, `release.yml`, `scripts/check-github-ci.ps1` |
+| B — Android tests + restart UI | `examples/android/app/src/test/**`, `src/androidTest/**`, `ui/GoldenPathApp.kt` |
+| C — Web bootstrap | `examples/web/src/appBootstrap.ts`, `vitest.config.ts` |
+| D — Docs + CHANGELOG | `docs/FEATURE_MODULES.md`, `CHANGELOG.md`, `.cursor/rules/feature-modules.mdc` |
+
 ## Sprint M11 (template maintainer) — archived
 
 > Completed 2026-06-15. CI blocker fixes on `9163dab` follow-up.

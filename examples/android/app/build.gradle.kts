@@ -61,6 +61,10 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.14.1")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.11.0")
 
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("androidx.test:rules:1.6.2")
+
     debugImplementation("androidx.compose.ui:ui-tooling")
     // FOSS ONLY: No proprietary Play Services or closed telemetry SDKs
 }

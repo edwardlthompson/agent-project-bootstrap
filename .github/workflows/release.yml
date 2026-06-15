@@ -33,7 +33,7 @@ jobs:
             echo "Tag v$TAG does not match .template-version ($VERSION)"
             exit 1
           fi
-          bash scripts/check-github-ci.sh HEAD
+          bash scripts/check-github-ci.sh HEAD --wait 300 --jobs "Repo Hygiene,Feature Gate"
 
       - name: Run CI checks reminder
         run: echo "Ensure all CI checks passed before tagging. See CHANGELOG.md."

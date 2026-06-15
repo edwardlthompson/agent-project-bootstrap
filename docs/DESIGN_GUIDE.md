@@ -111,9 +111,11 @@ Cross-stack in-app About (not GitHub repo About):
 | `about.title`, `about.close`, `about.open` | Navigation |
 | `about.version`, `about.format` | Installed metadata |
 | `about.update.interval.*` | Check interval selector (`off`, `daily`, `weekly`, `monthly`, `on_session`) |
-| `about.update.current`, `about.update.available`, `about.update.no_compatible` | Status copy |
+| `about.update.current`, `about.update.available`, `about.update.no_compatible`, `about.update.restarting` | Status copy |
 | `about.donations.*` | Optional donation encouragement |
 
 **Update rules:** persist `installed_artifact_format` on first run; `selectReleaseAsset()` exact match only; seamless apply + single restart with `pending_restart` guard.
+
+**Platform parity:** Web applies updates via `applyUpdate.ts` and shows `about.update.restarting` during the restart guard. Android persists `pending_restart` in DataStore and surfaces `about_update_restarting` in `GoldenPathApp` (UI stub only — no in-app APK apply in the exemplar).
 
 **Donations:** external links only; hide block when `donations.json` disabled or empty.

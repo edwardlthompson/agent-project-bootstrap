@@ -33,4 +33,4 @@ body:
     attributes:
       label: Template Version
       description: Value from .template-version
-      placeholder: "0.1.0"
+      placeholder: "0.7.1"

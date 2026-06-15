@@ -307,6 +307,19 @@
 - [x] [AGENT] Gate dedupe: run-maintainer-gates full mode uses pre-release only; check-github-ci --jobs
 - [x] [AGENT] Prune stale about.update.interval.* i18n; web e2e for update-check + About panel
 
+## Sprint M12 — Post-M11 polish (AGENT, 2026-06-15)
+
+- [x] [AGENT] CodeQL Android: init before Gradle traced build
+- [x] [AGENT] Tag release gate `--wait 300 --jobs "Repo Hygiene,Feature Gate"`; `check-github-ci.ps1` `-Jobs`
+- [x] [AGENT] Robolectric DataStore isolation + `pendingRestart` test
+- [x] [AGENT] `ReleaseTagFetcherTest`, `DonationsLoaderTest`, `MainActivitySmokeTest`
+- [x] [AGENT] Web `appBootstrap.ts` vitest coverage + smoke tests
+- [x] [AGENT] Android `pendingRestart` UI stub in `GoldenPathApp`; DESIGN_GUIDE parity note
+- [x] [AGENT] Composition-root docs (`FEATURE_MODULES.md`, `feature-modules.mdc`, BUILD_PLAN Sprint 2)
+- [x] [AGENT] CHANGELOG M10/M11/M12; exemplar vs `.template-version` in MAINTAINING_THE_TEMPLATE; bug_report placeholder
+- [ ] [AUTO] CodeQL workflow green on `main` after push
+- [ ] [HUMAN] Merge Release Please PR #11 after CodeQL + branch-protection checks green
+
 ## Sprint M10 — Code review remediation (AGENT, 2026-06-15)
 
 - [x] [AGENT] M9-8 settings slice + parallel A–D committed; BUILD_PLAN cleanup

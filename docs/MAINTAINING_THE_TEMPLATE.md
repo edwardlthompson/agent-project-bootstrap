@@ -8,6 +8,8 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 - **MINOR:** New modules, examples, CI gates, non-breaking features
 - **PATCH:** Doc fixes, dependency bumps, typo corrections
 
+**Exemplar vs template version:** Golden Path stack examples ship a stub app version (`0.1.0` in `examples/android/app/build.gradle.kts` and web `package.json`) so forks can set their own semver independently. Template releases use `.template-version` (currently aligned with Release Please tags). Do not confuse the two when filing issues or tagging releases.
+
 ## Release Checklist
 
 1. All CI checks green on main

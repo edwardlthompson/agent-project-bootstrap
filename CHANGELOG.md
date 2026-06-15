@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Sprint M12: CodeQL Android init-before-build order; tag release gate `--wait`/`--jobs`; Robolectric DataStore isolation; `ReleaseTagFetcherTest`, `DonationsLoaderTest`, `MainActivitySmokeTest`; web `appBootstrap` vitest coverage; Android `pendingRestart` UI stub
+- Sprint M11: Android compile fixes; CodeQL Java setup; `ReleaseTagFetcher` IO dispatcher; release workflow lightweight vs full gate split; Robolectric theme/update prefs tests; web `appBootstrap.ts` extraction; gate dedupe in `run-maintainer-gates.sh`
+- Sprint M10: Settings vertical slice (web + Android); gate parity (`--strict`, Scorecard, security triage); node stack init fixes; About/update exemplar fidelity; opt-in update checks default off
 - Sprint M9 execution: 3-strike fix, maintainer lane routing, gate/CI parity, About exemplar tests
 - `scripts/count-critical-high-dependabot.sh`, `scripts/verify-agent-strikes.sh`
 - Web `AppShell.ts` composition refactor; Android `UpdateStatusEvaluator` + unit tests
@@ -30,7 +33,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- OpenSSF Scorecard workflow job-level permissions (publish_results API requirement)
+- CodeQL `java-kotlin` matrix: initialize before Gradle traced build (fixes `no-source-code-seen-during-build`)
+- Tag release lightweight gate polls CI with `--wait 300 --jobs "Repo Hygiene,Feature Gate"`; PowerShell `check-github-ci.ps1` `-Jobs` parity
+- Sprint M11: `kotlinx.coroutines.launch` imports in `MainActivity` / `GoldenPathApp`; offline update-check gating; clickable donations; header nav toggle
 - F-Droid metadata validator: `verify-fdroid-metadata.sh` (+ `.ps1`); changelog and images README under `examples/android/metadata/`
 - Sprint 2 feature docs: `docs/features/_template.md`, proposed first slice `docs/features/settings.md`
 - `TEMPLATE_INDEX.json` entries for verify-about, security-triage, readme-health, fdroid-metadata, maintainer-gates scripts

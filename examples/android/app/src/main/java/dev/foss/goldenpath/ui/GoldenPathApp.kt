@@ -38,13 +38,21 @@ fun GoldenPathApp(
     val installedFormat by appUpdatePreferences.installedFormat.collectAsStateWithLifecycle(initialValue = "apk")
     val checkInterval by appUpdatePreferences.checkInterval.collectAsStateWithLifecycle(initialValue = "off")
     val lastChecked by appUpdatePreferences.lastChecked.collectAsStateWithLifecycle(initialValue = null)
+    val pendingRestart by appUpdatePreferences.pendingRestart.collectAsStateWithLifecycle(initialValue = false)
     var showAbout by remember { mutableStateOf(false) }
     var showSettings by remember { mutableStateOf(false) }
     var updateStatus by remember { mutableStateOf(context.getString(R.string.about_update_current)) }
     val donations = remember { DonationsLoader.load(context) }
     val appVersion = BuildConfig.VERSION_NAME
 
-    LaunchedEffect(checkInterval, lastChecked, isOnline, installedFormat) {
+    LaunchedEffect(pendingRestart) {
+        if (pendingRestart) {
+            updateStatus = context.getString(R.string.about_update_restarting)
+        }
+    }
+
+    LaunchedEffect(checkInterval, lastChecked, isOnline, installedFormat, pendingRestart) {
+        if (pendingRestart) return@LaunchedEffect
         if (!isOnline) return@LaunchedEffect
         if (!CheckSchedule.shouldCheck(checkInterval, lastChecked, System.currentTimeMillis())) return@LaunchedEffect
         val repo = ReleaseTagFetcher.loadReleaseRepo(context) ?: return@LaunchedEffect
