@@ -220,6 +220,14 @@
 - [x] [AGENT] Add `FEATURE_MODULES.md` to `validate-bootstrap.sh`; cross-link `START_HERE.md`; node MODULE Feature gate section
 - [x] [AGENT] Integrate M7 closeout + Sprint M8 block into BUILD_PLAN.md
 
+## Sprint M8 — Feature Gate CI Enforcement (2026-06-15)
+
+- [x] [AGENT] CI **Feature Gate** job with `--strict` multi-stack
+- [x] [AGENT] `pre-release-gate.sh` runs `feature-gate.sh`
+- [x] [AUTO] Branch protection includes Repo Hygiene + Feature Gate via `setup-github-repo.sh`
+- [x] [AUTO] `verify-about-feature-gate.sh`, `check-security-triage.sh`, `check-readme-health.sh`
+- [x] [AUTO] CI green on `810e259`; BUILD_PLAN HUMAN rows re-labeled to AGENT/AUTO where automatable
+
 ## Sprint M6 — Repo Hygiene Automation (2026-06-15)
 
 - [x] [AGENT] Add `.gitattributes`, `.editorconfig`, `.cursorignore`; expand `.gitignore`

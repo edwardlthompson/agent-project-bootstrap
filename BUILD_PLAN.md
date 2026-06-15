@@ -112,7 +112,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 2. [x] [AGENT] Add `check-tracked-artifacts`, `check-large-tracked-files`, `check-repo-hygiene`, `purge-ephemeral` scripts
 3. [x] [AGENT] Wire repo-hygiene into pre-commit, `validate-bootstrap.sh`, and CI `repo-hygiene` job
 4. [x] [AGENT] Add `docs/REPO_HYGIENE.md` and `.cursor/rules/repo-hygiene.mdc`
-5. [ ] [AUTO] `bash scripts/setup-github-repo.sh` adds **Repo Hygiene** to branch protection _(requires `gh` admin)_
+5. [x] [AUTO] `bash scripts/setup-github-repo.sh` adds **Repo Hygiene** to branch protection _(requires `gh` admin)_
 6. [x] [AUTO] CI **Repo Hygiene** job green after merge
 7. [x] [AGENT] Archive Sprint M6 completions to `COMPLETED_TASKS.md`
 8. [x] [AGENT] Index `check-repo-hygiene.ps1` and `purge-ephemeral.ps1` in `TEMPLATE_INDEX.json`
@@ -131,12 +131,12 @@ grep '\[AUTO\]' BUILD_PLAN.md
 8. [x] [AGENT] Fix `watch-agent-gates.sh` JSON capture (stdout-only); pass `--paths` to `feature-autofix.sh` for active feature scope
 9. [x] [AGENT] Add `docs/FEATURE_MODULES.md` to `validate-bootstrap.sh` REQUIRED; cross-link in `docs/START_HERE.md`; add Feature gate section to `modules/node/MODULE.md`
 10. [x] [AGENT] Commit M7+M7-closeout changes; archive completed AGENT rows to `COMPLETED_TASKS.md`
-11. [ ] [AUTO] Push to `origin/main` when `feature-gate.sh` + `validate-bootstrap.sh --quick` pass locally
+11. [x] [AUTO] Push to `origin/main` when `feature-gate.sh` + `validate-bootstrap.sh --quick` pass locally
 12. [x] [AGENT] Add Feature gate section to `modules/lightroom/MODULE.md` (plan: `modules/*`)
 13. [x] [AGENT] Populate `build_plan_step` in `agent-progress.sh`; `feature-autofix.sh` exit 1 on fixer failure
 14. [x] [AGENT] Index remaining gate/hygiene `.ps1` twins in `TEMPLATE_INDEX.json`
 5. [x] [AUTO] `bash scripts/verify-about-feature-gate.sh` (About add/remove lego test)
-6. [ ] [AUTO] `feature-gate.sh` + CI green after merge
+6. [x] [AUTO] `feature-gate.sh` + CI green after merge
 
 ---
 
@@ -147,8 +147,8 @@ grep '\[AUTO\]' BUILD_PLAN.md
 1. [x] [AGENT] Add CI job **Feature Gate** calling `feature-gate.sh --stack multi --strict`
 2. [x] [AGENT] Add `--strict` to `feature-gate.sh` (exit 2 if stack skipped in multi mode)
 3. [x] [AGENT] Wire `scripts/pre-release-gate.sh` to run `feature-gate.sh`
-4. [ ] [AUTO] `bash scripts/setup-github-repo.sh` adds **Feature Gate** to branch protection _(requires `gh` admin)_
-5. [ ] [AUTO] CI green including feature-gate job after merge
+4. [x] [AUTO] `bash scripts/setup-github-repo.sh` adds **Feature Gate** to branch protection _(requires `gh` admin)_
+5. [x] [AUTO] CI green including feature-gate job after merge
 
 ---
 
