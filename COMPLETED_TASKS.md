@@ -320,6 +320,12 @@
 - ✅ [AUTO] CodeQL workflow green on `main` after push (`7055255`)
 - ✅ [HUMAN] Merge Release Please PR #11 after CodeQL + branch-protection checks green
 
+## v0.9.0 release (2026-06-15)
+
+- ✅ [HUMAN] Approve release tag; merge Release Please PR #12 (`chore(main): release 0.9.0`, `fd699bc`)
+- ✅ [AUTO] Release Please published [v0.9.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.9.0)
+- ✅ [AUTO] CI + Feature Gate + CodeQL green on `main` after merge (`fd699bc`)
+
 ## v0.8.0 release (2026-06-15)
 
 - ✅ [HUMAN] Merge Release Please PR #11 (`chore(main): release 0.8.0`, `10b46d6`)

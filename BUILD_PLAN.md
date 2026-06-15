@@ -22,7 +22,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
-> **Template maintainer:** work **Sprint M14** below. **Child repos:** copy the playbook after **Use this template**.
+> **Template maintainer:** **v0.9.0** released (`fd699bc`). P2 backlog below or weekly maintenance.
 
 ---
 
@@ -95,9 +95,9 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### Pre-release (every version)
 
-- ⬜ [AUTO] `pre-release-gate.sh` + `run-maintainer-gates.sh` (includes `verify-branch-protection.sh`)
-- ⬜ [AUTO] Release Please PR merged; CHANGELOG + manifest bumped
-- ⬜ [HUMAN] Approve release tag when product-ready
+- ✅ [AUTO] `pre-release-gate.sh` + `run-maintainer-gates.sh` (includes `verify-branch-protection.sh`) — M13/M14 gates passed pre-0.9.0
+- ✅ [AUTO] Release Please PR merged; CHANGELOG + manifest bumped (`fd699bc`)
+- ✅ [HUMAN] Approve release tag when product-ready — **v0.9.0** published 2026-06-15
 
 ---
 
@@ -151,7 +151,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Item | Owner | Command / gate |
 |------|-------|----------------|
-| Approve release tag (next version) | HUMAN | After `pre-release-gate.sh` |
+| Approve release tag (next version) | HUMAN | ✅ **v0.9.0** approved and published |
 | F-Droid dry-run on device/emulator | ADB | `modules/android/MODULE.md` checklist |
 | F-Droid listing / anti-feature sign-off | HUMAN | After `verify-fdroid-metadata.sh` |
 | `gh auth refresh -s security_events` (one-time OAuth) | HUMAN | Then `run-maintainer-gates.sh` full |
@@ -164,6 +164,6 @@ grep '\[AUTO\]' BUILD_PLAN.md
 |--------|--------|---------|
 | M5–M14 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
 | v0.8.0 release (`10b46d6`) | Complete | `COMPLETED_TASKS.md` |
-| M14 Post-M13 review (`fc71433`) | Complete | `COMPLETED_TASKS.md` |
+| v0.9.0 release (`fd699bc`) | Complete | `COMPLETED_TASKS.md` |
 | Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
 | Maintainer gate cycles | Complete | `COMPLETED_TASKS.md` |
