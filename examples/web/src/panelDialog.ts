@@ -14,7 +14,9 @@ export function bindPanelDialog(panel: HTMLElement, onClose: () => void): () => 
   const previousFocus = document.activeElement as HTMLElement | null;
 
   const focusable = (): HTMLElement[] =>
-    [...panel.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => !el.disabled);
+    [...panel.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
+      (el) => !el.hasAttribute("disabled") && el.tabIndex !== -1,
+    );
 
   const first = focusable()[0];
   first?.focus();
