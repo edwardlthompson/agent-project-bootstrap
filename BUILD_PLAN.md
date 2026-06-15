@@ -22,11 +22,58 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
-> **Template maintainer:** No active sprint — recurring maintenance below. **Child repos:** copy the playbook.
+> **Template maintainer:** Sprint **M17** active (post-M16 code review on `7e4a50e`). **Child repos:** copy the playbook.
 
 ---
 
-## Open (template maintainer — human judgment only)
+## Template Maintainer — Sprint M17: Post-M16 code review remediation
+
+> **Source:** full code review on `7e4a50e` (2026-06-15). Verified: Android manifest lacks `INTERNET`; web `lastChecked` written before fetch; prune leaves stale `TEMPLATE_INDEX.json`; `sbom-assets` has no CI gate on `release` published; `check-github-ci.ps1` false-fails in-progress jobs.
+
+### Critique
+
+- **Null/empty:** Pruned child repos still reference deleted paths in `TEMPLATE_INDEX.json`; `init-stack-sync.py` no-op on `AGENT_MEMORY.md` emoji format.
+- **Network timeouts:** `sbom-assets` can upload on `release` published while post-merge CI is still running; tag-gate polls only Repo Hygiene + Feature Gate.
+- **Race conditions:** Release Please merge + release publish can race fresh CI on `main`; `check-github-ci.sh` may score cancelled runs as FAIL during concurrency retries.
+- **Unhandled exceptions:** `init-project.ps1` donation write lacks `Test-Path` guard; web update check persists `lastChecked` before GitHub fetch succeeds.
+
+### Sequential (must complete in order)
+
+1. ⬜ [AGENT] **P0 — Android INTERNET:** add `android.permission.INTERNET` to manifest; add unit test or instrumented assertion that `ReleaseTagFetcher` is reachable when network enabled
+2. ⬜ [AGENT] **P0 — Web update timing:** move `LAST_CHECKED_KEY` write in `aboutSession.ts` to after successful GitHub fetch (or clear on failure); add unit test for failed-fetch retry
+3. ⬜ [AGENT] **P0 — Prune + template index:** after prune, update `TEMPLATE_INDEX.json` (or prune-aware `validate-template-index.sh` using `.cursor/stack-selection.json`); extend `simulate-template-upgrade.sh` with post-prune `validate-bootstrap.sh --quick` + primary-stack removal asserts
+4. ⬜ [AGENT] **P0 — Release SBOM gate:** add pre-SBOM poll on `release` published (`check-github-ci.sh --wait` full rollup or `needs:` workflow_run) so assets attach only after post-merge CI green
+5. ⬜ [AGENT] **P1 — check-github-ci.ps1:** treat empty/in-progress job `conclusion` as WAIT (parity with `.sh`); add `--wait` to `health-check.yml` or schedule offset
+6. ⬜ [AGENT] **P1 — init-stack-sync:** sync `AGENT_MEMORY.md` ✅/❌ emoji lines (not `[ ]` checkboxes); add rust/go to `MODULE_LINES`; fix `multi`+`--prune` `pruned: true` when nothing deleted
+7. ⬜ [AGENT] **P1 — Docs P0 drift:** fix `INITIALIZATION_PROMPT.md` Sprint 0 “step 6” → step 5; reconcile Node as init stack vs optional across `OPTIONAL_STACKS.md`, `README.md`, `TEMPLATE_INDEX.json`
+8. ⬜ [AGENT] **P1 — FOSS grep scope:** extend Android proprietary-SDK scan to Kotlin/manifest/XML in `ci.yml` (not only `*.gradle*`)
+9. ⬜ [AGENT] **P1 — Pre-release completeness:** add `check-license-compliance.sh` to `pre-release-gate.sh`; fail on missing `.release-please-manifest.json` (not WARN-only)
+10. ⬜ [AGENT] **P1 — path-changes:** include `modules/android/**`, `.github/workflows/ci.yml`, and shared scripts in android-instrumented trigger paths
+11. ⬜ [AUTO] CI + Feature Gate green on `main` after rows 1–4
+
+### Parallel (safe after Sequential step 4)
+
+| # | Task | Owner | Isolated scope |
+|---|------|-------|----------------|
+| A | Release + CI gates | AGENT | `release.yml`, `check-github-ci.sh`, `check-github-ci.ps1`, `health-check.yml`, `ci.yml` |
+| B | Init + index + smoke | AGENT | `init-project.sh`, `init-project.ps1`, `init-stack-sync.py`, `validate-template-index.sh`, `simulate-template-upgrade.sh` |
+| C | Web + Android exemplars | AGENT | `aboutSession.ts`, `AndroidManifest.xml`, `AboutPanel.ts`, `SettingsPanel.ts`, e2e/unit tests |
+| D | Docs hygiene | AGENT | `INITIALIZATION_PROMPT.md`, `OPTIONAL_STACKS.md`, `MAINTAINING_THE_TEMPLATE.md`, `README.md`, `TEMPLATE_INDEX.json` |
+
+### P2 backlog (after M17 sequential)
+
+- ⬜ [AGENT] Web modal a11y: `role="dialog"`, `aria-modal`, focus trap, Escape on About/Settings panels
+- ⬜ [AGENT] Wire `applyPwaUpdate()` / Android `UpdateApplier` or remove dead apply paths; SW cache strategy → network-first when online
+- ⬜ [AGENT] Config hygiene: `.example` pattern for `app-update.json` / `donations.json` in web public + Android assets; stub `release_repo` in template
+- ⬜ [AGENT] `init-project.ps1` smoke in CI (`simulate-template-upgrade` or dedicated job); donation `Test-Path` guard
+- ⬜ [AGENT] Renumber duplicate module letters (Node/Rust both E; Go/Lightroom both F); add `node` to `PARALLEL_AGENT_SCOPES.md` child table
+- ⬜ [AGENT] Index `MAINTAINING_THE_TEMPLATE.md` in `TEMPLATE_INDEX.json`; fix badge step reference (step 3 vs 6)
+- ⬜ [AGENT] Android instrumented: settings/about/theme/update UI assertions beyond launch smoke
+- ⬜ [AGENT] `checkForUpdates()` unit tests (fetch mock); axe e2e on settings/about open states
+- ⬜ [AGENT] `android-release` CI: align reproducibility WARN vs `verify-reproducible-apk.sh --strict`
+- ⬜ [AGENT] Optional rust/go SBOM slices in `release.yml` when examples exist
+
+### Open (template maintainer — human judgment only)
 
 | Item | Owner | Command / gate |
 |------|-------|----------------|
@@ -116,6 +163,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 | Sprint | Status | Archive |
 |--------|--------|---------|
 | M5–M16 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
+| M17 Post-M16 review | Active | `BUILD_PLAN.md` |
 | v0.9.0 release (`fd699bc`) | Complete | `COMPLETED_TASKS.md` |
 | M16 Post-M15 review (`1634917`) | Complete | `COMPLETED_TASKS.md` |
 | M14 Post-M13 review (`fc71433`) | Complete | `COMPLETED_TASKS.md` |

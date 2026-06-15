@@ -384,6 +384,10 @@
 - ✅ [AGENT] P2 `AboutPanel` `aria-live="polite"`; `appBootstrap.test.ts` en.json strings
 - ✅ [AGENT] Fix `examples/lightroom` removal on `--prune-optional` in init scripts
 
+## Sprint M17 — Post-M16 code review (planned, 2026-06-15)
+
+> Added from full code review on `7e4a50e`. See BUILD_PLAN.md Sprint M17.
+
 ## BUILD_PLAN cleanup (2026-06-15, M16 complete)
 
 - ✅ [AGENT] Archive M16 sprint body; slim board to maintenance + human open items

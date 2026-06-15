@@ -37,6 +37,17 @@
 
 > Completed 2026-06-15. P2 backlog post-0.9.0. See `COMPLETED_TASKS.md`.
 
+## Sprint M17 (template maintainer) — active
+
+> Post-M16 code review on `7e4a50e`. Android INTERNET, web update timing, prune/index, release SBOM gate.
+
+| Agent | Scope |
+|-------|-------|
+| A — Release + CI gates | `release.yml`, `check-github-ci.sh`, `check-github-ci.ps1`, `health-check.yml`, `ci.yml` |
+| B — Init + index + smoke | `init-project.sh`, `init-project.ps1`, `init-stack-sync.py`, `validate-template-index.sh`, `simulate-template-upgrade.sh` |
+| C — Web + Android exemplars | `aboutSession.ts`, `AndroidManifest.xml`, `AboutPanel.ts`, `SettingsPanel.ts`, tests |
+| D — Docs hygiene | `INITIALIZATION_PROMPT.md`, `OPTIONAL_STACKS.md`, `MAINTAINING_THE_TEMPLATE.md`, `README.md` |
+
 ## Sprint M16 (template maintainer) — archived
 
 > Completed 2026-06-15. Tag-gate timing, SBOM version validation, CI/docs parity, P2 backlog. See `COMPLETED_TASKS.md`.
