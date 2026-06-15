@@ -31,8 +31,14 @@ jobs:
         run: |
           set -euo pipefail
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            for key in android rust go lightroom; do
-              echo "${key}=true" >> "$GITHUB_OUTPUT"
+            for spec in android:examples/android rust:examples/rust go:examples/go lightroom:examples/lightroom; do
+              key="${spec%%:*}"
+              prefix="${spec#*:}"
+              if [ -d "$prefix" ]; then
+                echo "${key}=true" >> "$GITHUB_OUTPUT"
+              else
+                echo "${key}=false" >> "$GITHUB_OUTPUT"
+              fi
             done
             exit 0
           fi
@@ -44,8 +50,14 @@ jobs:
             HEAD="${{ github.sha }}"
           fi
           if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
-            for key in android rust go lightroom; do
-              echo "${key}=true" >> "$GITHUB_OUTPUT"
+            for spec in android:examples/android rust:examples/rust go:examples/go lightroom:examples/lightroom; do
+              key="${spec%%:*}"
+              prefix="${spec#*:}"
+              if [ -d "$prefix" ]; then
+                echo "${key}=true" >> "$GITHUB_OUTPUT"
+              else
+                echo "${key}=false" >> "$GITHUB_OUTPUT"
+              fi
             done
             exit 0
           fi
@@ -53,7 +65,7 @@ jobs:
           for spec in android:examples/android rust:examples/rust go:examples/go lightroom:examples/lightroom; do
             key="${spec%%:*}"
             prefix="${spec#*:}"
-            if changed "$prefix"; then
+            if [ -d "$prefix" ] && changed "$prefix"; then
               echo "${key}=true" >> "$GITHUB_OUTPUT"
             else
               echo "${key}=false" >> "$GITHUB_OUTPUT"
@@ -272,7 +284,7 @@ jobs:
     name: Android - connectedDebugAndroidTest
     runs-on: ubuntu-latest
     needs: path-changes
-    if: needs.path-changes.outputs.android == 'true' && hashFiles('examples/android/**') != ''
+    if: needs.path-changes.outputs.android == 'true'
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v6
@@ -437,7 +449,7 @@ jobs:
     name: Lightroom - SDK Namespace Check
     runs-on: ubuntu-latest
     needs: path-changes
-    if: needs.path-changes.outputs.lightroom == 'true' && hashFiles('examples/lightroom/**') != ''
+    if: needs.path-changes.outputs.lightroom == 'true'
     steps:
       - uses: actions/checkout@v6
       - name: Validate Lr* SDK compliance
@@ -457,7 +469,7 @@ jobs:
     name: Rust - Fmt, Clippy, Test
     runs-on: ubuntu-latest
     needs: path-changes
-    if: needs.path-changes.outputs.rust == 'true' && hashFiles('examples/rust/**') != ''
+    if: needs.path-changes.outputs.rust == 'true'
     defaults:
       run:
         working-directory: examples/rust
@@ -472,7 +484,7 @@ jobs:
     name: Go - Vet, Fmt, Test
     runs-on: ubuntu-latest
     needs: path-changes
-    if: needs.path-changes.outputs.go == 'true' && hashFiles('examples/go/**') != ''
+    if: needs.path-changes.outputs.go == 'true'
     defaults:
       run:
         working-directory: examples/go
