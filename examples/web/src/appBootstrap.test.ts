@@ -29,13 +29,23 @@ vi.mock("./i18n", () => ({
 
 import { createAppShell } from "./AppShell";
 
+const mockedCreateAppShell = vi.mocked(createAppShell);
+const mockedCheckForUpdates = vi.mocked(checkForUpdates);
+
 describe("bootstrapApp", () => {
   let handlers: AppShellCallbacks | undefined;
+
+  function requireHandlers(): AppShellCallbacks {
+    if (!handlers) {
+      throw new Error("App shell handlers were not captured");
+    }
+    return handlers;
+  }
 
   beforeEach(() => {
     vi.clearAllMocks();
     handlers = undefined;
-    vi.mocked(createAppShell).mockImplementation((_root, _state, h) => {
+    mockedCreateAppShell.mockImplementation((_root, _state, h) => {
       handlers = h;
     });
     Object.defineProperty(navigator, "serviceWorker", {
@@ -48,7 +58,7 @@ describe("bootstrapApp", () => {
     const root = document.createElement("div");
     bootstrapApp(root);
     await vi.waitFor(() => {
-      expect(createAppShell).toHaveBeenCalledWith(
+      expect(mockedCreateAppShell).toHaveBeenCalledWith(
         root,
         expect.objectContaining({ updateStatus: "about.update.current" }),
         expect.any(Object),
@@ -60,22 +70,22 @@ describe("bootstrapApp", () => {
     const root = document.createElement("div");
     bootstrapApp(root);
     await vi.waitFor(() => expect(handlers).toBeDefined());
-    const callsBefore = vi.mocked(createAppShell).mock.calls.length;
-    handlers!.onState({ showAbout: true });
-    expect(createAppShell.mock.calls.length).toBeGreaterThan(callsBefore);
+    const callsBefore = mockedCreateAppShell.mock.calls.length;
+    requireHandlers().onState({ showAbout: true });
+    expect(mockedCreateAppShell.mock.calls.length).toBeGreaterThan(callsBefore);
   });
 
   it("refreshes update status when check toggle enabled", async () => {
     const root = document.createElement("div");
     bootstrapApp(root);
     await vi.waitFor(() => expect(handlers).toBeDefined());
-    vi.mocked(checkForUpdates).mockResolvedValueOnce("about.update.available");
-    handlers!.onUpdateCheckChange(true);
+    mockedCheckForUpdates.mockResolvedValueOnce("about.update.available");
+    requireHandlers().onUpdateCheckChange?.(true);
     await vi.waitFor(() =>
       expect(
-        vi
-          .mocked(createAppShell)
-          .mock.calls.some(([, state]) => state.updateStatus === "about.update.available"),
+        mockedCreateAppShell.mock.calls.some(
+          ([, state]) => state.updateStatus === "about.update.available",
+        ),
       ).toBe(true),
     );
   });
@@ -91,25 +101,25 @@ describe("bootstrapApp", () => {
 
   it("skips background update check when restart guard is active", async () => {
     vi.mocked(handleRestartGuard).mockReturnValueOnce(true);
-    vi.mocked(checkForUpdates).mockClear();
+    mockedCheckForUpdates.mockClear();
     const root = document.createElement("div");
     bootstrapApp(root);
     await vi.waitFor(() => expect(handlers).toBeDefined());
-    expect(checkForUpdates).not.toHaveBeenCalled();
+    expect(mockedCheckForUpdates).not.toHaveBeenCalled();
   });
 
   it("ignores disabled update-check toggle", async () => {
     const root = document.createElement("div");
     bootstrapApp(root);
     await vi.waitFor(() => expect(handlers).toBeDefined());
-    const callsBefore = vi.mocked(checkForUpdates).mock.calls.length;
-    handlers!.onUpdateCheckChange(false);
-    expect(checkForUpdates.mock.calls.length).toBe(callsBefore);
+    const callsBefore = mockedCheckForUpdates.mock.calls.length;
+    requireHandlers().onUpdateCheckChange?.(false);
+    expect(mockedCheckForUpdates.mock.calls.length).toBe(callsBefore);
   });
 
   it("re-renders about panel when background update completes while open", async () => {
     let resolveCheck: (value: string) => void = () => {};
-    vi.mocked(checkForUpdates).mockImplementation(
+    mockedCheckForUpdates.mockImplementation(
       () =>
         new Promise((resolve) => {
           resolveCheck = resolve;
@@ -118,11 +128,13 @@ describe("bootstrapApp", () => {
     const root = document.createElement("div");
     bootstrapApp(root);
     await vi.waitFor(() => expect(handlers).toBeDefined());
-    handlers!.onState({ showAbout: true });
-    const callsBefore = vi.mocked(createAppShell).mock.calls.length;
+    requireHandlers().onState({ showAbout: true });
+    const callsBefore = mockedCreateAppShell.mock.calls.length;
     resolveCheck("about.update.available");
     await vi.waitFor(() =>
-      expect(createAppShell.mock.calls.length).toBeGreaterThan(callsBefore),
+      expect(mockedCreateAppShell.mock.calls.length).toBeGreaterThan(
+        callsBefore,
+      ),
     );
   });
 });

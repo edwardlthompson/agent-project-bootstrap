@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- CodeQL `java-kotlin` matrix: initialize before Gradle traced build (fixes `no-source-code-seen-during-build`)
+- CodeQL `java-kotlin` matrix: initialize before Gradle traced build; pin Kotlin 2.3.29 for CodeQL extractor compatibility
 - Tag release lightweight gate polls CI with `--wait 300 --jobs "Repo Hygiene,Feature Gate"`; PowerShell `check-github-ci.ps1` `-Jobs` parity
 - Sprint M11: `kotlinx.coroutines.launch` imports in `MainActivity` / `GoldenPathApp`; offline update-check gating; clickable donations; header nav toggle
 - F-Droid metadata validator: `verify-fdroid-metadata.sh` (+ `.ps1`); changelog and images README under `examples/android/metadata/`
