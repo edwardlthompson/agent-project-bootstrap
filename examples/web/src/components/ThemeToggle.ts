@@ -1,5 +1,5 @@
 import { t } from "../i18n";
-import { cycleThemeMode, getThemeMode, type ThemeMode } from "../theme";
+import { cycleThemeMode, getThemeMode, subscribeThemeChange, type ThemeMode } from "../theme";
 
 const ICONS: Record<ThemeMode, string> = {
   system: "◎",
@@ -35,5 +35,6 @@ export function createThemeToggle(): HTMLButtonElement {
   });
 
   sync();
+  subscribeThemeChange(sync);
   return button;
 }

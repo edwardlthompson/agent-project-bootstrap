@@ -4,7 +4,7 @@
 - **Date:** YYYY-MM-DD
 - **Deciders:** Project team
 
-> Template for child repositories. Rename or supersede `docs/adr/0001-template-baseline.md` concerns separately.
+> Template for child repositories. Template-repo baseline ADR is `docs/adr/0000-template-baseline.md`.
 
 ## Context
 

@@ -11,6 +11,7 @@ export default defineConfig({
       include: [
         "src/about/updateChecker.ts",
         "src/about/donations.ts",
+        "src/settings/preferences.ts",
         "src/greet.ts",
       ],
       thresholds: {

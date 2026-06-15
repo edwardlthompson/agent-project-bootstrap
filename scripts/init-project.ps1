@@ -7,9 +7,9 @@ Write-Host ""
 
 $ProjectName = Read-Host "Project name"
 $ProjectPurpose = Read-Host "One-line purpose"
-$Stack = Read-Host "Primary stack (web/python/android/multi/none)"
+$Stack = Read-Host "Primary stack (web/python/android/node/multi/none)"
 if (-not $Stack) { $Stack = "none" }
-$ValidStacks = @("web", "python", "android", "multi", "none")
+$ValidStacks = @("web", "python", "android", "node", "multi", "none")
 if ($ValidStacks -notcontains $Stack) {
     Write-Host "Invalid stack '$Stack'; defaulting to none (keep all examples)."
     $Stack = "none"
@@ -94,9 +94,10 @@ if ($Stack -eq "none") {
     if ($Prune -eq "y" -or $Prune -eq "Y") {
         $Pruned = $true
         $toRemove = switch ($Stack) {
-            "web" { @("examples/python", "examples/android", "modules/python", "modules/android", "modules/lightroom") }
-            "python" { @("examples/web", "examples/android", "modules/web", "modules/android", "modules/lightroom") }
-            "android" { @("examples/web", "examples/python", "modules/web", "modules/python", "modules/lightroom") }
+            "web" { @("examples/python", "examples/android", "examples/node", "modules/python", "modules/android", "modules/node", "modules/lightroom") }
+            "python" { @("examples/web", "examples/android", "examples/node", "modules/web", "modules/android", "modules/node", "modules/lightroom") }
+            "android" { @("examples/web", "examples/python", "examples/node", "modules/web", "modules/python", "modules/node", "modules/lightroom") }
+            "node" { @("examples/web", "examples/python", "examples/android", "modules/web", "modules/python", "modules/android", "modules/lightroom") }
             default { @() }
         }
         foreach ($item in $toRemove) {

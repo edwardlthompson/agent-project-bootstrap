@@ -100,5 +100,6 @@ Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
 ### Submission dry-run
 
 - [ ] Open draft merge request to [fdroiddata](https://gitlab.com/fdroid/fdroiddata) or run `fdroid lint` locally if using repomaker workflow
+- [ ] Child repos: copy `examples/android/metadata/` text blocks; add `build` recipe YAML in fdroiddata MR (template documents handoff only)
 - [ ] Record maintainer notes and blockers in `BUILD_PLAN.md` `[ADB]` items
 - [ ] `[HUMAN]` sign off before tagging store release

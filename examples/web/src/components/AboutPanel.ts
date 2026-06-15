@@ -1,16 +1,14 @@
 import { t } from "../i18n";
-import type { CheckInterval, DonationConfig } from "../about/types";
+import type { DonationConfig } from "../about/types";
 
 export interface AboutPanelState {
   version: string;
-  interval: CheckInterval;
   updateStatus: string;
   donations: DonationConfig;
 }
 
 export function createAboutPanel(
   state: AboutPanelState,
-  onIntervalChange: (interval: CheckInterval) => void,
   onClose: () => void,
 ): HTMLElement {
   const panel = document.createElement("section");
@@ -37,27 +35,9 @@ export function createAboutPanel(
     </header>
     <p>${t("about.version")}: <strong>${state.version}</strong></p>
     <p>${t("about.format")}: <code>pwa</code></p>
-    <label class="gp-about-interval">
-      <span>${t("about.update.interval.label")}</span>
-      <select data-about-interval>
-        <option value="off">${t("about.update.interval.off")}</option>
-        <option value="daily">${t("about.update.interval.daily")}</option>
-        <option value="weekly">${t("about.update.interval.weekly")}</option>
-        <option value="monthly">${t("about.update.interval.monthly")}</option>
-        <option value="on_session">${t("about.update.interval.on_session")}</option>
-      </select>
-    </label>
     <p class="gp-about-status" data-testid="about-status">${state.updateStatus}</p>
     ${donationsHtml}
   `;
-
-  const select = panel.querySelector<HTMLSelectElement>("[data-about-interval]");
-  if (select) {
-    select.value = state.interval;
-    select.addEventListener("change", () => {
-      onIntervalChange(select.value as CheckInterval);
-    });
-  }
 
   panel.querySelector(".gp-about-close")?.addEventListener("click", onClose);
   return panel;

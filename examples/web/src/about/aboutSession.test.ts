@@ -6,8 +6,8 @@ describe("aboutSession interval prefs", () => {
     localStorage.clear();
   });
 
-  it("defaults to weekly", () => {
-    expect(getInterval()).toBe("weekly");
+  it("defaults to off (opt-in update checks)", () => {
+    expect(getInterval()).toBe("off");
   });
 
   it("persists interval preference", () => {

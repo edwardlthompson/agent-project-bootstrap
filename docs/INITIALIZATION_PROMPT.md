@@ -209,6 +209,8 @@ Before any version bump, release tag, or production deployment, activate a focus
 
 ### Sprint 0 / Milestone Build Verification Gate
 
+> **Canonical sign-off list:** `BUILD_PLAN.md` Child Repo Playbook Sprint 0 step 6 (`validate-bootstrap.sh --quick`, `feature-gate.sh`, `check-github-ci.sh --wait 300`, `check-license-compliance.sh`). Extended checks below are recommended before first push.
+
 Before claiming any sprint complete or requesting `[HUMAN]` approval:
 
 ```text
@@ -230,6 +232,7 @@ Before claiming any sprint complete or requesting `[HUMAN]` approval:
 | Web | `npm ci` → `npm run lint` → `npm test` → `npm run build` → `npx playwright test` |
 | Python | `uv sync --locked --all-extras` → `uv run ruff check .` → `uv run ruff format --check .` → `uv run mypy src` → `uv run pytest` |
 | Android | Gradle structure + FOSS manifest grep (not README) per `examples/android/` CI pattern |
+| Node | `npm ci` → `npm run lint` → `npm test` in `examples/node/` |
 
 **Post-push GitHub gate (after first push to `main`):**
 
@@ -258,7 +261,7 @@ Only when all quality checks return clean may you update the `CHANGELOG.md` (Kee
 10a. `[AGENT]` Copy `.app-update.json.example` → `.app-update.json` and `donations.json.example` → `donations.json`; scaffold Golden Path in-app About stub per active UI stack (web and/or android).
 10b. `[HUMAN]` Fill `release_repo`, donation links in `donations.json`, and choose distribution channel (F-Droid vs sideload vs desktop installer).
 11. `[HUMAN]` Enable Dependabot alerts, security updates, and private vulnerability reporting in GitHub repo settings (see `docs/SECURITY_TRIAGE.md` § Setup).
-12. `[HUMAN]` Configure branch protection on `main` (required checks: CI, Security Scan, CodeQL; linear history, no force-push).
+12. `[HUMAN]` Configure branch protection on `main` (required checks: CI, Security Scan, CodeQL, Repo Hygiene, Feature Gate; linear history, no force-push).
 13. `[HUMAN]` Paste `docs/GITHUB_ABOUT.md` description and topics into **GitHub → Settings → General → About** (repo metadata only).
 14. `[AGENT]` Verify `.github/dependabot.yml` covers all active package ecosystems.
 15. `[AUTO]` Run `scripts/validate-bootstrap.sh` to confirm Sprint 0 artifacts exist.

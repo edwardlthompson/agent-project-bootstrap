@@ -301,6 +301,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "docs/adr/0000-template-baseline.md",
+      "purpose": "Template-repo baseline architecture ADR (maintainer)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "docs/adr/0001-core-architecture.md",
       "purpose": "Child repo MVVM/Clean/Hexagonal architecture choice template",
       "read_when": "architectural_decision",

@@ -14,7 +14,7 @@ const LAST_CHECKED_KEY = "gp-app-update-last-checked";
 
 export function getInterval(): CheckInterval {
   const stored = localStorage.getItem(INTERVAL_KEY) as CheckInterval | null;
-  return stored ?? "weekly";
+  return stored ?? "off";
 }
 
 export function setIntervalPref(interval: CheckInterval): void {

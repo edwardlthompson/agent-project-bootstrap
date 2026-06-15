@@ -11,39 +11,18 @@ VERSION=""
 
 echo "=== Pre-release gate ==="
 
-if ! bash scripts/feature-gate.sh --stack multi --json; then
+if ! bash scripts/feature-gate.sh --stack multi --strict --json; then
   echo "FAIL: feature-gate.sh"
   ERRORS=$((ERRORS + 1))
 else
   echo "OK   feature-gate.sh passed"
 fi
 
-if ! bash scripts/check-github-ci.sh HEAD --wait 300; then
-  echo "FAIL: required GitHub workflows not green"
-  ERRORS=$((ERRORS + 1))
-fi
-
-if ! command -v gh >/dev/null 2>&1; then
-  echo "ERROR: gh CLI required for Dependabot alert count"
-  exit 1
-fi
-
-REPO="$(gh repo view --json nameWithOwner -q .nameWithOwner 2>/dev/null || true)"
-if [ -z "$REPO" ]; then
-  echo "ERROR: run from a git repo with gh auth, or export GITHUB_REPO=owner/name"
-  exit 1
-fi
-
-ALERT_COUNT="$(bash scripts/count-critical-high-dependabot.sh 2>/dev/null || echo error)"
-
-if [ "$ALERT_COUNT" = "error" ]; then
-  echo "WARN: could not fetch Dependabot alerts (check gh auth and Dependabot alerts enabled)"
-  ERRORS=$((ERRORS + 1))
-elif [ "${ALERT_COUNT:-0}" -gt 0 ]; then
-  echo "FAIL: ${ALERT_COUNT} open Critical/High Dependabot alert(s)"
+if ! bash scripts/check-security-triage.sh --wait-ci 300 --strict; then
+  echo "FAIL: security-triage.sh --strict"
   ERRORS=$((ERRORS + 1))
 else
-  echo "OK   Zero open Critical/High Dependabot alerts"
+  echo "OK   security-triage.sh --strict passed"
 fi
 
 if [ ! -f .template-version ]; then

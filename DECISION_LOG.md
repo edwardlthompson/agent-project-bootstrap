@@ -16,7 +16,7 @@
 
 ## Entries
 
-_No project-specific decisions yet. The seed ADR is at `docs/adr/0001-template-baseline.md`._
+_Seed template ADR: `docs/adr/0000-template-baseline.md`. Child repos use `docs/adr/0001-core-architecture.md`._
 
 ### 2026-06-13 — @lhci/cli npm overrides for transitive CVEs
 - **Status:** Accepted

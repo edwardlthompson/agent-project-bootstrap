@@ -1,14 +1,14 @@
 # Feature: settings
 
-> Proposed first Sprint 2 feature for child repos (after About exemplar in Sprint 1).
+> Second vertical-slice exemplar (Sprint 2) for child repos after About (Sprint 1).
 
 ## Acceptance criteria
 
-- [ ] User can open a Settings panel/screen from the main navigation
-- [ ] Theme preference (light/dark/system) persists across restarts
-- [ ] Update-check toggle respects opt-in telemetry policy (`docs/PRIVACY.md`)
-- [ ] Offline: settings load last persisted values; no network required for display
-- [ ] i18n: all user-visible strings under `settings.*` keys
+- [x] User can open a Settings panel/screen from the main navigation
+- [x] Theme preference (light/dark/system) persists across restarts
+- [x] Update-check toggle respects opt-in telemetry policy (`docs/PRIVACY.md`)
+- [x] Offline: settings load last persisted values; no network required for display
+- [x] i18n: all user-visible strings under `settings.*` keys
 
 ## Smoke scenario
 
@@ -23,7 +23,7 @@
 | Logic | `examples/web/src/settings/` | `examples/android/.../settings/` |
 | View | `examples/web/src/components/SettingsPanel.ts` | `examples/android/.../ui/settings/` |
 | Tests | `settings/*.test.ts` | `src/test/.../settings/` |
-| Wiring | `main.ts` nav hook ≤10 lines | `MainActivity` nav hook ≤10 lines |
+| Wiring | `AppShell.ts` nav hook | `MainActivity` nav hook |
 
 ## Out of scope (Sprint 2)
 
@@ -33,4 +33,4 @@
 ## Notes
 
 - Reuse `ThemePreferences` patterns from `examples/android/.../ui/theme/` where applicable
-- Gate after each AGENT BUILD_PLAN step: `bash scripts/watch-agent-gates.sh --once --autofix`
+- Gate after each AGENT BUILD_PLAN step: `bash scripts/watch-agent-gates.sh --once --autofix --step <scaffold|tests|wire>`

@@ -34,7 +34,7 @@ run_step() {
 run_step "readme-health" bash scripts/check-readme-health.sh
 run_step "fdroid-metadata" bash scripts/verify-fdroid-metadata.sh
 run_step "simulate-upgrade" bash scripts/simulate-template-upgrade.sh
-run_step "feature-gate" bash scripts/feature-gate.sh --stack multi
+run_step "feature-gate" bash scripts/feature-gate.sh --stack multi --strict
 
 if [ "$QUICK" = true ]; then
   run_step "security-triage" bash scripts/check-security-triage.sh

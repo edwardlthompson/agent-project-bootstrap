@@ -13,7 +13,8 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 1. All CI checks green on main
 2. `bash scripts/check-repo-hygiene.sh` passes
 3. Run `scripts/pre-release-gate.sh` (or `.ps1`) — CI poll, Dependabot Critical/High count, version/tag match
-3. Bump `.template-version`
+4. Run `scripts/run-maintainer-gates.sh` for weekly maintainer cycle (readme, fdroid metadata, feature-gate, CI jobs)
+5. Bump `.template-version`
 4. Update `CHANGELOG.md` (Keep a Changelog)
 5. Update `TEMPLATE_INDEX.json` version and file entries
 6. Run `scripts/validate-template-index.sh`

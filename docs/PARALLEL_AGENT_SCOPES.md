@@ -19,9 +19,22 @@
 | multi | One scope per stack row; no overlap |
 | none | Match `AGENT_MEMORY.md` checked modules |
 
-## Sprint M9 (template maintainer) — active
+## Sprint M10 (template maintainer) — archived
 
-> Safe after BUILD_PLAN M9 Sequential step 7. See `BUILD_PLAN.md` Parallel table.
+> Completed 2026-06-15. Reference scopes for future maintainer parallel work.
+
+| Agent | Scope |
+|-------|-------|
+| A — Web settings | `examples/web/src/components/SettingsPanel.ts`, `examples/web/src/locales/**`, `examples/web/src/style.css`, `examples/web/e2e/**` |
+| B — Android settings/About | `examples/android/app/src/main/java/dev/foss/goldenpath/ui/**`, `examples/android/app/src/main/res/**`, `examples/android/app/src/main/assets/**` |
+| C — Init + gates | `scripts/init-project.sh`, `scripts/init-project.ps1`, `scripts/init-stack-sync.py`, `scripts/setup-github-repo.sh`, `scripts/check-security-triage.sh`, `scripts/pre-release-gate.sh`, `scripts/run-maintainer-gates.sh` |
+| D — Docs | `docs/**`, `modules/**`, `SECURITY.md` |
+
+**Sequential-only (no Parallel):** `BUILD_PLAN.md`, `examples/web/src/AppShell.ts`, `examples/web/src/main.ts`, `MainActivity.kt`, `.github/workflows/release.yml`
+
+## Sprint M9 (template maintainer) — archived
+
+> Completed 2026-06-15. Reference scopes for future maintainer parallel work.
 
 | Agent | Scope |
 |-------|-------|

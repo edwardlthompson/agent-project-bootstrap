@@ -125,4 +125,39 @@ main {
   padding-inline-start: var(--gp-space-lg);
 }
 
+.gp-settings-btn {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: var(--gp-space-sm);
+  border-radius: var(--gp-radius-md);
+  border: 1px solid var(--gp-color-outline);
+  background: var(--gp-color-surface-variant);
+  color: var(--gp-color-on-surface-variant);
+  cursor: pointer;
+}
+
+.gp-settings-panel {
+  margin-block-start: var(--gp-space-lg);
+  padding: var(--gp-space-md);
+  border: 1px solid var(--gp-color-outline);
+  border-radius: var(--gp-radius-md);
+  text-align: start;
+}
+
+.gp-settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gp-settings-field select {
+  margin-inline-start: var(--gp-space-sm);
+}
+
+.gp-settings-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--gp-space-sm);
+}
+
 .gp-header-actions { display: flex; align-items: center; gap: var(--gp-space-sm); }

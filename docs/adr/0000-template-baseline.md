@@ -1,4 +1,4 @@
-# ADR-0001: Template Baseline Architecture
+# ADR-0000: Template Baseline Architecture
 
 - **Status:** Accepted
 - **Date:** 2026-06-12

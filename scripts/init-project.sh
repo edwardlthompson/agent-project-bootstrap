@@ -10,10 +10,10 @@ echo ""
 
 read -rp "Project name: " PROJECT_NAME
 read -rp "One-line purpose: " PROJECT_PURPOSE
-read -rp "Primary stack (web/python/android/multi/none): " STACK
+read -rp "Primary stack (web/python/android/node/multi/none): " STACK
 STACK="${STACK:-none}"
 case "$STACK" in
-  web|python|android|multi|none) ;;
+  web|python|android|node|multi|none) ;;
   *)
     echo "Invalid stack '$STACK'; defaulting to none (keep all examples)."
     STACK=none
@@ -114,9 +114,10 @@ else
   if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
     PRUNED=true
     case "$STACK" in
-      web) rm -rf examples/python examples/android modules/python modules/android modules/lightroom 2>/dev/null || true ;;
-      python) rm -rf examples/web examples/android modules/web modules/android modules/lightroom 2>/dev/null || true ;;
-      android) rm -rf examples/web examples/python modules/web modules/python modules/lightroom 2>/dev/null || true ;;
+      web) rm -rf examples/python examples/android examples/node modules/python modules/android modules/node modules/lightroom 2>/dev/null || true ;;
+      python) rm -rf examples/web examples/android examples/node modules/web modules/android modules/node modules/lightroom 2>/dev/null || true ;;
+      android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node modules/lightroom 2>/dev/null || true ;;
+      node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android modules/lightroom 2>/dev/null || true ;;
     esac
   fi
 fi
@@ -146,7 +147,7 @@ echo "Next steps:"
 echo "  1. Review SECURITY.md, CODEOWNERS, playbooks, and .env.example"
 echo "  2. Run scripts/setup-github-repo.sh (or .ps1) for Dependabot alerts, private reporting, branch protection"
 echo "     See docs/SECURITY_TRIAGE.md if the script prints a manual checklist (API 422)"
-echo "  4. Open Cursor and paste:"
+echo "  3. Open Cursor and paste:"
 echo ""
 echo "  Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md."
 echo "  Follow Section 8 Startup Sequence."

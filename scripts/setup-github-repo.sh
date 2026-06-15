@@ -127,6 +127,8 @@ else
   echo "OK   Private vulnerability reporting enabled"
 fi
 
+export GITHUB_REQUIRED_CHECKS="$(IFS=,; echo "${REQUIRED_CHECKS[*]}")"
+
 protection_json="$(python3 - <<PY
 import json, os
 checks = os.environ.get("GITHUB_REQUIRED_CHECKS", "CI,Security Scan,CodeQL,Repo Hygiene,Feature Gate").split(",")

@@ -278,4 +278,33 @@
 - [x] [AGENT] TEMPLATE_INDEX bulk index + reverse validate-template-index scan
 - [x] [AGENT] About exemplar: AppShell refactor, Android UpdateStatusEvaluator, expanded about unit tests
 
+## Sprint M9 — Sequential 8–12 + Parallel A–D (2026-06-15)
+
+- [x] [AGENT] Settings vertical slice per `docs/features/settings.md` (web + android containers, tests, i18n)
+- [x] [AGENT] Extend `check-file-limits.sh` for `.kt` Compose + `components/*.ts`; node in `init-project` stack picker
+- [x] [AGENT] Reconcile Sprint 0 sign-off across BUILD_PLAN, `INITIALIZATION_PROMPT.md`, `read-before-write.mdc`
+- [x] [AGENT] Scorecard in `check-security-triage.sh`; update `SECURITY.md`, `MAINTAINING_THE_TEMPLATE.md`, `START_HERE.md`, `FEATURE_MODULES.md`
+- [x] [AGENT] Module E/F renumbering; ADR-0000 template baseline; `security-triage.mdc`
+- [x] [AGENT] Parallel A: web settings slice + e2e smoke
+- [x] [AGENT] Parallel B: android settings slice + tests
+- [x] [AGENT] Parallel C: gate/CI hardening (file-limits, Scorecard triage)
+- [x] [AGENT] Parallel D: docs + rules + index (Node column, ADR-0000, security-triage.mdc)
+- [x] [AGENT] F-Droid image paths under `metadata/en-US/images/`; fdroiddata handoff in `modules/android/MODULE.md`
+
+## BUILD_PLAN cleanup (2026-06-15, M9 closeout)
+
+- [x] [AGENT] Archive completed M9 AGENT rows; slim active board to release + distribution open items
+
+## Sprint M10 — Code review remediation (AGENT, 2026-06-15)
+
+- [x] [AGENT] M9-8 settings slice + parallel A–D committed; BUILD_PLAN cleanup
+- [x] [AGENT] Branch protection: export `GITHUB_REQUIRED_CHECKS` in `setup-github-repo.sh`; docs sync (5 checks)
+- [x] [AGENT] Node stack init: prune paths, `init-stack-sync.py` MODULE_LINES + PARALLEL_NOTES, INITIALIZATION_PROMPT Node row
+- [x] [AGENT] `check-security-triage.sh --strict`; Scorecard in `pre-release-gate.sh`; `SECURITY_TRIAGE.md` Scorecard section
+- [x] [AGENT] Gate parity: `--strict` in pre-release/maintainer gates; `pre-release-gate.sh` on tag push in `release.yml`
+- [x] [AGENT] Web settings fidelity: i18n, CSS, vitest coverage, cold-restart e2e, theme toggle sync
+- [x] [AGENT] Android settings fidelity: theme FilterChips, innerPadding, CheckSchedule tests
+- [x] [AGENT] Android About parity: DonationsLoader, ReleaseTagFetcher, GoldenPathApp composition root
+- [x] [AGENT] Opt-in update checks default `off`; About interval UI removed (Settings toggle only)
+- [x] [AGENT] CI/release: CodeQL java-kotlin, node SBOM + health-check audit
 

@@ -13,13 +13,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import dev.foss.goldenpath.R
+import dev.foss.goldenpath.about.DonationsConfig
 import dev.foss.goldenpath.ui.about.AboutScreen
 import dev.foss.goldenpath.ui.components.ThemeToggle
+import dev.foss.goldenpath.ui.settings.SettingsScreen
 import dev.foss.goldenpath.ui.theme.SpacingLg
 import dev.foss.goldenpath.ui.theme.SpacingMd
 import dev.foss.goldenpath.ui.theme.ThemeMode
@@ -30,18 +33,31 @@ fun GoldenPathScreen(
     themeMode: ThemeMode,
     isOnline: Boolean,
     showAbout: Boolean,
+    showSettings: Boolean,
+    updateCheckEnabled: Boolean,
     appVersion: String,
     installedFormat: String,
     updateStatus: String,
+    donations: DonationsConfig,
     onThemeToggle: () -> Unit,
+    onThemeModeSelect: (ThemeMode) -> Unit,
     onAboutOpen: () -> Unit,
     onAboutClose: () -> Unit,
+    onSettingsOpen: () -> Unit,
+    onSettingsClose: () -> Unit,
+    onUpdateCheckChange: (Boolean) -> Unit,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.app_title)) },
                 actions = {
+                    IconButton(onClick = onSettingsOpen) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.settings_open),
+                        )
+                    }
                     IconButton(onClick = onAboutOpen) {
                         Icon(
                             imageVector = Icons.Filled.Info,
@@ -53,15 +69,28 @@ fun GoldenPathScreen(
             )
         },
     ) { innerPadding ->
-        if (showAbout) {
-            AboutScreen(
+        when {
+            showSettings -> SettingsScreen(
+                themeMode = themeMode,
+                updateCheckEnabled = updateCheckEnabled,
+                onThemeModeSelect = onThemeModeSelect,
+                onUpdateCheckChange = onUpdateCheckChange,
+                onBack = onSettingsClose,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+            )
+            showAbout -> AboutScreen(
                 version = appVersion,
                 installedFormat = installedFormat,
                 updateStatus = updateStatus,
+                donations = donations,
                 onBack = onAboutClose,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
             )
-        } else {
-            Column(
+            else -> Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)

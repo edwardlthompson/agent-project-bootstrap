@@ -7,6 +7,16 @@ const STORAGE_KEY = "gp-theme";
 let currentMode: ThemeMode = "system";
 let mediaQuery: MediaQueryList | null = null;
 let mediaListener: ((event: MediaQueryListEvent) => void) | null = null;
+const themeListeners = new Set<() => void>();
+
+function notifyThemeListeners(): void {
+  themeListeners.forEach((fn) => fn());
+}
+
+export function subscribeThemeChange(listener: () => void): () => void {
+  themeListeners.add(listener);
+  return () => themeListeners.delete(listener);
+}
 
 function readStoredMode(): ThemeMode {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -69,6 +79,7 @@ export function setThemeMode(mode: ThemeMode): void {
   localStorage.setItem(STORAGE_KEY, mode);
   applyDomTheme();
   attachMediaListener();
+  notifyThemeListeners();
 }
 
 export function cycleThemeMode(): ThemeMode {

@@ -12,6 +12,7 @@ MODULE_LINES = {
     "android": "Android / F-Droid",
     "web": "Web / PWA",
     "python": "Python",
+    "node": "Node API",
     "lightroom": "Lightroom Classic",
 }
 
@@ -19,6 +20,7 @@ PARALLEL_NOTES = {
     "web": "Sprint 1 Parallel: Web PWA scope only (`examples/web/**`)",
     "python": "Sprint 1 Parallel: Python CLI scope only (`examples/python/**`)",
     "android": "Sprint 1 Parallel: Android FOSS scope only (`examples/android/**`)",
+    "node": "Sprint 1 Parallel: Node API scope only (`examples/node/**`)",
     "multi": "Sprint 1 Parallel: one agent per active stack; no overlapping paths",
     "none": "Sprint 1 Parallel: scope per AGENT_MEMORY active modules",
 }

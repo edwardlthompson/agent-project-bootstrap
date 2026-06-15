@@ -19,7 +19,9 @@ pwsh scripts/setup-github-repo.ps1
 
 Requires `gh` CLI authenticated with admin access. On API `422` (plan or permission limits), the script prints a manual UI checklist. Re-run after fixing permissions.
 
-5. Configure branch protection on `main` requiring status checks: **CI**, **Security Scan**, **CodeQL** (script attempts this via API; verify in Settings -> Branches)
+5. Configure branch protection on `main` requiring status checks: **CI**, **Security Scan**, **CodeQL**, **Repo Hygiene**, **Feature Gate** (`scripts/setup-github-repo.sh` sets these via API; verify in Settings -> Branches)
+
+**Note:** Workflow rollup names (`CI`, `Security Scan`, `CodeQL`) and CI job names (`Repo Hygiene`, `Feature Gate`) must match GitHub check contexts exactly. Override with `GITHUB_REQUIRED_CHECKS` if your repo uses different names.
 
 **Public repos:** Dependabot alerts are free.
 
@@ -37,6 +39,14 @@ Recommended cadence: **Monday** (aligned with scheduled security scans and `heal
 | 4 | AUTO | CI (Trivy, CodeQL, matrix tests) validates merges |
 | 5 | HUMAN | Merge PR or escalate deferred items |
 | 6 | AUTO | Review `health-check.yml` weekly run (Monday 07:00 UTC); confirm CI + Security Scan + CodeQL green on main |
+| 7 | AUTO | Run `bash scripts/check-security-triage.sh --wait-ci 300` (Dependabot + workflows + OpenSSF Scorecard) |
+
+## OpenSSF Scorecard
+
+- Workflow: `.github/workflows/scorecard.yml` (`name: OpenSSF Scorecard`)
+- Weekly triage: `check-security-triage.sh` reports latest Scorecard run conclusion
+- Pre-release: `pre-release-gate.sh` invokes `check-security-triage.sh --strict` (fails on missing/failed Scorecard)
+- SARIF: Scorecard uploads findings to **Security → Code scanning**; triage open items into BUILD_PLAN `[AGENT]` rows or dismiss with rationale in DECISION_LOG.md
 
 ## Triage Decisions
 
@@ -84,7 +94,9 @@ If a Critical/High alert has no upstream fix, release may proceed only when:
 | `.github/workflows/health-check.yml` | Weekly CI + Security Scan + CodeQL status on main |
 | `scripts/validate-workflow-actions.sh` | Resolve action refs via GitHub API |
 | `scripts/check-workflow-action-ref-format.sh` | Local bare-semver guard |
-| `scripts/check-github-ci.sh` | Post-push workflow gate |
+| `scripts/check-security-triage.sh` | Weekly Dependabot + workflow + Scorecard gate |
+| `scripts/pre-release-gate.sh` | Pre-tag gate (`feature-gate --strict`, `check-security-triage --strict`) |
+| `.github/workflows/scorecard.yml` | OpenSSF Scorecard SARIF upload |
 | `scripts/setup-github-repo.sh` | One-time Dependabot + reporting + branch protection setup |
 | `docs/MAINTAINING_THE_TEMPLATE.md` | Maintainer release checklist |
 | `docs/INITIALIZATION_PROMPT.md` | Section 7 pre-release gate |

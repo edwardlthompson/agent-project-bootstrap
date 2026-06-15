@@ -45,3 +45,18 @@ jobs:
           cd examples/python
           uv sync --locked
           uv pip audit
+
+      - name: Setup Node for examples/node audit
+        if: hashFiles('examples/node/package-lock.json') != ''
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: examples/node/package-lock.json
+
+      - name: npm audit (examples/node)
+        if: hashFiles('examples/node/package-lock.json') != ''
+        run: |
+          cd examples/node
+          npm ci
+          npm audit --audit-level=high

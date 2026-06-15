@@ -15,20 +15,18 @@
 
 ## Feature container contract
 
-| Layer | Web | Android | Python |
-|-------|-----|---------|--------|
-| Public API | `src/{feature}/index.ts` (optional barrel) | `{feature}/` package surface | `src/{feature}/` |
-| Pure logic | `src/{feature}/*.ts` (≤150 lines/file) | `{feature}/*.kt` | `src/{feature}/` |
-| View adapter | `src/components/{Feature}Panel.ts` | `ui/{feature}/` Composable | CLI/GUI adapter |
-| Tests | `src/{feature}/*.test.ts` | `src/test/.../{feature}/` | `tests/{feature}/` |
-| i18n | `locales/en.json` `{feature}.*` | `strings.xml` `{feature}_*` | help strings module |
-| Wiring only | `main.ts` ≤10 lines/feature | `MainActivity` nav hook | `main` imports |
+| Layer | Web | Android | Python | Node |
+|-------|-----|---------|--------|------|
+| Public API | `src/{feature}/index.ts` (optional barrel) | `{feature}/` package surface | `src/{feature}/` | `src/{feature}/` |
+| Pure logic | `src/{feature}/*.ts` (≤150 lines/file) | `{feature}/*.kt` | `src/{feature}/` | `src/{feature}/*.ts` |
+| View adapter | `src/components/{Feature}Panel.ts` | `ui/{feature}/` Composable | CLI/GUI adapter | route handler / Hono router |
+| Tests | `src/{feature}/*.test.ts` | `src/test/.../{feature}/` | `tests/{feature}/` | `src/{feature}/*.test.ts` |
+| i18n | `locales/en.json` `{feature}.*` | `strings.xml` `{feature}_*` | help strings module | API error messages / OpenAPI |
+| Wiring only | `main.ts` ≤10 lines/feature | `MainActivity` nav hook | `main` imports | `src/index.ts` imports |
 
 **Lego rule:** Remove a feature by deleting its folder, removing wiring lines and i18n keys, then running `bash scripts/feature-gate.sh`. Golden Path must still pass.
 
-**Reference exemplar:** In-app About — `examples/web/src/about/`, `examples/android/.../about/`, `examples/android/.../ui/about/`.
-
-**Feature docs:** Copy `docs/features/_template.md` per feature; see `docs/features/settings.md` for the proposed first Sprint 2 slice.
+**Reference exemplars:** About (Sprint 1) — `examples/web/src/about/`, `examples/android/.../about/`. Settings (Sprint 2) — `examples/web/src/settings/`, `examples/android/.../settings/`.
 
 ## Per-feature Definition of Done
 

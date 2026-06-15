@@ -19,10 +19,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [javascript-typescript, python]
+        include:
+          - language: javascript-typescript
+          - language: python
+          - language: java-kotlin
+            paths: examples/android
     steps:
       - uses: actions/checkout@v6
-      - uses: github/codeql-action/init@v4
+      - name: Initialize CodeQL (repo-wide)
+        if: matrix.language != 'java-kotlin'
+        uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
+      - name: Initialize CodeQL (Android)
+        if: matrix.language == 'java-kotlin'
+        uses: github/codeql-action/init@v4
+        with:
+          languages: java-kotlin
+          paths: examples/android
       - uses: github/codeql-action/analyze@v4

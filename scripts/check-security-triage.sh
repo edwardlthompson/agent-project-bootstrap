@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
-# Automated weekly security triage checks (Dependabot + required workflows).
-# Usage: scripts/check-security-triage.sh [--wait-ci SEC]
+# Automated weekly security triage checks (Dependabot + required workflows + Scorecard).
+# Usage: scripts/check-security-triage.sh [--wait-ci SEC] [--strict]
+#   --strict  Fail on Dependabot API errors and missing/failed Scorecard (pre-release).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
 WAIT_CI=0
+STRICT=false
 while [ $# -gt 0 ]; do
   case "$1" in
     --wait-ci) WAIT_CI="${2:-300}"; shift 2 ;;
+    --strict) STRICT=true; shift ;;
     *) shift ;;
   esac
 done
@@ -32,8 +35,10 @@ echo "=== Security triage (automated) for ${REPO} ==="
 ALERT_COUNT="$(bash scripts/count-critical-high-dependabot.sh 2>/dev/null || echo error)"
 
 if [ "$ALERT_COUNT" = "error" ]; then
-  echo "WARN: could not fetch Dependabot alerts"
-  ERRORS=$((ERRORS + 1))
+  echo "WARN: could not fetch Dependabot alerts (gh auth may need security_events scope)"
+  if [ "$STRICT" = true ]; then
+    ERRORS=$((ERRORS + 1))
+  fi
 elif [ "${ALERT_COUNT:-0}" -gt 0 ]; then
   echo "FAIL: ${ALERT_COUNT} open Critical/High Dependabot alert(s)"
   ERRORS=$((ERRORS + 1))
@@ -54,6 +59,24 @@ else
   else
     echo "WARN: workflows not all green (re-run with --wait-ci 300)"
   fi
+fi
+
+echo ""
+echo "=== OpenSSF Scorecard (latest run) ==="
+SCORECARD_CONC="$(gh run list --repo "$REPO" --workflow "OpenSSF Scorecard" --limit 1 \
+  --json conclusion -q '.[0].conclusion' 2>/dev/null || echo "")"
+if [ -z "$SCORECARD_CONC" ] || [ "$SCORECARD_CONC" = "null" ]; then
+  if [ "$STRICT" = true ]; then
+    echo "FAIL: no Scorecard workflow run found (dispatch scorecard.yml or wait for schedule)"
+    ERRORS=$((ERRORS + 1))
+  else
+    echo "WARN: no Scorecard workflow run found (dispatch scorecard.yml or wait for schedule)"
+  fi
+elif [ "$SCORECARD_CONC" = "success" ]; then
+  echo "OK   Scorecard workflow: success"
+else
+  echo "FAIL: Scorecard workflow conclusion=${SCORECARD_CONC}"
+  ERRORS=$((ERRORS + 1))
 fi
 
 if [ "$ERRORS" -gt 0 ]; then

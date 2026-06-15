@@ -17,4 +17,12 @@
     <string name="about_donations_message">If this project helps you, consider supporting development.</string>
     <string name="about_update_current">You are on the latest version.</string>
     <string name="about_update_available">Update available: %1$s</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_open">Settings</string>
+    <string name="settings_close">Close settings</string>
+    <string name="settings_theme_label">Theme</string>
+    <string name="settings_theme_mode_system">System theme</string>
+    <string name="settings_theme_mode_light">Light theme</string>
+    <string name="settings_theme_mode_dark">Dark theme</string>
+    <string name="settings_update_check_label">Check for updates</string>
 </resources>

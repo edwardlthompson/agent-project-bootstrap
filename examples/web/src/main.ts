@@ -3,7 +3,7 @@ import { handleRestartGuard, checkForUpdates } from "./about/aboutSession";
 import { loadDonations } from "./about/donations";
 import { createAppShell, type AppShellState } from "./AppShell";
 import { t } from "./i18n";
-import { initTheme } from "./theme";
+import { initTheme, subscribeThemeChange } from "./theme";
 
 const rootEl = document.querySelector<HTMLDivElement>("#app");
 if (!rootEl) throw new Error("App root element not found");
@@ -11,18 +11,30 @@ const appRoot: HTMLDivElement = rootEl;
 
 let state: AppShellState = {
   showAbout: false,
+  showSettings: false,
   updateStatus: t("about.update.current"),
   donations: { enabled: false, message: "", links: [] },
 };
 
 function render(): void {
-  createAppShell(appRoot, state, (patch) => {
-    state = { ...state, ...patch };
-    render();
+  createAppShell(appRoot, state, {
+    onState: (patch) => {
+      state = { ...state, ...patch };
+      render();
+    },
+    onUpdateCheckChange: (enabled) => {
+      if (enabled) {
+        void checkForUpdates().then((status) => {
+          state = { ...state, updateStatus: status };
+          render();
+        });
+      }
+    },
   });
 }
 
 initTheme();
+subscribeThemeChange(() => render());
 void loadDonations().then((d) => {
   state = { ...state, donations: d };
   render();

@@ -20,6 +20,23 @@ test("homepage visual snapshot", async ({ page }) => {
   await expect(page).toHaveScreenshot("homepage.png", { maxDiffPixelRatio: 0.02 });
 });
 
+test("opens settings panel and toggles theme", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
+  await page.locator("[data-settings-theme]").selectOption("dark");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+});
+
+test("persists dark theme after reload", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  await page.locator("[data-settings-theme]").selectOption("dark");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+});
+
 test("serves cached shell offline via service worker", async ({ page, context }) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");

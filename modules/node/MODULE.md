@@ -1,4 +1,4 @@
-# Module D: Node.js API Services
+# Module E: Node.js API Services
 
 > Activate when your stack includes a Node.js HTTP API or backend service.
 

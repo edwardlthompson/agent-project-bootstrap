@@ -35,7 +35,7 @@
 ## Do Not Read Yet
 
 - Inactive `examples/` folders
-- `KNOWLEDGE_BASE.md` (empty)
+- `KNOWLEDGE_BASE.md` — reference when debugging (KB-001–KB-007)
 - `docs/MAINTAINING_THE_TEMPLATE.md` (maintainers only)
 
 ## BUILD_PLAN Labels
