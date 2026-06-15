@@ -368,6 +368,7 @@
 - ✅ [AUTO] CI + Feature Gate green on `main` (`a5f3199`)
 - ✅ [AGENT] `connectedDebugAndroidTest` CI job (`android-instrumented`); documented in `modules/android/MODULE.md`
 - ✅ [AGENT] `release.yml` SBOM upload on `release` published + Release Please dispatch; tag push gate-only split
+- ✅ [AUTO] CI + Feature Gate green on `main` (`5195c46`)
 
 ## BUILD_PLAN cleanup (2026-06-15, M15 complete)
 

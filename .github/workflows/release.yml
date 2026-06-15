@@ -62,8 +62,8 @@ jobs:
         with:
           ref: ${{ steps.tag.outputs.tag }}
 
-      - name: Pre-release gate (workflow_dispatch)
-        if: github.event_name == 'workflow_dispatch'
+      - name: Pre-release gate (workflow_dispatch dry-run)
+        if: github.event_name == 'workflow_dispatch' && inputs.tag == ''
         run: bash scripts/pre-release-gate.sh
 
       - name: Generate root SBOM

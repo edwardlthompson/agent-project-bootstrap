@@ -87,7 +87,8 @@ Before any version bump or GitHub Release:
 
 | Trigger | Gate / action |
 |---------|----------------|
-| `workflow_dispatch` | Full `pre-release-gate.sh`; generate SBOM slices; `gh release upload` to existing tag |
+| `workflow_dispatch` (no tag input) | Full `pre-release-gate.sh` dry-run before next release |
+| `workflow_dispatch` (with `tag` input) | SBOM upload only — backfill assets on an existing release |
 | `release` published | Auto after Release Please: SBOM + Winget stub upload via `gh release upload --clobber` |
 | Tag push `v*` | Lightweight gate only: tag must match `.template-version`; polls **Repo Hygiene** + **Feature Gate** |
 
