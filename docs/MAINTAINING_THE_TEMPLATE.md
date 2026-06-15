@@ -69,7 +69,7 @@ When adding a new **default** stack to the init picker:
 
 Write README edits via Python `Path.write_text(..., encoding="utf-8")` on Windows to avoid UTF-16 corruption from editor tools.
 
-**Hero badges:** Sync the `template-X.Y.Z` shields.io badge in the README hero strip with `.template-version` on every release (Release Checklist step 3).
+**Hero badges:** Sync the `template-X.Y.Z` shields.io badge in the README hero strip with `.template-version` on every release (Release Checklist step 6).
 
 **Table of contents:** The README `## Contents` anchor list must stay in sync when adding or renaming `##` sections.
 

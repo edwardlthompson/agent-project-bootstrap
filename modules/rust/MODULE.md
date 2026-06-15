@@ -1,4 +1,4 @@
-# Module E: Rust Applications
+# Module F: Rust Applications
 
 > Optional stack — not in the default init stack picker. See `docs/OPTIONAL_STACKS.md` to opt in.
 

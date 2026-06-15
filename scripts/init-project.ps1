@@ -106,7 +106,7 @@ if (-not $DonationUrl -and -not $NonInteractive) {
 $AppExample = Join-Path $Root ".app-update.json.example"
 $AppConfig = Join-Path $Root ".app-update.json"
 if ((Test-Path $AppExample) -and -not (Test-Path $AppConfig)) { Copy-Item $AppExample $AppConfig }
-if ($ReleaseRepo) {
+if ($ReleaseRepo -and (Test-Path $AppConfig)) {
   $app = Get-Content $AppConfig -Raw | ConvertFrom-Json
   $app.release_repo = $ReleaseRepo.Trim()
   Write-Utf8NoBom $AppConfig ($app | ConvertTo-Json -Depth 5)

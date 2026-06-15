@@ -398,6 +398,22 @@
 - ✅ [AGENT] Fix prune regression: `sync-design-tokens.py` + design cohesion stack-aware checks
 - ✅ [AUTO] CI + Feature Gate green on `main` (`5d9be3e`)
 
+## M17 P2 backlog (AGENT, 2026-06-15)
+
+- ✅ [AGENT] Web modal a11y: `role="dialog"`, `aria-modal`, focus trap, Escape (`panelDialog.ts`)
+- ✅ [AGENT] Wire `applyPwaUpdate()` in About panel; network-first SW; `UpdateApplierTest` for Android install boundary
+- ✅ [AGENT] Config `.example` for web public + Android assets; stub `release_repo` in template
+- ✅ [AGENT] `init-project.ps1` smoke in `simulate-template-upgrade.sh`; `ReleaseRepo` `Test-Path` guard
+- ✅ [AGENT] Module letters E–G; `node` in `PARALLEL_AGENT_SCOPES.md`; index `MAINTAINING_THE_TEMPLATE.md`
+- ✅ [AGENT] Android `GoldenPathUiTest` instrumented settings/about/theme assertions
+- ✅ [AGENT] `checkForUpdates()` unit tests + axe e2e on open panels
+- ✅ [AGENT] `android-release` CI strict reproducibility; rust/go SBOM slices in `release.yml`
+- ✅ [AGENT] `health-check.yml` `uv sync --all-extras` for pip audit parity
+
+## BUILD_PLAN cleanup (2026-06-15, M17 P2 complete)
+
+- ✅ [AGENT] P2 backlog: modal a11y, PWA apply wiring, config `.example`, PS1 smoke, docs/index, Android UI tests, release SBOM/reproducibility
+
 ## BUILD_PLAN cleanup (2026-06-15, M17 complete)
 
 - ✅ [AGENT] Archive M17 sprint body; slim board to P2 backlog + human open items

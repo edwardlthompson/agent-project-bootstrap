@@ -16,6 +16,7 @@
   "about.update.available": "Update available",
   "about.update.no_compatible": "No compatible update for your install format.",
   "about.update.restarting": "Restarting to apply update\u2026",
+  "about.update.apply": "Apply update",
   "about.donations.heading": "Support development",
   "settings.title": "Settings",
   "settings.open": "Settings",

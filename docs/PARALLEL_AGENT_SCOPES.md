@@ -16,6 +16,7 @@
 | web | `examples/web/**` |
 | python | `examples/python/**` |
 | android | `examples/android/**` |
+| node | `examples/node/**` |
 | multi | One scope per stack row; no overlap |
 | none | Match `AGENT_MEMORY.md` checked modules |
 

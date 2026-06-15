@@ -32,10 +32,16 @@ vi.mock("./i18n", () => ({
   t: vi.fn((key: string) => messages[key] ?? key),
 }));
 
+vi.mock("./about/applyUpdate", () => ({
+  applyPwaUpdate: vi.fn(() => Promise.resolve(true)),
+}));
+
+import { applyPwaUpdate } from "./about/applyUpdate";
 import { createAppShell } from "./AppShell";
 
 const mockedCreateAppShell = vi.mocked(createAppShell);
 const mockedCheckForUpdates = vi.mocked(checkForUpdates);
+const mockedApplyPwaUpdate = vi.mocked(applyPwaUpdate);
 
 describe("bootstrapApp", () => {
   let handlers: AppShellCallbacks | undefined;
@@ -143,5 +149,73 @@ describe("bootstrapApp", () => {
         callsBefore,
       ),
     );
+  });
+
+  it("exposes apply update when a newer version is reported", async () => {
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    mockedCheckForUpdates.mockResolvedValueOnce(
+      `${messages["about.update.available"]}: 99.0.0`,
+    );
+    requireHandlers().onUpdateCheckChange?.(true);
+    await vi.waitFor(() => expect(handlers?.canApplyUpdate).toBe(true));
+  });
+
+  it("applies PWA update through service worker registration", async () => {
+    const registration = { waiting: {} } as ServiceWorkerRegistration;
+    Object.defineProperty(navigator, "serviceWorker", {
+      configurable: true,
+      value: {
+        register: vi.fn(() => Promise.resolve()),
+        getRegistration: vi.fn(() => Promise.resolve(registration)),
+      },
+    });
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    requireHandlers().onApplyUpdate?.();
+    await vi.waitFor(() =>
+      expect(mockedApplyPwaUpdate).toHaveBeenCalledWith(registration),
+    );
+  });
+
+  it("shows restarting status after apply succeeds", async () => {
+    mockedApplyPwaUpdate.mockResolvedValueOnce(true);
+    const registration = { waiting: {} } as ServiceWorkerRegistration;
+    Object.defineProperty(navigator, "serviceWorker", {
+      configurable: true,
+      value: {
+        register: vi.fn(() => Promise.resolve()),
+        getRegistration: vi.fn(() => Promise.resolve(registration)),
+      },
+    });
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    requireHandlers().onApplyUpdate?.();
+    await vi.waitFor(() =>
+      expect(
+        mockedCreateAppShell.mock.calls.some(
+          ([, state]) =>
+            state.updateStatus === messages["about.update.restarting"],
+        ),
+      ).toBe(true),
+    );
+  });
+
+  it("no-ops apply when service worker registration is missing", async () => {
+    Object.defineProperty(navigator, "serviceWorker", {
+      configurable: true,
+      value: {
+        register: vi.fn(() => Promise.resolve()),
+        getRegistration: vi.fn(() => Promise.resolve(undefined)),
+      },
+    });
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    requireHandlers().onApplyUpdate?.();
+    await vi.waitFor(() => expect(mockedApplyPwaUpdate).not.toHaveBeenCalled());
   });
 });

@@ -5,6 +5,9 @@ import { createSettingsPanel } from "./components/SettingsPanel";
 import { createThemeToggle } from "./components/ThemeToggle";
 import { isOnline } from "./greet";
 import { t } from "./i18n";
+import { bindPanelDialog } from "./panelDialog";
+
+let dialogCleanup: (() => void) | undefined;
 
 export type AppShellState = {
   showAbout: boolean;
@@ -16,6 +19,8 @@ export type AppShellState = {
 export type AppShellCallbacks = {
   onState: (next: Partial<AppShellState>) => void;
   onUpdateCheckChange?: (enabled: boolean) => void;
+  onApplyUpdate?: () => void;
+  canApplyUpdate?: boolean;
 };
 
 export function createAppShell(
@@ -56,15 +61,18 @@ export function createAppShell(
 
   const mount = root.querySelector("[data-panel-mount]");
   if (!mount) return;
+
+  dialogCleanup?.();
+  dialogCleanup = undefined;
   mount.innerHTML = "";
 
   if (state.showSettings) {
-    mount.appendChild(
-      createSettingsPanel({
-        onClose: () => callbacks.onState({ showSettings: false }),
-        onUpdateCheckChange: callbacks.onUpdateCheckChange,
-      }),
-    );
+    const panel = createSettingsPanel({
+      onClose: () => callbacks.onState({ showSettings: false }),
+      onUpdateCheckChange: callbacks.onUpdateCheckChange,
+    });
+    mount.appendChild(panel);
+    dialogCleanup = bindPanelDialog(panel, () => callbacks.onState({ showSettings: false }));
     return;
   }
 
@@ -76,8 +84,12 @@ export function createAppShell(
         version: APP_VERSION,
         updateStatus: state.updateStatus,
         donations: state.donations,
+        canApplyUpdate: callbacks.canApplyUpdate,
       },
       () => callbacks.onState({ showAbout: false }),
+      callbacks.onApplyUpdate,
     ),
   );
+  const aboutPanel = mount.lastElementChild as HTMLElement;
+  dialogCleanup = bindPanelDialog(aboutPanel, () => callbacks.onState({ showAbout: false }));
 }

@@ -98,6 +98,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "docs/MAINTAINING_THE_TEMPLATE.md",
+      "purpose": "Template maintainer semver, release checklist, badge conventions",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "SECURITY.md",
       "purpose": "Vulnerability reporting policy and supported versions",
       "read_when": "security_report",

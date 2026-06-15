@@ -16,6 +16,7 @@ export function createSettingsPanel(callbacks: SettingsPanelCallbacks): HTMLElem
   const panel = document.createElement("section");
   panel.className = "gp-settings-panel";
   panel.setAttribute("aria-label", t("settings.title"));
+  panel.dataset.testid = "settings-panel";
 
   const themeMode = getSettingsThemeMode();
   const updateEnabled = isUpdateCheckEnabled();

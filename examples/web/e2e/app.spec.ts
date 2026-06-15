@@ -14,6 +14,22 @@ test("passes accessibility audit", async ({ page }) => {
   expect(results.violations).toEqual([]);
 });
 
+test("passes accessibility audit with settings panel open", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  await expect(page.getByTestId("settings-panel")).toBeVisible();
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
+});
+
+test("passes accessibility audit with about panel open", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "About" }).click();
+  await expect(page.getByTestId("about-panel")).toBeVisible();
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
+});
+
 test("homepage visual snapshot", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("main")).toBeVisible();

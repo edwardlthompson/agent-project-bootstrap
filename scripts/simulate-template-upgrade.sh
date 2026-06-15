@@ -66,4 +66,19 @@ done
 bash scripts/validate-bootstrap.sh --quick
 echo "Prune-optional smoke passed"
 
+echo "==> Non-interactive init smoke (PowerShell)"
+git clone --quiet "file://$ROOT" "$WORKDIR/child-ps"
+cd "$WORKDIR/child-ps"
+
+pwsh -NoProfile -File scripts/init-project.ps1 \
+  -NonInteractive \
+  -Stack web \
+  -ProjectName "Upgrade Sim PS" \
+  -ProjectPurpose "PS init smoke" \
+  -Prune \
+  -PruneOptional
+
+bash scripts/validate-bootstrap.sh --quick
+echo "PowerShell init smoke passed"
+
 echo "Upgrade simulation passed"

@@ -22,26 +22,13 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
-> **Template maintainer:** Sprint **M17** complete (`5d9be3e`). P2 backlog below. **Child repos:** copy the playbook.
+> **Template maintainer:** P2 backlog complete. **Child repos:** copy the playbook.
 
 ---
 
-## Template Maintainer — P2 backlog (post-M17)
+## Template Maintainer — Open backlog
 
-> Deferred from M17 code review. Safe to parallelize; no ordering dependency.
-
-- ⬜ [AGENT] Web modal a11y: `role="dialog"`, `aria-modal`, focus trap, Escape on About/Settings panels
-- ⬜ [AGENT] Wire `applyPwaUpdate()` / Android `UpdateApplier` or remove dead apply paths; SW cache strategy → network-first when online
-- ⬜ [AGENT] Config hygiene: `.example` pattern for `app-update.json` / `donations.json` in web public + Android assets; stub `release_repo` in template
-- ⬜ [AGENT] `init-project.ps1` smoke in CI (`simulate-template-upgrade` or dedicated job); donation `Test-Path` guard
-- ⬜ [AGENT] Renumber duplicate module letters (Node/Rust both E; Go/Lightroom both F); add `node` to `PARALLEL_AGENT_SCOPES.md` child table
-- ⬜ [AGENT] Index `MAINTAINING_THE_TEMPLATE.md` in `TEMPLATE_INDEX.json`; fix badge step reference (step 3 vs 6)
-- ⬜ [AGENT] Android instrumented: settings/about/theme/update UI assertions beyond launch smoke
-- ⬜ [AGENT] `checkForUpdates()` unit tests (fetch mock); axe e2e on settings/about open states
-- ⬜ [AGENT] `android-release` CI: align reproducibility WARN vs `verify-reproducible-apk.sh --strict`
-- ⬜ [AGENT] Optional rust/go SBOM slices in `release.yml` when examples exist
-
-### Open (template maintainer — human judgment only)
+> Human-only items below. No active AGENT sprint.
 
 | Item | Owner | Command / gate |
 |------|-------|----------------|
@@ -130,7 +117,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
-| M5–M17 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
+| M5–M17 maintainer sprints + P2 backlog | Complete | `COMPLETED_TASKS.md` |
 | M17 Post-M16 review (`5d9be3e`) | Complete | `COMPLETED_TASKS.md` |
 | v0.9.0 release (`fd699bc`) | Complete | `COMPLETED_TASKS.md` |
 | M16 Post-M15 review (`1634917`) | Complete | `COMPLETED_TASKS.md` |

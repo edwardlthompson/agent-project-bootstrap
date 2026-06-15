@@ -450,9 +450,10 @@ jobs:
           APK2=$(find app/build/outputs/apk/release -name '*.apk' | head -1)
           HASH2=$(sha256sum "$APK2" | awk '{print $1}')
           if [ "$HASH1" != "$HASH2" ]; then
-            echo "WARN: APK hashes differ between builds (documented flake tolerance)"
+            echo "FAIL: APK hashes differ between builds (reproducibility regression)"
             echo "  Run 1: $HASH1"
             echo "  Run 2: $HASH2"
+            exit 1
           else
             echo "OK   Reproducible APK hash: $HASH1"
           fi

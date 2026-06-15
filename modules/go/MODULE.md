@@ -1,4 +1,4 @@
-# Module F: Go Applications
+# Module G: Go Applications
 
 > Optional stack — not in the default init stack picker. See `docs/OPTIONAL_STACKS.md` to opt in.
 

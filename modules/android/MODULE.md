@@ -90,7 +90,7 @@ Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
 ### Build reproducibility
 
 - ⬜ Set `SOURCE_DATE_EPOCH` (fixed Unix timestamp) in release build scripts and CI
-- ⬜ Run `bash scripts/verify-reproducible-apk.sh` locally (or rely on CI `android-release` job; use `--strict` to fail on hash drift)
+- ⬜ Run `bash scripts/verify-reproducible-apk.sh` locally (or rely on CI `android-release` job; CI fails on hash drift)
 - ⬜ Confirm no proprietary SDK grep failures match CI (`android-structure` job)
 - ⬜ Verify Gradle wrapper and dependency lockfiles committed
 

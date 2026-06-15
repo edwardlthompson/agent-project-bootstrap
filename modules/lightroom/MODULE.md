@@ -1,4 +1,4 @@
-# Module F: Adobe Lightroom Classic Plugins
+# Module D: Adobe Lightroom Classic Plugins
 
 > Activate when your stack includes an Adobe Lightroom Classic plugin.
 

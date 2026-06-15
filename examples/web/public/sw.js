@@ -18,18 +18,21 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const network = fetch(event.request)
-        .then((response) => {
-          if (response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-          }
-          return response;
-        })
-        .catch(() => cached);
-      return cached || network;
-    })
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      try {
+        const response = await fetch(event.request);
+        if (response.ok) {
+          const copy = response.clone();
+          await cache.put(event.request, copy);
+        }
+        return response;
+      } catch {
+        const cached = await cache.match(event.request);
+        if (cached) return cached;
+        throw new Error("offline and no cache");
+      }
+    })()
   );
 });
 

@@ -43,7 +43,7 @@ jobs:
         if: hashFiles('examples/python/uv.lock') != ''
         run: |
           cd examples/python
-          uv sync --locked
+          uv sync --locked --all-extras
           uv pip audit
 
       - name: Setup Node for examples/node audit
