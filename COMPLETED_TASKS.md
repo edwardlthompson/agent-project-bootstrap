@@ -371,9 +371,22 @@
 - ✅ [AUTO] CI + Feature Gate green on `main` (`5195c46`)
 - ✅ [AGENT] SBOM backfill for v0.9.0; dispatch skip pre-release gate when `tag` input set
 
-## Sprint M16 — Post-M15 code review (planned, 2026-06-15)
+## Sprint M16 — Post-M15 code review (AGENT, 2026-06-15)
 
-> Added from full code review on `ac1377c`. See BUILD_PLAN.md Sprint M16.
+- ✅ [AGENT] P0 `--skip-workflows` on `check-github-ci.sh` / `.ps1`; tag-gate jobs-only poll in `release.yml`
+- ✅ [AGENT] P0 SBOM tag ↔ `.template-version` assert; single checkout in `sbom-assets`
+- ✅ [AGENT] P1 docs: `SECURITY_TRIAGE.md`, `MAINTAINING_THE_TEMPLATE.md`, `OPTIONAL_STACKS.md`
+- ✅ [AGENT] P1 CI `path-changes` job; AOSP emulator target; `upgrade-simulation` gate enforced
+- ✅ [AGENT] P1 BOM-less JSON writes in `init-project.ps1`; Playwright mocked update e2e
+- ✅ [AGENT] P1 Release Please SBOM dedupe (`release` published only)
+- ✅ [AUTO] CI + Feature Gate green on `main` (`f7213ec`, `7846d96`)
+- ✅ [AGENT] P2 `--prune-optional` smoke in `simulate-template-upgrade.sh`; init flags docs
+- ✅ [AGENT] P2 `AboutPanel` `aria-live="polite"`; `appBootstrap.test.ts` en.json strings
+- ✅ [AGENT] Fix `examples/lightroom` removal on `--prune-optional` in init scripts
+
+## BUILD_PLAN cleanup (2026-06-15, M16 complete)
+
+- ✅ [AGENT] Archive M16 sprint body; slim board to maintenance + human open items
 
 ## BUILD_PLAN cleanup (2026-06-15, M15 complete)
 
