@@ -111,6 +111,15 @@ fun GoldenPathScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = SpacingLg),
                 )
+                val currentUpdateLabel = stringResource(R.string.about_update_current)
+                if (updateStatus != currentUpdateLabel) {
+                    Text(
+                        text = updateStatus,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        modifier = Modifier.padding(top = SpacingMd),
+                    )
+                }
             }
         }
     }

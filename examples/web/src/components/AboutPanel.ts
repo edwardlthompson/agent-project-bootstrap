@@ -15,30 +15,59 @@ export function createAboutPanel(
   panel.className = "gp-about-panel";
   panel.setAttribute("aria-label", t("about.title"));
 
-  const donationsHtml =
-    state.donations.enabled && state.donations.links.length > 0
-      ? `<p class="gp-about-donate-msg">${state.donations.message}</p>
-         <ul class="gp-about-donate-links">
-           ${state.donations.links
-             .map(
-               (l) =>
-                 `<li><a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}</a></li>`,
-             )
-             .join("")}
-         </ul>`
-      : "";
+  const header = document.createElement("header");
+  header.className = "gp-about-header";
 
-  panel.innerHTML = `
-    <header class="gp-about-header">
-      <h2>${t("about.title")}</h2>
-      <button type="button" class="gp-about-close" aria-label="${t("about.close")}">×</button>
-    </header>
-    <p>${t("about.version")}: <strong>${state.version}</strong></p>
-    <p>${t("about.format")}: <code>pwa</code></p>
-    <p class="gp-about-status" data-testid="about-status">${state.updateStatus}</p>
-    ${donationsHtml}
-  `;
+  const title = document.createElement("h2");
+  title.textContent = t("about.title");
 
-  panel.querySelector(".gp-about-close")?.addEventListener("click", onClose);
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.className = "gp-about-close";
+  closeBtn.setAttribute("aria-label", t("about.close"));
+  closeBtn.textContent = "×";
+  closeBtn.addEventListener("click", onClose);
+
+  header.append(title, closeBtn);
+
+  const versionP = document.createElement("p");
+  versionP.append(`${t("about.version")}: `);
+  const versionStrong = document.createElement("strong");
+  versionStrong.textContent = state.version;
+  versionP.append(versionStrong);
+
+  const formatP = document.createElement("p");
+  formatP.append(`${t("about.format")}: `);
+  const formatCode = document.createElement("code");
+  formatCode.textContent = "pwa";
+  formatP.append(formatCode);
+
+  const statusP = document.createElement("p");
+  statusP.className = "gp-about-status";
+  statusP.dataset.testid = "about-status";
+  statusP.textContent = state.updateStatus;
+
+  panel.append(header, versionP, formatP, statusP);
+
+  if (state.donations.enabled && state.donations.links.length > 0) {
+    const donateMsg = document.createElement("p");
+    donateMsg.className = "gp-about-donate-msg";
+    donateMsg.textContent = state.donations.message;
+
+    const donateList = document.createElement("ul");
+    donateList.className = "gp-about-donate-links";
+    for (const link of state.donations.links) {
+      const item = document.createElement("li");
+      const anchor = document.createElement("a");
+      anchor.href = link.url;
+      anchor.target = "_blank";
+      anchor.rel = "noopener noreferrer";
+      anchor.textContent = link.label;
+      item.append(anchor);
+      donateList.append(item);
+    }
+    panel.append(donateMsg, donateList);
+  }
+
   return panel;
 }

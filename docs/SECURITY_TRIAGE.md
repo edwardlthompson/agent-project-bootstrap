@@ -21,6 +21,10 @@ Requires `gh` CLI authenticated with admin access. On API `422` (plan or permiss
 
 5. Configure branch protection on `main` requiring status checks: **CI**, **Security Scan**, **CodeQL**, **Repo Hygiene**, **Feature Gate** (`scripts/setup-github-repo.sh` sets these via API; verify in Settings -> Branches)
 
+**Verify after setup:** `bash scripts/verify-branch-protection.sh` asserts required check contexts, `strict: true`, and `allow_force_pushes: false`. Override expected checks with `GITHUB_REQUIRED_CHECKS` when workflow job names differ.
+
+**Rulesets fallback:** GitHub repos using **rulesets** instead of classic branch protection return `404` from `repos/{owner}/{repo}/branches/{branch}/protection`. In that case, confirm equivalent rules in **Settings -> Rules -> Rulesets** (required status checks, block force pushes, require linear history) or migrate to classic protection via `setup-github-repo.sh`.
+
 **Note:** Workflow rollup names (`CI`, `Security Scan`, `CodeQL`) and CI job names (`Repo Hygiene`, `Feature Gate`) must match GitHub check contexts exactly. Override with `GITHUB_REQUIRED_CHECKS` if your repo uses different names.
 
 **Public repos:** Dependabot alerts are free.
@@ -79,6 +83,15 @@ Before any version bump or GitHub Release:
 - ⬜ Deferred vulnerabilities have a linked issue and [HUMAN] sign-off in release notes or DECISION_LOG.md
 - ⬜ All [AUTO] security scans green on main (Trivy, CodeQL)
 
+**Release workflow gates (`.github/workflows/release.yml`):**
+
+| Trigger | Gate |
+|---------|------|
+| `workflow_dispatch` | Full `pre-release-gate.sh` (feature-gate strict, security triage, file limits, manifest coherence) |
+| Tag push `v*` | Lightweight gate: tag must match `.template-version`; polls **Repo Hygiene** + **Feature Gate** with `--wait 300` |
+
+Use `workflow_dispatch` for maintainer dry-runs before tagging. Tag push is the production release path after human approval.
+
 If a Critical/High alert has no upstream fix, release may proceed only when:
 
 1. A linked issue documents the advisory, impact, and mitigation
@@ -98,5 +111,7 @@ If a Critical/High alert has no upstream fix, release may proceed only when:
 | `scripts/pre-release-gate.sh` | Pre-tag gate (`feature-gate --strict`, `check-security-triage --strict`) |
 | `.github/workflows/scorecard.yml` | OpenSSF Scorecard SARIF upload |
 | `scripts/setup-github-repo.sh` | One-time Dependabot + reporting + branch protection setup |
+| `scripts/verify-branch-protection.sh` | Post-setup branch protection + strict/force-push verification |
+| `scripts/verify-reproducible-apk.sh` | Local reproducible APK hash check (also in `run-maintainer-gates.sh` full mode) |
 | `docs/MAINTAINING_THE_TEMPLATE.md` | Maintainer release checklist |
 | `docs/INITIALIZATION_PROMPT.md` | Section 7 pre-release gate |

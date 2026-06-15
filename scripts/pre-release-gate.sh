@@ -31,6 +31,25 @@ if [ ! -f .template-version ]; then
 else
   VERSION="$(tr -d '[:space:]' < .template-version)"
   echo "OK   .template-version = ${VERSION}"
+  if [ -f .release-please-manifest.json ]; then
+    MANIFEST_VERSION="$(python3 - <<'PY'
+import json
+with open(".release-please-manifest.json", encoding="utf-8") as f:
+    print(json.load(f).get(".", "").strip())
+PY
+)"
+    if [ -z "$MANIFEST_VERSION" ]; then
+      echo "FAIL: .release-please-manifest.json missing \".\" version"
+      ERRORS=$((ERRORS + 1))
+    elif [ "$VERSION" != "$MANIFEST_VERSION" ]; then
+      echo "FAIL: .template-version (${VERSION}) != release-please manifest (${MANIFEST_VERSION})"
+      ERRORS=$((ERRORS + 1))
+    else
+      echo "OK   release-please manifest matches .template-version"
+    fi
+  else
+    echo "WARN: .release-please-manifest.json not found"
+  fi
 fi
 
 echo ""

@@ -68,6 +68,8 @@ if not raw.strip():
     raise SystemExit(1)
 data = json.loads(raw)
 contexts = set(data.get("required_status_checks", {}).get("contexts", []))
+strict = data.get("required_status_checks", {}).get("strict", False)
+force_enabled = data.get("allow_force_pushes", {}).get("enabled", True)
 missing = sorted(expected - contexts)
 extra = sorted(contexts - expected)
 
@@ -78,7 +80,12 @@ for ctx in missing:
 for ctx in extra:
     print(f"WARN extra check (not in template default): {ctx}")
 
-if missing:
+if not strict:
+    print("FAIL required_status_checks.strict is false (stale commits may pass)")
+if force_enabled:
+    print("FAIL allow_force_pushes is enabled on protected branch")
+
+if missing or not strict or force_enabled:
     repo = os.environ.get("REPO", "owner/repo")
     print("")
     print("Fix: export GITHUB_REQUIRED_CHECKS if workflow names differ, then:")

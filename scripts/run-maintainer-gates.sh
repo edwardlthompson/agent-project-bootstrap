@@ -1,18 +1,31 @@
 #!/usr/bin/env bash
 # Orchestrate template-maintainer weekly/monthly/milestone AUTO gates.
-# Usage: scripts/run-maintainer-gates.sh [--quick] [--wait-ci SEC]
+# Usage: scripts/run-maintainer-gates.sh [--quick] [--wait-ci SEC] [--skip-apk]
+#   --quick     Skip pre-release gate; poll CI without --wait (snapshot only)
+#   --wait-ci   Seconds to wait for CI in full mode (default 300)
+#   --skip-apk  Skip verify-reproducible-apk.sh in full mode
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
 QUICK=false
+SKIP_APK=false
 WAIT_CI=300
 while [ $# -gt 0 ]; do
   case "$1" in
     --quick) QUICK=true; shift ;;
     --wait-ci) WAIT_CI="${2:-300}"; shift 2 ;;
-    *) shift ;;
+    --skip-apk) SKIP_APK=true; shift ;;
+    -h|--help)
+      echo "Usage: scripts/run-maintainer-gates.sh [--quick] [--wait-ci SEC] [--skip-apk]"
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      echo "Usage: scripts/run-maintainer-gates.sh [--quick] [--wait-ci SEC] [--skip-apk]" >&2
+      exit 1
+      ;;
   esac
 done
 
@@ -46,6 +59,9 @@ if [ "$QUICK" = true ]; then
   fi
 else
   run_step "pre-release" bash scripts/pre-release-gate.sh
+  if [ "$SKIP_APK" = false ] && [ -f examples/android/gradlew ]; then
+    run_step "reproducible-apk" bash scripts/verify-reproducible-apk.sh --strict
+  fi
   if command -v gh >/dev/null 2>&1; then
     run_step "ci-jobs" bash scripts/check-github-ci.sh HEAD --wait "$WAIT_CI" --jobs "Repo Hygiene,Feature Gate"
   fi

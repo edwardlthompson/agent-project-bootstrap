@@ -59,35 +59,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Sprint M12: CodeQL Android init-before-build order; tag release gate `--wait`/`--jobs`; Robolectric DataStore isolation; `ReleaseTagFetcherTest`, `DonationsLoaderTest`, `MainActivitySmokeTest`; web `appBootstrap` vitest coverage; Android `pendingRestart` UI stub
-- Sprint M11: Android compile fixes; CodeQL Java setup; `ReleaseTagFetcher` IO dispatcher; release workflow lightweight vs full gate split; Robolectric theme/update prefs tests; web `appBootstrap.ts` extraction; gate dedupe in `run-maintainer-gates.sh`
-- Sprint M10: Settings vertical slice (web + Android); gate parity (`--strict`, Scorecard, security triage); node stack init fixes; About/update exemplar fidelity; opt-in update checks default off
-- Sprint M9 execution: 3-strike fix, maintainer lane routing, gate/CI parity, About exemplar tests
-- `scripts/count-critical-high-dependabot.sh`, `scripts/verify-agent-strikes.sh`
-- Web `AppShell.ts` composition refactor; Android `UpdateStatusEvaluator` + unit tests
-- `TEMPLATE_INDEX.json` reverse scan in `validate-template-index.sh`
+- Sprint M13: `verify-branch-protection`, `verify-reproducible-apk`, init `--stack` CLI, unicode checklists in BUILD_PLAN
+- Sprint M14: init `--non-interactive`, Android SBOM slice in release workflow, manifest coherence check in `pre-release-gate.sh`
 
 ### Fixed
 
-- CodeQL `java-kotlin` matrix: initialize before Gradle traced build; pin Kotlin compose plugin 2.3.20 for CodeQL extractor compatibility
-- Tag release lightweight gate polls CI with `--wait 300 --jobs "Repo Hygiene,Feature Gate"`; PowerShell `check-github-ci.ps1` `-Jobs` parity
-- Sprint M11: `kotlinx.coroutines.launch` imports in `MainActivity` / `GoldenPathApp`; offline update-check gating; clickable donations; header nav toggle
-- F-Droid metadata validator: `verify-fdroid-metadata.sh` (+ `.ps1`); changelog and images README under `examples/android/metadata/`
-- Sprint 2 feature docs: `docs/features/_template.md`, proposed first slice `docs/features/settings.md`
-- `TEMPLATE_INDEX.json` entries for verify-about, security-triage, readme-health, fdroid-metadata, maintainer-gates scripts
+- Version coherence: sync `.template-version`, `TEMPLATE_INDEX.json`, and `AGENT_MEMORY.md` to 0.8.0
+- `init-project.ps1` stderr redirect (`2>$null`); Python placeholder replacement in both init scripts
+- `AboutPanel.ts` donation links via DOM APIs; `APP_VERSION` from `package.json` via Vite `define`
+- `check-file-limits.sh` coverage for `GoldenPathApp.kt` / `GoldenPathScreen.kt`; home-screen update status banner
 
-### Fixed
+### Changed
 
-- OpenSSF Scorecard workflow: move `security-events` and `id-token` write permissions to job level (publish_results API requirement)
-
-- Incremental feature assembly: `docs/FEATURE_MODULES.md`, vertical-slice Sprint 2+ BUILD_PLAN template
-- Autonomous agent gates: `feature-gate.sh`, `feature-autofix.sh`, `agent-progress.sh`, `watch-agent-gates.sh`, `smoke-stack.sh` (+ PowerShell twins)
-- Cursor rules: `feature-modules.mdc`; extended `testing.mdc`, `ci-gates.mdc`, `destructive-ops.mdc` for auto-fix protocol
-- Session state + gitignored `.cursor/agent-progress.json` for extended agent sessions
-- PROMPT_LIBRARY Entry 17 — autonomous feature step
-
-- In-app About screen: init prompt guidance, Golden Path web/Android stubs, format-locked update checker, donation placeholders
-- Repo hygiene automation: `.gitattributes`, `.editorconfig`, `.cursorignore`, hygiene scripts, CI `repo-hygiene` job, `docs/REPO_HYGIENE.md`
+- `run-maintainer-gates.sh` wires `verify-reproducible-apk.sh` (full mode, `--skip-apk` opt-out); rejects unknown CLI flags
+- `verify-branch-protection.sh` asserts `strict: true` and disallows force pushes
 
 ## [0.7.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.7.0...v0.7.1) (2026-06-13)
 

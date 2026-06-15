@@ -1,5 +1,5 @@
 {
-  "template_version": "0.7.1",
+  "template_version": "0.8.0",
   "entry_points": {
     "bootstrap": "docs/START_HERE.md",
     "reference": "docs/FOR_AGENTS.md",
@@ -803,6 +803,13 @@
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/settings.md",
+      "purpose": "Settings vertical slice acceptance criteria (Sprint 2 exemplar)",
+      "read_when": "feature_work",
+      "update_when": "feature_work",
+      "owner": "human+agent"
     },
     {
       "path": "docs/features/_template.md",

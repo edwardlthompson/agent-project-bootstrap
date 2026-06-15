@@ -248,6 +248,20 @@ Only when all quality checks return clean may you update the `CHANGELOG.md` (Kee
 
 ## 8. Startup Sequence
 
+**Init CLI (post clone):** run `scripts/init-project.sh` or `scripts/init-project.ps1` after filling placeholders (or pass flags). Non-interactive example:
+
+```bash
+scripts/init-project.sh \
+  --non-interactive \
+  --stack web \
+  --project-name "My App" \
+  --purpose "Offline-first notes" \
+  --interval weekly \
+  --codeowner myuser
+```
+
+PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack web -ProjectName "My App" -ProjectPurpose "Offline-first notes"`. Add `-Prune` to remove unused stacks. See `scripts/init-project.sh --help`.
+
 1. Confirm understanding of the specified Platform, Stack, Purpose, and FOSS distribution pipelines.
 2. Initialize core repository architecture, root documentation (`README.md`, `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`), and the Workspace Memory files. `README.md` must include: project purpose and stack, quick start, BUILD_PLAN label legend, template update checker table, in-app About + donation placeholder note (separate from template checker), security section (Dependabot alerts + weekly triage link to `docs/SECURITY_TRIAGE.md`), and links to `docs/START_HERE.md`, `CONTRIBUTING.md`, and the active module guide.
 3. Configure a local development sandbox (e.g., Devcontainer configuration), scaffolding scripts for components/features, and local git hooks (Gitleaks/TruffleHog + Linter/Formatter pre-commit hooks). Add `.env.example` for documented environment variables.

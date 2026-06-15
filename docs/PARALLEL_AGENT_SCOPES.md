@@ -29,6 +29,18 @@
 | B — Init CLI | `scripts/init-project.sh`, `scripts/init-project.ps1` |
 | C — APK reproducibility | `scripts/verify-reproducible-apk.sh`, `.ps1`, `modules/android/MODULE.md` |
 
+## Sprint M14 (template maintainer) — active
+
+> Post-M13 code review on `4fddec8`. Version sync, init.ps1 fix, gate wiring, web/Android hardening.
+
+| Agent | Scope |
+|-------|-------|
+| A — Init + version | `scripts/init-project.*`, `pre-release-gate.sh`, `.template-version`, `TEMPLATE_INDEX.json` |
+| B — Maintainer gates | `run-maintainer-gates.sh`, `verify-branch-protection.sh`, `verify-reproducible-apk.sh` |
+| C — Web exemplar | `AboutPanel.ts`, `aboutSession.ts`, `e2e/app.spec.ts` |
+| D — Android + CI | `GoldenPathApp.kt`, `check-file-limits.sh`, `release.yml` |
+| E — Docs | `CHANGELOG.md`, `INITIALIZATION_PROMPT.md`, `docs/features/settings.md` index |
+
 ## Sprint M12 (template maintainer) — archived
 
 > Completed 2026-06-15. CodeQL init order + Kotlin 2.3.20 pin; tag gate `--jobs`; bootstrap coverage.

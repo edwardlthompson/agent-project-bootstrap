@@ -4,7 +4,7 @@
 #   --stack web|python|android|node|multi|none
 #   --project-name NAME  --purpose TEXT  --interval INTERVAL
 #   --release-repo OWNER/REPO  --donation-url URL  --codeowner USER
-#   --prune  --no-prune
+#   --prune  --no-prune  --non-interactive
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -22,6 +22,7 @@ Usage: scripts/init-project.sh [options]
   --codeowner USER       GitHub username without @
   --prune                Prune unused examples/modules without prompting
   --no-prune             Never prune (overrides --prune)
+  --non-interactive      Skip prompts (requires --stack, --project-name, --purpose)
   -h, --help
 EOF
 }
@@ -34,6 +35,7 @@ RELEASE_REPO=""
 DONATION_URL=""
 CODEOWNER=""
 PRUNE_FLAG=""
+NONINTERACTIVE=false
 while [ $# -gt 0 ]; do
   case "$1" in
     --stack) STACK="${2:-}"; shift 2 ;;
@@ -45,21 +47,29 @@ while [ $# -gt 0 ]; do
     --codeowner) CODEOWNER="${2:-}"; shift 2 ;;
     --prune) PRUNE_FLAG="yes"; shift ;;
     --no-prune) PRUNE_FLAG="no"; shift ;;
+    --non-interactive) NONINTERACTIVE=true; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage >&2; exit 1 ;;
   esac
 done
 
+if [ "$NONINTERACTIVE" = true ]; then
+  if [ -z "$STACK" ] || [ -z "$PROJECT_NAME" ] || [ -z "$PROJECT_PURPOSE" ]; then
+    echo "ERROR: --non-interactive requires --stack, --project-name, and --purpose" >&2
+    exit 1
+  fi
+fi
+
 echo "=== agent-project-bootstrap init ==="
 echo ""
 
-if [ -z "$PROJECT_NAME" ]; then
+if [ -z "$PROJECT_NAME" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "Project name: " PROJECT_NAME
 fi
-if [ -z "$PROJECT_PURPOSE" ]; then
+if [ -z "$PROJECT_PURPOSE" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "One-line purpose: " PROJECT_PURPOSE
 fi
-if [ -z "$STACK" ]; then
+if [ -z "$STACK" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "Primary stack (web/python/android/node/multi/none): " STACK
 fi
 STACK="${STACK:-none}"
@@ -70,21 +80,31 @@ case "$STACK" in
     STACK=none
     ;;
 esac
-if [ -z "$INTERVAL" ]; then
+if [ -z "$INTERVAL" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]: " INTERVAL
 fi
 INTERVAL="${INTERVAL:-weekly}"
 
-# Replace placeholders
-if [ -n "$PROJECT_NAME" ]; then
-  sed -i "s/\[INSERT PLATFORM \/ TECH STACK HERE\]/$STACK/g" docs/INITIALIZATION_PROMPT.md 2>/dev/null || \
-    sed -i '' "s/\[INSERT PLATFORM \/ TECH STACK HERE\]/$STACK/g" docs/INITIALIZATION_PROMPT.md
-  sed -i "s/\[INSERT DETAILED APP DESCRIPTION AND GOALS HERE\]/$PROJECT_PURPOSE/g" docs/INITIALIZATION_PROMPT.md 2>/dev/null || \
-    sed -i '' "s/\[INSERT DETAILED APP DESCRIPTION AND GOALS HERE\]/$PROJECT_PURPOSE/g" docs/INITIALIZATION_PROMPT.md
-  sed -i "s/\[INSERT PLATFORM \/ TECH STACK HERE\]/$STACK/g" AGENT_MEMORY.md 2>/dev/null || \
-    sed -i '' "s/\[INSERT PLATFORM \/ TECH STACK HERE\]/$STACK/g" AGENT_MEMORY.md
-  sed -i "s/\[INSERT DETAILED APP DESCRIPTION AND GOALS HERE\]/$PROJECT_PURPOSE/g" AGENT_MEMORY.md 2>/dev/null || \
-    sed -i '' "s/\[INSERT DETAILED APP DESCRIPTION AND GOALS HERE\]/$PROJECT_PURPOSE/g" AGENT_MEMORY.md
+# Replace placeholders (Python handles special characters in names)
+if [ -n "$STACK" ] && [ -n "$PROJECT_PURPOSE" ]; then
+  python3 - "$STACK" "$PROJECT_PURPOSE" "$ROOT" << 'PY'
+import sys
+from pathlib import Path
+
+stack, purpose, root = sys.argv[1], sys.argv[2], Path(sys.argv[3])
+replacements = [
+    ("[INSERT PLATFORM / TECH STACK HERE]", stack),
+    ("[INSERT DETAILED APP DESCRIPTION AND GOALS HERE]", purpose),
+]
+for rel in ("docs/INITIALIZATION_PROMPT.md", "AGENT_MEMORY.md"):
+    path = root / rel
+    if not path.is_file():
+        continue
+    text = path.read_text(encoding="utf-8")
+    for old, new in replacements:
+        text = text.replace(old, new)
+    path.write_text(text, encoding="utf-8")
+PY
 fi
 
 # Update check config
@@ -100,10 +120,10 @@ with open(path, "w", encoding="utf-8") as f:
 PY
 
 
-if [ -z "$RELEASE_REPO" ]; then
+if [ -z "$RELEASE_REPO" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "GitHub owner/repo for app release checks (OWNER/REPO) [skip]: " RELEASE_REPO
 fi
-if [ -z "$DONATION_URL" ]; then
+if [ -z "$DONATION_URL" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "Donation URL [skip]: " DONATION_URL
 fi
 
@@ -130,7 +150,7 @@ if url.strip() and dst_don.exists():
     dst_don.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 PY
 
-if [ -z "$CODEOWNER" ]; then
+if [ -z "$CODEOWNER" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "GitHub username for CODEOWNERS (without @): " CODEOWNER
 fi
 if [ -n "$CODEOWNER" ]; then
@@ -166,8 +186,8 @@ elif [ "$STACK" = "multi" ]; then
   if [ "$PRUNE_FLAG" = "yes" ]; then
     PRUNED=true
     echo "Keeping all examples (multi-stack)."
-  elif [ "$PRUNE_FLAG" = "no" ]; then
-    echo "Skipping prune (--no-prune)."
+  elif [ "$PRUNE_FLAG" = "no" ] || [ "$NONINTERACTIVE" = true ]; then
+    echo "Skipping prune (--no-prune or --non-interactive)."
   else
     read -rp "Prune unused examples/modules? (y/N): " PRUNE
     if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
@@ -184,8 +204,8 @@ else
       android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node modules/lightroom 2>/dev/null || true ;;
       node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android modules/lightroom 2>/dev/null || true ;;
     esac
-  elif [ "$PRUNE_FLAG" = "no" ]; then
-    echo "Skipping prune (--no-prune)."
+  elif [ "$PRUNE_FLAG" = "no" ] || [ "$NONINTERACTIVE" = true ]; then
+    echo "Skipping prune (--no-prune or --non-interactive)."
   else
     read -rp "Prune unused examples/modules? (y/N): " PRUNE
     if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
@@ -231,10 +251,10 @@ echo "  Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md."
 echo "  Follow Section 8 Startup Sequence."
 echo "  Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels."
 echo ""
-echo "  5. After first push to main, poll required workflows:"
+echo "  4. After first push to main, poll required workflows:"
 echo "     bash scripts/check-github-ci.sh --wait 300"
 echo ""
-echo "  6. Install pre-commit hooks and preview ephemeral purge:"
+echo "  5. Install pre-commit hooks and preview ephemeral purge:"
 echo "     pip install pre-commit && pre-commit install"
 echo "     bash scripts/purge-ephemeral.sh"
 echo ""

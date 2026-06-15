@@ -8,7 +8,7 @@ import {
 } from "./updateChecker";
 import { t } from "../i18n";
 
-export const APP_VERSION = "0.1.0";
+export const APP_VERSION = __APP_VERSION__;
 const INTERVAL_KEY = "gp-app-update-interval";
 const LAST_CHECKED_KEY = "gp-app-update-last-checked";
 

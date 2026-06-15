@@ -22,7 +22,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
-> **Template maintainer:** work **Open Items** below. **Child repos:** copy the playbook after **Use this template**.
+> **Template maintainer:** work **Sprint M14** below. **Child repos:** copy the playbook after **Use this template**.
 
 ---
 
@@ -36,7 +36,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 1. ⬜ [HUMAN] Click **Use this template** on GitHub to create your project repo
 2. ⬜ [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
-3. ⬜ [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>` for non-interactive stack)
+3. ⬜ [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>`; `--non-interactive` with `--project-name` + `--purpose` for scripted init)
 4. ⬜ [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
 5. ⬜ [AUTO] Sprint 0 sign-off (all green on `main`):
    - `validate-bootstrap.sh --quick`
@@ -101,7 +101,53 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ---
 
-## Template Maintainer — Open Items
+## Template Maintainer — Sprint M14: Post-M13 review remediation
+
+> **Source:** full code review on `4fddec8` (2026-06-15). Verified: `.template-version` **0.7.1** vs Release Please **0.8.0**; `init-project.ps1` L147 broken stderr redirect; `verify-reproducible-apk.sh` not wired in maintainer gates.
+
+### Critique
+
+- **Null/empty:** `pre-release-gate.sh` checks `.template-version` exists but not manifest/CHANGELOG alignment.
+- **Network timeouts:** N/A for this sprint (local script/CI config focus).
+- **Race conditions:** N/A.
+- **Unhandled exceptions:** `init-project.ps1` token sync line throws on Windows; child init aborts before stack sync completes.
+
+> **Template maintainer:** work **Sprint M14** row 10 (CI sign-off) after push; then archive M14.
+
+### Sequential (must complete in order)
+
+1. ✅ [AGENT] **P0 — Version coherence:** sync `.template-version`, `TEMPLATE_INDEX.json` `template_version`, `AGENT_MEMORY.md` to **0.8.0**; add `pre-release-gate.sh` assert `.template-version` == `.release-please-manifest.json`
+2. ✅ [AGENT] **P0 — Fix `init-project.ps1` L147:** replace `2> | Out-Null` with `2>$null`; smoke-test `init-project.ps1 -Stack web -Prune`
+3. ✅ [AGENT] **P0 — Non-interactive init:** add `--non-interactive` (skip prompts when `--stack` + `--project-name` + `--purpose` set); replace `sed` placeholder edits with Python in both init scripts (escape `/` in names)
+4. ✅ [AGENT] **P1 — Gate wiring:** wire `verify-reproducible-apk.sh` into `run-maintainer-gates.sh` full mode (`--skip-apk` opt-out); fail on unknown CLI flags; align `--quick` with `--wait-ci` or update weekly BUILD_PLAN row
+5. ✅ [AGENT] **P1 — Branch protection hardening:** extend `verify-branch-protection.sh` to assert `strict: true` + `allow_force_pushes: false`; document rulesets API fallback in `SECURITY_TRIAGE.md`
+6. ✅ [AGENT] **P1 — Docs/index:** index `docs/features/settings.md` in `TEMPLATE_INDEX.json`; reconcile duplicate `CHANGELOG.md` `[Unreleased]` blocks; document full init CLI in `INITIALIZATION_PROMPT.md` Section 8
+7. ✅ [AGENT] **P1 — Web security:** replace `AboutPanel.ts` donation `innerHTML` with DOM APIs + `textContent`; inject `APP_VERSION` from `package.json` via Vite `define`
+8. ✅ [AGENT] **P1 — Android exemplar:** extend `check-file-limits.sh` to `ui/GoldenPathApp.kt` / `GoldenPathScreen.kt`; wire `pendingRestart` visible state in About/home UI
+9. ✅ [AGENT] **P1 — CI/release:** add Android SBOM slice to `release.yml`; document tag-push lightweight gate vs `workflow_dispatch` full gate in `SECURITY_TRIAGE.md`
+10. ⬜ [AUTO] CI + Feature Gate green on `main` after rows 1–3
+
+### Parallel (safe after Sequential step 3)
+
+| # | Task | Owner | Isolated scope |
+|---|------|-------|----------------|
+| A | Init + version gates | AGENT | `scripts/init-project.*`, `pre-release-gate.sh`, `.template-version`, `TEMPLATE_INDEX.json` |
+| B | Maintainer gates | AGENT | `run-maintainer-gates.sh`, `verify-branch-protection.sh`, `verify-reproducible-apk.sh` |
+| C | Web exemplar | AGENT | `AboutPanel.ts`, `aboutSession.ts`, `vitest.config.ts`, `e2e/app.spec.ts` |
+| D | Android + CI | AGENT | `GoldenPathApp.kt`, `check-file-limits.sh`, `release.yml`, `modules/android/MODULE.md` |
+| E | Docs hygiene | AGENT | `CHANGELOG.md`, `INITIALIZATION_PROMPT.md`, `docs/PRIVACY.md`, `COMPLETED_TASKS.md` |
+
+### P2 backlog (after M14 sequential)
+
+- ⬜ [AGENT] Extend init `--prune` to optional stacks (rust/go/lightroom) or `--keep-optional` flag
+- ⬜ [AGENT] Add CodeQL matrix for `examples/rust` / `examples/go` or document exclusion
+- ⬜ [AGENT] Playwright e2e: enable update check → open About → assert status text
+- ⬜ [AGENT] `simulate-template-upgrade.sh` smoke with `init-project.sh --non-interactive`
+- ⬜ [AGENT] Modernize `MainActivitySmokeTest` (`ActivityScenario`); optional `connectedDebugAndroidTest` CI job
+- ✅ [AGENT] Fix init next-steps numbering (step 4 missing in `.sh` / `.ps1`) — fixed in M14 rows 2–3
+- ✅ [HUMAN] Close stale M5 visual-review row in `COMPLETED_TASKS.md`
+
+### Open after M14 (human judgment only)
 
 | Item | Owner | Command / gate |
 |------|-------|----------------|
@@ -109,8 +155,6 @@ grep '\[AUTO\]' BUILD_PLAN.md
 | F-Droid dry-run on device/emulator | ADB | `modules/android/MODULE.md` checklist |
 | F-Droid listing / anti-feature sign-off | HUMAN | After `verify-fdroid-metadata.sh` |
 | `gh auth refresh -s security_events` (one-time OAuth) | HUMAN | Then `run-maintainer-gates.sh` full |
-| Branch protection drift | AUTO | `verify-branch-protection.sh` (in maintainer gates) |
-| Local APK reproducibility | AUTO | `verify-reproducible-apk.sh` or CI `android-release` |
 
 ---
 
@@ -118,8 +162,8 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
-| M5–M12 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
-| M13 Human-gate automation | Complete | `COMPLETED_TASKS.md` |
+| M5–M13 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
 | v0.8.0 release (`10b46d6`) | Complete | `COMPLETED_TASKS.md` |
+| M14 Post-M13 review | Active | `BUILD_PLAN.md` |
 | Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
 | Maintainer gate cycles | Complete | `COMPLETED_TASKS.md` |

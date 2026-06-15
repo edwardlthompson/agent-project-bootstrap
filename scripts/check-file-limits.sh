@@ -24,6 +24,7 @@ check_view_paths "view" < <(find "$ROOT" -type f \( \
   -name "*.tsx" -o -name "*.jsx" -o -name "*.vue" -o -name "*_view.*" \
   -o -path "*/examples/web/src/components/*.ts" \
   -o -path "*/examples/android/app/src/main/java/*/ui/*/*.kt" \
+  -o -path "*/examples/android/app/src/main/java/*/ui/GoldenPath*.kt" \
   \) ! -path "*/node_modules/*" ! -path "*/.venv/*" ! -path "*/.git/*" ! -path "*/dist/*" -print0 2>/dev/null)
 
 echo "Checking logic file limits (max $LOGIC_LIMIT lines)..."
@@ -37,6 +38,8 @@ done < <(find "$ROOT/examples" -type f \( -name "*.ts" -o -name "*.py" -o -name 
   ! -name "*.test.*" ! -name "*.spec.*" \
   ! -path "*/node_modules/*" ! -path "*/.venv/*" ! -path "*/.git/*" \
   ! -path "*/examples/web/src/components/*" \
+  ! -path "*/examples/android/app/src/main/java/*/ui/GoldenPath*.kt" \
+  ! -path "*/examples/android/app/src/main/java/*/ui/*/*.kt" \
   ! -path "*/examples/web/src/main.ts" \
   -print0 2>/dev/null)
 

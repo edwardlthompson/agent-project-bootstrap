@@ -8,40 +8,55 @@ param(
     [string]$DonationUrl = "",
     [string]$CodeOwner = "",
     [switch]$Prune,
-    [switch]$NoPrune
+    [switch]$NoPrune,
+    [switch]$NonInteractive
 )
 
 $Root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Set-Location $Root
 
+if ($NonInteractive -and (-not $Stack -or -not $ProjectName -or -not $ProjectPurpose)) {
+    Write-Error "--NonInteractive requires -Stack, -ProjectName, and -ProjectPurpose"
+    exit 1
+}
+
 Write-Host "=== agent-project-bootstrap init ===" -ForegroundColor Cyan
 Write-Host ""
 
-if (-not $ProjectName) { $ProjectName = Read-Host "Project name" }
-if (-not $ProjectPurpose) { $ProjectPurpose = Read-Host "One-line purpose" }
-if (-not $Stack) { $Stack = Read-Host "Primary stack (web/python/android/node/multi/none)" }
+if (-not $ProjectName -and -not $NonInteractive) { $ProjectName = Read-Host "Project name" }
+if (-not $ProjectPurpose -and -not $NonInteractive) { $ProjectPurpose = Read-Host "One-line purpose" }
+if (-not $Stack -and -not $NonInteractive) { $Stack = Read-Host "Primary stack (web/python/android/node/multi/none)" }
 if (-not $Stack) { $Stack = "none" }
 $ValidStacks = @("web", "python", "android", "node", "multi", "none")
 if ($ValidStacks -notcontains $Stack) {
     Write-Host "Invalid stack '$Stack'; defaulting to none (keep all examples)."
     $Stack = "none"
 }
-if (-not $Interval) { $Interval = Read-Host "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]" }
+if (-not $Interval -and -not $NonInteractive) {
+    $Interval = Read-Host "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]"
+}
 if (-not $Interval) { $Interval = "weekly" }
 
-$files = @(
-    "docs/INITIALIZATION_PROMPT.md",
-    "AGENT_MEMORY.md"
-)
+if ($Stack -and $ProjectPurpose) {
+    $placeholderPy = @'
+import sys
+from pathlib import Path
 
-foreach ($file in $files) {
-    $path = Join-Path $Root $file
-    if (Test-Path $path) {
-        $content = Get-Content $path -Raw
-        $content = $content -replace '\[INSERT PLATFORM / TECH STACK HERE\]', $Stack
-        $content = $content -replace '\[INSERT DETAILED APP DESCRIPTION AND GOALS HERE\]', $ProjectPurpose
-        [System.IO.File]::WriteAllText($path, $content, (New-Object System.Text.UTF8Encoding $false))
-    }
+stack, purpose, root = sys.argv[1], sys.argv[2], Path(sys.argv[3])
+replacements = [
+    ("[INSERT PLATFORM / TECH STACK HERE]", stack),
+    ("[INSERT DETAILED APP DESCRIPTION AND GOALS HERE]", purpose),
+]
+for rel in ("docs/INITIALIZATION_PROMPT.md", "AGENT_MEMORY.md"):
+    path = root / rel
+    if not path.is_file():
+        continue
+    text = path.read_text(encoding="utf-8")
+    for old, new in replacements:
+        text = text.replace(old, new)
+    path.write_text(text, encoding="utf-8")
+'@
+    $placeholderPy | python3 - $Stack $ProjectPurpose $Root
 }
 
 $config = Get-Content (Join-Path $Root ".template-update.json") -Raw | ConvertFrom-Json
@@ -49,8 +64,12 @@ $config.check_interval = $Interval
 $config | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $Root ".template-update.json") -Encoding UTF8
 
 
-if (-not $ReleaseRepo) { $ReleaseRepo = Read-Host "GitHub owner/repo for app release checks (OWNER/REPO) [skip]" }
-if (-not $DonationUrl) { $DonationUrl = Read-Host "Donation URL [skip]" }
+if (-not $ReleaseRepo -and -not $NonInteractive) {
+    $ReleaseRepo = Read-Host "GitHub owner/repo for app release checks (OWNER/REPO) [skip]"
+}
+if (-not $DonationUrl -and -not $NonInteractive) {
+    $DonationUrl = Read-Host "Donation URL [skip]"
+}
 $AppExample = Join-Path $Root ".app-update.json.example"
 $AppConfig = Join-Path $Root ".app-update.json"
 if ((Test-Path $AppExample) -and -not (Test-Path $AppConfig)) { Copy-Item $AppExample $AppConfig }
@@ -68,7 +87,9 @@ if ($DonationUrl) {
   $don | ConvertTo-Json -Depth 5 | Set-Content $DonConfig -Encoding UTF8
 }
 
-if (-not $CodeOwner) { $CodeOwner = Read-Host "GitHub username for CODEOWNERS (without @)" }
+if (-not $CodeOwner -and -not $NonInteractive) {
+    $CodeOwner = Read-Host "GitHub username for CODEOWNERS (without @)"
+}
 if ($CodeOwner) {
     $codeownersPath = Join-Path $Root ".github/CODEOWNERS"
     if (Test-Path $codeownersPath) {
@@ -99,8 +120,8 @@ if ($Stack -eq "none") {
     if ($Prune) {
         $Pruned = $true
         Write-Host "Keeping all examples (multi-stack)."
-    } elseif ($NoPrune) {
-        Write-Host "Skipping prune (-NoPrune)."
+    } elseif ($NoPrune -or $NonInteractive) {
+        Write-Host "Skipping prune (-NoPrune or -NonInteractive)."
     } else {
         $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
         if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
@@ -122,8 +143,8 @@ if ($Stack -eq "none") {
             $target = Join-Path $Root $item
             if (Test-Path $target) { Remove-Item -Recurse -Force $target }
         }
-    } elseif ($NoPrune) {
-        Write-Host "Skipping prune (-NoPrune)."
+    } elseif ($NoPrune -or $NonInteractive) {
+        Write-Host "Skipping prune (-NoPrune or -NonInteractive)."
     } else {
         $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
         if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
@@ -144,7 +165,7 @@ if ($Stack -eq "none") {
 }
 
 python3 scripts/init-stack-sync.py $Stack $Root ($Pruned.ToString().ToLower())
-python3 scripts/sync-design-tokens.py 2> | Out-Null
+python3 scripts/sync-design-tokens.py 2>$null
 Write-Host "Wrote .cursor/stack-selection.json and synced AGENT_MEMORY active modules."
 
 Write-Host ""
@@ -169,16 +190,16 @@ Write-Host "Next steps:"
 Write-Host "  1. Review SECURITY.md, CODEOWNERS, playbooks, and .env.example"
 Write-Host "  2. Run scripts/setup-github-repo.sh (or .ps1) for Dependabot alerts, private reporting, branch protection"
 Write-Host "     See docs/SECURITY_TRIAGE.md if the script prints a manual checklist (API 422)"
-Write-Host "  4. Open Cursor and paste:"
+Write-Host "  3. Open Cursor and paste:"
 Write-Host ""
 Write-Host "  Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md."
 Write-Host "  Follow Section 8 Startup Sequence."
 Write-Host "  Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels."
 Write-Host ""
-Write-Host "  5. After first push to main, poll required workflows:"
+Write-Host "  4. After first push to main, poll required workflows:"
 Write-Host "     pwsh scripts/check-github-ci.ps1 -WaitSeconds 300"
 Write-Host ""
-Write-Host "  6. Install pre-commit hooks and preview ephemeral purge:"
+Write-Host "  5. Install pre-commit hooks and preview ephemeral purge:"
 Write-Host "     pip install pre-commit; pre-commit install"
 Write-Host "     bash scripts/purge-ephemeral.sh"
 Write-Host ""
