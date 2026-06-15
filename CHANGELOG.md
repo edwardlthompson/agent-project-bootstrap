@@ -19,6 +19,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.8.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.7.1...v0.8.0) (2026-06-15)
+
+
+### Added
+
+* add in-app About screen with format-locked update checker ([29278cc](https://github.com/edwardlthompson/agent-project-bootstrap/commit/29278ccad8f1e7ee623e3c761026bbc4711a83a3))
+* add industry-standard repo hygiene automation ([136bfe3](https://github.com/edwardlthompson/agent-project-bootstrap/commit/136bfe336e3f868c9f32c12e531ea26517765cc2))
+* **agents:** automate BUILD_PLAN human gates and Sprint M8 CI ([810e259](https://github.com/edwardlthompson/agent-project-bootstrap/commit/810e259ceb69994800372d2f66df09c918465738))
+* **agents:** execute Sprint M9 sequential rows 1-7 ([e8e6831](https://github.com/edwardlthompson/agent-project-bootstrap/commit/e8e6831f3367f41fce5cb22f25c7d07347034e98))
+* **agents:** execute Sprint M9-8 and M10 code review remediation ([9163dab](https://github.com/edwardlthompson/agent-project-bootstrap/commit/9163dab255d4a7552ea1d0d4f169f2b78f569593))
+* **agents:** incremental feature assembly and autonomous agent gates ([3d47485](https://github.com/edwardlthompson/agent-project-bootstrap/commit/3d4748595589a642db0373947ae2152e5e3cd1de))
+
+
+### Fixed
+
+* **agents:** execute Sprint M11 post-M10 hardening ([daa9d85](https://github.com/edwardlthompson/agent-project-bootstrap/commit/daa9d858afe0eed78e95913107af704e652fb964))
+* **agents:** execute Sprint M12 post-M11 polish ([0f859fd](https://github.com/edwardlthompson/agent-project-bootstrap/commit/0f859fd5211e06d06647760cccde452402254614))
+* **android:** pin Kotlin compose plugin 2.3.20 for CodeQL ([7055255](https://github.com/edwardlthompson/agent-project-bootstrap/commit/70552559df7dd57d8f9ad7d2ee334ee4f6759c04))
+* **ci:** repair M12 gate failures (TS tests, Kotlin pin) ([cb1c5d5](https://github.com/edwardlthompson/agent-project-bootstrap/commit/cb1c5d5a51793daa0377c9f82ea84affc7b9d222))
+* **web:** assign narrowed HTMLDivElement for AppShell root ([f1dad83](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f1dad832e03f2adda807a99fadc63e314d0d833c))
+* **web:** narrow app root type for AppShell render ([53406b1](https://github.com/edwardlthompson/agent-project-bootstrap/commit/53406b1b84736d145ebf620a5852a6d6eb23c087))
+* **web:** resolve CI lint and file-size budget failures ([1759a8f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/1759a8f54b80f54564318e4174f56388d20047ef))
+
+
+### Changed
+
+* sync template version to 0.7.1 and fix CHANGELOG encoding ([e7ebf2d](https://github.com/edwardlthompson/agent-project-bootstrap/commit/e7ebf2dadc367ceec14f701bd927a20b7c4dcde0))
+
+
+### Documentation
+
+* **build-plan:** mark M12 CI sign-off complete on 7055255 ([3189747](https://github.com/edwardlthompson/agent-project-bootstrap/commit/31897474dec6b30b1ee7f95701f3cebecc9c249b))
+* mark automated BUILD_PLAN gates complete after CI green ([f3013a0](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f3013a06f9ff1c9e7f5d5a85e96f495065a0610a))
+* mark Sprint M6 repo-hygiene CI gate complete ([7ed666b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7ed666ba8c4b482f948b22a8e29e87dad2cef2e1))
+* refresh README with badges, TOC, and collapsible sections ([008140e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/008140ed6eed951a788cfdb1832f5b035bb7a582))
+
 ## [Unreleased]
 
 ### Added
