@@ -349,6 +349,7 @@
 - ✅ [AGENT] P1 Android: `check-file-limits.sh` GoldenPath UI roots; home-screen update status banner
 - ✅ [AGENT] P1 CI: Android SBOM in `release.yml`; tag vs `workflow_dispatch` gate docs
 - ⬜ [AUTO] CI + Feature Gate green on `main` after push (row 10)
+- ✅ [AUTO] CI + Feature Gate green on `main` (`fc71433`)
 - ✅ [HUMAN] Close stale M5 visual-review row (superseded by maintainer README cycles)
 
 ## Sprint M14 — Post-M13 review (planned, 2026-06-15)

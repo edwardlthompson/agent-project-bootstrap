@@ -112,7 +112,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 - **Race conditions:** N/A.
 - **Unhandled exceptions:** `init-project.ps1` token sync line throws on Windows; child init aborts before stack sync completes.
 
-> **Template maintainer:** work **Sprint M14** row 10 (CI sign-off) after push; then archive M14.
+> **Template maintainer:** M14 complete on `fc71433`. Next: P2 backlog below or Release Please for next version.
 
 ### Sequential (must complete in order)
 
@@ -125,7 +125,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 7. ✅ [AGENT] **P1 — Web security:** replace `AboutPanel.ts` donation `innerHTML` with DOM APIs + `textContent`; inject `APP_VERSION` from `package.json` via Vite `define`
 8. ✅ [AGENT] **P1 — Android exemplar:** extend `check-file-limits.sh` to `ui/GoldenPathApp.kt` / `GoldenPathScreen.kt`; wire `pendingRestart` visible state in About/home UI
 9. ✅ [AGENT] **P1 — CI/release:** add Android SBOM slice to `release.yml`; document tag-push lightweight gate vs `workflow_dispatch` full gate in `SECURITY_TRIAGE.md`
-10. ⬜ [AUTO] CI + Feature Gate green on `main` after rows 1–3
+10. ✅ [AUTO] CI + Feature Gate green on `main` after rows 1–3 (`fc71433`)
 
 ### Parallel (safe after Sequential step 3)
 
@@ -162,8 +162,8 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
-| M5–M13 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
+| M5–M14 maintainer sprints | Complete | `COMPLETED_TASKS.md` |
 | v0.8.0 release (`10b46d6`) | Complete | `COMPLETED_TASKS.md` |
-| M14 Post-M13 review | Active | `BUILD_PLAN.md` |
+| M14 Post-M13 review (`fc71433`) | Complete | `COMPLETED_TASKS.md` |
 | Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
 | Maintainer gate cycles | Complete | `COMPLETED_TASKS.md` |
