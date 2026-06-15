@@ -93,7 +93,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 3. [x] [AGENT] Wire repo-hygiene into pre-commit, `validate-bootstrap.sh`, and CI `repo-hygiene` job
 4. [x] [AGENT] Add `docs/REPO_HYGIENE.md` and `.cursor/rules/repo-hygiene.mdc`
 5. [ ] [HUMAN] Add **Repo Hygiene** to branch protection required checks on `main`
-6. [ ] [AUTO] CI **Repo Hygiene** job green after merge
+6. [x] [AUTO] CI **Repo Hygiene** job green after merge
 
 ---
 
