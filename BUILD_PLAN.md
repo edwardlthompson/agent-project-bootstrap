@@ -48,7 +48,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 7. ✅ [AGENT] **P1 — Init encoding:** replace `Set-Content -Encoding UTF8` with BOM-less write in `init-project.ps1` for JSON configs
 8. ✅ [AGENT] **P1 — Playwright e2e:** mock `/app-update.json` + GitHub API in About update-status test; assert distinct post-toggle status (no live network)
 9. ✅ [AGENT] **P1 — Release workflow hygiene:** remove duplicate checkout in `release.yml`; dedupe SBOM triggers (prefer `release` published only, drop redundant dispatch from Release Please if redundant)
-10. ⬜ [AUTO] CI + Feature Gate green on `main` after rows 1–2
+10. ✅ [AUTO] CI + Feature Gate green on `main` after rows 1–2
 
 ### Parallel (safe after Sequential step 2)
 
