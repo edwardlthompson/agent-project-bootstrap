@@ -220,3 +220,13 @@
 - [x] [AGENT] Add `FEATURE_MODULES.md` to `validate-bootstrap.sh`; cross-link `START_HERE.md`; node MODULE Feature gate section
 - [x] [AGENT] Integrate M7 closeout + Sprint M8 block into BUILD_PLAN.md
 
+## Sprint M6 — Repo Hygiene Automation (2026-06-15)
+
+- [x] [AGENT] Add `.gitattributes`, `.editorconfig`, `.cursorignore`; expand `.gitignore`
+- [x] [AGENT] Add `check-tracked-artifacts`, `check-large-tracked-files`, `check-repo-hygiene`, `purge-ephemeral` scripts (+ `.ps1`)
+- [x] [AGENT] Wire repo-hygiene into pre-commit, `validate-bootstrap.sh`, and CI `repo-hygiene` job
+- [x] [AGENT] Add `docs/REPO_HYGIENE.md` and `.cursor/rules/repo-hygiene.mdc`
+- [x] [AUTO] CI **Repo Hygiene** job green after merge
+- [x] [AGENT] Archive Sprint M6 completions to `COMPLETED_TASKS.md`
+- [x] [AGENT] Index hygiene `.ps1` twins in `TEMPLATE_INDEX.json`
+

@@ -12,6 +12,7 @@ else PY=python3; fi
 
 DRY=false
 PATHS=""
+FIX_FAILED=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --dry-run) DRY=true; shift ;;
@@ -34,7 +35,11 @@ run_fix() {
     return 0
   fi
   echo "autofix: $desc"
-  "$@"
+  if "$@"; then
+    return 0
+  fi
+  FIX_FAILED=1
+  return 1
 }
 
 should_run() {
@@ -43,8 +48,8 @@ should_run() {
 }
 
 if should_run python && [ -f examples/python/pyproject.toml ] && command -v uv >/dev/null 2>&1; then
-  (cd examples/python && run_fix ruff-check-fix uv run ruff check --fix .)
-  (cd examples/python && run_fix ruff-format uv run ruff format .)
+  (cd examples/python && run_fix ruff-check-fix uv run ruff check --fix .) || true
+  (cd examples/python && run_fix ruff-format uv run ruff format .) || true
 fi
 
 if command -v pre-commit >/dev/null 2>&1; then
@@ -63,6 +68,11 @@ if [ -f scripts/normalize-markdown-whitespace.py ]; then
   for f in $(git diff --name-only HEAD 2>/dev/null | grep '\.md$' || true); do
     [ -f "$f" ] && run_fix markdown-ws $PY scripts/normalize-markdown-whitespace.py "$f" || true
   done
+fi
+
+if [ "$FIX_FAILED" -ne 0 ]; then
+  echo "feature-autofix failed (one or more fixers errored)"
+  exit 1
 fi
 
 echo "feature-autofix complete"

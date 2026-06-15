@@ -11,6 +11,13 @@ VERSION=""
 
 echo "=== Pre-release gate ==="
 
+if ! bash scripts/feature-gate.sh --stack multi --json; then
+  echo "FAIL: feature-gate.sh"
+  ERRORS=$((ERRORS + 1))
+else
+  echo "OK   feature-gate.sh passed"
+fi
+
 if ! bash scripts/check-github-ci.sh HEAD --wait 300; then
   echo "FAIL: required GitHub workflows not green"
   ERRORS=$((ERRORS + 1))

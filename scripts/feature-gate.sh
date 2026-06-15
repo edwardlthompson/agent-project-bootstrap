@@ -11,11 +11,13 @@ elif command -v python >/dev/null 2>&1; then PY=python
 else PY=python3; fi
 
 JSON=false
+STRICT=false
 STACK=""
 STEP=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --json) JSON=true; shift ;;
+    --strict) STRICT=true; shift ;;
     --stack=*) STACK="${1#*=}"; shift ;;
     --stack) STACK="${2:-}"; shift 2 ;;
     --step=*) STEP="${1#*=}"; shift ;;
@@ -70,7 +72,7 @@ record_progress() {
     gp="$(IFS=,; echo "${GATES_PASSED[*]}")"
   fi
   local rec=(record --gate feature-gate --exit "$exit_code")
-  [ -n "$STEP" ] && rec+=(--step "$STEP")
+  [ -n "$STEP" ] && rec+=(--step "$STEP" --build-plan-step "$STEP")
   [ -n "$gp" ] && rec+=(--gates-passed "$gp")
   [ -n "$FAILED_STAGE" ] && rec+=(--failed-stage "$FAILED_STAGE")
   [ -n "$LOG_TAIL" ] && rec+=(--log-tail "$LOG_TAIL")
@@ -111,6 +113,19 @@ if [ -z "$STACK" ] && [ -f .cursor/stack-selection.json ]; then
 fi
 STACK="${STACK:-multi}"
 
+should_run() {
+  local s="$1"
+  [ "$STACK" = "multi" ] || [ "$STACK" = "none" ] || [ "$STACK" = "$s" ]
+}
+
+skip_or_block() {
+  local msg="$1"
+  if [ "$STRICT" = true ]; then
+    block_env "$msg"
+  fi
+  log "$msg"
+}
+
 run_cmd() {
   local stage="$1"
   shift
@@ -132,7 +147,7 @@ run_in_dir() {
   popd >/dev/null
 }
 
-log "Feature gate (stack=$STACK step=${STEP:-none})..."
+log "Feature gate (stack=$STACK step=${STEP:-none} strict=$STRICT)..."
 
 if ! bash scripts/check-repo-hygiene.sh >/dev/null 2>&1; then
   fail_gate "hygiene" "$(bash scripts/check-repo-hygiene.sh 2>&1 | tail -n 20)"
@@ -144,17 +159,12 @@ if ! bash scripts/check-file-encoding.sh >/dev/null 2>&1; then
 fi
 GATES_PASSED+=("encoding")
 
-should_run() {
-  local s="$1"
-  [ "$STACK" = "multi" ] || [ "$STACK" = "none" ] || [ "$STACK" = "$s" ]
-}
-
 if should_run web && [ -f examples/web/package.json ]; then
   if ! command -v npm >/dev/null 2>&1; then
     if [ "$STACK" = "web" ]; then
       block_env "npm not found; install Node.js or set PATH"
     else
-      log "Skipping web gate (npm not found)"
+      skip_or_block "Skipping web gate (npm not found)"
     fi
   else
     run_in_dir examples/web web-lint npm run lint
@@ -168,7 +178,7 @@ if should_run python && [ -f examples/python/pyproject.toml ]; then
     if [ "$STACK" = "python" ]; then
       block_env "uv not found"
     else
-      log "Skipping python gate (uv not found)"
+      skip_or_block "Skipping python gate (uv not found)"
     fi
   else
     run_in_dir examples/python python-lint uv run ruff check .
@@ -182,7 +192,7 @@ if should_run android && [ -f examples/android/gradlew ]; then
     if [ "$STACK" = "android" ]; then
       block_env "JAVA_HOME not set; Android gate skipped"
     else
-      log "Skipping android gate (JAVA_HOME not set)"
+      skip_or_block "Skipping android gate (JAVA_HOME not set)"
     fi
   else
     run_in_dir examples/android android-test ./gradlew test --quiet
@@ -194,7 +204,7 @@ if should_run node && [ -f examples/node/package.json ]; then
     if [ "$STACK" = "node" ]; then
       block_env "npm not found"
     else
-      log "Skipping node gate (npm not found)"
+      skip_or_block "Skipping node gate (npm not found)"
     fi
   else
     run_in_dir examples/node node-lint npm run lint

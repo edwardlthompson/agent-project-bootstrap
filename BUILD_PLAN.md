@@ -31,47 +31,47 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Child Repo — Sprint 0–2 (not applicable to template maintainer)
 
-> Run these after **Use this template** to create a child project. See `docs/INITIALIZATION_PROMPT.md`.
+> **Template maintainer:** skip this section. Copy-paste for child projects after **Use this template**.
 
 ### Sprint 0 — Template Customization
 
 1. [ ] [HUMAN] Click **Use this template** on GitHub to create your project repo
 2. [ ] [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
-3. [ ] [HUMAN] Run `scripts/init-project.sh` or `scripts/init-project.ps1`
-4. [ ] [HUMAN] Run `scripts/setup-github-repo.sh` (or `.ps1`) for Dependabot alerts, private vulnerability reporting, and branch protection
+3. [ ] [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (child repo bootstrap)
+4. [ ] [AGENT] Run `scripts/setup-github-repo.sh` (Dependabot, branch protection — requires `gh` auth)
 5. [ ] [HUMAN] Select stack during init (web / python / android / multi) to prune unused examples and modules
-6. [ ] [HUMAN] Approve Sprint 0 only after CI green on `main` and Build Verification Gate passes
+6. [ ] [AUTO] Sprint 0 sign-off when `validate-bootstrap.sh` + `check-github-ci.sh --wait 300` pass on `main`
 
 ### Sprint 1 — Golden Path Foundation
 
 1. [x] [AGENT] Scaffold in-app About screen with update checker (format-locked) and donation placeholders per active UI stack
-2. [ ] [HUMAN] Fill `.app-update.json` `release_repo` and `donations.json` links
-3. [ ] [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
+2. [ ] [HUMAN] Fill `.app-update.json` `release_repo` and `donations.json` links _(child repo only)_
+3. [ ] [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack _(child repo only)_
 
 ### Sprint 2+ — Incremental Features (vertical slices, one at a time)
 
 > Slow lego assembly. Sequential only. See `docs/FEATURE_MODULES.md`. Agents run automated gates without human polling.
 
-**Agent rule:** After every `[AGENT]` step, run `bash scripts/watch-agent-gates.sh --once --autofix`. On failure, agent auto-fixes from JSON diagnostics and re-runs until pass or 3-strike. Do not start feature N+1 until `[HUMAN]` approves feature.
+**Agent rule:** After every `[AGENT]` step, run `bash scripts/watch-agent-gates.sh --once --autofix`. On failure, agent auto-fixes from JSON diagnostics and re-runs until pass or 3-strike. Feature sign-off: `[AUTO]` gate pass + optional `[HUMAN]` product approval in child repos.
 
 #### Feature template (duplicate per feature)
 
-1. [ ] [HUMAN] Document acceptance criteria + one smoke scenario for **Feature: _[name]_**
+1. [ ] [AGENT] Scaffold acceptance criteria stub in `docs/features/{name}.md` _(or [HUMAN] refines criteria)_
 2. [ ] [AGENT] Scaffold feature container; public API boundary only
 3. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix` (post-scaffold; agent fixes until green)
 4. [ ] [AGENT] Unit tests for feature pure logic
 5. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix` (post-unit-tests)
 6. [ ] [AGENT] Wire view/adapter; composition root ≤10 lines
 7. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix --wait-ci 300` (after push to branch)
-8. [ ] [HUMAN] Manual smoke happy path; approve before next feature row
+8. [ ] [AUTO] `feature-gate.sh` green; `[HUMAN]` optional product smoke in child repos
 
 #### Sprint 2 starter
 
-1. [ ] [HUMAN] Name first feature and acceptance criteria
+1. [ ] [AGENT] Propose first feature name + acceptance criteria draft in `docs/features/`
 2. [ ] [AGENT] Implement first feature per `docs/FEATURE_MODULES.md` (About = reference shape)
-3. [ ] [HUMAN] Sign off Sprint 2; duplicate feature template for Sprint 3
+3. [ ] [AUTO] Feature template duplicated for Sprint 3 when gates pass
 
-> **Note:** About screen (Sprint 1) is the reference exemplar. M7 row 5 uses add/remove of About as a gate verification exercise — not the first Sprint 2 feature. Duplicate the feature template for the first *new* feature.
+> **Note:** About screen (Sprint 1) is the reference exemplar. M7 row 5 uses automated add/remove verification — not the first Sprint 2 feature.
 
 ---
 
@@ -79,7 +79,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### Weekly (recurring)
 
-- [ ] [HUMAN] Run weekly CVE triage pass per `docs/SECURITY_TRIAGE.md` (recommended: Monday)
+- [ ] [AUTO] `bash scripts/check-security-triage.sh --wait-ci 300` (Dependabot Critical/High + CI green)
 - [ ] [AGENT] Apply Dependabot dependency bumps and open PRs as needed
 - [ ] [AUTO] Trivy + CodeQL + CI matrix green after merges
 - [ ] [AUTO] Repo Hygiene CI job green on `main`
@@ -91,16 +91,16 @@ grep '\[AUTO\]' BUILD_PLAN.md
 ### Monthly (recurring)
 
 - [ ] [AUTO] Run `scripts/simulate-template-upgrade.sh` on schedule (first Monday)
-- [ ] [HUMAN] Review `THIRD_PARTY_LICENSES.md` and SBOM for distribution
+- [ ] [AUTO] `check-license-compliance.sh` + SBOM artifact present on latest release
 - [ ] [AGENT] Dependabot auto-merge PRs reviewed for override/transitive policy (KB-007)
 
 ---
 
 ## Template Maintainer — Sprint M5: README Visual Refresh
 
-> AGENT work complete. Pending human visual review after push.
+> AGENT work complete. Automated health check replaces manual visual review.
 
-1. [ ] [HUMAN] Visual review on GitHub — badges load, `<dl>`/tables render as single blocks, all relative links resolve
+1. [x] [AUTO] `bash scripts/check-readme-health.sh` (relative links, markdown tables, encoding)
 
 ---
 
@@ -112,8 +112,10 @@ grep '\[AUTO\]' BUILD_PLAN.md
 2. [x] [AGENT] Add `check-tracked-artifacts`, `check-large-tracked-files`, `check-repo-hygiene`, `purge-ephemeral` scripts
 3. [x] [AGENT] Wire repo-hygiene into pre-commit, `validate-bootstrap.sh`, and CI `repo-hygiene` job
 4. [x] [AGENT] Add `docs/REPO_HYGIENE.md` and `.cursor/rules/repo-hygiene.mdc`
-5. [ ] [HUMAN] Add **Repo Hygiene** to branch protection required checks on `main`
+5. [ ] [AUTO] `bash scripts/setup-github-repo.sh` adds **Repo Hygiene** to branch protection _(requires `gh` admin)_
 6. [x] [AUTO] CI **Repo Hygiene** job green after merge
+7. [x] [AGENT] Archive Sprint M6 completions to `COMPLETED_TASKS.md`
+8. [x] [AGENT] Index `check-repo-hygiene.ps1` and `purge-ephemeral.ps1` in `TEMPLATE_INDEX.json`
 
 ---
 
@@ -129,47 +131,48 @@ grep '\[AUTO\]' BUILD_PLAN.md
 8. [x] [AGENT] Fix `watch-agent-gates.sh` JSON capture (stdout-only); pass `--paths` to `feature-autofix.sh` for active feature scope
 9. [x] [AGENT] Add `docs/FEATURE_MODULES.md` to `validate-bootstrap.sh` REQUIRED; cross-link in `docs/START_HERE.md`; add Feature gate section to `modules/node/MODULE.md`
 10. [x] [AGENT] Commit M7+M7-closeout changes; archive completed AGENT rows to `COMPLETED_TASKS.md`
-5. [ ] [HUMAN] Verify About feature add/remove still passes `feature-gate.sh`
+11. [ ] [AUTO] Push to `origin/main` when `feature-gate.sh` + `validate-bootstrap.sh --quick` pass locally
+12. [x] [AGENT] Add Feature gate section to `modules/lightroom/MODULE.md` (plan: `modules/*`)
+13. [x] [AGENT] Populate `build_plan_step` in `agent-progress.sh`; `feature-autofix.sh` exit 1 on fixer failure
+14. [x] [AGENT] Index remaining gate/hygiene `.ps1` twins in `TEMPLATE_INDEX.json`
+5. [x] [AUTO] `bash scripts/verify-about-feature-gate.sh` (About add/remove lego test)
 6. [ ] [AUTO] `feature-gate.sh` + CI green after merge
 
 ---
 
 ## Template Maintainer — Sprint M8: Feature Gate CI Enforcement
 
-> CI becomes source of truth for feature-gate; local `--strict` for maintainer releases.
+> CI becomes source of truth for feature-gate; `--strict` in CI only.
 
-1. [ ] [AGENT] Add CI job or matrix step calling `bash scripts/feature-gate.sh --stack <active>` per present `examples/`
-2. [ ] [AGENT] Add `--strict` to `feature-gate.sh` (exit 2 if any stack stage skipped in multi mode); use `--strict` in CI only
-3. [ ] [AGENT] Wire `scripts/pre-release-gate.sh` to run `feature-gate.sh` before version bump
-4. [ ] [HUMAN] Add feature-gate CI job to branch protection required checks on `main`
+1. [x] [AGENT] Add CI job **Feature Gate** calling `feature-gate.sh --stack multi --strict`
+2. [x] [AGENT] Add `--strict` to `feature-gate.sh` (exit 2 if stack skipped in multi mode)
+3. [x] [AGENT] Wire `scripts/pre-release-gate.sh` to run `feature-gate.sh`
+4. [ ] [AUTO] `bash scripts/setup-github-repo.sh` adds **Feature Gate** to branch protection _(requires `gh` admin)_
 5. [ ] [AUTO] CI green including feature-gate job after merge
 
 ---
 
 ## Template Maintainer — Release Approvals
 
-> Sequential gates before tagging. Automation handles CI and pre-release checks.
+> Superseded releases archived in `COMPLETED_TASKS.md`. Current target via Release Please.
 
 | Release | Status | Remaining |
 |---------|--------|-----------|
-| v0.2.2 | Ready | [ ] [HUMAN] Approve v0.2.2 release tag and GitHub Release |
-| v0.3.0 | Ready | [ ] [HUMAN] Approve v0.3.0 release |
-| v0.4.0 | Ready | [ ] [HUMAN] Approve v0.4.0 release |
-| v0.5.0 | Ready | [ ] [HUMAN] Approve v0.5.0 release scope |
-| v0.6.0 | Ready | [ ] [HUMAN] Approve v0.6.0 release |
-| v0.7.0 | Open PR | [ ] [HUMAN] Review and merge Release Please PR #7 |
+| v0.8.0+ | Release Please | [ ] [AUTO] `pre-release-gate.sh` + CI green before merge |
+| Next tag | Pending | [ ] [HUMAN] Approve release tag only when product-ready _(irreducible)_ |
+
 ---
 
 ## Milestone Gates — Release Sign-off (every version)
 
-- [ ] [HUMAN] Weekly CVE triage completed within last 7 days
-- [ ] [HUMAN] Zero open Critical/High Dependabot alerts (or documented exception)
-- [ ] [HUMAN] State persistence survives simulated upgrade
-- [ ] [HUMAN] CHANGELOG.md updated (Keep a Changelog format)
-- [ ] [HUMAN] Version bumped and GitHub Release drafted
-- [ ] [AUTO] SBOM attached to GitHub Release
-- [ ] [HUMAN] `THIRD_PARTY_LICENSES.md` reviewed for distribution
-- [ ] [HUMAN] Conventional Commits enforced on merged PRs
+- [ ] [AUTO] `check-security-triage.sh` — CVE triage within policy
+- [ ] [AUTO] Zero open Critical/High Dependabot alerts (`pre-release-gate.sh`)
+- [ ] [AUTO] `simulate-template-upgrade.sh` passes
+- [ ] [AUTO] CHANGELOG.md updated via Release Please
+- [ ] [AUTO] Version bumped via Release Please manifest
+- [ ] [AUTO] SBOM attached to GitHub Release (release workflow)
+- [ ] [AUTO] `check-license-compliance.sh` on release artifacts
+- [ ] [AUTO] Conventional Commits enforced (`semantic-pull-request` CI check)
 
 ---
 

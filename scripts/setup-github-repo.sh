@@ -22,7 +22,12 @@ if [ -z "$REPO" ]; then
 fi
 
 BRANCH="${GITHUB_DEFAULT_BRANCH:-main}"
-REQUIRED_CHECKS=("CI" "Security Scan" "CodeQL")
+# Comma-separated override: GITHUB_REQUIRED_CHECKS="CI,Security Scan,CodeQL,Repo Hygiene,Feature Gate"
+if [ -n "${GITHUB_REQUIRED_CHECKS:-}" ]; then
+  IFS=',' read -ra REQUIRED_CHECKS <<< "$GITHUB_REQUIRED_CHECKS"
+else
+  REQUIRED_CHECKS=("CI" "Security Scan" "CodeQL" "Repo Hygiene" "Feature Gate")
+fi
 TRANSIENT=0
 FAILED=0
 
@@ -33,7 +38,7 @@ MANUAL SETUP CHECKLIST (GitHub UI - API returned 422 or insufficient permissions
   2. Settings -> Code security and analysis -> Dependabot security updates: ON
   3. Settings -> Code security and analysis -> Private vulnerability reporting: ON
   4. Settings -> Branches -> Branch protection rules -> main:
-     - Require status checks: CI, Security Scan, CodeQL
+     - Require status checks: CI, Security Scan, CodeQL, Repo Hygiene, Feature Gate
      - Require branches to be up to date before merging (recommended)
   5. Re-run: bash scripts/setup-github-repo.sh
 EOF
@@ -122,10 +127,12 @@ else
   echo "OK   Private vulnerability reporting enabled"
 fi
 
-protection_json="$(python3 - <<'PY'
-import json
+protection_json="$(python3 - <<PY
+import json, os
+checks = os.environ.get("GITHUB_REQUIRED_CHECKS", "CI,Security Scan,CodeQL,Repo Hygiene,Feature Gate").split(",")
+checks = [c.strip() for c in checks if c.strip()]
 print(json.dumps({
-    "required_status_checks": {"strict": True, "contexts": ["CI", "Security Scan", "CodeQL"]},
+    "required_status_checks": {"strict": True, "contexts": checks},
     "enforce_admins": False,
     "required_pull_request_reviews": {
         "dismiss_stale_reviews": True,

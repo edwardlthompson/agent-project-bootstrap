@@ -595,8 +595,22 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-repo-hygiene.ps1",
+      "purpose": "Windows wrapper for check-repo-hygiene.sh",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/purge-ephemeral.sh",
       "purpose": "Safe dry-run purge of gitignored untracked files",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "human+agent"
+    },
+    {
+      "path": "scripts/purge-ephemeral.ps1",
+      "purpose": "Windows wrapper for purge-ephemeral.sh",
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "human+agent"
@@ -637,8 +651,22 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/feature-autofix.ps1",
+      "purpose": "Windows wrapper for feature-autofix.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/agent-progress.sh",
       "purpose": "Read/write .cursor/agent-progress.json for autonomous sessions",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/agent-progress.ps1",
+      "purpose": "Windows wrapper for agent-progress.sh",
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -651,8 +679,22 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/watch-agent-gates.ps1",
+      "purpose": "Windows wrapper for watch-agent-gates.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/smoke-stack.sh",
       "purpose": "Back-compat wrapper calling feature-gate.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/smoke-stack.ps1",
+      "purpose": "Windows wrapper for smoke-stack.sh",
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"

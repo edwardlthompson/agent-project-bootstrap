@@ -20,6 +20,15 @@
 
 See `examples/lightroom/` for `Info.lua` metadata stub and SDK version documentation. Adobe SDK is proprietary; CI checks Lr* namespace compliance only.
 
+## Feature gate (Sprint 2+)
+
+Lightroom plugins are optional; when active, `scripts/feature-gate.sh` runs repo hygiene + encoding gates. Lua lint/SDK grep remains a milestone CI gate (`lightroom` job), not per-feature smoke.
+
+| Stage | Command |
+|-------|---------|
+| Hygiene + encoding | `bash scripts/feature-gate.sh --stack multi` |
+| SDK compliance | CI Lightroom namespace grep on `examples/lightroom/` |
+
 ## Owner Labels for This Module
 
 | Task type | Label |

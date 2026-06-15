@@ -52,6 +52,7 @@ def parse_record_args(a):
         "gates_passed": [],
         "failed_stage": "",
         "log_tail": "",
+        "build_plan_step": None,
     }
     i = 0
     while i < len(a):
@@ -63,6 +64,10 @@ def parse_record_args(a):
             i += 2
         elif a[i] == "--step" and i + 1 < len(a):
             out["step"] = a[i + 1]
+            i += 2
+        elif a[i] == "--build-plan-step" and i + 1 < len(a):
+            raw = a[i + 1]
+            out["build_plan_step"] = int(raw) if raw.isdigit() else raw
             i += 2
         elif a[i] == "--gates-passed" and i + 1 < len(a):
             out["gates_passed"] = [s.strip() for s in a[i + 1].split(",") if s.strip()]
@@ -132,6 +137,10 @@ if cmd == "record":
     }
     if rec["gates_passed"]:
         data["gates_passed"] = rec["gates_passed"]
+    if rec.get("build_plan_step") is not None:
+        data["build_plan_step"] = rec["build_plan_step"]
+    elif rec["step"]:
+        data["build_plan_step"] = rec["step"]
     if rec["exit"] != 0:
         stage = rec["failed_stage"] or rec["step"] or "gate"
         tail = (rec["log_tail"] or "")[:200]
