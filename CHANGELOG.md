@@ -19,6 +19,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.9.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.8.0...v0.9.0) (2026-06-15)
+
+
+### Added
+
+* **agents:** execute Sprint M13 human-gate automation ([4fddec8](https://github.com/edwardlthompson/agent-project-bootstrap/commit/4fddec8aa677ab5f873a86e88dbb56bb5082bc46))
+* **agents:** execute Sprint M14 post-M13 review remediation ([fc71433](https://github.com/edwardlthompson/agent-project-bootstrap/commit/fc71433fcbfeae3c15703adedde7970106c80c90))
+
+
+### Documentation
+
+* **build-plan:** mark M14 CI sign-off complete on fc71433 ([0419e62](https://github.com/edwardlthompson/agent-project-bootstrap/commit/0419e621a9a99e7f34fc31f32b5dd19a30437345))
+
 ## [0.8.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.7.1...v0.8.0) (2026-06-15)
 
 
