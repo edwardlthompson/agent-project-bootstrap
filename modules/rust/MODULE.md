@@ -19,6 +19,10 @@
 
 See `examples/rust/` for a minimal `hello` binary (MIT).
 
+## CodeQL
+
+Root `.github/workflows/codeql.yml` does **not** analyze `examples/rust/` (optional stack). Use `cargo clippy` and `cargo audit` in CI when this module is active. See `docs/OPTIONAL_STACKS.md`.
+
 ## Owner Labels for This Module
 
 | Task type | Label |

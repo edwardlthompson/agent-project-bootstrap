@@ -29,4 +29,14 @@ done
 bash scripts/validate-bootstrap.sh --quick
 bash scripts/validate-template-index.sh
 
+echo "==> Non-interactive init smoke (web stack, no prune)"
+bash scripts/init-project.sh \
+  --non-interactive \
+  --stack web \
+  --project-name "Upgrade Sim" \
+  --purpose "Cherry-pick validation" \
+  --no-prune
+
+bash scripts/validate-bootstrap.sh --quick
+
 echo "Upgrade simulation passed"

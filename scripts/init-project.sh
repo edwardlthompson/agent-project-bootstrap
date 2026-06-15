@@ -4,7 +4,7 @@
 #   --stack web|python|android|node|multi|none
 #   --project-name NAME  --purpose TEXT  --interval INTERVAL
 #   --release-repo OWNER/REPO  --donation-url URL  --codeowner USER
-#   --prune  --no-prune  --non-interactive
+#   --prune  --no-prune  --non-interactive  --keep-optional  --prune-optional
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -23,6 +23,8 @@ Usage: scripts/init-project.sh [options]
   --prune                Prune unused examples/modules without prompting
   --no-prune             Never prune (overrides --prune)
   --non-interactive      Skip prompts (requires --stack, --project-name, --purpose)
+  --keep-optional        When pruning, keep rust/go/lightroom examples and modules (default)
+  --prune-optional       When pruning, also remove optional stacks (rust/go/lightroom)
   -h, --help
 EOF
 }
@@ -36,6 +38,7 @@ DONATION_URL=""
 CODEOWNER=""
 PRUNE_FLAG=""
 NONINTERACTIVE=false
+KEEP_OPTIONAL=true
 while [ $# -gt 0 ]; do
   case "$1" in
     --stack) STACK="${2:-}"; shift 2 ;;
@@ -48,10 +51,30 @@ while [ $# -gt 0 ]; do
     --prune) PRUNE_FLAG="yes"; shift ;;
     --no-prune) PRUNE_FLAG="no"; shift ;;
     --non-interactive) NONINTERACTIVE=true; shift ;;
+    --keep-optional) KEEP_OPTIONAL=true; shift ;;
+    --prune-optional) KEEP_OPTIONAL=false; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage >&2; exit 1 ;;
   esac
 done
+
+prune_optional_stacks() {
+  if [ "$KEEP_OPTIONAL" = true ]; then
+    return 0
+  fi
+  rm -rf examples/rust examples/go modules/rust modules/go modules/lightroom 2>/dev/null || true
+}
+
+prune_primary_stack() {
+  local stack="$1"
+  case "$stack" in
+    web) rm -rf examples/python examples/android examples/node modules/python modules/android modules/node modules/lightroom 2>/dev/null || true ;;
+    python) rm -rf examples/web examples/android examples/node modules/web modules/android modules/node modules/lightroom 2>/dev/null || true ;;
+    android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node modules/lightroom 2>/dev/null || true ;;
+    node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android modules/lightroom 2>/dev/null || true ;;
+  esac
+  prune_optional_stacks
+}
 
 if [ "$NONINTERACTIVE" = true ]; then
   if [ -z "$STACK" ] || [ -z "$PROJECT_NAME" ] || [ -z "$PROJECT_PURPOSE" ]; then
@@ -198,24 +221,14 @@ elif [ "$STACK" = "multi" ]; then
 else
   if [ "$PRUNE_FLAG" = "yes" ]; then
     PRUNED=true
-    case "$STACK" in
-      web) rm -rf examples/python examples/android examples/node modules/python modules/android modules/node modules/lightroom 2>/dev/null || true ;;
-      python) rm -rf examples/web examples/android examples/node modules/web modules/android modules/node modules/lightroom 2>/dev/null || true ;;
-      android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node modules/lightroom 2>/dev/null || true ;;
-      node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android modules/lightroom 2>/dev/null || true ;;
-    esac
+    prune_primary_stack "$STACK"
   elif [ "$PRUNE_FLAG" = "no" ] || [ "$NONINTERACTIVE" = true ]; then
     echo "Skipping prune (--no-prune or --non-interactive)."
   else
     read -rp "Prune unused examples/modules? (y/N): " PRUNE
     if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
       PRUNED=true
-      case "$STACK" in
-        web) rm -rf examples/python examples/android examples/node modules/python modules/android modules/node modules/lightroom 2>/dev/null || true ;;
-        python) rm -rf examples/web examples/android examples/node modules/web modules/android modules/node modules/lightroom 2>/dev/null || true ;;
-        android) rm -rf examples/web examples/python examples/node modules/web modules/python modules/node modules/lightroom 2>/dev/null || true ;;
-        node) rm -rf examples/web examples/python examples/android modules/web modules/python modules/android modules/lightroom 2>/dev/null || true ;;
-      esac
+      prune_primary_stack "$STACK"
     fi
   fi
 fi

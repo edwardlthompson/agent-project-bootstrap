@@ -29,17 +29,20 @@
 | B — Init CLI | `scripts/init-project.sh`, `scripts/init-project.ps1` |
 | C — APK reproducibility | `scripts/verify-reproducible-apk.sh`, `.ps1`, `modules/android/MODULE.md` |
 
-## Sprint M14 (template maintainer) — active
+## Sprint M14 (template maintainer) — archived
 
-> Post-M13 code review on `4fddec8`. Version sync, init.ps1 fix, gate wiring, web/Android hardening.
+> Completed 2026-06-15. Version sync, init.ps1 fix, gate wiring, web/Android hardening. See `COMPLETED_TASKS.md`.
+
+## Sprint M15 (template maintainer) — active
+
+> P2 backlog post-0.9.0. Init optional-stack prune, CodeQL docs, Playwright About e2e, upgrade sim.
 
 | Agent | Scope |
 |-------|-------|
-| A — Init + version | `scripts/init-project.*`, `pre-release-gate.sh`, `.template-version`, `TEMPLATE_INDEX.json` |
-| B — Maintainer gates | `run-maintainer-gates.sh`, `verify-branch-protection.sh`, `verify-reproducible-apk.sh` |
-| C — Web exemplar | `AboutPanel.ts`, `aboutSession.ts`, `e2e/app.spec.ts` |
-| D — Android + CI | `GoldenPathApp.kt`, `check-file-limits.sh`, `release.yml` |
-| E — Docs | `CHANGELOG.md`, `INITIALIZATION_PROMPT.md`, `docs/features/settings.md` index |
+| A — Init + upgrade sim | `scripts/init-project.*`, `simulate-template-upgrade.sh` |
+| B — Web e2e | `examples/web/e2e/app.spec.ts` |
+| C — Android smoke | `MainActivitySmokeTest.kt`, `modules/android/MODULE.md` |
+| D — CI/docs | `codeql.yml`, `modules/rust|go/MODULE.md`, `release.yml` |
 
 ## Sprint M12 (template maintainer) — archived
 

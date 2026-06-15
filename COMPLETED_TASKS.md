@@ -344,7 +344,7 @@
 - ✅ [AGENT] Wire branch-protection into `run-maintainer-gates.sh`; `TEMPLATE_INDEX.json` entries
 - ✅ [AUTO] `verify-branch-protection.sh` green on template repo `main`
 
-## Sprint M14 — Post-M13 review remediation (AGENT, 2026-06-12)
+## Sprint M14 — Post-M13 review remediation (AGENT, 2026-06-15)
 
 - ✅ [AGENT] P0 version coherence: `.template-version`, `TEMPLATE_INDEX.json`, `AGENT_MEMORY.md` → 0.8.0; manifest assert in `pre-release-gate.sh`
 - ✅ [AGENT] P0 `init-project.ps1` `2>$null` fix; `-NonInteractive` + Python placeholder replacement in both init scripts
@@ -354,13 +354,24 @@
 - ✅ [AGENT] P1 web: `AboutPanel.ts` DOM-safe donations; `APP_VERSION` via Vite `define`
 - ✅ [AGENT] P1 Android: `check-file-limits.sh` GoldenPath UI roots; home-screen update status banner
 - ✅ [AGENT] P1 CI: Android SBOM in `release.yml`; tag vs `workflow_dispatch` gate docs
-- ⬜ [AUTO] CI + Feature Gate green on `main` after push (row 10)
 - ✅ [AUTO] CI + Feature Gate green on `main` (`fc71433`)
 - ✅ [HUMAN] Close stale M5 visual-review row (superseded by maintainer README cycles)
+- ✅ [AGENT] Init next-steps numbering fixed in `.sh` / `.ps1`
 
-## Sprint M14 — Post-M13 review (planned, 2026-06-15)
+## Sprint M15 — P2 backlog (AGENT, 2026-06-15)
 
-> Superseded by execution block above.
+- ✅ [AGENT] Init `--keep-optional` / `--prune-optional` for rust/go/lightroom when pruning
+- ✅ [AGENT] CodeQL rust/go exclusion documented in `codeql.yml` + `modules/rust|go/MODULE.md`
+- ✅ [AGENT] Playwright e2e: update check enabled → About status assertion
+- ✅ [AGENT] `simulate-template-upgrade.sh` non-interactive init smoke
+- ✅ [AGENT] `MainActivitySmokeTest` migrated to `ActivityScenarioRule`
+- ⬜ [AGENT] Optional `connectedDebugAndroidTest` CI job
+- ⬜ [AGENT] Release Please + `release.yml` SBOM asset wiring
+
+## BUILD_PLAN cleanup (2026-06-15, M14 + v0.9.0 archive)
+
+- ✅ [AGENT] Archive M14 sprint body; promote P2 to Sprint M15 active board
+- ✅ [AGENT] Reset pre-release checklist for next version cycle
 
 ## Sprint M10 — Code review remediation (AGENT, 2026-06-15)
 

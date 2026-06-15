@@ -1,5 +1,8 @@
 name: CodeQL
 
+# Matrix covers primary stacks (JS/TS, Python, Android). Optional examples/rust and
+# examples/go are excluded — see modules/rust/MODULE.md and modules/go/MODULE.md.
+
 on:
   push:
     branches: [main]

@@ -9,11 +9,39 @@ param(
     [string]$CodeOwner = "",
     [switch]$Prune,
     [switch]$NoPrune,
-    [switch]$NonInteractive
+    [switch]$NonInteractive,
+    [switch]$KeepOptional = $true,
+    [switch]$PruneOptional
 )
 
 $Root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Set-Location $Root
+
+if ($PruneOptional) { $KeepOptional = $false }
+
+function Remove-OptionalStacks {
+    if ($KeepOptional) { return }
+    @("examples/rust", "examples/go", "modules/rust", "modules/go", "modules/lightroom") | ForEach-Object {
+        $target = Join-Path $Root $_
+        if (Test-Path $target) { Remove-Item -Recurse -Force $target }
+    }
+}
+
+function Remove-PrimaryStack {
+    param([string]$ActiveStack)
+    $toRemove = switch ($ActiveStack) {
+        "web" { @("examples/python", "examples/android", "examples/node", "modules/python", "modules/android", "modules/node", "modules/lightroom") }
+        "python" { @("examples/web", "examples/android", "examples/node", "modules/web", "modules/android", "modules/node", "modules/lightroom") }
+        "android" { @("examples/web", "examples/python", "examples/node", "modules/web", "modules/python", "modules/node", "modules/lightroom") }
+        "node" { @("examples/web", "examples/python", "examples/android", "modules/web", "modules/python", "modules/android", "modules/lightroom") }
+        default { @() }
+    }
+    foreach ($item in $toRemove) {
+        $target = Join-Path $Root $item
+        if (Test-Path $target) { Remove-Item -Recurse -Force $target }
+    }
+    Remove-OptionalStacks
+}
 
 if ($NonInteractive -and (-not $Stack -or -not $ProjectName -or -not $ProjectPurpose)) {
     Write-Error "--NonInteractive requires -Stack, -ProjectName, and -ProjectPurpose"
@@ -132,34 +160,14 @@ if ($Stack -eq "none") {
 } else {
     if ($Prune) {
         $Pruned = $true
-        $toRemove = switch ($Stack) {
-            "web" { @("examples/python", "examples/android", "examples/node", "modules/python", "modules/android", "modules/node", "modules/lightroom") }
-            "python" { @("examples/web", "examples/android", "examples/node", "modules/web", "modules/android", "modules/node", "modules/lightroom") }
-            "android" { @("examples/web", "examples/python", "examples/node", "modules/web", "modules/python", "modules/node", "modules/lightroom") }
-            "node" { @("examples/web", "examples/python", "examples/android", "modules/web", "modules/python", "modules/android", "modules/lightroom") }
-            default { @() }
-        }
-        foreach ($item in $toRemove) {
-            $target = Join-Path $Root $item
-            if (Test-Path $target) { Remove-Item -Recurse -Force $target }
-        }
+        Remove-PrimaryStack $Stack
     } elseif ($NoPrune -or $NonInteractive) {
         Write-Host "Skipping prune (-NoPrune or -NonInteractive)."
     } else {
         $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
         if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
             $Pruned = $true
-            $toRemove = switch ($Stack) {
-                "web" { @("examples/python", "examples/android", "examples/node", "modules/python", "modules/android", "modules/node", "modules/lightroom") }
-                "python" { @("examples/web", "examples/android", "examples/node", "modules/web", "modules/android", "modules/node", "modules/lightroom") }
-                "android" { @("examples/web", "examples/python", "examples/node", "modules/web", "modules/python", "modules/node", "modules/lightroom") }
-                "node" { @("examples/web", "examples/python", "examples/android", "modules/web", "modules/python", "modules/android", "modules/lightroom") }
-                default { @() }
-            }
-            foreach ($item in $toRemove) {
-                $target = Join-Path $Root $item
-                if (Test-Path $target) { Remove-Item -Recurse -Force $target }
-            }
+            Remove-PrimaryStack $Stack
         }
     }
 }

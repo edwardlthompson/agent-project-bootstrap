@@ -53,6 +53,16 @@ test("opens about panel with version", async ({ page }) => {
   await expect(page.getByTestId("about-status")).toBeVisible();
 });
 
+test("shows update status in about after enabling update check", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  await page.locator("[data-settings-update]").check();
+  await page.getByRole("button", { name: "About" }).click();
+  const status = page.getByTestId("about-status");
+  await expect(status).toBeVisible();
+  await expect(status).toContainText(/latest version|Update available|No compatible/i);
+});
+
 test("serves cached shell offline via service worker", async ({ page, context }) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");

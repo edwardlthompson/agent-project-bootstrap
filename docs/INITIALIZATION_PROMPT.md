@@ -260,7 +260,7 @@ scripts/init-project.sh \
   --codeowner myuser
 ```
 
-PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack web -ProjectName "My App" -ProjectPurpose "Offline-first notes"`. Add `-Prune` to remove unused stacks. See `scripts/init-project.sh --help`.
+PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack web -ProjectName "My App" -ProjectPurpose "Offline-first notes"`. Add `-Prune` to remove unused stacks; `-KeepOptional` (default) retains rust/go/lightroom, `-PruneOptional` removes them too. See `scripts/init-project.sh --help`.
 
 1. Confirm understanding of the specified Platform, Stack, Purpose, and FOSS distribution pipelines.
 2. Initialize core repository architecture, root documentation (`README.md`, `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`), and the Workspace Memory files. `README.md` must include: project purpose and stack, quick start, BUILD_PLAN label legend, template update checker table, in-app About + donation placeholder note (separate from template checker), security section (Dependabot alerts + weekly triage link to `docs/SECURITY_TRIAGE.md`), and links to `docs/START_HERE.md`, `CONTRIBUTING.md`, and the active module guide.

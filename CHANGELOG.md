@@ -19,6 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [Unreleased]
+
+### Added
+
+- Sprint M15: init `--keep-optional` / `--prune-optional`; `simulate-template-upgrade.sh` non-interactive init smoke; Playwright About update-status e2e
+
+### Changed
+
+- `MainActivitySmokeTest` uses `ActivityScenarioRule`; CodeQL rust/go exclusion documented in workflow + module guides
+
 ## [0.9.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.8.0...v0.9.0) (2026-06-15)
 
 

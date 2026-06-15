@@ -19,6 +19,10 @@
 
 See `examples/go/` for a minimal `hello` command (MIT).
 
+## CodeQL
+
+Root `.github/workflows/codeql.yml` does **not** analyze `examples/go/` (optional stack). Use `go vet` and govulncheck (when adopted) in CI when this module is active. See `docs/OPTIONAL_STACKS.md`.
+
 ## Owner Labels for This Module
 
 | Task type | Label |
