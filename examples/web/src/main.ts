@@ -5,8 +5,8 @@ import { createAppShell, type AppShellState } from "./AppShell";
 import { t } from "./i18n";
 import { initTheme } from "./theme";
 
-const app = document.querySelector<HTMLDivElement>("#app");
-if (!app) throw new Error("App root element not found");
+const rootEl = document.querySelector<HTMLDivElement>("#app");
+if (!rootEl) throw new Error("App root element not found");
 
 let state: AppShellState = {
   showAbout: false,
@@ -15,7 +15,7 @@ let state: AppShellState = {
 };
 
 function render(): void {
-  createAppShell(app, state, (patch) => {
+  createAppShell(rootEl, state, (patch) => {
     state = { ...state, ...patch };
     render();
   });
