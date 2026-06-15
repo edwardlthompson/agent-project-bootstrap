@@ -224,21 +224,42 @@ def generate_theme_meta(tokens: dict) -> str:
 def write_outputs(root: Path) -> None:
     tokens = load_tokens(root)
     digest = token_hash(tokens)
+    synced: list[str] = []
 
-    web_css = root / "examples" / "web" / "src" / "design-tokens.css"
-    theme_meta = root / "examples" / "web" / "src" / "theme-meta.json"
-    android_theme = root / "examples" / "android" / "app" / "src" / "main" / "java" / "dev" / "foss" / "goldenpath" / "ui" / "theme"
+    web_root = root / "examples" / "web"
+    if web_root.is_dir():
+        web_css = web_root / "src" / "design-tokens.css"
+        theme_meta = web_root / "src" / "theme-meta.json"
+        web_css.parent.mkdir(parents=True, exist_ok=True)
+        web_css.write_text(generate_css(tokens, digest), encoding="utf-8")
+        theme_meta.write_text(generate_theme_meta(tokens), encoding="utf-8")
+        synced.append("web")
 
-    web_css.parent.mkdir(parents=True, exist_ok=True)
-    android_theme.mkdir(parents=True, exist_ok=True)
+    android_root = root / "examples" / "android"
+    if android_root.is_dir():
+        android_theme = (
+            android_root
+            / "app"
+            / "src"
+            / "main"
+            / "java"
+            / "dev"
+            / "foss"
+            / "goldenpath"
+            / "ui"
+            / "theme"
+        )
+        android_theme.mkdir(parents=True, exist_ok=True)
+        (android_theme / "Color.kt").write_text(generate_color_kt(tokens, digest), encoding="utf-8")
+        (android_theme / "Type.kt").write_text(generate_type_kt(tokens, digest), encoding="utf-8")
+        (android_theme / "Dimens.kt").write_text(generate_dimens_kt(tokens, digest), encoding="utf-8")
+        synced.append("android")
 
-    web_css.write_text(generate_css(tokens, digest), encoding="utf-8")
-    theme_meta.write_text(generate_theme_meta(tokens), encoding="utf-8")
-    (android_theme / "Color.kt").write_text(generate_color_kt(tokens, digest), encoding="utf-8")
-    (android_theme / "Type.kt").write_text(generate_type_kt(tokens, digest), encoding="utf-8")
-    (android_theme / "Dimens.kt").write_text(generate_dimens_kt(tokens, digest), encoding="utf-8")
+    if not synced:
+        print("No active example stacks for design token sync; skipped")
+        return
 
-    print(f"Synced design tokens (hash {digest})")
+    print(f"Synced design tokens for {', '.join(synced)} (hash {digest})")
 
 
 def main() -> None:
