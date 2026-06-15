@@ -95,11 +95,15 @@ if [ -d examples/web/src ]; then
   done < <(find examples/web/src -type f -name '*.css' ! -name 'design-tokens.css' -print0)
 fi
 
-# Generated outputs should exist when tokens present
-for out in \
-  examples/web/src/design-tokens.css \
-  examples/web/src/theme-meta.json \
-  examples/android/app/src/main/java/dev/foss/goldenpath/ui/theme/Color.kt; do
+# Generated outputs should exist when tokens present and stack is active
+REQUIRED_OUTPUTS=()
+if [ -d examples/web ]; then
+  REQUIRED_OUTPUTS+=(examples/web/src/design-tokens.css examples/web/src/theme-meta.json)
+fi
+if [ -d examples/android ]; then
+  REQUIRED_OUTPUTS+=(examples/android/app/src/main/java/dev/foss/goldenpath/ui/theme/Color.kt)
+fi
+for out in "${REQUIRED_OUTPUTS[@]}"; do
   if [ ! -f "$out" ]; then
     fail "missing generated output $out (run scripts/sync-design-tokens.py)"
   fi

@@ -66,22 +66,29 @@ for interp in re.findall(r"\$\{([^}]+)\}", template):
     }
 }
 
-Get-ChildItem -Path "examples/android/app/src/main/java" -Recurse -Filter *.kt -File |
-    Where-Object { $_.FullName -match '\\ui\\' -and $_.Name -ne 'Color.kt' } |
-    ForEach-Object {
-        if (Select-String -Path $_.FullName -Pattern 'Color\(0x|#[0-9A-Fa-f]{6}\b' -Quiet) {
-            Fail "hardcoded color in $($_.FullName)"
+if (Test-Path "examples/android/app/src/main/java") {
+    Get-ChildItem -Path "examples/android/app/src/main/java" -Recurse -Filter *.kt -File |
+        Where-Object { $_.FullName -match '\\ui\\' -and $_.Name -ne 'Color.kt' } |
+        ForEach-Object {
+            if (Select-String -Path $_.FullName -Pattern 'Color\(0x|#[0-9A-Fa-f]{6}\b' -Quiet) {
+                Fail "hardcoded color in $($_.FullName)"
+            }
+            if (Select-String -Path $_.FullName -Pattern 'Text\("[^"]+"\)' -Quiet) {
+                Fail "string literal in composable: $($_.FullName)"
+            }
         }
-        if (Select-String -Path $_.FullName -Pattern 'Text\("[^"]+"\)' -Quiet) {
-            Fail "string literal in composable: $($_.FullName)"
-        }
-    }
+}
 
-$required = @(
-    "examples/web/src/design-tokens.css",
-    "examples/web/src/theme-meta.json",
-    "examples/android/app/src/main/java/dev/foss/goldenpath/ui/theme/Color.kt"
-)
+$required = @()
+if (Test-Path "examples/web") {
+    $required += @(
+        "examples/web/src/design-tokens.css",
+        "examples/web/src/theme-meta.json"
+    )
+}
+if (Test-Path "examples/android") {
+    $required += "examples/android/app/src/main/java/dev/foss/goldenpath/ui/theme/Color.kt"
+}
 foreach ($path in $required) {
     if (-not (Test-Path $path)) {
         Fail "missing generated output $path (run scripts/sync-design-tokens.py)"
