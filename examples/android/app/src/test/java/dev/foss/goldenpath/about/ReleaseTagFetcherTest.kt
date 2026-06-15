@@ -22,7 +22,7 @@ class ReleaseTagFetcherTest {
 
     @Test
     fun manifestDeclaresInternetPermission() {
-        val info = context.packageManager.getApplicationInfo(
+        val info = context.packageManager.getPackageInfo(
             context.packageName,
             PackageManager.GET_PERMISSIONS,
         )
