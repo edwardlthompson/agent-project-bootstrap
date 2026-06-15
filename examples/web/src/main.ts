@@ -7,6 +7,7 @@ import { initTheme } from "./theme";
 
 const rootEl = document.querySelector<HTMLDivElement>("#app");
 if (!rootEl) throw new Error("App root element not found");
+const appRoot: HTMLDivElement = rootEl;
 
 let state: AppShellState = {
   showAbout: false,
@@ -15,7 +16,7 @@ let state: AppShellState = {
 };
 
 function render(): void {
-  createAppShell(rootEl, state, (patch) => {
+  createAppShell(appRoot, state, (patch) => {
     state = { ...state, ...patch };
     render();
   });
