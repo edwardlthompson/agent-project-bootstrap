@@ -22,6 +22,7 @@
 7. Active `examples/{stack}/` only
 8. `docs/WEB_PROJECT_LAYOUT.md` when stack includes web (folder roles, GitHub Pages)
 9. `docs/DESIGN_GUIDE.md` when stack includes web or Android UI (tokens, themes, i18n)
+10. `docs/FEATURE_MODULES.md` when implementing Sprint 2+ incremental features (vertical slices)
 
 ## Reference Read Order
 

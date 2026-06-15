@@ -25,7 +25,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` Sequential items first, then dispatch Parallel agents with isolated file scopes. Shared schema/types are Sequential-only.
 
-> **Sprint M0–M5** are template-maintainer sprints (this repo). Child repos created from the template use Sprint 0–2 only.
+> **Sprint M0–M8** are template-maintainer sprints (this repo). Child repos use Sprint 0–2+ with automated `feature-gate.sh` between steps.
 
 ---
 
@@ -48,11 +48,30 @@ grep '\[AUTO\]' BUILD_PLAN.md
 2. [ ] [HUMAN] Fill `.app-update.json` `release_repo` and `donations.json` links
 3. [ ] [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
 
-### Sprint 2 — First Real Feature
+### Sprint 2+ — Incremental Features (vertical slices, one at a time)
 
-1. [ ] [HUMAN] Define first feature milestone and acceptance criteria
-2. [ ] [HUMAN] Approve implementation plan
-3. [ ] [HUMAN] Sign off for release
+> Slow lego assembly. Sequential only. See `docs/FEATURE_MODULES.md`. Agents run automated gates without human polling.
+
+**Agent rule:** After every `[AGENT]` step, run `bash scripts/watch-agent-gates.sh --once --autofix`. On failure, agent auto-fixes from JSON diagnostics and re-runs until pass or 3-strike. Do not start feature N+1 until `[HUMAN]` approves feature.
+
+#### Feature template (duplicate per feature)
+
+1. [ ] [HUMAN] Document acceptance criteria + one smoke scenario for **Feature: _[name]_**
+2. [ ] [AGENT] Scaffold feature container; public API boundary only
+3. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix` (post-scaffold; agent fixes until green)
+4. [ ] [AGENT] Unit tests for feature pure logic
+5. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix` (post-unit-tests)
+6. [ ] [AGENT] Wire view/adapter; composition root ≤10 lines
+7. [ ] [AUTO] `bash scripts/watch-agent-gates.sh --once --autofix --wait-ci 300` (after push to branch)
+8. [ ] [HUMAN] Manual smoke happy path; approve before next feature row
+
+#### Sprint 2 starter
+
+1. [ ] [HUMAN] Name first feature and acceptance criteria
+2. [ ] [AGENT] Implement first feature per `docs/FEATURE_MODULES.md` (About = reference shape)
+3. [ ] [HUMAN] Sign off Sprint 2; duplicate feature template for Sprint 3
+
+> **Note:** About screen (Sprint 1) is the reference exemplar. M7 row 5 uses add/remove of About as a gate verification exercise — not the first Sprint 2 feature. Duplicate the feature template for the first *new* feature.
 
 ---
 
@@ -66,6 +85,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 - [ ] [AUTO] Repo Hygiene CI job green on `main`
 - [ ] [AUTO] OpenSSF Scorecard workflow result reviewed
 - [ ] [AUTO] `scripts/pre-release-gate.sh` run before any version bump
+- [ ] [AUTO] `bash scripts/feature-gate.sh` on active stack before maintainer release tags
 - [ ] [AGENT] Triage Scorecard findings into BUILD_PLAN `[AUTO]` items
 
 ### Monthly (recurring)
@@ -94,6 +114,35 @@ grep '\[AUTO\]' BUILD_PLAN.md
 4. [x] [AGENT] Add `docs/REPO_HYGIENE.md` and `.cursor/rules/repo-hygiene.mdc`
 5. [ ] [HUMAN] Add **Repo Hygiene** to branch protection required checks on `main`
 6. [x] [AUTO] CI **Repo Hygiene** job green after merge
+
+---
+
+## Template Maintainer — Sprint M7: Incremental Feature Assembly + Agent Gates
+
+> Vertical-slice / lego-container workflow with autonomous lint/smoke gates.
+
+1. [x] [AGENT] Add `docs/FEATURE_MODULES.md` and `.cursor/rules/feature-modules.mdc`
+2. [x] [AGENT] Add `feature-gate.sh`, `feature-autofix.sh`, `agent-progress.sh`, `watch-agent-gates.sh`, `smoke-stack.sh` (+ `.ps1`)
+3. [x] [AGENT] Extend session-state example, `ci-gates.mdc`, `testing.mdc`, `destructive-ops.mdc`; gitignore `agent-progress.json`
+4. [x] [AGENT] Update BUILD_PLAN Sprint 2+ template, INITIALIZATION_PROMPT, FOR_AGENTS, PROMPT_LIBRARY
+7. [x] [AGENT] Harden agent handoff: populate `gates_passed`, `failed_stage`, `log_tail` in `agent-progress.sh`; forward `--step` from `feature-gate.sh`
+8. [x] [AGENT] Fix `watch-agent-gates.sh` JSON capture (stdout-only); pass `--paths` to `feature-autofix.sh` for active feature scope
+9. [x] [AGENT] Add `docs/FEATURE_MODULES.md` to `validate-bootstrap.sh` REQUIRED; cross-link in `docs/START_HERE.md`; add Feature gate section to `modules/node/MODULE.md`
+10. [x] [AGENT] Commit M7+M7-closeout changes; archive completed AGENT rows to `COMPLETED_TASKS.md`
+5. [ ] [HUMAN] Verify About feature add/remove still passes `feature-gate.sh`
+6. [ ] [AUTO] `feature-gate.sh` + CI green after merge
+
+---
+
+## Template Maintainer — Sprint M8: Feature Gate CI Enforcement
+
+> CI becomes source of truth for feature-gate; local `--strict` for maintainer releases.
+
+1. [ ] [AGENT] Add CI job or matrix step calling `bash scripts/feature-gate.sh --stack <active>` per present `examples/`
+2. [ ] [AGENT] Add `--strict` to `feature-gate.sh` (exit 2 if any stack stage skipped in multi mode); use `--strict` in CI only
+3. [ ] [AGENT] Wire `scripts/pre-release-gate.sh` to run `feature-gate.sh` before version bump
+4. [ ] [HUMAN] Add feature-gate CI job to branch protection required checks on `main`
+5. [ ] [AUTO] CI green including feature-gate job after merge
 
 ---
 

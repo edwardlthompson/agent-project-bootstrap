@@ -1,4 +1,5 @@
 import "./style.css";
+// Feature wiring: keep ≤10 lines per feature in this composition root (see docs/FEATURE_MODULES.md).
 import { APP_VERSION, checkForUpdates, getInterval, handleRestartGuard, setIntervalPref } from "./about/aboutSession";
 import { loadDonations } from "./about/donations";
 import { createAboutPanel } from "./components/AboutPanel";

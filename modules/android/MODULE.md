@@ -53,6 +53,16 @@ Shared key naming with web: `app.title`, `theme.toggle.label`, `theme.mode.*` â€
 
 See `examples/android/` for FOSS Gradle/Kotlin skeleton. CI runs `./gradlew assembleDebug` on every push to `main`.
 
+## Feature gate (Sprint 2+)
+
+After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.sh`):
+
+| Stage | Command |
+|-------|---------|
+| Unit + compile | `./gradlew test` in `examples/android/` |
+
+Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
+
 ## Owner Labels for This Module
 
 | Task type | Label |

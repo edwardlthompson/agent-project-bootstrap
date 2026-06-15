@@ -28,6 +28,17 @@
 
 See `examples/python/` for uv + ruff + mypy + pytest CLI stub.
 
+## Feature gate (Sprint 2+)
+
+After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.sh`):
+
+| Stage | Command |
+|-------|---------|
+| Lint | `uv run ruff check .` + `uv run ruff format --check .` |
+| Unit | `uv run pytest -q` |
+
+`mypy` remains a milestone gate in full CI; feature gate focuses on fast lint + unit smoke.
+
 ## Owner Labels for This Module
 
 | Task type | Label |

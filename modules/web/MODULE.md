@@ -64,6 +64,18 @@ Default locale: English only. Add `src/locales/{lang}.json` when shipping transl
 
 See `examples/web/` for Vite + TypeScript PWA with Vitest, Playwright, and Lighthouse CI.
 
+## Feature gate (Sprint 2+)
+
+After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.sh`):
+
+| Stage | Command |
+|-------|---------|
+| Lint | `npm run lint` in `examples/web/` |
+| Unit | `npm test` |
+| Build smoke | `npm run build` |
+
+E2E (`npx playwright test`) remains a milestone gate, not every feature row.
+
 ## Owner Labels for This Module
 
 | Task type | Label |

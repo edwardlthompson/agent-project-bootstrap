@@ -1,0 +1,167 @@
+#!/usr/bin/env bash
+# Track agent gate progress in .cursor/agent-progress.json (gitignored).
+# Usage: agent-progress.sh status|record|next|set-feature [--json] [options]
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PROGRESS="$ROOT/.cursor/agent-progress.json"
+mkdir -p "$ROOT/.cursor"
+
+if command -v python3 >/dev/null 2>&1; then PY=python3
+elif command -v python >/dev/null 2>&1; then PY=python
+else PY=python3; fi
+
+$PY - "$ROOT" "$PROGRESS" "$@" << 'PY'
+import json, re, sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+root = Path(sys.argv[1])
+progress_path = Path(sys.argv[2])
+args = sys.argv[3:]
+
+def load():
+    if progress_path.exists():
+        return json.loads(progress_path.read_text(encoding="utf-8"))
+    stack = "web"
+    sel = root / ".cursor/stack-selection.json"
+    if sel.exists():
+        stack = json.loads(sel.read_text(encoding="utf-8")).get("stack", "web")
+    return {
+        "updated_at": None,
+        "stack": stack,
+        "current_feature": None,
+        "build_plan_step": None,
+        "last_gate": None,
+        "strikes": 0,
+        "autofix_attempts": 0,
+        "last_autofix": None,
+        "next_action": None,
+        "gates_passed": [],
+    }
+
+def save(data):
+    data["updated_at"] = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    progress_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+def parse_record_args(a):
+    out = {
+        "gate": "feature-gate",
+        "exit": 0,
+        "step": "",
+        "gates_passed": [],
+        "failed_stage": "",
+        "log_tail": "",
+    }
+    i = 0
+    while i < len(a):
+        if a[i] == "--gate" and i + 1 < len(a):
+            out["gate"] = a[i + 1]
+            i += 2
+        elif a[i] == "--exit" and i + 1 < len(a):
+            out["exit"] = int(a[i + 1])
+            i += 2
+        elif a[i] == "--step" and i + 1 < len(a):
+            out["step"] = a[i + 1]
+            i += 2
+        elif a[i] == "--gates-passed" and i + 1 < len(a):
+            out["gates_passed"] = [s.strip() for s in a[i + 1].split(",") if s.strip()]
+            i += 2
+        elif a[i] == "--failed-stage" and i + 1 < len(a):
+            out["failed_stage"] = a[i + 1]
+            i += 2
+        elif a[i] == "--log-tail" and i + 1 < len(a):
+            out["log_tail"] = a[i + 1]
+            i += 2
+        elif a[i] == "--autofix":
+            out["autofix"] = True
+            i += 1
+        else:
+            i += 1
+    return out
+
+if not args:
+    print("Usage: agent-progress.sh status|record|next|set-feature [--json]", file=sys.stderr)
+    sys.exit(1)
+
+cmd = args[0]
+json_out = "--json" in args
+
+if cmd == "status":
+    data = load()
+    if json_out:
+        print(json.dumps(data, indent=2))
+    else:
+        print(f"stack={data.get('stack')} feature={data.get('current_feature')} strikes={data.get('strikes')}")
+        print(f"next_action={data.get('next_action')}")
+        print(f"gates_passed={data.get('gates_passed')}")
+        lg = data.get("last_gate") or {}
+        print(f"last_gate={lg.get('script')} exit={lg.get('exit_code')} step={lg.get('step')}")
+    sys.exit(0)
+
+if cmd == "set-feature":
+    name = ""
+    i = 1
+    while i < len(args):
+        if args[i] == "--name" and i + 1 < len(args):
+            name = args[i + 1]
+            i += 2
+        else:
+            i += 1
+    data = load()
+    data["current_feature"] = name or None
+    save(data)
+    sys.exit(0)
+
+if cmd == "record":
+    rec = parse_record_args(args[1:])
+    data = load()
+    prev_exit = (data.get("last_gate") or {}).get("exit_code")
+    same_step = (data.get("last_gate") or {}).get("step") == rec["step"]
+    if rec["exit"] != 0 and prev_exit != 0 and same_step and rec["step"]:
+        data["strikes"] = int(data.get("strikes", 0)) + 1
+    elif rec["exit"] == 0:
+        data["strikes"] = 0
+    if rec.get("autofix"):
+        data["autofix_attempts"] = int(data.get("autofix_attempts", 0)) + 1
+        data["last_autofix"] = "feature-autofix.sh"
+    data["last_gate"] = {
+        "script": rec["gate"],
+        "exit_code": rec["exit"],
+        "step": rec["step"] or None,
+    }
+    if rec["gates_passed"]:
+        data["gates_passed"] = rec["gates_passed"]
+    if rec["exit"] != 0:
+        stage = rec["failed_stage"] or rec["step"] or "gate"
+        tail = (rec["log_tail"] or "")[:200]
+        action = f"agent: fix {stage}"
+        if tail:
+            action += f" — {tail}"
+        data["next_action"] = action
+    else:
+        data["next_action"] = "proceed to next BUILD_PLAN step"
+    save(data)
+    sys.exit(0)
+
+if cmd == "next":
+    bp = root / "BUILD_PLAN.md"
+    if not bp.exists():
+        print("BUILD_PLAN.md not found", file=sys.stderr)
+        sys.exit(1)
+    text = bp.read_text(encoding="utf-8")
+    for line in text.splitlines():
+        m = re.match(r"^\d+\.\s+\[ \]\s+\[(AGENT|AUTO|HUMAN)\]\s+(.+)$", line)
+        if m:
+            result = {"owner": m.group(1), "task": m.group(2).strip()}
+            if json_out:
+                print(json.dumps(result, indent=2))
+            else:
+                print(f"[{result['owner']}] {result['task']}")
+            sys.exit(0)
+    print("No unchecked BUILD_PLAN rows found", file=sys.stderr)
+    sys.exit(1)
+
+print(f"Unknown command: {cmd}", file=sys.stderr)
+sys.exit(1)
+PY

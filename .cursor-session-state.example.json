@@ -12,5 +12,9 @@
     "examples/web/src/main.ts"
   ],
   "build_plan_lane": "sequential",
-  "notes": "Optional free-text checkpoint for the next session."
+  "autonomous_mode": true,
+  "current_feature": null,
+  "last_gate_exit": null,
+  "strikes": 0,
+  "notes": "Optional free-text checkpoint. Mirror .cursor/agent-progress.json when running watch-agent-gates."
 }

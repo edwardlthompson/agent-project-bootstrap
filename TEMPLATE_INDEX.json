@@ -600,6 +600,62 @@
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "human+agent"
+    },
+    {
+      "path": "docs/FEATURE_MODULES.md",
+      "purpose": "Vertical-slice feature container contract, DoD, autonomous agent protocol",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/rules/feature-modules.mdc",
+      "purpose": "One feature per task; watch-agent-gates after each AGENT step",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/feature-gate.sh",
+      "purpose": "Hygiene + encoding + stack lint/test/build smoke gate",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/feature-gate.ps1",
+      "purpose": "Windows wrapper for feature-gate.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/feature-autofix.sh",
+      "purpose": "Mechanical lint/format auto-fix within feature scope",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/agent-progress.sh",
+      "purpose": "Read/write .cursor/agent-progress.json for autonomous sessions",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/watch-agent-gates.sh",
+      "purpose": "Gate loop with autofix, progress tracking, 3-strike escalation",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/smoke-stack.sh",
+      "purpose": "Back-compat wrapper calling feature-gate.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     }
   ],
   "modules": {

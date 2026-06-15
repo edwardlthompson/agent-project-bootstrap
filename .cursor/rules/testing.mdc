@@ -21,6 +21,18 @@ globs:
 - Bug fixes: regression test required
 - Template-only doc changes: no new tests
 
+## Per-feature smoke gate (test pyramid)
+
+- **Unit (many):** required for every new feature's pure logic
+- **Smoke (one):** `bash scripts/feature-gate.sh` after each AGENT step
+- **E2E (few):** Playwright/Lighthouse at milestone gates, not every feature
+
+```bash
+bash scripts/watch-agent-gates.sh --once --autofix
+```
+
+Do not start feature B until feature A passes gates and `[HUMAN]` approves.
+
 ## Snapshot Updates
 
 Playwright `toHaveScreenshot` baselines live under `e2e/*-snapshots/`. Update intentionally:

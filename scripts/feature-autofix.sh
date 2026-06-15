@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# Mechanical auto-fix (format/lint fixers) within optional --paths scope.
+# Usage: scripts/feature-autofix.sh [--dry-run] [--paths dir1,dir2]
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+if command -v python3 >/dev/null 2>&1; then PY=python3
+elif command -v python >/dev/null 2>&1; then PY=python
+else PY=python3; fi
+
+DRY=false
+PATHS=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --dry-run) DRY=true; shift ;;
+    --paths=*) PATHS="${1#*=}"; shift ;;
+    --paths) PATHS="${2:-}"; shift 2 ;;
+    *) shift ;;
+  esac
+done
+
+if [ -f .cursor/stack-selection.json ]; then
+  STACK="$($PY -c "import json; print(json.load(open('.cursor/stack-selection.json')).get('stack','multi'))" 2>/dev/null || echo multi)"
+fi
+STACK="${STACK:-multi}"
+
+run_fix() {
+  local desc="$1"
+  shift
+  if [ "$DRY" = true ]; then
+    echo "[dry-run] $desc: $*"
+    return 0
+  fi
+  echo "autofix: $desc"
+  "$@"
+}
+
+should_run() {
+  local s="$1"
+  [ "$STACK" = "multi" ] || [ "$STACK" = "none" ] || [ "$STACK" = "$s" ]
+}
+
+if should_run python && [ -f examples/python/pyproject.toml ] && command -v uv >/dev/null 2>&1; then
+  (cd examples/python && run_fix ruff-check-fix uv run ruff check --fix .)
+  (cd examples/python && run_fix ruff-format uv run ruff format .)
+fi
+
+if command -v pre-commit >/dev/null 2>&1; then
+  FILES=""
+  if [ -n "$PATHS" ]; then
+    FILES="$(find ${PATHS//,/ } -type f \( -name '*.md' -o -name '*.ts' -o -name '*.py' \) 2>/dev/null | head -n 50 | tr '\n' ' ')"
+  else
+    FILES="$(git diff --name-only HEAD 2>/dev/null | head -n 30 | tr '\n' ' ' || true)"
+  fi
+  if [ -n "$FILES" ]; then
+    run_fix pre-commit-whitespace pre-commit run trailing-whitespace end-of-file-fixer --files $FILES || true
+  fi
+fi
+
+if [ -f scripts/normalize-markdown-whitespace.py ]; then
+  for f in $(git diff --name-only HEAD 2>/dev/null | grep '\.md$' || true); do
+    [ -f "$f" ] && run_fix markdown-ws $PY scripts/normalize-markdown-whitespace.py "$f" || true
+  done
+fi
+
+echo "feature-autofix complete"
+exit 0

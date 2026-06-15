@@ -189,6 +189,7 @@ To maximize reasoning accuracy, eliminate architectural drift, and maintain cris
   - **Privacy:** document release-check calls in `docs/PRIVACY.md` (`last_checked`, `installed_artifact_format` only; no PII).
 - **Weekly Security Triage:** `[HUMAN]` runs a weekly CVE triage pass (recommended: Monday, aligned with Trivy scheduled scan). Follow `docs/SECURITY_TRIAGE.md`: review GitHub → Security → Dependabot alerts (Critical/High first), triage open Dependabot PRs, fix/defer/dismiss each alert, confirm **Security Scan** (Trivy), **CodeQL**, and **CI** workflows green on `main`. Log deferred Critical/High items in `DECISION_LOG.md` or `BUILD_PLAN.md` Ongoing Maintenance section.
 - **Repo hygiene:** Track source and lockfiles only — never commit `node_modules/`, `dist/`, caches, or `.env`. `[AGENT]` runs `bash scripts/check-repo-hygiene.sh` before push; `[AUTO]` CI **Repo Hygiene** job enforces the same gate. Reclaim disk with `bash scripts/purge-ephemeral.sh` (dry-run); `--apply` uses `git clean -fdX` (ignored untracked only). No Git LFS or submodules without `[HUMAN]` approval. See `docs/REPO_HYGIENE.md`.
+- **Incremental features (Sprint 2+):** One vertical-slice feature per BUILD_PLAN row. See `docs/FEATURE_MODULES.md`. After every `[AGENT]` step run `bash scripts/watch-agent-gates.sh --once --autofix`; agent may auto-fix lint/tests in feature scope until pass or 3-strike. `git push` still requires `[HUMAN]` approval.
 
 ## 7. Mandatory Pre-Release Quality Gate
 
@@ -213,6 +214,7 @@ Before claiming any sprint complete or requesting `[HUMAN]` approval:
 ```text
 [AUTO] scripts/check-file-encoding.sh
 [AUTO] scripts/check-repo-hygiene.sh
+[AUTO] scripts/feature-gate.sh --json
 [AUTO] scripts/validate-workflow-actions.sh
 [AUTO] scripts/validate-template-index.sh
 [AUTO] scripts/validate-bootstrap.sh

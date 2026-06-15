@@ -18,10 +18,12 @@ bash scripts/check-github-ci.sh --wait 300
 
 ## Gate Order (local)
 
-1. `scripts/check-file-encoding.py`
-2. `scripts/validate-template-index.sh`
-3. `scripts/validate-bootstrap.sh`
-4. `pre-commit run --all-files`
+1. `scripts/watch-agent-gates.sh --once --autofix` (after each AGENT feature step)
+2. `scripts/feature-gate.sh --json` (same gate, manual)
+3. `pre-commit run --all-files` (optional if hooks installed)
+4. Push → `scripts/check-github-ci.sh --wait 300`
+
+**Autonomous rule:** On gate failure, agent auto-fixes from JSON output within feature scope; re-run until pass or 3-strike. Push still requires human approval.
 
 ## Do Not Mark Complete
 

@@ -29,6 +29,7 @@
 - On milestone end: update `AGENT_MEMORY.md`, append to `DECISION_LOG.md` or `docs/adr/`
 - On 3-strike failure: halt and escalate to human
 - On context bloat: write `.cursor-session-state`, ask human to clear chat
+- Sprint 2+ features: after each AGENT step run `scripts/watch-agent-gates.sh --once --autofix` (see `docs/FEATURE_MODULES.md`)
 - Destructive operations require `[HUMAN]` approval (see `.cursor/rules/destructive-ops.mdc`)
 - Repo hygiene: track source only; run `scripts/check-repo-hygiene.sh` before push (see `docs/REPO_HYGIENE.md`)
 - Log significant agent actions in `DECISION_LOG.md` at milestone boundaries

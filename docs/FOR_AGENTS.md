@@ -39,11 +39,34 @@ Do not loop on the same file with identical errors. Escalate with:
 ## Session Checkpoint
 
 1. Copy `.cursor-session-state.example.json` to `.cursor-session-state.json`
-2. Fill `stack`, `active_sprint`, `sequential_step`, `last_files_touched`
+2. Fill `stack`, `active_sprint`, `sequential_step`, `last_files_touched`, `current_feature`, `strikes`
 3. Clear chat; on restart read the state file before BUILD_PLAN Parallel lane
-4. Delete `.cursor-session-state.json` after successful restore
+4. Cross-check `.cursor/agent-progress.json` (written by `watch-agent-gates.sh`)
+5. Delete `.cursor-session-state.json` after successful restore
 
 Stack selection from init lives in `.cursor/stack-selection.json`.
+
+## Autonomous feature gates (Sprint 2+)
+
+After each `[AGENT]` BUILD_PLAN step in a feature row:
+
+```bash
+bash scripts/watch-agent-gates.sh --once --autofix
+```
+
+- Exit `0`: proceed to next step
+- Exit `1`: read gate JSON stdout + `.cursor/agent-progress.json`; auto-fix lint/tests in active feature container + wiring + tests; re-run until pass
+- Exit `2`: environment block or 3-strike — halt and escalate to human
+
+Extended sessions:
+
+```bash
+bash scripts/watch-agent-gates.sh --interval 60 --max-attempts 10 --autofix
+```
+
+Mechanical fixers run first via `feature-autofix.sh`. Push to remote still requires human approval (`destructive-ops.mdc`).
+
+See `docs/FEATURE_MODULES.md`.
 
 ## Failure Playbook
 

@@ -23,6 +23,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Incremental feature assembly: `docs/FEATURE_MODULES.md`, vertical-slice Sprint 2+ BUILD_PLAN template
+- Autonomous agent gates: `feature-gate.sh`, `feature-autofix.sh`, `agent-progress.sh`, `watch-agent-gates.sh`, `smoke-stack.sh` (+ PowerShell twins)
+- Cursor rules: `feature-modules.mdc`; extended `testing.mdc`, `ci-gates.mdc`, `destructive-ops.mdc` for auto-fix protocol
+- Session state + gitignored `.cursor/agent-progress.json` for extended agent sessions
+- PROMPT_LIBRARY Entry 17 — autonomous feature step
+
 - In-app About screen: init prompt guidance, Golden Path web/Android stubs, format-locked update checker, donation placeholders
 - Repo hygiene automation: `.gitattributes`, `.editorconfig`, `.cursorignore`, hygiene scripts, CI `repo-hygiene` job, `docs/REPO_HYGIENE.md`
 

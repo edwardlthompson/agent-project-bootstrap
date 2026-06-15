@@ -22,6 +22,15 @@
 
 See `examples/node/` for Hono + TypeScript + Vitest minimal API stub.
 
+## Feature gate (Sprint 2+)
+
+After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.sh`):
+
+| Stage | Command |
+|-------|---------|
+| Lint | `npm run lint` in `examples/node/` |
+| Unit | `npm test` |
+
 ## Owner Labels for This Module
 
 | Task type | Label |

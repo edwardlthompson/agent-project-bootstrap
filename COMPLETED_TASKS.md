@@ -209,3 +209,14 @@
 - [x] [AUTO] Static analysis and vulnerability scans clean
 - [x] [AUTO] `scripts/pre-release-gate.sh` passes before release tag (M0)
 
+## Sprint M7 — Incremental Feature Assembly + Agent Gates (2026-06-15)
+
+- [x] [AGENT] Add `docs/FEATURE_MODULES.md` and `.cursor/rules/feature-modules.mdc`
+- [x] [AGENT] Add `feature-gate.sh`, `feature-autofix.sh`, `agent-progress.sh`, `watch-agent-gates.sh`, `smoke-stack.sh` (+ `.ps1`)
+- [x] [AGENT] Extend session-state example, `ci-gates.mdc`, `testing.mdc`, `destructive-ops.mdc`; gitignore `agent-progress.json`
+- [x] [AGENT] Update BUILD_PLAN Sprint 2+ template, INITIALIZATION_PROMPT, FOR_AGENTS, PROMPT_LIBRARY Entry 17
+- [x] [AGENT] Harden agent handoff: `gates_passed`, `failed_stage`, `log_tail` in `agent-progress.sh`; `--step` forwarding
+- [x] [AGENT] Fix `watch-agent-gates.sh` JSON capture; scoped `--paths` autofix; `GATES_PASSED` subshell fix
+- [x] [AGENT] Add `FEATURE_MODULES.md` to `validate-bootstrap.sh`; cross-link `START_HERE.md`; node MODULE Feature gate section
+- [x] [AGENT] Integrate M7 closeout + Sprint M8 block into BUILD_PLAN.md
+

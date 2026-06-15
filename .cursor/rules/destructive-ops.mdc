@@ -15,6 +15,11 @@ Agents must obtain explicit `[HUMAN]` approval before:
 - Disabling security checks, pre-commit hooks, or CI gates
 - Committing secrets, credentials, or `.env` files
 
+**Allowed without human approval:**
+
+- Agent auto-fix of lint, format, type, and test failures within active feature scope
+- `scripts/feature-autofix.sh` and `scripts/watch-agent-gates.sh --autofix` loops (until 3-strike)
+
 **Exempt:** `scripts/purge-ephemeral.sh --apply` and `purge-ephemeral.ps1 -Apply` — they run `git clean -fdX` (gitignored untracked files only; tracked source is never deleted).
 
 ## Audit Trail

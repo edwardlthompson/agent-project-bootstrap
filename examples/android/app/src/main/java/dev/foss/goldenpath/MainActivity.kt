@@ -1,5 +1,6 @@
 package dev.foss.goldenpath
 
+// Feature wiring: keep ≤10 lines per feature in this composition root (see docs/FEATURE_MODULES.md).
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

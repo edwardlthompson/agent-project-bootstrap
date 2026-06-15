@@ -29,6 +29,7 @@ REQUIRED=(
   docs/THREAT_MODEL.md
   docs/PRIVACY.md
   docs/RUNBOOK.md
+  docs/FEATURE_MODULES.md
   .github/dependabot.yml
   .github/CODEOWNERS
   THIRD_PARTY_LICENSES.md
