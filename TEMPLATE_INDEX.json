@@ -551,6 +551,55 @@
       "read_when": "bootstrap_session_start",
       "update_when": "user_preference",
       "owner": "human+agent"
+    },
+    {
+      "path": ".gitattributes",
+      "purpose": "Line endings, binary files, linguist-generated markers",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".editorconfig",
+      "purpose": "Cross-editor charset, indent, and whitespace rules",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursorignore",
+      "purpose": "Exclude ephemeral paths from agent indexing",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/REPO_HYGIENE.md",
+      "purpose": "Track vs ephemeral policy and automation map",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "agent+human"
+    },
+    {
+      "path": ".cursor/rules/repo-hygiene.mdc",
+      "purpose": "Agent guardrails for git track discipline and purge",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-repo-hygiene.sh",
+      "purpose": "Orchestrate tracked-artifact and config hygiene checks",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/purge-ephemeral.sh",
+      "purpose": "Safe dry-run purge of gitignored untracked files",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "human+agent"
     }
   ],
   "modules": {

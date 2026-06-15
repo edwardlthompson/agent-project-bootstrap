@@ -78,6 +78,7 @@ If `init-project` removes the web stack:
 |--------|-----|
 | Put the public site in `docs/` | Collides with agent read order and START_HERE routing |
 | Commit `examples/web/dist/` | Build output belongs in CI artifacts, not git history |
+| Track caches or `node_modules/` | `check-repo-hygiene.sh` fails; see `docs/REPO_HYGIENE.md` |
 | Put user-facing copy in CSS | Breaks localization; use `locales/*.json` |
 | Hardcode strings in `main.ts` markup | Use `t()`; CI cohesion check flags literals |
 | Enable "Publish from `/docs`" | Serves agent markdown as a website; wrong content |
@@ -85,5 +86,6 @@ If `init-project` removes the web stack:
 ## Related docs
 
 - [`docs/DESIGN_GUIDE.md`](DESIGN_GUIDE.md) — tokens, themes, Android `strings.xml`, web `t()`
+- [`docs/REPO_HYGIENE.md`](REPO_HYGIENE.md) — track vs ephemeral, purge, CI gates
 - [`modules/web/MODULE.md`](../modules/web/MODULE.md) — PWA requirements and activation checklist
 - [`examples/web/README.md`](../examples/web/README.md) — local commands and `src/` layout

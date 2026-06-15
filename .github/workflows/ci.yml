@@ -31,6 +31,14 @@ jobs:
       - name: Check file line limits
         run: bash scripts/check-file-limits.sh
 
+  repo-hygiene:
+    name: Repo Hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check tracked artifacts and repo config
+        run: bash scripts/check-repo-hygiene.sh
+
   validate-index:
     name: Validate Template Index
     runs-on: ubuntu-latest

@@ -188,6 +188,7 @@ To maximize reasoning accuracy, eliminate architectural drift, and maintain cris
   - **Donations:** optional; `[HUMAN]` fills `donations.json` links during init (Liberapay, Ko-fi, GitHub Sponsors, Open Collective, PayPal, etc.); external browser only; no donation tracking.
   - **Privacy:** document release-check calls in `docs/PRIVACY.md` (`last_checked`, `installed_artifact_format` only; no PII).
 - **Weekly Security Triage:** `[HUMAN]` runs a weekly CVE triage pass (recommended: Monday, aligned with Trivy scheduled scan). Follow `docs/SECURITY_TRIAGE.md`: review GitHub → Security → Dependabot alerts (Critical/High first), triage open Dependabot PRs, fix/defer/dismiss each alert, confirm **Security Scan** (Trivy), **CodeQL**, and **CI** workflows green on `main`. Log deferred Critical/High items in `DECISION_LOG.md` or `BUILD_PLAN.md` Ongoing Maintenance section.
+- **Repo hygiene:** Track source and lockfiles only — never commit `node_modules/`, `dist/`, caches, or `.env`. `[AGENT]` runs `bash scripts/check-repo-hygiene.sh` before push; `[AUTO]` CI **Repo Hygiene** job enforces the same gate. Reclaim disk with `bash scripts/purge-ephemeral.sh` (dry-run); `--apply` uses `git clean -fdX` (ignored untracked only). No Git LFS or submodules without `[HUMAN]` approval. See `docs/REPO_HYGIENE.md`.
 
 ## 7. Mandatory Pre-Release Quality Gate
 
@@ -211,6 +212,7 @@ Before claiming any sprint complete or requesting `[HUMAN]` approval:
 
 ```text
 [AUTO] scripts/check-file-encoding.sh
+[AUTO] scripts/check-repo-hygiene.sh
 [AUTO] scripts/validate-workflow-actions.sh
 [AUTO] scripts/validate-template-index.sh
 [AUTO] scripts/validate-bootstrap.sh
@@ -258,6 +260,7 @@ Only when all quality checks return clean may you update the `CHANGELOG.md` (Kee
 13. `[HUMAN]` Paste `docs/GITHUB_ABOUT.md` description and topics into **GitHub → Settings → General → About** (repo metadata only).
 14. `[AGENT]` Verify `.github/dependabot.yml` covers all active package ecosystems.
 15. `[AUTO]` Run `scripts/validate-bootstrap.sh` to confirm Sprint 0 artifacts exist.
+15a. `[AGENT]` Run `pip install pre-commit && pre-commit install`; after stack prune run `bash scripts/purge-ephemeral.sh` (dry-run).
 16. `[AGENT]` Run full **Build Verification Gate** (Section 7 checklist) including `validate-workflow-actions.sh` and stack-specific commands; fix all failures. Re-run encoding check after fixes on Windows.
 17. `[AGENT]` Cross-link all playbooks in `README.md`; sync `UPGRADING_FROM_TEMPLATE.md` and `PROMPT_LIBRARY.md`.
 18. `[HUMAN]` Approve Sprint 0 only after `[AUTO]` **CI**, **Security Scan**, and **CodeQL** green on `main` (verify via `check-github-ci.sh`) and Build Verification Gate passes.

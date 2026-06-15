@@ -15,6 +15,8 @@ Agents must obtain explicit `[HUMAN]` approval before:
 - Disabling security checks, pre-commit hooks, or CI gates
 - Committing secrets, credentials, or `.env` files
 
+**Exempt:** `scripts/purge-ephemeral.sh --apply` and `purge-ephemeral.ps1 -Apply` — they run `git clean -fdX` (gitignored untracked files only; tracked source is never deleted).
+
 ## Audit Trail
 
 At milestone boundaries, log significant agent actions in `DECISION_LOG.md`:

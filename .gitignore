@@ -35,5 +35,33 @@ playwright-report/
 .env.*
 !.env.example
 
+# Live user configs (examples committed; copies from init)
+.app-update.json
+donations.json
+
+# Rust / Go
+target/
+examples/rust/target/
+
+# Python caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Android extras
+examples/android/.cxx/
+examples/android/captures/
+*.apk
+*.aab
+
+# Node / tooling
+.turbo/
+.parcel-cache/
+*.tsbuildinfo
+
+# OS / editor extras
+*.tmp
+*.temp
+
 # Logs
 *.log

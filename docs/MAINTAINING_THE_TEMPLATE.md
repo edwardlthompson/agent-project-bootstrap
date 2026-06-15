@@ -11,7 +11,8 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 ## Release Checklist
 
 1. All CI checks green on main
-2. Run `scripts/pre-release-gate.sh` (or `.ps1`) — CI poll, Dependabot Critical/High count, version/tag match
+2. `bash scripts/check-repo-hygiene.sh` passes
+3. Run `scripts/pre-release-gate.sh` (or `.ps1`) — CI poll, Dependabot Critical/High count, version/tag match
 3. Bump `.template-version`
 4. Update `CHANGELOG.md` (Keep a Changelog)
 5. Update `TEMPLATE_INDEX.json` version and file entries

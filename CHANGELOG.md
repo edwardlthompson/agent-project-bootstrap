@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - In-app About screen: init prompt guidance, Golden Path web/Android stubs, format-locked update checker, donation placeholders
+- Repo hygiene automation: `.gitattributes`, `.editorconfig`, `.cursorignore`, hygiene scripts, CI `repo-hygiene` job, `docs/REPO_HYGIENE.md`
 
 ## [0.7.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.7.0...v0.7.1) (2026-06-13)
 

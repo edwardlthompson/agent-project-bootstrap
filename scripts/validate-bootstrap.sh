@@ -79,6 +79,7 @@ fi
 run_check bash scripts/check-file-encoding.sh
 run_check bash scripts/check-design-cohesion.sh
 run_check bash scripts/check-markdown-tables.sh
+run_check bash scripts/check-repo-hygiene.sh
 
 if [ "$QUICK" = false ]; then
   run_check bash scripts/validate-workflow-actions.sh

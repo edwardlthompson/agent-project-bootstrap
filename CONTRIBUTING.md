@@ -35,6 +35,8 @@ pre-commit install
 pre-commit run --all-files
 ```
 
+Includes repo hygiene checks (`scripts/check-repo-hygiene.sh`). See [`docs/REPO_HYGIENE.md`](docs/REPO_HYGIENE.md).
+
 ## Security triage
 
 Maintainers run a weekly CVE triage pass per `docs/SECURITY_TRIAGE.md`. Review Dependabot alerts before each release.

@@ -63,6 +63,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 - [ ] [HUMAN] Run weekly CVE triage pass per `docs/SECURITY_TRIAGE.md` (recommended: Monday)
 - [ ] [AGENT] Apply Dependabot dependency bumps and open PRs as needed
 - [ ] [AUTO] Trivy + CodeQL + CI matrix green after merges
+- [ ] [AUTO] Repo Hygiene CI job green on `main`
 - [ ] [AUTO] OpenSSF Scorecard workflow result reviewed
 - [ ] [AUTO] `scripts/pre-release-gate.sh` run before any version bump
 - [ ] [AGENT] Triage Scorecard findings into BUILD_PLAN `[AUTO]` items
@@ -80,6 +81,19 @@ grep '\[AUTO\]' BUILD_PLAN.md
 > AGENT work complete. Pending human visual review after push.
 
 1. [ ] [HUMAN] Visual review on GitHub — badges load, `<dl>`/tables render as single blocks, all relative links resolve
+
+---
+
+## Template Maintainer — Sprint M6: Repo Hygiene Automation
+
+> Industry-standard track-vs-ephemeral gates. Sequential before child-repo adoption.
+
+1. [x] [AGENT] Add `.gitattributes`, `.editorconfig`, `.cursorignore`; expand `.gitignore`
+2. [x] [AGENT] Add `check-tracked-artifacts`, `check-large-tracked-files`, `check-repo-hygiene`, `purge-ephemeral` scripts
+3. [x] [AGENT] Wire repo-hygiene into pre-commit, `validate-bootstrap.sh`, and CI `repo-hygiene` job
+4. [x] [AGENT] Add `docs/REPO_HYGIENE.md` and `.cursor/rules/repo-hygiene.mdc`
+5. [ ] [HUMAN] Add **Repo Hygiene** to branch protection required checks on `main`
+6. [ ] [AUTO] CI **Repo Hygiene** job green after merge
 
 ---
 

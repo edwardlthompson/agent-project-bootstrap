@@ -11,6 +11,14 @@ SessionStart -> START_HERE.md -> Mode -> AGENTS.md -> BUILD_PLAN Sequential -> A
 3. Update memory files only at session start, milestone end, or architectural pivot
 4. Read-before-write: @filename before edits
 5. Sequential before Parallel in BUILD_PLAN
+6. Respect `.cursorignore` — do not read `node_modules/`, `dist/`, or other ephemeral paths
+
+## Repo hygiene
+
+- Track source and lockfiles only; never commit build output or caches (`docs/REPO_HYGIENE.md`)
+- Before push: `bash scripts/check-repo-hygiene.sh`
+- Reclaim disk: `bash scripts/purge-ephemeral.sh` (dry-run); `--apply` removes gitignored untracked files only
+- Stage explicit paths; avoid blind `git add -A`
 
 ## Parallel Guardrails
 
