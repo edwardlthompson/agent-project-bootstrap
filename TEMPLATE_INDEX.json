@@ -990,7 +990,7 @@
     }
   },
   "roadmap": {
-    "active": "BUILD_PLAN.md — M18 P2 backlog complete; human open items",
+    "active": "BUILD_PLAN.md — maintenance + human open items",
     "completed_archive": "COMPLETED_TASKS.md",
     "key_exemplars": [
       "examples/web/src/panelDialog.ts",

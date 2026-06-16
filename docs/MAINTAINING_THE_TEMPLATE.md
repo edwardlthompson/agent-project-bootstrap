@@ -75,4 +75,4 @@ Write README edits via Python `Path.write_text(..., encoding="utf-8")` on Window
 
 ## Roadmap Index
 
-`TEMPLATE_INDEX.json` includes a `roadmap` object listing planned paths per maintainer sprint (M0–M3). These paths are **not** validated until implemented; move each path into the `files` array (and `modules` when applicable) when the corresponding BUILD_PLAN sprint item ships.
+`TEMPLATE_INDEX.json` includes a `roadmap` object with the active maintainer board pointer and key exemplar paths. Move implemented paths into the `files` array (and `modules` when applicable) when new sprint work ships.

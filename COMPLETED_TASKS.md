@@ -437,10 +437,15 @@
 - ✅ [AGENT] SW `CACHE_NAME` stamped from package version at build
 - ✅ [AGENT] `feature-gate.sh` rust/go smoke for multi strict
 - ✅ [AGENT] `check-license-compliance.sh` rust/go slices
+- ✅ [AUTO] CI + Feature Gate green on `main` (`d6b92a2`)
+
+## BUILD_PLAN cleanup (2026-06-16, M18 P2 complete)
+
+- ✅ [AGENT] Archive M18 sprint body; slim board to maintenance + human open items
 
 ## BUILD_PLAN cleanup (2026-06-16, M18 complete)
 
-- ✅ [AGENT] Archive M18 sprint body; slim board to P2 backlog + human open items
+- ✅ [AGENT] Archive M18 sequential; slim board to P2 backlog + human open items
 
 ## BUILD_PLAN cleanup (2026-06-15, M17 P2 complete)
 

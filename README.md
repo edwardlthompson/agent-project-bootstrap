@@ -86,7 +86,7 @@ Active modules are synced to `AGENT_MEMORY.md` and recorded in `.cursor/stack-se
   <dt>Agent routing</dt>
   <dd><a href="docs/START_HERE.md"><code>docs/START_HERE.md</code></a>, <a href="docs/FOR_AGENTS.md"><code>docs/FOR_AGENTS.md</code></a>, <a href="AGENTS.md"><code>AGENTS.md</code></a></dd>
   <dt>Sprint task board</dt>
-  <dd><a href="BUILD_PLAN.md"><code>BUILD_PLAN.md</code></a></dd>
+  <dd><a href="BUILD_PLAN.md"><code>BUILD_PLAN.md</code></a> (active board); archived sprints in <a href="COMPLETED_TASKS.md"><code>COMPLETED_TASKS.md</code></a></dd>
 </dl>
 
 <h4>Memory & decisions</h4>
@@ -172,7 +172,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ```
 
-Each sprint has **Sequential** (ordered) and **Parallel** (isolated scope) lanes. See [`BUILD_PLAN.md`](BUILD_PLAN.md).
+Each sprint has **Sequential** (ordered) and **Parallel** (isolated scope) lanes in the child-repo playbook. Template maintainers: active board is **maintenance + human open items**; completed maintainer sprints are archived in [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). See [`BUILD_PLAN.md`](BUILD_PLAN.md).
 
 ## GitHub Pages Demo
 
@@ -242,7 +242,7 @@ pwsh scripts/check-github-ci.ps1 -WaitSeconds 300
 
 ```
 
-Required workflows: **CI**, **Security Scan**, **CodeQL**.
+Required status checks (branch protection via `scripts/setup-github-repo.sh`): **CI**, **Security Scan**, **CodeQL**, **Repo Hygiene**, **Feature Gate**. `check-github-ci` polls the three workflow rollups; **Repo Hygiene** and **Feature Gate** are jobs inside the **CI** workflow.
 
 One-time repo security setup (Dependabot alerts, private reporting, branch protection):
 
