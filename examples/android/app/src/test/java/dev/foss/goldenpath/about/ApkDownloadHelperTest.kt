@@ -19,8 +19,9 @@ class ApkDownloadHelperTest {
     }
 
     @Test
-    fun downloadReturnsFalseForEmptyDestinationParent() = runBlocking {
-        val dest = File("/no-such-dir/update.apk")
+    fun downloadReturnsFalseWhenDestinationParentIsAFile() = runBlocking {
+        val parentFile = File.createTempFile("apk-parent", ".tmp")
+        val dest = File(parentFile, "update.apk")
         assertFalse(ApkDownloadHelper.download("https://example.com/a.apk", dest))
     }
 }
