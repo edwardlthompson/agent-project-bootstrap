@@ -421,7 +421,11 @@
 - ✅ [AGENT] P1 Release tag gate: full required-check poll on tag push
 - ✅ [AGENT] P1 Repo hygiene: live config JSON gitignored; `sync-exemplar-config.sh`; tracked-artifact check
 - ✅ [AGENT] P1 Go example: `go mod tidy` in CI; SBOM gated on `go.sum` (N/A for zero-dep stub)
-- ⬜ [AUTO] CI + Feature Gate green on `main` (pending push)
+- ✅ [AUTO] CI + Feature Gate green on `main` (`2721c01`)
+
+## BUILD_PLAN cleanup (2026-06-16, M18 complete)
+
+- ✅ [AGENT] Archive M18 sprint body; slim board to P2 backlog + human open items
 
 ## BUILD_PLAN cleanup (2026-06-15, M17 P2 complete)
 

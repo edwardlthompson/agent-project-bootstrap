@@ -48,7 +48,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 7. ✅ [AGENT] **P1 — Release tag gate:** poll full required checks (`CI`, `Security Scan`, `CodeQL`, `Repo Hygiene`, `Feature Gate`) not jobs-only subset
 8. ✅ [AGENT] **P1 — Repo hygiene:** track only `public/*.example` + `assets/*.example`; extend `check-tracked-artifacts.sh` for live JSON stubs
 9. ✅ [AGENT] **P1 — Go example:** `go mod tidy` in CI; SBOM conditional on `go.sum` (zero-dep stub has no sum file)
-10. ⬜ [AUTO] CI + Feature Gate green on `main` after rows 1–4
+10. ✅ [AUTO] CI + Feature Gate green on `main` after rows 1–4
 
 ### Parallel (safe after Sequential step 4)
 
