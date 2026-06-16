@@ -19,11 +19,17 @@ restore() {
     rm -rf "$WEB_SRC/about"
     cp -a "$BACKUP/about" "$WEB_SRC/about"
   fi
-  for rel in main.ts appBootstrap.ts appBootstrap.test.ts AppShell.ts components/AboutPanel.ts; do
+  for rel in main.ts appBootstrap.ts appBootstrap.test.ts AppShell.ts; do
     if [ -f "$BACKUP/$rel" ]; then
       cp -a "$BACKUP/$rel" "$WEB_SRC/$rel"
     fi
   done
+  if [ -f "$BACKUP/components/AboutPanel.ts" ]; then
+    cp -a "$BACKUP/components/AboutPanel.ts" "$WEB_SRC/components/AboutPanel.ts"
+  fi
+  if [ -f "$BACKUP/settings/preferences.ts" ]; then
+    cp -a "$BACKUP/settings/preferences.ts" "$WEB_SRC/settings/preferences.ts"
+  fi
   if [ -f "$BACKUP/app.spec.ts" ]; then
     cp -a "$BACKUP/app.spec.ts" "$WEB_E2E/app.spec.ts"
   fi
@@ -36,12 +42,14 @@ echo "=== About feature gate verification ==="
 echo "1/2 Gate with About feature present..."
 bash scripts/feature-gate.sh --stack web --step about-with
 
+mkdir -p "$BACKUP/components" "$BACKUP/settings"
 cp -a "$WEB_SRC/about" "$BACKUP/about"
 cp -a "$WEB_SRC/main.ts" "$BACKUP/main.ts"
 cp -a "$WEB_SRC/appBootstrap.ts" "$BACKUP/appBootstrap.ts"
 cp -a "$WEB_SRC/appBootstrap.test.ts" "$BACKUP/appBootstrap.test.ts"
 cp -a "$WEB_SRC/AppShell.ts" "$BACKUP/AppShell.ts"
-cp -a "$WEB_SRC/components/AboutPanel.ts" "$BACKUP/AboutPanel.ts"
+cp -a "$WEB_SRC/components/AboutPanel.ts" "$BACKUP/components/AboutPanel.ts"
+cp -a "$WEB_SRC/settings/preferences.ts" "$BACKUP/settings/preferences.ts"
 cp -a "$WEB_E2E/app.spec.ts" "$BACKUP/app.spec.ts"
 
 $PY << 'PY'
@@ -83,6 +91,30 @@ initTheme();
 render();
 window.addEventListener("online", render);
 window.addEventListener("offline", render);
+""",
+    encoding="utf-8",
+)
+
+web.joinpath("settings/preferences.ts").write_text(
+    """import { getThemeMode, setThemeMode, type ThemeMode } from "../theme";
+
+const INTERVAL_KEY = "gp-app-update-interval";
+
+export function isUpdateCheckEnabled(): boolean {
+  return localStorage.getItem(INTERVAL_KEY) !== "off";
+}
+
+export function setUpdateCheckEnabled(enabled: boolean): void {
+  localStorage.setItem(INTERVAL_KEY, enabled ? "weekly" : "off");
+}
+
+export function getSettingsThemeMode(): ThemeMode {
+  return getThemeMode();
+}
+
+export function applySettingsThemeMode(mode: ThemeMode): void {
+  setThemeMode(mode);
+}
 """,
     encoding="utf-8",
 )
