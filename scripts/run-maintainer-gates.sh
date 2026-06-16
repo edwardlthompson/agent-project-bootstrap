@@ -50,7 +50,9 @@ if command -v gh >/dev/null 2>&1; then
   run_step "branch-protection" bash scripts/verify-branch-protection.sh
 fi
 run_step "simulate-upgrade" bash scripts/simulate-template-upgrade.sh
-run_step "feature-gate" bash scripts/feature-gate.sh --stack multi --strict
+if [ "$QUICK" = true ]; then
+  run_step "feature-gate" bash scripts/feature-gate.sh --stack multi --strict
+fi
 
 if [ "$QUICK" = true ]; then
   run_step "security-triage" bash scripts/check-security-triage.sh

@@ -114,6 +114,106 @@ test.describe("update status", () => {
   });
 });
 
+test.describe("PWA apply update", () => {
+  test.use({ serviceWorkers: "block" });
+
+  test("shows apply button and restarting status", async ({ page }) => {
+    await page.route("**/*", async (route) => {
+      const url = route.request().url();
+      if (url.includes("/app-update.json")) {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            release_repo: "test-owner/test-repo",
+            installed_artifact_format: "pwa",
+          }),
+        });
+        return;
+      }
+      if (url.includes("api.github.com/repos/test-owner/test-repo/releases/latest")) {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({ tag_name: "v99.0.0" }),
+        });
+        return;
+      }
+      await route.continue();
+    });
+
+    await page.addInitScript(() => {
+      const waiting = { postMessage: () => {} };
+      Object.defineProperty(navigator, "serviceWorker", {
+        configurable: true,
+        value: {
+          register: async () => ({}),
+          getRegistration: async () => ({ waiting }),
+          addEventListener: () => {},
+          removeEventListener: () => {},
+        },
+      });
+    });
+
+    await page.goto("/");
+    await page.getByRole("button", { name: "Settings" }).click();
+    await page.locator("[data-settings-update]").check();
+    await page.waitForResponse(/releases\/latest/);
+    await page.getByRole("button", { name: "About" }).click();
+    await expect(page.getByTestId("about-apply")).toBeVisible();
+    await page.getByTestId("about-apply").click();
+    await expect(page.getByTestId("about-status")).toContainText("Restarting");
+  });
+
+  test("clears restart guard on load", async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem("gp-update-restart-pending", "true");
+    });
+    await page.goto("/");
+    const pending = await page.evaluate(() =>
+      localStorage.getItem("gp-update-restart-pending"),
+    );
+    expect(pending).toBeNull();
+  });
+});
+
+test.describe("home update banner", () => {
+  test.use({ serviceWorkers: "block" });
+
+  test("shows update status on home when check finds newer version", async ({ page }) => {
+    await page.route("**/*", async (route) => {
+      const url = route.request().url();
+      if (url.includes("/app-update.json")) {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            release_repo: "test-owner/test-repo",
+            installed_artifact_format: "pwa",
+          }),
+        });
+        return;
+      }
+      if (url.includes("api.github.com/repos/test-owner/test-repo/releases/latest")) {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({ tag_name: "v99.0.0" }),
+        });
+        return;
+      }
+      await route.continue();
+    });
+
+    await page.goto("/");
+    await page.getByRole("button", { name: "Settings" }).click();
+    await page.locator("[data-settings-update]").check();
+    await page.waitForResponse(/releases\/latest/);
+    await expect(page.getByTestId("home-update-status")).toContainText("Update available");
+    await expect(page.getByTestId("home-update-status")).toContainText("99.0.0");
+  });
+});
+
 test("serves cached shell offline via service worker", async ({ page, context }) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");

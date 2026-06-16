@@ -16,6 +16,10 @@ cd examples/web && npx license-checker --production --summary
 
 # Python (pip)
 cd examples/python && uv run pip-licenses --format=markdown
+
+# Rust / Go (optional stacks — MIT stubs; expand when deps are added)
+grep 'license' examples/rust/Cargo.toml
+head -1 examples/go/go.mod
 ```
 
 `[AUTO]` CI runs `scripts/check-license-compliance.sh` on each push.

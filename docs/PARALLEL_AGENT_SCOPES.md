@@ -46,16 +46,9 @@
 
 > Completed 2026-06-16. Post-P2 code review on `f59023c`. See `COMPLETED_TASKS.md`.
 
-## Sprint M18 P2 backlog (template maintainer) — active
+## Sprint M18 P2 backlog (template maintainer) — archived
 
-> Optional follow-ups from M18 review. See `BUILD_PLAN.md` P2 backlog.
-
-| Agent | Scope |
-|-------|-------|
-| A — Web tests + e2e | `panelDialog.ts`, `e2e/app.spec.ts`, `appBootstrap.ts` |
-| B — Android parity | `GoldenPathApp.kt`, `GoldenPathScreen.kt`, instrumented cadence |
-| C — Gates + CI | `feature-gate.sh`, `health-check.yml`, `run-maintainer-gates.sh` |
-| D — Docs + index | `TEMPLATE_INDEX.json`, `KNOWLEDGE_BASE.md`, `public/sw.js` |
+> Completed 2026-06-16. See `COMPLETED_TASKS.md`.
 
 ## Sprint M16 (template maintainer) — archived
 

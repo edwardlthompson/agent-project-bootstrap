@@ -160,6 +160,98 @@ check_node() {
 
 
 
+check_rust() {
+
+  if [ ! -f examples/rust/Cargo.toml ]; then
+
+    return 0
+
+  fi
+
+  if ! grep -qE 'license\s*=\s*"MIT"' examples/rust/Cargo.toml; then
+
+    echo "ERROR: examples/rust/Cargo.toml must declare MIT license"
+
+    ERRORS=$((ERRORS + 1))
+
+    return 0
+
+  fi
+
+  if [ -f examples/rust/Cargo.lock ] && command -v cargo >/dev/null 2>&1; then
+
+    cd examples/rust
+
+    if ! cargo metadata --format-version 1 --no-deps >/dev/null 2>&1; then
+
+      echo "ERROR: cargo metadata failed for examples/rust"
+
+      ERRORS=$((ERRORS + 1))
+
+    else
+
+      echo "Rust license check passed (MIT stub; audit deps when lockfile grows)"
+
+    fi
+
+    cd "$ROOT"
+
+  else
+
+    echo "Rust license check passed (MIT stub, no lockfile deps)"
+
+  fi
+
+}
+
+
+
+check_go() {
+
+  if [ ! -f examples/go/go.mod ]; then
+
+    return 0
+
+  fi
+
+  if ! grep -q '^module ' examples/go/go.mod; then
+
+    echo "ERROR: examples/go/go.mod missing module directive"
+
+    ERRORS=$((ERRORS + 1))
+
+    return 0
+
+  fi
+
+  if [ -f examples/go/go.sum ] && command -v go >/dev/null 2>&1; then
+
+    cd examples/go
+
+    if ! go mod verify >/dev/null 2>&1; then
+
+      echo "ERROR: go mod verify failed for examples/go"
+
+      ERRORS=$((ERRORS + 1))
+
+    else
+
+      echo "Go module verify passed"
+
+    fi
+
+    cd "$ROOT"
+
+  else
+
+    echo "Go license check passed (zero-dep stub, no go.sum)"
+
+  fi
+
+}
+
+
+
 case "$STACK" in
 
   web) check_web ;;
@@ -167,6 +259,10 @@ case "$STACK" in
   python) check_python ;;
 
   node) check_node ;;
+
+  rust) check_rust ;;
+
+  go) check_go ;;
 
   all)
 
@@ -176,11 +272,15 @@ case "$STACK" in
 
     check_node
 
+    check_rust
+
+    check_go
+
     ;;
 
   *)
 
-    echo "Usage: $0 [web|python|node|all]"
+    echo "Usage: $0 [web|python|node|rust|go|all]"
 
     exit 1
 

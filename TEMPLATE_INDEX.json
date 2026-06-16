@@ -560,6 +560,27 @@
       "owner": "agent+human"
     },
     {
+      "path": "examples/web/src/panelDialog.ts",
+      "purpose": "Modal a11y: role=dialog, focus trap, Escape, focus restore",
+      "read_when": "ui_work",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "examples/web/src/appBootstrap.ts",
+      "purpose": "Web composition root: theme, donations, update check, SW register",
+      "read_when": "ui_work",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "examples/web/public/sw.js",
+      "purpose": "PWA service worker; CACHE_NAME stamped from package version at build",
+      "read_when": "web_hosting",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
       "path": ".cursor/rules/design-system.mdc",
       "purpose": "Agent guardrails for tokens, themes, localization",
       "read_when": "ui_work",
@@ -969,9 +990,12 @@
     }
   },
   "roadmap": {
-    "sprint_m0": [],
-    "sprint_m1": [],
-    "sprint_m2": [],
-    "sprint_m3": []
+    "active": "BUILD_PLAN.md — M18 P2 backlog complete; human open items",
+    "completed_archive": "COMPLETED_TASKS.md",
+    "key_exemplars": [
+      "examples/web/src/panelDialog.ts",
+      "examples/web/src/appBootstrap.ts",
+      "examples/web/public/sw.js"
+    ]
   }
 }

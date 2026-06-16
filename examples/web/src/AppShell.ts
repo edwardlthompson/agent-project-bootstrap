@@ -30,6 +30,8 @@ export function createAppShell(
 ): void {
   const online = isOnline();
   const statusKey = online ? "app.status.online" : "app.status.offline";
+  const currentUpdateLabel = t("about.update.current");
+  const showHomeUpdate = state.updateStatus !== currentUpdateLabel;
 
   root.innerHTML = `
     <main>
@@ -42,6 +44,11 @@ export function createAppShell(
       </div>
       <p class="gp-headline">${t("app.greeting")}</p>
       <p class="gp-body" data-testid="status">${t(statusKey)}</p>
+      ${
+        showHomeUpdate
+          ? `<p class="gp-update-banner" data-testid="home-update-status" aria-live="polite">${state.updateStatus}</p>`
+          : ""
+      }
       <div data-panel-mount></div>
     </main>
   `;

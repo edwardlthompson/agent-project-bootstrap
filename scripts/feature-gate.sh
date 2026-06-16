@@ -93,6 +93,14 @@ fail_gate() {
     python-test) SUGGESTED=("fix pytest failures in examples/python") ;;
     file-limits) SUGGESTED=("split oversized view/logic files per AGENTS.md limits") ;;
     android-test) SUGGESTED=("fix JUnit failures" "run ./gradlew test in examples/android") ;;
+    design-cohesion) SUGGESTED=("run scripts/check-design-cohesion.sh" "use design tokens and i18n keys") ;;
+    about-feature-gate) SUGGESTED=("run scripts/verify-about-feature-gate.sh" "fix About slice regressions") ;;
+    rust-fmt) SUGGESTED=("run cargo fmt in examples/rust") ;;
+    rust-clippy) SUGGESTED=("fix clippy warnings in examples/rust") ;;
+    rust-test) SUGGESTED=("fix cargo test in examples/rust") ;;
+    go-vet) SUGGESTED=("run go vet in examples/go") ;;
+    go-fmt) SUGGESTED=("run gofmt -l in examples/go") ;;
+    go-test) SUGGESTED=("run go test in examples/go") ;;
     node-lint) SUGGESTED=("fix lint in examples/node") ;;
     node-test) SUGGESTED=("fix tests in examples/node") ;;
     *) SUGGESTED=("run scripts/feature-autofix.sh" "fix errors in active feature scope") ;;
@@ -221,6 +229,39 @@ if should_run node && [ -f examples/node/package.json ]; then
     run_in_dir examples/node node-lint npm run lint
     run_in_dir examples/node node-test npm test
   fi
+fi
+
+if should_run rust && [ -f examples/rust/Cargo.toml ]; then
+  if ! command -v cargo >/dev/null 2>&1; then
+    if [ "$STACK" = "rust" ]; then
+      block_env "cargo not found"
+    else
+      skip_or_block "Skipping rust gate (cargo not found)"
+    fi
+  else
+    run_in_dir examples/rust rust-fmt cargo fmt --check
+    run_in_dir examples/rust rust-clippy cargo clippy -- -D warnings
+    run_in_dir examples/rust rust-test cargo test
+  fi
+fi
+
+if should_run go && [ -f examples/go/go.mod ]; then
+  if ! command -v go >/dev/null 2>&1; then
+    if [ "$STACK" = "go" ]; then
+      block_env "go not found"
+    else
+      skip_or_block "Skipping go gate (go not found)"
+    fi
+  else
+    run_in_dir examples/go go-vet go vet ./...
+    run_in_dir examples/go go-fmt sh -c 'test -z "$(gofmt -l .)"'
+    run_in_dir examples/go go-test go test ./...
+  fi
+fi
+
+if [ "$STRICT" = true ] && [ "$STACK" = "multi" ]; then
+  run_cmd design-cohesion bash scripts/check-design-cohesion.sh
+  run_cmd about-feature-gate bash scripts/verify-about-feature-gate.sh
 fi
 
 log "Feature gate passed (${#GATES_PASSED[@]} stages)."

@@ -91,6 +91,14 @@ main {
   opacity: 0.9;
 }
 
+.gp-update-banner {
+  font-size: var(--gp-text-body-small-size);
+  font-weight: var(--gp-text-body-small-weight);
+  line-height: var(--gp-text-body-small-line);
+  color: var(--gp-color-tertiary);
+  margin-block-start: var(--gp-space-md);
+}
+
 
 .gp-about-btn {
   min-width: 2.75rem;

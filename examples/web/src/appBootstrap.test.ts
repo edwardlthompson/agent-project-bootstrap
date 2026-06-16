@@ -162,6 +162,32 @@ describe("bootstrapApp", () => {
     );
   });
 
+  it("re-renders home banner when background update completes while about is closed", async () => {
+    let resolveCheck: (value: string) => void = () => {};
+    mockedCheckForUpdates.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveCheck = resolve;
+        }),
+    );
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    const callsBefore = mockedCreateAppShell.mock.calls.length;
+    resolveCheck(`${messages["about.update.available"]}: 99.0.0`);
+    await vi.waitFor(() =>
+      expect(mockedCreateAppShell.mock.calls.length).toBeGreaterThan(
+        callsBefore,
+      ),
+    );
+    expect(
+      mockedCreateAppShell.mock.calls.some(
+        ([, state]) =>
+          state.updateStatus === `${messages["about.update.available"]}: 99.0.0`,
+      ),
+    ).toBe(true);
+  });
+
   it("exposes apply update when a newer version is reported", async () => {
     const root = document.createElement("div");
     bootstrapApp(root);

@@ -22,7 +22,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
-> **Template maintainer:** Sprint **M18** complete; **M18 P2 backlog** active. **Child repos:** copy the playbook.
+> **Template maintainer:** Sprint **M18** complete (incl. P2). **Child repos:** copy the playbook.
 
 ---
 
@@ -61,18 +61,18 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### P2 backlog (after M18 sequential)
 
-- ⬜ [AGENT] `panelDialog.ts` unit tests (focus trap, Escape, focus restore)
-- ⬜ [AGENT] Playwright e2e for PWA apply button (`[data-testid="about-apply"]`) and restart guard
-- ⬜ [AGENT] Web/Android update UX parity (home status banner vs About-only re-render)
-- ⬜ [AGENT] `feature-gate.sh`: optional `check-design-cohesion.sh` + `verify-about-feature-gate.sh` in strict multi-stack
-- ⬜ [AGENT] Android instrumented cadence: schedule or `health-check` emulator run when `path-changes` skips
-- ⬜ [AGENT] `android-release` flake policy: document tolerance vs strict in `KNOWLEDGE_BASE.md` or restore WARN path
-- ⬜ [AGENT] `health-check.yml`: monthly `simulate-template-upgrade.sh` step
-- ⬜ [AGENT] `run-maintainer-gates.sh`: dedupe `feature-gate` when `pre-release-gate` already runs it
-- ⬜ [AGENT] `TEMPLATE_INDEX.json`: refresh empty `roadmap` or index key exemplar paths (`panelDialog.ts`, `sw.js`)
-- ⬜ [AGENT] SW `CACHE_NAME` bump tied to app version or build hash
-- ⬜ [AGENT] `feature-gate.sh` rust/go smoke for maintainer `--stack multi --strict`
-- ⬜ [AGENT] `check-license-compliance.sh` rust/go slices when examples exist
+- ✅ [AGENT] `panelDialog.ts` unit tests (focus trap, Escape, focus restore)
+- ✅ [AGENT] Playwright e2e for PWA apply button (`[data-testid="about-apply"]`) and restart guard
+- ✅ [AGENT] Web/Android update UX parity (home status banner vs About-only re-render)
+- ✅ [AGENT] `feature-gate.sh`: optional `check-design-cohesion.sh` + `verify-about-feature-gate.sh` in strict multi-stack
+- ✅ [AGENT] Android instrumented cadence: schedule or `health-check` emulator run when `path-changes` skips
+- ✅ [AGENT] `android-release` flake policy: document tolerance vs strict in `KNOWLEDGE_BASE.md` or restore WARN path
+- ✅ [AGENT] `health-check.yml`: monthly `simulate-template-upgrade.sh` step
+- ✅ [AGENT] `run-maintainer-gates.sh`: dedupe `feature-gate` when `pre-release-gate` already runs it
+- ✅ [AGENT] `TEMPLATE_INDEX.json`: refresh empty `roadmap` or index key exemplar paths (`panelDialog.ts`, `sw.js`)
+- ✅ [AGENT] SW `CACHE_NAME` bump tied to app version or build hash
+- ✅ [AGENT] `feature-gate.sh` rust/go smoke for maintainer `--stack multi --strict`
+- ✅ [AGENT] `check-license-compliance.sh` rust/go slices when examples exist
 
 ### Open (template maintainer — human judgment only)
 

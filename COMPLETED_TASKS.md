@@ -423,6 +423,21 @@
 - ✅ [AGENT] P1 Go example: `go mod tidy` in CI; SBOM gated on `go.sum` (N/A for zero-dep stub)
 - ✅ [AUTO] CI + Feature Gate green on `main` (`2721c01`)
 
+## M18 P2 backlog (AGENT, 2026-06-16)
+
+- ✅ [AGENT] `panelDialog.ts` unit tests (focus trap, Escape, focus restore)
+- ✅ [AGENT] Playwright e2e for PWA apply + restart guard
+- ✅ [AGENT] Web home update banner parity with Android
+- ✅ [AGENT] `feature-gate.sh` design cohesion + about gate in strict multi
+- ✅ [AGENT] Weekly Android instrumented smoke in `health-check.yml`
+- ✅ [AGENT] KB-008 `android-release` strict hash policy documented
+- ✅ [AGENT] `health-check.yml` simulate-template-upgrade step
+- ✅ [AGENT] `run-maintainer-gates.sh` dedupe feature-gate in full mode
+- ✅ [AGENT] `TEMPLATE_INDEX.json` roadmap + key exemplar paths
+- ✅ [AGENT] SW `CACHE_NAME` stamped from package version at build
+- ✅ [AGENT] `feature-gate.sh` rust/go smoke for multi strict
+- ✅ [AGENT] `check-license-compliance.sh` rust/go slices
+
 ## BUILD_PLAN cleanup (2026-06-16, M18 complete)
 
 - ✅ [AGENT] Archive M18 sprint body; slim board to P2 backlog + human open items

@@ -1,4 +1,4 @@
-const CACHE_NAME = "golden-path-v1";
+const CACHE_NAME = "golden-path-v__APP_VERSION__";
 const PRECACHE = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (event) => {
