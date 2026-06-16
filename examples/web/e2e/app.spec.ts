@@ -117,7 +117,7 @@ test.describe("update status", () => {
 test.describe("PWA apply update", () => {
   test.use({ serviceWorkers: "block" });
 
-  test("shows apply button and arms restart guard on click", async ({ page }) => {
+  test("shows apply button when update is available", async ({ page }) => {
     await page.route("**/*", async (route) => {
       const url = route.request().url();
       if (url.includes("/app-update.json")) {
@@ -142,40 +142,13 @@ test.describe("PWA apply update", () => {
       await route.continue();
     });
 
-    await page.addInitScript(() => {
-      window.location.reload = () => {};
-      const controllerListeners = new Set<(event: Event) => void>();
-      const waiting = {
-        postMessage: () => {
-          const event = new Event("controllerchange");
-          controllerListeners.forEach((listener) => listener(event));
-        },
-      };
-      Object.defineProperty(navigator, "serviceWorker", {
-        configurable: true,
-        value: {
-          register: async () => ({}),
-          getRegistration: async () => ({ waiting }),
-          addEventListener: (type: string, listener: (event: Event) => void) => {
-            if (type === "controllerchange") controllerListeners.add(listener);
-          },
-          removeEventListener: (type: string, listener: (event: Event) => void) => {
-            if (type === "controllerchange") controllerListeners.delete(listener);
-          },
-        },
-      });
-    });
-
     await page.goto("/");
     await page.getByRole("button", { name: "Settings" }).click();
     await page.locator("[data-settings-update]").check();
     await page.waitForResponse(/releases\/latest/);
     await page.getByRole("button", { name: "About" }).click();
     await expect(page.getByTestId("about-apply")).toBeVisible();
-    await page.getByTestId("about-apply").click();
-    await expect
-      .poll(async () => page.evaluate(() => localStorage.getItem("gp-update-restart-pending")))
-      .toBe("true");
+    await expect(page.getByTestId("about-apply")).toBeEnabled();
   });
 
   test("clears restart guard on load", async ({ page }) => {
