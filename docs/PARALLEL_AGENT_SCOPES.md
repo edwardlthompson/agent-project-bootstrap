@@ -38,16 +38,24 @@
 
 > Completed 2026-06-15. P2 backlog post-0.9.0. See `COMPLETED_TASKS.md`.
 
-## Sprint M17 (template maintainer) — active
+## Sprint M17 (template maintainer) — archived
 
-> Post-M16 code review on `7e4a50e`. Android INTERNET, web update timing, prune/index, release SBOM gate.
+> Completed 2026-06-15. Post-M16 code review. See `COMPLETED_TASKS.md`.
+
+## Sprint M18 (template maintainer) — archived
+
+> Completed 2026-06-16. Post-P2 code review on `f59023c`. See `COMPLETED_TASKS.md`.
+
+## Sprint M18 P2 backlog (template maintainer) — active
+
+> Optional follow-ups from M18 review. See `BUILD_PLAN.md` P2 backlog.
 
 | Agent | Scope |
 |-------|-------|
-| A — Release + CI gates | `release.yml`, `check-github-ci.sh`, `check-github-ci.ps1`, `health-check.yml`, `ci.yml` |
-| B — Init + index + smoke | `init-project.sh`, `init-project.ps1`, `init-stack-sync.py`, `validate-template-index.sh`, `simulate-template-upgrade.sh` |
-| C — Web + Android exemplars | `aboutSession.ts`, `AndroidManifest.xml`, `AboutPanel.ts`, `SettingsPanel.ts`, tests |
-| D — Docs hygiene | `INITIALIZATION_PROMPT.md`, `OPTIONAL_STACKS.md`, `MAINTAINING_THE_TEMPLATE.md`, `README.md` |
+| A — Web tests + e2e | `panelDialog.ts`, `e2e/app.spec.ts`, `appBootstrap.ts` |
+| B — Android parity | `GoldenPathApp.kt`, `GoldenPathScreen.kt`, instrumented cadence |
+| C — Gates + CI | `feature-gate.sh`, `health-check.yml`, `run-maintainer-gates.sh` |
+| D — Docs + index | `TEMPLATE_INDEX.json`, `KNOWLEDGE_BASE.md`, `public/sw.js` |
 
 ## Sprint M16 (template maintainer) — archived
 

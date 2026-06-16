@@ -1,3 +1,4 @@
+import { assetUrl } from "../assetUrl";
 import { clearRestartGuard, getRestartGuardKey, isRestartPending } from "./applyUpdate";
 import type { AppUpdateConfig, CheckInterval } from "./types";
 import {
@@ -23,7 +24,7 @@ export function setIntervalPref(interval: CheckInterval): void {
 
 async function loadAppUpdateConfig(): Promise<AppUpdateConfig | null> {
   try {
-    const res = await fetch("/app-update.json");
+    const res = await fetch(assetUrl("app-update.json"));
     if (!res.ok) return null;
     return (await res.json()) as AppUpdateConfig;
   } catch {

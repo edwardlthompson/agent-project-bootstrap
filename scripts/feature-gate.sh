@@ -156,6 +156,8 @@ if ! bash scripts/check-repo-hygiene.sh >/dev/null 2>&1; then
 fi
 GATES_PASSED+=("hygiene")
 
+bash scripts/sync-exemplar-config.sh >/dev/null 2>&1 || true
+
 if ! bash scripts/check-file-encoding.sh >/dev/null 2>&1; then
   fail_gate "encoding" "$(bash scripts/check-file-encoding.sh 2>&1 | tail -n 20)"
 fi

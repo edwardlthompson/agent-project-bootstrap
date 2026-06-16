@@ -1,6 +1,7 @@
 package dev.foss.goldenpath.ui
 
 import android.content.Context
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,8 +14,10 @@ import dev.foss.goldenpath.R
 import dev.foss.goldenpath.about.AppUpdatePreferences
 import dev.foss.goldenpath.about.CheckSchedule
 import dev.foss.goldenpath.about.DonationsLoader
+import dev.foss.goldenpath.about.ReleaseAsset
 import dev.foss.goldenpath.about.ReleaseAssetSelector
 import dev.foss.goldenpath.about.ReleaseTagFetcher
+import dev.foss.goldenpath.about.UpdateApplyCoordinator
 import dev.foss.goldenpath.about.UpdateStatusEvaluator
 import dev.foss.goldenpath.network.NetworkStatusMonitor
 import dev.foss.goldenpath.settings.SettingsLogic
@@ -42,8 +45,10 @@ fun GoldenPathApp(
     var showAbout by remember { mutableStateOf(false) }
     var showSettings by remember { mutableStateOf(false) }
     var updateStatus by remember { mutableStateOf(context.getString(R.string.about_update_current)) }
+    var applyAsset by remember { mutableStateOf<ReleaseAsset?>(null) }
     val donations = remember { DonationsLoader.load(context) }
     val appVersion = BuildConfig.VERSION_NAME
+    val activity = context as? ComponentActivity
 
     LaunchedEffect(pendingRestart) {
         if (pendingRestart) {
@@ -63,12 +68,20 @@ fun GoldenPathApp(
             return@LaunchedEffect
         }
         appUpdatePreferences.setLastChecked(System.currentTimeMillis())
-        updateStatus = when (val result = UpdateStatusEvaluator.evaluate(appVersion, release.tag)) {
-            is UpdateStatusEvaluator.Result.Current -> context.getString(R.string.about_update_current)
-            is UpdateStatusEvaluator.Result.Available ->
-                context.getString(R.string.about_update_available, result.version)
+        val selected = ReleaseAssetSelector.select(release.assets, format)
+        applyAsset = when (val result = UpdateStatusEvaluator.evaluate(appVersion, release.tag)) {
+            is UpdateStatusEvaluator.Result.Current -> {
+                updateStatus = context.getString(R.string.about_update_current)
+                null
+            }
+            is UpdateStatusEvaluator.Result.Available -> {
+                updateStatus = context.getString(R.string.about_update_available, result.version)
+                selected
+            }
         }
     }
+
+    val canApplyUpdate = applyAsset != null
 
     GoldenPathTheme(themeMode = themeMode) {
         GoldenPathScreen(
@@ -81,6 +94,7 @@ fun GoldenPathApp(
             installedFormat = installedFormat ?: "apk",
             updateStatus = updateStatus,
             donations = donations,
+            canApplyUpdate = canApplyUpdate,
             onThemeToggle = { scope.launch { themePreferences.setThemeMode(themeMode.next()) } },
             onThemeModeSelect = { mode -> scope.launch { themePreferences.setThemeMode(mode) } },
             onAboutOpen = { showAbout = !showAbout; if (showAbout) showSettings = false },
@@ -92,6 +106,13 @@ fun GoldenPathApp(
                     appUpdatePreferences.setCheckInterval(
                         SettingsLogic.intervalForToggle(enabled, checkInterval),
                     )
+                }
+            },
+            onApplyUpdate = {
+                val asset = applyAsset ?: return@GoldenPathScreen
+                val host = activity ?: return@GoldenPathScreen
+                scope.launch {
+                    UpdateApplyCoordinator.applySideloadUpdate(host, appUpdatePreferences, asset)
                 }
             },
         )

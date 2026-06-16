@@ -39,6 +39,7 @@ fun GoldenPathScreen(
     installedFormat: String,
     updateStatus: String,
     donations: DonationsConfig,
+    canApplyUpdate: Boolean,
     onThemeToggle: () -> Unit,
     onThemeModeSelect: (ThemeMode) -> Unit,
     onAboutOpen: () -> Unit,
@@ -46,6 +47,7 @@ fun GoldenPathScreen(
     onSettingsOpen: () -> Unit,
     onSettingsClose: () -> Unit,
     onUpdateCheckChange: (Boolean) -> Unit,
+    onApplyUpdate: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -85,6 +87,8 @@ fun GoldenPathScreen(
                 installedFormat = installedFormat,
                 updateStatus = updateStatus,
                 donations = donations,
+                canApplyUpdate = canApplyUpdate,
+                onApplyUpdate = onApplyUpdate,
                 onBack = onAboutClose,
                 modifier = Modifier
                     .fillMaxSize()

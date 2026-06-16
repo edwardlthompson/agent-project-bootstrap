@@ -79,6 +79,17 @@ describe("bootstrapApp", () => {
     });
   });
 
+  it("renders immediately before donations load completes", async () => {
+    const donationsMod = await import("./about/donations");
+    vi.mocked(donationsMod.loadDonations).mockImplementation(
+      () => new Promise(() => {}),
+    );
+    const root = document.createElement("div");
+    mockedCreateAppShell.mockClear();
+    bootstrapApp(root);
+    expect(mockedCreateAppShell).toHaveBeenCalled();
+  });
+
   it("re-renders when shell state changes", async () => {
     const root = document.createElement("div");
     bootstrapApp(root);

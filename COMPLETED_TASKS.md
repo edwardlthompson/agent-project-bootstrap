@@ -410,6 +410,19 @@
 - ✅ [AGENT] `android-release` CI strict reproducibility; rust/go SBOM slices in `release.yml`
 - ✅ [AGENT] `health-check.yml` `uv sync --all-extras` for pip audit parity
 
+## Sprint M18 — Post-P2 code review (AGENT, 2026-06-16)
+
+- ✅ [AGENT] P0 Pages base path: `assetUrl()` helper; relative SW precache; BASE_URL-aware fetch/register
+- ✅ [AGENT] P0 Web first paint: immediate `render()` in `appBootstrap.ts`; background update re-renders
+- ✅ [AGENT] P0 Android apply slice: `ApkDownloadHelper`, `UpdateApplyCoordinator`, Apply button in About/home
+- ✅ [AGENT] P0 Init config propagation: `sync-stack-config.py` wired in init scripts
+- ✅ [AGENT] P1 Release SBOM guards: `hashFiles` conditionals for web/python/node/android; conditional upload
+- ✅ [AGENT] P1 `init-stack-sync`: `active_modules` derived from filesystem via `MODULE_EXAMPLE_DIRS`
+- ✅ [AGENT] P1 Release tag gate: full required-check poll on tag push
+- ✅ [AGENT] P1 Repo hygiene: live config JSON gitignored; `sync-exemplar-config.sh`; tracked-artifact check
+- ✅ [AGENT] P1 Go example: `go mod tidy` in CI; SBOM gated on `go.sum` (N/A for zero-dep stub)
+- ⬜ [AUTO] CI + Feature Gate green on `main` (pending push)
+
 ## BUILD_PLAN cleanup (2026-06-15, M17 P2 complete)
 
 - ✅ [AGENT] P2 backlog: modal a11y, PWA apply wiring, config `.example`, PS1 smoke, docs/index, Android UI tests, release SBOM/reproducibility

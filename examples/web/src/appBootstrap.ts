@@ -2,6 +2,7 @@ import { handleRestartGuard, checkForUpdates } from "./about/aboutSession";
 import { applyPwaUpdate } from "./about/applyUpdate";
 import { loadDonations } from "./about/donations";
 import { createAppShell, type AppShellState } from "./AppShell";
+import { assetUrl } from "./assetUrl";
 import { t } from "./i18n";
 import { initTheme, subscribeThemeChange } from "./theme";
 
@@ -51,6 +52,7 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
 
   initTheme();
   subscribeThemeChange(() => render());
+  render();
   void loadDonations().then((d) => {
     state = { ...state, donations: d };
     render();
@@ -59,7 +61,7 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
   if (!handleRestartGuard()) {
     void checkForUpdates().then((status) => {
       state = { ...state, updateStatus: status };
-      if (state.showAbout) render();
+      render();
     });
   }
 
@@ -68,7 +70,7 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
+      navigator.serviceWorker.register(assetUrl("sw.js")).catch(() => {});
     });
   }
 }

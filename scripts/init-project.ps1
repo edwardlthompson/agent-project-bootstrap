@@ -120,6 +120,8 @@ if ($DonationUrl -and (Test-Path $DonConfig)) {
   Write-Utf8NoBom $DonConfig ($don | ConvertTo-Json -Depth 5)
 }
 
+python3 scripts/sync-stack-config.py $Root $ReleaseRepo $DonationUrl
+
 if (-not $CodeOwner -and -not $NonInteractive) {
     $CodeOwner = Read-Host "GitHub username for CODEOWNERS (without @)"
 }

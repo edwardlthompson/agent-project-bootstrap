@@ -364,6 +364,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/sync-stack-config.py",
+      "purpose": "Propagate release_repo and donation URLs to web public and Android assets on init",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sync-exemplar-config.sh",
+      "purpose": "Copy .example config stubs to live JSON when missing (validate-bootstrap, feature-gate)",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": ".github/workflows/scorecard.yml",
       "purpose": "Weekly OpenSSF Scorecard analysis",
       "read_when": "security_triage",

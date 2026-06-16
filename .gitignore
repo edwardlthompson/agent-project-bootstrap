@@ -39,6 +39,10 @@ playwright-report/
 # Live user configs (examples committed; copies from init)
 .app-update.json
 donations.json
+examples/web/public/app-update.json
+examples/web/public/donations.json
+examples/android/app/src/main/assets/app-update.json
+examples/android/app/src/main/assets/donations.json
 
 # Rust / Go
 target/

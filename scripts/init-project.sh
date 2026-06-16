@@ -173,6 +173,8 @@ if url.strip() and dst_don.exists():
     dst_don.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 PY
 
+python3 scripts/sync-stack-config.py "$ROOT" "$RELEASE_REPO" "$DONATION_URL"
+
 if [ -z "$CODEOWNER" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "GitHub username for CODEOWNERS (without @): " CODEOWNER
 fi

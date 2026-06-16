@@ -18,6 +18,16 @@ MODULE_LINES = {
     "go": "Go",
 }
 
+MODULE_EXAMPLE_DIRS = {
+    "android": "examples/android",
+    "web": "examples/web",
+    "python": "examples/python",
+    "node": "examples/node",
+    "lightroom": "examples/lightroom",
+    "rust": "examples/rust",
+    "go": "examples/go",
+}
+
 PARALLEL_NOTES = {
     "web": "Sprint 1 Parallel: Web PWA scope only (`examples/web/**`)",
     "python": "Sprint 1 Parallel: Python CLI scope only (`examples/python/**`)",
@@ -28,18 +38,21 @@ PARALLEL_NOTES = {
 }
 
 
-def active_modules(stack: str) -> list[str]:
-    if stack in ("multi", "none"):
-        return list(MODULE_LINES.keys())
-    if stack in MODULE_LINES:
-        return [stack]
-    return list(MODULE_LINES.keys())
+def module_exists(root: Path, key: str) -> bool:
+    rel = MODULE_EXAMPLE_DIRS.get(key)
+    return rel is not None and (root / rel).is_dir()
+
+
+def active_modules(stack: str, root: Path) -> list[str]:
+    if stack in MODULE_LINES and stack not in ("multi", "none"):
+        return [stack] if module_exists(root, stack) else []
+    return [key for key in MODULE_LINES if module_exists(root, key)]
 
 
 def sync_agent_memory(root: Path, stack: str) -> None:
     path = root / "AGENT_MEMORY.md"
     text = path.read_text(encoding="utf-8")
-    active = set(active_modules(stack))
+    active = set(active_modules(stack, root))
     for key, label in MODULE_LINES.items():
         mark = "✅" if key in active else "❌"
         pattern = rf"^- [✅❌] {re.escape(label)}"
@@ -77,10 +90,11 @@ def prune_template_index(root: Path) -> None:
 def write_stack_selection(root: Path, stack: str, pruned: bool) -> None:
     cursor_dir = root / ".cursor"
     cursor_dir.mkdir(exist_ok=True)
+    modules = active_modules(stack, root)
     payload = {
         "stack": stack,
         "pruned": pruned,
-        "active_modules": active_modules(stack),
+        "active_modules": modules,
         "parallel_scope_note": PARALLEL_NOTES.get(stack, PARALLEL_NOTES["none"]),
         "selected_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
     }

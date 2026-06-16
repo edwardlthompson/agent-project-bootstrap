@@ -21,6 +21,8 @@ fun AboutScreen(
     installedFormat: String,
     updateStatus: String,
     donations: DonationsConfig,
+    canApplyUpdate: Boolean,
+    onApplyUpdate: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -36,6 +38,11 @@ fun AboutScreen(
         Text(text = stringResource(R.string.about_version, version))
         Text(text = stringResource(R.string.about_format, installedFormat))
         Text(text = updateStatus)
+        if (canApplyUpdate) {
+            Button(onClick = onApplyUpdate) {
+                Text(stringResource(R.string.about_update_apply))
+            }
+        }
         if (donations.enabled && donations.links.isNotEmpty()) {
             Text(text = donations.message)
             donations.links.forEach { link ->

@@ -1,4 +1,5 @@
 import type { DonationConfig, DonationLink } from "./types";
+import { assetUrl } from "../assetUrl";
 
 function isLink(value: unknown): value is DonationLink {
   if (!value || typeof value !== "object") return false;
@@ -19,7 +20,7 @@ export function normalizeDonations(raw: unknown): DonationConfig {
   };
 }
 
-export async function loadDonations(url = "/donations.json"): Promise<DonationConfig> {
+export async function loadDonations(url = assetUrl("donations.json")): Promise<DonationConfig> {
   try {
     const res = await fetch(url);
     if (!res.ok) return { enabled: false, message: "", links: [] };

@@ -77,6 +77,7 @@ if ! grep -q '\[AGENT\]' BUILD_PLAN.md && ! grep -q '\[HUMAN\]' BUILD_PLAN.md; t
   ERRORS=$((ERRORS + 1))
 fi
 
+run_check bash scripts/sync-exemplar-config.sh
 run_check bash scripts/check-file-encoding.sh
 run_check bash scripts/check-design-cohesion.sh
 run_check bash scripts/check-markdown-tables.sh

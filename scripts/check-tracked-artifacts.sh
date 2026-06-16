@@ -39,6 +39,8 @@ check_pattern "pycache" '__pycache__/'
 check_pattern "apk" '\.apk$'
 check_pattern "aab" '\.aab$'
 check_pattern "env-secret" '^\.env$|/\.env$'
+check_pattern "exemplar-live-config" \
+  'examples/web/public/app-update\.json$|examples/web/public/donations\.json$|examples/android/app/src/main/assets/app-update\.json$|examples/android/app/src/main/assets/donations\.json$'
 check_pattern "os-junk" '\.DS_Store$|Thumbs\.db$'
 
 if [ "$ERRORS" -gt 0 ]; then
