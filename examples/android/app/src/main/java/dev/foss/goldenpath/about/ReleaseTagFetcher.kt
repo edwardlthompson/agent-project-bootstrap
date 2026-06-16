@@ -17,7 +17,11 @@ object ReleaseTagFetcher {
         return try {
             val json = context.assets.open("app-update.json").bufferedReader().use { it.readText() }
             val repo = JSONObject(json).optString("release_repo", "").trim()
-            repo.ifEmpty { null }
+            when {
+                repo.isEmpty() -> null
+                repo.equals("OWNER/REPO", ignoreCase = true) -> null
+                else -> repo
+            }
         } catch (_: Exception) {
             null
         }

@@ -43,7 +43,9 @@ export async function checkForUpdates(): Promise<string> {
 
   const format = config.installed_artifact_format ?? detectInstalledFormat();
   if (format !== "pwa") return t("about.update.no_compatible");
-  if (!config.release_repo) return t("about.update.current");
+  if (!config.release_repo || config.release_repo === "OWNER/REPO") {
+    return t("about.update.current");
+  }
 
   try {
     const res = await fetch(
