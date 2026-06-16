@@ -11,6 +11,7 @@ elif command -v python >/dev/null 2>&1; then PY=python
 else PY=python3; fi
 
 WEB_SRC="$ROOT/examples/web/src"
+WEB_E2E="$ROOT/examples/web/e2e"
 BACKUP="$(mktemp -d)"
 
 restore() {
@@ -18,11 +19,13 @@ restore() {
     rm -rf "$WEB_SRC/about"
     cp -a "$BACKUP/about" "$WEB_SRC/about"
   fi
-  if [ -f "$BACKUP/main.ts" ]; then
-    cp -a "$BACKUP/main.ts" "$WEB_SRC/main.ts"
-  fi
-  if [ -f "$BACKUP/AboutPanel.ts" ]; then
-    cp -a "$BACKUP/AboutPanel.ts" "$WEB_SRC/components/AboutPanel.ts"
+  for rel in main.ts appBootstrap.ts appBootstrap.test.ts AppShell.ts components/AboutPanel.ts; do
+    if [ -f "$BACKUP/$rel" ]; then
+      cp -a "$BACKUP/$rel" "$WEB_SRC/$rel"
+    fi
+  done
+  if [ -f "$BACKUP/app.spec.ts" ]; then
+    cp -a "$BACKUP/app.spec.ts" "$WEB_E2E/app.spec.ts"
   fi
   rm -rf "$BACKUP"
 }
@@ -35,13 +38,19 @@ bash scripts/feature-gate.sh --stack web --step about-with
 
 cp -a "$WEB_SRC/about" "$BACKUP/about"
 cp -a "$WEB_SRC/main.ts" "$BACKUP/main.ts"
+cp -a "$WEB_SRC/appBootstrap.ts" "$BACKUP/appBootstrap.ts"
+cp -a "$WEB_SRC/appBootstrap.test.ts" "$BACKUP/appBootstrap.test.ts"
+cp -a "$WEB_SRC/AppShell.ts" "$BACKUP/AppShell.ts"
 cp -a "$WEB_SRC/components/AboutPanel.ts" "$BACKUP/AboutPanel.ts"
+cp -a "$WEB_E2E/app.spec.ts" "$BACKUP/app.spec.ts"
 
 $PY << 'PY'
 from pathlib import Path
 import shutil
 
 web = Path("examples/web/src")
+e2e = Path("examples/web/e2e")
+
 web.joinpath("main.ts").write_text(
     """import "./style.css";
 import { createThemeToggle } from "./components/ThemeToggle";
@@ -77,10 +86,30 @@ window.addEventListener("offline", render);
 """,
     encoding="utf-8",
 )
-shutil.rmtree(web / "about", ignore_errors=True)
-panel = web / "components" / "AboutPanel.ts"
-if panel.exists():
-    panel.unlink()
+
+for path in (
+    web / "about",
+    web / "appBootstrap.ts",
+    web / "appBootstrap.test.ts",
+    web / "AppShell.ts",
+    web / "components" / "AboutPanel.ts",
+):
+    if path.is_dir():
+        shutil.rmtree(path, ignore_errors=True)
+    elif path.exists():
+        path.unlink()
+
+e2e.joinpath("app.spec.ts").write_text(
+    """import { test, expect } from "@playwright/test";
+
+test("renders golden path heading without About slice", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Golden Path PWA" })).toBeVisible();
+  await expect(page.getByTestId("status")).toBeVisible();
+});
+""",
+    encoding="utf-8",
+)
 PY
 
 echo "2/2 Gate after About removal (in-place, restored on exit)..."

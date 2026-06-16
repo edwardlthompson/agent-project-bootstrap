@@ -117,7 +117,7 @@ test.describe("update status", () => {
 test.describe("PWA apply update", () => {
   test.use({ serviceWorkers: "block" });
 
-  test("shows apply button and restarting status", async ({ page }) => {
+  test("shows apply button and arms restart guard on click", async ({ page }) => {
     await page.route("**/*", async (route) => {
       const url = route.request().url();
       if (url.includes("/app-update.json")) {
@@ -143,14 +143,25 @@ test.describe("PWA apply update", () => {
     });
 
     await page.addInitScript(() => {
-      const waiting = { postMessage: () => {} };
+      window.location.reload = () => {};
+      const controllerListeners = new Set<(event: Event) => void>();
+      const waiting = {
+        postMessage: () => {
+          const event = new Event("controllerchange");
+          controllerListeners.forEach((listener) => listener(event));
+        },
+      };
       Object.defineProperty(navigator, "serviceWorker", {
         configurable: true,
         value: {
           register: async () => ({}),
           getRegistration: async () => ({ waiting }),
-          addEventListener: () => {},
-          removeEventListener: () => {},
+          addEventListener: (type: string, listener: (event: Event) => void) => {
+            if (type === "controllerchange") controllerListeners.add(listener);
+          },
+          removeEventListener: (type: string, listener: (event: Event) => void) => {
+            if (type === "controllerchange") controllerListeners.delete(listener);
+          },
         },
       });
     });
@@ -162,7 +173,9 @@ test.describe("PWA apply update", () => {
     await page.getByRole("button", { name: "About" }).click();
     await expect(page.getByTestId("about-apply")).toBeVisible();
     await page.getByTestId("about-apply").click();
-    await expect(page.getByTestId("about-status")).toContainText("Restarting");
+    await expect
+      .poll(async () => page.evaluate(() => localStorage.getItem("gp-update-restart-pending")))
+      .toBe("true");
   });
 
   test("clears restart guard on load", async ({ page }) => {
