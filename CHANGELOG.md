@@ -19,6 +19,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.9.0...v0.10.0) (2026-06-17)
+
+
+### Added
+
+* **agents:** execute Sprint M15 P2 backlog and archive M14 ([a5f3199](https://github.com/edwardlthompson/agent-project-bootstrap/commit/a5f3199255d5f897aa960da92cdcf6b09c0579df))
+* **agents:** finish Sprint M15 instrumented CI and SBOM release wiring ([4d5993d](https://github.com/edwardlthompson/agent-project-bootstrap/commit/4d5993df6602186f479de0fff0b2395ecb5860c3))
+* **commands:** add batch instruction templates (M27) ([4fe713a](https://github.com/edwardlthompson/agent-project-bootstrap/commit/4fe713a51335c576058fc0e435bd419a272e8b8e))
+* **docs:** add Cursor mode routing and repo sanity gates (M19-M25) ([9782e75](https://github.com/edwardlthompson/agent-project-bootstrap/commit/9782e757d95d06a27b1d03db27faf2a978e3c9c9))
+* **m16-p2:** prune-optional smoke, a11y, i18n test fix, lightroom prune ([0212a19](https://github.com/edwardlthompson/agent-project-bootstrap/commit/0212a194012e884490e44d1f0194ed48756e9754))
+* **m18-p2:** complete post-sequential backlog — tests, gates, CI, SW cache ([d2e088d](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d2e088de9d7f97813a0ca66d4c4b3335455bf853))
+* **m18:** remediate post-P2 review — Pages base path, Android apply, init config ([9105ebb](https://github.com/edwardlthompson/agent-project-bootstrap/commit/9105ebb129e660c288c65f6bef3ee7a67aeec4dd))
+* **p2:** complete M17 P2 backlog — a11y, updates, CI, docs ([64ec578](https://github.com/edwardlthompson/agent-project-bootstrap/commit/64ec578a352d6d771c8d774d68da93f0fd01467d))
+
+
+### Fixed
+
+* **android:** ApkDownloadHelperTest uses file-as-parent path on Unix CI ([be237e7](https://github.com/edwardlthompson/agent-project-bootstrap/commit/be237e7d99778624ca3fe0c3a9b54ef8db74a856))
+* **android:** pin androidx.test runner/rules to published 1.6.1 ([5195c46](https://github.com/edwardlthompson/agent-project-bootstrap/commit/5195c463cbb219d490915a901bf350687b2dd98d))
+* **android:** read INTERNET permission from PackageInfo in test ([5d9be3e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/5d9be3e9f3144468f84e2bdca0121788582e930c))
+* **android:** test UpdateApplier intent build without startActivity ([27259c6](https://github.com/edwardlthompson/agent-project-bootstrap/commit/27259c65261fc44eac696565d01022e6f49c5ccd))
+* **android:** write test APK under FileProvider cache-path ([f59023c](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f59023cc342d456a653d27643a250ce9957b6abf))
+* **ci:** move optional job existence checks into path-changes job ([f7213ec](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f7213eca78069907a08f181de996f516f9fa5341))
+* **ci:** run android instrumented gradle in single shell script ([976a87f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/976a87ffda747d952a024f82623d8622cbce89dd))
+* **ci:** scope design cohesion checks to active example stacks ([5130309](https://github.com/edwardlthompson/agent-project-bootstrap/commit/513030942117f1b3f93f8402ed40e12e1c2ae095))
+* **ci:** stabilize PWA apply e2e and about-feature-gate for appBootstrap ([8946089](https://github.com/edwardlthompson/agent-project-bootstrap/commit/8946089ed2c265c1a5e4cd7996dea328b1a8c6e5))
+* **docs:** index cursor-modes rule and align START_HERE paths (M26) ([8bbf689](https://github.com/edwardlthompson/agent-project-bootstrap/commit/8bbf68973260799ff6292416509590e37991246d))
+* **e2e:** stabilize PWA apply test — assert button visibility only ([bda25d2](https://github.com/edwardlthompson/agent-project-bootstrap/commit/bda25d25cfed80f16ad7835df56c68a5eac4e458))
+* **init:** skip design-token sync for pruned example stacks ([1844483](https://github.com/edwardlthompson/agent-project-bootstrap/commit/184448395220b7dc104dcf85c81b8f1f3e313bba))
+* **m16:** tag-gate jobs-only poll, SBOM version assert, CI parity ([3f071cb](https://github.com/edwardlthompson/agent-project-bootstrap/commit/3f071cb9608910cb765ba5b465b3dfa6743df3dc))
+* **m17:** INTERNET permission, update timing, prune index, release CI gate ([96829ae](https://github.com/edwardlthompson/agent-project-bootstrap/commit/96829aea0af3ff24a6942a9add8f9fb4c2e2364f))
+* **release:** skip pre-release gate for SBOM backfill dispatch ([ac1377c](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ac1377c15840f428c6ec36095a4f7ac820d4f88b))
+* **scripts:** stub settings preferences when verifying About removal ([d6b92a2](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d6b92a2c31c464bdd6595dcd49adf7fe305020e1))
+* treat OWNER/REPO placeholder as unset for update checks ([2721c01](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2721c01d0cf4adb36ecf123aeb42c0c6429a5e80))
+* **upgrade-sim:** skip full bootstrap validation after prune pass ([1634917](https://github.com/edwardlthompson/agent-project-bootstrap/commit/1634917f35ee9137ffb56b5c3a6e763025819ed7))
+* **web:** override js-yaml to patch Dependabot alert [#9](https://github.com/edwardlthompson/agent-project-bootstrap/issues/9) ([609165c](https://github.com/edwardlthompson/agent-project-bootstrap/commit/609165c6321cb2498c39541b5315ff19a533f7fb))
+* **web:** use hasAttribute for disabled check in panelDialog ([f4d082e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f4d082ea1331446f45baeabd77f55818ec5a8cdf))
+
+
+### Documentation
+
+* **build-plan:** add Sprint M16 from post-M15 code review ([88050db](https://github.com/edwardlthompson/agent-project-bootstrap/commit/88050db8ce8c74a6bbee825ec3f4aab0ace60d36))
+* **build-plan:** add Sprint M17 from post-M16 code review ([7cdc92b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7cdc92b6cc95f5961e46c37234bd5c2a8aada9e3))
+* **build-plan:** archive M18 sprint body; slim active board ([2e3a4dd](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2e3a4ddea0aab5dffdd01cb44c6e76f335c562d3))
+* **build-plan:** archive Sprint M16 and slim active board ([7e4a50e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7e4a50e24efa48c984f6d905af070a5e890825e0))
+* **build-plan:** archive Sprint M17 and slim active board ([047e8e7](https://github.com/edwardlthompson/agent-project-bootstrap/commit/047e8e7e3cca2c3ab24155ff92cfeb27f85e0a23))
+* **build-plan:** mark M15 CI sign-off complete on a5f3199 ([2ab8bca](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2ab8bca6a192ca421fb12b715bfd1e43c32f5ca9))
+* **build-plan:** mark M16 row 10 CI sign-off complete ([7846d96](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7846d9604d84dd3c2d916482e5fabeeb7e0bafeb))
+* **build-plan:** mark M18 sequential complete after CI green @ 2721c01 ([d4f7b82](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d4f7b82a8c8200e626ed21575cb7734c2a9a9b9b))
+* **build-plan:** record v0.9.0 human release approval ([40e6eee](https://github.com/edwardlthompson/agent-project-bootstrap/commit/40e6eee079a9e8469993cb68f14d60d5329ca14c))
+* log M27 batch commands decision at ship milestone ([17318ea](https://github.com/edwardlthompson/agent-project-bootstrap/commit/17318ea250d191b5eb9b477c2239d992a809a04a))
+
 ## [Unreleased]
 
 ### Added
