@@ -58,7 +58,8 @@ jobs:
 
       - uses: actions/checkout@v6
         with:
-          ref: ${{ steps.tag.outputs.tag || github.ref }}
+          # SBOM backfill (workflow_dispatch + tag input): build from main, upload to existing tag
+          ref: ${{ inputs.tag != '' && github.ref || steps.tag.outputs.tag || github.ref }}
 
       - name: Finalize release tag from .template-version
         if: steps.tag.outputs.tag == ''
@@ -67,8 +68,12 @@ jobs:
 
       - name: Verify tag matches .template-version
         run: |
-          TAG="${{ steps.tag.outputs.tag || steps.tag_ver.outputs.tag }}"
-          TAG="${TAG#v}"
+          if [ -n "${{ inputs.tag }}" ]; then
+            EFFECTIVE="${{ inputs.tag }}"
+          else
+            EFFECTIVE="${{ steps.tag.outputs.tag || steps.tag_ver.outputs.tag }}"
+          fi
+          TAG="${EFFECTIVE#v}"
           VERSION=$(tr -d '[:space:]' < .template-version)
           if [ "$TAG" != "$VERSION" ]; then
             echo "Tag v$TAG does not match .template-version ($VERSION)"

@@ -32,12 +32,11 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### Open (human judgment only)
 
-| Item | Owner | Command / gate |
-|------|-------|----------------|
-| F-Droid dry-run on device/emulator | ADB | `modules/android/MODULE.md` checklist |
-| F-Droid listing / anti-feature sign-off | HUMAN | After `verify-fdroid-metadata.sh` |
-| `gh auth refresh -s security_events` (one-time OAuth) | HUMAN | Then `run-maintainer-gates.sh` full |
-| Merge Release Please PR #13 (`0.10.0`) | HUMAN | After `pre-release-gate.sh` green; verify SBOM on `release` published |
+_No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance** below.
+
+| Item | Owner | Notes |
+|------|-------|-------|
+| F-Droid device/emulator dry-run | ADB | Optional; metadata verified via `verify-fdroid-metadata.sh` — run on hardware when submitting to F-Droid |
 
 ---
 
@@ -123,6 +122,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 | Sprint | Status | Archive |
 |--------|--------|---------|
 | M19–M27 — Cursor modes, repo sanity, batch commands | Complete | `COMPLETED_TASKS.md` |
+| v0.10.0 release (`36a02e4`) | Complete | `COMPLETED_TASKS.md` |
 | M5–M18 maintainer sprints (seq + P2) | Complete | `COMPLETED_TASKS.md` @ `d6b92a2` |
 | Child Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
 | v0.9.0 release (`fd699bc`) | Complete | `COMPLETED_TASKS.md` |

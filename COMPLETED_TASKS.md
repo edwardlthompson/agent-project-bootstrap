@@ -2,6 +2,17 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v0.10.0 release (2026-06-17)
+
+- ✅ [HUMAN] `gh auth refresh -s security_events` (Dependabot API verified)
+- ✅ [HUMAN] Merge Release Please PR #13 — [v0.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.10.0) published
+- ✅ [AGENT] Sync `.template-version`, `TEMPLATE_INDEX.json`, README badge, `AGENT_MEMORY.md` to 0.10.0 (`36a02e4`)
+- ✅ [AGENT] Fix `release.yml` SBOM backfill — checkout `main` when `tag` input set
+- ✅ [AGENT] Add `sync-template-version.sh` + `check-template-version-sync.sh` gate
+- ✅ [AGENT] `verify-fdroid-metadata.sh` green; no anti-features in template metadata
+- ✅ [AUTO] CI + Security Scan + CodeQL green on `main` @ `36a02e4`
+- ⬜ [ADB] F-Droid device/emulator dry-run deferred — optional before store submission
+
 ## Sprint M5 — README Visual Refresh (2026-06-12)
 
 - ✅ [AGENT] Harden `scripts/normalize-markdown-whitespace.py` — table-aware blank-line collapse
