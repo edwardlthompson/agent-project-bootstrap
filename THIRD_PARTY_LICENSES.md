@@ -1,6 +1,6 @@
 # Third-Party Licenses
 
-> Generated and maintained per release. See pre-release gate in `docs/INITIALIZATION_PROMPT.md` Section 7.
+> Generated and maintained per release. See pre-release gate in `docs/INITIALIZATION_PROMPT.md` Section 7a.
 
 ## Project License
 

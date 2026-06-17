@@ -439,6 +439,108 @@
 - ✅ [AGENT] `check-license-compliance.sh` rust/go slices
 - ✅ [AUTO] CI + Feature Gate green on `main` (`d6b92a2`)
 
+## Sprint M25 — Repo Sanity II (AGENT, 2026-06-17)
+
+Post-M24 review: markdown table break, CHANGELOG ref, upgrade sim coverage.
+
+- ✅ [AGENT] Fix `MAINTAINING_THE_TEMPLATE.md` table/heading blank line
+- ✅ [AGENT] Retarget CHANGELOG historical Section 7 → 7a; extend `UPGRADING_FROM_TEMPLATE.md`
+- ✅ [AGENT] Add CURSOR_MODES + changelog check to `simulate-template-upgrade.sh` AREAS
+- ✅ [AUTO] Validate: bootstrap --quick, feature-gate (pass); simulate blocked until M19–M25 files committed (3 untracked paths)
+
+**Note:** `git clone` in `simulate-template-upgrade.sh` only sees committed objects — commit `docs/CURSOR_MODES.md`, `.cursor/rules/cursor-modes.mdc`, and `scripts/check-changelog-unreleased.sh` before expecting simulate green locally or in CI.
+
+## BUILD_PLAN cleanup (2026-06-17, M25 complete)
+
+- ✅ [AGENT] Archive M25; extend Archived Sprints row to M19–M25
+
+## Sprint M24 — Repo Sanity (AGENT, 2026-06-17)
+
+Full-repo review: duplicate CHANGELOG [Unreleased], regression gate, init prompt sync.
+
+- ✅ [AGENT] Remove duplicate CHANGELOG [Unreleased]; relocate M5 bullets to [0.5.0]
+- ✅ [AGENT] Add `scripts/check-changelog-unreleased.sh`; wire validate-bootstrap + TEMPLATE_INDEX
+- ✅ [AGENT] Sync INITIALIZATION_PROMPT §8 step 17 with CURSOR_MODES cross-link
+- ✅ [AUTO] Validate: encoding, template-index, bootstrap --quick, feature-gate
+
+**Deferred (no action):** CHANGELOG legacy semver order (0.5.0 before 0.2.2) and historical mojibake — cosmetic; batch normalize risks Release Please diffs.
+
+## BUILD_PLAN cleanup (2026-06-17, M24 complete)
+
+- ✅ [AGENT] Archive M24; extend Archived Sprints row to M19–M24
+
+## Sprint M23 — Cursor Mode Closure (AGENT, 2026-06-17)
+
+Upgrade guide, bootstrap gate for rule file, Debug links on gate failures, CHANGELOG.
+
+- ✅ [AGENT] Add CURSOR_MODES + cursor-modes.mdc to UPGRADING_FROM_TEMPLATE cherry-pick table
+- ✅ [AGENT] Link gate exit 2 / Failure Playbook to Debug Mode in feature-modules.mdc and FOR_AGENTS
+- ✅ [AGENT] Add `.cursor/rules/cursor-modes.mdc` to validate-bootstrap.sh REQUIRED
+- ✅ [AGENT] Document M19–M22 in CHANGELOG [Unreleased]; devcontainer CURSOR_MODES tip
+- ✅ [AUTO] Validate: encoding, template-index, bootstrap --quick
+
+## BUILD_PLAN cleanup (2026-06-17, M23 complete)
+
+- ✅ [AGENT] Archive M23; extend Archived Sprints row to M19–M23
+
+## Sprint M22 — Cursor Mode Consistency (AGENT, 2026-06-17)
+
+Final pass: §7a reference drift, child playbook, session-restore prompts, maintainer safe-edit table.
+
+- ✅ [AGENT] Retarget stale "Section 7" refs → §7a in INITIALIZATION_PROMPT, SECURITY_TRIAGE, THIRD_PARTY_LICENSES
+- ✅ [AGENT] Align START_HERE repo-mode bullets + Child Playbook Sprint 0 step 2a with CURSOR_MODES
+- ✅ [AGENT] Clarify repo vs Cursor mode in FOR_AGENTS Session Checkpoint + PROMPT_LIBRARY Entry 13
+- ✅ [AGENT] Add CURSOR_MODES to MAINTAINING_THE_TEMPLATE safe-edit table; init step 2 README link
+- ✅ [AGENT] Link 3-strike escalation to Debug Mode in FOR_AGENTS
+- ✅ [AUTO] Validate: encoding, template-index, bootstrap --quick
+
+## BUILD_PLAN cleanup (2026-06-17, M22 complete)
+
+- ✅ [AGENT] Archive M22; consolidate M19–M22 in Archived Sprints table
+
+## Sprint M21 — Cursor Mode Drift (AGENT, 2026-06-17)
+
+Post-M20 review: init scripts, startup sequence, contributor docs, session-state schema, index entry_points.
+
+- ✅ [AGENT] Sync `init-project.sh` / `init-project.ps1` next-steps prompt with CURSOR_MODES
+- ✅ [AGENT] Add Cursor mode pick to `INITIALIZATION_PROMPT.md` §8 Startup Sequence (step 1a)
+- ✅ [AGENT] Cross-link `docs/FEATURE_MODULES.md` and `CONTRIBUTING.md` to `docs/CURSOR_MODES.md`
+- ✅ [AGENT] Clarify `.cursor-session-state.example.json` `mode` = repo mode; add `cursor_modes` to `TEMPLATE_INDEX.json` entry_points
+- ✅ [AGENT] Align `core-directives.mdc` session-start line; note `cursor-modes.mdc` in README Cursor rules
+- ✅ [AUTO] Validate: encoding, template-index, bootstrap --quick
+
+## BUILD_PLAN cleanup (2026-06-17, M21 complete)
+
+- ✅ [AGENT] Archive M21 sprint body; slim board to maintenance + human open items
+
+## Sprint M20 — Cursor Mode Wiring (AGENT, 2026-06-17)
+
+Post-M19 review: close prompt/read-order gaps and enforce CURSOR_MODES in bootstrap gate.
+
+- ✅ [AGENT] Sync `START_HERE.md` agent prompts + Reference read order with `docs/CURSOR_MODES.md`
+- ✅ [AGENT] Sync `PROMPT_LIBRARY.md` Entry 1/2 and `README.md` Quick Start bootstrap prompt
+- ✅ [AGENT] Dedupe `INITIALIZATION_PROMPT.md` §6 Plan First → pointer to `docs/CURSOR_MODES.md`
+- ✅ [AGENT] Update `AGENTS.md` Session Protocol; add `docs/CURSOR_MODES.md` to `validate-bootstrap.sh` REQUIRED
+- ✅ [AGENT] Add `docs/CURSOR_MODES.md` to README What's Included; fix KB range in START_HERE
+- ✅ [AUTO] Validate: encoding, template-index, bootstrap --quick
+
+## BUILD_PLAN cleanup (2026-06-17, M20 complete)
+
+- ✅ [AGENT] Archive M20 sprint body; slim board to maintenance + human open items
+
+## Sprint M19 — Cursor Mode Routing (AGENT, 2026-06-17)
+
+- ✅ [AGENT] Create `docs/CURSOR_MODES.md` (mode table, trivial rubric, transitions, prompt shortcuts; ≤80 lines)
+- ✅ [AGENT] Create `.cursor/rules/cursor-modes.mdc` (`alwaysApply: true`; ≤30 lines; pointer to CURSOR_MODES)
+- ✅ [AGENT] Wire entry points: `START_HERE.md`, `AGENTS.md`, `FOR_AGENTS.md`, `core-directives.mdc`, `TEMPLATE_INDEX.json`
+- ✅ [AGENT] Split `INITIALIZATION_PROMPT.md` §7a (pre-release audit, Agent) vs §7b (defect investigation, Debug)
+- ✅ [AGENT] Update `PROMPT_LIBRARY.md`: retitle Entry 3; add Entries 18–21 (Ask/Plan/Debug/Agent)
+- ✅ [AUTO] Validate: `check-file-encoding.py`, `validate-template-index.sh`, `validate-bootstrap.sh --quick`
+
+## BUILD_PLAN cleanup (2026-06-17, M19 complete)
+
+- ✅ [AGENT] Archive M19 sprint body; slim board to maintenance + human open items
+
 ## BUILD_PLAN cleanup (2026-06-16, M18 P2 complete)
 
 - ✅ [AGENT] Archive M18 sprint body; slim board to maintenance + human open items

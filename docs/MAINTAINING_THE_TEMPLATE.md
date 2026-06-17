@@ -33,9 +33,11 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 | Zone | Risk | Notes |
 |------|------|-------|
 | `docs/`, `modules/` | Low | Additive changes preferred |
+| `docs/CURSOR_MODES.md` | Low | Canonical Cursor mode router; avoid duplicating tables elsewhere |
 | `.github/workflows/` | Medium | Document in CHANGELOG |
 | `TEMPLATE_INDEX.json` schema | High | Requires migration notes |
 | `INITIALIZATION_PROMPT.md` structure | High | MAJOR version bump |
+
 ## Feedback Loop
 
 Encourage `template_improvement` issues. Triage labels:

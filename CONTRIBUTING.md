@@ -14,7 +14,7 @@ Thank you for contributing to **agent-project-bootstrap** — a Cursor agent-ori
 ## Getting started
 
 1. Fork the repository and create a feature branch.
-2. Read `docs/START_HERE.md`, `CODE_OF_CONDUCT.md`, and `docs/MAINTAINING_THE_TEMPLATE.md`.
+2. Read `docs/START_HERE.md`, `docs/CURSOR_MODES.md`, `CODE_OF_CONDUCT.md`, and `docs/MAINTAINING_THE_TEMPLATE.md`.
 3. Report security issues via `SECURITY.md` (private reporting preferred).
 4. Make changes; ensure CI passes locally where possible.
 5. Open a PR using the provided template.

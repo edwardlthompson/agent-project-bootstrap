@@ -116,4 +116,4 @@ If a Critical/High alert has no upstream fix, release may proceed only when:
 | `scripts/verify-branch-protection.sh` | Post-setup branch protection + strict/force-push verification |
 | `scripts/verify-reproducible-apk.sh` | Local reproducible APK hash check (also in `run-maintainer-gates.sh` full mode) |
 | `docs/MAINTAINING_THE_TEMPLATE.md` | Maintainer release checklist |
-| `docs/INITIALIZATION_PROMPT.md` | Section 7 pre-release gate |
+| `docs/INITIALIZATION_PROMPT.md` | Section 7a pre-release gate |

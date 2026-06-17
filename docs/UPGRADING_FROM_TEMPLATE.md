@@ -16,10 +16,13 @@ Read the upstream release notes at `github.com/edwardlthompson/agent-project-boo
 |-------------|----------|-------|
 | `.github/workflows/` | Cherry-pick or manual merge | AGENT + HUMAN review |
 | `.cursor/rules/` | Copy new/changed `.mdc` files | AGENT |
+| `docs/CURSOR_MODES.md` | Copy; canonical Cursor mode router | AGENT |
+| `.cursor/rules/cursor-modes.mdc` | Copy with other rules | AGENT |
 | `docs/INITIALIZATION_PROMPT.md` | Manual review; do not blind overwrite | HUMAN |
 | `scripts/` | Copy updated scripts | AGENT |
 | `scripts/check-file-encoding.sh` | Copy + add CI/pre-commit gate | AGENT |
 | `scripts/validate-bootstrap.sh` | Copy expanded validation | AGENT |
+| `scripts/check-changelog-unreleased.sh` | Copy with validate-bootstrap | AGENT |
 | `scripts/check-license-compliance.sh` | Copy strict license gate | AGENT |
 | `.github/workflows/dependency-review.yml` | Cherry-pick workflow | AGENT + HUMAN review |
 | `.cursor/rules/destructive-ops.mdc` | Copy new rule file | AGENT |

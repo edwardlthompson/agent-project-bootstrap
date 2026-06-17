@@ -23,11 +23,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `docs/CURSOR_MODES.md` — Ask/Plan/Agent/Debug mode router with trivial-task rubric and transition table
+- `.cursor/rules/cursor-modes.mdc` — alwaysApply mode routing rule
+- PROMPT_LIBRARY Entries 18–21 (Ask, Plan, Debug, Agent execute prompts)
 - Sprint M15: init `--keep-optional` / `--prune-optional`; `simulate-template-upgrade.sh` non-interactive init smoke; Playwright About update-status e2e
 - CI `android-instrumented` job for `connectedDebugAndroidTest`
 
 ### Changed
 
+- INITIALIZATION_PROMPT §7 split into §7a (pre-release audit, Agent) and §7b (defect investigation, Debug)
+- START_HERE, AGENTS.md, FOR_AGENTS, init scripts, and README Quick Start synced with CURSOR_MODES
+- Child Repo Playbook Sprint 0 step 2a — pick Cursor mode before AGENT init
+- `validate-bootstrap.sh` requires `docs/CURSOR_MODES.md` and `.cursor/rules/cursor-modes.mdc`
+- `scripts/check-changelog-unreleased.sh` — fail on duplicate CHANGELOG [Unreleased] sections
+- `simulate-template-upgrade.sh` AREAS — CURSOR_MODES, cursor-modes rule, changelog check
+- `MAINTAINING_THE_TEMPLATE.md` — blank line before Feedback Loop table
+- `UPGRADING_FROM_TEMPLATE.md` — cherry-pick row for `check-changelog-unreleased.sh`
 - `MainActivitySmokeTest` uses `ActivityScenarioRule`; CodeQL rust/go exclusion documented in workflow + module guides
 - `release.yml` splits tag gate vs SBOM upload; Release Please dispatches SBOM assets on publish
 
@@ -205,10 +216,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 - README Supported Stacks table includes Lightroom example path and optional stacks note
-
-
-
-
+- README (M5.1): hero badges, table of contents, GitHub alert callouts, collapsible detail sections, audience dividers
+- README (M5): shields.io badges + HTML definition lists/tables for What's Included, BUILD_PLAN Labels, Template Update Checker, and Supported Stacks
+- `scripts/normalize-markdown-whitespace.py`: table-aware blank-line collapse
+- `scripts/check-markdown-tables.sh`: fail on broken GFM table rows; wired into `validate-bootstrap.sh`
+- `docs/MAINTAINING_THE_TEMPLATE.md`: README badge conventions and hero/TOC sync notes
 
 ## [0.2.2] - 2026-06-13
 
@@ -275,16 +287,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-
-## [Unreleased]
-
-### Changed
-
-- README (M5.1): hero badges, table of contents, GitHub alert callouts, collapsible detail sections, audience dividers
-- README (M5): shields.io badges + HTML definition lists/tables for What's Included, BUILD_PLAN Labels, Template Update Checker, and Supported Stacks
-- `scripts/normalize-markdown-whitespace.py`: table-aware blank-line collapse
-- `scripts/check-markdown-tables.sh`: fail on broken GFM table rows; wired into `validate-bootstrap.sh`
-- `docs/MAINTAINING_THE_TEMPLATE.md`: README badge conventions and hero/TOC sync notes
 
 ## [0.3.0] - 2026-06-13
 
@@ -484,7 +486,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `examples/web/package-lock.json` and `examples/python/uv.lock` ΓÇö reproducible locked installs
 
 
-- Build Verification Gate in `INITIALIZATION_PROMPT.md` Section 7 (Sprint 0 + release)
+- Build Verification Gate in `INITIALIZATION_PROMPT.md` Section 7a (Sprint 0 + release)
 
 
 - `PROMPT_LIBRARY.md` entries: bootstrap verification, security triage, SBOM audit, build verification

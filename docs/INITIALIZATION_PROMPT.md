@@ -1,6 +1,6 @@
 # Project Initialization Prompt for Cursor Agent
 
-You are a Senior Software Architect and Expert AI Coding Agent. Follow this template rigorously. Use Cursor's Agent/Plan Mode for all major architectural tasks. Investigate the existing codebase first, outline your plan step-by-step using @ file references, obtain approval where needed, then execute.
+You are a Senior Software Architect and Expert AI Coding Agent. Follow this template rigorously. Use Cursor's Plan Mode for architectural tasks; Agent Mode for approved execution; Debug Mode for evidence-based triage (see `docs/CURSOR_MODES.md`). Investigate the existing codebase first, outline your plan step-by-step using @ file references, obtain approval where needed, then execute.
 
 ## 1. Project Dimensions
 
@@ -169,7 +169,7 @@ To maximize reasoning accuracy, eliminate architectural drift, and maintain cris
 
 ## 6. Universal Operational Directives
 
-- **Plan First, Code Second:** For any non-trivial task, use Plan Mode. Propose 1–3 implementation approaches with structural impact breakdowns before writing code.
+- **Plan First, Code Second:** Non-trivial work → Plan Mode with `### Critique`; trivial fixes → Agent Mode. See `docs/CURSOR_MODES.md` rubric.
 - **Design for Testability & Strict Type Safety:** Enforce strict separation of concerns (e.g., MVVM, Clean, or Hexagonal Architecture). Use strong types and runtime validation schemas at all data or input boundaries. Core business logic must remain pure and decoupled from the layout framework to allow lightning-fast testing.
 - **Deterministic Mocking:** Build a robust, high-fidelity local mock data layer (e.g., MSW or local JSON fixtures) from day one. Ensure the application can run completely offline in a deterministic "Mock Mode" to test edge cases, network timeouts, and error states reliably.
 - **Schema & State Persistence:** Prioritize a centralized, future-proof user settings and application state system. All preferences must survive updates, reboots, and upgrades via robust, automated schema migrations using platform-appropriate storage.
@@ -193,7 +193,9 @@ To maximize reasoning accuracy, eliminate architectural drift, and maintain cris
 
 ## 7. Mandatory Pre-Release Quality Gate
 
-Before any version bump, release tag, or production deployment, activate a focused Debugging/Audit persona to scan the repository and verify:
+### 7a. Pre-release audit (Agent Mode)
+
+Before any version bump, release tag, or production deployment, run the pre-release audit checklist in Agent Mode and verify:
 
 - Complete regression test compliance and visual snapshot verification (zero failures).
 - Clean static analysis, linting, and dependency/vulnerability scans (CodeQL/Trivy).
@@ -246,6 +248,16 @@ Polls **CI**, **Security Scan**, and **CodeQL** on the pushed commit. A green CI
 
 Only when all quality checks return clean may you update the `CHANGELOG.md` (Keep a Changelog format), bump the version, and draft the GitHub Release.
 
+### 7b. Defect investigation (Debug Mode)
+
+When a build, test, or CI job fails and root cause is unclear:
+
+- Switch to Debug Mode; collect runtime evidence first (command output, CI log URL, repro steps)
+- Check `KNOWLEDGE_BASE.md` (KB-001–KB-008) and `docs/FOR_AGENTS.md` Failure Playbook
+- Confirm repro locally before editing production code
+- After root cause identified, switch to Agent Mode to apply the fix
+- 3-strike: escalate to human with evidence summary (not hypotheses)
+
 ## 8. Startup Sequence
 
 **Init CLI (post clone):** run `scripts/init-project.sh` or `scripts/init-project.ps1` after filling placeholders (or pass flags). Non-interactive example:
@@ -263,7 +275,8 @@ scripts/init-project.sh \
 PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack web -ProjectName "My App" -ProjectPurpose "Offline-first notes"`. Add `-Prune` to remove unused stacks; `-KeepOptional` (default) retains rust/go/lightroom, `-PruneOptional` removes them too. See `scripts/init-project.sh --help`.
 
 1. Confirm understanding of the specified Platform, Stack, Purpose, and FOSS distribution pipelines.
-2. Initialize core repository architecture, root documentation (`README.md`, `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`), and the Workspace Memory files. `README.md` must include: project purpose and stack, quick start, BUILD_PLAN label legend, template update checker table, in-app About + donation placeholder note (separate from template checker), security section (Dependabot alerts + weekly triage link to `docs/SECURITY_TRIAGE.md`), and links to `docs/START_HERE.md`, `CONTRIBUTING.md`, and the active module guide.
+1a. Pick Cursor mode per `docs/CURSOR_MODES.md` (Ask to explore, Plan for architecture, Agent for approved execution).
+2. Initialize core repository architecture, root documentation (`README.md`, `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`), and the Workspace Memory files. `README.md` must include: project purpose and stack, quick start, BUILD_PLAN label legend, template update checker table, in-app About + donation placeholder note (separate from template checker), security section (Dependabot alerts + weekly triage link to `docs/SECURITY_TRIAGE.md`), and links to `docs/START_HERE.md`, `docs/CURSOR_MODES.md`, `CONTRIBUTING.md`, and the active module guide.
 3. Configure a local development sandbox (e.g., Devcontainer configuration), scaffolding scripts for components/features, and local git hooks (Gitleaks/TruffleHog + Linter/Formatter pre-commit hooks). Add `.env.example` for documented environment variables.
 4. Establish a single, end-to-end "Golden Path" reference feature—including pure business logic, runtime type validation, a mocked data source, a layout matching text-based UI specs, and 100% unit/integration/visual test coverage—to serve as the structural template for all future development.
 5. Propose the complete initial directory structure, the first formal ADR (`docs/adr/0001-core-architecture.md` or `DECISION_LOG.md`) establishing state/persistence baselines, and the step-by-step `BUILD_PLAN.md` for approval. `BUILD_PLAN.md` must use owner labels, Sequential and Parallel lanes per sprint, and an Ongoing Maintenance section with weekly security triage.
@@ -280,8 +293,8 @@ PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack web -ProjectNa
 14. `[AGENT]` Verify `.github/dependabot.yml` covers all active package ecosystems.
 15. `[AUTO]` Run `scripts/validate-bootstrap.sh` to confirm Sprint 0 artifacts exist.
 15a. `[AGENT]` Run `pip install pre-commit && pre-commit install`; after stack prune run `bash scripts/purge-ephemeral.sh` (dry-run).
-16. `[AGENT]` Run full **Build Verification Gate** (Section 7 checklist) including `validate-workflow-actions.sh` and stack-specific commands; fix all failures. Re-run encoding check after fixes on Windows.
-17. `[AGENT]` Cross-link all playbooks in `README.md`; sync `UPGRADING_FROM_TEMPLATE.md` and `PROMPT_LIBRARY.md`.
+16. `[AGENT]` Run full **Build Verification Gate** (Section 7a checklist) including `validate-workflow-actions.sh` and stack-specific commands; fix all failures. Re-run encoding check after fixes on Windows.
+17. `[AGENT]` Cross-link all playbooks in `README.md`; sync `UPGRADING_FROM_TEMPLATE.md`, `PROMPT_LIBRARY.md`, and `docs/CURSOR_MODES.md`.
 18. `[HUMAN]` Approve Sprint 0 only after `[AUTO]` **CI**, **Security Scan**, and **CodeQL** green on `main` (verify via `check-github-ci.sh`) and Build Verification Gate passes.
 
 **Begin now.**

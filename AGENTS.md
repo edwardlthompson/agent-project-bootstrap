@@ -1,10 +1,11 @@
 # Agent Router
 
 1. **First read:** `docs/START_HERE.md`
-2. **Bootstrap mode:** `docs/INITIALIZATION_PROMPT.md`
-3. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json`
-4. **Task board:** `BUILD_PLAN.md` (Sequential before Parallel)
-5. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries
+2. **Cursor modes:** `docs/CURSOR_MODES.md` (Ask / Plan / Agent / Debug routing)
+3. **Bootstrap mode:** `docs/INITIALIZATION_PROMPT.md`
+4. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json`
+5. **Task board:** `BUILD_PLAN.md` (Sequential before Parallel)
+6. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries
 
 > Legacy `.cursorrules` is deprecated. Use `.cursor/rules/*.mdc` and this file instead.
 
@@ -21,11 +22,11 @@
 - Conventional Commits for all changes
 - Small, modular functions; keep files within token-optimal size
 - Read-before-write: inspect types/interfaces via `@filename` before editing
-- Plan Mode for all non-trivial tasks; include `### Critique` in plans
+- Cursor mode routing per `docs/CURSOR_MODES.md`; Plan for non-trivial tasks with `### Critique`
 
 ## Session Protocol
 
-- On session start: read `START_HERE.md`, then `BUILD_PLAN.md` Sequential lane
+- On session start: read `START_HERE.md`, pick mode via `docs/CURSOR_MODES.md`, then `BUILD_PLAN.md` Sequential lane
 - On milestone end: update `AGENT_MEMORY.md`, append to `DECISION_LOG.md` or `docs/adr/`
 - On 3-strike failure: halt and escalate to human
 - On context bloat: write `.cursor-session-state`, ask human to clear chat

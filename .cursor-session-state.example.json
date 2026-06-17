@@ -3,6 +3,7 @@
   "version": 1,
   "saved_at": "2026-06-13T12:00:00Z",
   "mode": "bootstrap",
+  "$comment_mode": "Repo mode (bootstrap|reference) — not Cursor Ask/Plan/Agent/Debug; see docs/CURSOR_MODES.md",
   "stack": "web",
   "active_sprint": "0",
   "sequential_step": 8,

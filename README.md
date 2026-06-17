@@ -51,8 +51,8 @@ You get:
 3. Open Cursor and paste the bootstrap prompt from [`docs/START_HERE.md`](docs/START_HERE.md):
 
    ```
-   Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md.
-   Follow Section 8 Startup Sequence.
+   Read @docs/START_HERE.md, @docs/CURSOR_MODES.md, and @docs/INITIALIZATION_PROMPT.md.
+   Pick Cursor mode per CURSOR_MODES.md. Follow Section 8 Startup Sequence.
    Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels.
    ```
 
@@ -84,7 +84,7 @@ Active modules are synced to `AGENT_MEMORY.md` and recorded in `.cursor/stack-se
   <dt>Initialization prompt</dt>
   <dd><a href="docs/INITIALIZATION_PROMPT.md"><code>docs/INITIALIZATION_PROMPT.md</code></a></dd>
   <dt>Agent routing</dt>
-  <dd><a href="docs/START_HERE.md"><code>docs/START_HERE.md</code></a>, <a href="docs/FOR_AGENTS.md"><code>docs/FOR_AGENTS.md</code></a>, <a href="AGENTS.md"><code>AGENTS.md</code></a></dd>
+  <dd><a href="docs/START_HERE.md"><code>docs/START_HERE.md</code></a>, <a href="docs/CURSOR_MODES.md"><code>docs/CURSOR_MODES.md</code></a>, <a href="docs/FOR_AGENTS.md"><code>docs/FOR_AGENTS.md</code></a>, <a href="AGENTS.md"><code>AGENTS.md</code></a></dd>
   <dt>Sprint task board</dt>
   <dd><a href="BUILD_PLAN.md"><code>BUILD_PLAN.md</code></a> (active board); archived sprints in <a href="COMPLETED_TASKS.md"><code>COMPLETED_TASKS.md</code></a></dd>
 </dl>
@@ -120,7 +120,7 @@ Active modules are synced to `AGENT_MEMORY.md` and recorded in `.cursor/stack-se
   <dt>CI guardrails</dt>
   <dd><code>.github/workflows/</code> (incl. OpenSSF Scorecard weekly)</dd>
   <dt>Cursor rules</dt>
-  <dd><code>.cursor/rules/*.mdc</code></dd>
+  <dd><code>.cursor/rules/*.mdc</code> (incl. <code>cursor-modes.mdc</code> — see <a href="docs/CURSOR_MODES.md"><code>docs/CURSOR_MODES.md</code></a>)</dd>
 </dl>
 
 </details>

@@ -28,7 +28,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Template Maintainer — Active Board
 
-> **M18** (sequential + P2) archived @ `d6b92a2`. Full sprint body: `COMPLETED_TASKS.md`.
+> **M19–M25** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`.
 
 ### Open (human judgment only)
 
@@ -51,6 +51,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 1. ⬜ [HUMAN] Click **Use this template** on GitHub to create your project repo
 2. ⬜ [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
+2a. ⬜ [HUMAN] Pick Cursor mode per [`docs/CURSOR_MODES.md`](docs/CURSOR_MODES.md) (Ask to explore, Plan for architecture)
 3. ⬜ [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>`; `--non-interactive` with `--project-name` + `--purpose` for scripted init)
 4. ⬜ [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
 5. ⬜ [AUTO] Sprint 0 sign-off (all green on `main`):
@@ -120,6 +121,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
+| M19–M25 — Cursor modes + repo sanity | Complete | `COMPLETED_TASKS.md` |
 | M5–M18 maintainer sprints (seq + P2) | Complete | `COMPLETED_TASKS.md` @ `d6b92a2` |
 | Child Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
 | v0.9.0 release (`fd699bc`) | Complete | `COMPLETED_TASKS.md` |

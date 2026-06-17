@@ -14,8 +14,11 @@ cd "$WORKDIR/child"
 
 AREAS=(
   scripts/check-file-encoding.sh
+  scripts/check-changelog-unreleased.sh
   scripts/validate-bootstrap.sh
   scripts/validate-template-index.sh
+  docs/CURSOR_MODES.md
+  .cursor/rules/cursor-modes.mdc
   .github/workflows/dependency-review.yml
 )
 

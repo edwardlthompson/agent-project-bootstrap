@@ -21,7 +21,7 @@ bash scripts/watch-agent-gates.sh --once --autofix
 
 On exit `1`: read gate JSON + `.cursor/agent-progress.json`; **auto-fix** lint/tests in feature scope; re-run until pass or 3-strike.
 
-On exit `2`: halt and escalate to human.
+On exit `2`: halt and escalate to human; switch to **Debug Mode** per `docs/CURSOR_MODES.md` when root cause is unclear.
 
 ## Auto-fix allowed (no human approval)
 

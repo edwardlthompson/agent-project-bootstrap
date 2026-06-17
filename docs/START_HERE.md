@@ -6,36 +6,42 @@
 
 `agent-project-bootstrap` is a **GitHub Template Repository** for bootstrapping FOSS projects with Cursor agents.
 
-## Which mode are you in?
+## Which repo mode are you in?
 
-- **Bootstrap:** New project from **Use this template** → read `INITIALIZATION_PROMPT.md` next
-- **Reference:** Existing project using this repo as rules reference → read `FOR_AGENTS.md` next
+- **Bootstrap:** New project from **Use this template** → read `CURSOR_MODES.md`, then `INITIALIZATION_PROMPT.md`
+- **Reference:** Existing project using this repo as rules reference → read `CURSOR_MODES.md`, then `FOR_AGENTS.md`
+
+## Cursor modes (Plan / Agent / Debug / Ask)
+
+See [`docs/CURSOR_MODES.md`](CURSOR_MODES.md) — pick the Cursor mode before editing code.
 
 ## Bootstrap Read Order
 
 1. `README.md`
 2. `docs/START_HERE.md`
-3. `docs/INITIALIZATION_PROMPT.md`
-4. `AGENTS.md`
-5. `BUILD_PLAN.md` Sequential lane
-6. Active `modules/{stack}/MODULE.md` only
-7. Active `examples/{stack}/` only
-8. `docs/WEB_PROJECT_LAYOUT.md` when stack includes web (folder roles, GitHub Pages)
-9. `docs/DESIGN_GUIDE.md` when stack includes web or Android UI (tokens, themes, i18n)
-10. `docs/FEATURE_MODULES.md` when implementing Sprint 2+ incremental features (vertical slices)
+3. `docs/CURSOR_MODES.md`
+4. `docs/INITIALIZATION_PROMPT.md`
+5. `AGENTS.md`
+6. `BUILD_PLAN.md` Sequential lane
+7. Active `modules/{stack}/MODULE.md` only
+8. Active `examples/{stack}/` only
+9. `docs/WEB_PROJECT_LAYOUT.md` when stack includes web (folder roles, GitHub Pages)
+10. `docs/DESIGN_GUIDE.md` when stack includes web or Android UI (tokens, themes, i18n)
+11. `docs/FEATURE_MODULES.md` when implementing Sprint 2+ incremental features (vertical slices)
 
 ## Reference Read Order
 
 1. `docs/START_HERE.md`
-2. `docs/FOR_AGENTS.md`
-3. `TEMPLATE_INDEX.json`
-4. `AGENTS.md`
-5. Matching `modules/{stack}/MODULE.md` only
+2. `docs/CURSOR_MODES.md`
+3. `docs/FOR_AGENTS.md`
+4. `TEMPLATE_INDEX.json`
+5. `AGENTS.md`
+6. Matching `modules/{stack}/MODULE.md` only
 
 ## Do Not Read Yet
 
 - Inactive `examples/` folders
-- `KNOWLEDGE_BASE.md` — reference when debugging (KB-001–KB-007)
+- `KNOWLEDGE_BASE.md` — reference when debugging (KB-001–KB-008)
 - `docs/MAINTAINING_THE_TEMPLATE.md` (maintainers only)
 
 ## BUILD_PLAN Labels
@@ -48,6 +54,6 @@ Enable Dependabot alerts on GitHub (Settings → Code security and analysis). We
 
 ## Agent Prompts
 
-**Bootstrap:** Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md. Follow Section 8. Use BUILD_PLAN Sequential lane.
+**Bootstrap:** Read @docs/START_HERE.md, @docs/CURSOR_MODES.md, and @docs/INITIALIZATION_PROMPT.md. Pick Cursor mode per CURSOR_MODES. Follow Section 8. Use BUILD_PLAN Sequential lane.
 
-**Reference:** Read @docs/FOR_AGENTS.md and @TEMPLATE_INDEX.json. Apply matching rules. Do not copy examples/ wholesale.
+**Reference:** Read @docs/CURSOR_MODES.md, @docs/FOR_AGENTS.md, and @TEMPLATE_INDEX.json. Pick Cursor mode per CURSOR_MODES. Apply matching rules. Do not copy examples/ wholesale.

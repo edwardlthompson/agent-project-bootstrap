@@ -22,7 +22,9 @@ REQUIRED=(
   AGENTS.md
   AGENT_MEMORY.md
   docs/START_HERE.md
+  docs/CURSOR_MODES.md
   docs/INITIALIZATION_PROMPT.md
+  .cursor/rules/cursor-modes.mdc
   docs/DESIGN_GUIDE.md
   docs/WEB_PROJECT_LAYOUT.md
   docs/SECURITY_TRIAGE.md
@@ -81,6 +83,7 @@ run_check bash scripts/sync-exemplar-config.sh
 run_check bash scripts/check-file-encoding.sh
 run_check bash scripts/check-design-cohesion.sh
 run_check bash scripts/check-markdown-tables.sh
+run_check bash scripts/check-changelog-unreleased.sh
 run_check bash scripts/check-repo-hygiene.sh
 
 if [ "$QUICK" = false ]; then

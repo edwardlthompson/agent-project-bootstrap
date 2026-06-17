@@ -2,7 +2,18 @@
 
 ## Phased Loading
 
-SessionStart -> START_HERE.md -> Mode -> AGENTS.md -> BUILD_PLAN Sequential -> Active module -> WEB_PROJECT_LAYOUT (web hosting) -> DESIGN_GUIDE (web/android UI) -> Plan Mode -> Execute
+SessionStart -> START_HERE.md -> CURSOR_MODES (pick mode) -> AGENTS.md -> BUILD_PLAN Sequential -> Active module -> WEB_PROJECT_LAYOUT (web hosting) -> DESIGN_GUIDE (web/android UI) -> Plan or Agent
+
+## Cursor mode transitions
+
+See [`docs/CURSOR_MODES.md`](CURSOR_MODES.md) for the full table. Key triggers:
+
+- **Agent → Plan** — shared schema change, scope expanded, or file outside feature container
+- **Agent → Debug** — gate exit 1 after autofix exhausted, CI red, or flaky repro
+- **Debug → Agent** — root cause confirmed and fix approach agreed
+- **Plan → Agent** — plan approved ("execute the plan")
+
+Do not debug in Plan Mode. Do not edit in Ask Mode.
 
 ## Token Economy
 
@@ -29,7 +40,7 @@ SessionStart -> START_HERE.md -> Mode -> AGENTS.md -> BUILD_PLAN Sequential -> A
 
 ## 3-Strike Rule
 
-After 3 failed fix attempts: halt, summarize conflict, request human direction.
+After 3 failed fix attempts: halt, summarize conflict, request human direction. Switch to **Debug Mode** per [`docs/CURSOR_MODES.md`](CURSOR_MODES.md) when root cause is unclear.
 
 Do not loop on the same file with identical errors. Escalate with:
 - Failing command output (last attempt only)
@@ -39,8 +50,8 @@ Do not loop on the same file with identical errors. Escalate with:
 ## Session Checkpoint
 
 1. Copy `.cursor-session-state.example.json` to `.cursor-session-state.json`
-2. Fill `stack`, `active_sprint`, `sequential_step`, `last_files_touched`, `current_feature`, `strikes`
-3. Clear chat; on restart read the state file before BUILD_PLAN Parallel lane
+2. Fill `mode` (repo mode: bootstrap|reference — not Cursor Ask/Plan/Agent/Debug), `stack`, `active_sprint`, `sequential_step`, `last_files_touched`, `current_feature`, `strikes`
+3. Clear chat; on restart read the state file, pick Cursor mode via [`docs/CURSOR_MODES.md`](CURSOR_MODES.md), then resume BUILD_PLAN Parallel lane
 4. Cross-check `.cursor/agent-progress.json` (written by `watch-agent-gates.sh`)
 5. Delete `.cursor-session-state.json` after successful restore
 
@@ -69,6 +80,8 @@ Mechanical fixers run first via `feature-autofix.sh`. Push to remote still requi
 See `docs/FEATURE_MODULES.md`.
 
 ## Failure Playbook
+
+Use **Debug Mode** (`docs/CURSOR_MODES.md`, PROMPT_LIBRARY Entry 20) when CI or local gates fail and root cause is unclear.
 
 ### CI poll after push
 

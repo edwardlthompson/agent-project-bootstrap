@@ -9,8 +9,8 @@
 **Prompt:**
 
 ```
-Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md.
-Follow Section 8 Startup Sequence.
+Read @docs/START_HERE.md, @docs/CURSOR_MODES.md, and @docs/INITIALIZATION_PROMPT.md.
+Pick Cursor mode per CURSOR_MODES.md. Follow Section 8 Startup Sequence.
 Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels.
 ```
 
@@ -19,16 +19,17 @@ Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels.
 **Prompt:**
 
 ```
-Read @docs/FOR_AGENTS.md and @TEMPLATE_INDEX.json from github.com/edwardlthompson/agent-project-bootstrap.
-Apply matching modules and rules to this repo. Do not scaffold examples/ unless missing.
+Read @docs/CURSOR_MODES.md, @docs/FOR_AGENTS.md, and @TEMPLATE_INDEX.json.
+Pick Cursor mode per CURSOR_MODES.md. Apply matching modules and rules.
+Do not scaffold examples/ unless missing.
 ```
 
-## Entry 3 — Pre-Release Audit
+## Entry 3 — Pre-release audit (Agent Mode)
 
 **Prompt:**
 
 ```
-Activate Debugging/Audit persona per INITIALIZATION_PROMPT.md Section 7.
+Run pre-release audit per INITIALIZATION_PROMPT.md Section 7a (Agent Mode).
 Verify all quality gates pass. Only then update CHANGELOG.md and create a GitHub Release.
 ```
 
@@ -37,7 +38,7 @@ Verify all quality gates pass. Only then update CHANGELOG.md and create a GitHub
 **Prompt:**
 
 ```
-Run the Build Verification Gate from INITIALIZATION_PROMPT.md Section 7.
+Run the Build Verification Gate from INITIALIZATION_PROMPT.md Section 7a.
 Execute: check-file-encoding, validate-template-index, validate-bootstrap,
 validate-workflow-actions, check-license-compliance, pre-commit run --all-files.
 After pushing to main, run scripts/check-github-ci.sh --wait 300
@@ -137,7 +138,7 @@ Confirm TEMPLATE_INDEX modules match checked boxes before Parallel lane.
 
 ```
 Read .cursor-session-state.json if present (schema: .cursor-session-state.example.json).
-Restore mode, stack, sprint, and sequential_step before BUILD_PLAN Parallel lane.
+Restore repo mode, stack, sprint, and sequential_step. Pick Cursor mode via @docs/CURSOR_MODES.md.
 Cross-check .cursor/stack-selection.json. Delete session state file after restore.
 ```
 
@@ -186,5 +187,46 @@ Autonomous feature step (auto-fix enabled):
 If exit 1: read .cursor/agent-progress.json and gate JSON; fix lint/tests in feature scope; re-run.
 Loop with --interval 60 --max-attempts 10 for extended sessions.
 On exit 2 (3-strike), halt and escalate to human.
+Push to remote still requires human approval.
+```
+
+## Entry 18 — Explore / architecture question (Ask Mode)
+
+**Prompt:**
+
+```
+Read @docs/CURSOR_MODES.md and @TEMPLATE_INDEX.json.
+Explain [topic]. Do not edit files.
+```
+
+## Entry 19 — Feature or ADR plan (Plan Mode)
+
+**Prompt:**
+
+```
+Read @docs/CURSOR_MODES.md and the active BUILD_PLAN row.
+If the trivial rubric says Agent, skip planning and execute directly.
+Otherwise propose 1–3 approaches with mandatory ### Critique before coding.
+```
+
+## Entry 20 — Defect investigation (Debug Mode)
+
+**Prompt:**
+
+```
+Read @docs/CURSOR_MODES.md and INITIALIZATION_PROMPT.md Section 7b.
+Collect runtime evidence first (command output, CI log URL, repro steps).
+Check KNOWLEDGE_BASE.md and docs/FOR_AGENTS.md Failure Playbook.
+Confirm repro locally before editing code. Switch to Agent Mode to apply fix.
+```
+
+## Entry 21 — Approved BUILD_PLAN execution (Agent Mode)
+
+**Prompt:**
+
+```
+Plan approved. Execute the active [AGENT] BUILD_PLAN step in Agent Mode.
+After each step: bash scripts/watch-agent-gates.sh --once --autofix
+On exit 2 (3-strike), switch to Debug Mode or escalate to human.
 Push to remote still requires human approval.
 ```
