@@ -439,6 +439,21 @@
 - ✅ [AGENT] `check-license-compliance.sh` rust/go slices
 - ✅ [AUTO] CI + Feature Gate green on `main` (`d6b92a2`)
 
+## Sprint M26 — Repo Sanity III (AGENT, 2026-06-17)
+
+Post-commit review: TEMPLATE_INDEX drift, START_HERE path consistency, stale archive notes.
+
+- ✅ [AGENT] Add `.cursor/rules/cursor-modes.mdc` to `TEMPLATE_INDEX.json` (bootstrap REQUIRED but unindexed)
+- ✅ [AGENT] Align `START_HERE.md` repo-mode bullets with `docs/` paths
+- ✅ [AGENT] Resolve stale M25 commit-blocker note in `COMPLETED_TASKS.md`
+- ✅ [AUTO] Validate: bootstrap --quick, template-index, feature-gate, simulate-template-upgrade
+
+**Deferred (no action):** CHANGELOG historical mojibake (`ΓÇö`) and legacy semver order — cosmetic; high diff noise.
+
+## BUILD_PLAN cleanup (2026-06-17, M26 complete)
+
+- ✅ [AGENT] Archive M26; extend Archived Sprints row to M19–M26
+
 ## Sprint M25 — Repo Sanity II (AGENT, 2026-06-17)
 
 Post-M24 review: markdown table break, CHANGELOG ref, upgrade sim coverage.
@@ -446,9 +461,7 @@ Post-M24 review: markdown table break, CHANGELOG ref, upgrade sim coverage.
 - ✅ [AGENT] Fix `MAINTAINING_THE_TEMPLATE.md` table/heading blank line
 - ✅ [AGENT] Retarget CHANGELOG historical Section 7 → 7a; extend `UPGRADING_FROM_TEMPLATE.md`
 - ✅ [AGENT] Add CURSOR_MODES + changelog check to `simulate-template-upgrade.sh` AREAS
-- ✅ [AUTO] Validate: bootstrap --quick, feature-gate (pass); simulate blocked until M19–M25 files committed (3 untracked paths)
-
-**Note:** `git clone` in `simulate-template-upgrade.sh` only sees committed objects — commit `docs/CURSOR_MODES.md`, `.cursor/rules/cursor-modes.mdc`, and `scripts/check-changelog-unreleased.sh` before expecting simulate green locally or in CI.
+- ✅ [AUTO] Validate: bootstrap --quick, feature-gate (pass); simulate green after commit `9782e75`
 
 ## BUILD_PLAN cleanup (2026-06-17, M25 complete)
 

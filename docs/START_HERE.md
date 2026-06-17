@@ -8,8 +8,8 @@
 
 ## Which repo mode are you in?
 
-- **Bootstrap:** New project from **Use this template** → read `CURSOR_MODES.md`, then `INITIALIZATION_PROMPT.md`
-- **Reference:** Existing project using this repo as rules reference → read `CURSOR_MODES.md`, then `FOR_AGENTS.md`
+- **Bootstrap:** New project from **Use this template** → read `docs/CURSOR_MODES.md`, then `docs/INITIALIZATION_PROMPT.md`
+- **Reference:** Existing project using this repo as rules reference → read `docs/CURSOR_MODES.md`, then `docs/FOR_AGENTS.md`
 
 ## Cursor modes (Plan / Agent / Debug / Ask)
 

@@ -39,6 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `simulate-template-upgrade.sh` AREAS — CURSOR_MODES, cursor-modes rule, changelog check
 - `MAINTAINING_THE_TEMPLATE.md` — blank line before Feedback Loop table
 - `UPGRADING_FROM_TEMPLATE.md` — cherry-pick row for `check-changelog-unreleased.sh`
+- `TEMPLATE_INDEX.json` — index `.cursor/rules/cursor-modes.mdc` (bootstrap REQUIRED)
+- `START_HERE.md` — consistent `docs/` paths in repo-mode bullets
 - `MainActivitySmokeTest` uses `ActivityScenarioRule`; CodeQL rust/go exclusion documented in workflow + module guides
 - `release.yml` splits tag gate vs SBOM upload; Release Please dispatches SBOM assets on publish
 
