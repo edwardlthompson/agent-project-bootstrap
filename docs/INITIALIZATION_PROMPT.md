@@ -276,6 +276,7 @@ PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack web -ProjectNa
 
 1. Confirm understanding of the specified Platform, Stack, Purpose, and FOSS distribution pipelines.
 1a. Pick Cursor mode per `docs/CURSOR_MODES.md` (Ask to explore, Plan for architecture, Agent for approved execution).
+1b. Bookmark `docs/help/BATCH_COMMANDS.md` — type `/` in Agent chat for shortcut workflows (`/bootstrap` on new projects).
 2. Initialize core repository architecture, root documentation (`README.md`, `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`), and the Workspace Memory files. `README.md` must include: project purpose and stack, quick start, BUILD_PLAN label legend, template update checker table, in-app About + donation placeholder note (separate from template checker), security section (Dependabot alerts + weekly triage link to `docs/SECURITY_TRIAGE.md`), and links to `docs/START_HERE.md`, `docs/CURSOR_MODES.md`, `CONTRIBUTING.md`, and the active module guide.
 3. Configure a local development sandbox (e.g., Devcontainer configuration), scaffolding scripts for components/features, and local git hooks (Gitleaks/TruffleHog + Linter/Formatter pre-commit hooks). Add `.env.example` for documented environment variables.
 4. Establish a single, end-to-end "Golden Path" reference feature—including pure business logic, runtime type validation, a mocked data source, a layout matching text-based UI specs, and 100% unit/integration/visual test coverage—to serve as the structural template for all future development.

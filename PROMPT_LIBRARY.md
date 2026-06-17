@@ -230,3 +230,254 @@ After each step: bash scripts/watch-agent-gates.sh --once --autofix
 On exit 2 (3-strike), switch to Debug Mode or escalate to human.
 Push to remote still requires human approval.
 ```
+
+## Entry 22 — Full repo audit (`/audit`)
+
+**Slash command:** `.cursor/commands/audit.md`
+
+**Prompt:**
+
+```
+Execute the /audit batch command: read @.cursor/commands/audit.md and follow all steps.
+Write CODE_REVIEW.md from CODE_REVIEW.md.example; add BUILD_PLAN sprint; execute [AGENT] rows; archive when done.
+```
+
+## Entry 23 — Dependabot batch (`/dependabot`)
+
+**Slash command:** `.cursor/commands/dependabot.md` · See also Entry 6.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/dependabot.md — triage alerts/PRs; KB-007 npm overrides when needed.
+```
+
+## Entry 24 — Pre-release batch (`/prerelease`)
+
+**Slash command:** `.cursor/commands/prerelease.md` · See also Entries 3, 10.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/prerelease.md — pre-release-gate.sh; zero Critical/High before /push.
+```
+
+## Entry 25 — Post-release regress (`/regress`)
+
+**Slash command:** `.cursor/commands/regress.md` · See also Entry 15.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/regress.md — SBOM, Pages, upgrade sim after release.
+```
+
+## Entry 26 — Release push (`/push`)
+
+**Slash command:** `.cursor/commands/push.md`
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/push.md — explicit git push approval granted by user invoking /push.
+```
+
+## Entry 27 — Feature slice (`/feature`)
+
+**Slash command:** `.cursor/commands/feature.md` · See also Entry 17.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/feature.md — one BUILD_PLAN feature row; watch-agent-gates after each step.
+```
+
+## Entry 28 — Gate autofix (`/fix`)
+
+**Slash command:** `.cursor/commands/fix.md` · See also Entry 17.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/fix.md — watch-agent-gates --once --autofix in active feature scope.
+```
+
+## Entry 29 — Sprint 0 init (`/init`)
+
+**Slash command:** `.cursor/commands/init.md` · See also Entry 1.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/init.md — Sprint 0 bootstrap per BUILD_PLAN Child Playbook.
+```
+
+## Entry 30 — Stack prune verify (`/prune`)
+
+**Slash command:** `.cursor/commands/prune.md` · See also Entry 12.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/prune.md — verify stack-selection.json and pruned examples.
+```
+
+## Entry 31 — CI poll (`/ci`)
+
+**Slash command:** `.cursor/commands/ci.md` · See also Entry 9.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/ci.md — check-github-ci.sh --wait 300 only.
+```
+
+## Entry 32 — Docs checks (`/docs`)
+
+**Slash command:** `.cursor/commands/docs.md` · See also Entry 5.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/docs.md — readme health, markdown tables, file encoding.
+```
+
+## Entry 33 — Upgrade sim (`/upgrade`)
+
+**Slash command:** `.cursor/commands/upgrade.md` · See also Entry 16.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/upgrade.md — simulate-template-upgrade.sh.
+```
+
+## Entry 34 — GitHub setup (`/setup`)
+
+**Slash command:** `.cursor/commands/setup.md` · See also Entry 11.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/setup.md — setup-github-repo.sh; HUMAN on API 422.
+```
+
+## Entry 35 — Feature plan (`/plan`)
+
+**Slash command:** `.cursor/commands/plan.md` · See also Entry 19.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/plan.md — propose approaches + ### Critique; no code until approved.
+```
+
+## Entry 36 — Session restore (`/restore`)
+
+**Slash command:** `.cursor/commands/restore.md` · See also Entry 13.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/restore.md — load .cursor-session-state.json; delete after restore.
+```
+
+## Entry 37 — Session compact (`/compact`)
+
+**Slash command:** `.cursor/commands/compact.md` · See also Entry 13.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/compact.md — write .cursor-session-state.json before clearing chat.
+```
+
+## Entry 38 — Parallel scope (`/scope`)
+
+**Slash command:** `.cursor/commands/scope.md` · See also Entry 14.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/scope.md — check-parallel-scope.sh before dispatch.
+```
+
+## Entry 39 — Local gates (`/gates`)
+
+**Slash command:** `.cursor/commands/gates.md` · See also Entries 4, 5.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/gates.md — validate-bootstrap --quick, feature-gate, repo hygiene.
+```
+
+## Entry 40 — Security triage batch (`/triage`)
+
+**Slash command:** `.cursor/commands/triage.md` · See also Entry 6.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/triage.md — weekly SECURITY_TRIAGE pass.
+```
+
+## Entry 41 — Debug batch (`/debug`)
+
+**Slash command:** `.cursor/commands/debug.md` · See also Entry 20.
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/debug.md — defect investigation; not the same as /audit.
+```
+
+## Entry 42 — Bootstrap super (`/bootstrap`)
+
+**Slash command:** `.cursor/commands/bootstrap.md`
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/bootstrap.md — init → prune → setup → gates.
+```
+
+## Entry 43 — Verify super (`/verify`)
+
+**Slash command:** `.cursor/commands/verify.md`
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/verify.md — docs → gates → ci.
+```
+
+## Entry 44 — Build super (`/build`)
+
+**Slash command:** `.cursor/commands/build.md`
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/build.md — plan → approval pause → feature → gates.
+```
+
+## Entry 45 — Ship super (`/ship`)
+
+**Slash command:** `.cursor/commands/ship.md`
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/ship.md — prerelease → push → regress; grants git push approval.
+```
+
+## Entry 46 — Maintain super (`/maintain`)
+
+**Slash command:** `.cursor/commands/maintain.md`
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/maintain.md — triage → dependabot → audit.
+```

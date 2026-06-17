@@ -17,8 +17,11 @@ AREAS=(
   scripts/check-changelog-unreleased.sh
   scripts/validate-bootstrap.sh
   scripts/validate-template-index.sh
+  scripts/check-batch-commands.sh
   docs/CURSOR_MODES.md
+  docs/help/BATCH_COMMANDS.md
   .cursor/rules/cursor-modes.mdc
+  .cursor/rules/batch-commands.mdc
   .github/workflows/dependency-review.yml
 )
 

@@ -4,6 +4,8 @@
 
 SessionStart -> START_HERE.md -> CURSOR_MODES (pick mode) -> AGENTS.md -> BUILD_PLAN Sequential -> Active module -> WEB_PROJECT_LAYOUT (web hosting) -> DESIGN_GUIDE (web/android UI) -> Plan or Agent
 
+Batch slash commands: see [`docs/BATCH_COMMANDS.md`](BATCH_COMMANDS.md) (humans: [`docs/help/BATCH_COMMANDS.md`](help/BATCH_COMMANDS.md)).
+
 ## Cursor mode transitions
 
 See [`docs/CURSOR_MODES.md`](CURSOR_MODES.md) for the full table. Key triggers:

@@ -37,7 +37,22 @@ REQUIRED=(
   THIRD_PARTY_LICENSES.md
   .env.example
   design-tokens/design-tokens.json
+  docs/help/BATCH_COMMANDS.md
+  docs/BATCH_COMMANDS.md
+  .cursor/rules/batch-commands.mdc
+  CODE_REVIEW.md.example
+  RELEASE_NOTES.md.example
 )
+
+BATCH_COMMANDS=(
+  audit debug gates triage dependabot push prerelease regress
+  feature fix init prune ci docs upgrade setup plan restore compact scope
+  bootstrap verify build ship maintain
+)
+
+for cmd in "${BATCH_COMMANDS[@]}"; do
+  REQUIRED+=(".cursor/commands/${cmd}.md")
+done
 
 ERRORS=0
 
@@ -85,6 +100,7 @@ run_check bash scripts/check-design-cohesion.sh
 run_check bash scripts/check-markdown-tables.sh
 run_check bash scripts/check-changelog-unreleased.sh
 run_check bash scripts/check-repo-hygiene.sh
+run_check bash scripts/check-batch-commands.sh
 
 if [ "$QUICK" = false ]; then
   run_check bash scripts/validate-workflow-actions.sh

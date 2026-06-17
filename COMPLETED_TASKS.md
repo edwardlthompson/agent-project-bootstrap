@@ -439,6 +439,22 @@
 - ✅ [AGENT] `check-license-compliance.sh` rust/go slices
 - ✅ [AUTO] CI + Feature Gate green on `main` (`d6b92a2`)
 
+## Sprint M27 — Batch Instruction Templates (AGENT, 2026-06-17)
+
+Slash commands + bare-word triggers for 25 batch workflows (20 atomic + 5 super).
+
+- ✅ [AGENT] Create `.cursor/commands/*.md` (audit, debug, gates, triage, dependabot, push, prerelease, regress, feature, fix, init, prune, ci, docs, upgrade, setup, plan, restore, compact, scope + bootstrap, verify, build, ship, maintain)
+- ✅ [AGENT] Add `.cursor/rules/batch-commands.mdc` (alwaysApply bare-word expansion)
+- ✅ [AGENT] `docs/help/BATCH_COMMANDS.md` human cheat sheet; `docs/BATCH_COMMANDS.md` agent registry
+- ✅ [AGENT] `CODE_REVIEW.md.example`, `RELEASE_NOTES.md.example`; gitignore ephemeral outputs
+- ✅ [AGENT] `scripts/check-batch-commands.sh`; wire `validate-bootstrap.sh`, `simulate-template-upgrade.sh`, `TEMPLATE_INDEX.json`
+- ✅ [AGENT] README Agent shortcuts; Child Playbook 2b; PROMPT_LIBRARY Entries 22–46; CURSOR_MODES batch row
+- ✅ [AUTO] Validate: bootstrap --quick, template-index, feature-gate, check-batch-commands
+
+## BUILD_PLAN cleanup (2026-06-17, M27 complete)
+
+- ✅ [AGENT] Archive M27; extend Archived Sprints row to M19–M27
+
 ## Sprint M26 — Repo Sanity III (AGENT, 2026-06-17)
 
 Post-commit review: TEMPLATE_INDEX drift, START_HERE path consistency, stale archive notes.

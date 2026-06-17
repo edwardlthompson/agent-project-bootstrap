@@ -23,7 +23,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `docs/CURSOR_MODES.md` — Ask/Plan/Agent/Debug mode router with trivial-task rubric and transition table
+- M27 batch instruction templates: 25 slash commands (20 atomic + 5 super) in `.cursor/commands/`
+- `.cursor/rules/batch-commands.mdc` — bare-word triggers for batch commands
+- `docs/help/BATCH_COMMANDS.md` — human cheat sheet; `docs/BATCH_COMMANDS.md` — agent registry
+- `CODE_REVIEW.md.example` and `RELEASE_NOTES.md.example` (ephemeral outputs gitignored)
+- `scripts/check-batch-commands.sh` — registry ↔ filesystem validation
+- README **Agent shortcuts** section; Child Playbook step 2b; PROMPT_LIBRARY Entries 22–46
+- `docs/CURSOR_MODES.md` — Batch commands row (`/audit` ≠ Debug Mode)
 - `.cursor/rules/cursor-modes.mdc` — alwaysApply mode routing rule
 - PROMPT_LIBRARY Entries 18–21 (Ask, Plan, Debug, Agent execute prompts)
 - Sprint M15: init `--keep-optional` / `--prune-optional`; `simulate-template-upgrade.sh` non-interactive init smoke; Playwright About update-status e2e

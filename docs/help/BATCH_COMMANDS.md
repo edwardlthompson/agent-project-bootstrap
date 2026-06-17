@@ -1,0 +1,56 @@
+# Agent shortcuts (cheat sheet)
+
+Shortcut commands for Cursor Agent — type `/` in Agent chat to pick a recipe.
+
+## 30-second start
+
+1. Open **Agent** chat in Cursor.
+2. Type **`/`** to open the command menu.
+3. Pick a command (e.g. `/bootstrap`, `/verify`, `/build`).
+4. The agent runs the workflow step by step.
+
+Bookmark this page for when you come back after a break.
+
+## Try these first (super commands)
+
+| Command | When to use |
+|---------|-------------|
+| `/bootstrap` | Brand-new project — Sprint 0 setup end to end |
+| `/verify` | After your changes, before opening a pull request |
+| `/build` | Start a new feature (plans first, then implements) |
+| `/ship` | Publish a release to GitHub (runs checks, push, post-release) |
+| `/maintain` | Weekly health pass — security, dependencies, full review |
+
+**Worked example — new project:** clone your repo → open Cursor Agent → type `/bootstrap` → follow prompts. The agent walks through init, stack setup, GitHub settings, and validation gates.
+
+## When you need one step
+
+Grouped by life moment (not every command — use `/` menu for the full list).
+
+**Getting started:** `/init` · `/setup` · `/prune` · `/gates`
+
+**Building:** `/plan` · `/feature` · `/fix` (gates failed after `/build`) · `/scope` (parallel agents)
+
+**Docs & checks:** `/docs` · `/ci` (CI poll only) · `/gates` (full local validation)
+
+**Publishing:** `/prerelease` (checks before publish) · `/push` (commit + push + release) · `/regress` (after release)
+
+**Maintenance:** `/triage` · `/dependabot` · `/audit` (full repo review)
+
+**Long sessions:** `/compact` (save checkpoint before clearing chat) · `/restore` (load checkpoint)
+
+## Before you publish
+
+`/push` and `/ship` **push code to GitHub**. Only run them when you intend to publish. `/ship` is the full path (pre-release checks → push → post-release verification). Use `/prerelease` alone if you want checks without pushing yet.
+
+## Coming back after a break?
+
+Same menu: type **`/`** in Agent chat. Supers like `/verify` or `/bootstrap` are a good refresher. Keep this file bookmarked.
+
+## Bare words (optional)
+
+You can type a single word like `audit` instead of `/audit`. Slash commands are more reliable — use them if a bare word is ignored.
+
+---
+
+Advanced registry (maintainers): [docs/BATCH_COMMANDS.md](../BATCH_COMMANDS.md)

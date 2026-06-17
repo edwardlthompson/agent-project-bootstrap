@@ -64,3 +64,14 @@ flowchart TD
 | 3 | Agent | Pre-release audit (not Debug) |
 
 Pre-release audit: [`INITIALIZATION_PROMPT.md`](INITIALIZATION_PROMPT.md) §7a. Defect triage: §7b.
+
+## Batch commands
+
+Slash commands in `.cursor/commands/` load recipes when you type `/audit`, `/bootstrap`, etc. **`/audit` ≠ Debug Mode** — audit is a full repo review; use `/debug` or Debug Mode for defect investigation.
+
+| Audience | Doc |
+|----------|-----|
+| Humans (first time) | [`docs/help/BATCH_COMMANDS.md`](help/BATCH_COMMANDS.md) |
+| Agents / maintainers | [`docs/BATCH_COMMANDS.md`](BATCH_COMMANDS.md) |
+
+Bare words (`audit`) also work via `.cursor/rules/batch-commands.mdc`; prefer `/` menu when bare words fail.

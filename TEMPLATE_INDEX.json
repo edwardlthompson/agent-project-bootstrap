@@ -4,7 +4,9 @@
     "bootstrap": "docs/START_HERE.md",
     "reference": "docs/FOR_AGENTS.md",
     "initialization_prompt": "docs/INITIALIZATION_PROMPT.md",
-    "cursor_modes": "docs/CURSOR_MODES.md"
+    "cursor_modes": "docs/CURSOR_MODES.md",
+    "batch_commands_help": "docs/help/BATCH_COMMANDS.md",
+    "batch_commands_catalog": "docs/BATCH_COMMANDS.md"
   },
   "files": [
     {
@@ -25,6 +27,48 @@
       "path": ".cursor/rules/cursor-modes.mdc",
       "purpose": "alwaysApply Cursor mode routing rule; pairs with docs/CURSOR_MODES.md",
       "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/help/BATCH_COMMANDS.md",
+      "purpose": "Human cheat sheet for Cursor slash commands (bootstrap onboarding)",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/BATCH_COMMANDS.md",
+      "purpose": "Agent registry for 25 batch slash commands and super chains",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/rules/batch-commands.mdc",
+      "purpose": "alwaysApply bare-word expansion to .cursor/commands/*.md",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "CODE_REVIEW.md.example",
+      "purpose": "Ephemeral audit output structure for /audit command",
+      "read_when": "audit",
+      "update_when": "never",
+      "owner": "maintainer"
+    },
+    {
+      "path": "RELEASE_NOTES.md.example",
+      "purpose": "Ephemeral release draft structure for /push command",
+      "read_when": "release",
+      "update_when": "never",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-batch-commands.sh",
+      "purpose": "Validate batch command registry matches .cursor/commands/*.md",
+      "read_when": "validation",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     },
@@ -1014,6 +1058,33 @@
   "roadmap": {
     "active": "BUILD_PLAN.md — maintenance + human open items",
     "completed_archive": "COMPLETED_TASKS.md",
+    "batch_commands": [
+      ".cursor/commands/audit.md",
+      ".cursor/commands/debug.md",
+      ".cursor/commands/gates.md",
+      ".cursor/commands/triage.md",
+      ".cursor/commands/dependabot.md",
+      ".cursor/commands/push.md",
+      ".cursor/commands/prerelease.md",
+      ".cursor/commands/regress.md",
+      ".cursor/commands/feature.md",
+      ".cursor/commands/fix.md",
+      ".cursor/commands/init.md",
+      ".cursor/commands/prune.md",
+      ".cursor/commands/ci.md",
+      ".cursor/commands/docs.md",
+      ".cursor/commands/upgrade.md",
+      ".cursor/commands/setup.md",
+      ".cursor/commands/plan.md",
+      ".cursor/commands/restore.md",
+      ".cursor/commands/compact.md",
+      ".cursor/commands/scope.md",
+      ".cursor/commands/bootstrap.md",
+      ".cursor/commands/verify.md",
+      ".cursor/commands/build.md",
+      ".cursor/commands/ship.md",
+      ".cursor/commands/maintain.md"
+    ],
     "key_exemplars": [
       "examples/web/src/panelDialog.ts",
       "examples/web/src/appBootstrap.ts",

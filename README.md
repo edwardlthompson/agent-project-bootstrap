@@ -17,6 +17,7 @@ You get:
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Agent shortcuts (cheat sheet)](#agent-shortcuts-cheat-sheet)
 - [Stack Selection](#stack-selection-sprint-0)
 - [What's Included](#whats-included)
 - [BUILD_PLAN Labels](#build_plan-labels)
@@ -56,6 +57,19 @@ You get:
    Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels.
    ```
 
+4. **Agent shortcuts:** bookmark **[docs/help/BATCH_COMMANDS.md](docs/help/BATCH_COMMANDS.md)** — type `/` in Agent chat (`/bootstrap` · `/verify` · `/build` · `/ship`). *Bookmark it for when you come back after a break.*
+
+## Agent shortcuts (cheat sheet)
+
+**[docs/help/BATCH_COMMANDS.md](docs/help/BATCH_COMMANDS.md)** — shortcut commands for Cursor Agent.
+
+- `/bootstrap` — new project Sprint 0 end to end
+- `/build` — plan and implement a feature
+- `/verify` — checks before merge
+- `/ship` — publish a release to GitHub
+
+Type **`/`** in Agent chat to pick a command. *Bookmark it for when you come back after a break.*
+
 ## Stack Selection (Sprint 0)
 
 During `init-project`, choose `web`, `python`, `android`, `multi`, or `none` (keep all).
@@ -85,6 +99,8 @@ Active modules are synced to `AGENT_MEMORY.md` and recorded in `.cursor/stack-se
   <dd><a href="docs/INITIALIZATION_PROMPT.md"><code>docs/INITIALIZATION_PROMPT.md</code></a></dd>
   <dt>Agent routing</dt>
   <dd><a href="docs/START_HERE.md"><code>docs/START_HERE.md</code></a>, <a href="docs/CURSOR_MODES.md"><code>docs/CURSOR_MODES.md</code></a>, <a href="docs/FOR_AGENTS.md"><code>docs/FOR_AGENTS.md</code></a>, <a href="AGENTS.md"><code>AGENTS.md</code></a></dd>
+  <dt>Agent shortcuts</dt>
+  <dd><a href="docs/help/BATCH_COMMANDS.md"><code>docs/help/BATCH_COMMANDS.md</code></a> — slash commands (<code>/bootstrap</code>, <code>/verify</code>, <code>/build</code>, <code>/ship</code>)</dd>
   <dt>Sprint task board</dt>
   <dd><a href="BUILD_PLAN.md"><code>BUILD_PLAN.md</code></a> (active board); archived sprints in <a href="COMPLETED_TASKS.md"><code>COMPLETED_TASKS.md</code></a></dd>
 </dl>
@@ -120,7 +136,7 @@ Active modules are synced to `AGENT_MEMORY.md` and recorded in `.cursor/stack-se
   <dt>CI guardrails</dt>
   <dd><code>.github/workflows/</code> (incl. OpenSSF Scorecard weekly)</dd>
   <dt>Cursor rules</dt>
-  <dd><code>.cursor/rules/*.mdc</code> (incl. <code>cursor-modes.mdc</code> — see <a href="docs/CURSOR_MODES.md"><code>docs/CURSOR_MODES.md</code></a>)</dd>
+  <dd><code>.cursor/rules/*.mdc</code> (incl. <code>cursor-modes.mdc</code>, <code>batch-commands.mdc</code> — see <a href="docs/CURSOR_MODES.md"><code>docs/CURSOR_MODES.md</code></a> and <a href="docs/help/BATCH_COMMANDS.md"><code>docs/help/BATCH_COMMANDS.md</code></a>)</dd>
 </dl>
 
 </details>

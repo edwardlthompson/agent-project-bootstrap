@@ -15,6 +15,10 @@
 
 See [`docs/CURSOR_MODES.md`](CURSOR_MODES.md) — pick the Cursor mode before editing code.
 
+## Agent shortcuts (Bootstrap)
+
+Type **`/`** in Cursor Agent chat for shortcut workflows. Start with **[docs/help/BATCH_COMMANDS.md](help/BATCH_COMMANDS.md)** — try `/bootstrap` on a new project or `/verify` before merge.
+
 ## Bootstrap Read Order
 
 1. `README.md`
