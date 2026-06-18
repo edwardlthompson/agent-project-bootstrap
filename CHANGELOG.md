@@ -112,8 +112,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Sprint M15: init `--keep-optional` / `--prune-optional`; `simulate-template-upgrade.sh` non-interactive init smoke; Playwright About update-status e2e
 - CI `android-instrumented` job for `connectedDebugAndroidTest`
 
+### Fixed
+
+- `sync-template-version.sh` — Windows Git Bash safe (quoted heredoc, lambda replacers)
+- v0.11.0 SBOM backfill via Release workflow dispatch (M29 audit F-001)
+
 ### Changed
 
+- `release-please.yml` — auto-sync template version files on release PR; dispatch SBOM workflow on publish
+- Rename `health-check.yml` → `weekly-health-check.yml`; add `actions: read` for CI poll
 - INITIALIZATION_PROMPT §7 split into §7a (pre-release audit, Agent) and §7b (defect investigation, Debug)
 - START_HERE, AGENTS.md, FOR_AGENTS, init scripts, and README Quick Start synced with CURSOR_MODES
 - Child Repo Playbook Sprint 0 step 2a — pick Cursor mode before AGENT init

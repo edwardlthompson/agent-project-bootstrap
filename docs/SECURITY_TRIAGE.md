@@ -42,7 +42,7 @@ Recommended cadence: **Monday** (aligned with scheduled security scans and `heal
 | 3 | AGENT | Apply dependency bumps, run tests locally, open PRs as needed |
 | 4 | AUTO | CI (Trivy, CodeQL, matrix tests) validates merges |
 | 5 | HUMAN | Merge PR or escalate deferred items |
-| 6 | AUTO | Review `health-check.yml` weekly run (Monday 07:00 UTC); confirm CI + Security Scan + CodeQL green on main |
+| 6 | AUTO | Review `weekly-health-check.yml` weekly run (Monday 07:00 UTC); confirm CI + Security Scan + CodeQL green on main |
 | 7 | AUTO | Run `bash scripts/check-security-triage.sh --wait-ci 300` (Dependabot + workflows + OpenSSF Scorecard) |
 
 ## OpenSSF Scorecard
@@ -106,7 +106,7 @@ If a Critical/High alert has no upstream fix, release may proceed only when:
 | `.github/dependabot.yml` | Weekly grouped version-update PRs |
 | `.github/workflows/security.yml` | Trivy filesystem scan |
 | `.github/workflows/codeql.yml` | CodeQL static analysis |
-| `.github/workflows/health-check.yml` | Weekly CI + Security Scan + CodeQL status on main |
+| `.github/workflows/weekly-health-check.yml` | Weekly CI + Security Scan + CodeQL status on main |
 | `scripts/validate-workflow-actions.sh` | Resolve action refs via GitHub API |
 | `scripts/check-workflow-action-ref-format.sh` | Local bare-semver guard |
 | `scripts/check-security-triage.sh` | Weekly Dependabot + workflow + Scorecard gate |

@@ -19,12 +19,14 @@ fi
 
 echo "$VERSION" > .template-version
 
-python3 <<PY
+export SYNC_TEMPLATE_VERSION="${VERSION}"
+python3 <<'PY'
 import json
+import os
 import re
 from pathlib import Path
 
-version = "${VERSION}"
+version = os.environ["SYNC_TEMPLATE_VERSION"]
 idx = Path("TEMPLATE_INDEX.json")
 data = json.loads(idx.read_text(encoding="utf-8"))
 data["template_version"] = version
@@ -46,8 +48,16 @@ readme.write_text(text, encoding="utf-8")
 
 mem = Path("AGENT_MEMORY.md")
 mt = mem.read_text(encoding="utf-8")
-mt = re.sub(r"(\| Multi-stack template[^\|]+\| )[\d.]+( \| Template maintainer)", rf"\g<1>{version}\2", mt)
-mt = re.sub(r"(\*\*Template version:\*\* `)[\d.]+(`)", rf"\g<1>{version}\2", mt)
+mt = re.sub(
+    r"(\| Multi-stack template[^\|]+\| )[\d.]+( \| Template maintainer)",
+    lambda m: f"{m.group(1)}{version}{m.group(2)}",
+    mt,
+)
+mt = re.sub(
+    r"(\*\*Template version:\*\* `)[\d.]+(`)",
+    lambda m: f"{m.group(1)}{version}{m.group(2)}",
+    mt,
+)
 mem.write_text(mt, encoding="utf-8")
 PY
 

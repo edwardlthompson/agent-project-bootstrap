@@ -2,6 +2,19 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v0.11.0 release (2026-06-18)
+
+- ✅ [HUMAN] Merge Release Please PR #14 — [v0.11.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.11.0) published
+- ✅ [AGENT] Manual version sync on release PR branch (`5fe0fc1`) — Release Please extra-files gap
+- ✅ [AUTO] CI + CodeQL + Security Scan green @ 6d4f4ac
+
+## Sprint M29 — Post v0.11.0 release hardening (2026-06-18)
+
+- ✅ [AGENT] Windows-safe `sync-template-version.sh` (quoted heredoc + env var; F-004)
+- ✅ [AGENT] Auto-sync version files + SBOM dispatch in `release-please.yml` (F-001/F-002)
+- ✅ [AGENT] Rename `health-check.yml` → `weekly-health-check.yml`; add `actions: read` (F-003)
+- ✅ [AUTO] SBOM backfill workflow triggered for v0.11.0 (run `27731653800`)
+
 ## v0.10.0 release (2026-06-17)
 
 - ✅ [HUMAN] `gh auth refresh -s security_events` (Dependabot API verified)
@@ -18,7 +31,7 @@
 - ✅ [AGENT] Index + commit `fdroid-device-dry-run.{sh,ps1}` (CODE_REVIEW F-001/F-002)
 - ✅ [AGENT] Fix `UpdateApplierTest` Robolectric FileProvider failure on Windows
 - ✅ [AUTO] Security triage + CI green @ f78dd18; 0 Dependabot alerts/PRs
-- ⬜ [HUMAN] Merge Release Please PR #14 (`0.10.1`)
+- ✅ [HUMAN] Merge Release Please PR #14 — superseded by v0.11.0 release (2026-06-18)
 
 ## BUILD_PLAN cleanup (2026-06-18, M28 complete)
 

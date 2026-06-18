@@ -318,8 +318,8 @@
       "owner": "maintainer"
     },
     {
-      "path": ".github/workflows/health-check.yml",
-      "purpose": "Weekly scheduled poll of CI + Security Scan + CodeQL status on main",
+      "path": ".github/workflows/weekly-health-check.yml",
+      "purpose": "Weekly CI poll, template upgrade sim, npm/uv audit, Android instrumented smoke",
       "read_when": "security_triage",
       "update_when": "milestone_boundary",
       "owner": "maintainer"

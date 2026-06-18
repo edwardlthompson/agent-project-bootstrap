@@ -28,15 +28,11 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Template Maintainer — Active Board
 
-> **M19–M28** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`.
+> **M19–M29** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`.
 
 ### Open (human judgment only)
 
 _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance** below.
-
-| Item | Owner | Notes |
-|------|-------|-------|
-| Merge Release Please PR #14 (`0.10.1`) | HUMAN | CI green; merge when ready |
 
 ---
 
@@ -105,7 +101,7 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 ### Monthly
 
-- ⬜ [AUTO] `simulate-template-upgrade.sh` (also in `health-check.yml`)
+- ⬜ [AUTO] `simulate-template-upgrade.sh` (also in `weekly-health-check.yml`)
 - ⬜ [AUTO] `check-license-compliance.sh` + SBOM on latest release
 - ⬜ [AGENT] Review Dependabot auto-merge PRs (KB-007)
 
@@ -121,7 +117,7 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
-| M19–M28 — Cursor modes, repo sanity, batch commands, maintain | Complete | `COMPLETED_TASKS.md` |
+| M19–M29 — Cursor modes, batch commands, maintain, v0.11.0 release | Complete | `COMPLETED_TASKS.md` |
 | v0.10.0 release (`36a02e4`) | Complete | `COMPLETED_TASKS.md` |
 | M5–M18 maintainer sprints (seq + P2) | Complete | `COMPLETED_TASKS.md` @ `d6b92a2` |
 | Child Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
