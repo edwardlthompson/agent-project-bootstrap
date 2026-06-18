@@ -74,6 +74,15 @@
 | **Fix** | **npm:** add `overrides` in `package.json` to force patched semver (see `examples/web` `@lhci/cli` overrides). **Python:** prefer `uv`/`pip` constraint or bump direct dep; document in DECISION_LOG if override is temporary |
 | **Prevention** | Prefer overrides over `--force` installs; remove overrides when upstream ships fix; weekly triage per `docs/SECURITY_TRIAGE.md`; see KB-007 before dismissing Dependabot alerts |
 
+### KB-009 — Release Please `pr` output is JSON, not a PR number
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | `release-please.yml` sync step fails: `syntax error near unexpected token '('` on `gh pr checkout` |
+| **Cause** | `steps.release.outputs.pr` is a JSON PullRequest object string, not the numeric PR id |
+| **Fix** | Guard with `prs_created == 'true'`; use `fromJSON(steps.release.outputs.pr).number` for `gh pr checkout` |
+| **Prevention** | See release-please-action outputs table; never pass `outputs.pr` directly to shell commands |
+
 ### KB-008 — `android-release` APK hash compare policy
 
 | Field | Detail |

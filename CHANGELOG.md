@@ -119,7 +119,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `release-please.yml` — auto-sync template version files on release PR; dispatch SBOM workflow on publish
+- `release-please.yml` — auto-sync template version files on release PR; dispatch SBOM workflow on publish (use `fromJSON(pr).number` for checkout)
 - Rename `health-check.yml` → `weekly-health-check.yml`; add `actions: read` for CI poll
 - INITIALIZATION_PROMPT §7 split into §7a (pre-release audit, Agent) and §7b (defect investigation, Debug)
 - START_HERE, AGENTS.md, FOR_AGENTS, init scripts, and README Quick Start synced with CURSOR_MODES

@@ -26,11 +26,12 @@ jobs:
           manifest-file: .release-please-manifest.json
 
       - name: Sync template version files on release PR
-        if: steps.release.outputs.pr != ''
+        if: steps.release.outputs.prs_created == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ fromJSON(steps.release.outputs.pr).number }}
         run: |
-          gh pr checkout "${{ steps.release.outputs.pr }}"
+          gh pr checkout "$PR_NUMBER"
           bash scripts/sync-template-version.sh
           if ! git diff --quiet; then
             git config user.name "github-actions[bot]"
