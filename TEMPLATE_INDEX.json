@@ -73,6 +73,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-template-version-sync.sh",
+      "purpose": "Fail when .template-version drifts from release-please manifest",
+      "read_when": "validation",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sync-template-version.sh",
+      "purpose": "Sync version files from .release-please-manifest.json",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "docs/INITIALIZATION_PROMPT.md",
       "purpose": "Verbatim project initialization prompt for Cursor agents",
       "read_when": "bootstrap_session_start",
