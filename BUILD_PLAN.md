@@ -30,13 +30,23 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 > **M19–M27** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`.
 
+### Sprint M28 — Weekly maintain audit (2026-06-18)
+
+> Findings: `CODE_REVIEW.md` F-001–F-005
+
+#### Sequential
+
+1. ⬜ [AGENT] Index `scripts/fdroid-device-dry-run.sh` + `.ps1` in `TEMPLATE_INDEX.json`
+2. ⬜ [AGENT] Commit F-Droid dry-run scripts + BUILD_PLAN/COMPLETED_TASKS closure
+3. ⬜ [HUMAN] Merge Release Please PR #14 (`0.10.1`) when CI green
+
 ### Open (human judgment only)
 
 _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance** below.
 
 | Item | Owner | Notes |
 |------|-------|-------|
-| F-Droid device/emulator dry-run | ADB | Optional; metadata verified via `verify-fdroid-metadata.sh` — run on hardware when submitting to F-Droid |
+| _None_ | — | F-Droid device dry-run passed on CPH2583 (wireless ADB); see `COMPLETED_TASKS.md` |
 
 ---
 

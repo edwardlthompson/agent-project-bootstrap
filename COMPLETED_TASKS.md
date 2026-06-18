@@ -12,6 +12,7 @@
 - ✅ [AGENT] `verify-fdroid-metadata.sh` green; no anti-features in template metadata
 - ✅ [AUTO] Release workflow SBOM backfill — 7 assets on [v0.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.10.0) (run `27727807142`)
 - ⬜ [ADB] F-Droid device/emulator dry-run deferred — optional before store submission
+- ✅ [ADB] Device dry-run on CPH2583 (wireless ADB): debug APK install, launch, logcat clean @ 2026-06-18
 
 ## Sprint M5 — README Visual Refresh (2026-06-12)
 

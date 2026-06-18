@@ -878,6 +878,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/fdroid-device-dry-run.sh",
+      "purpose": "ADB device smoke test for F-Droid dry-run (install debug APK, logcat scan)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/fdroid-device-dry-run.ps1",
+      "purpose": "Windows wrapper for fdroid-device-dry-run.sh (preserves wireless ADB)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/verify-branch-protection.sh",
       "purpose": "Verify GitHub branch protection required checks match template defaults",
       "read_when": "milestone_boundary",
