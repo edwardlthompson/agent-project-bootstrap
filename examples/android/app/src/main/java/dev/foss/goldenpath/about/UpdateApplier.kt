@@ -13,11 +13,15 @@ object UpdateApplier {
             "${context.packageName}.fileprovider",
             apkFile,
         )
-        return Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, "application/vnd.android.package-archive")
+        return buildInstallIntent(context, uri)
+    }
+
+    /** Testable intent builder without FileProvider (Robolectric-safe on Windows). */
+    internal fun buildInstallIntent(context: Context, apkUri: Uri): Intent =
+        Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(apkUri, "application/vnd.android.package-archive")
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
         }
-    }
 
     fun launchApkInstall(context: Context, apkFile: File) {
         context.startActivity(buildInstallIntent(context, apkFile))
