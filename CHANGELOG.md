@@ -19,6 +19,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.11.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.10.0...v0.11.0) (2026-06-18)
+
+
+### Added
+
+* **android:** add F-Droid device dry-run scripts (M28) ([fb90878](https://github.com/edwardlthompson/agent-project-bootstrap/commit/fb9087846d424b088d37ed4e77ee13c672e9c0b6))
+
+
+### Fixed
+
+* **android:** Robolectric-safe UpdateApplierTest on Windows ([38635a3](https://github.com/edwardlthompson/agent-project-bootstrap/commit/38635a3d7948d0e592833c63612a76c3069b4314))
+* **docs:** index template version sync scripts in TEMPLATE_INDEX ([367b650](https://github.com/edwardlthompson/agent-project-bootstrap/commit/367b650a1cd490f3ca181c42aaa4fe79020278cf))
+* **release:** SBOM backfill from main; add template version sync gate ([d3b4c05](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d3b4c057db7470593244f46ed5d3dc9c04468a99))
+
+
+### Changed
+
+* **release:** sync version files to 0.10.0 ([36a02e4](https://github.com/edwardlthompson/agent-project-bootstrap/commit/36a02e4569d4d26bcacbc95b8e27a991a634d5b4))
+
+
+### Documentation
+
+* archive M28 weekly maintain audit ([d6de099](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d6de09991776cd54298fec2358a2534ba825f477))
+* record v0.10.0 SBOM backfill complete ([f78dd18](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f78dd185fed55d2e5b225c7c5a55f5f8e637eaeb))
+
 ## [0.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.9.0...v0.10.0) (2026-06-17)
 
 
