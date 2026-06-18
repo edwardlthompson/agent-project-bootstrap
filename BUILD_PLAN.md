@@ -28,17 +28,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Template Maintainer — Active Board
 
-> **M19–M27** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`.
-
-### Sprint M28 — Weekly maintain audit (2026-06-18)
-
-> Findings: `CODE_REVIEW.md` F-001–F-005
-
-#### Sequential
-
-1. ⬜ [AGENT] Index `scripts/fdroid-device-dry-run.sh` + `.ps1` in `TEMPLATE_INDEX.json`
-2. ⬜ [AGENT] Commit F-Droid dry-run scripts + BUILD_PLAN/COMPLETED_TASKS closure
-3. ⬜ [HUMAN] Merge Release Please PR #14 (`0.10.1`) when CI green
+> **M19–M28** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`.
 
 ### Open (human judgment only)
 
@@ -46,7 +36,7 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 | Item | Owner | Notes |
 |------|-------|-------|
-| _None_ | — | F-Droid device dry-run passed on CPH2583 (wireless ADB); see `COMPLETED_TASKS.md` |
+| Merge Release Please PR #14 (`0.10.1`) | HUMAN | CI green; merge when ready |
 
 ---
 
@@ -131,7 +121,7 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
-| M19–M27 — Cursor modes, repo sanity, batch commands | Complete | `COMPLETED_TASKS.md` |
+| M19–M28 — Cursor modes, repo sanity, batch commands, maintain | Complete | `COMPLETED_TASKS.md` |
 | v0.10.0 release (`36a02e4`) | Complete | `COMPLETED_TASKS.md` |
 | M5–M18 maintainer sprints (seq + P2) | Complete | `COMPLETED_TASKS.md` @ `d6b92a2` |
 | Child Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |

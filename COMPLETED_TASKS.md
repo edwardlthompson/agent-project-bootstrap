@@ -11,8 +11,18 @@
 - ✅ [AGENT] Add `sync-template-version.sh` + `check-template-version-sync.sh` gate
 - ✅ [AGENT] `verify-fdroid-metadata.sh` green; no anti-features in template metadata
 - ✅ [AUTO] Release workflow SBOM backfill — 7 assets on [v0.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.10.0) (run `27727807142`)
-- ⬜ [ADB] F-Droid device/emulator dry-run deferred — optional before store submission
-- ✅ [ADB] Device dry-run on CPH2583 (wireless ADB): debug APK install, launch, logcat clean @ 2026-06-18
+- ✅ [ADB] Device dry-run on CPH2583 (wireless ADB) @ 2026-06-18
+
+## Sprint M28 — Weekly maintain audit (2026-06-18)
+
+- ✅ [AGENT] Index + commit `fdroid-device-dry-run.{sh,ps1}` (CODE_REVIEW F-001/F-002)
+- ✅ [AGENT] Fix `UpdateApplierTest` Robolectric FileProvider failure on Windows
+- ✅ [AUTO] Security triage + CI green @ f78dd18; 0 Dependabot alerts/PRs
+- ⬜ [HUMAN] Merge Release Please PR #14 (`0.10.1`)
+
+## BUILD_PLAN cleanup (2026-06-18, M28 complete)
+
+- ✅ [AGENT] Archive M28; extend Archived Sprints row to M19–M28
 
 ## Sprint M5 — README Visual Refresh (2026-06-12)
 
