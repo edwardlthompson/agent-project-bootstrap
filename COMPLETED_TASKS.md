@@ -10,7 +10,7 @@
 - ✅ [AGENT] Fix `release.yml` SBOM backfill — checkout `main` when `tag` input set
 - ✅ [AGENT] Add `sync-template-version.sh` + `check-template-version-sync.sh` gate
 - ✅ [AGENT] `verify-fdroid-metadata.sh` green; no anti-features in template metadata
-- ✅ [AUTO] CI + Security Scan + CodeQL green on `main` @ `36a02e4`
+- ✅ [AUTO] Release workflow SBOM backfill — 7 assets on [v0.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.10.0) (run `27727807142`)
 - ⬜ [ADB] F-Droid device/emulator dry-run deferred — optional before store submission
 
 ## Sprint M5 — README Visual Refresh (2026-06-12)
