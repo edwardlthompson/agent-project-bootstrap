@@ -28,7 +28,7 @@ jobs:
           - language: java-kotlin
             paths: examples/android
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Java (Android)
         if: matrix.language == 'java-kotlin'
         uses: actions/setup-java@v5
