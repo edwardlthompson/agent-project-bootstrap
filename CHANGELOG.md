@@ -19,6 +19,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.11.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.11.0...v0.11.1) (2026-06-21)
+
+
+### Fixed
+
+* **release:** automate version sync and SBOM dispatch (M29) ([8b7d62e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/8b7d62ecbe5ee0fa4d1572fd870495bf51936460))
+* **release:** parse Release Please PR number from JSON output ([57201aa](https://github.com/edwardlthompson/agent-project-bootstrap/commit/57201aa03595979196dff79c5c0327e7e70f4725))
+
+
+### Documentation
+
+* **build-plan:** unify repo-wide checklist status markers ([2370c0e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2370c0e68d0871a3b646644d588d5779c944f0b1))
+
 ## [0.11.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.10.0...v0.11.0) (2026-06-18)
 
 
