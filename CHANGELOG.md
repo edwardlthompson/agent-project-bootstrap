@@ -119,7 +119,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `sync-template-version.sh` — Windows Git Bash safe (quoted heredoc, lambda replacers)
+- `examples/web/package.json` — npm override `undici >=7.28.0` (Dependabot GHSA-vmh5-mc38-953g high, GHSA-pr7r-676h-xcf6 medium; transitive via jsdom)
 - v0.11.0 SBOM backfill via Release workflow dispatch (M29 audit F-001)
 
 ### Changed
