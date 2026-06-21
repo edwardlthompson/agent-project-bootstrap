@@ -9,20 +9,20 @@
 
 ## Activation Checklist
 
-- ⬜ Create `pyproject.toml` with strict dependency pins
-- ⬜ Generate and commit lockfile (`uv.lock`)
-- ⬜ Enable `ruff check` and `ruff format --check` in CI
-- ⬜ Enable `mypy --strict` in CI
-- ⬜ Review `examples/python/` Golden Path stub
-- ⬜ Set coverage budget threshold in CI
-- ⬜ Add pre-commit hooks for ruff and mypy
-- ⬜ OpenAPI/schema-first design if exposing HTTP API
-- ⬜ Contract tests for public API boundaries
+- 🔲 Create `pyproject.toml` with strict dependency pins
+- 🔲 Generate and commit lockfile (`uv.lock`)
+- 🔲 Enable `ruff check` and `ruff format --check` in CI
+- 🔲 Enable `mypy --strict` in CI
+- 🔲 Review `examples/python/` Golden Path stub
+- 🔲 Set coverage budget threshold in CI
+- 🔲 Add pre-commit hooks for ruff and mypy
+- 🔲 OpenAPI/schema-first design if exposing HTTP API
+- 🔲 Contract tests for public API boundaries
 
 ## Operations (when deployed as service)
 
-- ⬜ Health/readiness endpoints per `docs/RUNBOOK.md`
-- ⬜ Structured logging (JSON, correlation IDs, no PII)
+- 🔲 Health/readiness endpoints per `docs/RUNBOOK.md`
+- 🔲 Structured logging (JSON, correlation IDs, no PII)
 
 ## Golden Path Reference
 

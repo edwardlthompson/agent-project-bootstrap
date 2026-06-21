@@ -4,7 +4,7 @@
 2. **Cursor modes:** `docs/CURSOR_MODES.md` (Ask / Plan / Agent / Debug routing)
 3. **Bootstrap mode:** `docs/INITIALIZATION_PROMPT.md`
 4. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json`
-5. **Task board:** `BUILD_PLAN.md` (Sequential before Parallel)
+5. **Task board:** `BUILD_PLAN.md` (Sequential before Parallel) — status: 🔲 open · ✅ done · ❌ blocked
 6. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries
 
 > Legacy `.cursorrules` is deprecated. Use `.cursor/rules/*.mdc` and this file instead.

@@ -185,7 +185,11 @@ if cmd == "next":
             break
         if lane == "maintainer" and not in_maintainer:
             continue
-        m = re.match(r"^\d+\.\s+\[ \]\s+\[(AGENT|AUTO|HUMAN|ADB)\]\s+(.+)$", line)
+        open_m = r"(?:🔲|⬜|\[ \])"
+        m = re.match(
+            rf"^(?:\d+[a-z]?\.)\s+{open_m}\s+\[(AGENT|AUTO|HUMAN|ADB)\]\s+(.+)$",
+            line,
+        )
         if m:
             result = {"owner": m.group(1), "task": m.group(2).strip(), "lane": lane}
             if json_out:
@@ -193,7 +197,7 @@ if cmd == "next":
             else:
                 print(f"[{result['owner']}] {result['task']}")
             sys.exit(0)
-        m2 = re.match(r"^- \[ \] \[(AGENT|AUTO|HUMAN|ADB)\]\s+(.+)$", line)
+        m2 = re.match(rf"^- {open_m} \[(AGENT|AUTO|HUMAN|ADB)\]\s+(.+)$", line)
         if m2 and lane == "maintainer":
             result = {"owner": m2.group(1), "task": m2.group(2).strip(), "lane": lane}
             if json_out:

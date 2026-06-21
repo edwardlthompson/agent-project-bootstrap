@@ -1,13 +1,13 @@
 # Feature: {name}
 
-> Copy this file to `docs/features/{name}.md` before Sprint 2+ work. Replace placeholders.
+> Copy this file to `docs/features/{name}.md` before Sprint 2+ work. Replace placeholders. Checklist markers: 🔲 open · ✅ done · ❌ blocked.
 
 ## Acceptance criteria
 
-- ⬜ User-visible behavior: _describe the happy path_
-- ⬜ Offline/error behavior: _describe degraded mode_
-- ⬜ Accessibility: _keyboard/screen reader expectations (web/Android)_
-- ⬜ i18n: keys added under `{feature}.*` (web `locales/`, Android `strings.xml`)
+- 🔲 User-visible behavior: _describe the happy path_
+- 🔲 Offline/error behavior: _describe degraded mode_
+- 🔲 Accessibility: _keyboard/screen reader expectations (web/Android)_
+- 🔲 i18n: keys added under `{feature}.*` (web `locales/`, Android `strings.xml`)
 
 ## Smoke scenario
 

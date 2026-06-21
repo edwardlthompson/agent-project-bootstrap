@@ -11,12 +11,12 @@
 
 ## Activation Checklist
 
-- ⬜ Create `package.json` with `"license": "MIT"` and lockfile
-- ⬜ Enable `tsc --noEmit` and Vitest in CI
-- ⬜ Review `examples/node/` Golden Path stub (Hono minimal API)
-- ⬜ Add health/readiness route per `docs/RUNBOOK.md`
-- ⬜ Wire OpenAPI or schema-first contracts if exposing public API
-- ⬜ Add stack to `.github/dependabot.yml`
+- 🔲 Create `package.json` with `"license": "MIT"` and lockfile
+- 🔲 Enable `tsc --noEmit` and Vitest in CI
+- 🔲 Review `examples/node/` Golden Path stub (Hono minimal API)
+- 🔲 Add health/readiness route per `docs/RUNBOOK.md`
+- 🔲 Wire OpenAPI or schema-first contracts if exposing public API
+- 🔲 Add stack to `.github/dependabot.yml`
 
 ## Golden Path Reference
 

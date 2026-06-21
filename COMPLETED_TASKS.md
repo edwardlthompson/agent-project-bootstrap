@@ -369,7 +369,7 @@
 ## BUILD_PLAN cleanup (2026-06-15, M12 + v0.8.0 closeout)
 
 - ✅ [AGENT] Archive M12 sprint body; slim active board to distribution + maintainer open items
-- ✅ [AGENT] Unicode task markers (`✅` / `⬜`) across BUILD_PLAN and checklist docs
+- ✅ [AGENT] Unicode task markers (`🔲` / `✅` / `❌`) across BUILD_PLAN and checklist docs
 
 ## Sprint M13 — Human-gate automation (AGENT, 2026-06-15)
 

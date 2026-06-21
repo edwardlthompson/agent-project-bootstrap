@@ -92,7 +92,8 @@ Every task in `BUILD_PLAN.md` must carry an owner label so automated and human w
 | `ADB` | Human (Android) | Android SDK, emulator/device testing, F-Droid submission |
 | `AUTO` | CI/scripts/bots | GitHub Actions, Dependabot, pre-commit, update checker |
 
-- **Task format:** `- ⬜ [OWNER] Description`
+- **Status markers:** 🔲 open · ✅ done · ❌ blocked — use emoji on all checklists (not `- [ ]` checkboxes) for readable source and Preview
+- **Task format:** `🔲 [OWNER] Description` (done: swap 🔲 → ✅; blocked: swap 🔲 → ❌ and note reason)
 - **Sprint structure:** every sprint has two subsections:
   - `### Sequential (must complete in order)` — numbered checklist
   - `### Parallel (safe after Sequential step N)` — table with Task | Owner | Isolated scope
@@ -107,9 +108,9 @@ Every task in `BUILD_PLAN.md` must carry an owner label so automated and human w
 
 ### Sequential (must complete in order)
 
-1. ⬜ [AGENT] Draft ADR-0001 core architecture
-2. ⬜ [HUMAN] Approve ADR-0001
-3. ⬜ [AGENT] Implement Golden Path (shared schema/types first)
+1. 🔲 [AGENT] Draft ADR-0001 core architecture
+2. 🔲 [HUMAN] Approve ADR-0001
+3. 🔲 [AGENT] Implement Golden Path (shared schema/types first)
 
 ### Parallel (safe after Sequential step 3)
 
@@ -277,10 +278,10 @@ PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack web -ProjectNa
 1. Confirm understanding of the specified Platform, Stack, Purpose, and FOSS distribution pipelines.
 1a. Pick Cursor mode per `docs/CURSOR_MODES.md` (Ask to explore, Plan for architecture, Agent for approved execution).
 1b. Bookmark `docs/help/BATCH_COMMANDS.md` — type `/` in Agent chat for shortcut workflows (`/bootstrap` on new projects).
-2. Initialize core repository architecture, root documentation (`README.md`, `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`), and the Workspace Memory files. `README.md` must include: project purpose and stack, quick start, BUILD_PLAN label legend, template update checker table, in-app About + donation placeholder note (separate from template checker), security section (Dependabot alerts + weekly triage link to `docs/SECURITY_TRIAGE.md`), and links to `docs/START_HERE.md`, `docs/CURSOR_MODES.md`, `CONTRIBUTING.md`, and the active module guide.
+2. Initialize core repository architecture, root documentation (`README.md`, `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`), and the Workspace Memory files. `README.md` must include: project purpose and stack, quick start, BUILD_PLAN label + status-marker legend (🔲/✅/❌), template update checker table, in-app About + donation placeholder note (separate from template checker), security section (Dependabot alerts + weekly triage link to `docs/SECURITY_TRIAGE.md`), and links to `docs/START_HERE.md`, `docs/CURSOR_MODES.md`, `CONTRIBUTING.md`, and the active module guide.
 3. Configure a local development sandbox (e.g., Devcontainer configuration), scaffolding scripts for components/features, and local git hooks (Gitleaks/TruffleHog + Linter/Formatter pre-commit hooks). Add `.env.example` for documented environment variables.
 4. Establish a single, end-to-end "Golden Path" reference feature—including pure business logic, runtime type validation, a mocked data source, a layout matching text-based UI specs, and 100% unit/integration/visual test coverage—to serve as the structural template for all future development.
-5. Propose the complete initial directory structure, the first formal ADR (`docs/adr/0001-core-architecture.md` or `DECISION_LOG.md`) establishing state/persistence baselines, and the step-by-step `BUILD_PLAN.md` for approval. `BUILD_PLAN.md` must use owner labels, Sequential and Parallel lanes per sprint, and an Ongoing Maintenance section with weekly security triage.
+5. Propose the complete initial directory structure, the first formal ADR (`docs/adr/0001-core-architecture.md` or `DECISION_LOG.md`) establishing state/persistence baselines, and the step-by-step `BUILD_PLAN.md` for approval. `BUILD_PLAN.md` must use status markers (🔲 open · ✅ done · ❌ blocked), owner labels, Sequential and Parallel lanes per sprint, and an Ongoing Maintenance section with weekly security triage.
 6. `[AGENT]` Draft `docs/THREAT_MODEL.md` (STRIDE, trust boundaries, top 5 abuse cases) and `docs/PRIVACY.md` stub.
 7. `[AGENT]` Draft `docs/RUNBOOK.md` (deploy, rollback, health checks, structured logging).
 8. `[AGENT]` Create `SECURITY.md` (supported versions, reporting channel, disclosure timeline) and `CODE_OF_CONDUCT.md` (Contributor Covenant).

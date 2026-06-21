@@ -35,12 +35,12 @@ cd examples/android
 
 Before running instrumented tests or manual QA:
 
-- ⬜ Android SDK Platform 34+ installed (`sdkmanager "platforms;android-34"`)
-- ⬜ Build-tools 34.x installed
-- ⬜ System image with Google APIs **not** required (use AOSP image for FOSS parity)
-- ⬜ `adb devices` lists emulator or hardware as `device`
-- ⬜ Set `SOURCE_DATE_EPOCH` for reproducible release builds (template default: `1700000000`)
-- ⬜ Accept licenses: `sdkmanager --licenses`
+- 🔲 Android SDK Platform 34+ installed (`sdkmanager "platforms;android-34"`)
+- 🔲 Build-tools 34.x installed
+- 🔲 System image with Google APIs **not** required (use AOSP image for FOSS parity)
+- 🔲 `adb devices` lists emulator or hardware as `device`
+- 🔲 Set `SOURCE_DATE_EPOCH` for reproducible release builds (template default: `1700000000`)
+- 🔲 Accept licenses: `sdkmanager --licenses`
 
 ## FOSS compliance
 

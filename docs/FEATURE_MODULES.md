@@ -32,12 +32,14 @@
 
 ## Per-feature Definition of Done
 
-- ⬜ `[HUMAN]` Acceptance criteria + one smoke scenario documented
-- ⬜ `[AGENT]` Feature container scaffolded (no unrelated edits)
-- ⬜ `[AGENT]` Unit tests for pure logic
-- ⬜ `[AGENT]` View wired; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) diff ≤10 lines
-- ⬜ `[AUTO]` `bash scripts/watch-agent-gates.sh --once --autofix`
-- ⬜ `[HUMAN]` Manual smoke happy path; approve before next feature
+Status markers: 🔲 open · ✅ done · ❌ blocked (see `BUILD_PLAN.md` legend).
+
+- 🔲 `[HUMAN]` Acceptance criteria + one smoke scenario documented
+- 🔲 `[AGENT]` Feature container scaffolded (no unrelated edits)
+- 🔲 `[AGENT]` Unit tests for pure logic
+- 🔲 `[AGENT]` View wired; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) diff ≤10 lines
+- 🔲 `[AUTO]` `bash scripts/watch-agent-gates.sh --once --autofix`
+- 🔲 `[HUMAN]` Manual smoke happy path; approve before next feature
 
 ## Autonomous agent protocol
 

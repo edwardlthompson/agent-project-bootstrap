@@ -145,6 +145,8 @@ Active modules are synced to `AGENT_MEMORY.md` and recorded in `.cursor/stack-se
 
 Every task carries an owner label for filtering automated vs human work.
 
+**Status markers:** 🔲 open · ✅ done · ❌ blocked — use emoji on all checklist rows (not `- [ ]` checkboxes) so state is clear in Markdown source and Preview. See [`BUILD_PLAN.md`](BUILD_PLAN.md) legend.
+
 > [!TIP]
 > Filter tasks by owner: `grep '\[AGENT\]' BUILD_PLAN.md` (also `HUMAN`, `ADB`, `AUTO`).
 

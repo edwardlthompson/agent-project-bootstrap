@@ -26,6 +26,18 @@ Do not debug in Plan Mode. Do not edit in Ask Mode.
 5. Sequential before Parallel in BUILD_PLAN
 6. Respect `.cursorignore` — do not read `node_modules/`, `dist/`, or other ephemeral paths
 
+## BUILD_PLAN status markers
+
+Every task row in `BUILD_PLAN.md` and checklist in module docs, PR template, and feature specs uses emoji status (readable in source and Preview):
+
+| Marker | State |
+|--------|-------|
+| 🔲 | Open — default for new tasks |
+| ✅ | Done — swap 🔲 when complete; archive sprint to `COMPLETED_TASKS.md` |
+| ❌ | Blocked — swap 🔲 and append reason |
+
+**Format:** `🔲 Description` (or `🔲 [OWNER] Description` on BUILD_PLAN) · do not use `- [ ]` GitHub checkboxes.
+
 ## Repo hygiene
 
 - Track source and lockfiles only; never commit build output or caches (`docs/REPO_HYGIENE.md`)

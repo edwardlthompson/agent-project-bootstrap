@@ -11,7 +11,17 @@
 | `ADB` | Human (Android) | Android SDK, emulator/device testing, F-Droid submission |
 | `AUTO` | CI/scripts/bots | GitHub Actions, Dependabot, pre-commit, update checker |
 
-**Task format:** `⬜ [OWNER] Description` · done: `✅`
+## Status markers
+
+Use **emoji markers** (not `- [ ]` GitHub checkboxes) so task state reads clearly in Markdown source and Preview. **Applies repo-wide** — `BUILD_PLAN.md`, module checklists, PR template, feature specs, and security triage.
+
+| Marker | State | Agent action |
+|--------|-------|--------------|
+| 🔲 | Open | Default for new tasks; work or leave queued |
+| ✅ | Done | Replace 🔲 when complete; archive sprint rows to `COMPLETED_TASKS.md` |
+| ❌ | Blocked | Replace 🔲 when blocked; add brief reason after the description |
+
+**Task format:** `🔲 [OWNER] Description` · done: `✅ [OWNER] Description` · blocked: `❌ [OWNER] Description — reason`
 
 ```bash
 grep '\[AGENT\]' BUILD_PLAN.md
@@ -44,13 +54,13 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 #### Sequential
 
-1. ⬜ [HUMAN] Click **Use this template** on GitHub to create your project repo
-2. ⬜ [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
-2a. ⬜ [HUMAN] Pick Cursor mode per [`docs/CURSOR_MODES.md`](docs/CURSOR_MODES.md) (Ask to explore, Plan for architecture)
-2b. ⬜ [HUMAN] Bookmark [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md) — type `/` in Agent chat (`/bootstrap` for Sprint 0)
-3. ⬜ [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>`; `--non-interactive` with `--project-name` + `--purpose` for scripted init)
-4. ⬜ [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
-5. ⬜ [AUTO] Sprint 0 sign-off (all green on `main`):
+1. 🔲 [HUMAN] Click **Use this template** on GitHub to create your project repo
+2. 🔲 [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
+2a. 🔲 [HUMAN] Pick Cursor mode per [`docs/CURSOR_MODES.md`](docs/CURSOR_MODES.md) (Ask to explore, Plan for architecture)
+2b. 🔲 [HUMAN] Bookmark [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md) — type `/` in Agent chat (`/bootstrap` for Sprint 0)
+3. 🔲 [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>`; `--non-interactive` with `--project-name` + `--purpose` for scripted init)
+4. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
+5. 🔲 [AUTO] Sprint 0 sign-off (all green on `main`):
    - `validate-bootstrap.sh --quick`
    - `feature-gate.sh --stack <active>`
    - `check-github-ci.sh --wait 300`
@@ -60,9 +70,9 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 #### Sequential
 
-1. ⬜ [AGENT] Verify About screen scaffold for your active stack (`examples/{stack}/`)
-2. ⬜ [HUMAN] Fill stack-local config: web `examples/web/public/app-update.json` + `donations.json`; Android `assets/` mirrors; or root `.app-update.json` / `donations.json` (init runs `scripts/sync-stack-config.py`)
-3. ⬜ [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
+1. 🔲 [AGENT] Verify About screen scaffold for your active stack (`examples/{stack}/`)
+2. 🔲 [HUMAN] Fill stack-local config: web `examples/web/public/app-update.json` + `donations.json`; Android `assets/` mirrors; or root `.app-update.json` / `donations.json` (init runs `scripts/sync-stack-config.py`)
+3. 🔲 [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
 
 ### Sprint 2+ — Incremental Features
 
@@ -72,11 +82,11 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 #### Per-feature Sequential (duplicate each feature)
 
-1. ⬜ [AGENT] Copy `docs/features/_template.md` → `docs/features/{name}.md`; refine acceptance criteria
-2. ⬜ [AGENT] Scaffold feature container (public API boundary only)
-3. ⬜ [AGENT] Unit tests for feature pure logic
-4. ⬜ [AGENT] Wire view/adapter; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) ≤10 lines
-5. ⬜ [HUMAN] Optional product smoke after `[AUTO]` gate pass
+1. 🔲 [AGENT] Copy `docs/features/_template.md` → `docs/features/{name}.md`; refine acceptance criteria
+2. 🔲 [AGENT] Scaffold feature container (public API boundary only)
+3. 🔲 [AGENT] Unit tests for feature pure logic
+4. 🔲 [AGENT] Wire view/adapter; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) ≤10 lines
+5. 🔲 [HUMAN] Optional product smoke after `[AUTO]` gate pass
 
 #### Per-feature Parallel (safe after Sequential step 2)
 
@@ -95,21 +105,21 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 ### Weekly
 
-- ⬜ [AUTO] `check-security-triage.sh --wait-ci 300` (Dependabot + CI + Scorecard)
-- ⬜ [AGENT] Apply Dependabot bumps; triage Scorecard SARIF findings
-- ⬜ [AUTO] CI matrix + Repo Hygiene + Feature Gate green on `main`
+- 🔲 [AUTO] `check-security-triage.sh --wait-ci 300` (Dependabot + CI + Scorecard)
+- 🔲 [AGENT] Apply Dependabot bumps; triage Scorecard SARIF findings
+- 🔲 [AUTO] CI matrix + Repo Hygiene + Feature Gate green on `main`
 
 ### Monthly
 
-- ⬜ [AUTO] `simulate-template-upgrade.sh` (also in `weekly-health-check.yml`)
-- ⬜ [AUTO] `check-license-compliance.sh` + SBOM on latest release
-- ⬜ [AGENT] Review Dependabot auto-merge PRs (KB-007)
+- 🔲 [AUTO] `simulate-template-upgrade.sh` (also in `weekly-health-check.yml`)
+- 🔲 [AUTO] `check-license-compliance.sh` + SBOM on latest release
+- 🔲 [AGENT] Review Dependabot auto-merge PRs (KB-007)
 
 ### Pre-release (every version)
 
-- ⬜ [AUTO] `pre-release-gate.sh` + `run-maintainer-gates.sh` (includes `verify-branch-protection.sh`)
-- ⬜ [AUTO] Release Please PR merged; CHANGELOG + manifest bumped
-- ⬜ [HUMAN] Approve release tag when product-ready
+- 🔲 [AUTO] `pre-release-gate.sh` + `run-maintainer-gates.sh` (includes `verify-branch-protection.sh`)
+- 🔲 [AUTO] Release Please PR merged; CHANGELOG + manifest bumped
+- 🔲 [HUMAN] Approve release tag when product-ready
 
 ---
 

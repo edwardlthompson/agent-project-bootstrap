@@ -30,7 +30,7 @@ One paragraph: overall health, top risks, recommended sprint focus.
 
 ## BUILD_PLAN links
 
-Map finding IDs to sprint rows in `BUILD_PLAN.md` (e.g. M27 ⬜ [AGENT] Fix F-002 …).
+Map finding IDs to sprint rows in `BUILD_PLAN.md` (e.g. M27 🔲 [AGENT] Fix F-002 …).
 
 ## Out of scope
 

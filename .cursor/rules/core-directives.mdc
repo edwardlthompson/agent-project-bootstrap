@@ -21,6 +21,7 @@ On session start, read docs/START_HERE.md, pick Cursor mode via docs/CURSOR_MODE
 
 - Sequential lane before Parallel lane
 - Respect AGENT, HUMAN, ADB, AUTO labels
+- Status markers: 🔲 open · ✅ done · ❌ blocked (emoji, not `- [ ]` checkboxes — repo-wide; see `BUILD_PLAN.md` legend)
 
 ## 3-Strike Rule
 

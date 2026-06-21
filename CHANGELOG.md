@@ -98,6 +98,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+
+- Unified repo-wide checklist status markers: 🔲 open · ✅ done · ❌ blocked across `BUILD_PLAN.md`, module guides, PR template, feature specs, and security triage (readable in Markdown source and Preview)
+- Agent docs (`START_HERE`, `FOR_AGENTS`, `INITIALIZATION_PROMPT`, `core-directives.mdc`) document emoji-only checklists; `scripts/agent-progress.sh` parses 🔲
+
 ### Added
 
 - M27 batch instruction templates: 25 slash commands (20 atomic + 5 super) in `.cursor/commands/`

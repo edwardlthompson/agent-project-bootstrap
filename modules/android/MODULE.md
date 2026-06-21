@@ -9,30 +9,30 @@
 
 ## Activation Checklist
 
-- ⬜ Confirm no proprietary SDKs in `build.gradle.kts` / `build.gradle` dependencies
-- ⬜ Set SOURCE_DATE_EPOCH in build scripts and CI
-- ⬜ Pin Gradle wrapper (`gradlew`, `gradle-wrapper.jar`, `gradle-wrapper.properties`) and dependency versions
-- ⬜ Review `examples/android/` Golden Path stub
-- ⬜ Add [ADB] tasks to BUILD_PLAN for device/emulator verification
-- ⬜ Document F-Droid metadata path (Fastlane or manual) — validate with `bash scripts/verify-fdroid-metadata.sh`
+- 🔲 Confirm no proprietary SDKs in `build.gradle.kts` / `build.gradle` dependencies
+- 🔲 Set SOURCE_DATE_EPOCH in build scripts and CI
+- 🔲 Pin Gradle wrapper (`gradlew`, `gradle-wrapper.jar`, `gradle-wrapper.properties`) and dependency versions
+- 🔲 Review `examples/android/` Golden Path stub
+- 🔲 Add [ADB] tasks to BUILD_PLAN for device/emulator verification
+- 🔲 Document F-Droid metadata path (Fastlane or manual) — validate with `bash scripts/verify-fdroid-metadata.sh`
 
 ## Operations Checklist
 
-- ⬜ Crash reporting via FOSS channel only (no proprietary trackers)
-- ⬜ UnifiedPush or native OS notification provider configured
-- ⬜ Reproducible build verified locally (`bash scripts/verify-reproducible-apk.sh` or CI `android-release`)
-- ⬜ Signing keys stored outside repo; CI uses protected secrets
-- ⬜ Rollback procedure documented in docs/RUNBOOK.md
-- ⬜ F-Droid submission checklist reviewed before release
+- 🔲 Crash reporting via FOSS channel only (no proprietary trackers)
+- 🔲 UnifiedPush or native OS notification provider configured
+- 🔲 Reproducible build verified locally (`bash scripts/verify-reproducible-apk.sh` or CI `android-release`)
+- 🔲 Signing keys stored outside repo; CI uses protected secrets
+- 🔲 Rollback procedure documented in docs/RUNBOOK.md
+- 🔲 F-Droid submission checklist reviewed before release
 
 
 ## Design system
 
-- ⬜ Read docs/DESIGN_GUIDE.md before UI work
-- ⬜ Use Jetpack Compose Material 3 via GoldenPathTheme (see examples/android/)
-- ⬜ Edit tokens in design-tokens/design-tokens.json; run scripts/sync-design-tokens.py
-- ⬜ Theme toggle: system / light / dark (DataStore persistence)
-- ⬜ FOSS only: androidx.compose.* and androidx.datastore (no Play Services / Firebase)
+- 🔲 Read docs/DESIGN_GUIDE.md before UI work
+- 🔲 Use Jetpack Compose Material 3 via GoldenPathTheme (see examples/android/)
+- 🔲 Edit tokens in design-tokens/design-tokens.json; run scripts/sync-design-tokens.py
+- 🔲 Theme toggle: system / light / dark (DataStore persistence)
+- 🔲 FOSS only: androidx.compose.* and androidx.datastore (no Play Services / Firebase)
 
 ## Localization
 
@@ -89,28 +89,28 @@ Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
 
 ### Build reproducibility
 
-- ⬜ Set `SOURCE_DATE_EPOCH` (fixed Unix timestamp) in release build scripts and CI
-- ⬜ Run `bash scripts/verify-reproducible-apk.sh` locally (or rely on CI `android-release` job; CI fails on hash drift)
-- ⬜ Confirm no proprietary SDK grep failures match CI (`android-structure` job)
-- ⬜ Verify Gradle wrapper and dependency lockfiles committed
+- 🔲 Set `SOURCE_DATE_EPOCH` (fixed Unix timestamp) in release build scripts and CI
+- 🔲 Run `bash scripts/verify-reproducible-apk.sh` locally (or rely on CI `android-release` job; CI fails on hash drift)
+- 🔲 Confirm no proprietary SDK grep failures match CI (`android-structure` job)
+- 🔲 Verify Gradle wrapper and dependency lockfiles committed
 
 ### Metadata and policy
 
-- ⬜ Complete F-Droid `metadata/` (`summary`, `description`, `license`, `sourceCode`, `build` blocks)
-- ⬜ Screenshots and feature graphic paths valid (Fastlane or manual `metadata/en-US/`)
-- ⬜ Version code/name align with `CHANGELOG` and tag
-- ⬜ Anti-feature flags accurate (ads, tracking, non-free network services)
+- 🔲 Complete F-Droid `metadata/` (`summary`, `description`, `license`, `sourceCode`, `build` blocks)
+- 🔲 Screenshots and feature graphic paths valid (Fastlane or manual `metadata/en-US/`)
+- 🔲 Version code/name align with `CHANGELOG` and tag
+- 🔲 Anti-feature flags accurate (ads, tracking, non-free network services)
 
 ### Device verification (ADB)
 
-- ⬜ Install release APK on physical device or emulator: `adb install -r app/build/outputs/apk/release/*.apk`
-- ⬜ Smoke test cold start, core flow, offline behavior, and notification path (if applicable)
-- ⬜ Capture `adb logcat` during smoke test; confirm no crash stack traces
-- ⬜ Uninstall/reinstall upgrade path from previous release version
+- 🔲 Install release APK on physical device or emulator: `adb install -r app/build/outputs/apk/release/*.apk`
+- 🔲 Smoke test cold start, core flow, offline behavior, and notification path (if applicable)
+- 🔲 Capture `adb logcat` during smoke test; confirm no crash stack traces
+- 🔲 Uninstall/reinstall upgrade path from previous release version
 
 ### Submission dry-run
 
-- ⬜ Open draft merge request to [fdroiddata](https://gitlab.com/fdroid/fdroiddata) or run `fdroid lint` locally if using repomaker workflow
-- ⬜ Child repos: copy `examples/android/metadata/` text blocks; add `build` recipe YAML in fdroiddata MR (template documents handoff only)
-- ⬜ Record maintainer notes and blockers in `BUILD_PLAN.md` `[ADB]` items
-- ⬜ `[HUMAN]` sign off before tagging store release
+- 🔲 Open draft merge request to [fdroiddata](https://gitlab.com/fdroid/fdroiddata) or run `fdroid lint` locally if using repomaker workflow
+- 🔲 Child repos: copy `examples/android/metadata/` text blocks; add `build` recipe YAML in fdroiddata MR (template documents handoff only)
+- 🔲 Record maintainer notes in `BUILD_PLAN.md`; mark blockers ❌ [ADB] with reason
+- 🔲 `[HUMAN]` sign off before tagging store release

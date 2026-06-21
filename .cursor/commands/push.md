@@ -29,7 +29,7 @@ Create/update RELEASE_NOTES.md from CHANGELOG, BUILD_PLAN rows, recent commits (
 
 ## Step 5 — Cleanup
 
-Mark BUILD_PLAN ✅; archive sprint to @COMPLETED_TASKS.md if applicable.
+Replace 🔲 with ✅ on completed BUILD_PLAN rows; archive sprint to @COMPLETED_TASKS.md if applicable.
 
 Do not force-push, amend published tags, or disable hooks. Halt and escalate [HUMAN] on failure.
 

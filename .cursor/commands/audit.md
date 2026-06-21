@@ -17,7 +17,7 @@ Check Dependabot/CodeQL via `gh` if authenticated. Write @CODE_REVIEW.md from @C
 
 ## Step 2 — BUILD_PLAN
 
-Add a review sprint at the top of @BUILD_PLAN.md active board. Link findings to CODE_REVIEW sections. Use ⬜ [AGENT] / ⬜ [HUMAN] format.
+Add a review sprint at the top of @BUILD_PLAN.md active board. Link findings to CODE_REVIEW sections. Use 🔲 [AGENT] / 🔲 [HUMAN] format (✅ done · ❌ blocked per BUILD_PLAN legend).
 
 ## Step 3 — Execute
 

@@ -48,6 +48,7 @@ Before editing UI in `examples/web/` or `examples/android/`:
 
 ## Critique before merge
 
+- Checklist rows use 🔲 / ✅ / ❌ (see `docs/DESIGN_GUIDE.md` agent checklist)
 - Long translated strings still layout correctly?
 - Dark and light modes both readable (contrast)?
 - Toggle accessible (`contentDescription` / `aria-label` from i18n)?
