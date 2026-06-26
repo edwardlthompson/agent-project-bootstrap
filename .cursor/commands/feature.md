@@ -10,4 +10,6 @@ bash scripts/watch-agent-gates.sh --once --autofix --step scaffold
 
 Use `--step tests` or `--step wire` when appropriate. On exit 2, use `/debug` or escalate.
 
+When the active feature block is fully ✅ and gates pass, read @.cursor/commands/cleanup.md — execute fully.
+
 Begin now.

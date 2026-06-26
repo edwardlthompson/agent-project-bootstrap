@@ -8,7 +8,7 @@ cd "$ROOT"
 ERRORS=0
 
 ATOMIC=(
-  audit debug gates triage dependabot push prerelease regress
+  audit cleanup debug gates triage dependabot push prerelease regress
   feature fix init prune ci docs upgrade setup plan restore compact scope
 )
 
@@ -19,7 +19,7 @@ SUPER=(
 declare -A SUPER_CHAINS
 SUPER_CHAINS[bootstrap]="init prune setup gates"
 SUPER_CHAINS[verify]="docs gates ci"
-SUPER_CHAINS[build]="plan feature gates"
+SUPER_CHAINS[build]="plan feature gates cleanup"
 SUPER_CHAINS[ship]="prerelease push regress"
 SUPER_CHAINS[maintain]="triage dependabot audit"
 

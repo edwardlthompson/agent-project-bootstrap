@@ -459,7 +459,7 @@ Execute @.cursor/commands/verify.md — docs → gates → ci.
 **Prompt:**
 
 ```
-Execute @.cursor/commands/build.md — plan → approval pause → feature → gates.
+Execute @.cursor/commands/build.md — plan → approval pause → feature → gates → cleanup.
 ```
 
 ## Entry 45 — Ship super (`/ship`)

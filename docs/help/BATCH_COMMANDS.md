@@ -29,7 +29,7 @@ Grouped by life moment (not every command — use `/` menu for the full list).
 
 **Getting started:** `/init` · `/setup` · `/prune` · `/gates`
 
-**Building:** `/plan` · `/feature` · `/fix` (gates failed after `/build`) · `/scope` (parallel agents)
+**Building:** `/plan` · `/feature` · `/fix` (gates failed after `/build`) · `/cleanup` (archive finished BUILD_PLAN rows) · `/scope` (parallel agents)
 
 **Docs & checks:** `/docs` · `/ci` (CI poll only) · `/gates` (full local validation)
 

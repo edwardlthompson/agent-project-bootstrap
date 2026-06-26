@@ -7,5 +7,6 @@ Guide through BUILD_PLAN Child Repo Playbook Sprint 0 Sequential lane.
 3. Run `scripts/setup-github-repo.sh` when `gh` is authenticated ([HUMAN] on API 422 — follow printed checklist).
 4. Run `bash scripts/validate-bootstrap.sh --quick` and `bash scripts/feature-gate.sh --stack <active>`.
 5. Pick Cursor mode per @docs/CURSOR_MODES.md; follow Section 8 Startup Sequence.
+6. When Sprint 0 Sequential rows are all ✅ and gates pass, read @.cursor/commands/cleanup.md — execute fully.
 
 Begin now.
