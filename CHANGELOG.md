@@ -113,6 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- `docs/FILE_SIZE_GUIDE.md` — industry guidance on file size limits and app responsiveness (code splitting, locale namespaces, Lighthouse gates)
 - Unified repo-wide checklist status markers: 🔲 open · ✅ done · ❌ blocked across `BUILD_PLAN.md`, module guides, PR template, feature specs, and security triage (readable in Markdown source and Preview)
 - Agent docs (`START_HERE`, `FOR_AGENTS`, `INITIALIZATION_PROMPT`, `core-directives.mdc`) document emoji-only checklists; `scripts/agent-progress.sh` parses 🔲
 
@@ -137,6 +138,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- File size taxonomy: **static data 300 lines** (UI + i18n) and **pure logic 150 lines** — replaces 250-line view limit; enforced in `scripts/check-file-limits.sh`
 - `release-please.yml` — auto-sync template version files on release PR; dispatch SBOM workflow on publish (use `fromJSON(pr).number` for checkout)
 - Rename `health-check.yml` → `weekly-health-check.yml`; add `actions: read` for CI poll
 - INITIALIZATION_PROMPT §7 split into §7a (pre-release audit, Agent) and §7b (defect investigation, Debug)

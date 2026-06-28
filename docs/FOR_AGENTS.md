@@ -26,6 +26,8 @@ Do not debug in Plan Mode. Do not edit in Ask Mode.
 5. Sequential before Parallel in BUILD_PLAN
 6. Respect `.cursorignore` — do not read `node_modules/`, `dist/`, or other ephemeral paths
 
+File size budgets: **300 lines static data** (UI + i18n), **150 lines pure logic** — see [`docs/FILE_SIZE_GUIDE.md`](FILE_SIZE_GUIDE.md).
+
 ## BUILD_PLAN status markers
 
 Every task row in `BUILD_PLAN.md` and checklist in module docs, PR template, and feature specs uses emoji status (readable in source and Preview):

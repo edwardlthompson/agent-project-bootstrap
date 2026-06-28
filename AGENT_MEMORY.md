@@ -39,7 +39,7 @@ FOSS Cursor agent bootstrap template: labeled BUILD_PLAN sprints, Golden Path ex
 
 ### Key Constraints
 
-- Max 250 lines per view file, 150 lines per logic file
+- Max 300 lines per static data file (UI + i18n), 150 lines per pure logic file
 - Trunk-based development with Conventional Commits
 - Strict type safety and test coverage budgets
 

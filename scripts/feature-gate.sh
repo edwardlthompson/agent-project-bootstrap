@@ -91,7 +91,7 @@ fail_gate() {
     python-lint) SUGGESTED=("run uv run ruff check --fix in examples/python") ;;
     python-type) SUGGESTED=("fix mypy/pyright errors in examples/python") ;;
     python-test) SUGGESTED=("fix pytest failures in examples/python") ;;
-    file-limits) SUGGESTED=("split oversized view/logic files per AGENTS.md limits") ;;
+    file-limits) SUGGESTED=("split oversized static-data/logic files per AGENTS.md limits") ;;
     android-test) SUGGESTED=("fix JUnit failures" "run ./gradlew test in examples/android") ;;
     design-cohesion) SUGGESTED=("run scripts/check-design-cohesion.sh" "use design tokens and i18n keys") ;;
     about-feature-gate) SUGGESTED=("run scripts/verify-about-feature-gate.sh" "fix About slice regressions") ;;

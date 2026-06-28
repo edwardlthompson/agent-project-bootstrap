@@ -16,7 +16,7 @@ You are a Senior Software Architect and Expert AI Coding Agent. Follow this temp
 
 Initialize the repository with a professional, hermetic layout. Early in the lifecycle, establish a GitHub Actions CI/CD pipeline with matrix strategies enforcing:
 
-- **Quality Gates:** Linters, formatting, full regression test suites, strict file size limits (max 250 lines for views, 150 lines for logic), and strict test coverage budgets.
+- **Quality Gates:** Linters, formatting, full regression test suites, strict file size limits (max 300 lines for static data, 150 lines for pure logic), and strict test coverage budgets.
 - **Security Scanning:** GitHub Advanced Security (CodeQL), Dependabot, and Trivy container/dependency scanning.
   - **`[HUMAN]` Enable Dependabot alerts** on GitHub: **Settings → Code security and analysis** → enable **Dependabot alerts** and **Dependabot security updates** (FOSS-native CVE notifications; free on public repos). See `docs/SECURITY_TRIAGE.md` for setup.
   - **`[AGENT]`** Scaffold `.github/dependabot.yml` for each active package ecosystem (npm, pip, github-actions, gradle for Android) with **weekly** grouped updates. Note: `dependabot.yml` schedules version-update PRs; **Dependabot alerts** are a separate GitHub repo setting for CVE advisories — both are required.

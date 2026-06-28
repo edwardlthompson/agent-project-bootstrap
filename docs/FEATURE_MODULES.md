@@ -21,10 +21,12 @@
 |-------|-----|---------|--------|------|
 | Public API | `src/{feature}/index.ts` (optional barrel) | `{feature}/` package surface | `src/{feature}/` | `src/{feature}/` |
 | Pure logic | `src/{feature}/*.ts` (≤150 lines/file) | `{feature}/*.kt` | `src/{feature}/` | `src/{feature}/*.ts` |
-| View adapter | `src/components/{Feature}Panel.ts` | `ui/{feature}/` Composable | CLI/GUI adapter | route handler / Hono router |
+| Static data | `src/components/{Feature}Panel.ts`, `locales/*.json` (≤300 lines/file) | `ui/{feature}/` Composable, `strings.xml` | CLI/GUI adapter | route handler / Hono router |
 | Tests | `src/{feature}/*.test.ts` | `src/test/.../{feature}/` | `tests/{feature}/` | `src/{feature}/*.test.ts` |
 | i18n | `locales/en.json` `{feature}.*` | `strings.xml` `{feature}_*` | help strings module | API error messages / OpenAPI |
 | Wiring only | `appBootstrap.ts` / `main.ts` ≤10 lines/feature | `GoldenPathApp.kt` / `MainActivity` nav hook | `main` imports | `src/index.ts` imports |
+
+See [`docs/FILE_SIZE_GUIDE.md`](FILE_SIZE_GUIDE.md) for limits rationale and responsiveness guidance.
 
 **Lego rule:** Remove a feature by deleting its folder, removing wiring lines and i18n keys, then running `bash scripts/feature-gate.sh`. Golden Path must still pass.
 

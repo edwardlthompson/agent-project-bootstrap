@@ -970,7 +970,7 @@
     },
     {
       "path": "scripts/check-file-limits.sh",
-      "purpose": "Enforce 250-line view and 150-line logic file limits",
+      "purpose": "Enforce 300-line static data and 150-line pure logic file limits",
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
