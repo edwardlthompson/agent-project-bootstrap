@@ -19,6 +19,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.12.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.11.1...v0.12.0) (2026-06-30)
+
+
+### Added
+
+* **agents:** autonomous /build with HUMAN/ADB automation ([cdea429](https://github.com/edwardlthompson/agent-project-bootstrap/commit/cdea429beecea4c9cf2e099d4fbea7b4e873f9f7))
+* **agents:** parallel-first BUILD_PLAN and auto multi-agent dispatch ([f0a0b2f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f0a0b2fd0b93aa3a6aebdf38992c0337265cd7a2))
+* **android:** add system bar insets and 3-button nav compensation ([cc946af](https://github.com/edwardlthompson/agent-project-bootstrap/commit/cc946af6eb590db574815de69e2ad955e993b250))
+* **commands:** add /cleanup to archive BUILD_PLAN rows after build ([d7ab7fc](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d7ab7fc96d411be36ead3f1d31dc433041c30bb2))
+* **cursor:** integrate FOSS hooks, skills, subagents, and feature radar (M30) ([1cd2b72](https://github.com/edwardlthompson/agent-project-bootstrap/commit/1cd2b726e8ac6a63cadfa5e63851e935fe1f53ac))
+* **limits:** adopt static data 300L and pure logic 150L taxonomy ([49c7407](https://github.com/edwardlthompson/agent-project-bootstrap/commit/49c740719cfe8eb760a7d3cb4e675769cb296d27))
+* **python:** enforce pytest in CI and workflow gates ([ec3939f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ec3939f8569f95083643e20fba8970b13e0e180a))
+
+
+### Fixed
+
+* **ci:** use stack-presence job for conditional Python matrix ([ce6bfb3](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ce6bfb3aa839fff8b75088e1c98f874ded2d89de))
+* **deps:** cap undici override at 7.x for jsdom compat ([24b240f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/24b240f325b6b42363f638a2067c8a005b7c798a))
+
+
+### Documentation
+
+* log autonomous /build milestone in memory and decision log ([508a541](https://github.com/edwardlthompson/agent-project-bootstrap/commit/508a54103349d5b91b193913636afffaf3be6562))
+
 ## [0.11.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.11.0...v0.11.1) (2026-06-21)
 
 
