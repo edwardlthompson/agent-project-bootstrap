@@ -119,7 +119,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Android edge-to-edge inset utilities (`ui/insets/`), `GoldenPathScaffold`, and `scripts/verify-android-insets.sh` — 3-button nav bar + status bar compensation with automated bounds tests
+- `scripts/plan-parallel-dispatch.sh` and `scripts/lib/parallel_scope.py` — parallel agent manifest, agent_count, and scope overlap detection
+- `scripts/check-build-plan-parallel.sh` — gate requiring ≥ 2 AGENT Parallel rows per sprint (or documented exception)
+- `scripts/setup-agent-worktrees.sh` — optional git worktrees for parallel agent isolation
+- Parallel-first BUILD_PLAN protocol: decomposition checklist, `### Parallelization` in Plan Mode, `/scope` auto Task dispatch, `/build` wires scope after Sequential step 2
+- `agent-progress.sh set-step` — track parallel completion for idempotent `/build`
 - `scripts/check-python-pytest-workflow.sh` — require pytest in deps, pyproject config, CI, and feature-gate when Python stack is present
 - M27 batch instruction templates: 25 slash commands (20 atomic + 5 super) in `.cursor/commands/`
 - `.cursor/rules/batch-commands.mdc` — bare-word triggers for batch commands

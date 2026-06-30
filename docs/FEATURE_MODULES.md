@@ -30,6 +30,19 @@ See [`docs/FILE_SIZE_GUIDE.md`](FILE_SIZE_GUIDE.md) for limits rationale and res
 
 **Lego rule:** Remove a feature by deleting its folder, removing wiring lines and i18n keys, then running `bash scripts/feature-gate.sh`. Golden Path must still pass.
 
+## Parallel split (after Sequential step 2)
+
+After the feature container public API is locked, `/build` auto-runs `/scope`. Default Parallel rows:
+
+| Agent | Scope |
+|-------|-------|
+| Logic + unit tests | `src/{feature}/` or stack equivalent |
+| View + i18n | `components/` or `ui/{feature}/`, locales |
+| Feature spec | `docs/features/{feature}.md` |
+| E2e / instrumented | `e2e/` or `androidTest/` |
+
+See BUILD_PLAN decomposition checklist for multi-stack and docs/CI splits.
+
 **Reference exemplars:** About (Sprint 1) — `examples/web/src/about/`, `examples/android/.../about/`. Settings (Sprint 2) — `examples/web/src/settings/`, `examples/android/.../settings/`.
 
 ## Per-feature Definition of Done

@@ -38,7 +38,7 @@
 | `/plan` | Feature/ADR plan + Critique | build | 19 |
 | `/restore` | Restore from `.cursor-session-state.json` | — | 13 |
 | `/compact` | Save session state before clearing chat | — | 13 |
-| `/scope` | Parallel scope map before dispatch | — | 14 |
+| `/scope` | Parallel manifest + auto Task dispatch | — | 14 |
 
 ## Decision tree
 

@@ -25,6 +25,8 @@ Thumbs.db
 *.swp
 .cursor-session-state
 .cursor/agent-progress.json
+.cursor/parallel-scope-lock.json
+.cursor/worktrees/
 
 # Test artifacts
 test-results/

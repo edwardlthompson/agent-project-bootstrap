@@ -423,6 +423,34 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/plan-parallel-dispatch.sh",
+      "purpose": "Build parallel agent manifest and agent_count from BUILD_PLAN",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-build-plan-parallel.sh",
+      "purpose": "Gate: every sprint has Parallel table with >= 2 AGENT rows or exception",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/setup-agent-worktrees.sh",
+      "purpose": "Optional git worktrees for parallel agent branches",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/parallel_scope.py",
+      "purpose": "Shared BUILD_PLAN Parallel table parser and overlap detection",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-bundle-size.sh",
       "purpose": "Vite dist JS gzip bundle budget gate",
       "read_when": "release",

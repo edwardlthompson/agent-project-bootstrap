@@ -103,6 +103,7 @@ run_check bash scripts/check-markdown-tables.sh
 run_check bash scripts/check-changelog-unreleased.sh
 run_check bash scripts/check-repo-hygiene.sh
 run_check bash scripts/check-batch-commands.sh
+run_check bash scripts/check-build-plan-parallel.sh
 run_check bash scripts/check-template-version-sync.sh
 
 if [ "$QUICK" = false ]; then

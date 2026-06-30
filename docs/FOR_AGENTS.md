@@ -47,11 +47,23 @@ Every task row in `BUILD_PLAN.md` and checklist in module docs, PR template, and
 - Reclaim disk: `bash scripts/purge-ephemeral.sh` (dry-run); `--apply` removes gitignored untracked files only
 - Stage explicit paths; avoid blind `git add -A`
 
-## Parallel Guardrails
+## Parallel-first planning and dispatch
 
-- Branch: `feature/agent-[task-name]` per agent, separate worktree
-- No overlapping file scopes (run `scripts/check-parallel-scope.sh` before dispatch)
+**Planning (Plan Mode):** Include `### Parallelization` with decomposition table and `agent_count_target`. Run `check-build-plan-parallel.sh` before human approval. See BUILD_PLAN decomposition checklist.
+
+**Execution (orchestrator):**
+
+```bash
+bash scripts/plan-parallel-dispatch.sh --require-sequential-clear --json
+bash scripts/check-parallel-scope.sh
+```
+
+Write manifest to `.cursor/parallel-scope-lock.json`. Run `/scope` for auto Task dispatch when `agent_count >= 2`.
+
+- Branch: `feature/agent-[task-name]` per agent; optional `scripts/setup-agent-worktrees.sh`
 - Shared schema/types: sequential agent only first
+- Parallel agents **never** edit `BUILD_PLAN.md` or composition roots
+- Subagents report: `bash scripts/agent-progress.sh set-step --name tests|view|e2e`
 - Scope map: `docs/PARALLEL_AGENT_SCOPES.md`
 
 ## 3-Strike Rule

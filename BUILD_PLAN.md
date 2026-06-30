@@ -32,6 +32,30 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
 
+### Parallel dispatch protocol (orchestrator)
+
+| Step | Action |
+|------|--------|
+| 1 | Finish all `[AGENT]` **Sequential** items for the active sprint/feature (shared schema/types locked) |
+| 2 | **Discover** parallelizable work using the decomposition checklist below; add Parallel table rows with non-overlapping `` `path/**` `` scopes |
+| 3 | Run `bash scripts/plan-parallel-dispatch.sh` → read **agent_count** |
+| 4 | If `agent_count >= 2`, run `/scope` (auto Task dispatch); if `1`, execute inline; if `0`, run `--suggest` and expand the Parallel table (or document `parallel_exception`) |
+| 5 | Sequential owner merges results, runs `watch-agent-gates.sh`, updates BUILD_PLAN (Parallel agents never edit BUILD_PLAN) |
+
+**Decomposition checklist** (apply before finalizing Sequential items):
+
+| Heuristic | Split into Parallel agents |
+|-----------|---------------------------|
+| Multi-stack repo | One agent per active module (`examples/{stack}/**`) |
+| Feature container (Sprint 2+) | Agent A: pure logic + unit tests; Agent B: view/Composable + i18n |
+| Tests vs production code | Separate `**/*.test.*`, `e2e/**`, `androidTest/**` when paths do not overlap implementation |
+| Docs vs code | Agent A: `examples/**`; Agent B: `docs/**`, `modules/**`, `.cursor/rules/**` |
+| CI/gates vs app code | Agent A: `scripts/**`, `.github/workflows/**`; Agent B: stack example tree |
+
+**Default rule:** If a Sequential `[AGENT]` item touches two or more non-overlapping directory prefixes, **split it** — leave only schema-lock work Sequential.
+
+**Planning (Plan Mode):** Every BUILD_PLAN proposal must include `### Parallelization` with `agent_count_target`, decomposition table, and dry-run from `plan-parallel-dispatch.sh`. Run `check-build-plan-parallel.sh` before human approval.
+
 > **Template maintainer:** No active AGENT sprint — **maintenance + human open items** below. **Child repos:** copy the playbook.
 
 ---
@@ -52,6 +76,9 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 ### Sprint 0 — Template Customization
 
+<!-- agent_count_target: 0 | sequential_lock_step: 5 -->
+<!-- parallel_exception: bootstrap init and GitHub setup are inherently sequential -->
+
 #### Sequential
 
 1. 🔲 [HUMAN] Click **Use this template** on GitHub to create your project repo
@@ -66,15 +93,38 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
    - `check-github-ci.sh --wait 300`
    - `check-license-compliance.sh` (after `npm ci` / `uv sync`)
 
+#### Parallel (safe after Sequential step 5)
+
+| Task | Owner | Isolated scope |
+|------|-------|----------------|
+| _None — see parallel_exception above_ | — | — |
+
 ### Sprint 1 — Golden Path Foundation
+
+<!-- agent_count_target: 3 | sequential_lock_step: 1 -->
 
 #### Sequential
 
-1. 🔲 [AGENT] Verify About screen scaffold for your active stack (`examples/{stack}/`)
+1. 🔲 [AGENT] Lock shared Golden Path schema/types/API for active stack (About + navigation surface only)
+
+#### Parallel (safe after Sequential step 1)
+
+| Task | Owner | Isolated scope |
+|------|-------|----------------|
+| About screen verify | AGENT | `examples/{stack}/**/about/` |
+| Stack public assets | AGENT | `examples/{stack}/public/` |
+| Module + design docs | AGENT | `modules/{stack}/` |
+
+#### Sequential (post-Parallel merge)
+
 2. 🔲 [HUMAN] Fill stack-local config: web `examples/web/public/app-update.json` + `donations.json`; Android `assets/` mirrors; or root `.app-update.json` / `donations.json` (init runs `scripts/sync-stack-config.py`)
 3. 🔲 [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
 
+<!-- parallel_exception: none -->
+
 ### Sprint 2+ — Incremental Features
+
+<!-- agent_count_target: 4 | sequential_lock_step: 2 -->
 
 > One vertical slice at a time. See `docs/FEATURE_MODULES.md`. Reference exemplars: `docs/features/settings.md` (Sprint 2), About (Sprint 1).
 
@@ -92,8 +142,12 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 | Task | Owner | Isolated scope |
 |------|-------|----------------|
-| Logic + tests | AGENT | `examples/{stack}/src/{feature}/` or stack equivalent |
+| Logic + unit tests | AGENT | `examples/{stack}/src/{feature}/` or stack equivalent |
 | View + i18n | AGENT | `examples/{stack}/src/components/` or `ui/{feature}/`, `locales/` / `strings.xml` |
+| Feature spec + acceptance | AGENT | `docs/features/{feature}.md` |
+| E2e / instrumented smoke | AGENT | `examples/{stack}/e2e/` or `examples/{stack}/**/androidTest/` |
+
+<!-- parallel_exception: none -->
 
 > Gates (`watch-agent-gates.sh`) run Sequential-side after each AGENT step — not in Parallel.
 

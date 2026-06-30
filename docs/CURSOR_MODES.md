@@ -7,7 +7,7 @@
 | Mode | When | Artifact | Do not use for |
 |------|------|----------|----------------|
 | **Ask** | Read-only exploration, architecture questions, index lookup | [`TEMPLATE_INDEX.json`](../TEMPLATE_INDEX.json), [`KNOWLEDGE_BASE.md`](../KNOWLEDGE_BASE.md) | Editing files |
-| **Plan** | Non-trivial work: features, ADRs, parallel scope, schema changes | BUILD_PLAN row + mandatory `### Critique` | Mechanical lint fixes |
+| **Plan** | Non-trivial work: features, ADRs, parallel scope, schema changes | BUILD_PLAN row + mandatory `### Critique` + `### Parallelization` | Mechanical lint fixes |
 | **Agent** | Approved plan execution, `[AGENT]` BUILD_PLAN rows, gate autofix | [`watch-agent-gates.sh`](../scripts/watch-agent-gates.sh) | Unapproved architecture |
 | **Debug** | Unknown root cause: CI red, flaky tests, 3-strike failures | Runtime logs + KB + [`FOR_AGENTS.md`](FOR_AGENTS.md) Failure Playbook | Pre-release checklists |
 

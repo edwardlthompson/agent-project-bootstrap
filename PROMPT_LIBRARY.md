@@ -142,14 +142,15 @@ Restore repo mode, stack, sprint, and sequential_step. Pick Cursor mode via @doc
 Cross-check .cursor/stack-selection.json. Delete session state file after restore.
 ```
 
-## Entry 14 - Parallel agent scope map
+## Entry 14 - Parallel agent dispatch
 
 **Prompt:**
 
 ```
-Read docs/PARALLEL_AGENT_SCOPES.md and BUILD_PLAN Parallel table.
-Run scripts/check-parallel-scope.sh; abort dispatch on overlap.
-Assign one branch per agent: feature/agent-<task-slug>. Shared schema stays Sequential.
+Run bash scripts/plan-parallel-dispatch.sh --json for agent_count.
+Write .cursor/parallel-scope-lock.json; run check-parallel-scope.sh.
+When agent_count >= 2, launch Task subagents in one message (see .cursor/commands/scope.md).
+Shared schema stays Sequential; Parallel agents never edit BUILD_PLAN.md.
 ```
 
 ## Entry 15 — Post-release regression
@@ -206,7 +207,8 @@ Explain [topic]. Do not edit files.
 ```
 Read @docs/CURSOR_MODES.md and the active BUILD_PLAN row.
 If the trivial rubric says Agent, skip planning and execute directly.
-Otherwise propose 1–3 approaches with mandatory ### Critique before coding.
+Otherwise propose 1–3 approaches with mandatory ### Critique and ### Parallelization before coding.
+For BUILD_PLAN sprints: maximize agent_count; run check-build-plan-parallel.sh before approval.
 ```
 
 ## Entry 20 — Defect investigation (Debug Mode)
@@ -399,7 +401,7 @@ Execute @.cursor/commands/compact.md — write .cursor-session-state.json before
 **Prompt:**
 
 ```
-Execute @.cursor/commands/scope.md — check-parallel-scope.sh before dispatch.
+Execute @.cursor/commands/scope.md — plan-parallel-dispatch.sh manifest + auto Task dispatch.
 ```
 
 ## Entry 39 — Local gates (`/gates`)
@@ -459,7 +461,7 @@ Execute @.cursor/commands/verify.md — docs → gates → ci.
 **Prompt:**
 
 ```
-Execute @.cursor/commands/build.md — plan → approval pause → feature → gates → cleanup.
+Execute @.cursor/commands/build.md — plan (with ### Parallelization) → approval → feature steps 1–2 → scope (auto) → feature wire → gates → cleanup.
 ```
 
 ## Entry 45 — Ship super (`/ship`)
