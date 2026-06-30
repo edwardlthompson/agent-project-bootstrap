@@ -19,6 +19,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.13.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.12.0...v0.13.0) (2026-06-30)
+
+
+### Added
+
+* **release:** auto-merge Release Please PRs via workflow and script ([0e817c3](https://github.com/edwardlthompson/agent-project-bootstrap/commit/0e817c370bc44a01320815ee9cd266573b99b507))
+
+
+### Fixed
+
+* **release:** guard empty release-please pr output on merge push ([1d1b56c](https://github.com/edwardlthompson/agent-project-bootstrap/commit/1d1b56c3010a7e048e9ca4fe197eb2b284d3df26))
+
 ## [0.12.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.11.1...v0.12.0) (2026-06-30)
 
 
