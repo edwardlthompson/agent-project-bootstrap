@@ -78,10 +78,10 @@
 
 | Field | Detail |
 |-------|--------|
-| **Symptom** | `release-please.yml` sync step fails: `syntax error near unexpected token '('` on `gh pr checkout` |
-| **Cause** | `steps.release.outputs.pr` is a JSON PullRequest object string, not the numeric PR id |
-| **Fix** | Guard with `prs_created == 'true'`; use `fromJSON(steps.release.outputs.pr).number` for `gh pr checkout` |
-| **Prevention** | See release-please-action outputs table; never pass `outputs.pr` directly to shell commands |
+| **Symptom** | `release-please.yml` sync step fails: `Error reading JToken from JsonReader` or empty `gh pr checkout` |
+| **Cause** | `steps.release.outputs.pr` is empty when `release_created == 'true'` (post-merge push) or stale PR metadata |
+| **Fix** | Skip sync when `release_created`; resolve PR number in shell from `PR_JSON` or `gh pr list --head release-please--branches--main` |
+| **Prevention** | Never use bare `fromJSON(steps.release.outputs.pr)` in workflow `env:` without a non-empty guard |
 
 ### KB-008 — `android-release` APK hash compare policy
 

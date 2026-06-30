@@ -26,11 +26,24 @@ jobs:
           manifest-file: .release-please-manifest.json
 
       - name: Sync template version files on release PR
-        if: steps.release.outputs.prs_created == 'true'
+        if: steps.release.outputs.release_created != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ fromJSON(steps.release.outputs.pr).number }}
+          PR_JSON: ${{ steps.release.outputs.pr }}
         run: |
+          set -euo pipefail
+          PR_NUMBER=""
+          if [ -n "${PR_JSON:-}" ]; then
+            PR_NUMBER="$(python3 -c "import json,os; print(json.loads(os.environ['PR_JSON']).get('number',''))" 2>/dev/null || true)"
+          fi
+          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "None" ]; then
+            PR_NUMBER="$(gh pr list --head release-please--branches--main --state open --json number -q '.[0].number' 2>/dev/null || true)"
+          fi
+          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
+            echo "No open Release Please PR; skipping version sync"
+            exit 0
+          fi
+          echo "Syncing template version files on PR #${PR_NUMBER}"
           gh pr checkout "$PR_NUMBER"
           bash scripts/sync-template-version.sh
           if ! git diff --quiet; then

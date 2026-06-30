@@ -40,6 +40,7 @@ MANUAL SETUP CHECKLIST (GitHub UI - API returned 422 or insufficient permissions
   4. Settings -> Branches -> Branch protection rules -> main:
      - Require status checks: CI, Security Scan, CodeQL, Repo Hygiene, Feature Gate
      - Require branches to be up to date before merging (recommended)
+     - Bypass list: GitHub Actions app (for Release Please auto-merge)
   5. Re-run: bash scripts/setup-github-repo.sh
 EOF
 }
@@ -140,6 +141,11 @@ print(json.dumps({
         "dismiss_stale_reviews": True,
         "require_code_owner_reviews": False,
         "required_approving_review_count": 0,
+    },
+    "bypass_pull_request_allowances": {
+        "users": [],
+        "teams": [],
+        "apps": ["github-actions"],
     },
     "restrictions": None,
     "required_linear_history": False,
