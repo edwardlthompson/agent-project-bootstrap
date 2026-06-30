@@ -50,6 +50,13 @@ jobs:
           uv sync --locked --all-extras
           uv pip audit
 
+      - name: pytest smoke (examples/python)
+        if: hashFiles('examples/python/uv.lock') != ''
+        run: |
+          cd examples/python
+          uv sync --locked --all-extras
+          uv run pytest -q
+
       - name: Setup Node for examples/node audit
         if: hashFiles('examples/node/package-lock.json') != ''
         uses: actions/setup-node@v6

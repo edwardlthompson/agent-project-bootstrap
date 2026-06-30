@@ -11,7 +11,7 @@ globs:
 
 ## Coverage Budgets
 
-- Python: `pytest --cov-fail-under=90` (enforced in CI)
+- Python: `pytest --cov-fail-under=90` (enforced in CI and weekly health check when `examples/python/` is present)
 - Web unit: Vitest coverage via `npm test`
 - E2E: Playwright visual snapshots use `maxDiffPixelRatio: 0.02`
 

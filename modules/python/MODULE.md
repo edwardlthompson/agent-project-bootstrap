@@ -13,6 +13,7 @@
 - 🔲 Generate and commit lockfile (`uv.lock`)
 - 🔲 Enable `ruff check` and `ruff format --check` in CI
 - 🔲 Enable `mypy --strict` in CI
+- 🔲 Enable `pytest` in CI and local feature gate (`uv run pytest -q`)
 - 🔲 Review `examples/python/` Golden Path stub
 - 🔲 Set coverage budget threshold in CI
 - 🔲 Add pre-commit hooks for ruff and mypy

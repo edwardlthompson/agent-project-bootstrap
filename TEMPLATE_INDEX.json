@@ -969,6 +969,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-python-pytest-workflow.sh",
+      "purpose": "Require pytest in deps, pyproject config, CI, and feature-gate when Python example present",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-file-limits.sh",
       "purpose": "Enforce 300-line static data and 150-line pure logic file limits",
       "read_when": "milestone_boundary",

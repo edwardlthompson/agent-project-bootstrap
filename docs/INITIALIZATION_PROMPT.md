@@ -66,6 +66,7 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
 - **`[AGENT]`** FOSS compliance grep in CI must scan **build manifests only** (`*.gradle`, `*.gradle.kts`, `*.toml`) — never README or docs that mention prohibited SDK names in compliance bullets.
 - **`[AGENT]`** TypeScript `strict` mode: DOM elements null-checked at module scope must be copied to a `const` (e.g. `const root = app`) before use inside nested functions — narrowing does not cross function boundaries.
 - **`[AGENT]`** Python CI must run `ruff format --check` alongside `ruff check`; module docstrings require a blank line before the first `def`.
+- **`[AGENT]`** When the Python stack is active (`examples/python/pyproject.toml` present), CI, weekly health check, and `feature-gate.sh` must run `uv run pytest` — validated by `scripts/check-python-pytest-workflow.sh`.
 - **`[AGENT]`** Web e2e: Playwright `webServer` must bind preview to `127.0.0.1` (e.g. `npm run preview -- --port 4173 --host 127.0.0.1`); serve the existing production build only — do not chain `build && preview` in `webServer` when CI already runs `npm run build` separately. Run `npm run lint`, `npm test`, `npm run build`, and Playwright locally before Sprint 0 sign-off.
 - **`[AGENT]`** Do not mark BUILD_PLAN complete until **all required GitHub workflows are green on `main`**: **CI**, **Security Scan**, and **CodeQL** — not only the CI workflow or local partial checks. Run `scripts/check-github-ci.sh --wait 300` (or `.ps1 -WaitSeconds 300`) after push to poll all three.
 

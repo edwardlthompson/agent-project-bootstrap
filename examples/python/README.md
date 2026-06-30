@@ -22,4 +22,4 @@ uv run hello FOSS
 
 ## CI Integration
 
-Runs in root `.github/workflows/ci.yml` python matrix job.
+Runs in root `.github/workflows/ci.yml` Python job (`uv run pytest`) and weekly health check pytest smoke when `examples/python/` is present.

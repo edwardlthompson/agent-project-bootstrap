@@ -118,15 +118,19 @@ jobs:
           distribution: temurin
           java-version: "21"
       - name: Install web dependencies
+        if: hashFiles('examples/web/package-lock.json') != ''
         working-directory: examples/web
         run: npm ci
       - name: Install node example dependencies
+        if: hashFiles('examples/node/package-lock.json') != ''
         working-directory: examples/node
         run: npm ci
       - name: Sync python example
+        if: hashFiles('examples/python/pyproject.toml') != ''
         working-directory: examples/python
         run: uv sync --locked --all-extras
       - name: Prepare Android wrapper
+        if: hashFiles('examples/android/gradlew') != ''
         run: chmod +x examples/android/gradlew
       - name: Run feature gate (strict multi-stack)
         run: bash scripts/feature-gate.sh --stack multi --strict --json
@@ -195,6 +199,7 @@ jobs:
 
   python:
     name: Python - Lint, Type, Test
+    if: hashFiles('examples/python/pyproject.toml') != ''
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -319,7 +324,7 @@ jobs:
   coverage-comment:
     name: PR Coverage Summary
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: always() && github.event_name == 'pull_request' && !failure() && !cancelled()
     needs: [web, python, node]
     permissions:
       pull-requests: write
