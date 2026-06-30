@@ -32,6 +32,7 @@
 - 🔲 Use Jetpack Compose Material 3 via GoldenPathTheme (see examples/android/)
 - 🔲 Edit tokens in design-tokens/design-tokens.json; run scripts/sync-design-tokens.py
 - 🔲 Theme toggle: system / light / dark (DataStore persistence)
+- 🔲 Edge-to-edge: `GoldenPathScaffold`, `bottomInsetPadding()`, inset-aware `SnackbarHost`
 - 🔲 FOSS only: androidx.compose.* and androidx.datastore (no Play Services / Firebase)
 
 ## Localization
@@ -63,6 +64,8 @@ cd examples/android
 ```
 
 Requires an AVD or USB device (`[ADB]`). Robolectric unit tests remain the default fast path in `feature-gate.sh`.
+
+**System bar / nav mode verification:** `bash scripts/verify-android-insets.sh` — sets 3-button and gesture nav via adb, runs `NavBarInsetUiTest` bounds checks. Optional `--screencap`. Manual Settings only if adb `settings put` fails on OEM.
 
 ## Feature gate (Sprint 2+)
 

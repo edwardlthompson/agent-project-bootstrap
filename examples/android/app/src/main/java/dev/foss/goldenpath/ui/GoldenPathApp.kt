@@ -21,11 +21,13 @@ import dev.foss.goldenpath.about.UpdateApplyCoordinator
 import dev.foss.goldenpath.about.UpdateStatusEvaluator
 import dev.foss.goldenpath.network.NetworkStatusMonitor
 import dev.foss.goldenpath.settings.SettingsLogic
-import dev.foss.goldenpath.ui.theme.GoldenPathTheme
+import androidx.compose.material3.SnackbarHostState
+import dev.foss.goldenpath.ui.insets.NavigationModeProvider
 import dev.foss.goldenpath.ui.theme.ThemeMode
 import dev.foss.goldenpath.ui.theme.ThemePreferences
 import dev.foss.goldenpath.ui.theme.next
 import kotlinx.coroutines.CoroutineScope
+import dev.foss.goldenpath.ui.theme.GoldenPathTheme
 import kotlinx.coroutines.launch
 
 @Composable
@@ -82,39 +84,49 @@ fun GoldenPathApp(
     }
 
     val canApplyUpdate = applyAsset != null
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(canApplyUpdate) {
+        if (canApplyUpdate) {
+            snackbarHostState.showSnackbar(context.getString(R.string.snackbar_update_available))
+        }
+    }
 
     GoldenPathTheme(themeMode = themeMode) {
-        GoldenPathScreen(
-            themeMode = themeMode,
-            isOnline = isOnline,
-            showAbout = showAbout,
-            showSettings = showSettings,
-            updateCheckEnabled = SettingsLogic.isUpdateCheckEnabled(checkInterval),
-            appVersion = appVersion,
-            installedFormat = installedFormat ?: "apk",
-            updateStatus = updateStatus,
-            donations = donations,
-            canApplyUpdate = canApplyUpdate,
-            onThemeToggle = { scope.launch { themePreferences.setThemeMode(themeMode.next()) } },
-            onThemeModeSelect = { mode -> scope.launch { themePreferences.setThemeMode(mode) } },
-            onAboutOpen = { showAbout = !showAbout; if (showAbout) showSettings = false },
-            onAboutClose = { showAbout = false },
-            onSettingsOpen = { showSettings = !showSettings; if (showSettings) showAbout = false },
-            onSettingsClose = { showSettings = false },
-            onUpdateCheckChange = { enabled ->
-                scope.launch {
-                    appUpdatePreferences.setCheckInterval(
-                        SettingsLogic.intervalForToggle(enabled, checkInterval),
-                    )
-                }
-            },
-            onApplyUpdate = {
-                val asset = applyAsset ?: return@GoldenPathScreen
-                val host = activity ?: return@GoldenPathScreen
-                scope.launch {
-                    UpdateApplyCoordinator.applySideloadUpdate(host, appUpdatePreferences, asset)
-                }
-            },
-        )
+        NavigationModeProvider {
+            GoldenPathScreen(
+                snackbarHostState = snackbarHostState,
+                themeMode = themeMode,
+                isOnline = isOnline,
+                showAbout = showAbout,
+                showSettings = showSettings,
+                updateCheckEnabled = SettingsLogic.isUpdateCheckEnabled(checkInterval),
+                appVersion = appVersion,
+                installedFormat = installedFormat ?: "apk",
+                updateStatus = updateStatus,
+                donations = donations,
+                canApplyUpdate = canApplyUpdate,
+                onThemeToggle = { scope.launch { themePreferences.setThemeMode(themeMode.next()) } },
+                onThemeModeSelect = { mode -> scope.launch { themePreferences.setThemeMode(mode) } },
+                onAboutOpen = { showAbout = !showAbout; if (showAbout) showSettings = false },
+                onAboutClose = { showAbout = false },
+                onSettingsOpen = { showSettings = !showSettings; if (showSettings) showAbout = false },
+                onSettingsClose = { showSettings = false },
+                onUpdateCheckChange = { enabled ->
+                    scope.launch {
+                        appUpdatePreferences.setCheckInterval(
+                            SettingsLogic.intervalForToggle(enabled, checkInterval),
+                        )
+                    }
+                },
+                onApplyUpdate = {
+                    val asset = applyAsset ?: return@GoldenPathScreen
+                    val host = activity ?: return@GoldenPathScreen
+                    scope.launch {
+                        UpdateApplyCoordinator.applySideloadUpdate(host, appUpdatePreferences, asset)
+                    }
+                },
+            )
+        }
     }
 }

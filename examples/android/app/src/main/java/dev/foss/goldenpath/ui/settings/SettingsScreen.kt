@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -14,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import dev.foss.goldenpath.R
+import dev.foss.goldenpath.ui.insets.bottomInsetPadding
 import dev.foss.goldenpath.ui.theme.SpacingMd
 import dev.foss.goldenpath.ui.theme.ThemeMode
 
@@ -28,7 +32,9 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.padding(SpacingMd),
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(SpacingMd),
         verticalArrangement = Arrangement.spacedBy(SpacingMd),
     ) {
         Text(
@@ -63,7 +69,10 @@ fun SettingsScreen(
             )
             Switch(checked = updateCheckEnabled, onCheckedChange = onUpdateCheckChange)
         }
-        androidx.compose.material3.Button(onClick = onBack) {
+        Button(
+            onClick = onBack,
+            modifier = Modifier.bottomInsetPadding(),
+        ) {
             Text(stringResource(R.string.settings_close))
         }
     }

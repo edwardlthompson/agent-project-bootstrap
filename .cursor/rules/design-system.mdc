@@ -39,6 +39,7 @@ Before editing UI in `examples/web/` or `examples/android/`:
 - `GoldenPathTheme(themeMode) { }` wrapper required
 - `MaterialTheme.colorScheme`, `MaterialTheme.typography`, `Dimens.kt` spacing
 - Theme preference via `ThemePreferences` (DataStore)
+- Bottom actions and snackbars: `GoldenPathScaffold` + `Modifier.bottomInsetPadding()` — see `docs/DESIGN_GUIDE.md` Android system bars
 
 ### Web
 

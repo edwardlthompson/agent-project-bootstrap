@@ -119,6 +119,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Android edge-to-edge inset utilities (`ui/insets/`), `GoldenPathScaffold`, and `scripts/verify-android-insets.sh` — 3-button nav bar + status bar compensation with automated bounds tests
 - `scripts/check-python-pytest-workflow.sh` — require pytest in deps, pyproject config, CI, and feature-gate when Python stack is present
 - M27 batch instruction templates: 25 slash commands (20 atomic + 5 super) in `.cursor/commands/`
 - `.cursor/rules/batch-commands.mdc` — bare-word triggers for batch commands
@@ -134,6 +135,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Android bottom buttons and snackbars overlapping 3-button navigation bar on edge-to-edge layouts — `bottomInsetPadding()` with 48dp fallback
 - `examples/web/package.json` — npm override `undici >=7.28.0` (Dependabot GHSA-vmh5-mc38-953g high, GHSA-pr7r-676h-xcf6 medium; transitive via jsdom)
 - v0.11.0 SBOM backfill via Release workflow dispatch (M29 audit F-001)
 

@@ -8,7 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import dev.foss.goldenpath.R
 import dev.foss.goldenpath.about.DonationsConfig
 import dev.foss.goldenpath.ui.about.AboutScreen
+import dev.foss.goldenpath.ui.components.GoldenPathScaffold
 import dev.foss.goldenpath.ui.components.ThemeToggle
 import dev.foss.goldenpath.ui.settings.SettingsScreen
 import dev.foss.goldenpath.ui.theme.SpacingLg
@@ -30,6 +31,7 @@ import dev.foss.goldenpath.ui.theme.ThemeMode
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GoldenPathScreen(
+    snackbarHostState: SnackbarHostState,
     themeMode: ThemeMode,
     isOnline: Boolean,
     showAbout: Boolean,
@@ -49,7 +51,8 @@ fun GoldenPathScreen(
     onUpdateCheckChange: (Boolean) -> Unit,
     onApplyUpdate: () -> Unit,
 ) {
-    Scaffold(
+    GoldenPathScaffold(
+        snackbarHostState = snackbarHostState,
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.app_title)) },

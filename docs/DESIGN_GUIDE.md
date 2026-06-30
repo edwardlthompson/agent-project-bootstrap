@@ -50,6 +50,15 @@ Accessibility: toggle labels come from i18n keys (`theme.toggle.label`, `theme.m
 - Alignment: `Alignment.Start` / `End`, not `Left` / `Right`.
 - Buttons: `Modifier.widthIn(min = 48.dp)` minimum touch target; avoid fixed widths for labels.
 
+### Android system bars (edge-to-edge)
+
+- Call `enableEdgeToEdge()` in `MainActivity`; keep status and navigation bar colors **transparent** via `ApplySystemBarStyle`.
+- Use `GoldenPathScaffold` (not raw `Scaffold`) — sets `contentWindowInsets = WindowInsets.safeDrawing` and an inset-aware `SnackbarHost`.
+- Bottom-fixed actions and snackbars: `Modifier.bottomInsetPadding()` from `ui/insets/` (includes 48dp fallback when 3-button nav reports zero inset).
+- Wrap the app in `NavigationModeProvider`; verify detected mode on About (`about.debug_navigation_mode` string).
+- **Do not use `Toast`** for in-app feedback — it ignores Compose insets and renders under the nav bar. Use `SnackbarHost` on the scaffold.
+- Automated verification: `bash scripts/verify-android-insets.sh` (adb sets 3-button/gesture, runs `NavBarInsetUiTest`).
+
 Allowed FOSS dependencies: `androidx.compose.material3`, `androidx.compose.material:material-icons-extended`, `androidx.datastore`. **Never** add `com.google.android.gms` or Firebase.
 
 ## Web (CSS variables)

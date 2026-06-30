@@ -28,4 +28,10 @@
     <string name="settings_theme_mode_light">Light theme</string>
     <string name="settings_theme_mode_dark">Dark theme</string>
     <string name="settings_update_check_label">Check for updates</string>
+    <string name="about_debug_navigation_mode">Navigation: %1$s (inset %2$ddp)</string>
+    <string name="nav_mode_three_button">3-button</string>
+    <string name="nav_mode_two_button">2-button</string>
+    <string name="nav_mode_gesture">Gesture</string>
+    <string name="nav_mode_unknown">Unknown</string>
+    <string name="snackbar_update_available">Update available — open About to apply</string>
 </resources>
