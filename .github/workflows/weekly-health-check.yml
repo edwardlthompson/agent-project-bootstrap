@@ -72,6 +72,18 @@ jobs:
           npm ci
           npm audit --audit-level=high
 
+      - name: Cursor feature radar (non-blocking)
+        continue-on-error: true
+        run: bash scripts/cursor-feature-radar.sh
+
+      - name: Upload radar report
+        if: always() && hashFiles('CURSOR_RADAR_REPORT.md') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: cursor-radar-report
+          path: CURSOR_RADAR_REPORT.md
+          if-no-files-found: ignore
+
   android-instrumented:
     name: Weekly Android Instrumented Smoke
     runs-on: ubuntu-latest

@@ -64,11 +64,14 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Template Maintainer — Active Board
 
-> **M19–M29** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`.
+> **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
 
 ### Open (human judgment only)
 
-_No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance** below.
+- 🔲 [HUMAN] Enable GitHub MCP locally if desired (copy `mcp.foss.example`, set `GITHUB_TOKEN`)
+- 🔲 [HUMAN] Quarterly review of `CURSOR_RADAR_REPORT.md` / backlog (top items → BUILD_PLAN)
+
+_Recurring maintenance: see **Ongoing Maintenance** below._
 
 ---
 
@@ -102,6 +105,7 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 > Address after `/build` completes AGENT/AUTO work above. `/build` attempts each row via automation; failures land in `HUMAN_BACKLOG.md`.
 
 1. 🔲 [HUMAN] Click **Use this template** on GitHub to create your project repo
+1a. 🔲 [HUMAN] Choose **distribution tier** (FOSS default vs Commercial) via `init-project.sh --distribution-tier`
 2. 🔲 [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
 2a. 🔲 [HUMAN] Pick Cursor mode per [`docs/CURSOR_MODES.md`](docs/CURSOR_MODES.md) (Ask to explore, Plan for architecture)
 2b. 🔲 [HUMAN] Bookmark [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md) — type `/` in Agent chat (`/bootstrap` for Sprint 0)
@@ -176,6 +180,7 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 ### Weekly
 
+- 🔲 [AUTO] `cursor-feature-radar.sh` (non-blocking; artifact in weekly-health-check)
 - 🔲 [AUTO] `check-security-triage.sh --wait-ci 300` (Dependabot + CI + Scorecard)
 - 🔲 [AGENT] Apply Dependabot bumps; triage Scorecard SARIF findings
 - 🔲 [AUTO] CI matrix + Repo Hygiene + Feature Gate green on `main`
@@ -196,6 +201,7 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 > Product approvals after automated pre-release gates pass.
 
 - 🔲 [HUMAN] Approve release tag when product-ready
+- 🔲 [HUMAN] Quarterly Cursor feature radar backlog review (see Sprint M30)
 
 ---
 
@@ -203,6 +209,7 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
+| M30 — Cursor FOSS integration + feature radar | Complete | `COMPLETED_TASKS.md` @ `508a541` |
 | M19–M29 — Cursor modes, batch commands, maintain, v0.11.0 release | Complete | `COMPLETED_TASKS.md` |
 | v0.10.0 release (`36a02e4`) | Complete | `COMPLETED_TASKS.md` |
 | M5–M18 maintainer sprints (seq + P2) | Complete | `COMPLETED_TASKS.md` @ `d6b92a2` |

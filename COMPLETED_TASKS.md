@@ -2,6 +2,16 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint M30 — Cursor FOSS integration + feature radar (2026-06-26)
+
+- ✅ [AGENT] Phase A1 hooks + session-state extension + `check-cursor-hooks.sh`
+- ✅ [AGENT] Phase A2 project skills (validate-bootstrap, parallel-scope, watch-gates-autofix)
+- ✅ [AGENT] Phase A3 custom subagents + `scope.md` update
+- ✅ [AGENT] Phase A4 `mcp.foss.example` + `docs/CURSOR_INTEGRATIONS.md`
+- ✅ [AUTO] Phase A5 `validate-bootstrap.sh` + `check-cursor-integrations.sh`
+- ✅ [AGENT] Phase B distribution tier + `sync-cursor-features.py` + commercial examples
+- ✅ [AUTO] Phase B `cursor-feature-radar.sh` + weekly-health-check + `/maintain`
+
 ## v0.11.0 release (2026-06-18)
 
 - ✅ [HUMAN] Merge Release Please PR #14 — [v0.11.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.11.0) published

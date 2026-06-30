@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/session-start-context.sh"
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/before-shell-guard.sh"
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": ".cursor/hooks/after-edit-encoding.sh"
+      }
+    ],
+    "subagentStart": [
+      {
+        "command": ".cursor/hooks/subagent-scope-inject.sh"
+      }
+    ],
+    "beforeMCPExecution": [
+      {
+        "command": ".cursor/hooks/mcp-audit.sh"
+      }
+    ]
+  }
+}

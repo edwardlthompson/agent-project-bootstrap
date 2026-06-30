@@ -111,6 +111,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Cursor FOSS integration (M30): project hooks, 3 skills, 3 subagents, GitHub MCP example, validation gates
+- `scripts/check-cursor-hooks.sh`, `scripts/check-cursor-integrations.sh`, `scripts/sync-cursor-features.py`, `scripts/cursor-feature-radar.sh`
+- `docs/CURSOR_INTEGRATIONS.md`, `docs/CURSOR_FEATURE_REGISTRY.json`, `docs/CURSOR_FEATURE_RADAR.md`
+- `--distribution-tier foss|commercial` on `init-project.sh` / `.ps1`; commercial `.example` configs + `commercial-compliance.mdc`
+- Weekly Cursor feature radar wired into `weekly-health-check.yml` and `/maintain`
+
 ### Documentation
 
 - `docs/FILE_SIZE_GUIDE.md` — industry guidance on file size limits and app responsiveness (code splitting, locale namespaces, Lighthouse gates)
@@ -129,7 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Parallel-first BUILD_PLAN protocol: decomposition checklist, `### Parallelization` in Plan Mode, `/scope` auto Task dispatch
 - `agent-progress.sh set-step` — track parallel completion for idempotent `/build`
 - `scripts/check-python-pytest-workflow.sh` — require pytest in deps, pyproject config, CI, and feature-gate when Python stack is present
-- M27 batch instruction templates: 25 slash commands (20 atomic + 5 super) in `.cursor/commands/`
+- M27 batch instruction templates: 26 slash commands (21 atomic + 5 super) in `.cursor/commands/`
 - `.cursor/rules/batch-commands.mdc` — bare-word triggers for batch commands
 - `docs/help/BATCH_COMMANDS.md` — human cheat sheet; `docs/BATCH_COMMANDS.md` — agent registry
 - `CODE_REVIEW.md.example` and `RELEASE_NOTES.md.example` (ephemeral outputs gitignored)

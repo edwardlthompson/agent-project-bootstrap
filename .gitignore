@@ -27,6 +27,11 @@ Thumbs.db
 .cursor/agent-progress.json
 .cursor/parallel-scope-lock.json
 .cursor/worktrees/
+.cursor/mcp.json
+.cursor/mcp-audit.log
+.cursor/environment.json
+CURSOR_RADAR_REPORT.md
+CURSOR_RADAR_BACKLOG.md
 
 # Test artifacts
 test-results/

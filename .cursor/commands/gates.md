@@ -1,5 +1,7 @@
 # Local validation gates
 
+> Skill: `.cursor/skills/validate-bootstrap/`
+
 Run Sprint 0 / pre-push validation (Git Bash on Windows):
 
 ```bash

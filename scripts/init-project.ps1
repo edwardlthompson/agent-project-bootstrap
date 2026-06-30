@@ -7,6 +7,7 @@ param(
     [string]$ReleaseRepo = "",
     [string]$DonationUrl = "",
     [string]$CodeOwner = "",
+    [string]$DistributionTier = "foss",
     [switch]$Prune,
     [switch]$NoPrune,
     [switch]$NonInteractive,
@@ -69,6 +70,19 @@ if (-not $Interval -and -not $NonInteractive) {
     $Interval = Read-Host "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]"
 }
 if (-not $Interval) { $Interval = "weekly" }
+
+if ($DistributionTier -notin @("foss", "commercial")) {
+    Write-Host "Invalid distribution tier '$DistributionTier'; defaulting to foss."
+    $DistributionTier = "foss"
+}
+if (-not $NonInteractive) {
+    Write-Host "Distribution tier:"
+    Write-Host "  1) FOSS (default) — MIT, no proprietary SDKs"
+    Write-Host "  2) Commercial — proprietary SDKs, full Cursor Cloud stack"
+    $TierChoice = Read-Host "Choose [1/2]"
+    if ($TierChoice -eq "2") { $DistributionTier = "commercial" } else { $DistributionTier = "foss" }
+}
+$env:BUILD_DISTRIBUTION_TIER = $DistributionTier
 
 if ($Stack -and $ProjectPurpose) {
     $placeholderPy = @'
@@ -178,8 +192,11 @@ if ($Stack -eq "none") {
 }
 
 python3 scripts/init-stack-sync.py $Stack $Root ($Pruned.ToString().ToLower())
+$CopyComm = @()
+if ($DistributionTier -eq "commercial") { $CopyComm = @("--copy-commercial") }
+python3 scripts/sync-cursor-features.py --root $Root --tier $DistributionTier --patch-init @CopyComm
 python3 scripts/sync-design-tokens.py 2>$null
-Write-Host "Wrote .cursor/stack-selection.json and synced AGENT_MEMORY active modules."
+Write-Host "Wrote .cursor/stack-selection.json (tier=$DistributionTier) and synced AGENT_MEMORY active modules."
 
 Write-Host ""
 Write-Host "=== Workflow validation ===" -ForegroundColor Cyan

@@ -1,5 +1,7 @@
 # Parallel dispatch (manifest + auto Task launch)
 
+> Skill: `.cursor/skills/parallel-scope/`
+
 Read @docs/PARALLEL_AGENT_SCOPES.md and the active BUILD_PLAN Parallel table.
 
 ## 1. Preconditions
@@ -37,11 +39,11 @@ Print **agent_count** in one line for the user.
 |-------------|--------|
 | 0 | Run `bash scripts/plan-parallel-dispatch.sh --suggest`. Orchestrator adds suggested rows to BUILD_PLAN Parallel table, then re-run manifest **once**. If still 0, document `<!-- parallel_exception: reason -->` or escalate. |
 | 1 | Execute the task inline (no Task tool). |
-| 2–8 | **One assistant message, N concurrent Task tool calls** (`subagent_type: generalPurpose`, `run_in_background: true`). |
+| 2–8 | **One assistant message, N concurrent Task tool calls** using custom subagent **`gate-fixer`** (`run_in_background: true`). For Plan/decompose only, prefer **`explorer`** (readonly). |
 
 ## 4. Subagent prompt template
 
-Each subagent must receive:
+Use **`.cursor/agents/gate-fixer.md`** (or Task with matching prompt). Each subagent must receive:
 
 - Read `.cursor/parallel-scope-lock.json` — stay inside assigned `scope` only.
 - **Forbidden paths:** `BUILD_PLAN.md`, `COMPLETED_TASKS.md`, composition roots (`appBootstrap.ts`, `GoldenPathApp.kt`, `main.ts`). Do not edit these; return notes to orchestrator instead.

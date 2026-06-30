@@ -39,7 +39,7 @@
     },
     {
       "path": "docs/BATCH_COMMANDS.md",
-      "purpose": "Agent registry for 25 batch slash commands and super chains",
+      "purpose": "Agent registry for 26 batch slash commands and super chains",
       "read_when": "prompt_needed",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -69,6 +69,62 @@
       "path": "scripts/check-batch-commands.sh",
       "purpose": "Validate batch command registry matches .cursor/commands/*.md",
       "read_when": "validation",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/CURSOR_INTEGRATIONS.md",
+      "purpose": "Cursor FOSS vs Commercial feature matrix and activation",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/CURSOR_FEATURE_REGISTRY.json",
+      "purpose": "Cursor feature inventory for weekly radar",
+      "read_when": "maintainer",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/CURSOR_FEATURE_RADAR.md",
+      "purpose": "Feature radar scoring rubric",
+      "read_when": "maintainer",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/hooks.json",
+      "purpose": "Cursor project hooks (enforcement layer)",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-cursor-hooks.sh",
+      "purpose": "Validate hooks.json schema and optional smoke tests",
+      "read_when": "validation",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-cursor-integrations.sh",
+      "purpose": "Validate skills, subagents, hooks, tier compliance",
+      "read_when": "validation",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sync-cursor-features.py",
+      "purpose": "Sync distribution tier manifest and tier-filtered help",
+      "read_when": "init",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/cursor-feature-radar.sh",
+      "purpose": "Weekly Cursor docs diff vs registry (soft-fail)",
+      "read_when": "maintainer",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     },

@@ -481,5 +481,15 @@ Execute @.cursor/commands/ship.md — prerelease → push → regress; grants gi
 **Prompt:**
 
 ```
-Execute @.cursor/commands/maintain.md — triage → dependabot → audit.
+Execute @.cursor/commands/maintain.md — radar → triage → dependabot → audit.
+```
+
+## Entry 47 — Sprint cleanup (`/cleanup`)
+
+**Slash command:** `.cursor/commands/cleanup.md`
+
+**Prompt:**
+
+```
+Execute @.cursor/commands/cleanup.md — archive completed BUILD_PLAN rows and sync COMPLETED_TASKS when sprint is fully ✅.
 ```

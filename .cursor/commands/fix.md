@@ -1,5 +1,7 @@
 # Gate autofix (feature scope)
 
+> Skill: `.cursor/skills/watch-gates-autofix/`
+
 Autonomous feature step with auto-fix:
 
 ```bash

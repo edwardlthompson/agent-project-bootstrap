@@ -1,6 +1,6 @@
 # Publish release super workflow
 
-Invoking this command grants explicit approval for `git push` per destructive-ops rules.
+Invoking this command grants explicit approval for `git push` per destructive-ops rules. When running `/compact`, set `"destructive_ops_approved": ["git push"]` in session state for Cursor shell hooks.
 
 Read and execute each sub-command in order. After each step, summarize pass/fail.
 

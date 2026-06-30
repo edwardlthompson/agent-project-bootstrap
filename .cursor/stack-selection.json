@@ -1,0 +1,25 @@
+{
+  "distribution_tier": "foss",
+  "stack": "multi",
+  "cursor_features_enabled": [
+    "rules",
+    "commands",
+    "hooks",
+    "skills",
+    "subagents",
+    "modes",
+    "parallel_scope",
+    "build_automation",
+    "feature_radar",
+    "mcp_foss_example"
+  ],
+  "cursor_features_hidden": [
+    "cloud_agents",
+    "bugbot",
+    "automations",
+    "approval_agents",
+    "mcp_commercial_example",
+    "android_commercial_patterns"
+  ],
+  "cursor_features_synced_at": "2026-06-30T20:51:49+00:00"
+}

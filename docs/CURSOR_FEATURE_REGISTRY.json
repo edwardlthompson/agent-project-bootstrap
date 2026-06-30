@@ -1,0 +1,343 @@
+{
+  "version": 1,
+  "updated_at": "2026-06-30",
+  "entries": [
+    {
+      "id": "rules.mdc",
+      "category": "rules",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/rules",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "commands.slash",
+      "category": "commands",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/chat/commands",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "modes.ask",
+      "category": "modes",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/modes",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "hooks.beforeShellExecution",
+      "category": "hooks",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/hooks",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "hooks.afterFileEdit",
+      "category": "hooks",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/hooks",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "hooks.sessionStart",
+      "category": "hooks",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/hooks",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "hooks.subagentStart",
+      "category": "hooks",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/hooks",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "hooks.beforeMCPExecution",
+      "category": "hooks",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/hooks",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "hooks.beforeSubmitPrompt",
+      "category": "hooks",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/hooks",
+      "template_status": "rejected",
+      "last_seen": "2026-06-30",
+      "ignore_until": "2027-01-01"
+    },
+    {
+      "id": "skills.project",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "skills.validate-bootstrap",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "skills.parallel-scope",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "skills.watch-gates-autofix",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "subagents.custom",
+      "category": "subagents",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/subagents",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "subagents.verifier",
+      "category": "subagents",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/subagents",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "subagents.gate-fixer",
+      "category": "subagents",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/subagents",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "subagents.explorer",
+      "category": "subagents",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/subagents",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "mcp.foss.github",
+      "category": "mcp",
+      "distribution_tier": "foss",
+      "doc_url": "https://cursor.com/docs/context/mcp",
+      "template_status": "example",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "mcp.commercial",
+      "category": "mcp",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/context/mcp",
+      "template_status": "example",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "parallel.scope",
+      "category": "workflow",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/tools",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "build.automation",
+      "category": "workflow",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/tools",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "session.state",
+      "category": "workflow",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/chat/checkpoints",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "cursorignore",
+      "category": "context",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/ignore-files",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "feature.radar",
+      "category": "maintainer",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/llms.txt",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "cloud.agents",
+      "category": "cloud",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/cloud-agent",
+      "template_status": "example",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "cloud.environment",
+      "category": "cloud",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/cloud-agent/setup",
+      "template_status": "example",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "bugbot",
+      "category": "cloud",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/bugbot",
+      "template_status": "example",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "automations",
+      "category": "cloud",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/automations",
+      "template_status": "watch",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "approval.agents",
+      "category": "cloud",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/enterprise",
+      "template_status": "planned",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "cli.agent",
+      "category": "cli",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/cli",
+      "template_status": "watch",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "cli.headless",
+      "category": "cli",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/cli/headless",
+      "template_status": "planned",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "canvas",
+      "category": "ui",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/canvas",
+      "template_status": "watch",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "design.mode",
+      "category": "ui",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/design-mode",
+      "template_status": "watch",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "browser.tool",
+      "category": "tools",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/browser",
+      "template_status": "rejected",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "plugins",
+      "category": "enterprise",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/plugins",
+      "template_status": "watch",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "sdk.typescript",
+      "category": "sdk",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/sdk",
+      "template_status": "planned",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "sdk.python",
+      "category": "sdk",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/sdk/python",
+      "template_status": "planned",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "devcontainer",
+      "category": "environment",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/integrations/devcontainers",
+      "template_status": "shipped",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "worktrees",
+      "category": "workflow",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/integrations/git",
+      "template_status": "example",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "android.commercial",
+      "category": "modules",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/context/rules",
+      "template_status": "example",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "security.agents",
+      "category": "enterprise",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/enterprise/security",
+      "template_status": "watch",
+      "last_seen": "2026-06-30"
+    },
+    {
+      "id": "team.marketplace",
+      "category": "enterprise",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/enterprise/marketplace",
+      "template_status": "watch",
+      "last_seen": "2026-06-30"
+    }
+  ]
+}

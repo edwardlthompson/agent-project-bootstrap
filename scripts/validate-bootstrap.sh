@@ -45,7 +45,7 @@ REQUIRED=(
 )
 
 BATCH_COMMANDS=(
-  audit debug gates triage dependabot push prerelease regress
+  audit cleanup debug gates triage dependabot push prerelease regress
   feature fix init prune ci docs upgrade setup plan restore compact scope
   bootstrap verify build ship maintain
 )
@@ -103,6 +103,13 @@ run_check bash scripts/check-markdown-tables.sh
 run_check bash scripts/check-changelog-unreleased.sh
 run_check bash scripts/check-repo-hygiene.sh
 run_check bash scripts/check-batch-commands.sh
+run_check bash scripts/check-cursor-hooks.sh
+TIER="foss"
+if [ -f .cursor/stack-selection.json ]; then
+  TIER="$(python3 -c "import json;print(json.load(open('.cursor/stack-selection.json')).get('distribution_tier','foss'))" 2>/dev/null || echo foss)"
+fi
+python3 scripts/sync-cursor-features.py --root "$ROOT" --tier "$TIER"
+run_check bash scripts/check-cursor-integrations.sh --tier "$TIER"
 run_check bash scripts/check-build-plan-parallel.sh
 run_check bash scripts/check-template-version-sync.sh
 

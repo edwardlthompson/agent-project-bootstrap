@@ -40,6 +40,27 @@
 
 Activate only the modules matching your stack. See `modules/*/MODULE.md`.
 
+## Cursor FOSS integrations
+
+Shipped in template (see `docs/CURSOR_INTEGRATIONS.md`):
+
+- **Hooks** — `.cursor/hooks.json` enforces destructive-ops + UTF-8 (fail-open; `/push` session override)
+- **Skills (3)** — `.cursor/skills/` progressive-load companions for `/gates`, `/scope`, `/fix`
+- **Subagents (3)** — `.cursor/agents/` verifier, gate-fixer, explorer
+- **Optional MCP** — copy `.cursor/mcp.foss.example` → gitignored `.cursor/mcp.json`
+
+Validate: `bash scripts/check-cursor-hooks.sh --smoke`, `bash scripts/check-cursor-integrations.sh`
+
+## Cursor Commercial integrations
+
+Hidden on FOSS bootstrap (`distribution_tier: foss` in `.cursor/stack-selection.json`). When `--distribution-tier commercial`:
+
+- `commercial-compliance.mdc` replaces active FOSS compliance rule
+- Activate Cloud/Bugbot/MCP via `docs/CURSOR_COMMERCIAL_ACTIVATION.md`
+- Android proprietary patterns: `modules/android/COMMERCIAL.md`
+
+Router reads `distribution_tier` from `.cursor/stack-selection.json` (set by `init-project.sh`).
+
 ## Ecosystem-Specific Rules
 
 - **Android:** FOSS only; reproducible builds with `SOURCE_DATE_EPOCH`

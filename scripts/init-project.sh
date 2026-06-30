@@ -2,6 +2,7 @@
 # Post-template clone customization helper
 # Usage: scripts/init-project.sh [options]
 #   --stack web|python|android|node|multi|none
+#   --distribution-tier foss|commercial
 #   --project-name NAME  --purpose TEXT  --interval INTERVAL
 #   --release-repo OWNER/REPO  --donation-url URL  --codeowner USER
 #   --prune  --no-prune  --non-interactive  --keep-optional  --prune-optional
@@ -25,6 +26,7 @@ Usage: scripts/init-project.sh [options]
   --non-interactive      Skip prompts (requires --stack, --project-name, --purpose)
   --keep-optional        When pruning, keep rust/go/lightroom examples and modules (default)
   --prune-optional       When pruning, also remove optional stacks (rust/go/lightroom)
+  --distribution-tier T  foss|commercial (default foss)
   -h, --help
 EOF
 }
@@ -39,9 +41,11 @@ CODEOWNER=""
 PRUNE_FLAG=""
 NONINTERACTIVE=false
 KEEP_OPTIONAL=true
+DISTRIBUTION_TIER="foss"
 while [ $# -gt 0 ]; do
   case "$1" in
     --stack) STACK="${2:-}"; shift 2 ;;
+    --distribution-tier) DISTRIBUTION_TIER="${2:-foss}"; shift 2 ;;
     --project-name) PROJECT_NAME="${2:-}"; shift 2 ;;
     --purpose) PROJECT_PURPOSE="${2:-}"; shift 2 ;;
     --interval) INTERVAL="${2:-}"; shift 2 ;;
@@ -57,6 +61,15 @@ while [ $# -gt 0 ]; do
     *) echo "Unknown option: $1" >&2; usage >&2; exit 1 ;;
   esac
 done
+
+case "$DISTRIBUTION_TIER" in
+  foss|commercial) ;;
+  *)
+    echo "Invalid distribution tier '$DISTRIBUTION_TIER'; defaulting to foss."
+    DISTRIBUTION_TIER="foss"
+    ;;
+esac
+export BUILD_DISTRIBUTION_TIER="$DISTRIBUTION_TIER"
 
 prune_optional_stacks() {
   if [ "$KEEP_OPTIONAL" = true ]; then
@@ -107,6 +120,17 @@ if [ -z "$INTERVAL" ] && [ "$NONINTERACTIVE" != true ]; then
   read -rp "Template update check interval (off/daily/weekly/monthly/on_session) [weekly]: " INTERVAL
 fi
 INTERVAL="${INTERVAL:-weekly}"
+if [ "$NONINTERACTIVE" != true ]; then
+  echo "Distribution tier:"
+  echo "  1) FOSS (default) — MIT, no proprietary SDKs"
+  echo "  2) Commercial — proprietary SDKs, full Cursor Cloud stack"
+  read -rp "Choose [1/2]: " TIER_CHOICE
+  case "$TIER_CHOICE" in
+    2|commercial|Commercial) DISTRIBUTION_TIER="commercial" ;;
+    *) DISTRIBUTION_TIER="foss" ;;
+  esac
+  export BUILD_DISTRIBUTION_TIER="$DISTRIBUTION_TIER"
+fi
 
 # Replace placeholders (Python handles special characters in names)
 if [ -n "$STACK" ] && [ -n "$PROJECT_PURPOSE" ]; then
@@ -234,8 +258,13 @@ else
 fi
 
 python3 scripts/init-stack-sync.py "$STACK" "$ROOT" "$PRUNED"
+COPY_COMM=""
+if [ "$DISTRIBUTION_TIER" = "commercial" ]; then
+  COPY_COMM="--copy-commercial"
+fi
+python3 scripts/sync-cursor-features.py --root "$ROOT" --tier "$DISTRIBUTION_TIER" --patch-init $COPY_COMM
 python3 scripts/sync-design-tokens.py || true
-echo "Wrote .cursor/stack-selection.json and synced AGENT_MEMORY active modules."
+echo "Wrote .cursor/stack-selection.json (tier=$DISTRIBUTION_TIER) and synced AGENT_MEMORY active modules."
 
 echo ""
 echo "=== Workflow validation ==="
