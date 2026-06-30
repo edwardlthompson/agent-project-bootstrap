@@ -129,6 +129,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/merge-release-please-pr.sh",
+      "purpose": "Auto-merge Release Please PR (--auto then --admin fallback)",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/release-please-automerge.yml",
+      "purpose": "Queue auto-merge for release-please PR branches",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-template-version-sync.sh",
       "purpose": "Fail when .template-version drifts from release-please manifest",
       "read_when": "validation",

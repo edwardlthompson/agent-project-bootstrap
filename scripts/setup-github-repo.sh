@@ -40,7 +40,9 @@ MANUAL SETUP CHECKLIST (GitHub UI - API returned 422 or insufficient permissions
   4. Settings -> Branches -> Branch protection rules -> main:
      - Require status checks: CI, Security Scan, CodeQL, Repo Hygiene, Feature Gate
      - Require branches to be up to date before merging (recommended)
-     - Bypass list: GitHub Actions app (for Release Please auto-merge)
+     - Leave "Do not allow bypassing the above settings" OFF so repo admins can merge via gh --admin
+  4b. (Optional, org repos or Rulesets only) Settings -> Rules -> Rulesets -> Bypass list:
+     - Add GitHub Actions app, mode "For pull requests only" — not available on classic personal-repo branch rules
   5. Re-run: bash scripts/setup-github-repo.sh
 EOF
 }
