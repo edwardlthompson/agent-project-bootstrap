@@ -461,7 +461,7 @@ Execute @.cursor/commands/verify.md — docs → gates → ci.
 **Prompt:**
 
 ```
-Execute @.cursor/commands/build.md — plan (with ### Parallelization) → approval → feature steps 1–2 → scope (auto) → feature wire → gates → cleanup.
+Execute @.cursor/commands/build.md — autonomous BUILD_PLAN sprint chain; no user approval; chains until HUMAN/ADB block or all AGENT/AUTO complete.
 ```
 
 ## Entry 45 — Ship super (`/ship`)

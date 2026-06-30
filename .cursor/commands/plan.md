@@ -1,6 +1,17 @@
 # Feature or ADR plan (Plan Mode)
 
 Read @docs/CURSOR_MODES.md and the active BUILD_PLAN row.
+
+## Autonomous mode (invoked from `/build`)
+
+When called from @.cursor/commands/build.md:
+
+- **Do not ask the user for approval** — pick the single best approach and execute.
+- **Do not present multiple options** — use internal ### Critique + ### Parallelization only.
+- Proceed directly to implementation after a brief internal plan.
+
+## Standalone `/plan` (interactive)
+
 If the trivial rubric says Agent, skip planning and execute directly.
 Otherwise propose 1–3 approaches with mandatory ### Critique before coding.
 
@@ -13,12 +24,12 @@ When drafting or extending **BUILD_PLAN.md** sprints, include mandatory **### Pa
 
 Apply the decomposition checklist in @BUILD_PLAN.md (multi-stack, logic/view split, tests/docs/CI). **Maximize agent_count** across non-overlapping scopes.
 
-Before asking human approval of BUILD_PLAN changes, run:
+Before asking human approval of BUILD_PLAN changes (standalone `/plan` only), run:
 
 ```bash
 bash scripts/check-build-plan-parallel.sh
 ```
 
-Do not edit code until the user approves the plan.
+Do not edit code until the user approves the plan **unless** autonomous `/build` invoked this command.
 
 Begin now.

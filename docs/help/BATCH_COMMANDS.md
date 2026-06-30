@@ -17,7 +17,7 @@ Bookmark this page for when you come back after a break.
 |---------|-------------|
 | `/bootstrap` | Brand-new project — Sprint 0 setup end to end |
 | `/verify` | After your changes, before opening a pull request |
-| `/build` | Start a new feature (plans first, then implements) |
+| `/build` | Run BUILD_PLAN end-to-end — automates HUMAN/ADB via scripts, backlogs failures, chains sprints until done |
 | `/ship` | Publish a release to GitHub (runs checks, push, post-release) |
 | `/maintain` | Weekly health pass — security, dependencies, full review |
 

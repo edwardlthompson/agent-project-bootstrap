@@ -10,7 +10,7 @@
 |---------|-------|-------------|----------------|-------|
 | `/bootstrap` | init → prune → setup → gates | Agent | 42 | No |
 | `/verify` | docs → gates → ci | Agent | 43 | No |
-| `/build` | plan → approval → feature → gates → cleanup | Plan then Agent | 44 | No |
+| `/build` | Autonomous BUILD_PLAN sprint chain — automates HUMAN/ADB first, backlog on failure | Agent | 44 | No |
 | `/ship` | prerelease → push → regress | Agent | 45 | **Yes** |
 | `/maintain` | triage → dependabot → audit | Agent | 46 | No |
 

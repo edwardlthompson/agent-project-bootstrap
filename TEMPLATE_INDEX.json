@@ -423,6 +423,55 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/build-sprint-status.sh",
+      "purpose": "Next BUILD_PLAN row for autonomous /build sprint loop",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/build_sprint.py",
+      "purpose": "BUILD_PLAN sprint phase parser for build-sprint-status",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/attempt-build-plan-row.sh",
+      "purpose": "Attempt HUMAN/ADB BUILD_PLAN rows via automation catalog during /build",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/human_task_automation.py",
+      "purpose": "Pattern registry and handlers for HUMAN/ADB build automation",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/build-backlog.sh",
+      "purpose": "Append failed HUMAN/ADB automation to HUMAN_BACKLOG.md",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/build_backlog.py",
+      "purpose": "HUMAN_BACKLOG.md dedupe and list helpers",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "HUMAN_BACKLOG.md.example",
+      "purpose": "Template for /build failure backlog (child repos copy to HUMAN_BACKLOG.md)",
+      "read_when": "bootstrap_session_start",
+      "update_when": "never",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/plan-parallel-dispatch.sh",
       "purpose": "Build parallel agent manifest and agent_count from BUILD_PLAN",
       "read_when": "session_start",

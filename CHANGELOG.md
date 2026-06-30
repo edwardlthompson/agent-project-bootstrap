@@ -119,10 +119,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `scripts/plan-parallel-dispatch.sh` and `scripts/lib/parallel_scope.py` — parallel agent manifest, agent_count, and scope overlap detection
+- Autonomous `/build` — HUMAN/ADB automation router, failure backlog, and sprint status manifest
+- `scripts/attempt-build-plan-row.sh` + `scripts/lib/human_task_automation.py` — pattern registry for HUMAN/ADB automation during `/build`
+- `scripts/build-backlog.sh` + `HUMAN_BACKLOG.md` — failure-only backlog for unautomatable human tasks (dedupe on sprint|task)
+- `scripts/build-sprint-status.sh` + `scripts/lib/build_sprint.py` — next-row manifest (`automate_human`, `automate_adb`, `execute`, `parallel_dispatch`)
+- `agent-progress.sh set-parallel-sprint-done` — track parallel dispatch completion per sprint
 - `scripts/check-build-plan-parallel.sh` — gate requiring ≥ 2 AGENT Parallel rows per sprint (or documented exception)
 - `scripts/setup-agent-worktrees.sh` — optional git worktrees for parallel agent isolation
-- Parallel-first BUILD_PLAN protocol: decomposition checklist, `### Parallelization` in Plan Mode, `/scope` auto Task dispatch, `/build` wires scope after Sequential step 2
+- Parallel-first BUILD_PLAN protocol: decomposition checklist, `### Parallelization` in Plan Mode, `/scope` auto Task dispatch
 - `agent-progress.sh set-step` — track parallel completion for idempotent `/build`
 - `scripts/check-python-pytest-workflow.sh` — require pytest in deps, pyproject config, CI, and feature-gate when Python stack is present
 - M27 batch instruction templates: 25 slash commands (20 atomic + 5 super) in `.cursor/commands/`
@@ -145,6 +149,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `/build` runs AGENT/AUTO and Parallel work first; HUMAN/ADB grouped under **Human & device (after automation)** in BUILD_PLAN for human review after automation
+- Autonomous `/build` sprint loop — chains sprints without approval pauses; never halts on HUMAN/ADB labels
 - Python CI and weekly health check run pytest when `examples/python/` is present; feature-gate job steps are stack-conditional
 - File size taxonomy: **static data 300 lines** (UI + i18n) and **pure logic 150 lines** — replaces 250-line view limit; enforced in `scripts/check-file-limits.sh`
 - `release-please.yml` — auto-sync template version files on release PR; dispatch SBOM workflow on publish (use `fromJSON(pr).number` for checkout)

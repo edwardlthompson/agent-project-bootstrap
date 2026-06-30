@@ -66,6 +66,25 @@ Write manifest to `.cursor/parallel-scope-lock.json`. Run `/scope` for auto Task
 - Subagents report: `bash scripts/agent-progress.sh set-step --name tests|view|e2e`
 - Scope map: `docs/PARALLEL_AGENT_SCOPES.md`
 
+## Autonomous `/build` — HUMAN/ADB automation
+
+`/build` runs all `[AGENT]`/`[AUTO]` and Parallel work first, then attempts the grouped **Human & device (after automation)** section via `scripts/attempt-build-plan-row.sh`. Never halts on human labels.
+
+| Phase | Action |
+|-------|--------|
+| Sequential + Parallel + post-merge AGENT | `execute` or `parallel_dispatch` |
+| Human & device (after automation) | `automate_human` / `automate_adb` |
+| Automation exit 0 | Mark row ✅ in BUILD_PLAN |
+| Automation exit 1 | `scripts/build-backlog.sh add` → continue (row stays open in human group) |
+
+Place `[HUMAN]`/`[ADB]` rows only under `#### Human & device (after automation)` (or `### Human (after automation)` in maintenance) so humans can address them as one block after automation.
+
+Config env vars (optional): `BUILD_STACK`, `BUILD_PROJECT_NAME`, `BUILD_PURPOSE`, `GITHUB_REPO`, `BUILD_DONATION_URL`. Fallback: `.cursor/stack-selection.json`, `gh repo view`, folder name.
+
+Status: `bash scripts/build-sprint-status.sh --json --lane child` → `next_row.action` is `automate_human`, `automate_adb`, `execute`, or `parallel_dispatch`. Rows already in `HUMAN_BACKLOG.md` are skipped until a human clears them.
+
+Disable autonomous ADR approval in child repos: add `<!-- no-auto-approve -->` to BUILD_PLAN.
+
 ## 3-Strike Rule
 
 After 3 failed fix attempts: halt, summarize conflict, request human direction. Switch to **Debug Mode** per [`docs/CURSOR_MODES.md`](CURSOR_MODES.md) when root cause is unclear.

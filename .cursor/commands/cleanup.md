@@ -2,7 +2,7 @@
 
 Run after BUILD_PLAN execution when local gates pass. Moves finished work off the active board into @COMPLETED_TASKS.md.
 
-**Do not archive** while any `[AGENT]` or `[AUTO]` row in the active sprint/feature block is still 🔲 or ❌. Optional `[HUMAN]` smoke rows may remain open — archive the AGENT/AUTO work and leave HUMAN rows on the board with a note.
+**Do not archive** while any `[AGENT]` or `[AUTO]` row in the active sprint/feature block is still 🔲 or ❌. Rows auto-completed by `/build` automation (✅ HUMAN/ADB) may be archived with AGENT/AUTO work. Items in `HUMAN_BACKLOG.md` stay 🔲 on the board until a human clears them.
 
 ## Step 1 — Confirm completion
 
@@ -45,6 +45,6 @@ Remove the archived ✅ rows from the active board.
 python3 scripts/check-file-encoding.py BUILD_PLAN.md COMPLETED_TASKS.md
 ```
 
-Active board should contain no ✅ rows except deferred `[HUMAN]` items explicitly left open.
+Active board should contain no ✅ rows except backlogged `[HUMAN]`/`[ADB]` items explicitly left open (see `HUMAN_BACKLOG.md`).
 
 Begin now.

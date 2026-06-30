@@ -56,6 +56,8 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Planning (Plan Mode):** Every BUILD_PLAN proposal must include `### Parallelization` with `agent_count_target`, decomposition table, and dry-run from `plan-parallel-dispatch.sh`. Run `check-build-plan-parallel.sh` before human approval.
 
+**Autonomous `/build`:** Runs all `[AGENT]`/`[AUTO]` and Parallel work first, then attempts the grouped **Human & device (after automation)** section via `scripts/attempt-build-plan-row.sh`. Success marks ✅; failure appends `HUMAN_BACKLOG.md` and continues — never halts on human labels. Humans review the grouped section (and backlog) after automation finishes. Status: `bash scripts/build-sprint-status.sh --json`.
+
 > **Template maintainer:** No active AGENT sprint — **maintenance + human open items** below. **Child repos:** copy the playbook.
 
 ---
@@ -81,10 +83,6 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 #### Sequential
 
-1. 🔲 [HUMAN] Click **Use this template** on GitHub to create your project repo
-2. 🔲 [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
-2a. 🔲 [HUMAN] Pick Cursor mode per [`docs/CURSOR_MODES.md`](docs/CURSOR_MODES.md) (Ask to explore, Plan for architecture)
-2b. 🔲 [HUMAN] Bookmark [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md) — type `/` in Agent chat (`/bootstrap` for Sprint 0)
 3. 🔲 [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>`; `--non-interactive` with `--project-name` + `--purpose` for scripted init)
 4. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
 5. 🔲 [AUTO] Sprint 0 sign-off (all green on `main`):
@@ -98,6 +96,15 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 | Task | Owner | Isolated scope |
 |------|-------|----------------|
 | _None — see parallel_exception above_ | — | — |
+
+#### Human & device (after automation)
+
+> Address after `/build` completes AGENT/AUTO work above. `/build` attempts each row via automation; failures land in `HUMAN_BACKLOG.md`.
+
+1. 🔲 [HUMAN] Click **Use this template** on GitHub to create your project repo
+2. 🔲 [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
+2a. 🔲 [HUMAN] Pick Cursor mode per [`docs/CURSOR_MODES.md`](docs/CURSOR_MODES.md) (Ask to explore, Plan for architecture)
+2b. 🔲 [HUMAN] Bookmark [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md) — type `/` in Agent chat (`/bootstrap` for Sprint 0)
 
 ### Sprint 1 — Golden Path Foundation
 
@@ -115,7 +122,9 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 | Stack public assets | AGENT | `examples/{stack}/public/` |
 | Module + design docs | AGENT | `modules/{stack}/` |
 
-#### Sequential (post-Parallel merge)
+#### Human & device (after automation)
+
+> Address after `/build` completes AGENT/AUTO and Parallel work above.
 
 2. 🔲 [HUMAN] Fill stack-local config: web `examples/web/public/app-update.json` + `donations.json`; Android `assets/` mirrors; or root `.app-update.json` / `donations.json` (init runs `scripts/sync-stack-config.py`)
 3. 🔲 [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
@@ -130,13 +139,10 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 **Agent rule:** After every `[AGENT]` step → `bash scripts/watch-agent-gates.sh --once --autofix --step <scaffold|tests|wire>`.
 
-#### Per-feature Sequential (duplicate each feature)
+#### Per-feature Sequential (steps 1–2: lock API)
 
 1. 🔲 [AGENT] Copy `docs/features/_template.md` → `docs/features/{name}.md`; refine acceptance criteria
 2. 🔲 [AGENT] Scaffold feature container (public API boundary only)
-3. 🔲 [AGENT] Unit tests for feature pure logic
-4. 🔲 [AGENT] Wire view/adapter; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) ≤10 lines
-5. 🔲 [HUMAN] Optional product smoke after `[AUTO]` gate pass
 
 #### Per-feature Parallel (safe after Sequential step 2)
 
@@ -146,6 +152,17 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 | View + i18n | AGENT | `examples/{stack}/src/components/` or `ui/{feature}/`, `locales/` / `strings.xml` |
 | Feature spec + acceptance | AGENT | `docs/features/{feature}.md` |
 | E2e / instrumented smoke | AGENT | `examples/{stack}/e2e/` or `examples/{stack}/**/androidTest/` |
+
+#### Per-feature Sequential (steps 3–4: after Parallel merge)
+
+3. 🔲 [AGENT] Unit tests for feature pure logic (skip if Parallel agent completed)
+4. 🔲 [AGENT] Wire view/adapter; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) ≤10 lines
+
+#### Human & device (after automation)
+
+> Optional product judgment after gates pass.
+
+5. 🔲 [HUMAN] Optional product smoke after `[AUTO]` gate pass
 
 <!-- parallel_exception: none -->
 
@@ -173,6 +190,11 @@ _No open maintainer blockers._ Recurring maintenance: see **Ongoing Maintenance*
 
 - 🔲 [AUTO] `pre-release-gate.sh` + `run-maintainer-gates.sh` (includes `verify-branch-protection.sh`)
 - 🔲 [AUTO] Release Please PR merged; CHANGELOG + manifest bumped
+
+### Human (after automation)
+
+> Product approvals after automated pre-release gates pass.
+
 - 🔲 [HUMAN] Approve release tag when product-ready
 
 ---
