@@ -15,6 +15,27 @@ permissions:
   contents: read
 
 jobs:
+  stack-presence:
+    name: Detect active stacks
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.stacks.outputs.python }}
+      web: ${{ steps.stacks.outputs.web }}
+      node: ${{ steps.stacks.outputs.node }}
+    steps:
+      - uses: actions/checkout@v6
+      - id: stacks
+        run: |
+          for spec in python:examples/python/pyproject.toml web:examples/web/package-lock.json node:examples/node/package-lock.json; do
+            key="${spec%%:*}"
+            path="${spec#*:}"
+            if [ -f "$path" ]; then
+              echo "${key}=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "${key}=false" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
   path-changes:
     name: Detect path changes
     runs-on: ubuntu-latest
@@ -199,7 +220,8 @@ jobs:
 
   python:
     name: Python - Lint, Type, Test
-    if: hashFiles('examples/python/pyproject.toml') != ''
+    needs: stack-presence
+    if: needs.stack-presence.outputs.python == 'true'
     runs-on: ubuntu-latest
     defaults:
       run:
