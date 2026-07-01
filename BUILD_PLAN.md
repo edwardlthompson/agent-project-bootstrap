@@ -64,11 +64,10 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Template Maintainer — Active Board
 
-> **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
+> **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **v0.13.2** @ `ff8e4e6`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
 
 ### Open (human judgment only)
 
-- 🔲 [HUMAN] Merge Release Please PR #24 (`v0.13.1`) when product-ready
 - 🔲 [HUMAN] Enable GitHub MCP locally if desired (copy `mcp.foss.example`, set `GITHUB_TOKEN`)
 - 🔲 [HUMAN] Quarterly review of `CURSOR_RADAR_REPORT.md` / backlog (top items → BUILD_PLAN)
 
@@ -210,6 +209,7 @@ _Recurring maintenance: see **Ongoing Maintenance** below._
 
 | Sprint | Status | Archive |
 |--------|--------|---------|
+| v0.13.2 release | Complete | `COMPLETED_TASKS.md` @ `ff8e4e6` |
 | M31 — Audit 2026-07-01 | Complete | `COMPLETED_TASKS.md` |
 | M30 — Cursor FOSS integration + feature radar | Complete | `COMPLETED_TASKS.md` @ `508a541` |
 | M19–M29 — Cursor modes, batch commands, maintain, v0.11.0 release | Complete | `COMPLETED_TASKS.md` |

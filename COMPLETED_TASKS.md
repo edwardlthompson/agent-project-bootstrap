@@ -2,6 +2,10 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v0.13.2 release (2026-07-01)
+
+- ✅ [AUTO] Merge Release Please PR #27 — [v0.13.2](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.13.2) published @ `ff8e4e6`
+
 ## v0.13.1 release (2026-07-01)
 
 - ✅ [HUMAN] Merge Release Please PR #24 — [v0.13.1](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.13.1) published @ `7823600`
