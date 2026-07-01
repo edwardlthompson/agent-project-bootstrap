@@ -14,12 +14,12 @@
     "lighthouse": "lhci autorun"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.10.1",
+    "@axe-core/playwright": "^4.12.1",
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.61.0",
+    "@playwright/test": "^1.61.1",
     "jsdom": "^29.1.1",
     "typescript": "~6.0.3",
-    "vite": "^8.0.16",
+    "vite": "^8.1.2",
     "vitest": "^4.1.9",
     "@vitest/coverage-v8": "^4.1.8"
   },
