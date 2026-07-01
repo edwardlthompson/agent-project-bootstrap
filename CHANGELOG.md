@@ -19,6 +19,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.13.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.13.0...v0.13.1) (2026-07-01)
+
+
+### Fixed
+
+* **ci:** index release automerge paths; correct bypass docs ([5d4682d](https://github.com/edwardlthompson/agent-project-bootstrap/commit/5d4682d0ab6307005a584761534233d212104e2b))
+* **ci:** pin Kotlin for CodeQL and repair weekly health workflow ([66d58f6](https://github.com/edwardlthompson/agent-project-bootstrap/commit/66d58f62767adc51b4b10c749d324baf1b2509e0))
+
+
+### Changed
+
+* **deps-dev:** Bump the web-dependencies group ([#25](https://github.com/edwardlthompson/agent-project-bootstrap/issues/25)) ([62278a1](https://github.com/edwardlthompson/agent-project-bootstrap/commit/62278a14710173c01194c4a386f26bfc568f2b19))
+* **deps:** Bump org.jetbrains.kotlin.plugin.compose ([#26](https://github.com/edwardlthompson/agent-project-bootstrap/issues/26)) ([84952c2](https://github.com/edwardlthompson/agent-project-bootstrap/commit/84952c26ceb365a412acfe22a3468679bd104055))
+* **deps:** Bump the node-dependencies group across 1 directory with 5 updates ([#17](https://github.com/edwardlthompson/agent-project-bootstrap/issues/17)) ([5bb9730](https://github.com/edwardlthompson/agent-project-bootstrap/commit/5bb973038e2ee3ec9d89dbad859e68651c3bb4a7))
+
 ## [0.13.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.12.0...v0.13.0) (2026-06-30)
 
 
