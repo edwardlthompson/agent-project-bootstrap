@@ -19,6 +19,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.13.2](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.13.1...v0.13.2) (2026-07-01)
+
+
+### Fixed
+
+* **ci:** re-pin Kotlin 2.3.20 for CodeQL after Dependabot [#26](https://github.com/edwardlthompson/agent-project-bootstrap/issues/26) ([42f4659](https://github.com/edwardlthompson/agent-project-bootstrap/commit/42f4659d373b8bd07172c6d091ebf02b6bebfb11))
+* **cursor:** harden hook validation and complete M31 audit ([cd21e5a](https://github.com/edwardlthompson/agent-project-bootstrap/commit/cd21e5a70e8d2848bcbdf9d22b1e62daccff55c1))
+
+
+### Changed
+
+* **release:** prepare v0.13.2 release ([9932753](https://github.com/edwardlthompson/agent-project-bootstrap/commit/9932753e34b7ace26fa1aab1cd671c7b6b281896))
+
 ## [0.13.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.13.0...v0.13.1) (2026-07-01)
 
 
