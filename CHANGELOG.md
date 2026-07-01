@@ -203,6 +203,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **cursor:** line-1 shebang gate in `check_cursor_hooks.py`; deterministic smoke clears session approvals before deny test (M31 audit)
+- **ci:** re-pin Kotlin compose plugin to 2.3.20 after Dependabot #26 regressed CodeQL; tighten dependabot ignore for plugin id
 - Android bottom buttons and snackbars overlapping 3-button navigation bar on edge-to-edge layouts — `bottomInsetPadding()` with 48dp fallback
 - `examples/web/package.json` — npm override `undici >=7.28.0` (Dependabot GHSA-vmh5-mc38-953g high, GHSA-pr7r-676h-xcf6 medium; transitive via jsdom)
 - v0.11.0 SBOM backfill via Release workflow dispatch (M29 audit F-001)
