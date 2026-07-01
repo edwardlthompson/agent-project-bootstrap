@@ -39,3 +39,7 @@ updates:
     groups:
       android-dependencies:
         patterns: ["*"]
+    ignore:
+      # CodeQL java-kotlin extractor supports Kotlin below 2.3.30 (see codeql.yml)
+      - dependency-name: "org.jetbrains.kotlin:*"
+        versions: [">=2.3.30"]
