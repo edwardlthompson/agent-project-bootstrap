@@ -23,7 +23,7 @@ jobs:
       web: ${{ steps.stacks.outputs.web }}
       node: ${{ steps.stacks.outputs.node }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - id: stacks
         run: |
           for spec in python:examples/python/pyproject.toml web:examples/web/package-lock.json node:examples/node/package-lock.json; do
@@ -45,7 +45,7 @@ jobs:
       go: ${{ steps.paths.outputs.go }}
       lightroom: ${{ steps.paths.outputs.lightroom }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - id: paths
@@ -105,7 +105,7 @@ jobs:
     name: File Encoding (UTF-8)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Check text files are UTF-8
         run: bash scripts/check-file-encoding.sh
 
@@ -113,7 +113,7 @@ jobs:
     name: File Size Budgets
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Check file line limits
         run: bash scripts/check-file-limits.sh
 
@@ -121,7 +121,7 @@ jobs:
     name: Repo Hygiene
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Check tracked artifacts and repo config
         run: bash scripts/check-repo-hygiene.sh
 
@@ -129,7 +129,7 @@ jobs:
     name: Feature Gate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: "22"
@@ -160,7 +160,7 @@ jobs:
     name: Validate Template Index
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Validate TEMPLATE_INDEX.json paths
         run: bash scripts/validate-template-index.sh
 
@@ -168,7 +168,7 @@ jobs:
     name: Validate Workflow Action Refs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Verify action tags and SHAs resolve on GitHub
         env:
           GH_TOKEN: ${{ github.token }}
@@ -178,7 +178,7 @@ jobs:
     name: Validate Bootstrap Artifacts
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Check Sprint 0 artifacts exist
         env:
           GH_TOKEN: ${{ github.token }}
@@ -191,7 +191,7 @@ jobs:
       run:
         working-directory: examples/web
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: "22"
@@ -227,7 +227,7 @@ jobs:
       run:
         working-directory: examples/python
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
@@ -255,7 +255,7 @@ jobs:
       run:
         working-directory: examples/node
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: "22"
@@ -279,7 +279,7 @@ jobs:
     name: Android - Structure Validation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Validate FOSS compliance markers
         run: |
           if grep -rE "com\.google\.android\.gms|firebase" \
@@ -305,7 +305,7 @@ jobs:
     name: Android - assembleDebug
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -324,7 +324,7 @@ jobs:
     if: needs.path-changes.outputs.android == 'true'
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -416,7 +416,7 @@ jobs:
     name: Template Upgrade Simulation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Simulate child-repo upgrade path
         run: bash scripts/simulate-template-upgrade.sh
 
@@ -425,7 +425,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Check for upstream template updates
         run: bash scripts/check-template-updates.sh --verbose
   pr-title:
@@ -443,7 +443,7 @@ jobs:
     name: Android - assembleRelease
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -491,7 +491,7 @@ jobs:
     needs: path-changes
     if: needs.path-changes.outputs.lightroom == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Validate Lr* SDK compliance
         run: |
           set -euo pipefail
@@ -514,7 +514,7 @@ jobs:
       run:
         working-directory: examples/rust
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo fmt --check
       - run: cargo clippy -- -D warnings
@@ -529,7 +529,7 @@ jobs:
       run:
         working-directory: examples/go
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v6
         with:
           go-version: "1.22"
