@@ -64,7 +64,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Template Maintainer — Active Board
 
-> **M31** archived in `COMPLETED_TASKS.md` @ audit session. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
+> **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
 
 ### Open (human judgment only)
 

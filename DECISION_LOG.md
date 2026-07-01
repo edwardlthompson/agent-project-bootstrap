@@ -18,6 +18,13 @@
 
 _Seed template ADR: `docs/adr/0000-template-baseline.md`. Child repos use `docs/adr/0001-core-architecture.md`._
 
+### 2026-07-01 — Cursor hook smoke isolation (M31)
+- **Status:** Accepted
+- **Context:** M31 audit found `check-cursor-hooks.sh --smoke` false-pass when `.cursor-session-state.json` already listed `git push` in `destructive_ops_approved`
+- **Decision:** Smoke test clears session approvals before deny assertion; validate hook scripts require shebang on line 1
+- **Alternatives considered:** Ignore local session state in smoke (rejected: hides real deny-path bugs); require empty session file (rejected: breaks dev workflow)
+- **Consequences:** `--smoke` is deterministic in CI and locally; invalid hook scripts fail validate-bootstrap early
+
 ### 2026-06-30 — Cursor hooks as enforcement layer (M30)
 - **Status:** Accepted
 - **Context:** M27 rejected `beforeSubmitPrompt` hooks; rules alone cannot block destructive shell commands at runtime

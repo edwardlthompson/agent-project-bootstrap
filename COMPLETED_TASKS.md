@@ -2,6 +2,10 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v0.13.1 release (2026-07-01)
+
+- ✅ [HUMAN] Merge Release Please PR #24 — [v0.13.1](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.13.1) published @ `7823600`
+
 ## Sprint M31 — Audit 2026-07-01
 
 - ✅ [AGENT] Fix F-001 — line-1 shebang gate in `check_cursor_hooks.py`; deterministic smoke (clears session approvals for deny test)
