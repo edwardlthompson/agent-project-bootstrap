@@ -2,6 +2,12 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint M31 — Audit 2026-07-01
+
+- ✅ [AGENT] Fix F-001 — line-1 shebang gate in `check_cursor_hooks.py`; deterministic smoke (clears session approvals for deny test)
+- ✅ [AGENT] Fix F-003 — restore `docs/BATCH_COMMANDS.md` (drop whitespace-only local edits)
+- ✅ [AGENT] F-002 — update + merge Dependabot PR #17 (node deps)
+
 ## Sprint M30 — Cursor FOSS integration + feature radar (2026-06-26)
 
 - ✅ [AGENT] Phase A1 hooks + session-state extension + `check-cursor-hooks.sh`

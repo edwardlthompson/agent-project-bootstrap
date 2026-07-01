@@ -64,6 +64,10 @@ def validate(root: Path) -> list[str]:
             script = root / cmd
             if not script.is_file():
                 errors.append(f"hook script missing: {cmd}")
+                continue
+            first_line = script.read_text(encoding="utf-8").splitlines()[0:1]
+            if not first_line or not first_line[0].startswith("#!"):
+                errors.append(f"hook script shebang must be line 1: {cmd}")
 
     return errors
 
@@ -93,13 +97,6 @@ def smoke(root: Path) -> list[str]:
     errors: list[str] = []
     if hooks_disabled(root):
         return errors
-    allow = run_guard(root, "git status")
-    if allow.get("permission") == "deny":
-        errors.append("smoke: git status should be allowed")
-
-    deny = run_guard(root, "git push origin main")
-    if deny.get("permission") != "deny":
-        errors.append("smoke: git push should be denied without session approval")
 
     state = root / ".cursor-session-state.json"
     backup = None
@@ -107,7 +104,20 @@ def smoke(root: Path) -> list[str]:
         backup = state.read_text(encoding="utf-8")
     try:
         state.write_text(
-            json.dumps({"destructive_ops_approved": ["git push"]}, indent=2) + "\n",
+            json.dumps({"version": 1, "destructive_ops_approved": []}, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+        allow = run_guard(root, "git status")
+        if allow.get("permission") == "deny":
+            errors.append("smoke: git status should be allowed")
+
+        deny = run_guard(root, "git push origin main")
+        if deny.get("permission") != "deny":
+            errors.append("smoke: git push should be denied without session approval")
+
+        state.write_text(
+            json.dumps({"version": 1, "destructive_ops_approved": ["git push"]}, indent=2) + "\n",
             encoding="utf-8",
         )
         ok = run_guard(root, "git push origin main")
