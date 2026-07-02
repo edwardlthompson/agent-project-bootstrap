@@ -19,6 +19,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.14.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.13.2...v0.14.0) (2026-07-02)
+
+
+### Added
+
+* **cursor:** quiet agent shell with Python hooks and agent-run ([7fc8e4b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7fc8e4b455655acb68c5037e364ada7454177d01))
+
+
+### Fixed
+
+* **changelog:** remove duplicate Unreleased section for CI gate ([4c82890](https://github.com/edwardlthompson/agent-project-bootstrap/commit/4c8289072c7db231063be65e2a263be05f4af0bc))
+
+
+### Changed
+
+* **deps:** Bump the github-actions group across 1 directory with 3 updates ([#22](https://github.com/edwardlthompson/agent-project-bootstrap/issues/22)) ([a118247](https://github.com/edwardlthompson/agent-project-bootstrap/commit/a118247a43a3a698315885423d13803ac2d40a71))
+
+
+### Documentation
+
+* **build-plan:** archive v0.13.2 release and slim active board ([2b708ca](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2b708ca7313076b19524cf1d989ea3b8f6ed7cd7))
+
 ## [Unreleased]
 
 ### Added

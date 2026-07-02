@@ -53,5 +53,5 @@ FOSS Cursor agent bootstrap template: labeled BUILD_PLAN sprints, Golden Path ex
 ## Template Provenance
 
 - **Source template:** `edwardlthompson/agent-project-bootstrap` (self-maintained)
-- **Template version:** `0.13.2` (see `.template-version`)
+- **Template version:** `0.14.0` (see `.template-version`)
 - **Last update check:** See `.template-update.json`
