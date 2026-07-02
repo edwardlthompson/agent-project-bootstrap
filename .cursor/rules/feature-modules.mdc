@@ -16,7 +16,7 @@ alwaysApply: true
 ## After every AGENT step
 
 ```bash
-bash scripts/watch-agent-gates.sh --once --autofix
+python3 scripts/agent-run.py watch-agent-gates --once --autofix
 ```
 
 On exit `1`: read gate JSON + `.cursor/agent-progress.json`; **auto-fix** lint/tests in feature scope; re-run until pass or 3-strike.

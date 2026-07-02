@@ -19,8 +19,8 @@ FORBIDDEN_PATHS = [
 ]
 
 SPRINT_HEADER = re.compile(r"^#{2,3}\s+Sprint\s+", re.I)
-PARALLEL_HEADER = re.compile(r"^#{3,4}\s+.*Parallel", re.I)
-SEQUENTIAL_HEADER = re.compile(r"^#{3,4}\s+Sequential", re.I)
+PARALLEL_HEADER = re.compile(r"^#{3,4}\s+.*Parallel", re.I | re.MULTILINE)
+SEQUENTIAL_HEADER = re.compile(r"^#{3,4}\s+Sequential", re.I | re.MULTILINE)
 TABLE_ROW = re.compile(r"^\|([^|]+)\|([^|]+)\|([^|]+)\|")
 OPEN_AGENT_SEQ = re.compile(
     r"^(?:\d+[a-z]?\.)\s+(?:🔲|⬜|\[ \])\s+\[AGENT\]\s+",

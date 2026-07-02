@@ -21,7 +21,8 @@ examples/android/local.properties
 .DS_Store
 Thumbs.db
 .idea/
-.vscode/
+.vscode/*
+!.vscode/settings.json
 *.swp
 .cursor-session-state
 .cursor/agent-progress.json

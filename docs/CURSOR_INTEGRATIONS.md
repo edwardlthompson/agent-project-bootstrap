@@ -16,9 +16,10 @@ After `scripts/init-project.sh --distribution-tier foss`:
 | Modes | `docs/CURSOR_MODES.md` | Shipped |
 | Parallel `/scope` | `scripts/plan-parallel-dispatch.sh` | Shipped |
 | Autonomous `/build` | `scripts/build-sprint-status.sh` | Shipped |
+| Agent script runner | `scripts/agent-run.py` | Shipped |
 | GitHub MCP (optional) | Copy `.cursor/mcp.foss.example` → `.cursor/mcp.json` | Example |
 
-Validation: `bash scripts/check-cursor-integrations.sh --tier foss`
+Validation: `python3 scripts/agent-run.py check-cursor-integrations -- --tier foss`
 
 ## Commercial quick start
 
@@ -34,17 +35,23 @@ Enforcement complement to rules (M27 — no `beforeSubmitPrompt`):
 
 | Event | Script | Behavior |
 |-------|--------|----------|
-| `sessionStart` | `session-start-context.sh` | Stack/tier one-liner |
-| `beforeShellExecution` | `before-shell-guard.sh` | Denylist + session `destructive_ops_approved` |
-| `afterFileEdit` | `after-edit-encoding.sh` | UTF-8 check, fail-open |
-| `subagentStart` | `subagent-scope-inject.sh` | Parallel lock scope |
-| `beforeMCPExecution` | `mcp-audit.sh` | Append audit log only |
+| `sessionStart` | `session_start_context.py` | Stack/tier one-liner |
+| `beforeShellExecution` | `before_shell_guard.py` | Denylist + session `destructive_ops_approved` |
+| `afterFileEdit` | `after_edit_encoding.py` | UTF-8 check, fail-open |
+| `subagentStart` | `subagent_scope_inject.py` | Parallel lock scope |
+| `beforeMCPExecution` | `mcp_audit.py` | Append audit log only |
+
+Hooks are Python modules (not `.sh`) so Cursor Agent shell execution does not open hook scripts in the editor.
+
+**Quiet agent shell:** Agents should invoke gates via `python3 scripts/agent-run.py <name> [args]` instead of `bash scripts/<name>.sh`. Workspace `.vscode/settings.json` disables editor auto-reveal when files open in the background.
+
+**Troubleshooting focus steal:** Pin the tab you are editing; optional hook opt-out below. If `.sh` tabs still appear, confirm agents use `agent-run.py` (see `.cursor/commands/`).
 
 **Opt-out:** `<!-- cursor-hooks: off -->` in `BUILD_PLAN.md`
 
 **Session override:** `/push` and `/ship` set `destructive_ops_approved: ["git push"]` via `/compact`.
 
-Validate: `bash scripts/check-cursor-hooks.sh --smoke`
+Validate: `python3 scripts/agent-run.py check-cursor-hooks -- --smoke`
 
 ## Skills (progressive load)
 
@@ -75,7 +82,7 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 
 - Registry: [`CURSOR_FEATURE_REGISTRY.json`](CURSOR_FEATURE_REGISTRY.json)
 - Rubric: [`CURSOR_FEATURE_RADAR.md`](CURSOR_FEATURE_RADAR.md)
-- Script: `bash scripts/cursor-feature-radar.sh`
+- Script: `python3 scripts/agent-run.py cursor-feature-radar`
 - Outputs: gitignored `CURSOR_RADAR_REPORT.md`, `CURSOR_RADAR_BACKLOG.md`
 
 ## Switch tier later

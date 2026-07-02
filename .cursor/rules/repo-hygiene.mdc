@@ -22,8 +22,8 @@ alwaysApply: true
 
 1. Review `git status` before every commit
 2. Stage **explicit paths** — avoid blind `git add -A`
-3. Run `bash scripts/check-repo-hygiene.sh` before push (CI runs the same gate)
-4. Reclaim disk: `bash scripts/purge-ephemeral.sh` (dry-run); `--apply` uses `git clean -fdX` (ignored only)
+3. Run `python3 scripts/agent-run.py check-repo-hygiene` before push (CI runs the same gate)
+4. Reclaim disk: `python3 scripts/agent-run.py purge-ephemeral` (dry-run); `--apply` uses `git clean -fdX` (ignored only)
 
 ## Policies
 

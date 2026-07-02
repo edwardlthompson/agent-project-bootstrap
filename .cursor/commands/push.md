@@ -19,12 +19,12 @@ Create/update RELEASE_NOTES.md from CHANGELOG, BUILD_PLAN rows, recent commits (
 - Stage **explicit paths only** (never `git add .`)
 - Commit: `chore(release): prepare vX.Y.Z release` with key changes in body
 - `git push origin main`
-- `bash scripts/check-github-ci.sh --wait 600`
+- `python3 scripts/agent-run.py check-github-ci --wait 600`
 - Zero open Critical/High Dependabot alerts
 
 ## Step 4 — Release
 
-- Merge Release Please PR: `bash scripts/merge-release-please-pr.sh --wait 300` (auto-merge queue, then `--admin` fallback; requires admin `gh auth`)
+- Merge Release Please PR: `python3 scripts/agent-run.py merge-release-please-pr --wait 300` (auto-merge queue, then `--admin` fallback; requires admin `gh auth`)
 - Update @AGENT_MEMORY.md and @DECISION_LOG.md at milestone boundary
 
 ## Step 5 — Cleanup

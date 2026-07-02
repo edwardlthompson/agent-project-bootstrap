@@ -1,7 +1,7 @@
 # Pre-release gate
 
 ```bash
-bash scripts/pre-release-gate.sh
+python3 scripts/agent-run.py pre-release-gate
 ```
 
 Confirm CI + Security Scan + CodeQL green, zero Critical/High Dependabot alerts, `.template-version` present.

@@ -19,6 +19,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [Unreleased]
+
+### Added
+
+- **cursor:** `scripts/agent-run.py` — run gate scripts without `.sh` paths in agent shell commands (reduces editor focus steal)
+- **cursor:** Python hook modules (`.cursor/hooks/*.py`) replacing `.sh` wrappers; workspace `.vscode/settings.json` anti-reveal defaults
+
+### Changed
+
+- **cursor:** Agent commands, rules, and skills invoke `python3 scripts/agent-run.py <name>` instead of `bash scripts/<name>.sh`
+- **docs:** KB-010 and `CURSOR_INTEGRATIONS.md` troubleshooting for quiet agent shell
+
+### Fixed
+
+- **build-plan:** `parallel_scope.py` uses `re.MULTILINE` so `#### Parallel` headers validate in child playbook sprints
+
 ## [0.13.2](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.13.1...v0.13.2) (2026-07-01)
 
 

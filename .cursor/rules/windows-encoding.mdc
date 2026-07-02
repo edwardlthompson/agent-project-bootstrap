@@ -9,5 +9,5 @@ On Windows, never save repository text files as UTF-16 LE.
 
 - Use Python `Path.write_text(content, encoding="utf-8")` for bulk or scripted writes.
 - PowerShell: `Set-Content -Encoding utf8` or `[System.IO.File]::WriteAllText(path, content, New-Object System.Text.UTF8Encoding $false)`.
-- After edits on Windows, run `python3 scripts/check-file-encoding.py` or `bash scripts/check-file-encoding.sh`.
+- After edits on Windows, run `python3 scripts/check-file-encoding.py` or `python3 scripts/agent-run.py check-file-encoding`.
 - UTF-16 corruption breaks `.gitignore`, JSON, YAML, and `npm`/`json.load`.

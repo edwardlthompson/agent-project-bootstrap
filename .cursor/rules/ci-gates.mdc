@@ -13,7 +13,7 @@ globs:
 After push to `main` or before release sign-off:
 
 ```bash
-bash scripts/check-github-ci.sh --wait 300
+python3 scripts/agent-run.py check-github-ci --wait 300
 ```
 
 ## Gate Order (local)

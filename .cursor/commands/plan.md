@@ -20,14 +20,14 @@ When drafting or extending **BUILD_PLAN.md** sprints, include mandatory **### Pa
 1. **Sequential lock list** — shared schema/types/API that must finish before Parallel (1–3 items max)
 2. **Decomposition table** — Task | Isolated scope | Why safe in parallel
 3. **`agent_count_target`** — integer; justify any target `< 2` in one sentence
-4. **Dry-run** — expected output of `bash scripts/plan-parallel-dispatch.sh --draft BUILD_PLAN.md --suggest`
+4. **Dry-run** — expected output of `python3 scripts/agent-run.py plan-parallel-dispatch --draft BUILD_PLAN.md --suggest`
 
 Apply the decomposition checklist in @BUILD_PLAN.md (multi-stack, logic/view split, tests/docs/CI). **Maximize agent_count** across non-overlapping scopes.
 
 Before asking human approval of BUILD_PLAN changes (standalone `/plan` only), run:
 
 ```bash
-bash scripts/check-build-plan-parallel.sh
+python3 scripts/agent-run.py check-build-plan-parallel
 ```
 
 Do not edit code until the user approves the plan **unless** autonomous `/build` invoked this command.

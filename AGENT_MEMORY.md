@@ -7,7 +7,7 @@
 
 | Layer | Technology | Version | Notes |
 |-------|-----------|---------|-------|
-| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Rust/Go) | 0.13.2 | Template maintainer repo |
+| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Rust/Go) | 0.13.2 → 0.14.0 pending | Template maintainer repo |
 | License | MIT | - | Pure FOSS |
 | Distribution | GitHub Releases + GitHub Pages demo | - | F-Droid/Winget stubs for child repos |
 

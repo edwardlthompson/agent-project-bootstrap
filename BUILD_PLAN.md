@@ -4,22 +4,26 @@
 
 ## Owner Label Legend
 
-| Label | Owner | When to use |
-|-------|-------|-------------|
-| `AGENT` | Cursor Agent | Code, docs, scaffolding, tests, CI config |
+
+| Label   | Owner           | When to use                                                |
+| ------- | --------------- | ---------------------------------------------------------- |
+| `AGENT` | Cursor Agent    | Code, docs, scaffolding, tests, CI config                  |
 | `HUMAN` | Human developer | Approvals, credentials, GitHub settings, product decisions |
-| `ADB` | Human (Android) | Android SDK, emulator/device testing, F-Droid submission |
-| `AUTO` | CI/scripts/bots | GitHub Actions, Dependabot, pre-commit, update checker |
+| `ADB`   | Human (Android) | Android SDK, emulator/device testing, F-Droid submission   |
+| `AUTO`  | CI/scripts/bots | GitHub Actions, Dependabot, pre-commit, update checker     |
+
 
 ## Status markers
 
 Use **emoji markers** (not `- [ ]` GitHub checkboxes) so task state reads clearly in Markdown source and Preview. **Applies repo-wide** — `BUILD_PLAN.md`, module checklists, PR template, feature specs, and security triage.
 
-| Marker | State | Agent action |
-|--------|-------|--------------|
-| 🔲 | Open | Default for new tasks; work or leave queued |
-| ✅ | Done | Replace 🔲 when complete; archive sprint rows to `COMPLETED_TASKS.md` |
-| ❌ | Blocked | Replace 🔲 when blocked; add brief reason after the description |
+
+| Marker | State   | Agent action                                                          |
+| ------ | ------- | --------------------------------------------------------------------- |
+| 🔲     | Open    | Default for new tasks; work or leave queued                           |
+| ✅      | Done    | Replace 🔲 when complete; archive sprint rows to `COMPLETED_TASKS.md` |
+| ❌      | Blocked | Replace 🔲 when blocked; add brief reason after the description       |
+
 
 **Task format:** `🔲 [OWNER] Description` · done: `✅ [OWNER] Description` · blocked: `❌ [OWNER] Description — reason`
 
@@ -34,23 +38,27 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### Parallel dispatch protocol (orchestrator)
 
-| Step | Action |
-|------|--------|
-| 1 | Finish all `[AGENT]` **Sequential** items for the active sprint/feature (shared schema/types locked) |
-| 2 | **Discover** parallelizable work using the decomposition checklist below; add Parallel table rows with non-overlapping `` `path/**` `` scopes |
-| 3 | Run `bash scripts/plan-parallel-dispatch.sh` → read **agent_count** |
-| 4 | If `agent_count >= 2`, run `/scope` (auto Task dispatch); if `1`, execute inline; if `0`, run `--suggest` and expand the Parallel table (or document `parallel_exception`) |
-| 5 | Sequential owner merges results, runs `watch-agent-gates.sh`, updates BUILD_PLAN (Parallel agents never edit BUILD_PLAN) |
+
+| Step | Action                                                                                                                                                                     |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | Finish all `[AGENT]` **Sequential** items for the active sprint/feature (shared schema/types locked)                                                                       |
+| 2    | **Discover** parallelizable work using the decomposition checklist below; add Parallel table rows with non-overlapping ``path/**`` scopes                                  |
+| 3    | Run `bash scripts/plan-parallel-dispatch.sh` → read **agent_count**                                                                                                        |
+| 4    | If `agent_count >= 2`, run `/scope` (auto Task dispatch); if `1`, execute inline; if `0`, run `--suggest` and expand the Parallel table (or document `parallel_exception`) |
+| 5    | Sequential owner merges results, runs `watch-agent-gates.sh`, updates BUILD_PLAN (Parallel agents never edit BUILD_PLAN)                                                   |
+
 
 **Decomposition checklist** (apply before finalizing Sequential items):
 
-| Heuristic | Split into Parallel agents |
-|-----------|---------------------------|
-| Multi-stack repo | One agent per active module (`examples/{stack}/**`) |
-| Feature container (Sprint 2+) | Agent A: pure logic + unit tests; Agent B: view/Composable + i18n |
-| Tests vs production code | Separate `**/*.test.*`, `e2e/**`, `androidTest/**` when paths do not overlap implementation |
-| Docs vs code | Agent A: `examples/**`; Agent B: `docs/**`, `modules/**`, `.cursor/rules/**` |
-| CI/gates vs app code | Agent A: `scripts/**`, `.github/workflows/**`; Agent B: stack example tree |
+
+| Heuristic                     | Split into Parallel agents                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------------- |
+| Multi-stack repo              | One agent per active module (`examples/{stack}/`**)                                         |
+| Feature container (Sprint 2+) | Agent A: pure logic + unit tests; Agent B: view/Composable + i18n                           |
+| Tests vs production code      | Separate `**/*.test.*`, `e2e/**`, `androidTest/**` when paths do not overlap implementation |
+| Docs vs code                  | Agent A: `examples/**`; Agent B: `docs/**`, `modules/**`, `.cursor/rules/**`                |
+| CI/gates vs app code          | Agent A: `scripts/**`, `.github/workflows/**`; Agent B: stack example tree                  |
+
 
 **Default rule:** If a Sequential `[AGENT]` item touches two or more non-overlapping directory prefixes, **split it** — leave only schema-lock work Sequential.
 
@@ -71,7 +79,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 - 🔲 [HUMAN] Enable GitHub MCP locally if desired (copy `mcp.foss.example`, set `GITHUB_TOKEN`)
 - 🔲 [HUMAN] Quarterly review of `CURSOR_RADAR_REPORT.md` / backlog (top items → BUILD_PLAN)
 
-_Recurring maintenance: see **Ongoing Maintenance** below._
+*Recurring maintenance: see **Ongoing Maintenance** below.*
 
 ---
 
@@ -81,38 +89,44 @@ _Recurring maintenance: see **Ongoing Maintenance** below._
 
 ### Sprint 0 — Template Customization
 
-<!-- agent_count_target: 0 | sequential_lock_step: 5 -->
-<!-- parallel_exception: bootstrap init and GitHub setup are inherently sequential -->
+
+
+
 
 #### Sequential
 
-3. 🔲 [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>`; `--non-interactive` with `--project-name` + `--purpose` for scripted init)
-4. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
-5. 🔲 [AUTO] Sprint 0 sign-off (all green on `main`):
-   - `validate-bootstrap.sh --quick`
-   - `feature-gate.sh --stack <active>`
-   - `check-github-ci.sh --wait 300`
-   - `check-license-compliance.sh` (after `npm ci` / `uv sync`)
+1. 🔲 [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>`; `--non-interactive` with `--project-name` + `--purpose` for scripted init)
+2. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
+3. 🔲 [AUTO] Sprint 0 sign-off (all green on `main`):
+  - `validate-bootstrap.sh --quick`
+  - `feature-gate.sh --stack <active>`
+  - `check-github-ci.sh --wait 300`
+  - `check-license-compliance.sh` (after `npm ci` / `uv sync`)
 
 #### Parallel (safe after Sequential step 5)
 
-| Task | Owner | Isolated scope |
-|------|-------|----------------|
-| _None — see parallel_exception above_ | — | — |
+<!-- parallel_exception: Sprint 0 — stack not selected; Parallel rows added after init -->
+
+
+| Task                                  | Owner | Isolated scope |
+| ------------------------------------- | ----- | -------------- |
+| *None — see parallel_exception above* | —     | —              |
+
 
 #### Human & device (after automation)
 
 > Address after `/build` completes AGENT/AUTO work above. `/build` attempts each row via automation; failures land in `HUMAN_BACKLOG.md`.
 
 1. 🔲 [HUMAN] Click **Use this template** on GitHub to create your project repo
+
 1a. 🔲 [HUMAN] Choose **distribution tier** (FOSS default vs Commercial) via `init-project.sh --distribution-tier`
 2. 🔲 [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
-2a. 🔲 [HUMAN] Pick Cursor mode per [`docs/CURSOR_MODES.md`](docs/CURSOR_MODES.md) (Ask to explore, Plan for architecture)
-2b. 🔲 [HUMAN] Bookmark [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md) — type `/` in Agent chat (`/bootstrap` for Sprint 0)
+2a. 🔲 [HUMAN] Pick Cursor mode per `[docs/CURSOR_MODES.md](docs/CURSOR_MODES.md)` (Ask to explore, Plan for architecture)
+2b. 🔲 [HUMAN] Bookmark `[docs/help/BATCH_COMMANDS.md](docs/help/BATCH_COMMANDS.md)` — type `/` in Agent chat (`/bootstrap` for Sprint 0)
 
 ### Sprint 1 — Golden Path Foundation
 
-<!-- agent_count_target: 3 | sequential_lock_step: 1 -->
+
 
 #### Sequential
 
@@ -120,24 +134,26 @@ _Recurring maintenance: see **Ongoing Maintenance** below._
 
 #### Parallel (safe after Sequential step 1)
 
-| Task | Owner | Isolated scope |
-|------|-------|----------------|
-| About screen verify | AGENT | `examples/{stack}/**/about/` |
-| Stack public assets | AGENT | `examples/{stack}/public/` |
-| Module + design docs | AGENT | `modules/{stack}/` |
+
+| Task                 | Owner | Isolated scope               |
+| -------------------- | ----- | ---------------------------- |
+| About screen verify  | AGENT | `examples/{stack}/**/about/` |
+| Stack public assets  | AGENT | `examples/{stack}/public/`   |
+| Module + design docs | AGENT | `modules/{stack}/`           |
+
 
 #### Human & device (after automation)
 
 > Address after `/build` completes AGENT/AUTO and Parallel work above.
 
-2. 🔲 [HUMAN] Fill stack-local config: web `examples/web/public/app-update.json` + `donations.json`; Android `assets/` mirrors; or root `.app-update.json` / `donations.json` (init runs `scripts/sync-stack-config.py`)
-3. 🔲 [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
+1. 🔲 [HUMAN] Fill stack-local config: web `examples/web/public/app-update.json` + `donations.json`; Android `assets/` mirrors; or root `.app-update.json` / `donations.json` (init runs `scripts/sync-stack-config.py`)
+2. 🔲 [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
 
-<!-- parallel_exception: none -->
+
 
 ### Sprint 2+ — Incremental Features
 
-<!-- agent_count_target: 4 | sequential_lock_step: 2 -->
+
 
 > One vertical slice at a time. See `docs/FEATURE_MODULES.md`. Reference exemplars: `docs/features/settings.md` (Sprint 2), About (Sprint 1).
 
@@ -150,25 +166,27 @@ _Recurring maintenance: see **Ongoing Maintenance** below._
 
 #### Per-feature Parallel (safe after Sequential step 2)
 
-| Task | Owner | Isolated scope |
-|------|-------|----------------|
-| Logic + unit tests | AGENT | `examples/{stack}/src/{feature}/` or stack equivalent |
-| View + i18n | AGENT | `examples/{stack}/src/components/` or `ui/{feature}/`, `locales/` / `strings.xml` |
-| Feature spec + acceptance | AGENT | `docs/features/{feature}.md` |
-| E2e / instrumented smoke | AGENT | `examples/{stack}/e2e/` or `examples/{stack}/**/androidTest/` |
+
+| Task                      | Owner | Isolated scope                                                                    |
+| ------------------------- | ----- | --------------------------------------------------------------------------------- |
+| Logic + unit tests        | AGENT | `examples/{stack}/src/{feature}/` or stack equivalent                             |
+| View + i18n               | AGENT | `examples/{stack}/src/components/` or `ui/{feature}/`, `locales/` / `strings.xml` |
+| Feature spec + acceptance | AGENT | `docs/features/{feature}.md`                                                      |
+| E2e / instrumented smoke  | AGENT | `examples/{stack}/e2e/` or `examples/{stack}/**/androidTest/`                     |
+
 
 #### Per-feature Sequential (steps 3–4: after Parallel merge)
 
-3. 🔲 [AGENT] Unit tests for feature pure logic (skip if Parallel agent completed)
-4. 🔲 [AGENT] Wire view/adapter; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) ≤10 lines
+1. 🔲 [AGENT] Unit tests for feature pure logic (skip if Parallel agent completed)
+2. 🔲 [AGENT] Wire view/adapter; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) ≤10 lines
 
 #### Human & device (after automation)
 
 > Optional product judgment after gates pass.
 
-5. 🔲 [HUMAN] Optional product smoke after `[AUTO]` gate pass
+1. 🔲 [HUMAN] Optional product smoke after `[AUTO]` gate pass
 
-<!-- parallel_exception: none -->
+
 
 > Gates (`watch-agent-gates.sh`) run Sequential-side after each AGENT step — not in Parallel.
 
@@ -207,13 +225,16 @@ _Recurring maintenance: see **Ongoing Maintenance** below._
 
 ## Archived Sprints
 
-| Sprint | Status | Archive |
-|--------|--------|---------|
-| v0.13.2 release | Complete | `COMPLETED_TASKS.md` @ `ff8e4e6` |
-| M31 — Audit 2026-07-01 | Complete | `COMPLETED_TASKS.md` |
-| M30 — Cursor FOSS integration + feature radar | Complete | `COMPLETED_TASKS.md` @ `508a541` |
-| M19–M29 — Cursor modes, batch commands, maintain, v0.11.0 release | Complete | `COMPLETED_TASKS.md` |
-| v0.10.0 release (`36a02e4`) | Complete | `COMPLETED_TASKS.md` |
-| M5–M18 maintainer sprints (seq + P2) | Complete | `COMPLETED_TASKS.md` @ `d6b92a2` |
-| Child Sprint 2 starter scaffold | Complete | `COMPLETED_TASKS.md` |
-| v0.9.0 release (`fd699bc`) | Complete | `COMPLETED_TASKS.md` |
+
+| Sprint                                                            | Status   | Archive                          |
+| ----------------------------------------------------------------- | -------- | -------------------------------- |
+| v0.13.2 release                                                   | Complete | `COMPLETED_TASKS.md` @ `ff8e4e6` |
+| M31 — Audit 2026-07-01                                            | Complete | `COMPLETED_TASKS.md`             |
+| M30 — Cursor FOSS integration + feature radar                     | Complete | `COMPLETED_TASKS.md` @ `508a541` |
+| M19–M29 — Cursor modes, batch commands, maintain, v0.11.0 release | Complete | `COMPLETED_TASKS.md`             |
+| v0.10.0 release (`36a02e4`)                                       | Complete | `COMPLETED_TASKS.md`             |
+| M5–M18 maintainer sprints (seq + P2)                              | Complete | `COMPLETED_TASKS.md` @ `d6b92a2` |
+| Child Sprint 2 starter scaffold                                   | Complete | `COMPLETED_TASKS.md`             |
+| v0.9.0 release (`fd699bc`)                                        | Complete | `COMPLETED_TASKS.md`             |
+
+

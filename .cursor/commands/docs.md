@@ -3,9 +3,9 @@
 Docs-only validation (no full feature gate):
 
 ```bash
-bash scripts/check-readme-health.sh
-bash scripts/check-markdown-tables.sh
-bash scripts/check-file-encoding.sh
+python3 scripts/agent-run.py check-readme-health
+python3 scripts/agent-run.py check-markdown-tables
+python3 scripts/agent-run.py check-file-encoding
 ```
 
 Fix failures before commit. On Windows, re-run encoding check after bulk doc edits.

@@ -24,11 +24,11 @@ globs:
 ## Per-feature smoke gate (test pyramid)
 
 - **Unit (many):** required for every new feature's pure logic
-- **Smoke (one):** `bash scripts/feature-gate.sh` after each AGENT step
+- **Smoke (one):** `python3 scripts/agent-run.py feature-gate` after each AGENT step
 - **E2E (few):** Playwright/Lighthouse at milestone gates, not every feature
 
 ```bash
-bash scripts/watch-agent-gates.sh --once --autofix
+python3 scripts/agent-run.py watch-agent-gates --once --autofix
 ```
 
 Do not start feature B until feature A passes gates and `[HUMAN]` approves.

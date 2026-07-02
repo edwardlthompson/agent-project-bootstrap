@@ -40,6 +40,18 @@ def load_hooks(root: Path) -> dict:
     return data
 
 
+def resolve_hook_script(root: Path, command: str) -> Path | None:
+    cmd = command.strip()
+    for prefix in ("python3 ", "python "):
+        if cmd.startswith(prefix):
+            cmd = cmd[len(prefix) :].strip()
+            break
+    script = root / cmd
+    if script.is_file():
+        return script
+    return None
+
+
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
     if hooks_disabled(root):
@@ -61,9 +73,12 @@ def validate(root: Path) -> list[str]:
             continue
         for entry in entries:
             cmd = entry.get("command", "")
-            script = root / cmd
-            if not script.is_file():
+            script = resolve_hook_script(root, cmd)
+            if script is None:
                 errors.append(f"hook script missing: {cmd}")
+                continue
+            if script.suffix not in (".py", ".sh"):
+                errors.append(f"hook script must be .py or .sh: {cmd}")
                 continue
             first_line = script.read_text(encoding="utf-8").splitlines()[0:1]
             if not first_line or not first_line[0].startswith("#!"):
@@ -74,8 +89,9 @@ def validate(root: Path) -> list[str]:
 
 def run_guard(root: Path, command: str) -> dict:
     payload = json.dumps({"command": command})
+    guard = root / ".cursor/hooks/before_shell_guard.py"
     proc = subprocess.run(
-        ["bash", ".cursor/hooks/before-shell-guard.sh"],
+        ["python3", str(guard)],
         input=payload,
         capture_output=True,
         text=True,

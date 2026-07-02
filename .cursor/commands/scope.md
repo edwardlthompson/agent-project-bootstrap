@@ -10,7 +10,7 @@ Read @docs/PARALLEL_AGENT_SCOPES.md and the active BUILD_PLAN Parallel table.
 - Run:
 
 ```bash
-bash scripts/plan-parallel-dispatch.sh --require-sequential-clear --json
+python3 scripts/agent-run.py plan-parallel-dispatch --require-sequential-clear --json
 ```
 
 If blockers include open Sequential items, finish them first.
@@ -18,7 +18,7 @@ If blockers include open Sequential items, finish them first.
 ## 2. Manifest and scope lock
 
 ```bash
-bash scripts/plan-parallel-dispatch.sh --json
+python3 scripts/agent-run.py plan-parallel-dispatch --json
 ```
 
 Write the manifest agents array to `.cursor/parallel-scope-lock.json` (gitignored):
@@ -37,7 +37,7 @@ Print **agent_count** in one line for the user.
 
 | agent_count | Action |
 |-------------|--------|
-| 0 | Run `bash scripts/plan-parallel-dispatch.sh --suggest`. Orchestrator adds suggested rows to BUILD_PLAN Parallel table, then re-run manifest **once**. If still 0, document `<!-- parallel_exception: reason -->` or escalate. |
+| 0 | Run `python3 scripts/agent-run.py plan-parallel-dispatch --suggest`. Orchestrator adds suggested rows to BUILD_PLAN Parallel table, then re-run manifest **once**. If still 0, document `<!-- parallel_exception: reason -->` or escalate. |
 | 1 | Execute the task inline (no Task tool). |
 | 2–8 | **One assistant message, N concurrent Task tool calls** using custom subagent **`gate-fixer`** (`run_in_background: true`). For Plan/decompose only, prefer **`explorer`** (readonly). |
 
@@ -49,18 +49,18 @@ Use **`.cursor/agents/gate-fixer.md`** (or Task with matching prompt). Each suba
 - **Forbidden paths:** `BUILD_PLAN.md`, `COMPLETED_TASKS.md`, composition roots (`appBootstrap.ts`, `GoldenPathApp.kt`, `main.ts`). Do not edit these; return notes to orchestrator instead.
 - Branch: `feature/agent-<task-slug>` (document in commit messages if branch not checked out).
 - Task: BUILD_PLAN Parallel row description.
-- After work: `bash scripts/watch-agent-gates.sh --once --autofix --step tests` or `--step wire` as appropriate.
-- Report completion: `bash scripts/agent-progress.sh set-step --name tests` (or `view`, `e2e`, matching the task).
+- After work: `python3 scripts/agent-run.py watch-agent-gates --once --autofix --step tests` or `--step wire` as appropriate.
+- Report completion: `python3 scripts/agent-run.py agent-progress set-step --name tests` (or `view`, `e2e`, matching the task).
 
 ## 5. Orchestrator merge
 
 1. Wait for all subagents to complete.
 2. Resolve conflicts if any (sequential owner only).
-3. Run `bash scripts/watch-agent-gates.sh --once --autofix`.
+3. Run `python3 scripts/agent-run.py watch-agent-gates --once --autofix`.
 4. Mark Parallel rows ✅ in BUILD_PLAN (Parallel agents never edit BUILD_PLAN).
 5. Delete or archive `.cursor/parallel-scope-lock.json` when done.
 6. If the sprint block is fully ✅, read @.cursor/commands/cleanup.md — execute fully.
 
-Optional hard isolation: `bash scripts/setup-agent-worktrees.sh` (see @docs/PARALLEL_AGENT_SCOPES.md).
+Optional hard isolation: `python3 scripts/agent-run.py setup-agent-worktrees` (see @docs/PARALLEL_AGENT_SCOPES.md).
 
 Begin now.

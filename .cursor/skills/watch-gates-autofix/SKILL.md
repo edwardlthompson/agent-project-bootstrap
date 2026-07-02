@@ -9,11 +9,11 @@ disable-model-invocation: false
 See also: `.cursor/commands/fix.md`
 
 ```bash
-bash scripts/watch-agent-gates.sh --once --autofix
+python3 scripts/agent-run.py watch-agent-gates --once --autofix
 ```
 
 Exit 1: read `.cursor/agent-progress.json` and gate JSON; fix lint/tests in active feature scope; re-run (max 3 strikes).
 
 Exit 2: halt and escalate per `docs/FOR_AGENTS.md`.
 
-Optional: `bash scripts/feature-autofix.sh` for mechanical fixers within feature container.
+Optional: `python3 scripts/agent-run.py feature-autofix` for mechanical fixers within feature container.

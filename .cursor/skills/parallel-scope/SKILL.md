@@ -9,8 +9,8 @@ disable-model-invocation: false
 See also: `.cursor/commands/scope.md`
 
 ```bash
-bash scripts/plan-parallel-dispatch.sh --require-sequential-clear --json
-bash scripts/check-parallel-scope.sh
+python3 scripts/agent-run.py plan-parallel-dispatch --require-sequential-clear --json
+python3 scripts/agent-run.py check-parallel-scope
 ```
 
 Write manifest to `.cursor/parallel-scope-lock.json`. When `agent_count >= 2`, launch named subagents (`gate-fixer`) per scope.md — one message, concurrent tasks.
