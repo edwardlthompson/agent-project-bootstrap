@@ -189,11 +189,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **build-plan:** record v0.9.0 human release approval ([40e6eee](https://github.com/edwardlthompson/agent-project-bootstrap/commit/40e6eee079a9e8469993cb68f14d60d5329ca14c))
 * log M27 batch commands decision at ship milestone ([17318ea](https://github.com/edwardlthompson/agent-project-bootstrap/commit/17318ea250d191b5eb9b477c2239d992a809a04a))
 
-## [Unreleased]
-
-### Added
-
-- Cursor FOSS integration (M30): project hooks, 3 skills, 3 subagents, GitHub MCP example, validation gates
+## [Historical — pre–Release Please consolidation]
 - `scripts/check-cursor-hooks.sh`, `scripts/check-cursor-integrations.sh`, `scripts/sync-cursor-features.py`, `scripts/cursor-feature-radar.sh`
 - `docs/CURSOR_INTEGRATIONS.md`, `docs/CURSOR_FEATURE_REGISTRY.json`, `docs/CURSOR_FEATURE_RADAR.md`
 - `--distribution-tier foss|commercial` on `init-project.sh` / `.ps1`; commercial `.example` configs + `commercial-compliance.mdc`
