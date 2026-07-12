@@ -416,6 +416,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/setup-automerge-token.sh",
+      "purpose": "Set AUTOMERGE_TOKEN repo secret from env or gh auth token so automerges trigger push CI",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/setup-automerge-token.ps1",
+      "purpose": "Windows wrapper for setup-automerge-token.sh",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/pre-release-gate.sh",
       "purpose": "Pre-release gate: CI poll, Dependabot alerts, template version, release reminder",
       "read_when": "release",
