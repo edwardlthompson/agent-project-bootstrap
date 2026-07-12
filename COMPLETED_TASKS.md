@@ -2,6 +2,16 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint M32 — Audit 2026-07-12
+
+- ✅ [AGENT] Fix F-005 — prefer Git Bash over WSL `bash.exe` in `scripts/agent-run.py` (Windows)
+- ✅ [AGENT] Fix F-001/F-004 — add `workflow_dispatch` to CodeQL + Security Scan; `check-github-ci.sh --dispatch-if-missing`; weekly health uses it; Dependabot automerge prefers `AUTOMERGE_TOKEN`
+- ✅ [AGENT] Fix F-006 — sync `AGENT_MEMORY.md` + BUILD_PLAN banner to released **v0.14.0**
+- ✅ [AUTO] After push: `check-github-ci.sh HEAD --wait 300` green on `main` @ `e532c20`
+- ✅ [HUMAN] F-002 — Enable required status checks on `main` — via `setup-github-repo.sh` / HUMAN automation
+- ✅ [HUMAN] F-003 — Review/merge Dependabot PRs #33/#34 (TypeScript 7) — merged via HUMAN automation
+- ✅ [HUMAN] F-001 follow-up — Create repo secret `AUTOMERGE_TOKEN` — via `setup-automerge-token.sh`
+
 ## v0.13.2 release (2026-07-01)
 
 - ✅ [AUTO] Merge Release Please PR #27 — [v0.13.2](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.13.2) published @ `ff8e4e6`

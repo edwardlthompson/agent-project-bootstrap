@@ -66,40 +66,13 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Autonomous `/build`:** Runs all `[AGENT]`/`[AUTO]` and Parallel work first, then attempts the grouped **Human & device (after automation)** section via `scripts/attempt-build-plan-row.sh`. Success marks ✅; failure appends `HUMAN_BACKLOG.md` and continues — never halts on human labels. Humans review the grouped section (and backlog) after automation finishes. Status: `bash scripts/build-sprint-status.sh --json`.
 
-> **Template maintainer:** Sprint **M32** (audit 2026-07-12) active. **Child repos:** copy the playbook.
+> **Template maintainer:** No active AGENT sprint — **maintenance + human open items** below. **Child repos:** copy the playbook.
 
 ---
 
 ## Template Maintainer — Active Board
 
-> **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **v0.14.0** @ `4b94298`. **v0.13.2** @ `ff8e4e6`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
-
-### Sprint M32 — Audit 2026-07-12
-
-> Findings: `CODE_REVIEW.md` (gitignored). Gate snapshot: validate-bootstrap/hygiene/readme PASS; local feature-gate FAIL (F-005); main tip missing post-Dependabot CI (F-001).
-
-#### Sequential
-
-1. ✅ [AGENT] Fix F-005 — prefer Git Bash over WSL `bash.exe` in `scripts/agent-run.py` (Windows)
-2. ✅ [AGENT] Fix F-001/F-004 — add `workflow_dispatch` to CodeQL + Security Scan; `check-github-ci.sh --dispatch-if-missing`; weekly health uses it; Dependabot automerge prefers `AUTOMERGE_TOKEN`
-3. ✅ [AGENT] Fix F-006 — sync `AGENT_MEMORY.md` + BUILD_PLAN banner to released **v0.14.0**
-4. 🔲 [AUTO] After push: `check-github-ci.sh HEAD --wait 300` green on `main` (includes dispatched runs)
-
-#### Parallel (safe after Sequential step 2)
-
-<!-- parallel_exception: M32 — single-threaded CI/script fixes; no non-overlapping scopes -->
-
-| Task | Owner | Isolated scope |
-| ---- | ----- | -------------- |
-| *None — see parallel_exception above* | — | — |
-
-#### Human & device (after automation)
-
-> Address after AGENT/AUTO work above.
-
-1. ✅ [HUMAN] F-002 — Enable required status checks on `main` (CI, Security Scan, CodeQL; Dependency Review on PRs) — via `setup-github-repo.sh` / HUMAN automation
-2. ✅ [HUMAN] F-003 — Review/merge Dependabot PRs #33 (node) and #34 (web) — TypeScript 7 major; or add `HUMAN` label — merged via HUMAN automation
-3. ✅ [HUMAN] F-001 follow-up — Create repo secret `AUTOMERGE_TOKEN` (PAT with `contents`/`workflows`) so Dependabot merges trigger `push` CI — via `setup-automerge-token.sh`
+> **M32** archived in `COMPLETED_TASKS.md` @ `e532c20`. **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **v0.14.0** @ `4b94298`. **v0.13.2** @ `ff8e4e6`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
 
 ### Open (human judgment only)
 
@@ -255,6 +228,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Sprint                                                            | Status   | Archive                          |
 | ----------------------------------------------------------------- | -------- | -------------------------------- |
+| M32 — Audit 2026-07-12                                              | Complete | `COMPLETED_TASKS.md` @ `e532c20` |
 | v0.14.0 release                                                   | Complete | `COMPLETED_TASKS.md` @ `4b94298` |
 | v0.13.2 release                                                   | Complete | `COMPLETED_TASKS.md` @ `ff8e4e6` |
 | M31 — Audit 2026-07-01                                            | Complete | `COMPLETED_TASKS.md`             |
