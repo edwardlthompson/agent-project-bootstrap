@@ -73,6 +73,8 @@ Third-party workflow actions must use **immutable refs** to reduce supply-chain 
 | **Pre-push** | Run `scripts/validate-workflow-actions.sh` (requires `gh` + `GH_TOKEN`) |
 | **Local fast guard** | `scripts/check-workflow-action-ref-format.sh` (pre-commit; no network) |
 | **Post-push** | `scripts/check-github-ci.sh --wait 300` - required workflows: **CI**, **Security Scan**, **CodeQL** |
+| **Missing runs** | `scripts/check-github-ci.sh --wait 600 --dispatch-if-missing` — `workflow_dispatch` CI/Security/CodeQL when HEAD has no run (covers Dependabot merges that used `GITHUB_TOKEN`) |
+| **Automerge token** | Optional repo secret `AUTOMERGE_TOKEN` (PAT with `contents` + `workflow`) so Dependabot auto-merge triggers `push` workflows; without it, weekly health dispatches missing runs. Set via `scripts/setup-automerge-token.sh` (uses `AUTOMERGE_TOKEN` env or `gh auth token`) |
 
 ## Release Gate (mandatory before tag)
 
@@ -113,6 +115,7 @@ If a Critical/High alert has no upstream fix, release may proceed only when:
 | `scripts/pre-release-gate.sh` | Pre-merge `workflow_dispatch` dry-run (`feature-gate --strict`, `check-security-triage --strict`) |
 | `.github/workflows/scorecard.yml` | OpenSSF Scorecard SARIF upload |
 | `scripts/setup-github-repo.sh` | One-time Dependabot + reporting + branch protection setup |
+| `scripts/setup-automerge-token.sh` | Set `AUTOMERGE_TOKEN` secret from env or `gh auth token` |
 | `scripts/verify-branch-protection.sh` | Post-setup branch protection + strict/force-push verification |
 | `scripts/verify-reproducible-apk.sh` | Local reproducible APK hash check (also in `run-maintainer-gates.sh` full mode) |
 | `docs/MAINTAINING_THE_TEMPLATE.md` | Maintainer release checklist |

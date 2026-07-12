@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Poll GitHub Actions for required workflows on a commit.
-# Usage: scripts/check-github-ci.sh [REF] [--wait SECONDS] [--jobs JOB1,JOB2] [--skip-workflows]
-#   --skip-workflows  Poll only --jobs (no CI/Security Scan/CodeQL rollup); requires --jobs
+# Usage: scripts/check-github-ci.sh [REF] [--wait SECONDS] [--jobs JOB1,JOB2] [--skip-workflows] [--dispatch-if-missing]
+#   --skip-workflows       Poll only --jobs (no CI/Security Scan/CodeQL rollup); requires --jobs
+#   --dispatch-if-missing  workflow_dispatch required workflows that have no run on REF yet
 # Requires: gh CLI authenticated to the repo.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -11,11 +12,13 @@ REF="HEAD"
 WAIT=0
 JOBS_CSV=""
 SKIP_WORKFLOWS=0
+DISPATCH_IF_MISSING=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --wait) WAIT="${2:-300}"; shift 2 ;;
     --jobs) JOBS_CSV="${2:-}"; shift 2 ;;
     --skip-workflows) SKIP_WORKFLOWS=1; shift ;;
+    --dispatch-if-missing) DISPATCH_IF_MISSING=1; shift ;;
     *)
       REF="$1"
       shift
@@ -31,6 +34,15 @@ fi
 
 REQUIRED=("CI" "Security Scan" "CodeQL")
 
+workflow_file_for() {
+  case "$1" in
+    CI) echo "ci.yml" ;;
+    "Security Scan") echo "security.yml" ;;
+    CodeQL) echo "codeql.yml" ;;
+    *) echo "" ;;
+  esac
+}
+
 if ! command -v gh >/dev/null 2>&1; then
   echo "ERROR: gh CLI required (https://cli.github.com/)"
   exit 1
@@ -42,7 +54,41 @@ if [ -z "$REPO" ]; then
   exit 1
 fi
 
+# Resolve branch tip for workflow_dispatch when REF is that tip (dispatch needs a ref name).
+DISPATCH_REF="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"
+if [ "$DISPATCH_REF" = "HEAD" ]; then
+  DISPATCH_REF="main"
+fi
+
 echo "GitHub Actions status for ${REPO} @ ${REF:0:7}"
+
+has_run_for_workflow() {
+  local wf="$1"
+  gh run list --repo "$REPO" --commit "$REF" --workflow "$wf" --limit 1 \
+    --json databaseId -q '.[0].databaseId' 2>/dev/null | grep -q .
+}
+
+dispatch_missing() {
+  [ "$DISPATCH_IF_MISSING" -eq 1 ] || return 0
+  [ "$SKIP_WORKFLOWS" -eq 1 ] && return 0
+  local wf file
+  for wf in "${REQUIRED[@]}"; do
+    if has_run_for_workflow "$wf"; then
+      continue
+    fi
+    file="$(workflow_file_for "$wf")"
+    if [ -z "$file" ]; then
+      echo "WARN cannot dispatch ${wf}: no workflow file mapping"
+      continue
+    fi
+    echo "DISPATCH ${wf}: no run on ${REF:0:7}; workflow_dispatch ${file} @ ${DISPATCH_REF}"
+    if ! gh workflow run "$file" --repo "$REPO" --ref "$DISPATCH_REF"; then
+      echo "WARN dispatch failed for ${wf} (${file})"
+    fi
+  done
+}
+
+dispatch_missing
 
 deadline=$((SECONDS + WAIT))
 while true; do

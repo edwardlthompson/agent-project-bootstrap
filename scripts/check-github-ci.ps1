@@ -1,10 +1,11 @@
 # Poll GitHub Actions for required workflows on a commit.
-# Usage: scripts/check-github-ci.ps1 [-Ref SHA] [-WaitSeconds 300] [-Jobs "Repo Hygiene,Feature Gate"] [-SkipWorkflows]
+# Usage: scripts/check-github-ci.ps1 [-Ref SHA] [-WaitSeconds 300] [-Jobs "Repo Hygiene,Feature Gate"] [-SkipWorkflows] [-DispatchIfMissing]
 param(
     [string]$Ref = "",
     [int]$WaitSeconds = 0,
     [string]$Jobs = "",
-    [switch]$SkipWorkflows
+    [switch]$SkipWorkflows,
+    [switch]$DispatchIfMissing
 )
 
 $ErrorActionPreference = "Stop"
@@ -24,6 +25,11 @@ if ($SkipWorkflows -and -not $Jobs) {
 }
 
 $Required = @("CI", "Security Scan", "CodeQL")
+$WorkflowFile = @{
+    "CI"            = "ci.yml"
+    "Security Scan" = "security.yml"
+    "CodeQL"        = "codeql.yml"
+}
 
 $RepoJson = gh repo view --json nameWithOwner 2>$null
 if (-not $RepoJson) {
@@ -33,6 +39,28 @@ if (-not $RepoJson) {
 $Repo = (ConvertFrom-Json $RepoJson).nameWithOwner
 $ShortRef = $Ref.Substring(0, [Math]::Min(7, $Ref.Length))
 Write-Host "GitHub Actions status for $Repo @ $ShortRef"
+
+$DispatchRef = (git rev-parse --abbrev-ref HEAD 2>$null).Trim()
+if (-not $DispatchRef -or $DispatchRef -eq "HEAD") { $DispatchRef = "main" }
+
+if ($DispatchIfMissing -and -not $SkipWorkflows) {
+    foreach ($wf in $Required) {
+        $existing = gh run list --repo $Repo --commit $Ref --workflow $wf --limit 1 --json databaseId 2>$null | ConvertFrom-Json
+        if ($existing -and $existing.Count -gt 0 -and $existing[0].databaseId) {
+            continue
+        }
+        $file = $WorkflowFile[$wf]
+        if (-not $file) {
+            Write-Host "WARN cannot dispatch ${wf}: no workflow file mapping"
+            continue
+        }
+        Write-Host "DISPATCH ${wf}: no run on $ShortRef; workflow_dispatch $file @ $DispatchRef"
+        gh workflow run $file --repo $Repo --ref $DispatchRef
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "WARN dispatch failed for ${wf} (${file})"
+        }
+    }
+}
 
 $deadline = (Get-Date).AddSeconds($WaitSeconds)
 while ($true) {

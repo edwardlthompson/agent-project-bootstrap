@@ -6,6 +6,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 jobs:
   dependabot:
@@ -18,6 +19,17 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Resolve merge token
+        id: token
+        run: |
+          if [ -n "${{ secrets.AUTOMERGE_TOKEN }}" ]; then
+            echo "using=AUTOMERGE_TOKEN" >> "$GITHUB_OUTPUT"
+            echo "note=PAT merge will trigger push workflows on main" >> "$GITHUB_OUTPUT"
+          else
+            echo "using=GITHUB_TOKEN" >> "$GITHUB_OUTPUT"
+            echo "note=GITHUB_TOKEN merge will NOT trigger push CI; weekly health dispatches missing runs" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Enable auto-merge for patch/minor
         if: |
           steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
@@ -25,7 +37,7 @@ jobs:
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTOMERGE_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Skip major without HUMAN label
         if: steps.metadata.outputs.update-type == 'version-update:semver-major'
@@ -38,8 +50,10 @@ jobs:
           fi
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTOMERGE_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Reminder
         run: |
+          echo "Merge token: ${{ steps.token.outputs.using }} — ${{ steps.token.outputs.note }}"
           echo "Dependabot auto-merge requires branch protection: CI + Dependency Review must pass before merge."
+          echo "Optional: set repo secret AUTOMERGE_TOKEN (PAT with contents+workflows) so merges trigger push CI."

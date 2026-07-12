@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import subprocess
 import sys
@@ -36,6 +37,27 @@ def resolve_script(name: str) -> Path | None:
     return None
 
 
+def resolve_bash() -> str | None:
+    """Prefer Git Bash on Windows; avoid WSL1 System32\\bash.exe (breaks npm)."""
+    if os.name == "nt":
+        candidates = [
+            Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Git" / "bin" / "bash.exe",
+            Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)"))
+            / "Git"
+            / "bin"
+            / "bash.exe",
+            Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Git" / "bin" / "bash.exe",
+        ]
+        for path in candidates:
+            if path.is_file():
+                return str(path)
+        which = shutil.which("bash")
+        if which and "System32" not in which.replace("/", "\\"):
+            return which
+        return None
+    return shutil.which("bash")
+
+
 def run_script(name: str, args: list[str]) -> int:
     script = resolve_script(name)
     if script is None:
@@ -50,7 +72,7 @@ def run_script(name: str, args: list[str]) -> int:
         )
         return proc.returncode
 
-    bash = shutil.which("bash")
+    bash = resolve_bash()
     if not bash:
         print(
             "ERROR: bash not found on PATH. Install Git Bash or use PowerShell wrappers "

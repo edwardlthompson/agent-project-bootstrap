@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  actions: read
+  actions: write
 
 jobs:
   detect-stacks:
@@ -34,7 +34,10 @@ jobs:
       - name: Verify CI + Security Scan + CodeQL green on HEAD
         env:
           GH_TOKEN: ${{ github.token }}
-        run: bash scripts/check-github-ci.sh "$(git rev-parse HEAD)" --wait 600
+        run: |
+          # --dispatch-if-missing covers Dependabot merges that used GITHUB_TOKEN
+          # (those push events do not start CI/Security/CodeQL).
+          bash scripts/check-github-ci.sh "$(git rev-parse HEAD)" --wait 600 --dispatch-if-missing
 
       - name: Simulate template upgrade path
         run: bash scripts/simulate-template-upgrade.sh
