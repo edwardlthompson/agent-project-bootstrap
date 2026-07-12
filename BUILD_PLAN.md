@@ -72,11 +72,10 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Template Maintainer — Active Board
 
-> **M32** archived in `COMPLETED_TASKS.md` @ `e532c20`. **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **v0.14.0** @ `4b94298`. **v0.13.2** @ `ff8e4e6`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
+> **v0.14.1** archived in `COMPLETED_TASKS.md` @ `a6c6be1`. **M32** archived in `COMPLETED_TASKS.md` @ `e532c20`. **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **v0.14.0** @ `4b94298`. **v0.13.2** @ `ff8e4e6`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
 
 ### Open (human judgment only)
 
-- ✅ [HUMAN] Enable GitHub MCP locally if desired (copy `mcp.foss.example`, set `GITHUB_TOKEN`) — enabled 2026-07-12 (`.cursor/mcp.json` + user `GITHUB_TOKEN`)
 - 🔲 [HUMAN] Quarterly review of `CURSOR_RADAR_REPORT.md` / backlog (top items → BUILD_PLAN)
 
 *Recurring maintenance: see **Ongoing Maintenance** below.*
@@ -228,6 +227,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Sprint                                                            | Status   | Archive                          |
 | ----------------------------------------------------------------- | -------- | -------------------------------- |
+| v0.14.1 release                                                   | Complete | `COMPLETED_TASKS.md` @ `a6c6be1` |
 | M32 — Audit 2026-07-12                                              | Complete | `COMPLETED_TASKS.md` @ `e532c20` |
 | v0.14.0 release                                                   | Complete | `COMPLETED_TASKS.md` @ `4b94298` |
 | v0.13.2 release                                                   | Complete | `COMPLETED_TASKS.md` @ `ff8e4e6` |

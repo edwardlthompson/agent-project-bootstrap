@@ -16,6 +16,13 @@
 
 ## Entries
 
+### 2026-07-12 — Pre-release gate Dependabot counter + FOSS MCP check
+- **Status:** Accepted
+- **Context:** `/push` pre-release `--strict` failed: Dependabot alerts API used unsupported `page=` form; FOSS integrations check failed whenever gitignored `.cursor/mcp.json` existed locally
+- **Decision:** Count alerts via `gh api --paginate` query string; treat live `mcp.json` as OK unless `git ls-files` shows it tracked; multi-stack `--strict` skips missing optional toolchains
+- **Alternatives considered:** Require `security_events` refresh always (rejected: false failures blocked release); ban local MCP (rejected: contradicts CURSOR_INTEGRATIONS activation)
+- **Consequences:** Maintainer gates pass with local MCP enabled; Release Please #36 published v0.14.1
+
 _Seed template ADR: `docs/adr/0000-template-baseline.md`. Child repos use `docs/adr/0001-core-architecture.md`._
 
 ### 2026-07-12 — Dependabot automerge CI gap (M32)

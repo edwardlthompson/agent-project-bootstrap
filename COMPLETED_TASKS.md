@@ -2,6 +2,12 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v0.14.1 release (2026-07-12)
+
+- ✅ [AUTO] Merge Release Please PR #36 — [v0.14.1](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.14.1) published @ `a6c6be1`
+- ✅ [AGENT] Pre-release fixes: Dependabot alert counter, FOSS local MCP check, multi-stack strict feature-gate skips
+- ✅ [HUMAN] GitHub MCP enabled locally (`.cursor/mcp.json` + user `GITHUB_TOKEN`)
+
 ## Sprint M32 — Audit 2026-07-12
 
 - ✅ [AGENT] Fix F-005 — prefer Git Bash over WSL `bash.exe` in `scripts/agent-run.py` (Windows)
