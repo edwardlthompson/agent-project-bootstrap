@@ -23,27 +23,48 @@ COUNT="$("$PY" - "$REPO" << 'PY'
 import json, subprocess, sys
 
 repo = sys.argv[1]
+proc = subprocess.run(
+    [
+        "gh",
+        "api",
+        "--paginate",
+        f"repos/{repo}/dependabot/alerts?state=open&per_page=100",
+    ],
+    capture_output=True,
+    text=True,
+)
+if proc.returncode != 0:
+    print(proc.stderr or proc.stdout or "error", file=sys.stderr)
+    raise SystemExit(1)
+
+raw = (proc.stdout or "").strip()
+if not raw:
+    print(0)
+    raise SystemExit(0)
+
+# --paginate may concatenate JSON arrays; parse objects incrementally
+alerts: list = []
+decoder = json.JSONDecoder()
+idx = 0
+while idx < len(raw):
+    while idx < len(raw) and raw[idx].isspace():
+        idx += 1
+    if idx >= len(raw):
+        break
+    obj, end = decoder.raw_decode(raw, idx)
+    if isinstance(obj, list):
+        alerts.extend(obj)
+    elif isinstance(obj, dict):
+        alerts.append(obj)
+    idx = end
+
 total = 0
-page = 1
-while page <= 50:
-    proc = subprocess.run(
-        ["gh", "api", f"repos/{repo}/dependabot/alerts", "-f", "state=open",
-         "-f", f"per_page=100", "-f", f"page={page}"],
-        capture_output=True, text=True,
-    )
-    if proc.returncode != 0:
-        print("error", file=sys.stderr)
-        raise SystemExit(1)
-    alerts = json.loads(proc.stdout or "[]")
-    if not alerts:
-        break
-    for a in alerts:
-        sev = (a.get("security_vulnerability") or {}).get("severity", "").lower()
-        if sev in ("critical", "high"):
-            total += 1
-    if len(alerts) < 100:
-        break
-    page += 1
+for a in alerts:
+    sev = (a.get("security_vulnerability") or {}).get("severity", "").lower()
+    if not sev:
+        sev = (a.get("security_advisory") or {}).get("severity", "").lower()
+    if sev in ("critical", "high"):
+        total += 1
 print(total)
 PY
 )"

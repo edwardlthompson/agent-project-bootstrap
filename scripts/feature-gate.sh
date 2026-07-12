@@ -130,9 +130,9 @@ should_run() {
 
 skip_or_block() {
   local msg="$1"
-  if [ "$STRICT" = true ]; then
-    block_env "$msg"
-  fi
+  # Single-stack callers use block_env when the required toolchain is missing.
+  # For multi/none, missing optional toolchains are always skips — even under --strict
+  # (--strict only enables design-cohesion + about-feature-gate for multi).
   log "$msg"
 }
 

@@ -76,7 +76,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ### Open (human judgment only)
 
-- 🔲 [HUMAN] Enable GitHub MCP locally if desired (copy `mcp.foss.example`, set `GITHUB_TOKEN`)
+- ✅ [HUMAN] Enable GitHub MCP locally if desired (copy `mcp.foss.example`, set `GITHUB_TOKEN`) — enabled 2026-07-12 (`.cursor/mcp.json` + user `GITHUB_TOKEN`)
 - 🔲 [HUMAN] Quarterly review of `CURSOR_RADAR_REPORT.md` / backlog (top items → BUILD_PLAN)
 
 *Recurring maintenance: see **Ongoing Maintenance** below.*

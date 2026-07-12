@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -84,9 +85,20 @@ def validate_tier(root: Path, tier: str) -> list[str]:
             path = root / rel
             if path.exists():
                 errors.append(f"foss tier: commercial live file present: {rel}")
+        # Live .cursor/mcp.json is gitignored and OK locally; fail only if tracked.
         mcp = root / ".cursor/mcp.json"
         if mcp.is_file():
-            errors.append("foss tier: .cursor/mcp.json should not be committed (gitignored live copy)")
+            tracked = subprocess.run(
+                ["git", "ls-files", "--error-unmatch", ".cursor/mcp.json"],
+                cwd=root,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if tracked.returncode == 0:
+                errors.append(
+                    "foss tier: .cursor/mcp.json is tracked — keep live MCP config gitignored"
+                )
 
     if tier == "commercial":
         for rel in (".cursor/BUGBOT.md", ".cursor/environment.json"):
