@@ -19,6 +19,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.14.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.14.0...v0.14.1) (2026-07-12)
+
+
+### Fixed
+
+* **ci:** heal Dependabot merge CI gap and automate M32 human gates ([4d195a2](https://github.com/edwardlthompson/agent-project-bootstrap/commit/4d195a2ed8944610fbdb011313f2fd9692c7445c))
+* **ci:** index setup-automerge-token in TEMPLATE_INDEX ([e532c20](https://github.com/edwardlthompson/agent-project-bootstrap/commit/e532c209a03e562db051588af2e1fc0193381850))
+
+
+### Changed
+
+* **deps-dev:** Bump the web-dependencies group ([#34](https://github.com/edwardlthompson/agent-project-bootstrap/issues/34)) ([c3b88a6](https://github.com/edwardlthompson/agent-project-bootstrap/commit/c3b88a697782dab40beba72019146ad743ff9d31))
+* **deps-dev:** Bump vite ([#32](https://github.com/edwardlthompson/agent-project-bootstrap/issues/32)) ([e1aca21](https://github.com/edwardlthompson/agent-project-bootstrap/commit/e1aca21ea6d515840ad00a73054dbff5883b514a))
+* **deps:** Bump androidx.compose:compose-bom ([#30](https://github.com/edwardlthompson/agent-project-bootstrap/issues/30)) ([a0a4ff0](https://github.com/edwardlthompson/agent-project-bootstrap/commit/a0a4ff0ee23d22f44f3911c2b635d4bacf58689f))
+* **deps:** Bump the github-actions group with 2 updates ([#35](https://github.com/edwardlthompson/agent-project-bootstrap/issues/35)) ([97f98cf](https://github.com/edwardlthompson/agent-project-bootstrap/commit/97f98cfa4ff6f1844498c953bba70fe6e7b0ee45))
+* **deps:** Bump the node-dependencies group ([#31](https://github.com/edwardlthompson/agent-project-bootstrap/issues/31)) ([829a79a](https://github.com/edwardlthompson/agent-project-bootstrap/commit/829a79a3bbb9f8a153f15379f7af31010fadf334))
+* **deps:** Bump the node-dependencies group ([#33](https://github.com/edwardlthompson/agent-project-bootstrap/issues/33)) ([edc6127](https://github.com/edwardlthompson/agent-project-bootstrap/commit/edc61273e77328854cdfe8e191f8f30432216ae4))
+* **release:** prepare v0.14.1 release ([6cad442](https://github.com/edwardlthompson/agent-project-bootstrap/commit/6cad442d9d91ff0ca92a37ad05bf6217229edd21))
+
+
+### Documentation
+
+* **build-plan:** archive M32 audit sprint after CI green ([2157d0b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2157d0bde69ebda696035ea198d4bc40f03bc16f))
+
 ## [Unreleased]
 
 ### Fixed
