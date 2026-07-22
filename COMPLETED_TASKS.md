@@ -2,6 +2,18 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v0.15.0 release (2026-07-22)
+
+- ✅ [AUTO] Merge Release Please PR #37 — [v0.15.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.15.0) published @ `2e010ae`
+- ✅ [AGENT] `/ship`: prerelease + push + changelog Unreleased fix; Node 25 vitest localStorage (KB-011)
+
+## Sprint M33 — Cursor 3.9–3.11 feature integration (2026-07-21)
+
+- ✅ [AGENT] Native worktrees (`.cursor/worktrees.json` + fail-soft OS setup) + Auto-review `permissions.json` + sandbox example
+- ✅ [AGENT] Skills (7) + `check_cursor_integrations.py` atomic update; CLI example outside `workflows/`; modes/commercial docs; FOSS plugin pack
+- ✅ [AGENT] Registry/sync/TEMPLATE_INDEX/AGENTS + gate pass (`check-cursor-integrations`, `check-cursor-hooks`, `validate-bootstrap --quick`)
+- ✅ [AGENT] Local-first compute rule + multi-core `run_checks_parallel.py` + pytest-xdist / Gradle `--parallel`
+
 ## v0.14.1 release (2026-07-12)
 
 - ✅ [AUTO] Merge Release Please PR #36 — [v0.14.1](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v0.14.1) published @ `a6c6be1`

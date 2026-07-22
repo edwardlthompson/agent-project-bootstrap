@@ -72,19 +72,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ## Template Maintainer — Active Board
 
-> **M33** Cursor 3.9–3.11 integration on active board (✅ Sequential). **v0.14.1** archived in `COMPLETED_TASKS.md` @ `a6c6be1`. **M32** archived in `COMPLETED_TASKS.md` @ `e532c20`. **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **v0.14.0** @ `4b94298`. **v0.13.2** @ `ff8e4e6`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
-
-### Sprint M33 — Cursor 3.9–3.11 feature integration
-
-#### Sequential
-
-1. ✅ [AGENT] Native worktrees (`.cursor/worktrees.json` + fail-soft OS setup) + Auto-review `permissions.json` + sandbox example
-2. ✅ [AGENT] Skills (7) + `check_cursor_integrations.py` atomic update; CLI example outside `workflows/`; modes/commercial docs; FOSS plugin pack
-3. ✅ [AGENT] Registry/sync/TEMPLATE_INDEX/AGENTS + gate pass (`check-cursor-integrations`, `check-cursor-hooks`, `validate-bootstrap --quick`)
-
-#### Parallel
-
-<!-- parallel_exception: M33 landed as single-agent Sequential integration -->
+> **v0.15.0** archived in `COMPLETED_TASKS.md` @ `2e010ae`. **M33** archived in `COMPLETED_TASKS.md` @ `5d2d129`. **v0.14.1** archived in `COMPLETED_TASKS.md` @ `a6c6be1`. **M32** archived in `COMPLETED_TASKS.md` @ `e532c20`. **M31** archived in `COMPLETED_TASKS.md` @ `cd21e5a`. **v0.14.0** @ `4b94298`. **v0.13.2** @ `ff8e4e6`. **M19–M30** archived in `COMPLETED_TASKS.md`. **M18** @ `d6b92a2`. **M30** @ `508a541`.
 
 ### Open (human judgment only)
 
@@ -239,6 +227,8 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 | Sprint                                                            | Status   | Archive                          |
 | ----------------------------------------------------------------- | -------- | -------------------------------- |
+| v0.15.0 release                                                   | Complete | `COMPLETED_TASKS.md` @ `2e010ae` |
+| M33 — Cursor 3.9–3.11 + local-first compute                       | Complete | `COMPLETED_TASKS.md` @ `5d2d129` |
 | v0.14.1 release                                                   | Complete | `COMPLETED_TASKS.md` @ `a6c6be1` |
 | M32 — Audit 2026-07-12                                              | Complete | `COMPLETED_TASKS.md` @ `e532c20` |
 | v0.14.0 release                                                   | Complete | `COMPLETED_TASKS.md` @ `4b94298` |
