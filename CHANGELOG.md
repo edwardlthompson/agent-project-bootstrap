@@ -15,6 +15,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.15.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.15.0...v0.15.1) (2026-07-22)
+
+
+### Fixed
+
+* **security:** clear Dependabot npm High/Moderate alerts ([647e4ed](https://github.com/edwardlthompson/agent-project-bootstrap/commit/647e4ede6fecfcd4278e3cb5b4708fdd9b621069))
+
+
+### Changed
+
+* **deps-dev:** Bump vite ([#40](https://github.com/edwardlthompson/agent-project-bootstrap/issues/40)) ([2f0c4ab](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2f0c4ab69684620cbab9b7a8fb3326b3506c486b))
+* **deps:** Bump com.android.application ([#38](https://github.com/edwardlthompson/agent-project-bootstrap/issues/38)) ([dfa93c9](https://github.com/edwardlthompson/agent-project-bootstrap/commit/dfa93c97a9cc73504d8a2a684b737938143e33cb))
+* **deps:** Bump the github-actions group with 2 updates ([#41](https://github.com/edwardlthompson/agent-project-bootstrap/issues/41)) ([2dfa0c1](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2dfa0c15361a9e29a568e6b8d45c61a9183ff8c1))
+* **deps:** Bump the node-dependencies group ([#39](https://github.com/edwardlthompson/agent-project-bootstrap/issues/39)) ([ad302c9](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ad302c96fbe34edbd489938c25a2bdeafcb2d17c))
+
+
+### Documentation
+
+* **release:** archive M33 and v0.15.0 after /ship ([69de879](https://github.com/edwardlthompson/agent-project-bootstrap/commit/69de879396fb6387decffd5184e5bbd700fb7f40))
+
 ## [0.15.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.14.1...v0.15.0) (2026-07-22)
 
 
