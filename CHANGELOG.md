@@ -15,6 +15,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.15.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.14.1...v0.15.0) (2026-07-22)
+
+
+### Added
+
+* **cursor:** integrate 3.9-3.11 surfaces and local-first compute ([5d2d129](https://github.com/edwardlthompson/agent-project-bootstrap/commit/5d2d12920f68dc23e02071cfe2e43f04bd924f31))
+
+
+### Fixed
+
+* **changelog:** keep a single Unreleased section ([dcbea94](https://github.com/edwardlthompson/agent-project-bootstrap/commit/dcbea948a8cd0f3b49891bb1add66aa796906808))
+
+
+### Documentation
+
+* **release:** archive v0.14.1 and update memory after /push ([4cf495b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/4cf495b99f9a3f4a99ccf8a65eb8faf7c63e15df))
+* restore DECISION_LOG seed line order after v0.14.1 archive ([22cada9](https://github.com/edwardlthompson/agent-project-bootstrap/commit/22cada93c8105712e2f9286c05424e642268f044))
+
 ## [Unreleased]
 
 ### Added
