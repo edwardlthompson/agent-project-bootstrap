@@ -35,6 +35,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+* **security:** resolve Dependabot High/Moderate npm alerts — merge `@hono/node-server` 2.0.10; override `js-yaml` ≥4.3.0 and `brace-expansion` ≥1.1.16 in `examples/web`
+
 ### Added
 
 * **cursor:** worktrees.json, Auto-review permissions, 7 skills, FOSS plugin pack, CLI workflow example (M33)
