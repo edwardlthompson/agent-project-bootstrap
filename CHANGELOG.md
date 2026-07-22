@@ -57,23 +57,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * **build-plan:** archive M32 audit sprint after CI green ([2157d0b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/2157d0bde69ebda696035ea198d4bc40f03bc16f))
 
-## [Unreleased]
-
-### Fixed
-
-- **ci:** Dependabot `GITHUB_TOKEN` merge no longer leaves `main` without CI — `check-github-ci --dispatch-if-missing`, CodeQL/Security `workflow_dispatch`, optional `AUTOMERGE_TOKEN`
-- **cursor:** prefer Git Bash over WSL `bash.exe` in `agent-run.py` and HUMAN automation (Windows)
-- **cursor:** allow gitignored local `.cursor/mcp.json` in FOSS integrations check (fail only if tracked)
-- **gates:** `feature-gate --strict` on multi no longer fails when optional toolchains (e.g. Go) are absent
-
-### Added
-
-- **scripts:** `setup-automerge-token.sh` / `.ps1`; HUMAN automation for branch protection, Dependabot majors, automerge token
-
-### Changed
-
-- **deps:** Dependabot bumps (node/web TS 7, vite, github-actions, Compose BOM)
-
 ## [0.14.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.13.2...v0.14.0) (2026-07-02)
 
 
