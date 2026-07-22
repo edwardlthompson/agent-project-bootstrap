@@ -8,9 +8,13 @@
     "skills",
     "subagents",
     "modes",
+    "worktrees",
+    "permissions",
     "parallel_scope",
     "build_automation",
     "feature_radar",
+    "plugin_pack",
+    "cli_example",
     "mcp_foss_example"
   ],
   "cursor_features_hidden": [
@@ -21,5 +25,5 @@
     "mcp_commercial_example",
     "android_commercial_patterns"
   ],
-  "cursor_features_synced_at": "2026-07-12T23:17:00+00:00"
+  "cursor_features_synced_at": "2026-07-21T14:13:48+00:00"
 }

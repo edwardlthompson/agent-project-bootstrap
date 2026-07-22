@@ -8,15 +8,20 @@ After `scripts/init-project.sh --distribution-tier foss`:
 
 | Layer | Artifact | Status |
 |-------|----------|--------|
-| Rules | `.cursor/rules/*.mdc` | Shipped (14) |
+| Rules | `.cursor/rules/*.mdc` | Shipped (15) |
 | Commands | `.cursor/commands/*.md` | Shipped (26) |
 | Hooks | `.cursor/hooks.json` + `.cursor/hooks/` | Shipped |
-| Skills | `.cursor/skills/` (3) | Shipped |
+| Skills | `.cursor/skills/` (7) | Shipped |
 | Subagents | `.cursor/agents/` (3) | Shipped |
 | Modes | `docs/CURSOR_MODES.md` | Shipped |
+| Worktrees | `.cursor/worktrees.json` + OS setup scripts | Shipped |
+| Auto-review | `.cursor/permissions.json` | Shipped |
+| Sandbox | `.cursor/sandbox.json.example` → gitignored `sandbox.json` | Example |
 | Parallel `/scope` | `scripts/plan-parallel-dispatch.sh` | Shipped |
 | Autonomous `/build` | `scripts/build-sprint-status.sh` | Shipped |
 | Agent script runner | `scripts/agent-run.py` | Shipped |
+| Plugin pack | `.cursor-plugin/plugin.json` + `scripts/pack-cursor-plugin.*` | Example |
+| CLI (opt-in) | `.github/workflow-examples/cursor-agent.yml` + `docs/CURSOR_CLI.md` | Example |
 | GitHub MCP (optional) | Copy `.cursor/mcp.foss.example` → `.cursor/mcp.json` | Example |
 
 Validation: `python3 scripts/agent-run.py check-cursor-integrations -- --tier foss`
@@ -53,15 +58,55 @@ Hooks are Python modules (not `.sh`) so Cursor Agent shell execution does not op
 
 Validate: `python3 scripts/agent-run.py check-cursor-hooks -- --smoke`
 
+## Local compute first
+
+On **This Computer**, maximize local parallelism before Cloud:
+
+- Rule: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-compute.mdc)
+- Parallel `/scope` Task subagents + worktrees + `/best-of-n`
+- `validate-bootstrap` runs independent checks via `scripts/lib/run_checks_parallel.py` (workers = CPU count, override with `BOOTSTRAP_CHECK_JOBS`)
+- Session start hook reminds agents of `local-first cpus=N`
+
+## Worktrees
+
+Native Cursor worktrees (Agents Window, `/worktree`, `/best-of-n`, CLI) use:
+
+| File | Role |
+|------|------|
+| `.cursor/worktrees.json` | Points at OS setup scripts |
+| `.cursor/setup-worktree-unix.sh` | Fail-soft Unix/macOS setup |
+| `.cursor/setup-worktree-windows.ps1` | Fail-soft Windows setup |
+
+Setup copies only `*.env.example` (never `.env`). Missing stack or package managers → `SKIP` and exit **0**. Corrupt `stack-selection.json` → exit **1**.
+
+Parallel-lock isolation remains `scripts/setup-agent-worktrees.sh` (see [`PARALLEL_AGENT_SCOPES.md`](PARALLEL_AGENT_SCOPES.md)).
+
+## Auto-review and sandbox (dual layer with hooks)
+
+Cursor **Auto-review** (Run Modes) reads [`.cursor/permissions.json`](../.cursor/permissions.json):
+
+- `block_instructions` — push, force-push, production deploys, destructive DB, disabling gates/hooks
+- `allow_instructions` — routine `python3 scripts/agent-run.py` local gates
+
+**Dual layer is intentional:** project hooks (`beforeShellExecution`) are the hard FOSS denylist; Auto-review steers the classifier. Double-prompt on `git push` is expected. `/push` and `/ship` clear only the **hook** session flag — Auto-review may still ask.
+
+**Cloud Agents ignore Run Modes** — encode cloud policy in project hooks + commercial environment examples.
+
+Optional sandbox: copy `.cursor/sandbox.json.example` → `.cursor/sandbox.json` (gitignored). See [Run Modes](https://cursor.com/docs/agent/security/run-modes).
+
 ## Skills (progressive load)
 
 Commands remain canonical UX. Skills wrap high-churn flows:
 
-| Skill | Command |
-|-------|---------|
+| Skill | Command / use |
+|-------|----------------|
 | `validate-bootstrap` | `/gates` |
 | `parallel-scope` | `/scope` |
 | `watch-gates-autofix` | `/fix` |
+| `check-repo-hygiene` | `/gates`, `/audit` |
+| `sprint0-signoff` | Sprint 0 Child Repo Playbook |
+| `feature-vertical-slice` | `/feature` |
+| `canvas-bootstrap-status` | `/gates` (Canvas; markdown fallback) |
 
 ## Subagents
 
@@ -77,6 +122,21 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 2. Set `GITHUB_TOKEN` in environment
 3. Restart Cursor
 4. Never commit tokens or live `mcp.json`
+
+## Plugin pack (FOSS local)
+
+Do **not** symlink the repo root into `~/.cursor/plugins/local` (double-loads rules). Pack first:
+
+```bash
+python3 scripts/agent-run.py pack-cursor-plugin
+# or: bash scripts/pack-cursor-plugin.sh / pwsh scripts/pack-cursor-plugin.ps1
+```
+
+Then symlink **`dist/cursor-plugin`** → `~/.cursor/plugins/local/agent-project-bootstrap` and Reload Window. Manifest: [`.cursor-plugin/plugin.json`](../.cursor-plugin/plugin.json). No marketplace publish in-template.
+
+## CLI (opt-in)
+
+See [`CURSOR_CLI.md`](CURSOR_CLI.md). Example workflow lives under `.github/workflow-examples/` so default CI never runs it.
 
 ## Feature radar (maintainer)
 

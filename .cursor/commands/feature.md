@@ -1,5 +1,7 @@
 # Feature vertical slice step
 
+> Skill: `.cursor/skills/feature-vertical-slice/`
+
 Execute the active BUILD_PLAN feature row only (one feature per task). See @docs/FEATURE_MODULES.md.
 
 When invoked from @.cursor/commands/build.md: execute all open rows for the active feature without stopping; no user prompts.

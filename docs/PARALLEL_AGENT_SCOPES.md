@@ -18,6 +18,34 @@
 3. `/scope` launches Task subagents when count ≥ 2 (see `.cursor/commands/scope.md`)
 4. Optional hard isolation: `bash scripts/setup-agent-worktrees.sh` (creates `.cursor/worktrees/`)
 
+## Native Cursor worktrees
+
+Cursor Agents Window, IDE `/worktree`, `/best-of-n`, and CLI read [`.cursor/worktrees.json`](../.cursor/worktrees.json). Setup scripts (fail-soft):
+
+- `.cursor/setup-worktree-unix.sh`
+- `.cursor/setup-worktree-windows.ps1`
+
+They install stack deps when tools exist, copy only `*.env.example` (never `.env`), and exit **0** when stack/tools are missing so worktree creation does not fail.
+
+| Isolation | When |
+|-----------|------|
+| Native `/worktree` or `/best-of-n` | Single-task or multi-model experiments without touching the main checkout |
+| `setup-agent-worktrees.sh` | Parallel `/scope` hard isolation from `parallel-scope-lock.json` |
+
+Use `/best-of-n` when comparing models on a flaky gate fix; apply the winner with `/apply-worktree` or commit from the worktree.
+
+## Local compute first
+
+When working on **This Computer**, treat parallel agents + worktrees as the default way to use CPU/RAM:
+
+1. Finish Sequential schema-lock, then **always** run `plan-parallel-dispatch` — do not keep independent scopes on one agent
+2. Launch concurrent Task subagents in **one** assistant message (`/scope`)
+3. Prefer native `/worktree` isolation for heavy installs/tests so the main tree stays responsive
+4. Prefer `/best-of-n` over serial model retries for flaky gates
+5. Prefer local Agent + CLI over Cloud Agents unless the machine is unavailable or commercial Autofix/Automations are intentional
+
+Override gate worker count with `BOOTSTRAP_CHECK_JOBS` (see `scripts/lib/run_checks_parallel.py`).
+
 ## Sprint 1 (child repo) defaults
 
 | Stack | Isolated scope |

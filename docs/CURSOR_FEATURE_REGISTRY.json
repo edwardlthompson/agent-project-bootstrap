@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-06-30",
+  "updated_at": "2026-07-21",
   "entries": [
     {
       "id": "rules.mdc",
@@ -8,7 +8,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/context/rules",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "commands.slash",
@@ -16,7 +16,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/agent/chat/commands",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "modes.ask",
@@ -24,7 +24,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/agent/modes",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "hooks.beforeShellExecution",
@@ -32,7 +32,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/hooks",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "hooks.afterFileEdit",
@@ -40,7 +40,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/hooks",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "hooks.sessionStart",
@@ -48,7 +48,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/hooks",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "hooks.subagentStart",
@@ -56,7 +56,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/hooks",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "hooks.beforeMCPExecution",
@@ -64,7 +64,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/hooks",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "hooks.beforeSubmitPrompt",
@@ -72,7 +72,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/hooks",
       "template_status": "rejected",
-      "last_seen": "2026-06-30",
+      "last_seen": "2026-07-21",
       "ignore_until": "2027-01-01"
     },
     {
@@ -81,7 +81,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/context/skills",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "skills.validate-bootstrap",
@@ -89,7 +89,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/context/skills",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "skills.parallel-scope",
@@ -97,7 +97,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/context/skills",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "skills.watch-gates-autofix",
@@ -105,7 +105,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/context/skills",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "subagents.custom",
@@ -113,7 +113,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/subagents",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "subagents.verifier",
@@ -121,7 +121,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/subagents",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "subagents.gate-fixer",
@@ -129,7 +129,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/subagents",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "subagents.explorer",
@@ -137,7 +137,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/subagents",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "mcp.foss.github",
@@ -145,7 +145,7 @@
       "distribution_tier": "foss",
       "doc_url": "https://cursor.com/docs/context/mcp",
       "template_status": "example",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "mcp.commercial",
@@ -153,7 +153,7 @@
       "distribution_tier": "commercial",
       "doc_url": "https://cursor.com/docs/context/mcp",
       "template_status": "example",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "parallel.scope",
@@ -161,7 +161,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/agent/tools",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "build.automation",
@@ -169,7 +169,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/agent/tools",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "session.state",
@@ -177,7 +177,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/agent/chat/checkpoints",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "cursorignore",
@@ -185,7 +185,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/context/ignore-files",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "feature.radar",
@@ -193,7 +193,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/llms.txt",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "cloud.agents",
@@ -201,7 +201,7 @@
       "distribution_tier": "commercial",
       "doc_url": "https://cursor.com/docs/cloud-agent",
       "template_status": "example",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "cloud.environment",
@@ -209,7 +209,7 @@
       "distribution_tier": "commercial",
       "doc_url": "https://cursor.com/docs/cloud-agent/setup",
       "template_status": "example",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "bugbot",
@@ -217,15 +217,15 @@
       "distribution_tier": "commercial",
       "doc_url": "https://cursor.com/docs/bugbot",
       "template_status": "example",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "automations",
       "category": "cloud",
       "distribution_tier": "commercial",
-      "doc_url": "https://cursor.com/docs/automations",
-      "template_status": "watch",
-      "last_seen": "2026-06-30"
+      "doc_url": "https://cursor.com/docs/cloud-agent/automations",
+      "template_status": "example",
+      "last_seen": "2026-07-21"
     },
     {
       "id": "approval.agents",
@@ -233,39 +233,39 @@
       "distribution_tier": "commercial",
       "doc_url": "https://cursor.com/docs/enterprise",
       "template_status": "planned",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "cli.agent",
       "category": "cli",
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/cli",
-      "template_status": "watch",
-      "last_seen": "2026-06-30"
+      "template_status": "example",
+      "last_seen": "2026-07-21"
     },
     {
       "id": "cli.headless",
       "category": "cli",
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/cli/headless",
-      "template_status": "planned",
-      "last_seen": "2026-06-30"
+      "template_status": "example",
+      "last_seen": "2026-07-21"
     },
     {
       "id": "canvas",
       "category": "ui",
       "distribution_tier": "both",
-      "doc_url": "https://cursor.com/docs/agent/canvas",
-      "template_status": "watch",
-      "last_seen": "2026-06-30"
+      "doc_url": "https://cursor.com/docs/agent/tools/canvas",
+      "template_status": "example",
+      "last_seen": "2026-07-21"
     },
     {
       "id": "design.mode",
       "category": "ui",
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/agent/design-mode",
-      "template_status": "watch",
-      "last_seen": "2026-06-30"
+      "template_status": "example",
+      "last_seen": "2026-07-21"
     },
     {
       "id": "browser.tool",
@@ -273,15 +273,15 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/agent/browser",
       "template_status": "rejected",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "plugins",
-      "category": "enterprise",
-      "distribution_tier": "commercial",
+      "category": "workflow",
+      "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/plugins",
-      "template_status": "watch",
-      "last_seen": "2026-06-30"
+      "template_status": "example",
+      "last_seen": "2026-07-21"
     },
     {
       "id": "sdk.typescript",
@@ -289,7 +289,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/sdk",
       "template_status": "planned",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "sdk.python",
@@ -297,7 +297,7 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/sdk/python",
       "template_status": "planned",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "devcontainer",
@@ -305,15 +305,15 @@
       "distribution_tier": "both",
       "doc_url": "https://cursor.com/docs/integrations/devcontainers",
       "template_status": "shipped",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "worktrees",
       "category": "workflow",
       "distribution_tier": "both",
-      "doc_url": "https://cursor.com/docs/integrations/git",
-      "template_status": "example",
-      "last_seen": "2026-06-30"
+      "doc_url": "https://cursor.com/docs/configuration/worktrees",
+      "template_status": "shipped",
+      "last_seen": "2026-07-21"
     },
     {
       "id": "android.commercial",
@@ -321,7 +321,7 @@
       "distribution_tier": "commercial",
       "doc_url": "https://cursor.com/docs/context/rules",
       "template_status": "example",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "security.agents",
@@ -329,7 +329,7 @@
       "distribution_tier": "commercial",
       "doc_url": "https://cursor.com/docs/enterprise/security",
       "template_status": "watch",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
     },
     {
       "id": "team.marketplace",
@@ -337,7 +337,79 @@
       "distribution_tier": "commercial",
       "doc_url": "https://cursor.com/docs/enterprise/marketplace",
       "template_status": "watch",
-      "last_seen": "2026-06-30"
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "skills.check-repo-hygiene",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "skills.sprint0-signoff",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "skills.feature-vertical-slice",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "skills.canvas-bootstrap-status",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "permissions.autorun",
+      "category": "security",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/agent/security/run-modes",
+      "template_status": "shipped",
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "sandbox.example",
+      "category": "security",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/reference/sandbox",
+      "template_status": "example",
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "side.chats",
+      "category": "ui",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/changelog",
+      "template_status": "example",
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "hooks.cloud.conversation",
+      "category": "hooks",
+      "distribution_tier": "commercial",
+      "doc_url": "https://cursor.com/docs/hooks",
+      "template_status": "example",
+      "last_seen": "2026-07-21"
+    },
+    {
+      "id": "plugin.pack.foss",
+      "category": "workflow",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/plugins",
+      "template_status": "example",
+      "last_seen": "2026-07-21"
     }
   ]
 }

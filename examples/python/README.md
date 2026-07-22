@@ -7,6 +7,7 @@ uv + ruff + mypy + pytest CLI stub for agent-project-bootstrap.
 ```bash
 uv sync --all-extras
 uv run pytest
+# `-n auto` (pytest-xdist) uses local CPU cores; override with e.g. uv run pytest -n 2
 uv run ruff check .
 uv run ruff format --check .
 uv run mypy src
@@ -17,7 +18,7 @@ uv run hello FOSS
 
 - Strict type hints validated by mypy
 - ruff lint and format checks
-- pytest with 90% coverage budget
+- pytest with 90% coverage budget and pytest-xdist (`-n auto`)
 - Pure business logic in `greet.py`, CLI in `cli.py`
 
 ## CI Integration

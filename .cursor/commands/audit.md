@@ -1,5 +1,7 @@
 # Full repo review and BUILD_PLAN execution
 
+> Skill: `.cursor/skills/check-repo-hygiene/`
+
 Framework: use AGENT/HUMAN/ADB/AUTO labels; Sequential before Parallel; gates after AGENT steps; update memory files at milestones.
 
 ## Step 1 — Review
@@ -12,6 +14,7 @@ python3 scripts/agent-run.py feature-gate --stack multi
 python3 scripts/agent-run.py check-repo-hygiene
 python3 scripts/agent-run.py check-readme-health
 ```
+
 
 Check Dependabot/CodeQL via `gh` if authenticated. Write @CODE_REVIEW.md from @CODE_REVIEW.md.example (severity: Critical / High / Medium / Low / Deferred).
 

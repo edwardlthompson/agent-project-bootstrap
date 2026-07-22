@@ -96,28 +96,36 @@ if ! grep -q '\[AGENT\]' BUILD_PLAN.md && ! grep -q '\[HUMAN\]' BUILD_PLAN.md; t
   ERRORS=$((ERRORS + 1))
 fi
 
+# Writes first (must stay sequential)
 run_check bash scripts/sync-exemplar-config.sh
-run_check bash scripts/check-file-encoding.sh
-run_check bash scripts/check-design-cohesion.sh
-run_check bash scripts/check-markdown-tables.sh
-run_check bash scripts/check-changelog-unreleased.sh
-run_check bash scripts/check-repo-hygiene.sh
-run_check bash scripts/check-batch-commands.sh
-run_check bash scripts/check-cursor-hooks.sh
+
+# Independent read-only checks — use local CPU (BOOTSTRAP_CHECK_JOBS overrides)
+if ! python3 scripts/lib/run_checks_parallel.py \
+  check-file-encoding.sh \
+  check-design-cohesion.sh \
+  check-markdown-tables.sh \
+  check-changelog-unreleased.sh \
+  check-repo-hygiene.sh \
+  check-batch-commands.sh \
+  check-cursor-hooks.sh \
+  check-build-plan-parallel.sh \
+  check-template-version-sync.sh \
+  validate-template-index.sh
+then
+  ERRORS=$((ERRORS + 1))
+fi
+
 TIER="foss"
 if [ -f .cursor/stack-selection.json ]; then
   TIER="$(python3 -c "import json;print(json.load(open('.cursor/stack-selection.json')).get('distribution_tier','foss'))" 2>/dev/null || echo foss)"
 fi
+# Writes manifest — before integrations check
 python3 scripts/sync-cursor-features.py --root "$ROOT" --tier "$TIER"
 run_check bash scripts/check-cursor-integrations.sh --tier "$TIER"
-run_check bash scripts/check-build-plan-parallel.sh
-run_check bash scripts/check-template-version-sync.sh
 
 if [ "$QUICK" = false ]; then
   run_check bash scripts/validate-workflow-actions.sh
 fi
-
-run_check bash scripts/validate-template-index.sh
 
 if [ "$ERRORS" -gt 0 ]; then
   echo "$ERRORS bootstrap check(s) failed"

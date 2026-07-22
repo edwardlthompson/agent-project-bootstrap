@@ -34,3 +34,7 @@ Update only at session start, milestone boundary, or architectural pivot.
 ## Token Economy
 
 Max 300 lines static data (UI + i18n), 150 lines pure logic. Read active module/example only.
+
+## Local Compute
+
+On This Computer, prefer parallel Task/worktrees/`/best-of-n` and multi-core local gates over Cloud Agents — see `local-compute.mdc`.

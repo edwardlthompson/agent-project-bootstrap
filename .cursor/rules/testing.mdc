@@ -11,9 +11,10 @@ globs:
 
 ## Coverage Budgets
 
-- Python: `pytest --cov-fail-under=90` (enforced in CI and weekly health check when `examples/python/` is present)
-- Web unit: Vitest coverage via `npm test`
+- Python: `pytest --cov-fail-under=90` with `-n auto` (pytest-xdist; uses local CPU cores)
+- Web unit: Vitest coverage via `npm test` (Vitest parallelizes by default)
 - E2E: Playwright visual snapshots use `maxDiffPixelRatio: 0.02`
+- Android: `./gradlew test --parallel`
 
 ## When to Add Tests
 

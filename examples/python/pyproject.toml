@@ -15,6 +15,7 @@ dev = [
     "pip-licenses>=4.5.0",
     "pytest>=8.3.0",
     "pytest-cov>=6.0.0",
+    "pytest-xdist>=3.6.0",
     "ruff>=0.8.0",
     "pyright>=1.1.390",
 ]
@@ -42,7 +43,8 @@ python_version = "3.11"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--cov=hello --cov-report=term-missing --cov-fail-under=90"
+# -n auto uses local CPU cores (pytest-xdist); override with PYTEST_ADDOPTS or -n N
+addopts = "-n auto --cov=hello --cov-report=term-missing --cov-fail-under=90"
 
 [tool.coverage.run]
 source = ["hello"]

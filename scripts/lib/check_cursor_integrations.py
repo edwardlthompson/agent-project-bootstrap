@@ -6,12 +6,22 @@ import subprocess
 import sys
 from pathlib import Path
 
-SKILLS = ("validate-bootstrap", "parallel-scope", "watch-gates-autofix")
+SKILLS = (
+    "validate-bootstrap",
+    "parallel-scope",
+    "watch-gates-autofix",
+    "check-repo-hygiene",
+    "sprint0-signoff",
+    "feature-vertical-slice",
+    "canvas-bootstrap-status",
+)
 AGENTS = ("verifier", "gate-fixer", "explorer")
 COMMAND_SKILL = {
-    "gates.md": "validate-bootstrap",
-    "scope.md": "parallel-scope",
-    "fix.md": "watch-gates-autofix",
+    "gates.md": ("validate-bootstrap", "check-repo-hygiene", "canvas-bootstrap-status"),
+    "scope.md": ("parallel-scope",),
+    "fix.md": ("watch-gates-autofix",),
+    "audit.md": ("check-repo-hygiene",),
+    "feature.md": ("feature-vertical-slice",),
 }
 
 COMMERCIAL_LIVE = (
@@ -23,6 +33,8 @@ COMMERCIAL_LIVE = (
 FOSS_EXAMPLES = (
     ".cursor/mcp.foss.example",
     ".cursor/hooks.json",
+    ".cursor/worktrees.json",
+    ".cursor/permissions.json",
 )
 
 
@@ -50,13 +62,15 @@ def validate_artifacts(root: Path) -> list[str]:
         if not agent.is_file():
             errors.append(f"missing agent: {name}")
 
-    for cmd, skill in COMMAND_SKILL.items():
+    for cmd, skills in COMMAND_SKILL.items():
         path = root / ".cursor/commands" / cmd
         if not path.is_file():
             errors.append(f"missing command: {cmd}")
             continue
-        if skill not in read_text(path):
-            errors.append(f"{cmd} missing skill pointer for {skill}")
+        body = read_text(path)
+        for skill in skills:
+            if skill not in body:
+                errors.append(f"{cmd} missing skill pointer for {skill}")
 
     registry = root / "docs/CURSOR_FEATURE_REGISTRY.json"
     if not registry.is_file():
@@ -118,12 +132,8 @@ def validate_tier(root: Path, tier: str) -> list[str]:
         except json.JSONDecodeError:
             errors.append("invalid stack-selection or cursor-features JSON")
 
-    if tier == "foss":
-        for warn in warnings:
-            print(f"WARN: {warn}", file=sys.stderr)
-    else:
-        for warn in warnings:
-            print(f"WARN: {warn}", file=sys.stderr)
+    for warn in warnings:
+        print(f"WARN: {warn}", file=sys.stderr)
 
     return errors
 

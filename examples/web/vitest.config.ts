@@ -5,6 +5,7 @@ export default defineConfig({
   ...viteConfig,
   test: {
     environment: "jsdom",
+    setupFiles: ["src/test/setup-localStorage.ts"],
     exclude: ["e2e/**", "node_modules/**"],
     coverage: {
       provider: "v8",

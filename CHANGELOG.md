@@ -15,9 +15,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
 
+### Added
 
+* **cursor:** worktrees.json, Auto-review permissions, 7 skills, FOSS plugin pack, CLI workflow example (M33)
+* **cursor:** local-compute rule — prefer This Computer parallel Task/worktrees/`/best-of-n` over Cloud
+* **gates:** multi-core `validate-bootstrap` via `run_checks_parallel.py` (`BOOTSTRAP_CHECK_JOBS`)
+* **python:** pytest-xdist `-n auto` for local CPU parallelism
 
+### Fixed
+
+* **web:** Vitest jsdom `localStorage` on Node 25+ (KB-011 setup polyfill)
+
+### Changed
+
+* **android:** feature-gate runs Gradle tests with `--parallel`
+* **commercial:** Automations recipes, Bugbot Autofix map, cloud conversation hooks example
 
 ## [0.14.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.14.0...v0.14.1) (2026-07-12)
 

@@ -80,6 +80,76 @@
       "owner": "maintainer"
     },
     {
+      "path": ".cursor/rules/local-compute.mdc",
+      "purpose": "Prefer local parallel Agent/worktrees over Cloud on This Computer",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/run_checks_parallel.py",
+      "purpose": "Multi-core runner for independent bootstrap checks",
+      "read_when": "validation",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/worktrees.json",
+      "purpose": "Cursor native worktree setup manifest",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/permissions.json",
+      "purpose": "Auto-review allow/block instructions (dual layer with hooks)",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/sandbox.json.example",
+      "purpose": "Optional sandbox network policy example",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor-plugin/plugin.json",
+      "purpose": "FOSS Cursor plugin manifest for pack/local install",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/pack-cursor-plugin.sh",
+      "purpose": "Pack FOSS Cursor components to dist/cursor-plugin",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/CURSOR_CLI.md",
+      "purpose": "Cursor CLI and opt-in GHA headless recipe",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflow-examples/cursor-agent.yml",
+      "purpose": "Opt-in Cursor CLI workflow (not auto-run by GHA)",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/hooks.cloud.commercial.example.json",
+      "purpose": "Commercial cloud conversation hooks example",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "docs/CURSOR_FEATURE_REGISTRY.json",
       "purpose": "Cursor feature inventory for weekly radar",
       "read_when": "maintainer",
@@ -347,7 +417,7 @@
     },
     {
       "path": ".github/workflows/dependency-review.yml",
-      "purpose": "PR dependency review — fail on new High/Critical vulnerabilities",
+      "purpose": "PR dependency review \u2014 fail on new High/Critical vulnerabilities",
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1259,7 +1329,7 @@
     }
   },
   "roadmap": {
-    "active": "BUILD_PLAN.md — maintenance + human open items",
+    "active": "BUILD_PLAN.md \u2014 maintenance + human open items",
     "completed_archive": "COMPLETED_TASKS.md",
     "batch_commands": [
       ".cursor/commands/audit.md",

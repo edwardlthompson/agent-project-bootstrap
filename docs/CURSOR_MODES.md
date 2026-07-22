@@ -75,3 +75,35 @@ Slash commands in `.cursor/commands/` load recipes when you type `/audit`, `/boo
 | Agents / maintainers | [`docs/BATCH_COMMANDS.md`](BATCH_COMMANDS.md) |
 
 Bare words (`audit`) also work via `.cursor/rules/batch-commands.mdc`; prefer `/` menu when bare words fail.
+
+## Side chats
+
+Use `/side`, `/btw`, or the Agents Window plus button for a durable side conversation that shares context with the main chat. Default focus is read/search/answer — good for Plan-style exploration and sanity checks **without interrupting** a running Agent. Pull findings back with @-mentions of the side chat.
+
+## Design Mode
+
+Product **Design Mode** (Agents Window browser: click/draw/voice on live UI) applies when the active stack includes **web/PWA**. Do not use it for Android/Python-only work. See [Design Mode docs](https://cursor.com/docs/agent/design-mode).
+
+## Naming disambiguation
+
+| Term | Means | Not the same as |
+|------|--------|-----------------|
+| **Cloud Agents** | Paid remote VMs (formerly “Background Agents”) | Local Agent Mode |
+| **Automations Memories** | Cloud Automations persistence (`MEMORIES.md`-style) | [`AGENT_MEMORY.md`](../AGENT_MEMORY.md) or `.cursor-session-state` |
+| Built-in **`/plan`** | Product Plan Mode toggle / CLI plan | Batch [`.cursor/commands/plan.md`](../.cursor/commands/plan.md) orchestrator |
+| **`/plan` batch command** | Repo BUILD_PLAN planning recipe | Cursor Plan Mode UI |
+
+CLI mode parity: [`CURSOR_CLI.md`](CURSOR_CLI.md).
+
+## Local compute first
+
+On **This Computer**, prefer machine parallelism over Cloud Agents:
+
+| Lever | Use |
+|-------|-----|
+| Parallel `/scope` Task subagents | After Sequential lock when `agent_count >= 2` |
+| `/worktree` + `/best-of-n` | Isolated local checkouts; multi-model races on hard fixes |
+| Side chats | Research in parallel with the main Agent |
+| Local gates | `validate-bootstrap` runs independent checks on all CPU cores (`BOOTSTRAP_CHECK_JOBS`) |
+
+Rule: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-compute.mdc). Details: [`PARALLEL_AGENT_SCOPES.md`](PARALLEL_AGENT_SCOPES.md), [`CURSOR_INTEGRATIONS.md`](CURSOR_INTEGRATIONS.md).

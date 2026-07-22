@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -20,6 +21,11 @@ def main() -> None:
             parts.append(f"stack={stack} tier={tier}")
         except json.JSONDecodeError:
             pass
+    cpus = os.cpu_count() or 1
+    parts.append(
+        f"local-first cpus={cpus}: prefer This Computer + parallel Task/worktrees/"
+        f"/best-of-n over Cloud; BOOTSTRAP_CHECK_JOBS overrides gate parallelism"
+    )
     if parts:
         print(json.dumps({"user_message": "Session context: " + ", ".join(parts)}))
 

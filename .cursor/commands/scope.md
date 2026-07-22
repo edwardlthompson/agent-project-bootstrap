@@ -39,7 +39,7 @@ Print **agent_count** in one line for the user.
 |-------------|--------|
 | 0 | Run `python3 scripts/agent-run.py plan-parallel-dispatch --suggest`. Orchestrator adds suggested rows to BUILD_PLAN Parallel table, then re-run manifest **once**. If still 0, document `<!-- parallel_exception: reason -->` or escalate. |
 | 1 | Execute the task inline (no Task tool). |
-| 2–8 | **One assistant message, N concurrent Task tool calls** using custom subagent **`gate-fixer`** (`run_in_background: true`). For Plan/decompose only, prefer **`explorer`** (readonly). |
+| 2–8 | **One assistant message, N concurrent Task tool calls** using custom subagent **`gate-fixer`** (`run_in_background: true`). For Plan/decompose only, prefer **`explorer`** (readonly). **Local-first:** run these on This Computer (not Cloud) so all cores work the scopes in parallel. |
 
 ## 4. Subagent prompt template
 
@@ -62,5 +62,7 @@ Use **`.cursor/agents/gate-fixer.md`** (or Task with matching prompt). Each suba
 6. If the sprint block is fully ✅, read @.cursor/commands/cleanup.md — execute fully.
 
 Optional hard isolation: `python3 scripts/agent-run.py setup-agent-worktrees` (see @docs/PARALLEL_AGENT_SCOPES.md).
+
+Native Cursor worktrees (Agents Window / `/worktree` / `/best-of-n`) use `.cursor/worktrees.json` + OS setup scripts — distinct from parallel-lock worktrees. For flaky gate comparison across models, prefer `/best-of-n`.
 
 Begin now.

@@ -214,7 +214,7 @@ if should_run android && [ -f examples/android/gradlew ]; then
       skip_or_block "Skipping android gate (JAVA_HOME not set)"
     fi
   else
-    run_in_dir examples/android android-test ./gradlew test --quiet
+    run_in_dir examples/android android-test ./gradlew test --parallel --quiet
   fi
 fi
 

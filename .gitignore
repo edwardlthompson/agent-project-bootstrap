@@ -31,8 +31,12 @@ Thumbs.db
 .cursor/mcp.json
 .cursor/mcp-audit.log
 .cursor/environment.json
+.cursor/sandbox.json
 CURSOR_RADAR_REPORT.md
 CURSOR_RADAR_BACKLOG.md
+
+# Cursor plugin pack output (see scripts/pack-cursor-plugin.sh)
+dist/cursor-plugin/
 
 # Test artifacts
 test-results/
