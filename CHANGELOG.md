@@ -15,6 +15,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.15.3](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.15.2...v0.15.3) (2026-08-01)
+
+
+### Documentation
+
+* **release:** archive v0.15.2 and update memory after /ship ([619e456](https://github.com/edwardlthompson/agent-project-bootstrap/commit/619e45675ec288c6067d0487f0289f6b53039f16))
+
 ## [0.15.2](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.15.1...v0.15.2) (2026-08-01)
 
 
