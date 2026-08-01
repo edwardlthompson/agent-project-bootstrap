@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v7
       - name: Setup Java (Android)
         if: matrix.language == 'java-kotlin'
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v5.6.0
         with:
           distribution: temurin
           java-version: "17"
@@ -44,12 +44,12 @@ jobs:
         run: yes | sdkmanager --licenses
       - name: Initialize CodeQL (repo-wide)
         if: matrix.language != 'java-kotlin'
-        uses: github/codeql-action/init@v4
+        uses: github/codeql-action/init@v4.37.3
         with:
           languages: ${{ matrix.language }}
       - name: Initialize CodeQL (Android)
         if: matrix.language == 'java-kotlin'
-        uses: github/codeql-action/init@v4
+        uses: github/codeql-action/init@v4.37.3
         with:
           languages: java-kotlin
           paths: examples/android
@@ -57,4 +57,4 @@ jobs:
         if: matrix.language == 'java-kotlin'
         working-directory: examples/android
         run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
-      - uses: github/codeql-action/analyze@v4
+      - uses: github/codeql-action/analyze@v4.37.3
