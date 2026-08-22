@@ -17,14 +17,14 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
-    "@biomejs/biome": "^2.5.8",
+    "@biomejs/biome": "^2.5.9",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.62.1",
     "fast-check": "^4.3.0",
     "jsdom": "^30.0.1",
     "typescript": "~7.0.2",
     "vite": "^8.2.1",
-    "vitest": "^4.1.10",
+    "vitest": "^4.1.11",
     "@vitest/coverage-v8": "^4.1.8"
   },
   "overrides": {
