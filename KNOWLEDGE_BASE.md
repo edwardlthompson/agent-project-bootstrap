@@ -163,6 +163,15 @@
 | **Cause** | `page.addInitScript` runs on every navigation and overwrote `gp.update.lastSeenVersion` with `0.0.1` |
 | **Fix** | Seed lastSeen only when the key is unset so `markVersionSeen` survives reload |
 | **Prevention** | Do not unconditionally `localStorage.setItem` in Playwright init scripts that must persist across `reload()` |
+### KB-021 — Release Please auto-merge needs a git work tree
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | Job **Queue Release Please merge** fails: `failed to run git: fatal: not a git repository` |
+| **Cause** | `gh pr merge` shells out to git. The workflow ran with only `PR_NUMBER` and no checkout, so CLI cannot resolve the repo |
+| **Fix** | Checkout first (`persist-credentials: false`). Set `GH_REPO` and pass `PR_URL` (same as Dependabot auto-merge) |
+| **Prevention** | `test_automerge_has_git_and_repo_context` in `tests/test_release_please_hygiene.py`. Do not treat this job as a required check |
+
 ### KB-011 — Vitest jsdom `localStorage` broken on Node 25+
 
 | Field | Detail |

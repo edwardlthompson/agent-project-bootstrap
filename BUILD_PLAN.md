@@ -63,6 +63,10 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 > **v1.0.0** published @ `3dae768`. **M46** AGENT/AUTO archived in COMPLETED_TASKS.md @ `6229822`. Closed HUMAN leftovers archived in COMPLETED_TASKS.md @ `c61d249`. Still open: CII login, optional Ollama, Android SDK licenses. **M45** and **M44** archived in COMPLETED_TASKS.md. **v0.25.0** archived in COMPLETED_TASKS.md @ `7670444`. **v0.24.0** archived in COMPLETED_TASKS.md @ `c0f0dee`.
 
+### v1.0.0 /regress
+
+1. ✅ [AUTO] Release Please auto-merge must checkout + `GH_REPO`/`PR_URL` (KB-021)
+
 ### M46 leftovers (human only)
 
 1. 🔲 [HUMAN] P2: CII Best Practices checklist (login + public badge)
