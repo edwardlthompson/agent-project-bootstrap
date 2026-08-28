@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-08-28 — First stable v1.0.0 + Release Please auto-merge git context
+- **Status:** Accepted
+- **Context:** `/ship` took the template out of beta. Without `Release-As: 1.0.0`, Release Please would have cut 0.26.0. After merge, **Queue Release Please merge** failed: `gh pr merge` ran with no checkout (`not a git repository`). PR #82 still merged once required checks passed.
+- **Decision:** Publish v1.0.0 as the first stable (not a prerelease). Keep required check **names** `CI`, `Security Scan`, `CodeQL`, `Repo Hygiene`, `Feature Gate`, `Template Upgrade Simulation (Windows)`. Auto-merge checks out the repo, sets `GH_REPO`, and passes `PR_URL`. Document as KB-021. Recurring HUMAN leftovers stay 🔲 (CII, Ollama, Android SDK).
+- **Alternatives considered:** Stay on 0.x (rejected: human asked for v1.0.0). Make Queue Release Please merge a required check (rejected: it is a helper, not a gate). Number-only `gh pr merge` without git (rejected: CLI still shells out to git).
+- **Consequences:** Tag `v1.0.0` at `3dae768`. Next RP cycle starts from empty `[Unreleased]`. Child upgrades target the latest Release tag. Auto-merge will queue on the next `release-please--*` PR.
+
 ### 2026-08-28 — /build uses auto lane on the template
 - **Status:** Accepted
 - **Context:** Slack `/build` (bare word `build`) hardcoded `--lane child`, so the next row was Sprint 0 `init-project.sh` on this template.
