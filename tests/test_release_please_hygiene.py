@@ -44,6 +44,16 @@ class ReleasePleaseHygieneTests(unittest.TestCase):
         hygiene = (ROOT / "scripts/check-repo-hygiene.sh").read_text(encoding="utf-8")
         self.assertIn(".cursor-session-state.json", hygiene)
 
+    def test_automerge_has_git_and_repo_context(self) -> None:
+        text = (ROOT / ".github/workflows/release-please-automerge.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("actions/checkout@", text)
+        self.assertIn("GH_REPO:", text)
+        self.assertIn("PR_URL:", text)
+        self.assertIn('gh pr merge "$PR_URL"', text)
+        self.assertNotIn('gh pr merge "$PR_NUMBER"', text)
+
 
 if __name__ == "__main__":
     unittest.main()

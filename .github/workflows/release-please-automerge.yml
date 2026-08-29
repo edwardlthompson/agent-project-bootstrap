@@ -16,11 +16,19 @@ jobs:
       pull-requests: write
     if: startsWith(github.head_ref, 'release-please--')
     steps:
+      # gh pr merge still shells out to git; without a work tree it fails:
+      # "failed to run git: fatal: not a git repository"
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 1
       - name: Enable auto-merge when checks pass
         env:
           GH_TOKEN: ${{ secrets.AUTOMERGE_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          gh pr merge "$PR_NUMBER" --auto --merge
+          gh pr merge "$PR_URL" --auto --merge
           echo "Auto-merge queued for PR #${PR_NUMBER} (merges when required checks pass)."
           echo "Prefer AUTOMERGE_TOKEN (PAT) so the merge push triggers CI on main."

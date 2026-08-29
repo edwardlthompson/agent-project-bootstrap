@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-08-28 — Release Please auto-merge needs a git work tree
+- **Status:** Accepted
+- **Context:** After RP #82, **Queue Release Please merge** failed: `gh pr merge` ran with only `PR_NUMBER` and no checkout (`not a git repository`). The PR still merged once required checks passed.
+- **Decision:** Checkout first (`persist-credentials: false`), set `GH_REPO`, and pass `PR_URL` (same as Dependabot). Document as KB-021. Do not make that job a required check.
+- **Alternatives considered:** Number-only `gh pr merge` without git (rejected: CLI still shells out to git). Required-check the queue job (rejected: it is a helper, not a gate).
+- **Consequences:** The next `release-please--*` PR can auto-queue. Contract test lives in `tests/test_release_please_hygiene.py`.
+
 ### 2026-08-28 — First stable v1.0.0
 - **Status:** Accepted
 - **Context:** Template had shipped through 0.25.0. Cloud agent `/build --lane auto` prepared `Release-As: 1.0.0` on PR #81 so Release Please would not cut 0.26.0. Upgrade-sim failed until stack-specific gates skipped after prune.
