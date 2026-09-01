@@ -70,7 +70,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 1. ✅ [AGENT] Nav model + docs/features/navigation.md + pure unit tests
 2. ✅ [AGENT] Cline-first onboarding (extensions.json, docs/help/CLINE.md, strip Codex from tour/ship)
 3. ✅ [AGENT] Web: history stack + persist + wire AppShell
-4. 🔲 [AGENT] Android: BackHandler + persist + wire Golden Path UI
+4. ✅ [AGENT] Android: BackHandler + persist + wire Golden Path UI
 5. 🔲 [AGENT] verify + docs twins + adapter sync
 
 ### M46 leftovers (human only)
@@ -81,6 +81,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 1. 🔲 [HUMAN] Optional: install Ollama and point Cursor Models at `http://127.0.0.1:11434/v1` (`docs/LOCAL_MODELS.md`)
 2. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator` or `just android-instrumented`)
+3. 🔲 [ADB] Golden Path nav smoke: Settings Back → home, second Back does not finish (needs SDK/emulator)
 
 ---
 

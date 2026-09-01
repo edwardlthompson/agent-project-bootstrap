@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-01 — Golden Path Android BackHandler consumes home Back
+- **Status:** Accepted
+- **Context:** M47 Android wiring must pop one menu on system Back without finishing the Activity at home. This cloud agent has no ANDROID_HOME.
+- **Decision:** `BackHandler(enabled = true)` always calls `NavBack.onSystemBack` which `pop()`s (prompt first, then route) and sets `finishActivity = false`. Skip the optional “press Back again to exit” snackbar. Persist via `rememberSaveable` plus SharedPreferences `gp_nav` / `gp.nav.v1`. Instrumented smoke is [ADB] until SDK is present.
+- **Alternatives considered:** Snackbar 2s exit window (skipped: extra copy, first Back still must not finish). DataStore for nav (rejected: SharedPreferences matches UpdateLaunchPrefs and is readable on first composition).
+- **Consequences:** Unit tests run with kotlinc+JUnit when Gradle cannot. Device/emulator smoke tracked under M43 leftovers.
+
 ### 2026-09-01 — Golden Path web Back uses history.back, popstate pops NavState
 - **Status:** Accepted
 - **Context:** M47 web wiring must pop one menu on browser/mouse Back without double-pop on in-app Close/Escape, and must not leave the PWA at home.

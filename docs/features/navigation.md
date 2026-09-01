@@ -24,13 +24,13 @@
 | Layer | Web | Android |
 |-------|-----|---------|
 | Logic | `examples/web/src/nav/` | `examples/android/.../ui/nav/` |
-| View | `AppShell.ts` | later: `GoldenPathApp.kt` / BackHandler |
-| Tests | `examples/web/src/nav/*.test.ts`, `appBootstrap.test.ts`, `AppShell.test.ts` | `src/test/.../ui/nav/NavTest.kt` |
-| Wiring | `appBootstrap.ts` + `src/nav/controller.ts` | later: composition root ≤10 lines |
+| View | `AppShell.ts` | `GoldenPathApp.kt` / `GoldenPathScreen.kt` |
+| Tests | `examples/web/src/nav/*.test.ts`, `appBootstrap.test.ts`, `AppShell.test.ts` | `src/test/.../ui/nav/NavTest.kt`, `NavBackTest.kt`, `NavStoreTest.kt` |
+| Wiring | `appBootstrap.ts` + `src/nav/controller.ts` | `GoldenPathApp.kt` (`BackHandler` + `NavPreferences`) |
 
 ## Tests
 
-- Automated: yes — web: `examples/web/src/nav/*.test.ts`, `AppShell.test.ts`, `appBootstrap.test.ts`; Android: `NavTest.kt`
+- Automated: yes — web: `examples/web/src/nav/*.test.ts`, `AppShell.test.ts`, `appBootstrap.test.ts`; Android: `NavTest.kt`, `NavBackTest.kt`, `NavStoreTest.kt`
 - Coverage: pure push/pop/persist/scroll; no DOM, no Activity
 
 ## Fallback validation
@@ -38,12 +38,13 @@
 Required when Automated is **no**. Still name the smoke command when tests exist.
 
 - Why tests are not feasible: N/A (automated tests exist)
-- Command: `python3 scripts/agent-run.py feature-gate --stack web` (nav unit tests also: `npx vitest run src/nav/nav.test.ts` in `examples/web`, `./gradlew :app:testDebugUnitTest --tests dev.foss.goldenpath.ui.nav.NavTest` in `examples/android`)
+- Command: `python3 scripts/agent-run.py feature-gate --stack android` (nav unit tests also: `npx vitest run src/nav/nav.test.ts` in `examples/web`; Android `NavTest`/`NavBackTest` via `./gradlew :app:testDebugUnitTest --tests dev.foss.goldenpath.ui.nav` when SDK is present, otherwise kotlinc+JUnit as in this agent)
 
 ## Definition of Done
 
 - ✅ Web history stack + persist wired in AppShell (M47 row 3)
-- 🔲 Android BackHandler + persist wired in Golden Path UI (M47 row 4)
+- ✅ Android BackHandler + persist wired in Golden Path UI (M47 row 4; unit tests)
+- 🔲 [ADB] instrumented Back smoke on device/emulator (SDK missing in this cloud agent)
 - ✅ Shared `NavState` + unit tests (this row)
 
 ## Notes
