@@ -56,7 +56,7 @@ export function pop(state: NavState): NavState {
   if (state.promptOpen) return { ...state, promptOpen: false };
   if (!canPop(state)) return state;
   const stack = normalizeStack(state.stack).slice(0, -1);
-  const next = stack.length === 0 ? ["home"] : stack;
+  const next: GpRoute[] = stack.length === 0 ? ["home"] : stack;
   const top = next[next.length - 1] ?? "home";
   return {
     ...state,
