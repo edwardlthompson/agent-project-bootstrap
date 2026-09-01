@@ -12,6 +12,8 @@ Read [`docs/START_HERE.md`](../START_HERE.md).
 - This repo works in Cursor, Windsurf, Antigravity, Claude Code, Copilot, Gemini CLI, Aider, and Cline. The shared contract is [`AGENTS.md`](../../AGENTS.md). See [`docs/AGENT_PORTABILITY.md`](../AGENT_PORTABILITY.md).
 - Word list: [`GLOSSARY.md`](GLOSSARY.md) ([**Sacred**](GLOSSARY.md), [**Canon**](GLOSSARY.md), [**AGENT**](GLOSSARY.md) / [**HUMAN**](GLOSSARY.md) / [**ADB**](GLOSSARY.md) / [**AUTO**](GLOSSARY.md), 🔲 status).
 
+**First-time path: Cline (free).** Open this project in Cursor. Install recommended extensions if prompted, or search Extensions for Cline (`saoudrizwan.claude-dev`). Click the Cline icon, Sign In with GitHub (Google/email ok). Do not paste API keys, install Codex, or set `OPENAI_API_KEY`. Set API Provider = Cline and pick a FREE model. Paste: `Read docs/help/TOUR.md and walk me through it. Follow AGENTS.md.` Review every diff; run `python3 scripts/agent-run.py verify` before trusting changes. Full steps: [`CLINE.md`](CLINE.md).
+
 **Paste prompt:** `Read docs/START_HERE.md and tell me which repo mode I am in.`
 
 ## 2. Why the files exist (3 min)

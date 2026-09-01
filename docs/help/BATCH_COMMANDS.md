@@ -11,6 +11,8 @@ Shortcut commands for Cursor Agent — type `/` in Agent chat to pick a recipe.
 3. Pick a command (e.g. `/tour`, `/bootstrap`, `/verify`, `/build`).
 4. The agent runs the workflow step by step.
 
+**Cline path (no slash commands):** Open this project in Cursor. Install recommended extensions if prompted, or search Extensions for Cline (`saoudrizwan.claude-dev`). Click the Cline icon, Sign In with GitHub (Google/email ok). Do not paste API keys, install Codex, or set `OPENAI_API_KEY`. Set API Provider = Cline and pick a FREE model. Paste: `Read docs/help/TOUR.md and walk me through it. Follow AGENTS.md.` Review every diff; run `python3 scripts/agent-run.py verify` before trusting changes. Full steps: [`CLINE.md`](CLINE.md).
+
 Bookmark this page for when you come back after a break. **Print every command:** open [`batch-commands-print.html`](batch-commands-print.html) in a browser and use Print.
 
 ## Try these first (super commands)

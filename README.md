@@ -78,6 +78,8 @@ Read [`docs/START_HERE.md`](docs/START_HERE.md) and [`AGENTS.md`](AGENTS.md). Cu
 
 3. Open your coding agent (Cursor, Windsurf, Antigravity, or another) and paste the bootstrap prompt from [`docs/START_HERE.md`](docs/START_HERE.md). First-time walk: [`docs/help/TOUR.md`](docs/help/TOUR.md) (Cursor: `/tour`).
 
+   **First-time path: Cline (free).** Open this project in Cursor. Install recommended extensions if prompted, or search Extensions for Cline (`saoudrizwan.claude-dev`). Click the Cline icon, Sign In with GitHub (Google/email ok). Do not paste API keys, install Codex, or set `OPENAI_API_KEY`. Set API Provider = Cline and pick a FREE model. Paste: `Read docs/help/TOUR.md and walk me through it. Follow AGENTS.md.` Review every diff; run `python3 scripts/agent-run.py verify` before trusting changes. Full steps: [`docs/help/CLINE.md`](docs/help/CLINE.md).
+
    Cursor prompt:
 
    ```

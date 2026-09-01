@@ -68,7 +68,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 > Execute in order. Schema lock (row 1) before web/Android wiring. Do not implement in the plan-only PR. Parallel web/Android dispatch waits until row 1 is ✅.
 
 1. 🔲 [AGENT] Nav model + docs/features/navigation.md + pure unit tests
-2. 🔲 [AGENT] Cline-first onboarding (extensions.json, docs/help/CLINE.md, strip Codex from tour/ship)
+2. 🔲 [AGENT] Cline-first onboarding (extensions.json, docs/help/CLINE.md, strip Codex from tour/ship) — in progress (Cline docs this section; Codex strip waits for section 3)
 3. 🔲 [AGENT] Web: history stack + persist + wire AppShell
 4. 🔲 [AGENT] Android: BackHandler + persist + wire Golden Path UI
 5. 🔲 [AGENT] verify + docs twins + adapter sync
