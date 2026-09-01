@@ -25,7 +25,7 @@ footer { font-size: 0.9rem; margin-top: 1.5rem; }
 <body>
 <p class="no-print"><strong>How to print:</strong> open this file in a browser, then use Print (Ctrl+P or Cmd+P). Landscape is optional.</p>
 <h1>Agent shortcuts</h1>
-<p class="lead">Type <code>/</code> in Cursor Agent chat, then pick a name. Slash commands are Cursor-only; other tools read the matching file under <code>docs/help/</code>.</p>
+<p class="lead">Type <code>/</code> in Cursor Agent chat, then pick a name. Slash commands are Cursor-only; other tools read the matching file under <code>docs/help/</code>. First-time autonomous work: Cline in Cursor (review every diff). Do not paste API keys.</p>
 <div class="warn"><strong>Publishing:</strong> <code>/push</code> and <code>/ship</code> send code to GitHub. Run them only when you intend to publish.</div>
 <h2>Big jobs</h2>
 <table>
@@ -72,7 +72,6 @@ footer { font-size: 0.9rem; margin-top: 1.5rem; }
 <tr><td><code>/prerelease</code></td><td>Run pre-release checks without pushing.</td></tr>
 <tr><td><code>/push</code></td><td>Commit, push to GitHub, and cut a release. This publishes.</td></tr>
 <tr><td><code>/regress</code></td><td>After a release: confirm SBOM, Pages, and the upgrade simulation.</td></tr>
-<tr><td><code>/codex-review</code></td><td>Optional third-party review into CODE_REVIEW.md.</td></tr>
 </table>
 <h2>Local hardware</h2>
 <table>
@@ -93,6 +92,11 @@ footer { font-size: 0.9rem; margin-top: 1.5rem; }
 <tr><th>Type this</th><th>When to use it</th></tr>
 <tr><td><code>/compact</code></td><td>Save a checkpoint before you clear a long chat.</td></tr>
 <tr><td><code>/restore</code></td><td>Reload the last saved checkpoint after a new chat.</td></tr>
+</table>
+<h2>Advanced (optional)</h2>
+<table>
+<tr><th>Type this</th><th>When to use it</th></tr>
+<tr><td><code>/codex-review</code></td><td>Skip this. First-time path is Cline in Cursor (review every diff).</td></tr>
 </table>
 <footer>Other IDEs: paste <code>Read docs/help/TOUR.md and walk me through it.</code> Bookmark the on-screen list at <code>docs/help/BATCH_COMMANDS.md</code>.</footer>
 </body>

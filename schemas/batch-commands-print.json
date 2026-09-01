@@ -132,8 +132,8 @@
     },
     "codex-review": {
       "kind": "step",
-      "group": "publish",
-      "caption": "Optional third-party review into CODE_REVIEW.md."
+      "group": "advanced",
+      "caption": "Skip this. First-time path is Cline in Cursor (review every diff)."
     },
     "best-of-n": {
       "kind": "step",

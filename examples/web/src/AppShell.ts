@@ -3,19 +3,18 @@ import { createLaunchPromptDialog } from "./about/launchPrompt";
 import type { LaunchPrompt } from "./about/runAppUpdates";
 import type { DonationConfig } from "./about/types";
 import { createAboutPanel } from "./components/AboutPanel";
-import { createFeedbackPanel, type FeedbackKind } from "./components/FeedbackPanel";
+import { createFeedbackPanel } from "./components/FeedbackPanel";
 import { createSettingsPanel } from "./components/SettingsPanel";
 import { createThemeToggle } from "./components/ThemeToggle";
 import { isOnline } from "./greet";
 import { t } from "./i18n";
+import { applyPanelScroll, current, type FeedbackKind, type GpRoute, type NavState } from "./nav";
 import { bindPanelDialog } from "./panelDialog";
 
 let dialogCleanup: (() => void) | undefined;
 
 export type AppShellState = {
-  showAbout: boolean;
-  showSettings: boolean;
-  showFeedback: FeedbackKind | null;
+  nav: NavState;
   feedbackPrefill?: string;
   updateStatus: string;
   donations: DonationConfig;
@@ -25,6 +24,8 @@ export type AppShellState = {
 
 export type AppShellCallbacks = {
   onState: (next: Partial<AppShellState>) => void;
+  onPushRoute: (route: GpRoute, kind?: FeedbackKind) => void;
+  onPop: () => void;
   onApplyUpdate?: () => void;
   onDonate?: () => void;
   onLaunchPrompt?: (accepted: boolean) => void;
@@ -39,6 +40,7 @@ export function createAppShell(
   const online = isOnline();
   const statusKey = online ? "app.status.online" : "app.status.offline";
   const donateEnabled = state.donations.enabled && state.donations.links.length > 0;
+  const route = current(state.nav);
 
   root.innerHTML = `
     <main>
@@ -70,11 +72,11 @@ export function createAppShell(
   });
 
   root.querySelector("[data-about-open]")?.addEventListener("click", () => {
-    callbacks.onState({ showAbout: !state.showAbout, showSettings: false, showFeedback: null });
+    toggleOrPush(route, "about", callbacks);
   });
 
   root.querySelector("[data-settings-open]")?.addEventListener("click", () => {
-    callbacks.onState({ showSettings: !state.showSettings, showAbout: false, showFeedback: null });
+    toggleOrPush(route, "settings", callbacks);
   });
 
   const mount = root.querySelector("[data-panel-mount]");
@@ -84,7 +86,7 @@ export function createAppShell(
   dialogCleanup = undefined;
   mount.innerHTML = "";
 
-  if (state.launchPrompt) {
+  if (state.nav.promptOpen && state.launchPrompt) {
     const promptDialog = createLaunchPromptDialog(state.launchPrompt, (accepted) => {
       callbacks.onLaunchPrompt?.(accepted);
     });
@@ -92,27 +94,27 @@ export function createAppShell(
     return;
   }
 
-  if (state.showFeedback) {
-    const panel = createFeedbackPanel(state.showFeedback, {
-      onClose: () => callbacks.onState({ showFeedback: null, feedbackPrefill: undefined }),
+  if (route === "feedback") {
+    const panel = createFeedbackPanel(state.nav.feedbackKind ?? "bug", {
+      onClose: callbacks.onPop,
       releaseRepo: state.releaseRepo ?? "",
       description: state.feedbackPrefill,
     });
     mount.appendChild(panel);
-    dialogCleanup = bindPanelDialog(panel, () => callbacks.onState({ showFeedback: null }));
+    dialogCleanup = bindPanelDialog(panel, callbacks.onPop);
+    applyPanelScroll(root, state.nav);
     return;
   }
 
-  if (state.showSettings) {
-    const panel = createSettingsPanel({
-      onClose: () => callbacks.onState({ showSettings: false }),
-    });
+  if (route === "settings") {
+    const panel = createSettingsPanel({ onClose: callbacks.onPop });
     mount.appendChild(panel);
-    dialogCleanup = bindPanelDialog(panel, () => callbacks.onState({ showSettings: false }));
+    dialogCleanup = bindPanelDialog(panel, callbacks.onPop);
+    applyPanelScroll(root, state.nav);
     return;
   }
 
-  if (!state.showAbout) return;
+  if (route !== "about") return;
 
   mount.appendChild(
     createAboutPanel(
@@ -122,12 +124,18 @@ export function createAppShell(
         donations: state.donations,
         canApplyUpdate: callbacks.canApplyUpdate,
       },
-      () => callbacks.onState({ showAbout: false }),
+      callbacks.onPop,
       callbacks.onApplyUpdate,
-      () => callbacks.onState({ showAbout: false, showFeedback: "bug" }),
-      () => callbacks.onState({ showAbout: false, showFeedback: "feature" }),
+      () => callbacks.onPushRoute("feedback", "bug"),
+      () => callbacks.onPushRoute("feedback", "feature"),
     ),
   );
   const aboutPanel = mount.lastElementChild as HTMLElement;
-  dialogCleanup = bindPanelDialog(aboutPanel, () => callbacks.onState({ showAbout: false }));
+  dialogCleanup = bindPanelDialog(aboutPanel, callbacks.onPop);
+  applyPanelScroll(root, state.nav);
+}
+
+function toggleOrPush(route: GpRoute, target: GpRoute, callbacks: AppShellCallbacks): void {
+  if (route === target) callbacks.onPop();
+  else callbacks.onPushRoute(target);
 }

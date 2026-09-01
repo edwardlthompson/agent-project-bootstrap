@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { AppShellCallbacks } from "./AppShell";
+import type { AppShellCallbacks, AppShellState } from "./AppShell";
 import { handleRestartGuard } from "./about/aboutSession";
 import { bootstrapApp } from "./appBootstrap";
 import en from "./locales/en.json";
+import { current, homeNav, NAV_STORAGE_KEY, push, serialize } from "./nav";
 
 const messages = en as Record<string, string>;
 
@@ -60,10 +61,18 @@ describe("bootstrapApp", () => {
     return handlers;
   }
 
+  function lastState(): AppShellState {
+    const call = mockedCreateAppShell.mock.calls.at(-1);
+    if (!call) throw new Error("App shell was not created");
+    return call[1];
+  }
+
   beforeEach(() => {
     vi.clearAllMocks();
     localStorage.clear();
+    sessionStorage.clear();
     handlers = undefined;
+    history.replaceState(null, "", "/");
     mockedCreateAppShell.mockImplementation((_root, _state, h) => {
       handlers = h;
     });
@@ -103,7 +112,7 @@ describe("bootstrapApp", () => {
     bootstrapApp(root);
     await vi.waitFor(() => expect(handlers).toBeDefined());
     const callsBefore = mockedCreateAppShell.mock.calls.length;
-    requireHandlers().onState({ showAbout: true });
+    requireHandlers().onState({ updateStatus: "patched" });
     expect(mockedCreateAppShell.mock.calls.length).toBeGreaterThan(callsBefore);
   });
 
@@ -291,5 +300,87 @@ describe("bootstrapApp", () => {
     await vi.waitFor(() => expect(handlers).toBeDefined());
     requireHandlers().onApplyUpdate?.();
     await vi.waitFor(() => expect(mockedApplyPwaUpdate).not.toHaveBeenCalled());
+  });
+
+  it("popstate pops one route", async () => {
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    requireHandlers().onPushRoute("about");
+    requireHandlers().onPushRoute("feedback", "bug");
+    expect(current(lastState().nav)).toBe("feedback");
+    window.dispatchEvent(new PopStateEvent("popstate", { state: { gp: true, depth: 1 } }));
+    expect(current(lastState().nav)).toBe("about");
+  });
+
+  it("at root, Back does not navigate away", async () => {
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    expect(current(lastState().nav)).toBe("home");
+    const pushState = vi.spyOn(history, "pushState");
+    window.dispatchEvent(new PopStateEvent("popstate", { state: { gp: true, depth: 0 } }));
+    expect(current(lastState().nav)).toBe("home");
+    expect(pushState).toHaveBeenCalledWith({ gp: true, depth: 0 }, "");
+    expect(root.isConnected || true).toBe(true);
+  });
+
+  it("About then feedback then Back returns to About", async () => {
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    requireHandlers().onPushRoute("about");
+    requireHandlers().onPushRoute("feedback", "bug");
+    expect(lastState().nav.stack).toEqual(["home", "about", "feedback"]);
+    window.dispatchEvent(new PopStateEvent("popstate", { state: { gp: true, depth: 1 } }));
+    expect(current(lastState().nav)).toBe("about");
+    expect(lastState().nav.stack).toEqual(["home", "about"]);
+  });
+
+  it("in-app Close only history.back so popstate is the single pop", async () => {
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    requireHandlers().onPushRoute("about");
+    requireHandlers().onPushRoute("feedback", "bug");
+    const back = vi.spyOn(history, "back").mockImplementation(() => {});
+    requireHandlers().onPop();
+    expect(back).toHaveBeenCalledTimes(1);
+    expect(current(lastState().nav)).toBe("feedback");
+    window.dispatchEvent(new PopStateEvent("popstate", { state: { gp: true, depth: 1 } }));
+    expect(current(lastState().nav)).toBe("about");
+  });
+
+  it("restores persisted nav after theme init and crash still pushes feedback", async () => {
+    localStorage.setItem(NAV_STORAGE_KEY, serialize(push(homeNav(), "about")));
+    sessionStorage.setItem(
+      "gp.crash.pending",
+      JSON.stringify({ message: "boom", stack: "Error: boom" }),
+    );
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    expect(lastState().nav.stack).toEqual(["home", "about", "feedback"]);
+    expect(lastState().nav.feedbackKind).toBe("bug");
+  });
+
+  it("share-target pushes feature feedback and prefills", async () => {
+    history.replaceState(null, "", "/?title=Clip&text=hello");
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    expect(current(lastState().nav)).toBe("feedback");
+    expect(lastState().nav.feedbackKind).toBe("feature");
+    expect(lastState().feedbackPrefill).toContain("Clip");
+  });
+
+  it("persists nav after each push", async () => {
+    const root = document.createElement("div");
+    bootstrapApp(root);
+    await vi.waitFor(() => expect(handlers).toBeDefined());
+    requireHandlers().onPushRoute("settings");
+    const raw = localStorage.getItem(NAV_STORAGE_KEY);
+    expect(raw).toBeTruthy();
+    expect(raw).toContain("settings");
   });
 });

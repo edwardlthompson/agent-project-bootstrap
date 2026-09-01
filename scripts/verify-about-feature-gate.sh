@@ -36,6 +36,7 @@ ABOUT_TRACKED=(
   examples/web/src/appBootstrap.ts
   examples/web/src/appBootstrap.test.ts
   examples/web/src/AppShell.ts
+  examples/web/src/AppShell.test.ts
   examples/web/src/components/AboutPanel.ts
   examples/web/src/settings/preferences.ts
   examples/web/e2e/app.spec.ts
@@ -63,7 +64,7 @@ PY
   if [ -d "$BACKUP/about" ]; then
     rm -rf "$WEB_SRC/about"
     cp -a "$BACKUP/about" "$WEB_SRC/about" || git checkout HEAD -- examples/web/src/about || true
-    for rel in main.ts appBootstrap.ts appBootstrap.test.ts AppShell.ts; do
+    for rel in main.ts appBootstrap.ts appBootstrap.test.ts AppShell.ts AppShell.test.ts; do
       if [ -f "$BACKUP/$rel" ]; then
         copy_retry "$BACKUP/$rel" "$WEB_SRC/$rel" || git checkout HEAD -- "examples/web/src/$rel" || true
       fi
@@ -112,6 +113,9 @@ cp -a "$WEB_SRC/main.ts" "$BACKUP/main.ts"
 cp -a "$WEB_SRC/appBootstrap.ts" "$BACKUP/appBootstrap.ts"
 cp -a "$WEB_SRC/appBootstrap.test.ts" "$BACKUP/appBootstrap.test.ts"
 cp -a "$WEB_SRC/AppShell.ts" "$BACKUP/AppShell.ts"
+if [ -f "$WEB_SRC/AppShell.test.ts" ]; then
+  cp -a "$WEB_SRC/AppShell.test.ts" "$BACKUP/AppShell.test.ts"
+fi
 cp -a "$WEB_SRC/components/AboutPanel.ts" "$BACKUP/components/AboutPanel.ts"
 cp -a "$WEB_SRC/settings/preferences.ts" "$BACKUP/settings/preferences.ts"
 cp -a "$WEB_E2E/app.spec.ts" "$BACKUP/app.spec.ts"
@@ -187,6 +191,7 @@ for path in (
     web / "appBootstrap.ts",
     web / "appBootstrap.test.ts",
     web / "AppShell.ts",
+    web / "AppShell.test.ts",
     web / "components" / "AboutPanel.ts",
 ):
     if path.is_dir():

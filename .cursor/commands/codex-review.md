@@ -1,9 +1,10 @@
-# Codex third-party review (local)
+# Codex third-party review (advanced / optional)
 
+> **Beginners skip this.** First-time path is Cline in Cursor (`docs/help/CLINE.md`). This command is **not** part of `/ship` or `/prerelease`.
 > Skill: `.cursor/skills/codex-review/`
 > Docs: @docs/CODEX_REVIEW.md
 
-Peer to `/audit` for model-diverse review. Codex is **read-only** — you apply repairs via BUILD_PLAN + `/fix`.
+Peer to `/audit` for model-diverse review. Codex is **read-only** — you apply repairs via BUILD_PLAN + `/fix`. Not required.
 
 ## Steps
 

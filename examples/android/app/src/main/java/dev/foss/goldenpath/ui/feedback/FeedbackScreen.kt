@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +35,8 @@ fun FeedbackScreen(
     releaseRepo: String,
     stack: String?,
     onBack: () -> Unit,
+    scrollY: Int = 0,
+    onScroll: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var description by remember { mutableStateOf("") }
@@ -41,10 +44,12 @@ fun FeedbackScreen(
     val clipboard = LocalClipboardManager.current
     val context = LocalContext.current
     val canSubmit = FeedbackPreview.canSubmit(description, stack)
+    val scrollState = rememberScrollState(initial = scrollY)
+    LaunchedEffect(scrollState.value) { onScroll(scrollState.value) }
     Column(
         modifier = modifier
             .highRefreshScroll()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(scrollState)
             .padding(SpacingMd),
         verticalArrangement = Arrangement.spacedBy(SpacingMd),
     ) {

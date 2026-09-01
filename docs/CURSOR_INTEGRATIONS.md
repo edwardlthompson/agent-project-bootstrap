@@ -22,7 +22,7 @@ After `scripts/init-project.sh --distribution-tier foss`:
 | Agent script runner | `scripts/agent-run.py` | Shipped |
 | Plugin pack | `.cursor-plugin/plugin.json` + `scripts/pack-cursor-plugin.*` | Example |
 | CLI (opt-in) | `.github/workflow-examples/cursor-agent.yml` + `docs/CURSOR_CLI.md` | Example |
-| Codex review (opt-in) | `.github/workflow-examples/codex-review.yml` + `docs/CODEX_REVIEW.md` + `/codex-review` | Example |
+| Codex review (advanced/optional, not first-time, not `/ship`) | `.github/workflow-examples/codex-review.yml` + `docs/CODEX_REVIEW.md` + `/codex-review` | Example |
 | GitHub + depsonar MCP (optional) | Copy `.cursor/mcp.foss.example` → `.cursor/mcp.json` | Example |
 Validation: `python3 scripts/agent-run.py check-cursor-integrations -- --tier foss`
 

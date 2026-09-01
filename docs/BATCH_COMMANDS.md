@@ -18,7 +18,7 @@
 | Command | Workflow | Super parent | PROMPT_LIBRARY |
 |---------|----------|--------------|----------------|
 | `/audit` | Full repo review → BUILD_PLAN → execute → cleanup | maintain | 22 |
-| `/codex-review` | Optional Codex read-only review → CODE_REVIEW.md → BUILD_PLAN + `/fix` | prerelease, ship | — |
+| `/codex-review` | Advanced/optional read-only review → CODE_REVIEW.md → BUILD_PLAN + `/fix` (not first-time; not `/ship`) | — | — |
 | `/cleanup` | Archive ✅ BUILD_PLAN rows → COMPLETED_TASKS.md | build, audit, push, init | — |
 | `/debug` | Defect investigation | — | 20 |
 | `/gates` | Local validation suite (always canvas status overview) | bootstrap, verify, build | 4/5 |

@@ -90,7 +90,7 @@
     },
     {
       "path": "docs/CODEX_REVIEW.md",
-      "purpose": "Codex third-party review enablement and /prerelease handoff",
+      "purpose": "Advanced optional Codex review (not first-time, not /ship)",
       "read_when": "cursor_setup",
       "update_when": "milestone_boundary",
       "owner": "maintainer"

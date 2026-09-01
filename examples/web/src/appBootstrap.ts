@@ -14,18 +14,68 @@ import { installCrashHandler } from "./crash-capture/installHandler";
 import { readPendingCrash } from "./crash-capture/pendingCrash";
 import { getSaveCrashes } from "./feedback/saveCrashes";
 import { t } from "./i18n";
+import {
+  applyFeedbackIntents,
+  createHistoryNav,
+  feedbackPrefillOf,
+  loadNav,
+  syncHistoryToNav,
+} from "./nav";
 import { shareTargetDescription } from "./share-target";
 import { initTheme, subscribeThemeChange } from "./theme";
 
+let popAbort: AbortController | undefined;
+
 export function bootstrapApp(appRoot: HTMLDivElement): void {
+  popAbort?.abort();
+  popAbort = new AbortController();
+  initTheme();
+  installCrashHandler(() => getSaveCrashes());
+  const shared = shareTargetDescription(new URLSearchParams(window.location.search));
+  const intent = applyFeedbackIntents(loadNav(), {
+    crash: Boolean(readPendingCrash()),
+    share: shared,
+  });
+  syncHistoryToNav(history, intent.nav);
+  const navCtl = createHistoryNav(history, intent.nav);
+
   let state: AppShellState = {
-    showAbout: false,
-    showSettings: false,
-    showFeedback: null,
+    nav: intent.nav,
+    feedbackPrefill: intent.prefill,
     updateStatus: t("about.update.current"),
     donations: { enabled: false, message: "", links: [] },
     launchPrompt: null,
   };
+
+  function applyNav(next: typeof intent.nav): void {
+    state = {
+      ...state,
+      nav: next,
+      launchPrompt: next.promptOpen ? state.launchPrompt : null,
+      feedbackPrefill: feedbackPrefillOf(next, state.feedbackPrefill),
+    };
+    render();
+  }
+
+  function render(): void {
+    createAppShell(appRoot, state, {
+      onState: (patch) => {
+        state = { ...state, ...patch };
+        render();
+      },
+      onPushRoute: (route, kind) => {
+        const next = navCtl.pushRoute(route, kind);
+        if (next) applyNav(next);
+      },
+      onPop: () => navCtl.popFromUi(),
+      onApplyUpdate: () => {
+        void handleApplyUpdate();
+      },
+      onDonate: openDonate,
+      onLaunchPrompt: handleLaunchPrompt,
+      canApplyUpdate: false,
+    });
+  }
 
   async function handleApplyUpdate(): Promise<void> {
     if (!("serviceWorker" in navigator)) return;
@@ -44,43 +94,22 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
 
   function handleLaunchPrompt(accepted: boolean): void {
     const prompt = state.launchPrompt;
-    state = { ...state, launchPrompt: null };
-    render();
     if (!prompt) return;
     if (prompt.kind === "donate") {
       markVersionSeen(APP_VERSION);
       if (accepted) openDonate();
-      return;
+    } else {
+      markUpdateChecked(Date.now(), prompt.version);
+      if (accepted) window.open(prompt.url, "_blank", "noopener,noreferrer");
     }
-    markUpdateChecked(Date.now(), prompt.version);
-    if (accepted) window.open(prompt.url, "_blank", "noopener,noreferrer");
+    navCtl.popFromUi();
   }
 
-  function render(): void {
-    createAppShell(appRoot, state, {
-      onState: (patch) => {
-        state = { ...state, ...patch };
-        render();
-      },
-      onApplyUpdate: () => {
-        void handleApplyUpdate();
-      },
-      onDonate: openDonate,
-      onLaunchPrompt: handleLaunchPrompt,
-      canApplyUpdate: false,
-    });
-  }
-
-  initTheme();
   subscribeThemeChange(() => render());
-  installCrashHandler(() => getSaveCrashes());
-  if (readPendingCrash()) {
-    state = { ...state, showFeedback: "bug" };
-  }
-  const shared = shareTargetDescription(new URLSearchParams(window.location.search));
-  if (shared) {
-    state = { ...state, showFeedback: "feature", feedbackPrefill: shared };
-  }
+  window.addEventListener("popstate", () => applyNav(navCtl.onPopState(appRoot).nav), {
+    signal: popAbort.signal,
+  });
+
   render();
   void loadDonations().then((d) => {
     state = { ...state, donations: d };
@@ -97,12 +126,10 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
         releaseRepo: config?.release_repo ?? "",
         userAgent: `GoldenPath/${APP_VERSION}`,
       });
-      if (prompt) {
-        state = { ...state, launchPrompt: prompt, releaseRepo: config?.release_repo ?? "" };
-        render();
-      } else {
-        state = { ...state, releaseRepo: config?.release_repo ?? "" };
-      }
+      state = { ...state, releaseRepo: config?.release_repo ?? "" };
+      if (!prompt) return;
+      state = { ...state, launchPrompt: prompt, nav: navCtl.openPrompt() };
+      render();
     })();
   }
 

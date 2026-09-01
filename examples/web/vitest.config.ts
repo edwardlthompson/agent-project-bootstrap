@@ -17,6 +17,11 @@ export default defineConfig({
         "src/settings/preferences.ts",
         "src/appBootstrap.ts",
         "src/greet.ts",
+        "src/nav/nav.ts",
+        "src/nav/persist.ts",
+        "src/nav/history.ts",
+        "src/nav/session.ts",
+        "src/nav/controller.ts",
       ],
       thresholds: {
         lines: 90,

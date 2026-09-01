@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import dev.foss.goldenpath.R
@@ -29,12 +30,16 @@ fun SettingsScreen(
     saveCrashes: Boolean,
     onSaveCrashes: (Boolean) -> Unit,
     onBack: () -> Unit,
+    scrollY: Int = 0,
+    onScroll: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
+    val scrollState = rememberScrollState(initial = scrollY)
+    LaunchedEffect(scrollState.value) { onScroll(scrollState.value) }
     Column(
         modifier = modifier
             .highRefreshScroll()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(scrollState)
             .padding(SpacingMd),
         verticalArrangement = Arrangement.spacedBy(SpacingMd),
     ) {

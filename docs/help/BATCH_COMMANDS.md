@@ -11,6 +11,8 @@ Shortcut commands for Cursor Agent — type `/` in Agent chat to pick a recipe.
 3. Pick a command (e.g. `/tour`, `/bootstrap`, `/verify`, `/build`).
 4. The agent runs the workflow step by step.
 
+**Cline path (no slash commands):** Open this project in Cursor. Install recommended extensions if prompted, or search Extensions for Cline (`saoudrizwan.claude-dev`). Click the Cline icon, Sign In with GitHub (Google/email ok). Do not paste API keys, install Codex, or set `OPENAI_API_KEY`. Set API Provider = Cline and pick a FREE model. Paste: `Read docs/help/TOUR.md and walk me through it. Follow AGENTS.md.` Review every diff; run `python3 scripts/agent-run.py verify` before trusting changes. Full steps: [`CLINE.md`](CLINE.md).
+
 Bookmark this page for when you come back after a break. **Print every command:** open [`batch-commands-print.html`](batch-commands-print.html) in a browser and use Print.
 
 ## Try these first (super commands)
@@ -38,13 +40,13 @@ Grouped by life moment (not every command — use `/` menu for the full list).
 
 **Docs & checks:** `/docs` · `/ci` (CI poll only) · `/gates` (full local validation, including compute probe; always render the canvas status overview). **bootstrap-doctor** is an alias for the same maintainer/validate gates: `python3 scripts/agent-run.py validate-bootstrap --quick` or `python3 scripts/agent-run.py run-maintainer-gates`.
 
-**Publishing:** `/update-deps` (local bumps) · `/prerelease` (autofix + optional Codex + `--local` gate) · `/push` (commit + push + release) · `/regress` (after release) · `/codex-review` (third-party review alone)
+**Publishing:** `/update-deps` (local bumps) · `/prerelease` (autofix + `--local` gate) · `/push` (commit + push + release) · `/regress` (after release)
 
 **Local hardware:** `/best-of-n` (worktree model race) · `/emulator` (optional AOSP GPU tests; skips without SDK)
 
 **Maintenance:** `/triage` · `/update-deps` · `/dependabot` (GitHub leftover) · `/audit` (full repo review) · `/upgrade` (child: template gap plan only; this template: upgrade sim)
 
-`/ship` runs `/update-deps` then `/prerelease` — one command for local bumps, autofix, optional Codex, local gates, push, and regress.
+`/ship` runs `/update-deps` then `/prerelease` — one command for local bumps, autofix, local gates, push, and regress. Third-party/autonomous work for a new user is Cline in Cursor (human-in-the-loop diffs), not a paid CLI.
 
 **Long sessions:** `/compact` (save checkpoint before clearing chat) · `/restore` (load checkpoint)
 

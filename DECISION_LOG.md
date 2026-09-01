@@ -17,6 +17,27 @@
 
 ## Entries
 
+### 2026-09-01 — M47 wrap-up: Cline first-run and stack nav
+- **Status:** Accepted
+- **Context:** First-time users need autonomous help without paid keys. Golden Path Settings/About/Feedback must remember where you were and pop **one** Back without leaving the PWA or Activity.
+- **Decision:** First-run is **Cline in Cursor** (GitHub sign-in, FREE model, no `OPENAI_API_KEY`). Codex stays advanced/optional (`docs/CODEX_REVIEW.md`, `/codex-review`) and is off `/tour`, `/prerelease`, and `/ship`. Navigation is a **stack** plus History API (web) and `BackHandler` (Android), persisted as `gp.nav.v1`, so menus restore and Back pops one overlay or route.
+- **Alternatives considered:** Codex CLI as first-run (rejected: needs an API key). Boolean `showAbout`/`showSettings` flags (rejected: flatten About → bug; Back cannot return to About). Close calling `pop()` and `history.back()` (rejected: double-pop). Finish the Activity on first home Back (rejected: accidental exit).
+- **Consequences:** Beginner path is clone → Cursor → Cline GitHub sign-in → tour prompt. Device Back smoke stays `[ADB]` until an SDK/emulator is present.
+
+### 2026-09-01 — Golden Path Android BackHandler consumes home Back
+- **Status:** Accepted
+- **Context:** M47 Android wiring must pop one menu on system Back without finishing the Activity at home. This cloud agent has no ANDROID_HOME.
+- **Decision:** `BackHandler(enabled = true)` always calls `NavBack.onSystemBack` which `pop()`s (prompt first, then route) and sets `finishActivity = false`. Skip the optional “press Back again to exit” snackbar. Persist via `rememberSaveable` plus SharedPreferences `gp_nav` / `gp.nav.v1`. Instrumented smoke is [ADB] until SDK is present.
+- **Alternatives considered:** Snackbar 2s exit window (skipped: extra copy, first Back still must not finish). DataStore for nav (rejected: SharedPreferences matches UpdateLaunchPrefs and is readable on first composition).
+- **Consequences:** Unit tests run with kotlinc+JUnit when Gradle cannot. Device/emulator smoke tracked under M43 leftovers.
+
+### 2026-09-01 — Golden Path web Back uses history.back, popstate pops NavState
+- **Status:** Accepted
+- **Context:** M47 web wiring must pop one menu on browser/mouse Back without double-pop on in-app Close/Escape, and must not leave the PWA at home.
+- **Decision:** Opening a panel `push()`es NavState then `history.pushState({ gp: true, depth })`. In-app Close/Escape only call `history.back()`. `window` `popstate` is the only `pop()` of NavState. At home, popstate `pushState`s `{ gp: true, depth: 0 }` again so the next Back stays on the page.
+- **Alternatives considered:** Close calling `pop()` plus `history.back()` (rejected: double-pop). Close calling `pop()` and syncing history with `history.go(-1)` only when needed (rejected: two mutators). Flatten About → bug to home (rejected: stack contract).
+- **Consequences:** Tests spy `history.back` as a no-op then dispatch `popstate` to prove a single pop. Persist key `gp.nav.v1`. Android BackHandler is the next AGENT row.
+
 ### 2026-08-28 — First stable v1.0.0
 - **Status:** Accepted
 - **Context:** Template had shipped through 0.25.0. Cloud agent `/build --lane auto` prepared `Release-As: 1.0.0` on PR #81 so Release Please would not cut 0.26.0. Upgrade-sim failed until stack-specific gates skipped after prune.
