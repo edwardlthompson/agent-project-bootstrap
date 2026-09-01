@@ -17,6 +17,7 @@ GROUPS = (
     ("hardware", "Local hardware"),
     ("maintain", "Maintenance"),
     ("session", "Long sessions"),
+    ("advanced", "Advanced (optional)"),
 )
 HEAD = """<!DOCTYPE html>
 <html lang="en">
@@ -45,7 +46,7 @@ footer { font-size: 0.9rem; margin-top: 1.5rem; }
 <body>
 <p class="no-print"><strong>How to print:</strong> open this file in a browser, then use Print (Ctrl+P or Cmd+P). Landscape is optional.</p>
 <h1>Agent shortcuts</h1>
-<p class="lead">Type <code>/</code> in Cursor Agent chat, then pick a name. Slash commands are Cursor-only; other tools read the matching file under <code>docs/help/</code>.</p>
+<p class="lead">Type <code>/</code> in Cursor Agent chat, then pick a name. Slash commands are Cursor-only; other tools read the matching file under <code>docs/help/</code>. First-time autonomous work: Cline in Cursor (review every diff). Do not paste API keys.</p>
 <div class="warn"><strong>Publishing:</strong> <code>/push</code> and <code>/ship</code> send code to GitHub. Run them only when you intend to publish.</div>
 """
 FOOT = """<footer>Other IDEs: paste <code>Read docs/help/TOUR.md and walk me through it.</code> Bookmark the on-screen list at <code>docs/help/BATCH_COMMANDS.md</code>.</footer>

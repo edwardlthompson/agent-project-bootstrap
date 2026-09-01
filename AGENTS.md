@@ -141,7 +141,7 @@ Shipped in template (see `docs/CURSOR_INTEGRATIONS.md`):
 - **Auto-review** — `.cursor/permissions.json` dual layer with hooks
 - **Plugin pack** — `.cursor-plugin/plugin.json` + `scripts/pack-cursor-plugin.*` → `dist/cursor-plugin/`
 - **CLI (opt-in)** — `docs/CURSOR_CLI.md` + `.github/workflow-examples/cursor-agent.yml`
-- **Codex review (opt-in)** — `docs/CODEX_REVIEW.md` + `/codex-review` + `.github/workflow-examples/codex-review.yml` (used by expanded `/prerelease` / `/ship`)
+- **Cline (first-run)** — recommended extension `saoudrizwan.claude-dev`; GitHub sign-in + FREE model; no API keys. See `docs/help/CLINE.md`. Autonomous hands for a new user are Cline in Cursor (human-in-the-loop diffs), not a paid CLI.
 - **Optional MCP** — copy `.cursor/mcp.foss.example` → gitignored `.cursor/mcp.json` (GitHub + pinned `depsonar@4`; GitHub token not required for depsonar)
 
 Validate: `python3 scripts/agent-run.py check-cursor-hooks -- --smoke`, `python3 scripts/agent-run.py check-cursor-integrations -- --tier foss`

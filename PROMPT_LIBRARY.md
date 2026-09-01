@@ -317,12 +317,12 @@ Execute @.cursor/commands/emulator.md — local AOSP instrumented tests; skip if
 
 ## Entry 24 — Pre-release batch (`/prerelease`)
 
-**Slash command:** `.cursor/commands/prerelease.md` · See also Entries 3, 10, Codex review.
+**Slash command:** `.cursor/commands/prerelease.md` · See also Entries 3, 10.
 
 **Prompt:**
 
 ```
-Execute @.cursor/commands/prerelease.md — if /ship already ran /update-deps, audit-only; else full /update-deps. Then release-please-dry, prerelease-autofix, optional Codex, pre-release-gate --local. Used by /ship.
+Execute @.cursor/commands/prerelease.md — if /ship already ran /update-deps, audit-only; else full /update-deps. Then release-please-dry, prerelease-autofix, pre-release-gate --local. Used by /ship.
 
 ```
 
@@ -330,10 +330,12 @@ Execute @.cursor/commands/prerelease.md — if /ship already ran /update-deps, a
 
 **Slash command:** `.cursor/commands/codex-review.md` · Docs: `docs/CODEX_REVIEW.md`
 
+Advanced/optional. Not first-time. Not part of `/ship`. Beginners: use Cline.
+
 **Prompt:**
 
 ```
-Execute @.cursor/commands/codex-review.md — optional Codex read-only review → CODE_REVIEW.md → BUILD_PLAN Critical/High → /fix. Skip if no OPENAI_API_KEY/CLI.
+Execute @.cursor/commands/codex-review.md — advanced optional Codex read-only review → CODE_REVIEW.md → BUILD_PLAN Critical/High → /fix. Skip if no OPENAI_API_KEY/CLI. Not required.
 
 ```
 
