@@ -69,7 +69,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 1. ✅ [AGENT] Nav model + docs/features/navigation.md + pure unit tests
 2. ✅ [AGENT] Cline-first onboarding (extensions.json, docs/help/CLINE.md, strip Codex from tour/ship)
-3. 🔲 [AGENT] Web: history stack + persist + wire AppShell
+3. ✅ [AGENT] Web: history stack + persist + wire AppShell
 4. 🔲 [AGENT] Android: BackHandler + persist + wire Golden Path UI
 5. 🔲 [AGENT] verify + docs twins + adapter sync
 

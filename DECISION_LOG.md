@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-01 — Golden Path web Back uses history.back, popstate pops NavState
+- **Status:** Accepted
+- **Context:** M47 web wiring must pop one menu on browser/mouse Back without double-pop on in-app Close/Escape, and must not leave the PWA at home.
+- **Decision:** Opening a panel `push()`es NavState then `history.pushState({ gp: true, depth })`. In-app Close/Escape only call `history.back()`. `window` `popstate` is the only `pop()` of NavState. At home, popstate `pushState`s `{ gp: true, depth: 0 }` again so the next Back stays on the page.
+- **Alternatives considered:** Close calling `pop()` plus `history.back()` (rejected: double-pop). Close calling `pop()` and syncing history with `history.go(-1)` only when needed (rejected: two mutators). Flatten About → bug to home (rejected: stack contract).
+- **Consequences:** Tests spy `history.back` as a no-op then dispatch `popstate` to prove a single pop. Persist key `gp.nav.v1`. Android BackHandler is the next AGENT row.
+
 ### 2026-08-28 — First stable v1.0.0
 - **Status:** Accepted
 - **Context:** Template had shipped through 0.25.0. Cloud agent `/build --lane auto` prepared `Release-As: 1.0.0` on PR #81 so Release Please would not cut 0.26.0. Upgrade-sim failed until stack-specific gates skipped after prune.

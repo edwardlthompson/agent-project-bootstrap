@@ -4,6 +4,7 @@ import {
   current,
   deserialize,
   homeNav,
+  normalizeStack,
   pop,
   push,
   recordScroll,
@@ -49,6 +50,11 @@ describe("nav stack", () => {
     expect(current(dismissed)).toBe("about");
     expect(current(pop(dismissed))).toBe("home");
   });
+
+  it("setPrompt is a no-op when already in that state; feedback defaults to bug", () => {
+    expect(setPrompt(homeNav(), false)).toEqual(homeNav());
+    expect(push(homeNav(), "feedback").feedbackKind).toBe("bug");
+  });
 });
 
 describe("nav persist", () => {
@@ -73,5 +79,39 @@ describe("nav persist", () => {
     expect(restoreScroll(withScroll, "settings")).toBe(12);
     expect(restoreScroll(withScroll, "home")).toBe(0);
     expect(restoreScroll(homeNav(), "about")).toBe(0);
+  });
+
+  it("push home is a no-op at home and resets a panel stack", () => {
+    expect(push(homeNav(), "home")).toEqual(homeNav());
+    expect(push(push(homeNav(), "about"), "home").stack).toEqual(["home"]);
+  });
+
+  it("normalizeStack skips junk, fills missing home, and drops duplicates", () => {
+    expect(normalizeStack([])).toEqual(["home"]);
+    expect(normalizeStack(["about"])).toEqual(["home", "about"]);
+    expect(normalizeStack(["home", "about", "about", "nope"])).toEqual(["home", "about"]);
+  });
+
+  it("deserialize ignores bad types and non-panel scroll keys", () => {
+    expect(deserialize("true")).toEqual(homeNav());
+    expect(deserialize("[]")).toEqual(homeNav());
+    const restored = deserialize(
+      JSON.stringify({
+        stack: ["home", "settings"],
+        feedbackKind: "nope",
+        scroll: { home: 9, settings: 3.8, about: "x" },
+        promptOpen: 1,
+      }),
+    );
+    expect(restored.stack).toEqual(["home", "settings"]);
+    expect(restored.feedbackKind).toBeUndefined();
+    expect(restoreScroll(restored, "settings")).toBe(3);
+    expect(restored.promptOpen).toBe(false);
+  });
+
+  it("recordScroll treats non-finite y as 0", () => {
+    expect(restoreScroll(recordScroll(push(homeNav(), "about"), "about", Number.NaN), "about")).toBe(
+      0,
+    );
   });
 });

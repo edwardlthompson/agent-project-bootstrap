@@ -19,6 +19,9 @@ export default defineConfig({
         "src/greet.ts",
         "src/nav/nav.ts",
         "src/nav/persist.ts",
+        "src/nav/history.ts",
+        "src/nav/session.ts",
+        "src/nav/controller.ts",
       ],
       thresholds: {
         lines: 90,

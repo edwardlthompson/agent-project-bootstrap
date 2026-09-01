@@ -76,6 +76,7 @@ test("keyboard-only opens Settings, About, and Feedback", async ({ page }) => {
   await expect(page.getByTestId("feedback-panel")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("feedback-panel")).toHaveCount(0);
+  await expect(page.getByTestId("about-panel")).toBeVisible();
 });
 
 test("passes accessibility audit", async ({ page }) => {
