@@ -42,6 +42,10 @@ FOSS coding-agent bootstrap template: labeled BUILD_PLAN sprints, Golden Path ex
 - Trunk-based development with Conventional Commits
 - Strict type safety and test coverage budgets
 
+### First-run agent
+
+Cline is the first-run agent in Cursor: GitHub sign-in, FREE models, no API keys (no OPENAI_API_KEY and no Codex CLI on the first-time path). Codex remains optional advanced review only (`/codex-review`, opt-in CI) and is not part of onboarding.
+
 ## Session Retrospectives
 
 | 2026-08-28 | v1.0.0 /ship | Cloud agent #81 reviewed+merged; RP #82 cut first stable; Unreleased empty; SBOM+OpenVEX on the tag | Do not merge RP while upgrade-sim still fails on pruned stacks; `Release-As: 1.0.0` beats 0.26.0 |

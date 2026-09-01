@@ -55,13 +55,23 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Autonomous `/build`:** Runs all `[AGENT]`/`[AUTO]` and Parallel work first, then attempts the grouped **Human & device (after automation)** section via `scripts/attempt-build-plan-row.sh`. Success marks ✅; failure appends `HUMAN_BACKLOG.md` and continues — never halts on human labels. Humans review the grouped section (and backlog) after automation finishes. Status: `bash scripts/build-sprint-status.sh --json`.
 
-> **Template maintainer:** M46 AGENT/AUTO archived. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.0.0**. **Child repos:** copy the playbook.
+> **Template maintainer:** **M47** Sequential AGENT rows open (Cline-first onboarding + Golden Path nav). M46 AGENT/AUTO archived. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.0.0**. **Child repos:** copy the playbook.
 
 ---
 
 ## Template Maintainer — Active Board
 
-> **v1.0.0** published @ `3dae768`. **M46** AGENT/AUTO archived in COMPLETED_TASKS.md @ `6229822`. Closed HUMAN leftovers archived in COMPLETED_TASKS.md @ `c61d249`. Still open: CII login, optional Ollama, Android SDK licenses. **M45** and **M44** archived in COMPLETED_TASKS.md. **v0.25.0** archived in COMPLETED_TASKS.md @ `7670444`. **v0.24.0** archived in COMPLETED_TASKS.md @ `c0f0dee`.
+> **v1.0.0** published @ `3dae768`. **M47** Sequential AGENT rows below (Cline-first + Golden Path nav). **M46** AGENT/AUTO archived in COMPLETED_TASKS.md @ `6229822`. Closed HUMAN leftovers archived in COMPLETED_TASKS.md @ `c61d249`. Still open: CII login, optional Ollama, Android SDK licenses. **M45** and **M44** archived in COMPLETED_TASKS.md. **v0.25.0** archived in COMPLETED_TASKS.md @ `7670444`. **v0.24.0** archived in COMPLETED_TASKS.md @ `c0f0dee`.
+
+### M47 — Cline-first onboarding + Golden Path navigation (Sequential)
+
+> Execute in order. Schema lock (row 1) before web/Android wiring. Do not implement in the plan-only PR. Parallel web/Android dispatch waits until row 1 is ✅.
+
+1. 🔲 [AGENT] Nav model + docs/features/navigation.md + pure unit tests
+2. 🔲 [AGENT] Cline-first onboarding (extensions.json, docs/help/CLINE.md, strip Codex from tour/ship)
+3. 🔲 [AGENT] Web: history stack + persist + wire AppShell
+4. 🔲 [AGENT] Android: BackHandler + persist + wire Golden Path UI
+5. 🔲 [AGENT] verify + docs twins + adapter sync
 
 ### M46 leftovers (human only)
 
