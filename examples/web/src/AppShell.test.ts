@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { createAppShell, type AppShellCallbacks } from "./AppShell";
+import { type AppShellCallbacks, createAppShell } from "./AppShell";
 import { homeNav, push, recordScroll } from "./nav";
 
 vi.mock("./i18n", () => ({
@@ -55,7 +55,9 @@ describe("createAppShell nav render", () => {
     const cb = handlers();
     const root = document.createElement("div");
     createAppShell(root, { ...baseState(), nav: push(homeNav(), "about") }, cb);
-    root.querySelector("[data-about-open]")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    root
+      .querySelector("[data-about-open]")
+      ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     expect(cb.onPop).toHaveBeenCalledTimes(1);
     expect(cb.onPushRoute).not.toHaveBeenCalled();
   });

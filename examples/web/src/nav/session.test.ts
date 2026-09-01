@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { homeNav, push, serialize, setPrompt } from "./index";
 import { NAV_STORAGE_KEY } from "./history";
+import { homeNav, push, serialize, setPrompt } from "./index";
+import { recordScroll } from "./persist";
 import {
   applyFeedbackIntents,
   applyPanelScroll,
@@ -11,7 +12,6 @@ import {
   saveNav,
   syncHistoryToNav,
 } from "./session";
-import { recordScroll } from "./persist";
 
 describe("nav session", () => {
   it("loadNav restores stack and clears promptOpen", () => {
@@ -68,7 +68,10 @@ describe("nav session", () => {
     };
     const nav = push(push(homeNav(), "about"), "feedback", "bug");
     syncHistoryToNav(fake, nav);
-    expect(pushed).toEqual([{ gp: true, depth: 1 }, { gp: true, depth: 2 }]);
+    expect(pushed).toEqual([
+      { gp: true, depth: 1 },
+      { gp: true, depth: 2 },
+    ]);
     expect(historyDepth(nav)).toBe(2);
   });
 

@@ -1,7 +1,7 @@
+import { ensureHomeSentinel, NAV_STORAGE_KEY, pushPanelHistory } from "./history";
 import { canPop, current, homeNav, normalizeStack, pop, push } from "./nav";
 import { deserialize, recordScroll, restoreScroll, serialize } from "./persist";
 import type { FeedbackKind, NavState } from "./types";
-import { ensureHomeSentinel, NAV_STORAGE_KEY, pushPanelHistory } from "./history";
 
 export function historyDepth(nav: NavState): number {
   const extra = nav.promptOpen ? 1 : 0;
@@ -54,10 +54,7 @@ function isFiniteDepth(state: unknown): number {
   return typeof depth === "number" && Number.isFinite(depth) ? Math.max(0, Math.floor(depth)) : 0;
 }
 
-export function applyPop(
-  nav: NavState,
-  scrollY: number,
-): { nav: NavState; trapHome: boolean } {
+export function applyPop(nav: NavState, scrollY: number): { nav: NavState; trapHome: boolean } {
   const next = pop(recordScroll(nav, current(nav), scrollY));
   return { nav: next, trapHome: !canPop(next) && !next.promptOpen };
 }

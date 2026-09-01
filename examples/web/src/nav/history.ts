@@ -21,10 +21,7 @@ export function ensureHomeSentinel(history: Pick<History, "state" | "replaceStat
   }
 }
 
-export function pushPanelHistory(
-  history: Pick<History, "pushState">,
-  depth: number,
-): void {
+export function pushPanelHistory(history: Pick<History, "pushState">, depth: number): void {
   history.pushState(gpState(depth), "");
 }
 

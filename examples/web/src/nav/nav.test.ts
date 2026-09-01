@@ -110,8 +110,8 @@ describe("nav persist", () => {
   });
 
   it("recordScroll treats non-finite y as 0", () => {
-    expect(restoreScroll(recordScroll(push(homeNav(), "about"), "about", Number.NaN), "about")).toBe(
-      0,
-    );
+    expect(
+      restoreScroll(recordScroll(push(homeNav(), "about"), "about", Number.NaN), "about"),
+    ).toBe(0);
   });
 });

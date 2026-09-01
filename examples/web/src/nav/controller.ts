@@ -1,7 +1,7 @@
-import { current, push, setPrompt } from "./nav";
-import type { FeedbackKind, GpRoute, NavState } from "./types";
 import { pushPanelHistory, trapHomeHistory } from "./history";
+import { current, push, setPrompt } from "./nav";
 import { applyPop, historyDepth, readPanelScroll, saveNav } from "./session";
+import type { FeedbackKind, GpRoute, NavState } from "./types";
 
 export type HistoryNav = {
   get: () => NavState;

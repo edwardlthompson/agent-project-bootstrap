@@ -48,7 +48,12 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
   };
 
   function applyNav(next: typeof intent.nav): void {
-    state = { ...state, nav: next, feedbackPrefill: feedbackPrefillOf(next, state.feedbackPrefill) };
+    state = {
+      ...state,
+      nav: next,
+      launchPrompt: next.promptOpen ? state.launchPrompt : null,
+      feedbackPrefill: feedbackPrefillOf(next, state.feedbackPrefill),
+    };
     render();
   }
 
@@ -101,20 +106,9 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
   }
 
   subscribeThemeChange(() => render());
-  window.addEventListener(
-    "popstate",
-    () => {
-      const result = navCtl.onPopState(appRoot);
-      state = {
-        ...state,
-        nav: result.nav,
-        launchPrompt: result.nav.promptOpen ? state.launchPrompt : null,
-        feedbackPrefill: feedbackPrefillOf(result.nav, state.feedbackPrefill),
-      };
-      render();
-    },
-    { signal: popAbort.signal },
-  );
+  window.addEventListener("popstate", () => applyNav(navCtl.onPopState(appRoot).nav), {
+    signal: popAbort.signal,
+  });
 
   render();
   void loadDonations().then((d) => {
