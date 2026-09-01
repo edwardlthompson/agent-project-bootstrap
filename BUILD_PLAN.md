@@ -71,7 +71,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 2. ✅ [AGENT] Cline-first onboarding (extensions.json, docs/help/CLINE.md, strip Codex from tour/ship)
 3. ✅ [AGENT] Web: history stack + persist + wire AppShell
 4. ✅ [AGENT] Android: BackHandler + persist + wire Golden Path UI
-5. 🔲 [AGENT] verify + docs twins + adapter sync
+5. ✅ [AGENT] verify + docs twins + adapter sync
 
 ### M46 leftovers (human only)
 

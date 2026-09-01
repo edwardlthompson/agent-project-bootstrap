@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-01 — M47 wrap-up: Cline first-run and stack nav
+- **Status:** Accepted
+- **Context:** First-time users need autonomous help without paid keys. Golden Path Settings/About/Feedback must remember where you were and pop **one** Back without leaving the PWA or Activity.
+- **Decision:** First-run is **Cline in Cursor** (GitHub sign-in, FREE model, no `OPENAI_API_KEY`). Codex stays advanced/optional (`docs/CODEX_REVIEW.md`, `/codex-review`) and is off `/tour`, `/prerelease`, and `/ship`. Navigation is a **stack** plus History API (web) and `BackHandler` (Android), persisted as `gp.nav.v1`, so menus restore and Back pops one overlay or route.
+- **Alternatives considered:** Codex CLI as first-run (rejected: needs an API key). Boolean `showAbout`/`showSettings` flags (rejected: flatten About → bug; Back cannot return to About). Close calling `pop()` and `history.back()` (rejected: double-pop). Finish the Activity on first home Back (rejected: accidental exit).
+- **Consequences:** Beginner path is clone → Cursor → Cline GitHub sign-in → tour prompt. Device Back smoke stays `[ADB]` until an SDK/emulator is present.
+
 ### 2026-09-01 — Golden Path Android BackHandler consumes home Back
 - **Status:** Accepted
 - **Context:** M47 Android wiring must pop one menu on system Back without finishing the Activity at home. This cloud agent has no ANDROID_HOME.
