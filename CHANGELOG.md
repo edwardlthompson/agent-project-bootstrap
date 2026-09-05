@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* **deps:** patch/minor bumps (biome, hono, playwright, ruff, hypothesis, pre-commit)
+
 ### Added
 
 * **docs:** walkthrough for GitHub Sponsors and international donation methods
