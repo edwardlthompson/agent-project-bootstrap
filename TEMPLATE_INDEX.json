@@ -937,6 +937,13 @@
       "owner": "agent+human"
     },
     {
+      "path": "docs/LINUX_DEV.md",
+      "purpose": "Linux laptop/desktop DX: caches, direnv, inotify, nice/ionice, laptop vs CI",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "agent+human"
+    },
+    {
       "path": "docs/MAINTAINING_THE_TEMPLATE.md",
       "purpose": "Template maintainer semver, release checklist, badge conventions",
       "read_when": "release",
@@ -1044,6 +1051,13 @@
     {
       "path": ".env.example",
       "purpose": "Documented environment variable stub; copy to .env locally",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "agent+human"
+    },
+    {
+      "path": ".envrc.example",
+      "purpose": "direnv stub for BOOTSTRAP_CHECK_JOBS / FEATURE_GATE_JOBS (see docs/LINUX_DEV.md)",
       "read_when": "bootstrap_session_start",
       "update_when": "milestone_boundary",
       "owner": "agent+human"

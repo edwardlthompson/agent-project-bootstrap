@@ -44,7 +44,7 @@ When working on **This Computer**, treat parallel agents + worktrees as the defa
 4. Prefer `/best-of-n` over serial model retries for flaky gates
 5. Prefer local Agent + CLI over Cloud Agents unless the machine is unavailable or commercial Autofix/Automations are intentional
 
-Override gate worker count with `BOOTSTRAP_CHECK_JOBS` (see `scripts/lib/run_checks_parallel.py`).
+Override gate worker count with `BOOTSTRAP_CHECK_JOBS` (see `scripts/lib/run_checks_parallel.py`). On Linux, also apply [`LINUX_DEV.md`](LINUX_DEV.md) (direnv, caches, inotify, worktrees).
 
 ## Sprint 1 (child repo) defaults
 

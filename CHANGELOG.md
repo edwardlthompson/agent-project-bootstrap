@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
+
 ## [1.1.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.0.0...v1.1.0) (2026-09-05)
 
 ### Added

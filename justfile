@@ -29,5 +29,10 @@ release-please-dry:
 local-compute:
     python3 scripts/agent-run.py check-local-compute
 
+# Print Linux DX checklist pointer (docs/LINUX_DEV.md)
+linux-dev:
+    python3 scripts/agent-run.py check-local-compute
+    @echo "See docs/LINUX_DEV.md (direnv: cp .envrc.example .envrc && direnv allow)"
+
 android-instrumented:
     python3 scripts/agent-run.py run-android-emulator-local

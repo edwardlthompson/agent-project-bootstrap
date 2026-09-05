@@ -55,6 +55,16 @@ def _jobs_misconfig() -> str | None:
     return None
 
 
+def _inotify_watches() -> int | None:
+    if not sys.platform.startswith("linux"):
+        return None
+    path = Path("/proc/sys/fs/inotify/max_user_watches")
+    try:
+        return int(path.read_text(encoding="utf-8").strip())
+    except (OSError, ValueError):
+        return None
+
+
 def main() -> int:
     bad = _jobs_misconfig()
     if bad:
@@ -80,6 +90,17 @@ def main() -> int:
     adb = "yes" if _adb() else "no"
     print(f"cpus={cpu} ram_gb={ram if ram is not None else 'unknown'} jobs={jobs} slots={slots}")
     print(f"ollama={ollama} emulator_gpu=unknown sdk={sdk} adb={adb} kvm={_kvm()}")
+    watches = _inotify_watches()
+    if watches is not None:
+        print(f"inotify_max_user_watches={watches}")
+        if watches < 100_000:
+            print(
+                "HINT: low inotify watches; see docs/LINUX_DEV.md "
+                "(sudo sysctl -w fs.inotify.max_user_watches=524288)",
+                file=sys.stderr,
+            )
+    elif sys.platform.startswith("linux"):
+        print("HINT: Linux host — see docs/LINUX_DEV.md for SSD/caches/direnv/inotify", file=sys.stderr)
     mcp = ROOT / ".cursor" / "mcp.json"
     print(f"mcp.json={'yes' if mcp.is_file() else 'no (copy mcp.foss.example optional)'}")
     if ram is not None and ram < 16 and ollama == "up":

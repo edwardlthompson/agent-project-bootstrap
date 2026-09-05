@@ -28,7 +28,7 @@ In Windsurf, Antigravity, or any other agent: ask it to read [`docs/help/TOUR.md
 1. `README.md`
 2. `docs/START_HERE.md`
 3. `docs/CURSOR_MODES.md`
-4. `docs/BEST_PRACTICES.md` (why each convention exists) + `docs/FIRST_30_DAYS.md`
+4. `docs/BEST_PRACTICES.md` (why each convention exists) + `docs/FIRST_30_DAYS.md` (+ `docs/LINUX_DEV.md` on Linux)
 5. `docs/INITIALIZATION_PROMPT.md`
 6. `AGENTS.md` (thin adapters via `--sync-adapters`; see `docs/AGENT_PORTABILITY.md`)
 7. `docs/spec.md` + `docs/plan.md` (product spec and milestone stub)

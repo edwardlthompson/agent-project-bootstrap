@@ -116,4 +116,4 @@ On **This Computer**, prefer machine parallelism over Cloud Agents:
 | `/worktree` + `/best-of-n` | Isolated local checkouts; multi-model races on hard fixes |
 | Side chats | Research in parallel with the main Agent |
 | Local gates | RAM-capped parallel bootstrap checks + multi-stack `feature-gate` (`BOOTSTRAP_CHECK_JOBS`, `FEATURE_GATE_JOBS`) |
-Rule: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-compute.mdc). Details: [`PARALLEL_AGENT_SCOPES.md`](PARALLEL_AGENT_SCOPES.md), [`CURSOR_INTEGRATIONS.md`](CURSOR_INTEGRATIONS.md).
+Rule: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-compute.mdc). Details: [`PARALLEL_AGENT_SCOPES.md`](PARALLEL_AGENT_SCOPES.md), [`CURSOR_INTEGRATIONS.md`](CURSOR_INTEGRATIONS.md), Linux: [`LINUX_DEV.md`](LINUX_DEV.md).

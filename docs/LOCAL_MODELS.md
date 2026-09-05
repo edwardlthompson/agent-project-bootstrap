@@ -36,9 +36,10 @@ Same GUI steps with base URL `http://127.0.0.1:1234/v1` and the same GUI dummy s
 
 ```bash
 python3 scripts/agent-run.py check-local-compute
+# or: just local-compute / just linux-dev
 ```
 
-`ollama=up` means the loopback API responded. `/coach` may point here when that line is up.
+`ollama=up` means the loopback API responded. `/coach` may point here when that line is up. Broader Linux DX (caches, inotify, direnv): [`LINUX_DEV.md`](LINUX_DEV.md).
 
 ## Never
 
