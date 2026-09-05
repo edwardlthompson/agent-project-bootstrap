@@ -50,6 +50,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 
 ## Session Retrospectives
 
+| 2026-09-05 | v1.1.0 /ship | Merged #90/#92/#94; tagged v1.1.0 + GitHub Release; SBOM/OpenVEX on tag; #86 RP blocked on workflow approve; #93 Linux DX pending | Prefer agent release PR when RP workflows need [HUMAN] approve; Unreleased empty before tag |
 | 2026-09-01 | M47 Cline-first + GP nav | Cline first-run (no keys); web History + Android BackHandler pop one route; persist gp.nav.v1 | Do not put Codex on /tour /prerelease /ship; device Back smoke is [ADB] |
 | 2026-08-28 | v1.0.0 /ship | Cloud agent #81 reviewed+merged; RP #82 cut first stable; Unreleased empty; SBOM+OpenVEX on the tag | Do not merge RP while upgrade-sim still fails on pruned stacks; `Release-As: 1.0.0` beats 0.26.0 |
 | 2026-08-28 | /cleanup HUMAN leftovers | Archived 5 script-closed HUMAN rows; CII, Ollama, Android SDK stay 🔲 | Recurring weekly AUTO stays 🔲 |
