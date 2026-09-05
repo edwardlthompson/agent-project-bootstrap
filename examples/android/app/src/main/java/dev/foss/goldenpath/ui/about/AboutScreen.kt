@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import dev.foss.goldenpath.R
 import dev.foss.goldenpath.about.DonationsConfig
@@ -75,13 +76,16 @@ fun AboutScreen(
             Text(
                 text = stringResource(R.string.about_donations_heading),
                 style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.testTag(AboutTestTags.DONATIONS_HEADING),
             )
             Text(text = donations.message.ifBlank { stringResource(R.string.about_donations_message) })
             donations.links.forEach { link ->
                 Text(
                     text = link.label,
                     color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.clickable { uriHandler.openUri(link.url) },
+                    modifier = Modifier
+                        .testTag(AboutTestTags.DONATION_LINK)
+                        .clickable { uriHandler.openUri(link.url) },
                 )
             }
         }

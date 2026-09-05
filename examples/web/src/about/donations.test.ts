@@ -73,6 +73,29 @@ describe("normalizeDonations", () => {
     ).toBe("https://venmo.com/code?user_id=1857304970395648420");
   });
 
+  it("loadDonations falls back to exemplar when primary is missing", async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes("donations.json.example")) {
+        return {
+          ok: true,
+          json: async () => ({
+            enabled: true,
+            message: "from example",
+            links: [{ label: "Sponsors", url: "https://github.com/sponsors/example" }],
+          }),
+        };
+      }
+      return { ok: false };
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const result = await loadDonations("/donations.json", "/donations.json.example");
+    expect(result.enabled).toBe(true);
+    expect(result.message).toBe("from example");
+    expect(result.links.some((l) => l.url.includes("sponsors"))).toBe(true);
+    vi.unstubAllGlobals();
+  });
+
   it("loadDonations keeps quiet Venmo when response is not ok", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false }));
     const result = await loadDonations();

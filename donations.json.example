@@ -5,6 +5,22 @@
     {
       "label": "Donate via Venmo",
       "url": "https://venmo.com/code?user_id=1857304970395648420"
+    },
+    {
+      "label": "GitHub Sponsors",
+      "url": "https://github.com/sponsors/YOUR_GITHUB_USERNAME"
+    },
+    {
+      "label": "Liberapay",
+      "url": "https://liberapay.com/YOUR_USERNAME"
+    },
+    {
+      "label": "Open Collective",
+      "url": "https://opencollective.com/YOUR_COLLECTIVE"
+    },
+    {
+      "label": "PayPal",
+      "url": "https://paypal.me/YOUR_HANDLE"
     }
   ]
 }

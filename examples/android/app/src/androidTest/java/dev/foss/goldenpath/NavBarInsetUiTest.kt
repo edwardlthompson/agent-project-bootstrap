@@ -14,10 +14,15 @@ import dev.foss.goldenpath.ui.insets.readNavigationMode
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 
 class NavBarInsetUiTest {
+    private val composeTestRule = createAndroidComposeRule<MainActivity>()
+
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<MainActivity>()
+    val rules: RuleChain = RuleChain
+        .outerRule(FailureEvidenceRule { composeTestRule })
+        .around(composeTestRule)
 
     private fun setNavigationMode(mode: Int) {
         InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(

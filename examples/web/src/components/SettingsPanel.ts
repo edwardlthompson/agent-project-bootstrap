@@ -37,6 +37,7 @@ export function createSettingsPanel(callbacks: SettingsPanelCallbacks): HTMLElem
     </label>
     <div class="gp-settings-field">
       <button type="button" data-settings-about>${t("settings.about")}</button>
+      <p class="gp-settings-hint" data-settings-about-hint>${t("settings.about_hint")}</p>
       <button type="button" data-settings-export>${t("settings.export")}</button>
       <button type="button" data-settings-import>${t("settings.import")}</button>
       <input type="file" accept="application/json" hidden data-settings-import-file />
