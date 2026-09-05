@@ -11,13 +11,13 @@ hello = "hello.cli:main"
 
 [project.optional-dependencies]
 dev = [
-    "hypothesis>=6.165.10",
+    "hypothesis>=6.167.1",
     "mypy>=1.13.0",
     "pip-licenses>=4.5.0",
     "pytest>=8.3.0",
     "pytest-cov>=6.0.0",
     "pytest-xdist>=3.8.0",
-    "ruff>=0.16.5",
+    "ruff>=0.16.6",
     "pyright>=1.1.411",
 ]
 
