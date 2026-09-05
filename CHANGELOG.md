@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+* **web:** scope Settings→About e2e click to the settings panel
+
 ### Changed
 
 * **deps:** patch/minor bumps (biome, hono, playwright, ruff, hypothesis, pre-commit)
