@@ -1056,6 +1056,13 @@
       "owner": "agent+human"
     },
     {
+      "path": ".envrc.example",
+      "purpose": "direnv stub for BOOTSTRAP_CHECK_JOBS / FEATURE_GATE_JOBS (see docs/LINUX_DEV.md)",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "agent+human"
+    },
+    {
       "path": "scripts/validate-bootstrap.sh",
       "purpose": "Sprint 0 artifact verification with encoding, index, and lockfile gates",
       "read_when": "bootstrap_session_start",
