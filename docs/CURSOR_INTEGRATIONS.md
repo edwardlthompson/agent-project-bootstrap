@@ -77,7 +77,7 @@ On **This Computer**, maximize local parallelism before Cloud:
 - Parallel `/scope` Task subagents + worktrees + `/best-of-n`
 - `validate-bootstrap` runs independent checks via `scripts/lib/run_checks_parallel.py` (RAM-capped workers, override with `BOOTSTRAP_CHECK_JOBS`)
 - Multi-stack `feature-gate` runs independent stacks in parallel (`FEATURE_GATE_JOBS`; CI cap 2). `/build` passes `--scope auto` so per-row gates only dirty stacks; `/gates` stays full.
-- `/best-of-n` and `/emulator` are slash commands; Ollama recipe: [`docs/LOCAL_MODELS.md`](LOCAL_MODELS.md)
+- `/best-of-n` and `/emulator` are slash commands; Ollama recipe: [`docs/LOCAL_MODELS.md`](LOCAL_MODELS.md); Linux DX: [`docs/LINUX_DEV.md`](LINUX_DEV.md)
 - Session start hook reminds agents of `local-first cpus=N ram= jobs= ollama=`
 
 ## Worktrees
@@ -122,6 +122,7 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 | `update-deps` | `/update-deps`, `/ship` |
 | `best-of-n` | `/best-of-n` |
 | `local-models` | `docs/LOCAL_MODELS.md` |
+| `linux-dev` | `docs/LINUX_DEV.md` |
 ## Subagents
 
 | Agent | Role |

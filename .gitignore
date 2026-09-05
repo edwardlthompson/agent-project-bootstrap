@@ -55,6 +55,8 @@ playwright-report/
 .env
 .env.*
 !.env.example
+.envrc
+!.envrc.example
 
 # Live user configs (examples committed; copies from init)
 .app-update.json

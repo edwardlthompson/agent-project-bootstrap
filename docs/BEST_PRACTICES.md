@@ -44,7 +44,13 @@ Each subsection is **What** (the file), **Why** (industry reason + source), **Ho
 
 - **What:** CI (`ci.yml`), Security Scan / CodeQL / gitleaks, local `/update-deps`, Dependabot as weekly backup, local hooks.
 - **Why:** Catching lint, tests, leaked secrets, and dependency bumps on the laptop is cheaper than waiting on GitHub Dependabot PRs. RAM-capped parallel `feature-gate` stacks and `/best-of-n` use local CPU; optional Ollama stays on 127.0.0.1 (`docs/LOCAL_MODELS.md`) with no cloud keys. See [GitHub Actions](https://docs.github.com/en/actions) and [Dependabot](https://docs.github.com/en/code-security/dependabot).
-- **How:** `bash scripts/verify.sh` before marking a task done. Before a release: `/update-deps` or `just update-deps-dry`. `scripts/setup-github-repo.sh` still enables alerts and branch protection.
+- **How:** `bash scripts/verify.sh` before marking a task done. Before a release: `/update-deps` or `just update-deps-dry`. `scripts/setup-github-repo.sh` still enables alerts and branch protection. On Linux, apply [`LINUX_DEV.md`](LINUX_DEV.md) (SSD + caches, direnv, inotify, `nice`/`ionice`, laptop vs CI).
+
+## Linux developer environment
+
+- **What:** [`LINUX_DEV.md`](LINUX_DEV.md) + `.envrc.example` + `just linux-dev` / `check-local-compute`.
+- **Why:** Local SSD layout, shared package caches, watcher limits, and parallel job caps cut cycle time more than Cloud Agents when the machine is free.
+- **How:** Copy `.envrc.example` → `.envrc`, set `BOOTSTRAP_CHECK_JOBS` / `FEATURE_GATE_JOBS`, raise inotify if Vite/IDE drops events, prefer worktrees over Docker-in-Docker for day-to-day tests.
 
 ## BUILD_PLAN labels
 

@@ -8,16 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-
-* **deps:** patch/minor bumps (biome, hono, playwright, ruff, hypothesis, pre-commit)
-
 ### Added
 
+* **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
 * **docs:** walkthrough for GitHub Sponsors and international donation methods
 * **android:** About entry under Settings for donation links
 * **web:** persist Golden Path nav stack and pop one History API route on Back
 * **android:** BackHandler pops one Golden Path route and does not finish at home
+
+### Changed
+
+* **deps:** patch/minor bumps (biome, hono, playwright, ruff, hypothesis, pre-commit)
 
 ### Fixed
 

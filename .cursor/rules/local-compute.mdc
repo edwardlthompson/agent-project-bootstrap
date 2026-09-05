@@ -40,6 +40,10 @@ When the session runs on **This Computer** (local IDE / local CLI), maximize the
 - `ANDROID_EMULATOR_LOCAL=0` — force-skip `/emulator`
 - Stack tests: pytest-xdist `-n auto`; Vitest `maxWorkers: 50%`; Gradle `--parallel`
 
+## Linux
+
+On Linux hosts, follow [`docs/LINUX_DEV.md`](../../docs/LINUX_DEV.md): local SSD + shared caches, `nice`/`ionice` for long builds, direnv (`.envrc.example`), inotify watch limits, native loops over Docker-in-Docker, and laptop vs CI split. Probe: `python3 scripts/agent-run.py check-local-compute`.
+
 ## GPU
 
 Template gates do not use CUDA. Optional: Ollama on 127.0.0.1 (`docs/LOCAL_MODELS.md`) and `/emulator` `-gpu host`. Cursor Agent/Tab may still use cloud models. No keys in git.
