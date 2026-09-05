@@ -1,8 +1,9 @@
 package dev.foss.goldenpath
 
-import androidx.compose.ui.test.assertDoesNotExist
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -31,7 +32,8 @@ class GoldenPathUiTest {
 
     @Test
     fun donateLivesUnderSettingsAboutNotTitlebar() {
-        composeTestRule.onNodeWithText("Donate via Venmo").assertDoesNotExist()
+        // Titlebar must not show donate; assertCountEquals avoids assertDoesNotExist import gaps.
+        composeTestRule.onAllNodesWithText("Donate via Venmo").assertCountEquals(0)
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.onNodeWithText("About", substring = false).performClick()
         composeTestRule.onNodeWithText("Support development").assertIsDisplayed()
