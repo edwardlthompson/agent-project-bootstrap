@@ -5,6 +5,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.platform.app.InstrumentationRegistry
@@ -26,6 +27,13 @@ class NavBarInsetUiTest {
         composeTestRule.waitForIdle()
     }
 
+    private fun openSettingsAndScrollToClose() {
+        composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.waitForIdle()
+        // About button lengthens Settings; Close can sit below the fold on tall nav bars.
+        composeTestRule.onNodeWithText("Close settings").performScrollTo().assertIsDisplayed()
+    }
+
     @Test
     fun closeButtonClearsNavigationBar_threeButton() {
         setNavigationMode(0)
@@ -33,8 +41,7 @@ class NavBarInsetUiTest {
         val context = composeTestRule.activity
         assertTrue(context.readNavigationMode() == NavigationMode.ThreeButton)
 
-        composeTestRule.onNodeWithContentDescription("Settings").performClick()
-        composeTestRule.onNodeWithText("Close settings").assertIsDisplayed()
+        openSettingsAndScrollToClose()
 
         val decorView = context.window.decorView
         val navInset = ViewCompat.getRootWindowInsets(decorView)
@@ -57,8 +64,7 @@ class NavBarInsetUiTest {
     fun closeButtonClearsNavigationBar_gesture() {
         setNavigationMode(2)
 
-        composeTestRule.onNodeWithContentDescription("Settings").performClick()
-        composeTestRule.onNodeWithText("Close settings").assertIsDisplayed()
+        openSettingsAndScrollToClose()
 
         val decorView = composeTestRule.activity.window.decorView
         val navInset = ViewCompat.getRootWindowInsets(decorView)

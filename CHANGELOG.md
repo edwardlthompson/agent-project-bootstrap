@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* **ci:** sync exemplar `donations.json` / `app-update.json` before Android instrumented tests
+* **android:** scroll to Close settings / About donate assertions on tall nav bars
 * **web:** scope Settings→About e2e click to the settings panel
 * **android:** compile donate UI test without unresolved `assertDoesNotExist`
 
