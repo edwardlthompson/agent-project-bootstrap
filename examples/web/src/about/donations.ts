@@ -27,12 +27,24 @@ export function normalizeDonations(raw: unknown): DonationConfig {
   };
 }
 
-export async function loadDonations(url = assetUrl("donations.json")): Promise<DonationConfig> {
+async function fetchDonationsJson(url: string): Promise<DonationConfig | null> {
   try {
     const res = await fetch(url);
-    if (!res.ok) return withQuietDonate({ enabled: false, message: "", links: [] });
-    return withQuietDonate(normalizeDonations(await res.json()));
+    if (!res.ok) return null;
+    return normalizeDonations(await res.json());
   } catch {
-    return withQuietDonate({ enabled: false, message: "", links: [] });
+    return null;
   }
+}
+
+/** Prefer live donations.json; fall back to packaged exemplar when sync was skipped. */
+export async function loadDonations(
+  url = assetUrl("donations.json"),
+  exemplarUrl = assetUrl("donations.json.example"),
+): Promise<DonationConfig> {
+  const primary = await fetchDonationsJson(url);
+  if (primary) return withQuietDonate(primary);
+  const exemplar = await fetchDonationsJson(exemplarUrl);
+  if (exemplar) return withQuietDonate(exemplar);
+  return withQuietDonate({ enabled: false, message: "", links: [] });
 }

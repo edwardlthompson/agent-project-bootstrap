@@ -72,6 +72,7 @@ fi
 
 devices="$("$ADB" devices 2>/dev/null | awk 'NR>1 && $2=="device"{print $1}')" || devices=""
 run_tests() {
+  bash "$ROOT/scripts/sync-exemplar-config.sh"
   (cd "$ROOT/examples/android" && chmod +x gradlew && ./gradlew connectedDebugAndroidTest --no-daemon)
 }
 

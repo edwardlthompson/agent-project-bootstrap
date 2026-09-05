@@ -9,6 +9,24 @@ kotlin {
     }
 }
 
+// Live donations.json / app-update.json are gitignored; copy exemplars when missing
+// so local Gradle and CI instrumented tests never ship an empty About donate block.
+val syncExemplarAssets = tasks.register("syncExemplarAssets") {
+    val assetsDir = layout.projectDirectory.dir("src/main/assets")
+    doLast {
+        listOf("donations.json", "app-update.json").forEach { name ->
+            val dest = assetsDir.file(name).asFile
+            val example = assetsDir.file("$name.example").asFile
+            if (!dest.exists() && example.exists()) {
+                example.copyTo(dest)
+                logger.lifecycle("Synced exemplar asset: ${dest.name}")
+            }
+        }
+    }
+}
+
+tasks.named("preBuild").configure { dependsOn(syncExemplarAssets) }
+
 android {
     namespace = "dev.foss.goldenpath"
     compileSdk = 37

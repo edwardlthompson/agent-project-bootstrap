@@ -68,6 +68,7 @@ export function createAboutPanel(
   if (state.donations.enabled && state.donations.links.length > 0) {
     const donateHeading = document.createElement("h3");
     donateHeading.className = "gp-about-donate-heading";
+    donateHeading.dataset.testid = "about-donations-heading";
     donateHeading.textContent = t("about.donations.heading");
 
     const donateMsg = document.createElement("p");
@@ -76,12 +77,14 @@ export function createAboutPanel(
 
     const donateList = document.createElement("ul");
     donateList.className = "gp-about-donate-links";
+    donateList.dataset.testid = "about-donation-links";
     for (const link of state.donations.links) {
       const item = document.createElement("li");
       const anchor = document.createElement("a");
       anchor.href = link.url;
       anchor.target = "_blank";
       anchor.rel = "noopener noreferrer";
+      anchor.dataset.testid = "about-donation-link";
       anchor.textContent = link.label;
       item.append(anchor);
       donateList.append(item);

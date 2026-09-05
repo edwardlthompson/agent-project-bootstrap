@@ -13,9 +13,22 @@ data class LatestRelease(
 )
 
 object ReleaseTagFetcher {
+    val ASSET_CANDIDATES = listOf("app-update.json", "app-update.json.example")
+
+    private fun readUpdateJson(context: Context): String? {
+        for (name in ASSET_CANDIDATES) {
+            try {
+                return context.assets.open(name).bufferedReader().use { it.readText() }
+            } catch (_: Exception) {
+                continue
+            }
+        }
+        return null
+    }
+
     fun loadReleaseRepo(context: Context): String? {
         return try {
-            val json = context.assets.open("app-update.json").bufferedReader().use { it.readText() }
+            val json = readUpdateJson(context) ?: return null
             val repo = JSONObject(json).optString("release_repo", "").trim()
             when {
                 repo.isEmpty() -> null
@@ -29,7 +42,7 @@ object ReleaseTagFetcher {
 
     fun loadProductAssetPrefix(context: Context): String {
         return try {
-            val json = context.assets.open("app-update.json").bufferedReader().use { it.readText() }
+            val json = readUpdateJson(context) ?: return ProductUpdate.DEFAULT_ASSET_PREFIX
             JSONObject(json).optString("product_asset_prefix", ProductUpdate.DEFAULT_ASSET_PREFIX)
                 .ifBlank { ProductUpdate.DEFAULT_ASSET_PREFIX }
         } catch (_: Exception) {

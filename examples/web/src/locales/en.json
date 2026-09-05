@@ -28,6 +28,7 @@
   "settings.title": "Settings",
   "settings.open": "Settings",
   "settings.about": "About",
+  "settings.about_hint": "Version, updates, and ways to support development",
   "settings.close": "Close settings",
   "settings.theme.label": "Theme",
   "settings.theme.mode.system": "System theme",

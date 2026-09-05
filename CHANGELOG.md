@@ -8,9 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* **android:** Gradle `syncExemplarAssets` copies gitignored `*.example` assets before `preBuild`
+* **android/web:** load `donations.json.example` (and Android `app-update.json.example`) when live files are missing
+* **android:** Compose test tags + failure screenshot/semantics dump for instrumented UI tests
+* **android:** clear nav/launch prefs between instrumented UI tests; dismiss launch prompts
+* **android/web:** Settings About hint for version / updates / support discoverability
+* **donations:** exemplar links for Venmo, GitHub Sponsors, Liberapay, Open Collective, and PayPal
+
+### Fixed
+
+* **ci:** sync exemplar `donations.json` / `app-update.json` before Android instrumented tests
+* **android:** scroll to Close settings / About donate assertions on tall nav bars
+* **web:** scope Settings→About e2e click to the settings panel
+* **android:** compile donate UI test without unresolved `assertDoesNotExist`
+
 ### Changed
 
 * **deps:** patch/minor bumps (biome, hono, playwright, ruff, hypothesis, pre-commit)
+* **android:** About donate instrumented tests assert semantics tags instead of Venmo copy alone
 
 ### Added
 
