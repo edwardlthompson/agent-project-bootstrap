@@ -107,7 +107,10 @@ export function createAppShell(
   }
 
   if (route === "settings") {
-    const panel = createSettingsPanel({ onClose: callbacks.onPop });
+    const panel = createSettingsPanel({
+      onClose: callbacks.onPop,
+      onOpenAbout: () => callbacks.onPushRoute("about"),
+    });
     mount.appendChild(panel);
     dialogCleanup = bindPanelDialog(panel, callbacks.onPop);
     applyPanelScroll(root, state.nav);

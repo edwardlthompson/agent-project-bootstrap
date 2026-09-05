@@ -13,7 +13,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -59,7 +58,6 @@ fun GoldenPathScreen(
     onScroll: (GpRoute, Int) -> Unit,
     onSaveCrashes: (Boolean) -> Unit,
     onFeedbackClose: () -> Unit,
-    onDonate: () -> Unit,
     onDonatePrompt: (Boolean) -> Unit,
     onUpdatePrompt: (Boolean) -> Unit,
     onApplyUpdate: () -> Unit,
@@ -71,11 +69,6 @@ fun GoldenPathScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.app_title)) },
                 actions = {
-                    if (donations.enabled && donations.links.isNotEmpty()) {
-                        TextButton(onClick = onDonate) {
-                            Text(stringResource(R.string.about_donate))
-                        }
-                    }
                     IconButton(onClick = { toggleRoute(route, GpRoute.Settings, onPushRoute, onPop) }) {
                         Icon(
                             imageVector = Icons.Filled.Settings,
@@ -116,6 +109,7 @@ fun GoldenPathScreen(
                 onThemeModeSelect = onThemeModeSelect,
                 saveCrashes = saveCrashes,
                 onSaveCrashes = onSaveCrashes,
+                onOpenAbout = { onPushRoute(GpRoute.About, null) },
                 onBack = onPop,
                 scrollY = Nav.restoreScroll(nav, GpRoute.Settings),
                 onScroll = { onScroll(GpRoute.Settings, it) },

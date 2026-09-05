@@ -48,7 +48,7 @@ Default locale: English only (`res/values/strings.xml`). Add `res/values-{lang}/
 
 Shared key naming with web: `app.title`, `theme.toggle.label`, `theme.mode.*` — see [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md). For website folder conventions in multi-stack repos, see [`docs/WEB_PROJECT_LAYOUT.md`](../../docs/WEB_PROJECT_LAYOUT.md).
 
-- ✅ In-app AboutScreen with format-locked APK update stub and donations
+- ✅ In-app AboutScreen with format-locked APK update stub and donations (Settings → About only — never TopAppBar; see `docs/help/DONATIONS.md`)
 ## Golden Path Reference
 
 See `examples/android/` for FOSS Gradle/Kotlin skeleton. CI runs `./gradlew assembleDebug` on every push to `main`.

@@ -72,7 +72,11 @@ fun AboutScreen(
             }
         }
         if (donations.enabled && donations.links.isNotEmpty()) {
-            Text(text = donations.message)
+            Text(
+                text = stringResource(R.string.about_donations_heading),
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Text(text = donations.message.ifBlank { stringResource(R.string.about_donations_message) })
             donations.links.forEach { link ->
                 Text(
                     text = link.label,

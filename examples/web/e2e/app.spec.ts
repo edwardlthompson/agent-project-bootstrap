@@ -135,6 +135,16 @@ test("opens about panel with donate link", async ({ page }) => {
   );
 });
 
+test("opens About from Settings with donate links", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  await expect(page.getByTestId("settings-panel")).toBeVisible();
+  await page.getByRole("button", { name: "About" }).click();
+  await expect(page.getByTestId("about-panel")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Support development" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Donate via Venmo" })).toBeVisible();
+});
+
 test("shows quiet donate action in the header", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("button", { name: "Donate via Venmo" })).toBeVisible();

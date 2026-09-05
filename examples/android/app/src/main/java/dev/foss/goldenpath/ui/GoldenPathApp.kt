@@ -131,7 +131,6 @@ fun GoldenPathApp(
                     crashStore.clear()
                     popNav()
                 },
-                onDonate = { openUrl(DonationsLoader.primaryUrl(donations)) },
                 onDonatePrompt = { donate ->
                     launchPrefs.markVersionSeen(appVersion)
                     launchPrompt = null

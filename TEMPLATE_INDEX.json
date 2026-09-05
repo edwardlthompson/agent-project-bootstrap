@@ -15,6 +15,7 @@
     "allideas": "docs/help/ALLIDEAS.md",
     "upgrade": "docs/help/UPGRADE.md",
     "adr": "docs/help/ADR.md",
+    "donations": "docs/help/DONATIONS.md",
     "batch_commands_print": "docs/help/batch-commands-print.html"
   },
   "files": [
@@ -735,6 +736,13 @@
     {
       "path": "docs/help/TOUR.md",
       "purpose": "Tool-agnostic 10-minute first-run tour",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/help/DONATIONS.md",
+      "purpose": "Walkthrough for donations.json, GitHub Sponsors, and international funding methods",
       "read_when": "bootstrap_session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"

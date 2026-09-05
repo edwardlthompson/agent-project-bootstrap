@@ -8,7 +8,7 @@
     {
       "id": "week-2",
       "title": "Week 2 — Security and GitHub",
-      "needles": ["setup-github-repo.sh", "check-github-ci.sh", "GITHUB_ABOUT.md", "FUNDING.yml", "SECURITY.md"]
+      "needles": ["setup-github-repo.sh", "check-github-ci.sh", "GITHUB_ABOUT.md", "FUNDING.yml", "DONATIONS.md", "SECURITY.md"]
     },
     {
       "id": "week-3",
