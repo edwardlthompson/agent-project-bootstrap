@@ -17,13 +17,15 @@ Contract: [`docs/features/donations-updates.md`](../features/donations-updates.m
 
 1. Copy `donations.json.example` → `donations.json` at the repo root (gitignored live file).
 2. Set `enabled` to `true` and list one or more `{ "label", "url" }` entries.
-3. Sync into stack exemplars:
+3. Sync into stack exemplars (or let Android Gradle copy missing assets on `preBuild`):
 
 ```bash
 bash scripts/sync-exemplar-config.sh
 # or after init with a URL:
 python3 scripts/sync-stack-config.py . OWNER/REPO 'https://your-donate-url'
 ```
+
+Android also loads `donations.json.example` at runtime if the live asset was never synced; Web `loadDonations` does the same for `/donations.json.example`.
 
 That writes:
 

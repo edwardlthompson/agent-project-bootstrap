@@ -71,6 +71,11 @@ fun SettingsScreen(
         Button(onClick = onOpenAbout) {
             Text(stringResource(R.string.settings_about))
         }
+        Text(
+            text = stringResource(R.string.settings_about_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
         Button(
             onClick = onBack,
             modifier = Modifier.bottomInsetPadding(),

@@ -138,8 +138,9 @@ test("opens about panel with donate link", async ({ page }) => {
 test("opens About from Settings with donate links", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Settings" }).click();
-  await expect(page.getByTestId("settings-panel")).toBeVisible();
-  await page.getByRole("button", { name: "About" }).click();
+  const settings = page.getByTestId("settings-panel");
+  await expect(settings).toBeVisible();
+  await settings.getByRole("button", { name: "About" }).click();
   await expect(page.getByTestId("about-panel")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Support development" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Donate via Venmo" })).toBeVisible();

@@ -11,18 +11,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
-* **docs:** walkthrough for GitHub Sponsors and international donation methods
-* **android:** About entry under Settings for donation links
-* **web:** persist Golden Path nav stack and pop one History API route on Back
-* **android:** BackHandler pops one Golden Path route and does not finish at home
+* **android:** Gradle `syncExemplarAssets` copies gitignored `*.example` assets before `preBuild`
+* **android/web:** load `donations.json.example` (and Android `app-update.json.example`) when live files are missing
+* **android:** Compose test tags + failure screenshot/semantics dump for instrumented UI tests
+* **android:** clear nav/launch prefs between instrumented UI tests; dismiss launch prompts
+* **android/web:** Settings About hint for version / updates / support discoverability
+* **donations:** exemplar links for Venmo, GitHub Sponsors, Liberapay, Open Collective, and PayPal
+
+### Fixed
+
+* **ci:** sync exemplar `donations.json` / `app-update.json` before Android instrumented tests
+* **android:** scroll to Close settings / About donate assertions on tall nav bars
+* **web:** scope Settings→About e2e click to the settings panel
+* **android:** compile donate UI test without unresolved `assertDoesNotExist`
 
 ### Changed
 
 * **deps:** patch/minor bumps (biome, hono, playwright, ruff, hypothesis, pre-commit)
-
-### Fixed
-
-* **android:** keep Venmo donate under Settings → About, not the titlebar
+* **android:** About donate instrumented tests assert semantics tags instead of Venmo copy alone
 
 ## [1.0.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.25.0...v1.0.0) (2026-08-28)
 
