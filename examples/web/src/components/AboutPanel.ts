@@ -66,6 +66,10 @@ export function createAboutPanel(
   }
 
   if (state.donations.enabled && state.donations.links.length > 0) {
+    const donateHeading = document.createElement("h3");
+    donateHeading.className = "gp-about-donate-heading";
+    donateHeading.textContent = t("about.donations.heading");
+
     const donateMsg = document.createElement("p");
     donateMsg.className = "gp-about-donate-msg";
     donateMsg.textContent = state.donations.message;
@@ -82,7 +86,7 @@ export function createAboutPanel(
       item.append(anchor);
       donateList.append(item);
     }
-    panel.append(donateMsg, donateList);
+    panel.append(donateHeading, donateMsg, donateList);
   }
 
   if (onReportBug) {

@@ -1,5 +1,6 @@
 package dev.foss.goldenpath
 
+import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -26,5 +27,14 @@ class GoldenPathUiTest {
         composeTestRule.onNodeWithContentDescription("About").performClick()
         composeTestRule.onNodeWithText("About").assertIsDisplayed()
         composeTestRule.onNodeWithText("Installed format: apk").assertIsDisplayed()
+    }
+
+    @Test
+    fun donateLivesUnderSettingsAboutNotTitlebar() {
+        composeTestRule.onNodeWithText("Donate via Venmo").assertDoesNotExist()
+        composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.onNodeWithText("About", substring = false).performClick()
+        composeTestRule.onNodeWithText("Support development").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Donate via Venmo").assertIsDisplayed()
     }
 }

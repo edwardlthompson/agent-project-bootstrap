@@ -30,6 +30,7 @@
     <string name="about_update_prompt_body">Version %1$s is on GitHub. Install it when you are ready.</string>
     <string name="settings_title">Settings</string>
     <string name="settings_open">Settings</string>
+    <string name="settings_about">About</string>
     <string name="settings_close">Close settings</string>
     <string name="settings_theme_label">Theme</string>
     <string name="settings_theme_mode_system">System theme</string>

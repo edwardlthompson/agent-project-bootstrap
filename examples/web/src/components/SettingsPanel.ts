@@ -7,6 +7,7 @@ import type { ThemeMode } from "../theme";
 
 export type SettingsPanelCallbacks = {
   onClose: () => void;
+  onOpenAbout?: () => void;
 };
 
 export function createSettingsPanel(callbacks: SettingsPanelCallbacks): HTMLElement {
@@ -35,6 +36,7 @@ export function createSettingsPanel(callbacks: SettingsPanelCallbacks): HTMLElem
       <span>${t("settings.feedback.save_crashes")}</span>
     </label>
     <div class="gp-settings-field">
+      <button type="button" data-settings-about>${t("settings.about")}</button>
       <button type="button" data-settings-export>${t("settings.export")}</button>
       <button type="button" data-settings-import>${t("settings.import")}</button>
       <input type="file" accept="application/json" hidden data-settings-import-file />
@@ -59,6 +61,9 @@ export function createSettingsPanel(callbacks: SettingsPanelCallbacks): HTMLElem
   }
 
   panel.querySelector(".gp-settings-close")?.addEventListener("click", callbacks.onClose);
+  panel.querySelector("[data-settings-about]")?.addEventListener("click", () => {
+    callbacks.onOpenAbout?.();
+  });
 
   const fileInput = panel.querySelector<HTMLInputElement>("[data-settings-import-file]");
   panel.querySelector("[data-settings-export]")?.addEventListener("click", () => {

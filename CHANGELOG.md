@@ -8,10 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* **deps:** patch/minor bumps (biome, hono, playwright, ruff, hypothesis, pre-commit)
+
 ### Added
 
+* **docs:** walkthrough for GitHub Sponsors and international donation methods
+* **android:** About entry under Settings for donation links
 * **web:** persist Golden Path nav stack and pop one History API route on Back
 * **android:** BackHandler pops one Golden Path route and does not finish at home
+
+### Fixed
+
+* **android:** keep Venmo donate under Settings → About, not the titlebar
 
 ## [1.0.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.25.0...v1.0.0) (2026-08-28)
 

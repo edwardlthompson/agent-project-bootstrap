@@ -141,4 +141,4 @@ Cross-stack in-app About (not GitHub repo About):
 
 **Platform parity:** Launch prompts are donate-or-update, never both. Web `localStorage` (`gp.update.*`); Android SharedPreferences `gp_updates` excluded from Auto Backup.
 
-**Donations:** external Venmo (or `donations.json`) links only; hide block when disabled or empty. Never put donate on the update dialog.
+**Donations:** external Venmo (or `donations.json`) links only; hide block when disabled or empty. Never put donate on the update dialog. **Android:** donate links live under Settings → About / About screen only — never in the TopAppBar. Walkthrough (GitHub Sponsors, Liberapay, Open Collective, PayPal, etc.): [`docs/help/DONATIONS.md`](help/DONATIONS.md).

@@ -29,6 +29,7 @@ fun SettingsScreen(
     onThemeModeSelect: (ThemeMode) -> Unit,
     saveCrashes: Boolean,
     onSaveCrashes: (Boolean) -> Unit,
+    onOpenAbout: () -> Unit = {},
     onBack: () -> Unit,
     scrollY: Int = 0,
     onScroll: (Int) -> Unit = {},
@@ -67,6 +68,9 @@ fun SettingsScreen(
         }
         Text(text = stringResource(R.string.settings_feedback_save_crashes))
         Switch(checked = saveCrashes, onCheckedChange = onSaveCrashes)
+        Button(onClick = onOpenAbout) {
+            Text(stringResource(R.string.settings_about))
+        }
         Button(
             onClick = onBack,
             modifier = Modifier.bottomInsetPadding(),

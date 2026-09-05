@@ -10,6 +10,7 @@
 - ✅ Daily GitHub installer checks are not gated here (see `docs/features/donations-updates.md`)
 - ✅ Offline: settings load last persisted values; no network required for display
 - ✅ i18n: all user-visible strings under `settings.*` keys
+- ✅ About entry opens the About screen (donation links live there — not in the Android titlebar; see `docs/help/DONATIONS.md`)
 
 ## Smoke scenario
 
