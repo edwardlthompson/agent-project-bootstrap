@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * **web:** scope Settings→About e2e click to the settings panel
+* **android:** compile donate UI test without unresolved `assertDoesNotExist`
 
 ### Changed
 
