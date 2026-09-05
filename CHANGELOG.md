@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **android:** Gradle `syncExemplarAssets` copies gitignored `*.example` assets before `preBuild`
 * **android/web:** load `donations.json.example` (and Android `app-update.json.example`) when live files are missing
 * **android:** Compose test tags + failure screenshot/semantics dump for instrumented UI tests
+* **android:** clear nav/launch prefs between instrumented UI tests; dismiss launch prompts
 * **android/web:** Settings About hint for version / updates / support discoverability
 * **donations:** exemplar links for Venmo, GitHub Sponsors, Liberapay, Open Collective, and PayPal
 

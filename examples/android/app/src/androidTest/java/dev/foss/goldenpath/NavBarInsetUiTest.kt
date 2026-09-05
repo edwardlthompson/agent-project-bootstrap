@@ -21,7 +21,8 @@ class NavBarInsetUiTest {
 
     @get:Rule
     val rules: RuleChain = RuleChain
-        .outerRule(FailureEvidenceRule { composeTestRule })
+        .outerRule(ClearUiPrefsRule())
+        .around(FailureEvidenceRule { composeTestRule })
         .around(composeTestRule)
 
     private fun setNavigationMode(mode: Int) {
@@ -30,12 +31,15 @@ class NavBarInsetUiTest {
         )
         composeTestRule.activityRule.scenario.recreate()
         composeTestRule.waitForIdle()
+        composeTestRule.dismissLaunchPrompts()
     }
 
     private fun openSettingsAndScrollToClose() {
+        composeTestRule.dismissLaunchPrompts()
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.waitForIdle()
-        // About button lengthens Settings; Close can sit below the fold on tall nav bars.
+        composeTestRule.onNodeWithText("Settings").assertIsDisplayed()
+        // About + hint lengthen Settings; Close can sit below the fold on tall nav bars.
         composeTestRule.onNodeWithText("Close settings").performScrollTo().assertIsDisplayed()
     }
 
