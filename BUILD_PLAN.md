@@ -28,19 +28,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** M50. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** M51. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-### M50 — Chrome follow-through
-
-<!-- parallel_exception: overlapping scripts, docs, web, and Android — Sequential order -->
-
-1. ✅ [AGENT] Chrome + chip regression gate in `check-design-cohesion`
-2. ✅ [AGENT] Compile Android instrumented tests in feature-gate (no emulator)
-3. ✅ [AGENT] Android Settings Data export/import (web Data parity)
-4. ✅ [AGENT] Child `BUILD_PLAN_TEMPLATE.md` Sprint 1: lock Settings-only chrome
-5. ✅ [AGENT] Second locale catalog (web + Android)
-6. ✅ [AGENT] Home first-canvas empty state (no new chrome)
-7. ✅ [AGENT] Tokenize launch-prompt buttons (dark-mode contrast)
+> **M50** archived in COMPLETED_TASKS.md @ `5496013`.
 
 ### M51 — CLI / API
 
@@ -139,7 +129,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
-Done on this board: **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

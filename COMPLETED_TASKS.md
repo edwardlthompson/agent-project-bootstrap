@@ -2,6 +2,16 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M50 — Chrome follow-through (2026-09-09)
+
+- ✅ [AGENT] Chrome + chip regression gate in `check-design-cohesion`
+- ✅ [AGENT] Compile Android instrumented tests in feature-gate (no emulator)
+- ✅ [AGENT] Android Settings Data export/import (web Data parity)
+- ✅ [AGENT] Child `BUILD_PLAN_TEMPLATE.md` Sprint 1: lock Settings-only chrome
+- ✅ [AGENT] Second locale catalog (web + Android)
+- ✅ [AGENT] Home first-canvas empty state (no new chrome)
+- ✅ [AGENT] Tokenize launch-prompt buttons (dark-mode contrast)
+
 ## v1.0.0 First stable template (2026-08-28)
 
 - ✅ [AUTO] Merge Release Please PR #82 — [v1.0.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v1.0.0) published @ `3dae768`
