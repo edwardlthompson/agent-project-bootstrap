@@ -15,4 +15,5 @@ return {
         title = "Golden Path Export",
         file = "ExportServiceProvider.lua",
     },
+    LrMetadataTagsetFactory = "MetadataTagset.lua",
 }

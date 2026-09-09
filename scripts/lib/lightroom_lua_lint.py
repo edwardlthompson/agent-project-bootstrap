@@ -22,8 +22,9 @@ FORBIDDEN = re.compile(
 IMPORT = re.compile(r"""import\s*['"]([^'"]+)['"]""")
 LR_MODULE = re.compile(r"^Lr[A-Za-z][A-Za-z0-9]*$")
 REQUIRED_FILES = {
-    "Info.lua": ("LrSdkVersion", "LrExportServiceProvider"),
+    "Info.lua": ("LrSdkVersion", "LrExportServiceProvider", "LrMetadataTagsetFactory"),
     "ExportServiceProvider.lua": ("processRenderedPhotos",),
+    "MetadataTagset.lua": ("com.example.fossplugin.tagset",),
 }
 
 

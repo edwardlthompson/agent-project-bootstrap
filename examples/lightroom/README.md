@@ -15,6 +15,7 @@ Update these fields in `Info.lua` when you change target Lightroom versions. Rec
 - Use **only** Adobe Lightroom SDK `Lr*` namespaces (`LrTasks`, `LrDialogs`, `LrLogger`, `LrView`, etc.).
 - Do **not** `require` generic Lua modules or call OS APIs outside SDK boundaries.
 - One real export path: `LrExportServiceProvider` → `ExportServiceProvider.lua` `processRenderedPhotos` (uses `import "LrLogger"` + `exportContext.exportSession`).
+- Second Lr* factory: `LrMetadataTagsetFactory` → `MetadataTagset.lua`.
 - CI and feature-gate run `scripts/verify-lightroom.sh` plus `scripts/check-lightroom-lua.sh` (`.luacheckrc`).
 
 ## Local Load Test
