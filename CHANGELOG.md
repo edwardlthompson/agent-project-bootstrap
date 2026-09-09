@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **android:** TalkBack names + Enter-key Settings smoke in instrumented tests
 * **android:** Compose a11y lint IDs are errors in `lint.xml` and feature-gate
 * **ui:** Feature-gate enforces Lighthouse a11y 0.95 and best-practices 0.9 floors
+* **android:** Property tests for the nav stack (Home root, drain-to-home)
 
 ### Changed
 
