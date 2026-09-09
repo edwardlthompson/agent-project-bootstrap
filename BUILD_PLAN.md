@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 37 · AUTO 7 · HUMAN 4 · ADB 2 · **50 open**
+**Remaining:** AGENT 36 · AUTO 7 · HUMAN 4 · ADB 2 · **49 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -40,7 +40,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 2. ✅ [AGENT] R8 analyzer in CI / feature-gate
 3. ✅ [AGENT] Reproducible APK in feature-gate
 4. ✅ [AGENT] F-Droid build recipe YAML
-5. 🔲 [AGENT] Fastlane full metadata
+5. ✅ [AGENT] Fastlane full metadata
 6. 🔲 [AGENT] F-Droid AntiFeatures template
 7. 🔲 [AGENT] UnifiedPush sample
 8. 🔲 [AGENT] Android signing + rollback runbook

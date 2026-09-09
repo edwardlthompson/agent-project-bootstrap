@@ -58,8 +58,28 @@ else
   fail "missing root LICENSE"
 fi
 
-if [ -d "$ROOT/examples/android/fastlane/metadata/android/en-US" ]; then
+FASTLANE="$ROOT/examples/android/fastlane/metadata/android/en-US"
+if [ ! -d "$FASTLANE" ]; then
+  fail "missing $FASTLANE"
+else
   ok "fastlane metadata mirror present"
+  for f in title.txt short_description.txt full_description.txt; do
+    if [ ! -s "$FASTLANE/$f" ]; then
+      fail "missing or empty $FASTLANE/$f"
+    else
+      ok "fastlane $f present"
+    fi
+  done
+  if [ ! -s "$ROOT/examples/android/fastlane/Fastfile" ]; then
+    fail "missing examples/android/fastlane/Fastfile"
+  else
+    ok "Fastfile present"
+  fi
+  if [ ! -s "$ROOT/examples/android/fastlane/Appfile" ]; then
+    fail "missing examples/android/fastlane/Appfile"
+  else
+    ok "Appfile present"
+  fi
 fi
 
 RECIPE="$ROOT/examples/android/metadata/dev.foss.goldenpath.yml"
