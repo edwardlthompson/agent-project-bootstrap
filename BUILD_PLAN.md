@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 26 · AUTO 7 · HUMAN 4 · ADB 2 · **39 open**
+**Remaining:** AGENT 25 · AUTO 7 · HUMAN 4 · ADB 2 · **38 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -36,7 +36,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 <!-- parallel_exception: shared CI/security config -->
 
-1. 🔲 [AGENT] Dependabot Cargo + Go
+1. ✅ [AGENT] Dependabot Cargo + Go
 2. 🔲 [AGENT] Scorecard SARIF auto-classifier
 3. 🔲 [AGENT] Semgrep prompt-injection pack
 4. 🔲 [AGENT] Optional Nix flake CI

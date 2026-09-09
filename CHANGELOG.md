@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **ci:** weekly Dependabot backup for Cargo (`examples/rust`) and Go (`examples/go`)
 * **docs:** catalog optional Lightroom stack (`lightroom-plugin`) for upgrade gap reports
 * **docs:** add `navigation` to `feature-catalog.json`
 * **docs:** sync Android MODULE F-Droid rows (recipe, Fastlane, AntiFeatures, signing, UnifiedPush)
@@ -50,6 +51,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **android:** F-Droid build recipe at `metadata/dev.foss.goldenpath.yml`
 * **android:** Fastlane en-US listing files plus a FOSS-only `metadata` lane
 * **android:** F-Droid AntiFeatures template defaults to none on the FOSS path
+
+### Fixed
+
+* **smoke:** resolve bare filenames such as `feature-catalog.json` under `schemas/` during sprint smoke
 
 ### Changed
 
