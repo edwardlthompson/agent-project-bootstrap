@@ -46,9 +46,10 @@ class AboutLegoCliTests(unittest.TestCase):
             self.assertNotIn("about_summary", py_cli)
             restore(bak, root)
             self.assertTrue((root / "examples/rust/src/about.rs").is_file())
+            self.assertTrue((root / "examples/go/about.go").is_file())
             self.assertIn(
                 "AboutSummary",
-                (root / "examples/go/main.go").read_text(encoding="utf-8"),
+                (root / "examples/go/about.go").read_text(encoding="utf-8"),
             )
 
 

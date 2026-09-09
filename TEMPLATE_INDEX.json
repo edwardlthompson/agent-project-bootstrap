@@ -1098,6 +1098,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/run-python-mypy.sh",
+      "purpose": "Optional pre-commit mypy on examples/python/src when uv is installed",
+      "read_when": "python_quality_gate",
+      "update_when": "python_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": ".github/workflows/dependency-review.yml",
       "purpose": "PR dependency review \u2014 fail on new High/Critical vulnerabilities",
       "read_when": "contributing",
