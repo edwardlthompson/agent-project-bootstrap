@@ -31,7 +31,7 @@
 - 🔲 Use Jetpack Compose Material 3 via GoldenPathTheme (see examples/android/)
 - 🔲 Edit tokens in design-tokens/design-tokens.json; run scripts/sync-design-tokens.py
 - 🔲 Branding: `branding/assets/` + generated `res/drawable/ic_brand_mark.xml` (store PNGs still `[ADB]`/`[HUMAN]`)
-- 🔲 Theme toggle: system / light / dark (DataStore persistence)
+- 🔲 Theme preference: Settings dropdown (system / light / dark; DataStore persistence). No header theme toggle.
 - 🔲 Edge-to-edge: `GoldenPathScaffold`, `bottomInsetPadding()`, inset-aware `SnackbarHost`
 - 🔲 FOSS only: androidx.compose.* and androidx.datastore (no Play Services / Firebase)
 
@@ -46,7 +46,7 @@ Strings are separate from styles. Theme colors and spacing live in `ui/theme/`; 
 | Forbidden | Kotlin string literals in composables | Use `stringResource`, not `Text("...")` |
 Default locale: English only (`res/values/strings.xml`). Add `res/values-{lang}/strings.xml` when shipping translations. Plurals: `res/values/plurals.xml` when needed.
 
-Shared key naming with web: `app.title`, `theme.toggle.label`, `theme.mode.*` — see [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md). For website folder conventions in multi-stack repos, see [`docs/WEB_PROJECT_LAYOUT.md`](../../docs/WEB_PROJECT_LAYOUT.md).
+Shared key naming with web: `app.title`, `settings.theme.mode.*`, `settings.section.*` — see [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md). For website folder conventions in multi-stack repos, see [`docs/WEB_PROJECT_LAYOUT.md`](../../docs/WEB_PROJECT_LAYOUT.md).
 
 - ✅ In-app AboutScreen with format-locked APK update stub and donations (Settings → About only — never TopAppBar; see `docs/help/DONATIONS.md`)
 ## Golden Path Reference

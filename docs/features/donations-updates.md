@@ -4,7 +4,7 @@
 
 ## Acceptance criteria
 
-- ✅ Quiet **Donate via Venmo** in About (Android: Settings → About or About info icon — **not** the TopAppBar / titlebar; web may also show a quiet header action); never on the update/install dialog
+- ✅ Quiet **Donate via Venmo** in About (Settings → App info only — **not** the header / TopAppBar / titlebar); never on the update/install dialog
 - ✅ Setup walkthrough for GitHub Sponsors and international methods: [`docs/help/DONATIONS.md`](../help/DONATIONS.md)
 - ✅ First run records the installed version with no donate popup
 - ✅ After a later launch where the installed version changed: one optional note (Donate via Venmo | Not now); either button records “seen this version”

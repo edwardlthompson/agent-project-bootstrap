@@ -23,6 +23,13 @@
 
 ## Entries
 
+### 2026-09-09 — M49: Settings-only chrome and sectioned menus
+- **Status:** Accepted
+- **Context:** Golden Path home chrome had Settings, About, donate, and a theme toggle; Settings used chips for exclusive enums. Material 3 app bars keep one or two trailing actions; Settings IA is grouped lists with dropdowns, not chip clouds.
+- **Decision:** Home chrome is **Settings only**. Theme, About, and donate live under Settings → App info. Exclusive choices use dropdowns. Sections sort Appearance → Privacy → Data → About (then App → Support → Feedback).
+- **Alternatives considered:** Quiet header donate (rejected: duplicates About). Header theme toggle plus Settings control (rejected: two places). FilterChips for theme (rejected: chips are filters).
+- **Consequences:** `ThemeToggle` removed. Agents follow `docs/DESIGN_GUIDE.md` Chrome and menus. Donate walkthrough no longer allows a web header control.
+
 ### 2026-09-01 — M47 wrap-up: Cline first-run and stack nav
 - **Status:** Accepted
 - **Context:** First-time users need autonomous help without paid keys. Golden Path Settings/About/Feedback must remember where you were and pop **one** Back without leaving the PWA or Activity.

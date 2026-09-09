@@ -23,25 +23,39 @@ export function createSettingsPanel(callbacks: SettingsPanelCallbacks): HTMLElem
       <h2>${t("settings.title")}</h2>
       <button type="button" class="gp-settings-close" aria-label="${t("settings.close")}">×</button>
     </header>
-    <label class="gp-settings-field">
-      <span>${t("settings.theme.label")}</span>
-      <select data-settings-theme>
-        <option value="system">${t("settings.theme.mode.system")}</option>
-        <option value="light">${t("settings.theme.mode.light")}</option>
-        <option value="dark">${t("settings.theme.mode.dark")}</option>
-      </select>
-    </label>
-    <label class="gp-settings-field">
-      <input type="checkbox" data-save-crashes />
-      <span>${t("settings.feedback.save_crashes")}</span>
-    </label>
-    <div class="gp-settings-field">
-      <button type="button" data-settings-about>${t("settings.about")}</button>
-      <p class="gp-settings-hint" data-settings-about-hint>${t("settings.about_hint")}</p>
-      <button type="button" data-settings-export>${t("settings.export")}</button>
-      <button type="button" data-settings-import>${t("settings.import")}</button>
-      <input type="file" accept="application/json" hidden data-settings-import-file />
-    </div>
+    <section class="gp-settings-group">
+      <h3>${t("settings.section.appearance")}</h3>
+      <label class="gp-settings-row">
+        <span>${t("settings.theme.label")}</span>
+        <select data-settings-theme>
+          <option value="system">${t("settings.theme.mode.system")}</option>
+          <option value="light">${t("settings.theme.mode.light")}</option>
+          <option value="dark">${t("settings.theme.mode.dark")}</option>
+        </select>
+      </label>
+    </section>
+    <section class="gp-settings-group">
+      <h3>${t("settings.section.privacy")}</h3>
+      <label class="gp-settings-row">
+        <span>${t("settings.feedback.save_crashes")}</span>
+        <input type="checkbox" data-save-crashes />
+      </label>
+    </section>
+    <section class="gp-settings-group">
+      <h3>${t("settings.section.data")}</h3>
+      <div class="gp-settings-row gp-settings-actions">
+        <button type="button" data-settings-export>${t("settings.export")}</button>
+        <button type="button" data-settings-import>${t("settings.import")}</button>
+        <input type="file" accept="application/json" hidden data-settings-import-file />
+      </div>
+    </section>
+    <section class="gp-settings-group">
+      <h3>${t("settings.section.about")}</h3>
+      <button type="button" class="gp-settings-nav" data-settings-about aria-label="${t("settings.about")}">
+        <span>${t("settings.about")}</span>
+        <span class="gp-settings-hint">${t("settings.about_hint")}</span>
+      </button>
+    </section>
   `;
 
   const themeSelect = panel.querySelector<HTMLSelectElement>("[data-settings-theme]");

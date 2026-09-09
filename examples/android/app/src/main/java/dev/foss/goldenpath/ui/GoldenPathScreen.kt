@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -24,7 +24,6 @@ import dev.foss.goldenpath.about.DonationsConfig
 import dev.foss.goldenpath.ui.about.AboutScreen
 import dev.foss.goldenpath.ui.about.LaunchPromptDialogs
 import dev.foss.goldenpath.ui.components.GoldenPathScaffold
-import dev.foss.goldenpath.ui.components.ThemeToggle
 import dev.foss.goldenpath.ui.feedback.FeedbackScreen
 import dev.foss.goldenpath.ui.nav.FeedbackKind
 import dev.foss.goldenpath.ui.nav.GpRoute
@@ -51,7 +50,6 @@ fun GoldenPathScreen(
     donations: DonationsConfig,
     canApplyUpdate: Boolean,
     launchPrompt: AppUpdates.LaunchPrompt?,
-    onThemeToggle: () -> Unit,
     onThemeModeSelect: (ThemeMode) -> Unit,
     onPushRoute: (GpRoute, FeedbackKind?) -> Unit,
     onPop: () -> Unit,
@@ -63,25 +61,31 @@ fun GoldenPathScreen(
     onApplyUpdate: () -> Unit,
 ) {
     val route = Nav.current(nav)
+    val atHome = route == GpRoute.Home
     GoldenPathScaffold(
         snackbarHostState = snackbarHostState,
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.app_title)) },
+                title = { Text(stringResource(barTitle(route, nav.feedbackKind))) },
+                navigationIcon = {
+                    if (!atHome) {
+                        IconButton(onClick = onPop) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = stringResource(R.string.nav_back),
+                            )
+                        }
+                    }
+                },
                 actions = {
-                    IconButton(onClick = { toggleRoute(route, GpRoute.Settings, onPushRoute, onPop) }) {
-                        Icon(
-                            imageVector = Icons.Filled.Settings,
-                            contentDescription = stringResource(R.string.settings_open),
-                        )
+                    if (atHome) {
+                        IconButton(onClick = { onPushRoute(GpRoute.Settings, null) }) {
+                            Icon(
+                                imageVector = Icons.Filled.Settings,
+                                contentDescription = stringResource(R.string.settings_open),
+                            )
+                        }
                     }
-                    IconButton(onClick = { toggleRoute(route, GpRoute.About, onPushRoute, onPop) }) {
-                        Icon(
-                            imageVector = Icons.Filled.Info,
-                            contentDescription = stringResource(R.string.about_open),
-                        )
-                    }
-                    ThemeToggle(themeMode = themeMode, onToggle = onThemeToggle)
                 },
             )
         },
@@ -110,7 +114,6 @@ fun GoldenPathScreen(
                 saveCrashes = saveCrashes,
                 onSaveCrashes = onSaveCrashes,
                 onOpenAbout = { onPushRoute(GpRoute.About, null) },
-                onBack = onPop,
                 scrollY = Nav.restoreScroll(nav, GpRoute.Settings),
                 onScroll = { onScroll(GpRoute.Settings, it) },
                 modifier = panelMod,
@@ -124,7 +127,6 @@ fun GoldenPathScreen(
                 onApplyUpdate = onApplyUpdate,
                 onReportBug = { onPushRoute(GpRoute.Feedback, FeedbackKind.Bug) },
                 onRequestFeature = { onPushRoute(GpRoute.Feedback, FeedbackKind.Feature) },
-                onBack = onPop,
                 scrollY = Nav.restoreScroll(nav, GpRoute.About),
                 onScroll = { onScroll(GpRoute.About, it) },
                 modifier = panelMod,
@@ -152,11 +154,11 @@ fun GoldenPathScreen(
     }
 }
 
-private fun toggleRoute(
-    current: GpRoute,
-    target: GpRoute,
-    onPushRoute: (GpRoute, FeedbackKind?) -> Unit,
-    onPop: () -> Unit,
-) {
-    if (current == target) onPop() else onPushRoute(target, null)
+private fun barTitle(route: GpRoute, kind: FeedbackKind?): Int = when (route) {
+    GpRoute.Home -> R.string.app_title
+    GpRoute.Settings -> R.string.settings_title
+    GpRoute.About -> R.string.about_title
+    GpRoute.Feedback ->
+        if (kind == FeedbackKind.Feature) R.string.feedback_feature_title
+        else R.string.feedback_bug_title
 }

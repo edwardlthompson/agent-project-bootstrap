@@ -16,7 +16,7 @@ examples/web/
     style.css           # layout only — no user-facing copy
     design-tokens.css   # generated colors/spacing (run sync-design-tokens.py)
     theme.ts            # theme preference (system/light/dark)
-    components/         # ThemeToggle, etc. — labels via t()
+    components/         # SettingsPanel, AboutPanel — labels via t()
   public/               # manifest, service worker, static assets
   dist/                 # npm run build output → GitHub Pages (do not edit or commit)
 

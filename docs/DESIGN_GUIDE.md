@@ -35,10 +35,43 @@ Both UI stacks support three modes. Default is **system** (follow OS preference)
 | System | `isSystemInDarkTheme()` | `data-theme="system"` + `prefers-color-scheme` |
 | Light | `LightGoldenPathColors` | `data-theme="light"` |
 | Dark | `DarkGoldenPathColors` | `data-theme="dark"` |
-- **Android:** `ThemeToggle` in top app bar; persisted via DataStore (`ThemePreferences`).
-- **Web:** `ThemeToggle` button; persisted in `localStorage` key `gp-theme`; updates `<meta name="theme-color">`.
+- **Android:** Settings → Appearance dropdown; persisted via DataStore (`ThemePreferences`).
+- **Web:** `initTheme()` plus Settings `<select>` (`[data-settings-theme]`); persisted in `localStorage` key `gp-theme`; updates `<meta name="theme-color">`.
+- **Never** put a theme control in the home app bar. Do not use `FilterChip` / chip rows for exclusive theme (or other enum) choices.
 
-Accessibility: toggle labels come from i18n keys (`theme.toggle.label`, `theme.mode.*`), not hardcoded English.
+Accessibility: dropdown option labels come from i18n keys (`settings.theme.mode.*`), not hardcoded English.
+
+## Chrome and menus
+
+Child apps should look calm on first paint. Material 3, Apple Settings, and Nielsen Norman grouping all agree: **few chrome actions, grouped lists, one control per row**.
+
+### Home chrome
+
+- **One** trailing action: Settings (labeled on web; icon + `contentDescription` on Android).
+- Theme, About, donate, and feedback **never** appear in the header / `TopAppBar`.
+- Off home: Android shows Back only; web keeps the panel Close control and hides the header Settings button.
+
+### Menu IA (Settings, then About)
+
+Sort for scan, not exploration. Section headers + dividers; no chip clouds.
+
+| Order | Settings | About |
+|-------|----------|-------|
+| 1 | Appearance (theme dropdown) | App (version, format, update status) |
+| 2 | Privacy (switches) | Support (donate links, when enabled) |
+| 3 | Data (export/import when the stack has it) | Feedback (dropdown: bug / feature) |
+| 4 | About (navigation row → App info) | |
+
+### Control vocabulary
+
+| Need | Use | Do not use |
+|------|-----|------------|
+| Exclusive enum (theme, feedback kind) | Dropdown (`<select>` / `ExposedDropdownMenu`) | `FilterChip`, radio chip rows, header icons |
+| Boolean | Switch on the row | Extra toolbar toggles |
+| Navigate to a screen | Full-width row + short hint | Duplicate header icons |
+| Filters / tags on a collection | Chips | Settings enums |
+
+Touch targets stay ≥ 44px / 2.75rem. Section labels use title-small / uppercase label color (`onSurfaceVariant`) so rows stay the readable layer.
 
 ## Android (Compose Material 3)
 
@@ -89,7 +122,8 @@ Keep keys aligned across stacks:
 
 ```
 app.title, app.greeting, app.status.online, app.status.offline
-theme.toggle.label, theme.mode.system, theme.mode.light, theme.mode.dark
+nav.back, settings.section.*, settings.about, about.section.*, about.feedback.*
+settings.theme.mode.system, settings.theme.mode.light, settings.theme.mode.dark
 
 ```
 
@@ -105,7 +139,8 @@ theme.toggle.label, theme.mode.system, theme.mode.light, theme.mode.dark
 - 🔲 Branding assets updated under `branding/assets/` when the mark changes; sync run
 - 🔲 No `#RRGGBB` literals in UI source (except generated files and `branding/assets/*.svg`)
 - 🔲 No string literals in composables or `main.ts` markup
-- 🔲 Theme toggle still cycles system → light → dark
+- 🔲 Home chrome is Settings-only (no theme / About / donate in the header)
+- 🔲 Theme is a Settings dropdown (system / light / dark); no chips for exclusive enums
 - 🔲 `scripts/check-design-cohesion.sh` passes
 
 ## Branding pack
@@ -141,4 +176,4 @@ Cross-stack in-app About (not GitHub repo About):
 
 **Platform parity:** Launch prompts are donate-or-update, never both. Web `localStorage` (`gp.update.*`); Android SharedPreferences `gp_updates` excluded from Auto Backup.
 
-**Donations:** external Venmo (or `donations.json`) links only; hide block when disabled or empty. Never put donate on the update dialog. **Android:** donate links live under Settings → About / About screen only — never in the TopAppBar. Walkthrough (GitHub Sponsors, Liberapay, Open Collective, PayPal, etc.): [`docs/help/DONATIONS.md`](help/DONATIONS.md).
+**Donations:** external Venmo (or `donations.json`) links only; hide block when disabled or empty. Never put donate on the update dialog. **Web and Android:** donate links live under Settings → App info (About) only — never in the header / TopAppBar. Walkthrough (GitHub Sponsors, Liberapay, Open Collective, PayPal, etc.): [`docs/help/DONATIONS.md`](help/DONATIONS.md).

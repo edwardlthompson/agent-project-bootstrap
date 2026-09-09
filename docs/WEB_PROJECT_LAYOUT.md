@@ -55,7 +55,7 @@ Keep user-visible copy out of stylesheets and theme code.
 |-------|----------|-----|
 | **Strings** | `src/locales/en.json` | `t(key)` from `src/i18n/index.ts` |
 | **Styles** | `style.css`, `design-tokens.css` | CSS variables `var(--gp-*)` |
-| **Theme** | `theme.ts`, `ThemeToggle.ts` | Preference only; labels from `t()` |
+| **Theme** | `theme.ts`, Settings `<select>` | Preference only; labels from `t()` |
 Default locale is **English only** at bootstrap. Add `src/locales/{lang}.json` when you ship translations.
 
 See [`docs/DESIGN_GUIDE.md`](DESIGN_GUIDE.md) for cross-stack i18n rules, shared key naming, and layout guidance for long strings and RTL.

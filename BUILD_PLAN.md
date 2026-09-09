@@ -55,13 +55,21 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Autonomous `/build`:** Runs all `[AGENT]`/`[AUTO]` and Parallel work first, then attempts the grouped **Human & device (after automation)** section via `scripts/attempt-build-plan-row.sh`. Success marks ✅; failure appends `HUMAN_BACKLOG.md` and continues — never halts on human labels. Humans review the grouped section (and backlog) after automation finishes. Status: `bash scripts/build-sprint-status.sh --json`.
 
-> **Template maintainer:** **M47** Sequential AGENT rows open (Cline-first onboarding + Golden Path nav). M46 AGENT/AUTO archived. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.0.0**. **Child repos:** copy the playbook.
+> **Template maintainer:** **M49** Sequential AGENT (minimal chrome + glanceable menus). M47 AGENT/AUTO archived below. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.1.0**. **Child repos:** copy the playbook.
 
 ---
 
 ## Template Maintainer — Active Board
 
-> **v1.0.0** published @ `3dae768`. **M47** Sequential AGENT rows below (Cline-first + Golden Path nav). **M46** AGENT/AUTO archived in COMPLETED_TASKS.md @ `6229822`. Closed HUMAN leftovers archived in COMPLETED_TASKS.md @ `c61d249`. Still open: CII login, optional Ollama, Android SDK licenses. **M45** and **M44** archived in COMPLETED_TASKS.md. **v0.25.0** archived in COMPLETED_TASKS.md @ `7670444`. **v0.24.0** archived in COMPLETED_TASKS.md @ `c0f0dee`.
+> **v1.1.0** published. **M49** Sequential AGENT rows below (minimal chrome + glanceable menus). **M47** AGENT/AUTO archived below. Closed HUMAN leftovers archived in COMPLETED_TASKS.md @ `c61d249`. Still open: CII login, optional Ollama, Android SDK licenses. **M45** and **M44** archived in COMPLETED_TASKS.md. **v0.25.0** archived in COMPLETED_TASKS.md @ `7670444`. **v0.24.0** archived in COMPLETED_TASKS.md @ `c0f0dee`.
+
+### M49 — Minimal chrome + glanceable Settings menus (Sequential)
+
+> Home chrome is one Settings action. Theme, About, and donate live in sectioned Settings/About with dropdowns (not chips).
+
+<!-- parallel_exception: one overlapping chrome/IA slice across web, Android, i18n, and design docs -->
+
+1. 🔲 [AGENT] Minimal home chrome + sectioned Settings/About menus (dropdowns, not chips); tests; DESIGN_GUIDE
 
 ### M47 — Cline-first onboarding + Golden Path navigation (Sequential)
 

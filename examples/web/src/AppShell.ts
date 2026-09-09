@@ -5,7 +5,6 @@ import type { DonationConfig } from "./about/types";
 import { createAboutPanel } from "./components/AboutPanel";
 import { createFeedbackPanel } from "./components/FeedbackPanel";
 import { createSettingsPanel } from "./components/SettingsPanel";
-import { createThemeToggle } from "./components/ThemeToggle";
 import { isOnline } from "./greet";
 import { t } from "./i18n";
 import { applyPanelScroll, current, type FeedbackKind, type GpRoute, type NavState } from "./nav";
@@ -39,21 +38,19 @@ export function createAppShell(
 ): void {
   const online = isOnline();
   const statusKey = online ? "app.status.online" : "app.status.offline";
-  const donateEnabled = state.donations.enabled && state.donations.links.length > 0;
   const route = current(state.nav);
+  const atHome = route === "home";
 
   root.innerHTML = `
     <main>
       <div class="gp-header">
-        <h1 class="gp-title">${t("app.title")}</h1>
+        <h1 class="gp-title">${headerTitle(route, state.nav.feedbackKind)}</h1>
         <div class="gp-header-actions">
           ${
-            donateEnabled
-              ? `<button type="button" class="gp-donate-btn" data-donate-open>${t("about.donate")}</button>`
+            atHome
+              ? `<button type="button" class="gp-settings-btn" data-settings-open aria-label="${t("settings.open")}">${t("settings.open")}</button>`
               : ""
           }
-          <button type="button" class="gp-settings-btn" data-settings-open aria-label="${t("settings.open")}">⚙</button>
-          <button type="button" class="gp-about-btn" data-about-open aria-label="${t("about.open")}">i</button>
         </div>
       </div>
       <p class="gp-headline">${t("app.greeting")}</p>
@@ -61,19 +58,6 @@ export function createAppShell(
       <div data-panel-mount></div>
     </main>
   `;
-
-  const actions = root.querySelector<HTMLDivElement>(".gp-header-actions");
-  if (actions) {
-    actions.insertBefore(createThemeToggle(), actions.firstChild);
-  }
-
-  root.querySelector("[data-donate-open]")?.addEventListener("click", () => {
-    callbacks.onDonate?.();
-  });
-
-  root.querySelector("[data-about-open]")?.addEventListener("click", () => {
-    toggleOrPush(route, "about", callbacks);
-  });
 
   root.querySelector("[data-settings-open]")?.addEventListener("click", () => {
     toggleOrPush(route, "settings", callbacks);
@@ -141,4 +125,13 @@ export function createAppShell(
 function toggleOrPush(route: GpRoute, target: GpRoute, callbacks: AppShellCallbacks): void {
   if (route === target) callbacks.onPop();
   else callbacks.onPushRoute(target);
+}
+
+function headerTitle(route: GpRoute, kind?: FeedbackKind): string {
+  if (route === "settings") return t("settings.title");
+  if (route === "about") return t("about.title");
+  if (route === "feedback") {
+    return t(kind === "feature" ? "feedback.feature.title" : "feedback.bug.title");
+  }
+  return t("app.title");
 }

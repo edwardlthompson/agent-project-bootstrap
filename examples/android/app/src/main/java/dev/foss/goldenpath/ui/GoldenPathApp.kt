@@ -34,7 +34,6 @@ import dev.foss.goldenpath.ui.nav.NavState
 import dev.foss.goldenpath.ui.nav.NavStore
 import dev.foss.goldenpath.ui.theme.ThemeMode
 import dev.foss.goldenpath.ui.theme.ThemePreferences
-import dev.foss.goldenpath.ui.theme.next
 import kotlinx.coroutines.CoroutineScope
 import dev.foss.goldenpath.ui.theme.GoldenPathTheme
 import kotlinx.coroutines.launch
@@ -121,7 +120,6 @@ fun GoldenPathApp(
                 donations = donations,
                 canApplyUpdate = false,
                 launchPrompt = launchPrompt,
-                onThemeToggle = { scope.launch { themePreferences.setThemeMode(themeMode.next()) } },
                 onThemeModeSelect = { mode -> scope.launch { themePreferences.setThemeMode(mode) } },
                 onPushRoute = { route, kind -> applyNav(Nav.push(nav, route, kind)) },
                 onPop = { popNav() },
