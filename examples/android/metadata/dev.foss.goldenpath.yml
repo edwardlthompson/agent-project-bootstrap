@@ -1,0 +1,34 @@
+# F-Droid build recipe (fdroiddata style) for the Golden Path example.
+# Copy into fdroiddata/metadata/ when submitting a child app; replace Repo URLs.
+Categories:
+  - Development
+License: MIT
+WebSite: https://github.com/edwardlthompson/agent-project-bootstrap
+SourceCode: https://github.com/edwardlthompson/agent-project-bootstrap
+IssueTracker: https://github.com/edwardlthompson/agent-project-bootstrap/issues
+Changelog: https://github.com/edwardlthompson/agent-project-bootstrap/blob/main/CHANGELOG.md
+
+RepoType: git
+Repo: https://github.com/edwardlthompson/agent-project-bootstrap
+
+Builds:
+  - versionName: 0.1.0
+    versionCode: 1
+    commit: v1.1.0
+    subdir: examples/android
+    sudo:
+      - apt-get update
+      - apt-get install -y openjdk-17-jdk-headless
+    gradle:
+      - yes
+    output: app/build/outputs/apk/release/app-release-unsigned.apk
+    rm:
+      - examples/web
+      - examples/node
+      - examples/python
+
+AutoName: Golden Path
+AutoUpdateMode: None
+UpdateCheckMode: Tags
+CurrentVersion: 0.1.0
+CurrentVersionCode: 1

@@ -62,6 +62,17 @@ if [ -d "$ROOT/examples/android/fastlane/metadata/android/en-US" ]; then
   ok "fastlane metadata mirror present"
 fi
 
+RECIPE="$ROOT/examples/android/metadata/dev.foss.goldenpath.yml"
+if [ ! -s "$RECIPE" ]; then
+  fail "missing F-Droid build recipe $RECIPE"
+elif ! grep -q "RepoType: git" "$RECIPE" || ! grep -q "subdir: examples/android" "$RECIPE"; then
+  fail "F-Droid recipe must set RepoType git and subdir examples/android"
+elif ! grep -q "gradle:" "$RECIPE"; then
+  fail "F-Droid recipe must use a gradle build"
+else
+  ok "F-Droid build recipe present"
+fi
+
 echo ""
 echo "SKIP [ADB] reproducible APK hash verification — run on device/emulator per modules/android/MODULE.md"
 
