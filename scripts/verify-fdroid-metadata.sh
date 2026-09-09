@@ -93,6 +93,15 @@ else
   ok "F-Droid build recipe present"
 fi
 
+AF="$ROOT/examples/android/metadata/antifeatures.yml"
+if [ ! -s "$AF" ]; then
+  fail "missing F-Droid AntiFeatures template $AF"
+elif ! grep -q "AntiFeatures: \[\]" "$AF"; then
+  fail "FOSS AntiFeatures template must default to an empty list"
+else
+  ok "F-Droid AntiFeatures template present"
+fi
+
 echo ""
 echo "SKIP [ADB] reproducible APK hash verification — run on device/emulator per modules/android/MODULE.md"
 

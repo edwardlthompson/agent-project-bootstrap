@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **android:** Feature-gate checks SOURCE_DATE_EPOCH reproducible APK wiring
 * **android:** F-Droid build recipe at `metadata/dev.foss.goldenpath.yml`
 * **android:** Fastlane en-US listing files plus a FOSS-only `metadata` lane
+* **android:** F-Droid AntiFeatures template defaults to none on the FOSS path
 
 ### Changed
 
