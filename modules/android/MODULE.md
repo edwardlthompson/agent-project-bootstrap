@@ -114,6 +114,7 @@ Requires `JAVA_HOME` and an Android SDK locally; gate skips when the SDK is miss
 | Emulator/device testing, F-Droid submit | ADB |
 | FOSS dependency audit approval | HUMAN |
 | CI Gradle compile / structure validation | AUTO |
+
 ## F-Droid Submission Dry-Run Checklist
 
 `[ADB]` dry-run before first F-Droid release. Full metadata lives under `examples/android/metadata/` when present.
@@ -128,9 +129,13 @@ Requires `JAVA_HOME` and an Android SDK locally; gate skips when the SDK is miss
 ### Metadata and policy
 
 - 🔲 Complete F-Droid `metadata/` (`summary`, `description`, `license`, `sourceCode`, `build` blocks)
-- 🔲 Screenshots and feature graphic paths valid (Fastlane or manual `metadata/en-US/`)
+- 🔲 Copy `examples/android/metadata/dev.foss.goldenpath.yml` into the fdroiddata recipe
+- 🔲 Screenshots and feature graphic paths valid (Fastlane `fastlane/metadata/android/en-US/` or manual `metadata/en-US/`)
+- 🔲 Keep `examples/android/metadata/antifeatures.yml` empty (`AntiFeatures: []`) unless an AntiFeature applies
 - 🔲 Version code/name align with `CHANGELOG` and tag
 - 🔲 Anti-feature flags accurate (ads, tracking, non-free network services)
+- 🔲 Signing and rollback: [`docs/ANDROID_SIGNING.md`](../../docs/ANDROID_SIGNING.md)
+- 🔲 UnifiedPush sample or document that the app has no push (`docs/features/unifiedpush.md`)
 
 ### Device verification (ADB)
 

@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 29 · AUTO 7 · HUMAN 4 · ADB 2 · **42 open**
+**Remaining:** AGENT 28 · AUTO 7 · HUMAN 4 · ADB 2 · **41 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -40,7 +40,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 2. ✅ [AGENT] Second Lr* plugin entry
 3. ✅ [AGENT] Lightroom SDK bump playbook
 4. ✅ [AGENT] Sync web MODULE.md checklists
-5. 🔲 [AGENT] Sync Android MODULE F-Droid rows
+5. ✅ [AGENT] Sync Android MODULE F-Droid rows
 6. 🔲 [AGENT] Add `navigation` to `feature-catalog.json`
 7. 🔲 [AGENT] Feature-catalog optional stacks (Lightroom)
 
