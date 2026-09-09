@@ -137,6 +137,15 @@
         "run bash scripts/check-reproducible-apk.sh"
       ]
     },
+    "android-signing-runbook": {
+      "means": "Android signing/rollback runbook or env-only Gradle signing is missing.",
+      "run": "bash scripts/check-android-signing-runbook.sh",
+      "why": "Upload keys stay outside git; rollback needs the same key and mapping.txt.",
+      "suggested": [
+        "keep docs/ANDROID_SIGNING.md env vars and rollback",
+        "run bash scripts/check-android-signing-runbook.sh"
+      ]
+    },
     "android-r8": {
       "means": "Release R8 minify flags or keep rules regressed.",
       "run": "bash scripts/check-android-r8.sh",

@@ -130,6 +130,7 @@ fail_gate() {
     android-compose-a11y) SUGGESTED=("restore examples/android/app/lint.xml a11y issue ids" "keep lint.error ContentDescription in app/build.gradle.kts") ;;
     android-r8) SUGGESTED=("keep isMinifyEnabled = true and proguard-android-optimize.txt" "run bash scripts/check-android-r8.sh") ;;
     android-reproducible-apk) SUGGESTED=("keep SOURCE_DATE_EPOCH=1700000000 on CI android-release" "run bash scripts/check-reproducible-apk.sh") ;;
+    android-signing-runbook) SUGGESTED=("keep docs/ANDROID_SIGNING.md env vars and rollback" "run bash scripts/check-android-signing-runbook.sh") ;;
     lightroom-sdk) SUGGESTED=("run scripts/verify-lightroom.sh") ;;
     node-lint) SUGGESTED=("fix lint in examples/node" "run npm run format in examples/node if format script exists") ;;
     node-format) SUGGESTED=("run npm run format in examples/node") ;;
@@ -354,6 +355,10 @@ fi
 
 if should_run android && [ -f scripts/verify-reproducible-apk.sh ]; then
   run_cmd android-reproducible-apk bash scripts/check-reproducible-apk.sh
+fi
+
+if should_run android && [ -f scripts/check-android-signing-runbook.sh ]; then
+  run_cmd android-signing-runbook bash scripts/check-android-signing-runbook.sh
 fi
 
 if should_run node && [ -f examples/node/package.json ]; then

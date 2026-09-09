@@ -2120,6 +2120,27 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-android-signing-runbook.sh",
+      "purpose": "Gate: Android upload-key runbook and env-only Gradle signing",
+      "read_when": "android_quality_gate",
+      "update_when": "android_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/android_signing_runbook.py",
+      "purpose": "Assert ANDROID_SIGNING.md, Gradle env vars, and ignored keystores",
+      "read_when": "android_quality_gate",
+      "update_when": "android_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/ANDROID_SIGNING.md",
+      "purpose": "Upload keystore, CI, F-Droid/Play, and APK rollback runbook",
+      "read_when": "android_quality_gate",
+      "update_when": "android_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-lighthouse-floors.sh",
       "purpose": "Gate: Lighthouse a11y and best-practices minScore floors",
       "read_when": "web_quality_gate",
