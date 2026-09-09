@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** catalog optional Lightroom stack (`lightroom-plugin`) for upgrade gap reports
 * **docs:** add `navigation` to `feature-catalog.json`
 * **docs:** sync Android MODULE F-Droid rows (recipe, Fastlane, AntiFeatures, signing, UnifiedPush)
 * **docs:** sync web MODULE.md checklists with Settings-only chrome, es.json, snapshots, Lighthouse floors

@@ -62,8 +62,12 @@ class TemplateGapTests(unittest.TestCase):
             self.assertIn("crash-capture", ids_web)
             self.assertIn("navigation", ids_web)
             self.assertNotIn("display-refresh", ids_web)
+            self.assertNotIn("lightroom-plugin", ids_web)
             gaps_android = feature_gaps(root, self.catalog, "android")
             self.assertIn("display-refresh", {g["id"] for g in gaps_android})
+            gaps_lr = feature_gaps(root, self.catalog, "lightroom")
+            self.assertIn("lightroom-plugin", {g["id"] for g in gaps_lr})
+            self.assertNotIn("navigation", {g["id"] for g in gaps_lr})
 
     def test_present_feature_is_not_a_gap(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

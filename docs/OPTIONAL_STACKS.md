@@ -1,6 +1,6 @@
 # Optional Stack Modules
 
-The init script stack picker (`web` / `python` / `android` / `node` / `multi` / `none`) does **not** include optional ecosystems (rust, go, lightroom). Enable them manually when needed.
+The init script stack picker (`web` / `python` / `android` / `node` / `multi` / `none`) does **not** include optional ecosystems (rust, go, lightroom). Enable them manually when needed. `schemas/golden-path/feature-catalog.json` lists Lightroom as `lightroom-plugin` so `/upgrade` gap reports skip it on web/Android-only children.
 
 | Module | Guide | Example | When to keep |
 |--------|-------|---------|--------------|

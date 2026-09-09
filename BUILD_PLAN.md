@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 27 · AUTO 7 · HUMAN 4 · ADB 2 · **40 open**
+**Remaining:** AGENT 26 · AUTO 7 · HUMAN 4 · ADB 2 · **39 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -42,7 +42,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 4. ✅ [AGENT] Sync web MODULE.md checklists
 5. ✅ [AGENT] Sync Android MODULE F-Droid rows
 6. ✅ [AGENT] Add `navigation` to `feature-catalog.json`
-7. 🔲 [AGENT] Feature-catalog optional stacks (Lightroom)
+7. ✅ [AGENT] Feature-catalog optional stacks (Lightroom)
 
 ### M55 — CI + security
 
