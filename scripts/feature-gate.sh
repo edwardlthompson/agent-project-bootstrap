@@ -126,6 +126,7 @@ fail_gate() {
     go-fmt) SUGGESTED=("run gofmt -w in examples/go") ;;
     go-test) SUGGESTED=("run go test in examples/go") ;;
     android-fdroid) SUGGESTED=("run scripts/verify-fdroid-metadata.sh") ;;
+    android-compose-a11y) SUGGESTED=("restore examples/android/app/lint.xml a11y issue ids" "keep lint.error ContentDescription in app/build.gradle.kts") ;;
     lightroom-sdk) SUGGESTED=("run scripts/verify-lightroom.sh") ;;
     node-lint) SUGGESTED=("fix lint in examples/node" "run npm run format in examples/node if format script exists") ;;
     node-format) SUGGESTED=("run npm run format in examples/node") ;;
@@ -337,6 +338,10 @@ fi
 
 if should_run android && [ -d examples/android/metadata ]; then
   run_cmd android-fdroid bash scripts/verify-fdroid-metadata.sh
+fi
+
+if should_run android && [ -f examples/android/app/lint.xml ]; then
+  run_cmd android-compose-a11y bash scripts/check-compose-a11y-lint.sh
 fi
 
 if should_run node && [ -f examples/node/package.json ]; then

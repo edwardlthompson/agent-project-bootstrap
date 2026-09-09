@@ -2099,6 +2099,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-compose-a11y-lint.sh",
+      "purpose": "Gate: Android accessibility lint IDs stay errors",
+      "read_when": "android_quality_gate",
+      "update_when": "android_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/compose_a11y_lint.py",
+      "purpose": "Require ContentDescription and related lint IDs on the Android app",
+      "read_when": "android_quality_gate",
+      "update_when": "android_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/lib/token_contrast.py",
       "purpose": "Relative-luminance contrast ratios for design-tokens.json",
       "read_when": "milestone_boundary",

@@ -58,6 +58,15 @@ android {
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
+
+    lint {
+        abortOnError = true
+        lintConfig = file("lint.xml")
+        error += "ContentDescription"
+        error += "ClickableViewAccessibility"
+        error += "LabelFor"
+        error += "KeyboardInaccessibleWidget"
+    }
 }
 
 dependencies {

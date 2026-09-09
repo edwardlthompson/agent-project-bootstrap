@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **ui:** Settings export migrates unversioned and legacy darkMode JSON to v1
 * **android:** Spanish locale + Arabic RTL stress tests (instrumented + Robolectric)
 * **android:** TalkBack names + Enter-key Settings smoke in instrumented tests
+* **android:** Compose a11y lint IDs are errors in `lint.xml` and feature-gate
 
 ### Changed
 

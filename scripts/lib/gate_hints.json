@@ -119,6 +119,15 @@
         "run ./gradlew :app:compileDebugAndroidTestKotlin in examples/android"
       ]
     },
+    "android-compose-a11y": {
+      "means": "Android accessibility lint IDs are missing from lint.xml or Gradle.",
+      "run": "bash scripts/check-compose-a11y-lint.sh",
+      "why": "TalkBack and keyboard lint must stay errors on the Golden Path app.",
+      "suggested": [
+        "restore examples/android/app/lint.xml a11y issue ids",
+        "keep lint.error ContentDescription in app/build.gradle.kts"
+      ]
+    },
     "design-cohesion": {
       "means": "Design tokens or i18n keys are out of sync.",
       "run": "bash scripts/check-design-cohesion.sh",
