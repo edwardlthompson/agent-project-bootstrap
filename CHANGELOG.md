@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **python:** `--feedback` prints a GitHub issue-form URL
 * **cli:** Rust About version from Cargo.toml; Go version from module build info
 * **cli:** Rust/Go `--ready` JSON probe and structured JSON logs on stderr
+* **node:** OpenAPI 3.1 spec at `GET /openapi.json` with route contract tests
 
 ### Changed
 

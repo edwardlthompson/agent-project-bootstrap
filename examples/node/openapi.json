@@ -1,0 +1,139 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Golden Path Node",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": "Readiness",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Health" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/about": {
+      "get": {
+        "operationId": "about",
+        "responses": {
+          "200": {
+            "description": "About payload",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/About" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "get": {
+        "operationId": "feedback",
+        "parameters": [
+          { "name": "kind", "in": "query", "schema": { "enum": ["bug", "feature"] } },
+          { "name": "title", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "GitHub issue-form URL",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Feedback" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/greet": {
+      "get": {
+        "operationId": "greetDefault",
+        "responses": {
+          "200": {
+            "description": "Greeting",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Greet" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/greet/{name}": {
+      "get": {
+        "operationId": "greetNamed",
+        "parameters": [
+          { "name": "name", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Greeting",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Greet" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "operationId": "openapi",
+        "responses": {
+          "200": { "description": "OpenAPI document" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "required": ["status"],
+        "properties": { "status": { "type": "string", "const": "ok" } }
+      },
+      "About": {
+        "type": "object",
+        "required": ["version", "donate", "summary", "update"],
+        "properties": {
+          "version": { "type": "string" },
+          "donate": { "type": "string" },
+          "summary": { "type": "string" },
+          "update": {
+            "type": "object",
+            "required": ["status", "version", "url"],
+            "properties": {
+              "status": { "enum": ["current", "available", "unknown"] },
+              "version": { "type": ["string", "null"] },
+              "url": { "type": ["string", "null"] }
+            }
+          }
+        }
+      },
+      "Feedback": {
+        "type": "object",
+        "required": ["kind", "url"],
+        "properties": {
+          "kind": { "enum": ["bug", "feature"] },
+          "url": { "type": "string" }
+        }
+      },
+      "Greet": {
+        "type": "object",
+        "required": ["message"],
+        "properties": { "message": { "type": "string" } }
+      }
+    }
+  }
+}

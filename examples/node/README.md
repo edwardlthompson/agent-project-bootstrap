@@ -20,7 +20,9 @@ npm run dev
 
 - `GET /health` — readiness probe
 - `GET /about` — version + donate (no crash payload)
+- `GET /feedback` — GitHub issue-form URL (`kind`, `title`)
 - `GET /greet/:name?` — sample JSON handler
+- `GET /openapi.json` — OpenAPI 3.1 contract
 
 ## CI Integration
 
