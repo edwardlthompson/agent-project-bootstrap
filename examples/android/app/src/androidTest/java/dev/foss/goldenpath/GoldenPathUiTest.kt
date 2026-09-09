@@ -1,9 +1,9 @@
 package dev.foss.goldenpath
 
 import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -28,7 +28,7 @@ class GoldenPathUiTest {
     @Test
     fun opensSettingsPanelWithThemeDropdown() {
         composeTestRule.dismissLaunchPrompts()
-        composeTestRule.onNodeWithContentDescription("About").assertDoesNotExist()
+        composeTestRule.onAllNodesWithContentDescription("About").assertCountEquals(0)
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.onNodeWithText("Settings").assertIsDisplayed()
         composeTestRule.onNodeWithText("Appearance").assertIsDisplayed()
