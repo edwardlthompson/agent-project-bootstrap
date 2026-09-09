@@ -31,6 +31,7 @@ class GoldenPathUiTest {
         composeTestRule.onNodeWithTag("home-status").assertIsDisplayed()
         composeTestRule.onAllNodesWithContentDescription("About").assertCountEquals(0)
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.onNodeWithTag("settings-panel").assertIsDisplayed()
         composeTestRule.onNodeWithText("Settings").assertIsDisplayed()
         composeTestRule.onNodeWithText("Appearance").assertIsDisplayed()
         composeTestRule.onNodeWithText("Theme").assertIsDisplayed()
@@ -49,6 +50,7 @@ class GoldenPathUiTest {
         composeTestRule.dismissLaunchPrompts()
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.onNodeWithText("App info").performScrollTo().performClick()
+        composeTestRule.onNodeWithTag("about-panel").assertIsDisplayed()
         composeTestRule.onNodeWithText("About").assertIsDisplayed()
         composeTestRule.onNodeWithText("Installed format: apk").assertIsDisplayed()
     }
@@ -71,5 +73,16 @@ class GoldenPathUiTest {
             .size
         check(linkCount >= 2) { "expected multiple donation links under About, got $linkCount" }
         composeTestRule.onAllNodesWithText("Donate via Venmo").assertCountEquals(1)
+    }
+
+    @Test
+    fun opensFeedbackPanelFromAbout() {
+        composeTestRule.dismissLaunchPrompts()
+        composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.onNodeWithTag("settings-about").performScrollTo().performClick()
+        composeTestRule.onNodeWithText("Choose an action").performScrollTo().performClick()
+        composeTestRule.onNodeWithText("Report a bug").performClick()
+        composeTestRule.onNodeWithTag("feedback-panel").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Report a bug").assertIsDisplayed()
     }
 }

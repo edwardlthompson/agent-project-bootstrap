@@ -103,6 +103,38 @@ test("homepage visual snapshot", async ({ page }) => {
   await expect(page).toHaveScreenshot("homepage.png", { maxDiffPixelRatio: 0.02 });
 });
 
+const SNAPSHOT = { maxDiffPixelRatio: 0.02, animations: "disabled" as const };
+
+test("settings panel visual snapshot", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  const panel = page.getByTestId("settings-panel");
+  await expect(panel).toBeVisible();
+  await expect(panel).toHaveScreenshot("settings-panel.png", SNAPSHOT);
+});
+
+test("about panel visual snapshot", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  await page.getByTestId("settings-panel").getByRole("button", { name: "App info" }).click();
+  const panel = page.getByTestId("about-panel");
+  await expect(panel).toBeVisible();
+  await expect(panel).toHaveScreenshot("about-panel.png", SNAPSHOT);
+});
+
+test("feedback panel visual snapshot", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  await page.getByTestId("settings-panel").getByRole("button", { name: "App info" }).click();
+  await page.getByTestId("about-feedback").selectOption("bug");
+  const panel = page.getByTestId("feedback-panel");
+  await expect(panel).toBeVisible();
+  await expect(panel).toHaveScreenshot("feedback-panel.png", SNAPSHOT);
+});
+
 test("opens settings panel and toggles theme", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Settings" }).click();

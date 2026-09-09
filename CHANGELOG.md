@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **node:** OpenAPI 3.1 spec at `GET /openapi.json` with route contract tests
 * **python:** OpenAPI document (`--openapi`), `--ready`, and JSON logs on stderr
 * **python:** pre-commit runs `uv run mypy src` for `examples/python/`
+* **ui:** Playwright snapshots for Settings, About, and Feedback panels
 
 ### Changed
 

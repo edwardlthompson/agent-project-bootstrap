@@ -55,6 +55,7 @@ fun SettingsScreen(
     LaunchedEffect(scrollState.value) { onScroll(scrollState.value) }
     Column(
         modifier = modifier
+            .testTag("settings-panel")
             .highRefreshScroll()
             .verticalScroll(scrollState)
             .padding(SpacingMd)
