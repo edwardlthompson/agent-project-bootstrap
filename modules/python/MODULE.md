@@ -16,7 +16,7 @@
 - 🔲 Enable `pytest` in CI and local feature gate (`uv run pytest -q`)
 - 🔲 Review `examples/python/` Golden Path stub
 - 🔲 Set coverage budget threshold in CI
-- 🔲 Add pre-commit hooks for ruff and mypy
+- ✅ Add pre-commit hooks for ruff and mypy
 - ✅ OpenAPI/schema-first design if exposing HTTP API (`examples/python/openapi.json`)
 - ✅ Contract tests for public API boundaries
 
