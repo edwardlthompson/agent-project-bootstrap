@@ -76,6 +76,16 @@
       "detect": {
         "android": ["examples/android/app/src/main/java/dev/foss/goldenpath/display"]
       }
+    },
+    {
+      "id": "navigation",
+      "title": "Navigation stack",
+      "spec": "docs/features/navigation.md",
+      "stacks": ["web", "android"],
+      "detect": {
+        "web": ["examples/web/src/nav", "src/nav"],
+        "android": ["examples/android/app/src/main/java/dev/foss/goldenpath/ui/nav"]
+      }
     }
   ]
 }

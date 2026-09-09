@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** add `navigation` to `feature-catalog.json`
 * **docs:** sync Android MODULE F-Droid rows (recipe, Fastlane, AntiFeatures, signing, UnifiedPush)
 * **docs:** sync web MODULE.md checklists with Settings-only chrome, es.json, snapshots, Lighthouse floors
 * **lightroom:** SDK bump playbook (`docs/LIGHTROOM_SDK_BUMP.md`) with Info.lua/README version lock

@@ -60,6 +60,7 @@ class TemplateGapTests(unittest.TestCase):
             ids_web = {g["id"] for g in gaps_web}
             self.assertIn("about", ids_web)
             self.assertIn("crash-capture", ids_web)
+            self.assertIn("navigation", ids_web)
             self.assertNotIn("display-refresh", ids_web)
             gaps_android = feature_gaps(root, self.catalog, "android")
             self.assertIn("display-refresh", {g["id"] for g in gaps_android})
