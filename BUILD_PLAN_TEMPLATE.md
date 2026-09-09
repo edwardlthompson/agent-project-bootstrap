@@ -49,7 +49,7 @@ Copy this shape when you add sprints: `### Sprint N — title`, then numbered ro
 
 <!-- parallel_exception: Settings-only chrome + About + nav are one lock -->
 
-1. 🔲 [AGENT] Lock types/API: Settings-only chrome, About, navigation (no header Theme/About/donate)
+1. 🔲 [AGENT] Lock types/API: Settings-only chrome (`check-design-cohesion` / `design_chrome_gate.py`), About, navigation (no header Theme/About/donate)
 2. 🔲 [AGENT] Verify About, public assets, and module docs for the active stack
 3. 🔲 [HUMAN] Fill `app-update.json` + `donations.json` (init runs `scripts/sync-stack-config.py`)
 4. 🔲 [HUMAN] Approve ADR-0001 and Sprint 1

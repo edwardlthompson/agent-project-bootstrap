@@ -42,6 +42,14 @@ class DesignChromeGateTests(unittest.TestCase):
         text = (ROOT / "scripts/check-design-cohesion.sh").read_text(encoding="utf-8")
         self.assertIn("design_chrome_gate.py", text)
 
+    def test_child_sprint1_locks_settings_chrome(self) -> None:
+        text = (ROOT / "BUILD_PLAN_TEMPLATE.md").read_text(encoding="utf-8")
+        sprint1 = text.split("### Sprint 1")[1].split("### Sprint 2")[0]
+        self.assertIn("Settings-only chrome", sprint1)
+        self.assertIn("check-design-cohesion", sprint1)
+        self.assertIn("design_chrome_gate.py", sprint1)
+        self.assertIn("no header Theme/About/donate", sprint1)
+
 
 if __name__ == "__main__":
     unittest.main()
