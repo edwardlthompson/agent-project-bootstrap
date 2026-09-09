@@ -112,7 +112,8 @@ main {
 .gp-settings-close,
 .gp-about-apply,
 .gp-settings-actions button,
-.gp-feedback-panel button {
+.gp-feedback-panel button,
+.gp-launch-actions button {
   min-height: 2.75rem;
   padding-inline: var(--gp-space-md);
   padding-block: var(--gp-space-sm);
@@ -130,9 +131,16 @@ main {
 .gp-about-apply:hover,
 .gp-settings-actions button:hover,
 .gp-feedback-panel button:hover,
-.gp-settings-nav:hover {
+.gp-settings-nav:hover,
+.gp-launch-actions button:hover {
   background: var(--gp-color-primary-container);
   color: var(--gp-color-on-primary-container);
+}
+
+.gp-launch-actions .gp-launch-accept {
+  background: var(--gp-color-primary);
+  color: var(--gp-color-on-primary);
+  border-color: var(--gp-color-primary);
 }
 
 .gp-settings-btn:focus-visible,
@@ -142,6 +150,7 @@ main {
 .gp-settings-actions button:focus-visible,
 .gp-feedback-panel button:focus-visible,
 .gp-settings-nav:focus-visible,
+.gp-launch-actions button:focus-visible,
 .gp-settings-row select:focus-visible,
 .gp-settings-row input:focus-visible {
   outline: 2px solid var(--gp-color-primary);
