@@ -51,6 +51,16 @@ main {
   color: var(--gp-color-on-surface);
 }
 
+.gp-status-card {
+  margin-block-start: var(--gp-space-lg);
+  padding: var(--gp-space-lg);
+  border: 1px solid var(--gp-color-outline);
+  border-radius: var(--gp-radius-md);
+  background: var(--gp-color-surface-variant);
+  color: var(--gp-color-on-surface-variant);
+  text-align: start;
+}
+
 .gp-headline {
   font-size: var(--gp-text-headline-medium-size);
   font-weight: var(--gp-text-headline-medium-weight);
@@ -64,7 +74,7 @@ main {
   font-weight: var(--gp-text-body-medium-weight);
   line-height: var(--gp-text-body-medium-line);
   color: var(--gp-color-on-surface-variant);
-  margin-block-start: var(--gp-space-lg);
+  margin-block-start: var(--gp-space-md);
   opacity: 0.9;
 }
 

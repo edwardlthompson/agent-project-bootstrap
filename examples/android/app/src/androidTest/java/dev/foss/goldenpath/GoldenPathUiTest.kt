@@ -28,6 +28,7 @@ class GoldenPathUiTest {
     @Test
     fun opensSettingsPanelWithThemeDropdown() {
         composeTestRule.dismissLaunchPrompts()
+        composeTestRule.onNodeWithTag("home-status").assertIsDisplayed()
         composeTestRule.onAllNodesWithContentDescription("About").assertCountEquals(0)
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.onNodeWithText("Settings").assertIsDisplayed()

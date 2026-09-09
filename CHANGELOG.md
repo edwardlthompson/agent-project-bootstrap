@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **android:** Settings Data group exports and imports the same JSON bundle as web
 * **docs:** Child Sprint 1 locks Settings-only chrome via `check-design-cohesion`
 * **i18n:** Spanish catalog on web (`es.json`) and Android (`values-es`)
+* **ui:** Home first-canvas is one status card (greeting + online/offline), no extra chrome
 
 ### Changed
 

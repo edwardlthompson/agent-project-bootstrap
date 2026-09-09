@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 59 · AUTO 7 · HUMAN 4 · ADB 2 · **72 open**
+**Remaining:** AGENT 58 · AUTO 7 · HUMAN 4 · ADB 2 · **71 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -39,7 +39,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. ✅ [AGENT] Android Settings Data export/import (web Data parity)
 4. ✅ [AGENT] Child `BUILD_PLAN_TEMPLATE.md` Sprint 1: lock Settings-only chrome
 5. ✅ [AGENT] Second locale catalog (web + Android)
-6. 🔲 [AGENT] Home first-canvas empty state (no new chrome)
+6. ✅ [AGENT] Home first-canvas empty state (no new chrome)
 7. 🔲 [AGENT] Tokenize launch-prompt buttons (dark-mode contrast)
 
 ### M51 — CLI / API
