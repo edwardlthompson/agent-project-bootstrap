@@ -106,7 +106,9 @@ test("homepage visual snapshot", async ({ page }) => {
 test("opens settings panel and toggles theme", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Settings" }).click();
-  await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
+  await expect(
+    page.getByTestId("settings-panel").getByRole("heading", { name: "Settings" }),
+  ).toBeVisible();
   await page.locator("[data-settings-theme]").selectOption("dark");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });

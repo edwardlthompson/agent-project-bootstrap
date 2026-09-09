@@ -37,7 +37,11 @@ export function createAboutPanel(
   appGroup.className = "gp-about-group";
   const appHeading = document.createElement("h3");
   appHeading.textContent = t("about.section.app");
-  appGroup.append(appHeading, metaLine(t("about.version"), state.version, true), metaLine(t("about.format"), "pwa", false));
+  appGroup.append(
+    appHeading,
+    metaLine(t("about.version"), state.version, true),
+    metaLine(t("about.format"), "pwa", false),
+  );
   const statusP = document.createElement("p");
   statusP.className = "gp-about-status";
   statusP.dataset.testid = "about-status";

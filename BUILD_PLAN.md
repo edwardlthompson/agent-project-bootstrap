@@ -69,7 +69,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 <!-- parallel_exception: one overlapping chrome/IA slice across web, Android, i18n, and design docs -->
 
-1. 🔲 [AGENT] Minimal home chrome + sectioned Settings/About menus (dropdowns, not chips); tests; DESIGN_GUIDE
+1. ✅ [AGENT] Minimal home chrome + sectioned Settings/About menus (dropdowns, not chips); tests; DESIGN_GUIDE
 
 ### M47 — Cline-first onboarding + Golden Path navigation (Sequential)
 

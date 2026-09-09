@@ -44,7 +44,7 @@ export function createAppShell(
   root.innerHTML = `
     <main>
       <div class="gp-header">
-        <h1 class="gp-title">${headerTitle(route, state.nav.feedbackKind)}</h1>
+        <h1 class="gp-title">${t("app.title")}</h1>
         <div class="gp-header-actions">
           ${
             atHome
@@ -125,13 +125,4 @@ export function createAppShell(
 function toggleOrPush(route: GpRoute, target: GpRoute, callbacks: AppShellCallbacks): void {
   if (route === target) callbacks.onPop();
   else callbacks.onPushRoute(target);
-}
-
-function headerTitle(route: GpRoute, kind?: FeedbackKind): string {
-  if (route === "settings") return t("settings.title");
-  if (route === "about") return t("about.title");
-  if (route === "feedback") {
-    return t(kind === "feature" ? "feedback.feature.title" : "feedback.bug.title");
-  }
-  return t("app.title");
 }

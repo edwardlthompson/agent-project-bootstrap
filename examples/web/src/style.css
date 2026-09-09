@@ -101,7 +101,8 @@ main {
 .gp-about-close,
 .gp-settings-close,
 .gp-about-apply,
-.gp-settings-actions button {
+.gp-settings-actions button,
+.gp-feedback-panel button {
   min-height: 2.75rem;
   padding-inline: var(--gp-space-md);
   padding-block: var(--gp-space-sm);
@@ -118,6 +119,7 @@ main {
 .gp-settings-close:hover,
 .gp-about-apply:hover,
 .gp-settings-actions button:hover,
+.gp-feedback-panel button:hover,
 .gp-settings-nav:hover {
   background: var(--gp-color-primary-container);
   color: var(--gp-color-on-primary-container);
@@ -128,6 +130,7 @@ main {
 .gp-settings-close:focus-visible,
 .gp-about-apply:focus-visible,
 .gp-settings-actions button:focus-visible,
+.gp-feedback-panel button:focus-visible,
 .gp-settings-nav:focus-visible,
 .gp-settings-row select:focus-visible,
 .gp-settings-row input:focus-visible {
@@ -136,7 +139,8 @@ main {
 }
 
 .gp-about-panel,
-.gp-settings-panel {
+.gp-settings-panel,
+.gp-feedback-panel {
   margin-block-start: var(--gp-space-lg);
   padding: var(--gp-space-md);
   border: 1px solid var(--gp-color-outline);
@@ -237,6 +241,10 @@ main {
 
 .gp-about-donate-links {
   padding-inline-start: var(--gp-space-lg);
+}
+
+.gp-about-panel a {
+  color: var(--gp-color-primary);
 }
 
 .gp-about-interval select {

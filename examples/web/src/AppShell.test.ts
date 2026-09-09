@@ -67,7 +67,7 @@ describe("createAppShell nav render", () => {
     const root = document.createElement("div");
     createAppShell(root, { ...baseState(), nav: push(homeNav(), "settings") }, handlers());
     expect(root.querySelector("[data-settings-open]")).toBeNull();
-    expect(root.querySelector("h1.gp-title")?.textContent).toBe("settings.title");
+    expect(root.querySelector("[data-testid='settings-panel']")).toBeTruthy();
   });
 
   it("restores persisted panel scroll", () => {
