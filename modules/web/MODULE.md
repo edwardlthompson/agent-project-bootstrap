@@ -37,7 +37,7 @@ Strings are separate from styles. See [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN
 | Styles | `style.css`, `design-tokens.css` | `var(--gp-*)` only — no user copy |
 | Theme | `theme.ts` | Preference only; labels from `t()` |
 | Brand | `branding/` → synced `public/icon.svg`, `favicon.svg` | See `branding/BRANDING.md` |
-Default locale: English only. Add `src/locales/{lang}.json` when shipping translations.
+Default locale: English (`src/locales/en.json`). Second catalog: Spanish (`src/locales/es.json`). Add `src/locales/{lang}.json` when shipping more translations.
 
 ## Activation Checklist
 
@@ -45,13 +45,16 @@ Default locale: English only. Add `src/locales/{lang}.json` when shipping transl
 - 🔲 Add `manifest.webmanifest` with required fields
 - 🔲 Implement offline-first service worker
 - 🔲 Configure Lighthouse CI budgets (`.lighthouserc.json`) with `numberOfRuns: 3` and median assertion; keep `minScore: 0.9` for performance (do not lower budget for CI flake)
+- ✅ Lighthouse a11y ≥ 0.95 and best-practices ≥ 0.9 (`scripts/check-lighthouse-floors.sh`)
 - 🔲 Set up axe-core accessibility tests in Playwright
 - 🔲 Review `examples/web/` Golden Path stub
-- 🔲 Add visual regression snapshots for key pages
+- ✅ Settings/About/Feedback visual snapshots (`examples/web/e2e`)
+- ✅ Settings-only home chrome (`scripts/check-design-cohesion.sh`)
 - 🔲 Enforce bundle size budgets in CI
 - 🔲 Keyboard-only navigation smoke test checklist
 - 🔲 Respect `prefers-reduced-motion` and `prefers-color-scheme`
 - ✅ i18n scaffold (`src/locales/`, `src/i18n/`) — see `docs/DESIGN_GUIDE.md`
+- ✅ Second locale catalog (`src/locales/es.json`)
 - 🔲 Confirm GitHub Pages uses Actions workflow (not `/docs` folder source)
 
 ## Operations (when deployed as service)
@@ -60,6 +63,7 @@ Default locale: English only. Add `src/locales/{lang}.json` when shipping transl
 - 🔲 Structured logging standard per `docs/RUNBOOK.md`
 
 - ✅ In-app About panel with PWA update checker and donation block
+
 ## Golden Path Reference
 
 See `examples/web/` for Vite + TypeScript PWA with Vitest, Playwright, and Lighthouse CI.
@@ -73,6 +77,9 @@ After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.
 | Lint | `npm run lint` in `examples/web/` |
 | Unit | `npm test` |
 | Build smoke | `npm run build` |
+| Chrome cohesion | `bash scripts/check-design-cohesion.sh` |
+| Lighthouse floors | `bash scripts/check-lighthouse-floors.sh` |
+
 E2E (`npx playwright test`) remains a milestone gate, not every feature row.
 
 ## Owner Labels for This Module

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** sync web MODULE.md checklists with Settings-only chrome, es.json, snapshots, Lighthouse floors
 * **lightroom:** SDK bump playbook (`docs/LIGHTROOM_SDK_BUMP.md`) with Info.lua/README version lock
 * **lightroom:** second Lr* factory (`LrMetadataTagsetFactory` / `MetadataTagset.lua`)
 * **lightroom:** Lua lint gate for Lr* imports (`scripts/check-lightroom-lua.sh`)
