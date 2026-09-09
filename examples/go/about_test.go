@@ -18,6 +18,15 @@ func TestAboutSummary(t *testing.T) {
 	}
 }
 
+func TestVersionFromModule(t *testing.T) {
+	if Version() == "" {
+		t.Fatal("empty version")
+	}
+	if ModulePath() != "github.com/example/agent-bootstrap-hello" {
+		t.Fatalf("module path: %q", ModulePath())
+	}
+}
+
 func TestAboutPayloadJSON(t *testing.T) {
 	raw, err := AboutPayloadJSON()
 	if err != nil {

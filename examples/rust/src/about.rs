@@ -1,6 +1,6 @@
 //! CLI About slice: version + donate URL + update stub.
 
-pub const APP_VERSION: &str = "0.1.0";
+pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const DONATE_URL: &str = "https://github.com/sponsors";
 
 pub fn summary() -> String {
@@ -29,7 +29,7 @@ mod tests {
     #[test]
     fn payload_json_matches_shared_contract() {
         let raw = payload_json();
-        assert!(raw.contains("\"version\":\"0.1.0\""));
+        assert!(raw.contains(format!("\"version\":\"{APP_VERSION}\"").as_str()));
         assert!(raw.contains("\"status\":\"current\""));
         assert!(raw.contains("\"url\":null"));
         assert!(raw.contains(DONATE_URL));

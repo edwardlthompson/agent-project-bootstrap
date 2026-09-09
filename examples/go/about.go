@@ -24,13 +24,13 @@ type AboutPayload struct {
 
 // AboutSummary is the CLI About slice (version + donate, no crash payload).
 func AboutSummary() string {
-	return "golden-path " + AppVersion + " donate " + DonateURL
+	return "golden-path " + Version() + " donate " + DonateURL
 }
 
 // NewAboutPayload returns the current stub payload (update status current).
 func NewAboutPayload() AboutPayload {
 	return AboutPayload{
-		Version: AppVersion,
+		Version: Version(),
 		Donate:  DonateURL,
 		Summary: AboutSummary(),
 		Update:  AboutUpdate{Status: "current"},
