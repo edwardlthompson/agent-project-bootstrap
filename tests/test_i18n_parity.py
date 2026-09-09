@@ -17,6 +17,10 @@ from i18n_parity import check_files, check_repo  # noqa: E402
 class I18nParityTests(unittest.TestCase):
     def test_repo_locales_align(self) -> None:
         self.assertEqual(check_repo(ROOT), [])
+        self.assertTrue((ROOT / "examples/web/src/locales/es.json").is_file())
+        self.assertTrue(
+            (ROOT / "examples/android/app/src/main/res/values-es/strings.xml").is_file()
+        )
 
     def test_skips_when_android_pruned(self) -> None:
         from tempfile import TemporaryDirectory

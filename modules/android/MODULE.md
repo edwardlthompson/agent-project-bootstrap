@@ -44,7 +44,7 @@ Strings are separate from styles. Theme colors and spacing live in `ui/theme/`; 
 | Strings | `res/values/strings.xml` | `stringResource(R.string.*)` in Compose |
 | Styles | `ui/theme/` (generated `Color.kt`, `Type.kt`, `Dimens.kt`) | `MaterialTheme.colorScheme`, `Dimens.kt` |
 | Forbidden | Kotlin string literals in composables | Use `stringResource`, not `Text("...")` |
-Default locale: English only (`res/values/strings.xml`). Add `res/values-{lang}/strings.xml` when shipping translations. Plurals: `res/values/plurals.xml` when needed.
+Default locale: English (`res/values/strings.xml`). Second catalog: Spanish (`res/values-es/strings.xml`). Plurals: `res/values/plurals.xml` when needed.
 
 Shared key naming with web: `app.title`, `settings.theme.mode.*`, `settings.section.*` — see [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md). For website folder conventions in multi-stack repos, see [`docs/WEB_PROJECT_LAYOUT.md`](../../docs/WEB_PROJECT_LAYOUT.md).
 

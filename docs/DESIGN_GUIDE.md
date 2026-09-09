@@ -107,12 +107,12 @@ Allowed FOSS dependencies: `androidx.compose.material3`, `androidx.compose.mater
 ### Android
 
 - English seed: `res/values/strings.xml`
-- Additional locales: `res/values-{lang}/strings.xml` (add when you ship translations)
+- Second catalog: `res/values-es/strings.xml` (Spanish). More locales: `res/values-{lang}/strings.xml`
 - Plurals: `res/values/plurals.xml` when needed
 
 ### Web
 
-- Catalogs: `src/locales/{locale}.json`
+- Catalogs: `src/locales/{locale}.json` (`en` + `es`; `setLocale` / `navigator.language`)
 - API: `t(key)`, `setLocale(locale)`, `getLocale()` from `src/i18n/index.ts`
 - Set `document.documentElement.lang` on locale change
 

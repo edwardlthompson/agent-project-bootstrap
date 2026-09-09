@@ -11,8 +11,15 @@ describe("i18n", () => {
     expect(getLocale()).toBe("en");
   });
 
-  it("ignores unsupported locale and keeps English", () => {
+  it("switches to the Spanish catalog", () => {
     setLocale("es");
+    expect(getLocale()).toBe("es");
+    expect(t("app.greeting")).toBe("¡Hola, FOSS!");
+    expect(t("settings.open")).toBe("Ajustes");
+  });
+
+  it("ignores unsupported locale and keeps English", () => {
+    setLocale("zz");
     expect(getLocale()).toBe("en");
     expect(t("app.greeting")).toBe("Hello, FOSS!");
   });
