@@ -2099,6 +2099,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-android-r8.sh",
+      "purpose": "Gate: Golden Path release R8 minify flags and narrow keep rules",
+      "read_when": "android_quality_gate",
+      "update_when": "android_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-lighthouse-floors.sh",
       "purpose": "Gate: Lighthouse a11y and best-practices minScore floors",
       "read_when": "web_quality_gate",

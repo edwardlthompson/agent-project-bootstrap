@@ -128,6 +128,15 @@
         "run ./gradlew :app:compileDebugAndroidTestKotlin in examples/android"
       ]
     },
+    "android-r8": {
+      "means": "Release R8 minify flags or keep rules regressed.",
+      "run": "bash scripts/check-android-r8.sh",
+      "why": "Android 17 memory limits need shrinking; broad keep rules idle R8.",
+      "suggested": [
+        "keep isMinifyEnabled = true and proguard-android-optimize.txt",
+        "run bash scripts/check-android-r8.sh"
+      ]
+    },
     "android-compose-a11y": {
       "means": "Android accessibility lint IDs are missing from lint.xml or Gradle.",
       "run": "bash scripts/check-compose-a11y-lint.sh",

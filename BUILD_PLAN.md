@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 40 · AUTO 7 · HUMAN 4 · ADB 2 · **53 open**
+**Remaining:** AGENT 39 · AUTO 7 · HUMAN 4 · ADB 2 · **52 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -37,7 +37,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 <!-- parallel_exception: release path is one slice (R8 → recipe → metadata) -->
 
 1. ✅ [AGENT] Land android runtime-budget branch (PR #95)
-2. 🔲 [AGENT] R8 analyzer in CI / feature-gate
+2. ✅ [AGENT] R8 analyzer in CI / feature-gate
 3. 🔲 [AGENT] Reproducible APK in feature-gate
 4. 🔲 [AGENT] F-Droid build recipe YAML
 5. 🔲 [AGENT] Fastlane full metadata

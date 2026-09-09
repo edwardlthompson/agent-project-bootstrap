@@ -364,6 +364,8 @@ jobs:
             echo "ERROR: broad or anti-optimize R8 rules are forbidden"
             exit 1
           fi
+      - name: R8 runtime-budget tests
+        run: bash scripts/check-android-r8.sh
 
   android-build:
     name: Android - assembleDebug
