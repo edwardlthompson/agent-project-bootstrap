@@ -1,10 +1,6 @@
 import { getSaveCrashes, setSaveCrashes } from "../feedback/saveCrashes";
 import { getThemeMode, setThemeMode } from "../theme";
-import {
-  migrateSettings,
-  SETTINGS_BUNDLE_VERSION,
-  type SettingsBundle,
-} from "./migrate";
+import { migrateSettings, SETTINGS_BUNDLE_VERSION, type SettingsBundle } from "./migrate";
 
 export type { SettingsBundle } from "./migrate";
 
