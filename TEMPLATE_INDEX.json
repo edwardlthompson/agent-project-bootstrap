@@ -1427,6 +1427,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-scorecard-sarif-classifier.sh",
+      "purpose": "Gate: Scorecard SARIF classifier stays aligned with SECURITY_TRIAGE.md",
+      "read_when": "security_triage",
+      "update_when": "security_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/scorecard_sarif.py",
+      "purpose": "Classify Scorecard SARIF checks into fix/dismiss/defer",
+      "read_when": "security_triage",
+      "update_when": "security_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": "docs/OPTIONAL_STACKS.md",
       "purpose": "Optional stack modules (Lightroom, Rust, Go, Node) not in default init picker",
       "read_when": "stack_selection",

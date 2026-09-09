@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **security:** Scorecard SARIF auto-classifier (`scripts/lib/scorecard_sarif.py`)
 * **ci:** weekly Dependabot backup for Cargo (`examples/rust`) and Go (`examples/go`)
 * **docs:** catalog optional Lightroom stack (`lightroom-plugin`) for upgrade gap reports
 * **docs:** add `navigation` to `feature-catalog.json`

@@ -51,6 +51,7 @@ Recommended cadence: **Monday** (aligned with scheduled security scans and `heal
 - Weekly triage: `check-security-triage.sh` reports latest Scorecard run conclusion
 - Pre-release: `pre-release-gate.sh` invokes `check-security-triage.sh --strict` (fails on missing/failed Scorecard)
 - SARIF: Scorecard uploads findings to **Security → Code scanning**; triage open items into BUILD_PLAN `[AGENT]` rows or dismiss with rationale in DECISION_LOG.md
+- Classifier: `python3 scripts/lib/scorecard_sarif.py results.sarif` (also `bash scripts/check-scorecard-sarif-classifier.sh`) maps checks to fix / dismiss / defer using the table below
 
 ### SARIF triage (M35 / 2026-08-15)
 
