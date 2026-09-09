@@ -1,0 +1,65 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Golden Path Python",
+    "version": "0.1.0",
+    "description": "CLI contract (hello --ready / --about / --feedback) as HTTP-shaped paths."
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "ready",
+        "responses": {
+          "200": {
+            "description": "Readiness (`hello --ready`)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["status"],
+                  "properties": { "status": { "const": "ok" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/about": {
+      "get": {
+        "operationId": "about",
+        "responses": {
+          "200": {
+            "description": "About payload (`hello --about` JSON fields)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["version", "donate", "summary", "update"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "get": {
+        "operationId": "feedback",
+        "responses": {
+          "200": {
+            "description": "GitHub issue-form URL (`hello --feedback`)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["kind", "url"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

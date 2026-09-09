@@ -1,5 +1,6 @@
 """Tests for hello.cli module."""
 
+import json
 import sys
 from unittest.mock import patch
 
@@ -40,4 +41,24 @@ def test_main_feedback(capsys: pytest.CaptureFixture[str], monkeypatch: pytest.M
     monkeypatch.setenv("GITHUB_REPO", "acme/app")
     with patch.object(sys, "argv", ["hello", "--feedback", "--kind", "bug", "--title", "Crash"]):
         main()
-    assert "github.com/acme/app/issues/new" in capsys.readouterr().out
+    out, err = capsys.readouterr()
+    body = json.loads(out)
+    assert body["kind"] == "bug"
+    assert "github.com/acme/app/issues/new" in body["url"]
+    assert '"msg":"feedback"' in err
+
+
+def test_main_ready(capsys: pytest.CaptureFixture[str]) -> None:
+    with patch.object(sys, "argv", ["hello", "--ready"]):
+        main()
+    out, err = capsys.readouterr()
+    assert json.loads(out) == {"status": "ok"}
+    assert '"msg":"ready"' in err
+
+
+def test_main_openapi(capsys: pytest.CaptureFixture[str]) -> None:
+    with patch.object(sys, "argv", ["hello", "--openapi"]):
+        main()
+    spec = json.loads(capsys.readouterr().out)
+    assert spec["openapi"].startswith("3.")
+    assert "/health" in spec["paths"]

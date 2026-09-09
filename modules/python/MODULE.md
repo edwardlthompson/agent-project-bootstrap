@@ -17,8 +17,8 @@
 - 🔲 Review `examples/python/` Golden Path stub
 - 🔲 Set coverage budget threshold in CI
 - 🔲 Add pre-commit hooks for ruff and mypy
-- 🔲 OpenAPI/schema-first design if exposing HTTP API
-- 🔲 Contract tests for public API boundaries
+- ✅ OpenAPI/schema-first design if exposing HTTP API (`examples/python/openapi.json`)
+- ✅ Contract tests for public API boundaries
 
 ## Operations (when deployed as service)
 
@@ -37,7 +37,6 @@ After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.
 |-------|---------|
 | Lint | `uv run ruff check .` + `uv run ruff format --check .` |
 | Unit | `uv run pytest -q` |
-
 `mypy` remains a milestone gate in full CI; feature gate focuses on fast lint + unit smoke.
 
 ## Owner Labels for This Module

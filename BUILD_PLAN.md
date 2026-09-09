@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 51 · AUTO 7 · HUMAN 4 · ADB 2 · **64 open**
+**Remaining:** AGENT 50 · AUTO 7 · HUMAN 4 · ADB 2 · **63 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -42,7 +42,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 4. ✅ [AGENT] Rust/Go version from Cargo.toml / module
 5. ✅ [AGENT] Rust/Go JSON logs + readiness
 6. ✅ [AGENT] Node OpenAPI spec + contract tests
-7. 🔲 [AGENT] Python OpenAPI + JSON logging
+7. ✅ [AGENT] Python OpenAPI + JSON logging
 8. 🔲 [AGENT] Python mypy in pre-commit
 
 ### M52 — UI, a11y, nav proof
