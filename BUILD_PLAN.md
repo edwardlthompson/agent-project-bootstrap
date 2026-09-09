@@ -1,12 +1,12 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 64 · AUTO 7 · HUMAN 4 · ADB 2 · **77 open**
+**Remaining:** AGENT 63 · AUTO 7 · HUMAN 4 · ADB 2 · **76 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
 
-**Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts  
+**Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts
 **State:** 🔲 open · ✅ done · ❌ blocked — reason
 
 Format: `🔲 [AGENT] Short task`. Sequential `[AGENT]` first. Parallel scopes: [`docs/PARALLEL_AGENT_SCOPES.md`](docs/PARALLEL_AGENT_SCOPES.md). `/build` tries HUMAN/ADB after automation; failures go to `HUMAN_BACKLOG.md`.
@@ -19,6 +19,7 @@ After the **last** `[AGENT]`/`[AUTO]` row in a sprint is ✅, do **not** start t
 
 ```bash
 python3 scripts/agent-run.py smoke-sprint --require
+
 ```
 
 That command re-smokes **every** ✅ row: no errors or crashes, plus startup time and load order. Details: [`docs/SPRINT_SMOKE.md`](docs/SPRINT_SMOKE.md). Fail → leave the last row open or ❌; fix; re-run. `/gates` wrap-up includes the same check.
@@ -33,7 +34,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 <!-- parallel_exception: overlapping scripts, docs, web, and Android — Sequential order -->
 
-1. 🔲 [AGENT] Chrome + chip regression gate in `check-design-cohesion`
+1. ✅ [AGENT] Chrome + chip regression gate in `check-design-cohesion`
 2. 🔲 [AGENT] Compile Android instrumented tests in feature-gate (no emulator)
 3. 🔲 [AGENT] Android Settings Data export/import (web Data parity)
 4. 🔲 [AGENT] Child `BUILD_PLAN_TEMPLATE.md` Sprint 1: lock Settings-only chrome
