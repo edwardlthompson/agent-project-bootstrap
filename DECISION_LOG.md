@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-09 — M54 Catalog + Lightroom wrap
+- **Status:** Accepted
+- **Context:** Maintainer `/build` finished Lightroom lint/tagset/SDK playbook and catalog sync. Sprint smoke failed when a task mentioned `feature-catalog.json` as a repo-root path.
+- **Decision:** Archive M54. `probe_docs` resolves bare filenames under `schemas/`, `docs/`, `examples/`, `modules/`, and `scripts/`.
+- **Alternatives considered:** Fail smoke unless every backtick is a repo-relative path (rejected: board tasks name the file, not the folder).
+- **Consequences:** Next AGENT row is M55 Dependabot Cargo + Go. Lightroom Plug-in Manager load stays `[HUMAN]`.
+
 ### 2026-09-09 — M53 Android distribution wrap
 - **Status:** Accepted
 - **Context:** Maintainer `/build` finished the Android release path (R8, reproducible APK, F-Droid, Fastlane, AntiFeatures, UnifiedPush, signing runbook).

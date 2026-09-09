@@ -2,6 +2,16 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M54 — Catalog + Lightroom (2026-09-09)
+
+- ✅ [AGENT] Lightroom Lua lint
+- ✅ [AGENT] Second Lr* plugin entry
+- ✅ [AGENT] Lightroom SDK bump playbook
+- ✅ [AGENT] Sync web MODULE.md checklists
+- ✅ [AGENT] Sync Android MODULE F-Droid rows
+- ✅ [AGENT] Add `navigation` to `schemas/golden-path/feature-catalog.json`
+- ✅ [AGENT] Feature-catalog optional stacks (Lightroom)
+
 ## M53 — Android distribution (2026-09-09)
 
 - ✅ [AGENT] Land android runtime-budget branch (PR #95)

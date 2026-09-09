@@ -97,8 +97,22 @@ def probe_android(root: Path) -> ProbeResult:
     return ProbeResult("android", True, "adb present; device smoke is [ADB]", load_order=order, skipped=True)
 
 
+def _docs_path_exists(root: Path, rel: str) -> bool:
+    if (root / rel).exists():
+        return True
+    norm = rel.replace("\\", "/")
+    if "/" in norm:
+        return False
+    name = Path(rel).name
+    for folder in ("schemas", "docs", "examples", "modules", "scripts"):
+        base = root / folder
+        if base.is_dir() and any(base.rglob(name)):
+            return True
+    return False
+
+
 def probe_docs(root: Path, paths: list[str]) -> ProbeResult:
-    missing = [p for p in paths if p and not (root / p).exists()]
+    missing = [p for p in paths if p and not _docs_path_exists(root, p)]
     if missing:
         return ProbeResult("docs", False, f"missing {missing}")
     return ProbeResult("docs", True, "mentioned paths exist" if paths else "docs probe")

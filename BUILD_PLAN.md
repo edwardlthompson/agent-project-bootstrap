@@ -28,21 +28,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** M54. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** M55. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-> **M53** archived in COMPLETED_TASKS.md @ `c843483`.
-
-### M54 — Catalog + Lightroom
-
-<!-- parallel_exception: catalog schema lock before optional-stack docs -->
-
-1. ✅ [AGENT] Lightroom Lua lint
-2. ✅ [AGENT] Second Lr* plugin entry
-3. ✅ [AGENT] Lightroom SDK bump playbook
-4. ✅ [AGENT] Sync web MODULE.md checklists
-5. ✅ [AGENT] Sync Android MODULE F-Droid rows
-6. ✅ [AGENT] Add `navigation` to `feature-catalog.json`
-7. ✅ [AGENT] Feature-catalog optional stacks (Lightroom)
+> **M54** archived in COMPLETED_TASKS.md @ `4c6fb21`.
 
 ### M55 — CI + security
 
@@ -90,7 +78,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
-Done on this board: **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

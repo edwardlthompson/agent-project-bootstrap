@@ -15,6 +15,7 @@ if str(LIB) not in sys.path:
 from sprint_smoke import run  # noqa: E402
 from sprint_smoke_map import infer_probes  # noqa: E402
 from sprint_smoke_parse import find_sprint, parse_sprints  # noqa: E402
+from sprint_smoke_probes import probe_docs  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -60,6 +61,10 @@ class SprintSmokeTests(unittest.TestCase):
         self.assertIn("android", infer_probes("Android TalkBack + keyboard smoke"))
         self.assertIn("node", infer_probes("Node OpenAPI spec + contract tests"))
         self.assertIn("docs", infer_probes("Winget multi-arch docs"))
+
+    def test_docs_probe_resolves_catalog_basename(self) -> None:
+        self.assertTrue(probe_docs(ROOT, ["feature-catalog.json"]).ok)
+        self.assertFalse(probe_docs(ROOT, ["no-such-catalog.json"]).ok)
 
     def test_require_fails_when_open(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
