@@ -2099,6 +2099,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-lighthouse-floors.sh",
+      "purpose": "Gate: Lighthouse a11y and best-practices minScore floors",
+      "read_when": "web_quality_gate",
+      "update_when": "web_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/lighthouse_floors.py",
+      "purpose": "Assert examples/web/.lighthouserc.json a11y and best-practices floors",
+      "read_when": "web_quality_gate",
+      "update_when": "web_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-compose-a11y-lint.sh",
       "purpose": "Gate: Android accessibility lint IDs stay errors",
       "read_when": "android_quality_gate",

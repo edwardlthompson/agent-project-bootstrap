@@ -36,6 +36,15 @@
         "run npm test in examples/web"
       ]
     },
+    "web-lighthouse-floors": {
+      "means": "Lighthouse accessibility or best-practices floors dropped.",
+      "run": "bash scripts/check-lighthouse-floors.sh",
+      "why": "CI Lighthouse assertions must stay error floors, not warnings.",
+      "suggested": [
+        "restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json",
+        "keep categories:best-practices minScore at least 0.9"
+      ]
+    },
     "web-build": {
       "means": "The web app did not produce a production build.",
       "run": "npm run build in examples/web",

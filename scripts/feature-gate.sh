@@ -109,6 +109,7 @@ fail_gate() {
     web-format) SUGGESTED=("run npm run format in examples/web") ;;
     web-test) SUGGESTED=("fix failing vitest in src/{feature}/" "run npm test in examples/web") ;;
     web-build) SUGGESTED=("fix build errors" "run npm run build in examples/web") ;;
+    web-lighthouse-floors) SUGGESTED=("restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json" "keep categories:best-practices minScore at least 0.9") ;;
     python-lint) SUGGESTED=("run uv run ruff check --fix in examples/python") ;;
     python-format) SUGGESTED=("run uv run ruff format in examples/python") ;;
     python-type) SUGGESTED=("fix mypy/pyright errors in examples/python") ;;
@@ -284,6 +285,7 @@ if should_run web && [ -f examples/web/package.json ]; then
     fi
     run_in_dir examples/web web-test npm test
     run_in_dir examples/web web-build npm run build
+    run_cmd web-lighthouse-floors bash scripts/check-lighthouse-floors.sh
   fi
 fi
 
