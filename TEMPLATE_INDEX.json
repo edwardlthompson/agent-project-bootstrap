@@ -1714,6 +1714,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "schemas/golden-path/settings-bundle.schema.json",
+      "purpose": "Shared Settings export v1 bundle plus migrate-from-legacy contract",
+      "read_when": "feature_work",
+      "update_when": "feature_work",
+      "owner": "maintainer"
+    },
+    {
       "path": ".gitattributes",
       "purpose": "Line endings, binary files, linguist-generated markers",
       "read_when": "contributing",

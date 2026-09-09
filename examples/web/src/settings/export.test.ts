@@ -14,4 +14,12 @@ describe("settings export", () => {
     expect(parseSettings("{")).toBeNull();
     expect(parseSettings('{"version":2,"theme":"dark"}')).toBeNull();
   });
+
+  it("migrates unversioned JSON to v1", () => {
+    expect(parseSettings('{"theme":"system","saveCrashes":true}')).toEqual({
+      version: 1,
+      theme: "system",
+      saveCrashes: true,
+    });
+  });
 });

@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **python:** pre-commit runs `uv run mypy src` for `examples/python/`
 * **ui:** Playwright snapshots for Settings, About, and Feedback panels
 * **ui:** In-panel Settings search filters sections on web and Android
+* **ui:** Settings export migrates unversioned and legacy darkMode JSON to v1
 
 ### Changed
 

@@ -32,4 +32,16 @@ class SettingsExportTest {
         assertNull(SettingsExport.parse("""{"version":2,"theme":"dark"}"""))
         assertNull(SettingsExport.parse("""{"version":1,"theme":"neon"}"""))
     }
+
+    @Test
+    fun migratesUnversionedAndLegacyDarkMode() {
+        assertEquals(
+            SettingsBundle(1, ThemeMode.System, true),
+            SettingsExport.parse("""{"theme":"system","saveCrashes":true}"""),
+        )
+        assertEquals(
+            SettingsBundle(1, ThemeMode.Dark, false),
+            SettingsExport.parse("""{"darkMode":true}"""),
+        )
+    }
 }

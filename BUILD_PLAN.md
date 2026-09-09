@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 47 · AUTO 7 · HUMAN 4 · ADB 2 · **60 open**
+**Remaining:** AGENT 46 · AUTO 7 · HUMAN 4 · ADB 2 · **59 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -38,7 +38,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 1. ✅ [AGENT] Settings/About/Feedback visual snapshots
 2. ✅ [AGENT] Settings in-panel search
-3. 🔲 [AGENT] Settings export schema migrations
+3. ✅ [AGENT] Settings export schema migrations
 4. 🔲 [AGENT] Android RTL/locale instrumented stress
 5. 🔲 [AGENT] Android TalkBack + keyboard smoke
 6. 🔲 [AGENT] Compose a11y lint gate

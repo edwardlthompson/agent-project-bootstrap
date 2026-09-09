@@ -24,12 +24,27 @@ object SettingsExport {
             .toString(2)
 
     fun parse(raw: String): SettingsBundle? =
-        runCatching {
-            val data = JSONObject(raw)
-            if (data.optInt("version") != VERSION) return null
-            val theme = themeFromWire(data.optString("theme")) ?: return null
-            SettingsBundle(VERSION, theme, data.optBoolean("saveCrashes"))
-        }.getOrNull()
+        runCatching { migrate(JSONObject(raw)) }.getOrNull()
+
+    fun migrate(data: JSONObject): SettingsBundle? {
+        val version = readVersion(data) ?: return null
+        if (version < 0 || version > VERSION) return null
+        val theme = themeFromWire(data.optString("theme")) ?: legacyTheme(data) ?: return null
+        return SettingsBundle(VERSION, theme, data.optBoolean("saveCrashes"))
+    }
+
+    private fun readVersion(data: JSONObject): Int? {
+        if (!data.has("version")) return 0
+        val raw = data.opt("version")
+        if (raw is Number) return raw.toInt()
+        val text = raw as? String ?: return null
+        return text.toIntOrNull()
+    }
+
+    private fun legacyTheme(data: JSONObject): ThemeMode? {
+        if (!data.has("darkMode")) return null
+        return if (data.optBoolean("darkMode")) ThemeMode.Dark else ThemeMode.Light
+    }
 
     private fun themeFromWire(raw: String): ThemeMode? =
         ThemeMode.entries.find { it.name.equals(raw, ignoreCase = true) }
