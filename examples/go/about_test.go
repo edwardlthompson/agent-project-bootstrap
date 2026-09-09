@@ -18,6 +18,23 @@ func TestAboutSummary(t *testing.T) {
 	}
 }
 
+func TestAboutPayloadJSON(t *testing.T) {
+	raw, err := AboutPayloadJSON()
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := NewAboutPayload()
+	if got.Version != AppVersion || !strings.Contains(got.Donate, "http") {
+		t.Fatalf("payload fields: %+v", got)
+	}
+	if got.Update.Status != "current" || got.Update.Version != nil || got.Update.URL != nil {
+		t.Fatalf("update stub: %+v", got.Update)
+	}
+	if !strings.Contains(string(raw), `"status":"current"`) {
+		t.Fatalf("json missing status: %s", raw)
+	}
+}
+
 func TestSanitizeCrashText(t *testing.T) {
 	in := "user@example.com C:\\Users\\ada\\secret token=abc /home/ada/.env"
 	got := SanitizeCrashText(in)

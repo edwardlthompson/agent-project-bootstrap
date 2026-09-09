@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **i18n:** Spanish catalog on web (`es.json`) and Android (`values-es`)
 * **ui:** Home first-canvas is one status card (greeting + online/offline), no extra chrome
 * **ui:** Tokenize launch-prompt buttons for dark-mode contrast
+* **cli:** Shared About/donate/update JSON payload for Node, Python, Rust, and Go
 
 ### Changed
 

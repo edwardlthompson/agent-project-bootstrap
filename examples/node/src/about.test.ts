@@ -14,5 +14,6 @@ describe("about", () => {
     expect(payload.version).toBe(APP_VERSION);
     expect(payload.donate).toContain("http");
     expect(payload.summary).toBe(aboutSummary());
+    expect(payload.update).toEqual({ status: "current", version: null, url: null });
   });
 });
