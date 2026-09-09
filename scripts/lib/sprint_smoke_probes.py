@@ -81,7 +81,14 @@ def probe_android(root: Path) -> ProbeResult:
     text = manifest.read_text(encoding="utf-8")
     activity = re.search(r"<activity[^>]*android:name=\"([^\"]+)\"", text)
     order = [activity.group(1)] if activity else []
-    adb = subprocess.run(["adb", "devices"], capture_output=True, text=True, check=False)
+    try:
+        adb = subprocess.run(
+            ["adb", "devices"], capture_output=True, text=True, check=False
+        )
+    except FileNotFoundError:
+        return ProbeResult(
+            "android", True, "adb not installed; manifest load order only", load_order=order, skipped=True
+        )
     has_dev = any("\tdevice" in line for line in (adb.stdout or "").splitlines())
     if adb.returncode != 0 or not has_dev:
         return ProbeResult(
