@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **android:** release R8 minify/shrink, R8 Configuration Analyzer docs, and Android 17 memory-limit hooks
+* **docs:** optional Grok Bot ops for Android platform/R8/memory scouting (`docs/GROK_BOTS.md`)
 * **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
 * **ui:** `check-design-cohesion` fails if home chrome grows Theme/About/donate or Settings uses FilterChip for theme
 * **android:** feature-gate compiles instrumented tests (`:app:compileDebugAndroidTestKotlin`) without an emulator
@@ -37,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+* **android:** Compose 1.12 floor notes (BOM already `2026.08.00`); Credential Manager stays off the FOSS path
 * **ui:** Home chrome is Settings-only; theme, About, and donate live in sectioned Settings/About menus with dropdowns (not chips)
 * **docs:** Slimmer BUILD_PLAN; queued allideas 1–55 as M51–M57; sprint wrap must `smoke-sprint --require` before the next sprint
 * **docs:** Child board lives in `BUILD_PLAN_TEMPLATE.md`; both plans open with a remaining-item tally

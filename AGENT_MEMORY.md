@@ -53,6 +53,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 | 2026-09-09 | Child BUILD_PLAN template | `BUILD_PLAN_TEMPLATE.md` is the product board model; tallies on both plans | Do not put a child playbook back inside this repo’s BUILD_PLAN.md |
 | 2026-09-09 | Sprint smoke + board | Slim BUILD_PLAN; M51–M57 = allideas 1–55; `smoke-sprint --require` before next sprint | Do not chain sprints until every ✅ row is smoked (startup + load order) |
 | 2026-09-09 | M49 Settings chrome | Home chrome is Settings-only; sectioned menus + dropdowns; ThemeToggle removed | Do not put theme/About/donate back in the header; chips are not settings enums |
+| 2026-09-09 | M48 Android runtime budget | Release R8 on; memory limiter/trim Application; Grok Bots optional commercial | Do not add broad keep rules or Credential Manager on FOSS path |
 | 2026-09-05 | v1.1.0 /ship | Merged #90/#92/#94; tagged v1.1.0 + GitHub Release; SBOM/OpenVEX on tag; #86 RP blocked on workflow approve; #93 Linux DX pending | Prefer agent release PR when RP workflows need [HUMAN] approve; Unreleased empty before tag |
 | 2026-09-01 | M47 Cline-first + GP nav | Cline first-run (no keys); web History + Android BackHandler pop one route; persist gp.nav.v1 | Do not put Codex on /tour /prerelease /ship; device Back smoke is [ADB] |
 | 2026-08-28 | v1.0.0 /ship | Cloud agent #81 reviewed+merged; RP #82 cut first stable; Unreleased empty; SBOM+OpenVEX on the tag | Do not merge RP while upgrade-sim still fails on pruned stacks; `Release-As: 1.0.0` beats 0.26.0 |

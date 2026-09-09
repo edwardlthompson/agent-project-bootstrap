@@ -17,6 +17,7 @@ Requires **Commercial** distribution tier (`--distribution-tier commercial` or `
 7. Review Automations recipes in [`CURSOR_AUTOMATIONS.commercial.md`](CURSOR_AUTOMATIONS.commercial.md) (CI-fail triage, nightly digest, webhook → gates)
 8. Map Bugbot Autofix to local `/fix` expectations in `BUGBOT.md`
 9. For multi-repo or Slack: configure a named Cloud environment in the Cursor dashboard (Slack Jul 2026 multi-repo support) — docs only; no Slack app secrets in-repo
+10. Optional: create Grok Bots from [`GROK_BOTS.md`](GROK_BOTS.md) for always-on Android/R8 scouting (read-only git; no signing keys)
 
 ## Android commercial patterns
 

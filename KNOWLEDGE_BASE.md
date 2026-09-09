@@ -171,3 +171,12 @@
 | **Cause** | Node 25+ enables a global Web Storage stub without `--localstorage-file`; jsdom skips installing real Storage and the stub shadows it |
 | **Fix** | Vitest `setupFiles: ["src/test/setup-localStorage.ts"]` installs in-memory Storage when `getItem` is missing |
 | **Prevention** | Keep the setup file; do not rely on Node’s experimental `localStorage` in browser-unit tests |
+
+### KB-021 — Broad R8 keep rules hide minify “on”
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | Release has `isMinifyEnabled = true` but cold start / DEX count / ANRs stay bad; analyzer optimization score is low |
+| **Cause** | A library or `proguard-rules.pro` ships `-keep public class * { public protected *; }` (or `-dontoptimize` / `enableR8.fullMode=false`) |
+| **Fix** | Run `./gradlew :app:analyzeReleaseR8Config`; narrow or remove the subsuming keep; keep `proguard-android-optimize.txt` |
+| **Prevention** | Structure tests forbid broad keeps and `largeHeap`; see ADR-0003 and `docs/features/android-runtime-budget.md` |

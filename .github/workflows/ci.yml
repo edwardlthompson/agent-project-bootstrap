@@ -350,7 +350,20 @@ jobs:
           test -f examples/android/gradlew
           test -f examples/android/gradle/wrapper/gradle-wrapper.jar
           test -f examples/android/gradle.properties
+          test -f examples/android/app/proguard-rules.pro
           grep -q "SOURCE_DATE_EPOCH" examples/android/README.md
+          grep -q "isMinifyEnabled = true" examples/android/app/build.gradle.kts
+          grep -q "isShrinkResources = true" examples/android/app/build.gradle.kts
+          grep -q "proguard-android-optimize.txt" examples/android/app/build.gradle.kts
+          grep -q 'android:name=".GoldenPathApplication"' examples/android/app/src/main/AndroidManifest.xml
+          if grep -q largeHeap examples/android/app/src/main/AndroidManifest.xml; then
+            echo "ERROR: android:largeHeap is forbidden under Android 17 memory limits"
+            exit 1
+          fi
+          if grep -vE '^\s*#' examples/android/app/proguard-rules.pro | grep -E -- '-keep public class \*|-dontoptimize|-dontshrink|-dontobfuscate'; then
+            echo "ERROR: broad or anti-optimize R8 rules are forbidden"
+            exit 1
+          fi
 
   android-build:
     name: Android - assembleDebug
@@ -369,6 +382,9 @@ jobs:
       - name: assembleDebug
         working-directory: examples/android
         run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+      - name: unit tests
+        working-directory: examples/android
+        run: ./gradlew test --parallel --no-daemon
 
   android-instrumented:
     name: Android - connectedDebugAndroidTest
