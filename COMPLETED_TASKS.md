@@ -2,6 +2,17 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M53 — Android distribution (2026-09-09)
+
+- ✅ [AGENT] Land android runtime-budget branch (PR #95)
+- ✅ [AGENT] R8 analyzer in CI / feature-gate
+- ✅ [AGENT] Reproducible APK in feature-gate
+- ✅ [AGENT] F-Droid build recipe YAML
+- ✅ [AGENT] Fastlane full metadata
+- ✅ [AGENT] F-Droid AntiFeatures template
+- ✅ [AGENT] UnifiedPush sample
+- ✅ [AGENT] Android signing + rollback runbook
+
 ## M52 — UI, a11y, nav proof (2026-09-09)
 
 - ✅ [AGENT] Settings/About/Feedback visual snapshots

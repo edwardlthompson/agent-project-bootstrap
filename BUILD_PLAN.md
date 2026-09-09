@@ -28,22 +28,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** M53. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** M54. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-> **M52** archived in COMPLETED_TASKS.md @ `c4c6d23`.
-
-### M53 — Android distribution
-
-<!-- parallel_exception: release path is one slice (R8 → recipe → metadata) -->
-
-1. ✅ [AGENT] Land android runtime-budget branch (PR #95)
-2. ✅ [AGENT] R8 analyzer in CI / feature-gate
-3. ✅ [AGENT] Reproducible APK in feature-gate
-4. ✅ [AGENT] F-Droid build recipe YAML
-5. ✅ [AGENT] Fastlane full metadata
-6. ✅ [AGENT] F-Droid AntiFeatures template
-7. ✅ [AGENT] UnifiedPush sample
-8. ✅ [AGENT] Android signing + rollback runbook
+> **M53** archived in COMPLETED_TASKS.md @ `c843483`.
 
 ### M54 — Catalog + Lightroom
 
@@ -103,7 +90,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
-Done on this board: **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

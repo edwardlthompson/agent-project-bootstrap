@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-09 — M53 Android distribution wrap
+- **Status:** Accepted
+- **Context:** Maintainer `/build` finished the Android release path (R8, reproducible APK, F-Droid, Fastlane, AntiFeatures, UnifiedPush, signing runbook).
+- **Decision:** Archive M53 in `COMPLETED_TASKS.md`. UnifiedPush stays PackageManager-only (no Maven connector, no FCM). Signing uses env vars and `docs/ANDROID_SIGNING.md`; CI `android-release` stays unsigned for hash compare.
+- **Alternatives considered:** Add `org.unifiedpush.android:connector` (rejected: extra Maven dep). Check a dummy keystore into examples (rejected: secrets).
+- **Consequences:** Next AGENT row is M54 Lightroom Lua lint. Device UnifiedPush and real upload keys stay `[ADB]`/`[HUMAN]`.
+
 ### 2026-09-09 — Separate child BUILD_PLAN template
 - **Status:** Accepted
 - **Context:** The child playbook at the bottom of `BUILD_PLAN.md` did not match the slim maintainer board. Children need the same look and `/build` behavior.
