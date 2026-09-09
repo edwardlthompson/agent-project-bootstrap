@@ -128,6 +128,15 @@
         "run ./gradlew :app:compileDebugAndroidTestKotlin in examples/android"
       ]
     },
+    "android-reproducible-apk": {
+      "means": "SOURCE_DATE_EPOCH release APK wiring is missing from CI or the local verifier.",
+      "run": "bash scripts/check-reproducible-apk.sh",
+      "why": "F-Droid-style builds need a pinned epoch and a two-run hash compare.",
+      "suggested": [
+        "keep SOURCE_DATE_EPOCH=1700000000 on CI android-release",
+        "run bash scripts/check-reproducible-apk.sh"
+      ]
+    },
     "android-r8": {
       "means": "Release R8 minify flags or keep rules regressed.",
       "run": "bash scripts/check-android-r8.sh",

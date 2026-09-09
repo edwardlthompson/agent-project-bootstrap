@@ -2099,6 +2099,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-reproducible-apk.sh",
+      "purpose": "Gate: SOURCE_DATE_EPOCH release APK verifier and CI hash compare",
+      "read_when": "android_quality_gate",
+      "update_when": "android_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/reproducible_apk_gate.py",
+      "purpose": "Assert verify-reproducible-apk.sh and CI android-release epoch wiring",
+      "read_when": "android_quality_gate",
+      "update_when": "android_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-android-r8.sh",
       "purpose": "Gate: Golden Path release R8 minify flags and narrow keep rules",
       "read_when": "android_quality_gate",
