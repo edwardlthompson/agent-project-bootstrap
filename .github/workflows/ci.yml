@@ -588,7 +588,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Validate Lr* SDK compliance
-        run: bash scripts/verify-lightroom.sh
+        run: bash scripts/verify-lightroom.sh && bash scripts/check-lightroom-lua.sh
 
   rust:
     name: Rust - Fmt, Clippy, Test

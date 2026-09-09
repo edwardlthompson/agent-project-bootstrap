@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 33 · AUTO 7 · HUMAN 4 · ADB 2 · **46 open**
+**Remaining:** AGENT 32 · AUTO 7 · HUMAN 4 · ADB 2 · **45 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -36,7 +36,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 <!-- parallel_exception: catalog schema lock before optional-stack docs -->
 
-1. 🔲 [AGENT] Lightroom Lua lint
+1. ✅ [AGENT] Lightroom Lua lint
 2. 🔲 [AGENT] Second Lr* plugin entry
 3. 🔲 [AGENT] Lightroom SDK bump playbook
 4. 🔲 [AGENT] Sync web MODULE.md checklists

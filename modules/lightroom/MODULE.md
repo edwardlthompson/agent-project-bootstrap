@@ -14,20 +14,21 @@
 - 🔲 Configure `Info.lua` with correct `.lrplugin` wrapper parameters
 - 🔲 Set up `LrLogger` for structured debug output
 - 🔲 Document SDK version compatibility in AGENT_MEMORY.md
-- 🔲 Add Lua lint rules if applicable
+- 🔲 Add Lua lint rules if applicable (`scripts/check-lightroom-lua.sh`)
 
 ## Golden Path Reference
 
-See `examples/lightroom/` for `Info.lua` metadata stub and SDK version documentation. Adobe SDK is proprietary; CI checks Lr* namespace compliance only.
+See `examples/lightroom/` for `Info.lua` metadata stub and SDK version documentation. Adobe SDK is proprietary; CI and feature-gate check Lr* namespaces and Lua lint only.
 
 ## Feature gate (Sprint 2+)
 
-Lightroom plugins are optional; when active, `scripts/feature-gate.sh` runs repo hygiene + encoding gates. Lua lint/SDK grep remains a milestone CI gate (`lightroom` job), not per-feature smoke.
+Lightroom plugins are optional; when active, `scripts/feature-gate.sh --stack lightroom` runs SDK grep plus Lua lint. Loading the plugin in Classic stays `[HUMAN]`.
 
 | Stage | Command |
 |-------|---------|
 | Hygiene + encoding | `bash scripts/feature-gate.sh --stack multi` |
-| SDK compliance | CI Lightroom namespace grep on `examples/lightroom/` |
+| SDK compliance | `bash scripts/verify-lightroom.sh` |
+| Lua lint | `bash scripts/check-lightroom-lua.sh` (`.luacheckrc` + Lr* import rules) |
 
 ## Owner Labels for This Module
 

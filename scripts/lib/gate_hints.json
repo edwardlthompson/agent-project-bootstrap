@@ -230,6 +230,15 @@
         "run go test in examples/go"
       ]
     },
+    "lightroom-lua-lint": {
+      "means": "Lightroom Lua used generic require() or a non-Lr* import.",
+      "run": "bash scripts/check-lightroom-lua.sh",
+      "why": "Module D allows only Adobe Lr* SDK imports.",
+      "suggested": [
+        "keep Lr* imports only in examples/lightroom",
+        "run bash scripts/check-lightroom-lua.sh"
+      ]
+    },
     "node-lint": {
       "means": "Lint failed in the Node Golden Path.",
       "run": "Fix lint in examples/node (then npm run format if that script exists)",

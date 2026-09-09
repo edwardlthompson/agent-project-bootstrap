@@ -132,6 +132,7 @@ fail_gate() {
     android-reproducible-apk) SUGGESTED=("keep SOURCE_DATE_EPOCH=1700000000 on CI android-release" "run bash scripts/check-reproducible-apk.sh") ;;
     android-signing-runbook) SUGGESTED=("keep docs/ANDROID_SIGNING.md env vars and rollback" "run bash scripts/check-android-signing-runbook.sh") ;;
     lightroom-sdk) SUGGESTED=("run scripts/verify-lightroom.sh") ;;
+    lightroom-lua-lint) SUGGESTED=("keep Lr* imports only in examples/lightroom" "run bash scripts/check-lightroom-lua.sh") ;;
     node-lint) SUGGESTED=("fix lint in examples/node" "run npm run format in examples/node if format script exists") ;;
     node-format) SUGGESTED=("run npm run format in examples/node") ;;
     node-test) SUGGESTED=("fix tests in examples/node") ;;
@@ -407,6 +408,7 @@ fi
 
 if should_run lightroom && [ -f examples/lightroom/Info.lua ]; then
   run_cmd lightroom-sdk bash scripts/verify-lightroom.sh
+  run_cmd lightroom-lua-lint bash scripts/check-lightroom-lua.sh
 fi
 fi
 

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **lightroom:** Lua lint gate for Lr* imports (`scripts/check-lightroom-lua.sh`)
 * **android:** upload-key signing + rollback runbook (`docs/ANDROID_SIGNING.md`) and env-only Gradle signing
 * **android:** FOSS UnifiedPush sample (PackageManager discovery, MESSAGE receiver, no FCM)
 * **android:** release R8 minify/shrink, R8 Configuration Analyzer docs, and Android 17 memory-limit hooks

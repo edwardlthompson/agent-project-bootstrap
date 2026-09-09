@@ -2421,6 +2421,27 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-lightroom-lua.sh",
+      "purpose": "Gate: Lightroom Lua Lr* lint and optional luacheck",
+      "read_when": "lightroom_quality_gate",
+      "update_when": "lightroom_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/lightroom_lua_lint.py",
+      "purpose": "Forbid generic require/OS calls in examples/lightroom",
+      "read_when": "lightroom_quality_gate",
+      "update_when": "lightroom_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "examples/lightroom/.luacheckrc",
+      "purpose": "luacheck std + import global for Lightroom Classic Lua",
+      "read_when": "lightroom_quality_gate",
+      "update_when": "lightroom_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-action-workflows.sh",
       "purpose": "Gate: offline actionlint + zizmor on GitHub workflows",
       "read_when": "milestone_boundary",

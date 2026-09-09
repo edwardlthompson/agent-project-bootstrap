@@ -15,7 +15,7 @@ Update these fields in `Info.lua` when you change target Lightroom versions. Rec
 - Use **only** Adobe Lightroom SDK `Lr*` namespaces (`LrTasks`, `LrDialogs`, `LrLogger`, `LrView`, etc.).
 - Do **not** `require` generic Lua modules or call OS APIs outside SDK boundaries.
 - One real export path: `LrExportServiceProvider` → `ExportServiceProvider.lua` `processRenderedPhotos` (uses `import "LrLogger"` + `exportContext.exportSession`).
-- CI runs a namespace grep on `examples/lightroom/**/*.lua` (see root `.github/workflows/ci.yml`).
+- CI and feature-gate run `scripts/verify-lightroom.sh` plus `scripts/check-lightroom-lua.sh` (`.luacheckrc`).
 
 ## Local Load Test
 
@@ -25,4 +25,8 @@ Update these fields in `Info.lua` when you change target Lightroom versions. Rec
 
 ## CI Integration
 
-The **Lightroom SDK namespace check** job greps for non-`Lr*` imports. It does not execute Lightroom.
+The **Lightroom SDK namespace check** job greps for non-`Lr*` imports and runs Lua lint. It does not execute Lightroom.
+
+```bash
+bash scripts/check-lightroom-lua.sh
+```
