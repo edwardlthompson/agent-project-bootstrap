@@ -1,9 +1,7 @@
-// Golden Path Go hello + About + crash sanitize (no network, no PII).
 package main
 
-import "fmt"
+import "os"
 
 func main() {
-	fmt.Println(Greet())
-	fmt.Println(AboutSummary())
+	os.Exit(Run(os.Args[1:], os.Stdout, os.Stderr))
 }

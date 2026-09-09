@@ -9,6 +9,7 @@ cargo fmt --check
 cargo clippy -- -D warnings
 cargo test
 cargo run
+cargo run -- --ready   # {"status":"ok"} on stdout; JSON log on stderr
 
 ```
 

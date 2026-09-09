@@ -9,6 +9,7 @@ gofmt -l .
 go vet ./...
 go test ./...
 go run .
+go run . --ready   # {"status":"ok"} on stdout; JSON log on stderr
 
 ```
 

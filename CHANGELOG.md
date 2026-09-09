@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **node:** `GET /feedback` builds a GitHub issue-form URL
 * **python:** `--feedback` prints a GitHub issue-form URL
 * **cli:** Rust About version from Cargo.toml; Go version from module build info
+* **cli:** Rust/Go `--ready` JSON probe and structured JSON logs on stderr
 
 ### Changed
 
