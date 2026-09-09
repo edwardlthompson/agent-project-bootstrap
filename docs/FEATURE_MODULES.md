@@ -105,4 +105,5 @@ Progress file: `.cursor/agent-progress.json` (gitignored). See `.cursor-session-
 
 - [`docs/FOR_AGENTS.md`](FOR_AGENTS.md) — autonomous loop
 - [`.cursor/rules/feature-modules.mdc`](../.cursor/rules/feature-modules.mdc)
-- [`BUILD_PLAN.md`](../BUILD_PLAN.md) — Sprint 2+ template
+- [`BUILD_PLAN.md`](../BUILD_PLAN.md) — this template’s live board
+- [`BUILD_PLAN_TEMPLATE.md`](../BUILD_PLAN_TEMPLATE.md) — child product board (Sprint 0–2+)

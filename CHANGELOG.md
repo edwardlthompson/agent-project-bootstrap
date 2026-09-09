@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * **ui:** Home chrome is Settings-only; theme, About, and donate live in sectioned Settings/About menus with dropdowns (not chips)
 * **docs:** Slimmer BUILD_PLAN; queued allideas 1–55 as M51–M57; sprint wrap must `smoke-sprint --require` before the next sprint
+* **docs:** Child board lives in `BUILD_PLAN_TEMPLATE.md`; both plans open with a remaining-item tally
 
 ## [1.1.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.0.0...v1.1.0) (2026-09-05)
 

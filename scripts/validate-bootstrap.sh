@@ -19,6 +19,7 @@ REQUIRED=(
   SECURITY.md
   CODE_OF_CONDUCT.md
   BUILD_PLAN.md
+  BUILD_PLAN_TEMPLATE.md
   AGENTS.md
   AGENT_MEMORY.md
   docs/START_HERE.md
@@ -159,6 +160,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-batch-commands.sh \
   check-cursor-hooks.sh \
   check-build-plan-parallel.sh \
+  check-build-plan-tally.sh \
   check-template-version-sync.sh \
   validate-template-index.sh \
   check-bootstrap-engine.sh \

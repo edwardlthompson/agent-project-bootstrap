@@ -7,7 +7,7 @@ Short definitions for first-timers. Why the files exist: [`BEST_PRACTICES.md`](.
 | Term | Meaning |
 |------|---------|
 | **Sacred** | [`AGENTS.md`](../../AGENTS.md) is the only project law. Edit it, then re-sync adapters. Do not invent a second source of truth. |
-| **Canon** | The checked-in contract (`AGENTS.md`, `BUILD_PLAN.md`, gates). Adapters are thin pointers, not extra rules. |
+| **Canon** | The checked-in contract (`AGENTS.md`, `BUILD_PLAN.md`, `BUILD_PLAN_TEMPLATE.md`, gates). Adapters are thin pointers, not extra rules. |
 | **Bootstrap vs Reference** | New child repo vs using this template as rules-only. See [`START_HERE.md`](../START_HERE.md). |
 | **Golden Path** | The runnable `examples/{stack}/` slice you copy for the next feature. |
 | **`/ideas` vs `/allideas`** | Ranked 5–8 next features vs a complete in-scope dump to fill BUILD_PLAN. Neither implements until you name numbers or say `board`. |
@@ -24,7 +24,7 @@ Short definitions for first-timers. Why the files exist: [`BEST_PRACTICES.md`](.
 | **🔲** | Open |
 | **✅** | Done |
 | **❌** | Blocked |
-Status uses those emoji. Do not convert them to GitHub `- [ ]` checkboxes. Legend: [`BUILD_PLAN.md`](../../BUILD_PLAN.md).
+Status uses those emoji. Do not convert them to GitHub `- [ ]` checkboxes. Legend: [`BUILD_PLAN.md`](../../BUILD_PLAN.md). Child model: [`BUILD_PLAN_TEMPLATE.md`](../../BUILD_PLAN_TEMPLATE.md). Both files start with a **Remaining** tally (AGENT / AUTO / HUMAN / ADB).
 
 ## Gates
 

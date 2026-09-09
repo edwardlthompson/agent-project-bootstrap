@@ -16,6 +16,7 @@ from bootstrap_engine import (
 )
 from bootstrap_post import create_welcome_issue, ensure_git_repo, install_deps, run_stack_tests
 from project_checklist import write_checklist
+from child_build_plan import install_child_build_plan
 from stamp_project import stamp_agents_md, stamp_first_30_days
 
 
@@ -93,6 +94,9 @@ def run(argv: list[str] | None = None) -> int:
         if days:
             print(f"Stamped {days}")
         print(f"Wrote {root / 'bootstrap.config.json'}")
+        installed = install_child_build_plan(root)
+        if installed:
+            print(f"Installed child board {installed}")
         hooks = cfg.get("hooks") if isinstance(cfg.get("hooks"), dict) else {}
         try:
             if args.git_init or hooks.get("post_git_init"):

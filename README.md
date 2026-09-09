@@ -290,7 +290,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 ```
 
-Each sprint has **Sequential** (ordered) and **Parallel** (isolated scope) lanes in the child-repo playbook. Template maintainers: active board is **maintenance + human open items**; completed maintainer sprints are archived in [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). See [`BUILD_PLAN.md`](BUILD_PLAN.md).
+This repo’s live board is [`BUILD_PLAN.md`](BUILD_PLAN.md). Child products start from [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (same layout, copied onto `BUILD_PLAN.md` at init). Each file opens with a remaining-item tally. Completed sprints: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 
 ## GitHub Pages Demo
 

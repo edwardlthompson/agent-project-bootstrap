@@ -1,13 +1,17 @@
 # Build Plan
 
-Live board. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
+<!-- remaining-tally -->
+**Remaining:** AGENT 64 · AUTO 7 · HUMAN 4 · ADB 2 · **77 open**
+<!-- /remaining-tally -->
+
+Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
 
 **Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts  
 **State:** 🔲 open · ✅ done · ❌ blocked — reason
 
 Format: `🔲 [AGENT] Short task`. Sequential `[AGENT]` first. Parallel scopes: [`docs/PARALLEL_AGENT_SCOPES.md`](docs/PARALLEL_AGENT_SCOPES.md). `/build` tries HUMAN/ADB after automation; failures go to `HUMAN_BACKLOG.md`.
 
-## Sprint smoke (hard stop)
+## Smoke gate (hard stop)
 
 After every `[AGENT]` row: `python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto`
 
@@ -23,7 +27,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** M50. Last ship **v1.1.0**. Child repos copy the playbook below.
+**Now:** M50. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
 ### M50 — Chrome follow-through
 
@@ -32,7 +36,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 1. 🔲 [AGENT] Chrome + chip regression gate in `check-design-cohesion`
 2. 🔲 [AGENT] Compile Android instrumented tests in feature-gate (no emulator)
 3. 🔲 [AGENT] Android Settings Data export/import (web Data parity)
-4. 🔲 [AGENT] Child Sprint 1: lock Settings-only chrome (Settings → App info)
+4. 🔲 [AGENT] Child `BUILD_PLAN_TEMPLATE.md` Sprint 1: lock Settings-only chrome
 5. 🔲 [AGENT] Second locale catalog (web + Android)
 6. 🔲 [AGENT] Home first-canvas empty state (no new chrome)
 7. 🔲 [AGENT] Tokenize launch-prompt buttons (dark-mode contrast)
@@ -135,87 +139,6 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
 Done on this board: **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
-
----
-
-## Child Repo Playbook (copy after Use this template)
-
-Init, feature specs, and About + Settings exemplars ship with the template.
-
-When Sprint 0 ends, stop living in `docs/INITIALIZATION_PROMPT.md`. Use `docs/features/_template.md` and this playbook. Reset `scratchpad.md` on sprint change; do not replace `AGENT_MEMORY.md`.
-
-### Sprint 0 — Template Customization
-
-#### Sequential
-
-1. 🔲 [AGENT] Run `scripts/init-project.sh` or `.ps1` (`--stack`; scripted: `--non-interactive --project-name --purpose`)
-1b. 🔲 [AGENT] Fill `branding/product.json` (`mode: product`); sync tokens + README
-2. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (`gh` admin)
-3. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap.sh --quick` · `feature-gate.sh --stack <active>` · `check-github-ci.sh --wait 300` (CI, Security Scan, CodeQL; CI must include Windows upgrade-sim, Repo Hygiene, Feature Gate) · `check-license-compliance.sh`
-
-#### Parallel (safe after Sequential step 5)
-
-<!-- parallel_exception: Sprint 0 — stack not selected; Parallel rows added after init -->
-
-| Task | Owner | Isolated scope |
-| ---- | ----- | -------------- |
-| *None — see parallel_exception above* | — | — |
-
-#### Human & device (after automation)
-
-> `/build` tries these; failures → `HUMAN_BACKLOG.md`.
-
-1. 🔲 [HUMAN] **Use this template** on GitHub
-1a. 🔲 [HUMAN] Distribution tier (FOSS default vs Commercial) via `init-project.sh --distribution-tier`
-2. 🔲 [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
-2a. 🔲 [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`)
-2b. 🔲 [HUMAN] Bookmark `docs/help/BATCH_COMMANDS.md` (`/bootstrap` for Sprint 0)
-
-### Sprint 1 — Golden Path Foundation
-
-#### Sequential
-
-1. 🔲 [AGENT] Lock Golden Path types/API: Settings-only chrome, About, navigation (no header Theme/About/donate)
-
-#### Parallel (safe after Sequential step 1)
-
-| Task | Owner | Isolated scope |
-| ---- | ----- | -------------- |
-| About screen verify | AGENT | `examples/{stack}/**/about/` |
-| Stack public assets | AGENT | `examples/{stack}/public/` |
-| Module + design docs | AGENT | `modules/{stack}/` |
-
-#### Human & device (after automation)
-
-1. 🔲 [HUMAN] Fill stack config (`app-update.json`, `donations.json`) or root copies; init runs `scripts/sync-stack-config.py`
-2. 🔲 [HUMAN] Approve ADR-0001 and Sprint 1 for your stack
-
-### Sprint 2+ — Incremental Features
-
-One vertical slice at a time. [`docs/FEATURE_MODULES.md`](docs/FEATURE_MODULES.md). After each `[AGENT]` step: `watch-agent-gates --once --autofix --scope auto`. After the feature (or sprint) is all ✅: `smoke-sprint --require` before the next feature.
-
-#### Per-feature Sequential (steps 1–2: lock API)
-
-1. 🔲 [AGENT] Copy `docs/features/_template.md` → `docs/features/{name}.md`
-2. 🔲 [AGENT] Scaffold feature container (public API only)
-
-#### Per-feature Parallel (safe after Sequential step 2)
-
-| Task | Owner | Isolated scope |
-| ---- | ----- | -------------- |
-| Logic + unit tests | AGENT | `examples/{stack}/src/{feature}/` or stack equivalent |
-| View + i18n | AGENT | `examples/{stack}/src/components/` or `ui/{feature}/`, locales / `strings.xml` |
-| Feature spec + acceptance | AGENT | `docs/features/{feature}.md` |
-| E2e / instrumented smoke | AGENT | `examples/{stack}/e2e/` or `androidTest/` |
-
-#### Per-feature Sequential (steps 3–4: after Parallel merge)
-
-1. 🔲 [AGENT] Unit tests for pure logic (skip if Parallel already did)
-2. 🔲 [AGENT] Wire view; composition root ≤10 lines
-
-#### Human & device (after automation)
-
-1. 🔲 [HUMAN] Optional product smoke after gates pass
 
 ---
 

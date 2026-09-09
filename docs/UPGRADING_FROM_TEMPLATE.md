@@ -38,6 +38,8 @@ Read the upstream release notes at `github.com/edwardlthompson/agent-project-boo
 | `CLAUDE.md`, `GEMINI.md`, `CONVENTIONS.md`, `.clinerules`, `.github/copilot-instructions.md`, `.cursor/rules/main.mdc`, `.windsurf/rules/`, `.continue/rules/` | Re-run `bootstrap-lifecycle.sh --sync-adapters` after AGENTS.md merge | AGENT | Canon |
 | `bootstrap.config.json` | Merge keys; keep child values | AGENT | Mixed |
 | `PROJECT_CHECKLIST.md` | Keep child progress; add new rows from upstream | HUMAN | Mixed |
+| `BUILD_PLAN_TEMPLATE.md` | Copy child board model; do not overwrite live `BUILD_PLAN.md` | AGENT | Canon |
+| `BUILD_PLAN.md` | Keep child rows; refresh legend/tally/smoke from the template file | HUMAN | Mixed |
 | `scripts/` | Copy updated template scripts | AGENT | Canon |
 | `scripts/check-file-encoding.sh` | Copy + add CI/pre-commit gate | AGENT | Canon |
 | `scripts/validate-bootstrap.sh` | Copy expanded validation | AGENT | Canon |

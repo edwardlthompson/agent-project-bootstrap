@@ -9,7 +9,7 @@ ROW = re.compile(
     r"^(?P<num>\d+[a-z]?)\.\s+(?P<status>🔲|✅|❌)\s+"
     r"\[(?P<owner>AGENT|AUTO|HUMAN|ADB)\]\s+(?P<task>.+)$"
 )
-BOARD_STOP = ("## Child Repo Playbook", "## Ongoing Maintenance", "## Archive")
+BOARD_STOP = ("## Ongoing Maintenance", "## Archive")
 
 
 @dataclass

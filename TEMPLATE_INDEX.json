@@ -854,10 +854,17 @@
     },
     {
       "path": "BUILD_PLAN.md",
-      "purpose": "Sprint task board with AGENT/HUMAN/ADB/AUTO labels",
+      "purpose": "This template repo's live sprint board (AGENT/HUMAN/ADB/AUTO)",
       "read_when": "session_start",
       "update_when": "milestone_boundary",
       "owner": "agent+human"
+    },
+    {
+      "path": "BUILD_PLAN_TEMPLATE.md",
+      "purpose": "Child product BUILD_PLAN model; copied onto BUILD_PLAN.md at init",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     },
     {
       "path": "COMPLETED_TASKS.md",
@@ -1339,6 +1346,20 @@
       "path": "scripts/plan-parallel-dispatch.sh",
       "purpose": "Build parallel agent manifest and agent_count from BUILD_PLAN",
       "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-build-plan-tally.sh",
+      "purpose": "Fail when BUILD_PLAN remaining tallies are stale",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/refresh-build-plan-tally.sh",
+      "purpose": "Rewrite remaining AGENT/AUTO/HUMAN/ADB counts on build plan files",
+      "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     },
@@ -2564,7 +2585,7 @@
     }
   },
   "roadmap": {
-    "active": "BUILD_PLAN.md \u2014 M50 chrome follow-through; M51\u2013M57 allideas queue; sprint smoke gate",
+    "active": "BUILD_PLAN.md maintainer board; BUILD_PLAN_TEMPLATE.md child model; remaining tallies",
     "completed_archive": "COMPLETED_TASKS.md",
     "batch_commands": [
       ".cursor/commands/audit.md",

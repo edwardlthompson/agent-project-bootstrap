@@ -23,6 +23,13 @@
 
 ## Entries
 
+### 2026-09-09 — Separate child BUILD_PLAN template
+- **Status:** Accepted
+- **Context:** The child playbook at the bottom of `BUILD_PLAN.md` did not match the slim maintainer board. Children need the same look and `/build` behavior.
+- **Decision:** `BUILD_PLAN_TEMPLATE.md` is the child model (canon on `/upgrade`). `init-project` copies it onto `BUILD_PLAN.md` when the repo is not this template. Both files start with a generated remaining tally (AGENT / AUTO / HUMAN / ADB). This repo’s live board stays `BUILD_PLAN.md` only.
+- **Alternatives considered:** Keep a Child Repo Playbook section (rejected: two layouts in one file). Overwrite child `BUILD_PLAN.md` on every upgrade (rejected: mixed; live rows stay).
+- **Consequences:** `--lane child` on this template reads `BUILD_PLAN_TEMPLATE.md`. Tally gate: `check-build-plan-tally.sh`.
+
 ### 2026-09-09 — Sprint smoke before the next sprint
 - **Status:** Accepted
 - **Context:** Agents checked off BUILD_PLAN rows and moved on. The board was also too wordy to scan.

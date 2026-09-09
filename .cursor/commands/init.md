@@ -1,6 +1,6 @@
 # Sprint 0 bootstrap
 
-Guide through BUILD_PLAN Child Repo Playbook Sprint 0 Sequential lane.
+Guide through `BUILD_PLAN.md` Sprint 0 (from `BUILD_PLAN_TEMPLATE.md` after init).
 
 1. Confirm repo was created via **Use this template** and @docs/INITIALIZATION_PROMPT.md placeholders are filled ([HUMAN] if not).
 2. Run or verify `scripts/init-project.sh` (or `.ps1`) with chosen stack.

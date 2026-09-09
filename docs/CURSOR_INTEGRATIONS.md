@@ -116,7 +116,7 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 | `parallel-scope` | `/scope` |
 | `watch-gates-autofix` | `/fix` |
 | `check-repo-hygiene` | `/gates`, `/audit` |
-| `sprint0-signoff` | Sprint 0 Child Repo Playbook |
+| `sprint0-signoff` | Sprint 0 on `BUILD_PLAN_TEMPLATE.md` |
 | `feature-vertical-slice` | `/feature` |
 | `canvas-bootstrap-status` | `/gates` (Canvas; markdown fallback) |
 | `update-deps` | `/update-deps`, `/ship` |
