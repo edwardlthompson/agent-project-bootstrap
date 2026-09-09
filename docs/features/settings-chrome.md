@@ -7,7 +7,7 @@
 - ✅ Home header / TopAppBar has **one** trailing action: Settings
 - ✅ Theme, About, and donate never appear in home chrome
 - ✅ Theme is a dropdown under Settings → Appearance (system / light / dark); no chips for exclusive enums
-- ✅ Settings groups scan in order: Appearance → Privacy → Data (when present) → About
+- ✅ Settings groups scan in order: Appearance → Privacy → Data (export/import JSON) → About
 - ✅ About groups scan in order: App → Support → Feedback; feedback is a dropdown
 - ✅ Donate links live only under Settings → App info
 - ✅ Offline: menus render from local state; no network required

@@ -107,6 +107,13 @@ fun SettingsScreen(
             Switch(checked = saveCrashes, onCheckedChange = onSaveCrashes)
         }
         HorizontalDivider()
+        SettingsDataSection(
+            themeMode = themeMode,
+            saveCrashes = saveCrashes,
+            onThemeModeSelect = onThemeModeSelect,
+            onSaveCrashes = onSaveCrashes,
+        )
+        HorizontalDivider()
         SectionLabel(stringResource(R.string.settings_section_about))
         Row(
             modifier = Modifier
