@@ -55,13 +55,24 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Autonomous `/build`:** Runs all `[AGENT]`/`[AUTO]` and Parallel work first, then attempts the grouped **Human & device (after automation)** section via `scripts/attempt-build-plan-row.sh`. Success marks ✅; failure appends `HUMAN_BACKLOG.md` and continues — never halts on human labels. Humans review the grouped section (and backlog) after automation finishes. Status: `bash scripts/build-sprint-status.sh --json`.
 
-> **Template maintainer:** **M47** Sequential AGENT rows open (Cline-first onboarding + Golden Path nav). M46 AGENT/AUTO archived. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.0.0**. **Child repos:** copy the playbook.
+> **Template maintainer:** **M48** Sequential AGENT rows (Android runtime budget + optional Grok Bots). M47 AGENT archived below as done. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.1.0**. **Child repos:** copy the playbook.
 
 ---
 
 ## Template Maintainer — Active Board
 
-> **v1.0.0** published @ `3dae768`. **M47** Sequential AGENT rows below (Cline-first + Golden Path nav). **M46** AGENT/AUTO archived in COMPLETED_TASKS.md @ `6229822`. Closed HUMAN leftovers archived in COMPLETED_TASKS.md @ `c61d249`. Still open: CII login, optional Ollama, Android SDK licenses. **M45** and **M44** archived in COMPLETED_TASKS.md. **v0.25.0** archived in COMPLETED_TASKS.md @ `7670444`. **v0.24.0** archived in COMPLETED_TASKS.md @ `c0f0dee`.
+> **v1.1.0** published. **M48** Sequential AGENT rows below (R8 + Android 17 memory + Grok Bot ops). **M47** Cline-first + Golden Path nav is done. Still open: CII login, optional Ollama, Android SDK licenses.
+
+### M48 — Android runtime budget + optional Grok Bots (Sequential)
+
+> Compose BOM is already `2026.08.00`. Enable release R8, memory-limit hooks, and commercial-optional Bot prompts. No Parallel split — single Android + docs slice.
+
+<!-- parallel_exception: M48 — one feature container (android memory/R8) plus commercial docs; overlapping MODULE.md -->
+
+1. ✅ [AGENT] Release R8 minify/shrink + narrow proguard-rules + analyzer docs
+2. ✅ [AGENT] GoldenPathApplication memory limiter + trim + unit/structure tests
+3. ✅ [AGENT] Compose 1.12 notes, Grok Bot ops doc, ADR-0003 + feature spec
+4. ✅ [AGENT] verify + TEMPLATE_INDEX + changelog
 
 ### M47 — Cline-first onboarding + Golden Path navigation (Sequential)
 
@@ -82,6 +93,7 @@ grep '\[AUTO\]' BUILD_PLAN.md
 1. 🔲 [HUMAN] Optional: install Ollama and point Cursor Models at `http://127.0.0.1:11434/v1` (`docs/LOCAL_MODELS.md`)
 2. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator` or `just android-instrumented`)
 3. 🔲 [ADB] Golden Path nav smoke: Settings Back → home, second Back does not finish (needs SDK/emulator)
+4. 🔲 [ADB] Optional: release APK + `:app:analyzeReleaseR8Config`; memory-limiter adb smoke (`docs/features/android-runtime-budget.md`)
 
 ---
 

@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **android:** release R8 minify/shrink, R8 Configuration Analyzer docs, and Android 17 memory-limit hooks
+* **docs:** optional Grok Bot ops for Android platform/R8/memory scouting (`docs/GROK_BOTS.md`)
+
+### Changed
+
+* **android:** Compose 1.12 floor notes (BOM already `2026.08.00`); Credential Manager stays off the FOSS path
 * **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
 
 ## [1.1.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.0.0...v1.1.0) (2026-09-05)

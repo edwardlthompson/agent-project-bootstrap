@@ -276,6 +276,14 @@
       "last_seen": "2026-07-21"
     },
     {
+      "id": "grok.bots",
+      "category": "cloud",
+      "distribution_tier": "commercial",
+      "doc_url": "https://docs.x.ai/grok-bot/overview",
+      "template_status": "example",
+      "last_seen": "2026-09-09"
+    },
+    {
       "id": "approval.agents",
       "category": "cloud",
       "distribution_tier": "commercial",

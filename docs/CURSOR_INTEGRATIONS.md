@@ -33,6 +33,7 @@ After `scripts/init-project.sh --distribution-tier commercial`:
 - All FOSS layers above remain enabled
 - `sync-cursor-features.py` activates `commercial-compliance.mdc` instead of `foss-compliance.mdc`
 - Copy commercial examples per [`CURSOR_COMMERCIAL_ACTIVATION.md`](CURSOR_COMMERCIAL_ACTIVATION.md)
+- Optional always-on teammates: [`GROK_BOTS.md`](GROK_BOTS.md) (Android/R8 scouting; no FOSS requirement)
 
 ## Hooks
 

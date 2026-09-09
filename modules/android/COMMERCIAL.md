@@ -7,6 +7,8 @@
 - Google Play Services (FCM, Maps) with privacy policy updates
 - Firebase Analytics/Crashlytics — opt-in telemetry only
 - Play Store distribution alongside or instead of F-Droid
+- Compose Credential Manager / passkeys (`credentialRequest` semantics) when Play Services is already approved
+- `ProfilingManager` heap-dump upload to a backend you operate (not the FOSS GitHub-issue crash path)
 
 ## Trade-offs
 

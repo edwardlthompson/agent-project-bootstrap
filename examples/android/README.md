@@ -40,8 +40,12 @@ CI validates Gradle file structure and FOSS compliance markers only. Full APK bu
 export SOURCE_DATE_EPOCH=1700000000
 cd examples/android
 ./gradlew assembleDebug
+./gradlew assembleRelease
+./gradlew :app:analyzeReleaseR8Config
 
 ```
+
+Release R8 is on (`isMinifyEnabled` + resource shrinking). Retrace stacks with `app/build/outputs/mapping/release/mapping.txt`. Do not add package-wide keep rules. Memory limits: `GoldenPathApplication` + [`docs/features/android-runtime-budget.md`](../../docs/features/android-runtime-budget.md).
 
 ## Emulator checklist
 
