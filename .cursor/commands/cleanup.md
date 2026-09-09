@@ -7,7 +7,8 @@ Run after BUILD_PLAN execution when local gates pass. Moves finished work off th
 ## Step 1 — Confirm completion
 
 - All executed `[AGENT]` and `[AUTO]` rows in the active block are ✅
-- Gates passed for this session (`watch-agent-gates.sh`, `feature-gate.sh`, or the parent workflow's gate step)
+- Per-row gates passed (`watch-agent-gates.sh`)
+- Sprint wrap `python3 scripts/agent-run.py smoke-sprint --require` passed (every ✅ row smoked; no errors/crashes)
 - Replace 🔲 → ✅ only for rows verified done **this session**; never mark complete while gates are red
 
 ## Step 2 — Archive to COMPLETED_TASKS.md

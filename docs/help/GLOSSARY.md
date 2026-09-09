@@ -32,6 +32,7 @@ Status uses those emoji. Do not convert them to GitHub `- [ ]` checkboxes. Legen
 |------|---------|
 | **Gate** | A local check that matches CI (`bash scripts/verify.sh`). |
 | **Feature gate** | Stack tests for the active Golden Path. `/build` uses `--scope auto` (dirty stacks); `/gates` is full multi-stack. |
+| **Sprint smoke** | After a sprint is all ✅, `smoke-sprint --require` re-checks every row (no crashes; startup + load order) before the next sprint. |
 | **3-strike** | After three failed auto-fixes, stop and ask a human. `/debug` reads `strikes` in `.cursor/agent-progress.json`. |
 ## Destructive ops
 

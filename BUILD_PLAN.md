@@ -1,277 +1,253 @@
 # Build Plan
 
-> Prioritized task board with owner labels. **Completed sprints:** `COMPLETED_TASKS.md`.
+Live board. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 
-## Owner Label Legend
+**Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts  
+**State:** 🔲 open · ✅ done · ❌ blocked — reason
 
-| Label   | Owner           | When to use                                                |
-| ------- | --------------- | ---------------------------------------------------------- |
-| `AGENT` | Cursor Agent    | Code, docs, scaffolding, tests, CI config                  |
-| `HUMAN` | Human developer | Approvals, credentials, GitHub settings, product decisions |
-| `ADB`   | Human (Android) | Android SDK, emulator/device testing, F-Droid submission   |
-| `AUTO`  | CI/scripts/bots | GitHub Actions, Dependabot, pre-commit, update checker     |
-## Status markers
+Format: `🔲 [AGENT] Short task`. Sequential `[AGENT]` first. Parallel scopes: [`docs/PARALLEL_AGENT_SCOPES.md`](docs/PARALLEL_AGENT_SCOPES.md). `/build` tries HUMAN/ADB after automation; failures go to `HUMAN_BACKLOG.md`.
 
-Use **emoji markers** (not `- [ ]` GitHub checkboxes) so task state reads clearly in Markdown source and Preview. **Applies repo-wide** — `BUILD_PLAN.md`, module checklists, PR template, feature specs, and security triage.
+## Sprint smoke (hard stop)
 
-| Marker | State   | Agent action                                                          |
-| ------ | ------- | --------------------------------------------------------------------- |
-| 🔲     | Open    | Default for new tasks; work or leave queued                           |
-| ✅      | Done    | Replace 🔲 when complete; archive sprint rows to `COMPLETED_TASKS.md` |
-| ❌      | Blocked | Replace 🔲 when blocked; add brief reason after the description       |
-**Task format:** `🔲 [OWNER] Description` · done: `✅ [OWNER] Description` · blocked: `❌ [OWNER] Description — reason`
+After every `[AGENT]` row: `python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto`
+
+After the **last** `[AGENT]`/`[AUTO]` row in a sprint is ✅, do **not** start the next sprint until this exits 0:
 
 ```bash
-grep '\[AGENT\]' BUILD_PLAN.md
-grep '\[HUMAN\]' BUILD_PLAN.md
-grep '\[ADB\]' BUILD_PLAN.md
-grep '\[AUTO\]' BUILD_PLAN.md
-
+python3 scripts/agent-run.py smoke-sprint --require
 ```
 
-**Agent rule:** Execute all `[AGENT]` **Sequential** items first, then dispatch **Parallel** agents with isolated file scopes (`docs/PARALLEL_AGENT_SCOPES.md`). Shared schema/types are Sequential-only.
-
-### Parallel dispatch protocol (orchestrator)
-
-| Step | Action                                                                                                                                                                     |
-| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1    | Finish all `[AGENT]` **Sequential** items for the active sprint/feature (shared schema/types locked)                                                                       |
-| 2    | **Discover** parallelizable work using the decomposition checklist below; add Parallel table rows with non-overlapping ``path/**`` scopes                                  |
-| 3    | Run `bash scripts/plan-parallel-dispatch.sh` → read **agent_count**                                                                                                        |
-| 4    | If `agent_count >= 2`, run `/scope` (auto Task dispatch); if `1`, execute inline; if `0`, run `--suggest` and expand the Parallel table (or document `parallel_exception`) |
-| 5    | Sequential owner merges results, runs `watch-agent-gates.sh`, updates BUILD_PLAN (Parallel agents never edit BUILD_PLAN)                                                   |
-**Decomposition checklist** (apply before finalizing Sequential items):
-
-| Heuristic                     | Split into Parallel agents                                                                  |
-| ----------------------------- | ------------------------------------------------------------------------------------------- |
-| Multi-stack repo              | One agent per active module (`examples/{stack}/`**)                                         |
-| Feature container (Sprint 2+) | Agent A: pure logic + unit tests; Agent B: view/Composable + i18n                           |
-| Tests vs production code      | Separate `**/*.test.*`, `e2e/**`, `androidTest/**` when paths do not overlap implementation |
-| Docs vs code                  | Agent A: `examples/**`; Agent B: `docs/**`, `modules/**`, `.cursor/rules/**`                |
-| CI/gates vs app code          | Agent A: `scripts/**`, `.github/workflows/**`; Agent B: stack example tree                  |
-**Default rule:** If a Sequential `[AGENT]` item touches two or more non-overlapping directory prefixes, **split it** — leave only schema-lock work Sequential.
-
-**Planning (Plan Mode):** Every BUILD_PLAN proposal must include `### Parallelization` with `agent_count_target`, decomposition table, and dry-run from `plan-parallel-dispatch.sh`. Run `check-build-plan-parallel.sh` before human approval.
-
-**Autonomous `/build`:** Runs all `[AGENT]`/`[AUTO]` and Parallel work first, then attempts the grouped **Human & device (after automation)** section via `scripts/attempt-build-plan-row.sh`. Success marks ✅; failure appends `HUMAN_BACKLOG.md` and continues — never halts on human labels. Humans review the grouped section (and backlog) after automation finishes. Status: `bash scripts/build-sprint-status.sh --json`.
-
-> **Template maintainer:** **M50** Sequential AGENT (chrome follow-through). M49 done. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.1.0**. **Child repos:** copy the playbook.
+That command re-smokes **every** ✅ row: no errors or crashes, plus startup time and load order. Details: [`docs/SPRINT_SMOKE.md`](docs/SPRINT_SMOKE.md). Fail → leave the last row open or ❌; fix; re-run. `/gates` wrap-up includes the same check.
 
 ---
 
-## Template Maintainer — Active Board
+## Template Maintainer
 
-> **v1.1.0** published. **M50** Sequential AGENT rows below (chrome follow-through). **M49** done. **M47** AGENT/AUTO archived below. Closed HUMAN leftovers archived in COMPLETED_TASKS.md @ `c61d249`. Still open: CII login, optional Ollama, Android SDK licenses. **M45** and **M44** archived in COMPLETED_TASKS.md. **v0.25.0** archived in COMPLETED_TASKS.md @ `7670444`. **v0.24.0** archived in COMPLETED_TASKS.md @ `c0f0dee`.
+**Now:** M50. Last ship **v1.1.0**. Child repos copy the playbook below.
 
-### M50 — Golden Path chrome follow-through (Sequential)
+### M50 — Chrome follow-through
 
-> Queued from `/ideas` 1–7. Home chrome stays Settings-only; gates and stack parity catch regressions.
+<!-- parallel_exception: overlapping scripts, docs, web, and Android — Sequential order -->
 
-<!-- parallel_exception: overlapping scripts, docs, web, and Android slices — run Sequential in listed order -->
+1. 🔲 [AGENT] Chrome + chip regression gate in `check-design-cohesion`
+2. 🔲 [AGENT] Compile Android instrumented tests in feature-gate (no emulator)
+3. 🔲 [AGENT] Android Settings Data export/import (web Data parity)
+4. 🔲 [AGENT] Child Sprint 1: lock Settings-only chrome (Settings → App info)
+5. 🔲 [AGENT] Second locale catalog (web + Android)
+6. 🔲 [AGENT] Home first-canvas empty state (no new chrome)
+7. 🔲 [AGENT] Tokenize launch-prompt buttons (dark-mode contrast)
 
-1. 🔲 [AGENT] Chrome + chip regression gate in `check-design-cohesion` (no header ThemeToggle/About/donate; no FilterChip theme)
-2. 🔲 [AGENT] Compile Android instrumented tests in feature-gate without an emulator (`:app:compileDebugAndroidTestKotlin`)
-3. 🔲 [AGENT] Android Settings Data export/import parity with the web Data group
-4. 🔲 [AGENT] Child playbook Sprint 1: lock Settings-only chrome (Settings → App info; no header icons)
-5. 🔲 [AGENT] Second locale catalog for i18n layout stress (web + Android)
-6. 🔲 [AGENT] Home first-canvas empty state (one status card; no new chrome)
-7. 🔲 [AGENT] Tokenize launch-prompt buttons with design tokens (dark-mode contrast)
+### M51 — CLI / API
 
-### M49 — Minimal chrome + glanceable Settings menus (Sequential)
+<!-- parallel_exception: shared contract then per-stack ports -->
 
-> Home chrome is one Settings action. Theme, About, and donate live in sectioned Settings/About with dropdowns (not chips).
+1. 🔲 [AGENT] Shared JSON About/donate/update (Node, Python, Rust, Go)
+2. 🔲 [AGENT] Node GitHub feedback HTTP route
+3. 🔲 [AGENT] Python `--feedback` CLI
+4. 🔲 [AGENT] Rust/Go version from Cargo.toml / module
+5. 🔲 [AGENT] Rust/Go JSON logs + readiness
+6. 🔲 [AGENT] Node OpenAPI spec + contract tests
+7. 🔲 [AGENT] Python OpenAPI + JSON logging
+8. 🔲 [AGENT] Python mypy in pre-commit
 
-<!-- parallel_exception: one overlapping chrome/IA slice across web, Android, i18n, and design docs -->
+### M52 — UI, a11y, nav proof
 
-1. ✅ [AGENT] Minimal home chrome + sectioned Settings/About menus (dropdowns, not chips); tests; DESIGN_GUIDE
+<!-- parallel_exception: shared Settings/a11y contract across web and Android -->
 
-### M47 — Cline-first onboarding + Golden Path navigation (Sequential)
+1. 🔲 [AGENT] Settings/About/Feedback visual snapshots
+2. 🔲 [AGENT] Settings in-panel search
+3. 🔲 [AGENT] Settings export schema migrations
+4. 🔲 [AGENT] Android RTL/locale instrumented stress
+5. 🔲 [AGENT] Android TalkBack + keyboard smoke
+6. 🔲 [AGENT] Compose a11y lint gate
+7. 🔲 [AGENT] Lighthouse a11y + best-practices floors
+8. 🔲 [AGENT] Android nav-stack property tests
 
-> Execute in order. Schema lock (row 1) before web/Android wiring. Do not implement in the plan-only PR. Parallel web/Android dispatch waits until row 1 is ✅.
+### M53 — Android distribution
 
-1. ✅ [AGENT] Nav model + docs/features/navigation.md + pure unit tests
-2. ✅ [AGENT] Cline-first onboarding (extensions.json, docs/help/CLINE.md, strip Codex from tour/ship)
-3. ✅ [AGENT] Web: history stack + persist + wire AppShell
-4. ✅ [AGENT] Android: BackHandler + persist + wire Golden Path UI
-5. ✅ [AGENT] verify + docs twins + adapter sync
+<!-- parallel_exception: release path is one slice (R8 → recipe → metadata) -->
 
-### M46 leftovers (human only)
+1. 🔲 [AGENT] Land android runtime-budget branch (PR #95)
+2. 🔲 [AGENT] R8 analyzer in CI / feature-gate
+3. 🔲 [AGENT] Reproducible APK in feature-gate
+4. 🔲 [AGENT] F-Droid build recipe YAML
+5. 🔲 [AGENT] Fastlane full metadata
+6. 🔲 [AGENT] F-Droid AntiFeatures template
+7. 🔲 [AGENT] UnifiedPush sample
+8. 🔲 [AGENT] Android signing + rollback runbook
 
-1. 🔲 [HUMAN] P2: CII Best Practices checklist (login + public badge)
+### M54 — Catalog + Lightroom
 
-### M43 leftovers (human/device)
+<!-- parallel_exception: catalog schema lock before optional-stack docs -->
 
-1. 🔲 [HUMAN] Optional: install Ollama and point Cursor Models at `http://127.0.0.1:11434/v1` (`docs/LOCAL_MODELS.md`)
-2. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator` or `just android-instrumented`)
-3. 🔲 [ADB] Golden Path nav smoke: Settings Back → home, second Back does not finish (needs SDK/emulator)
+1. 🔲 [AGENT] Lightroom Lua lint
+2. 🔲 [AGENT] Second Lr* plugin entry
+3. 🔲 [AGENT] Lightroom SDK bump playbook
+4. 🔲 [AGENT] Sync web MODULE.md checklists
+5. 🔲 [AGENT] Sync Android MODULE F-Droid rows
+6. 🔲 [AGENT] Add `navigation` to `feature-catalog.json`
+7. 🔲 [AGENT] Feature-catalog optional stacks (Lightroom)
+
+### M55 — CI + security
+
+<!-- parallel_exception: shared CI/security config -->
+
+1. 🔲 [AGENT] Dependabot Cargo + Go
+2. 🔲 [AGENT] Scorecard SARIF auto-classifier
+3. 🔲 [AGENT] Semgrep prompt-injection pack
+4. 🔲 [AGENT] Optional Nix flake CI
+5. 🔲 [AGENT] Radar → BUILD_PLAN draft
+6. 🔲 [AGENT] AUTOMERGE_TOKEN in setup-github-repo
+7. 🔲 [AGENT] GlitchTip/Bugsink stub (not a live crash-proxy)
+8. 🔲 [AGENT] Cross-stack sanitizer fixture CI job
+
+### M56 — Desktop packaging
+
+<!-- parallel_exception: Winget docs then binary loop -->
+
+1. 🔲 [AGENT] Winget manifest example
+2. 🔲 [AGENT] Winget multi-arch docs
+3. 🔲 [AGENT] Desktop binary + Winget publish loop
+
+### M57 — Cursor + docs
+
+<!-- parallel_exception: registry/docs are one overlapping slice -->
+
+1. 🔲 [AGENT] Land `docs/GROK_BOTS.md` on main
+2. 🔲 [AGENT] Plugin marketplace runbook
+3. 🔲 [AGENT] Skills for `/emulator` and `/adr`
+4. 🔲 [AGENT] Refresh `CURSOR_FEATURE_REGISTRY.json`
+5. 🔲 [AGENT] Commercial Automations YAML
+6. 🔲 [AGENT] Commercial Cloud hook merge test
+7. 🔲 [AGENT] Canvas / design-mode walkthrough
+8. 🔲 [AGENT] Cursor CLI local-loop recipe
+9. 🔲 [AGENT] `/tour` + COACH: Settings-only chrome
+10. 🔲 [AGENT] `batch-commands-print.html` audit
+11. 🔲 [AGENT] `check-template-gaps` optional-stack rows
+12. 🔲 [AGENT] ADR-0001 architecture-pick gate
+13. 🔲 [AGENT] Living `ci-gap` registry
+
+### Waiting on a person
+
+1. 🔲 [HUMAN] CII Best Practices checklist (login + public badge)
+2. 🔲 [HUMAN] Optional: Ollama at `http://127.0.0.1:11434/v1` (`docs/LOCAL_MODELS.md`)
+3. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
+4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
+
+Done on this board: **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 
 ## Child Repo Playbook (copy after Use this template)
 
-> Init scripts, feature docs (`docs/features/_template.md`), and About + Settings exemplars ship with the template. Mirror the Sequential + Parallel lane structure from Sprint M9 when customizing.
+Init, feature specs, and About + Settings exemplars ship with the template.
 
-### CRITICAL NOTES (phase transitions)
-
-When **Sprint 0** ends: stop re-reading `docs/INITIALIZATION_PROMPT.md` as the daily driver. `/feature` expects a copied `docs/features/{name}.md` from `_template.md`, a locked public API, then Parallel logic/view slices. Copy `scratchpad.md.example` → `scratchpad.md` (gitignored) and **reset** it on sprint/phase change — do not replace `AGENT_MEMORY.md`.
+When Sprint 0 ends, stop living in `docs/INITIALIZATION_PROMPT.md`. Use `docs/features/_template.md` and this playbook. Reset `scratchpad.md` on sprint change; do not replace `AGENT_MEMORY.md`.
 
 ### Sprint 0 — Template Customization
 
 #### Sequential
 
-1. 🔲 [AGENT] Run `scripts/init-project.sh` or `scripts/init-project.ps1` (`--stack <name>`; `--non-interactive` with `--project-name` + `--purpose` for scripted init)
-1b. 🔲 [AGENT] Fill `branding/product.json` (set `mode: product`), replace logos if needed, run `sync-design-tokens.py` + `generate-project-readme.py`
-2. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (requires `gh` auth with admin)
-3. 🔲 [AUTO] Sprint 0 sign-off (all green on `main`):
-  - `validate-bootstrap.sh --quick`
-  - `feature-gate.sh --stack <active>`
-  - `check-github-ci.sh --wait 300` (required: **CI**, **Security Scan**, **CodeQL**; **CI** must include **Template Upgrade Simulation (Windows)**, **Repo Hygiene**, **Feature Gate**)
-  - `check-license-compliance.sh` (after `npm ci` / `uv sync`)
+1. 🔲 [AGENT] Run `scripts/init-project.sh` or `.ps1` (`--stack`; scripted: `--non-interactive --project-name --purpose`)
+1b. 🔲 [AGENT] Fill `branding/product.json` (`mode: product`); sync tokens + README
+2. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (`gh` admin)
+3. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap.sh --quick` · `feature-gate.sh --stack <active>` · `check-github-ci.sh --wait 300` (CI, Security Scan, CodeQL; CI must include Windows upgrade-sim, Repo Hygiene, Feature Gate) · `check-license-compliance.sh`
 
 #### Parallel (safe after Sequential step 5)
 
 <!-- parallel_exception: Sprint 0 — stack not selected; Parallel rows added after init -->
 
-| Task                                  | Owner | Isolated scope |
-| ------------------------------------- | ----- | -------------- |
-| *None — see parallel_exception above* | —     | —              |
+| Task | Owner | Isolated scope |
+| ---- | ----- | -------------- |
+| *None — see parallel_exception above* | — | — |
+
 #### Human & device (after automation)
 
-> Address after `/build` completes AGENT/AUTO work above. `/build` attempts each row via automation; failures land in `HUMAN_BACKLOG.md`.
+> `/build` tries these; failures → `HUMAN_BACKLOG.md`.
 
-1. 🔲 [HUMAN] Click **Use this template** on GitHub to create your project repo
-
-1a. 🔲 [HUMAN] Choose **distribution tier** (FOSS default vs Commercial) via `init-project.sh --distribution-tier`
-2. 🔲 [HUMAN] Fill placeholders in `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
-2a. 🔲 [HUMAN] Pick Cursor mode per `[docs/CURSOR_MODES.md](docs/CURSOR_MODES.md)` (Ask to explore, Plan for architecture)
-2b. 🔲 [HUMAN] Bookmark `[docs/help/BATCH_COMMANDS.md](docs/help/BATCH_COMMANDS.md)` — type `/` in Agent chat (`/bootstrap` for Sprint 0)
+1. 🔲 [HUMAN] **Use this template** on GitHub
+1a. 🔲 [HUMAN] Distribution tier (FOSS default vs Commercial) via `init-project.sh --distribution-tier`
+2. 🔲 [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md` (platform, purpose)
+2a. 🔲 [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`)
+2b. 🔲 [HUMAN] Bookmark `docs/help/BATCH_COMMANDS.md` (`/bootstrap` for Sprint 0)
 
 ### Sprint 1 — Golden Path Foundation
 
 #### Sequential
 
-1. 🔲 [AGENT] Lock shared Golden Path schema/types/API for active stack (About + navigation surface only)
+1. 🔲 [AGENT] Lock Golden Path types/API: Settings-only chrome, About, navigation (no header Theme/About/donate)
 
 #### Parallel (safe after Sequential step 1)
 
-| Task                 | Owner | Isolated scope               |
-| -------------------- | ----- | ---------------------------- |
-| About screen verify  | AGENT | `examples/{stack}/**/about/` |
-| Stack public assets  | AGENT | `examples/{stack}/public/`   |
-| Module + design docs | AGENT | `modules/{stack}/`           |
+| Task | Owner | Isolated scope |
+| ---- | ----- | -------------- |
+| About screen verify | AGENT | `examples/{stack}/**/about/` |
+| Stack public assets | AGENT | `examples/{stack}/public/` |
+| Module + design docs | AGENT | `modules/{stack}/` |
+
 #### Human & device (after automation)
 
-> Address after `/build` completes AGENT/AUTO and Parallel work above.
-
-1. 🔲 [HUMAN] Fill stack-local config: web `examples/web/public/app-update.json` + `donations.json`; Android `assets/` mirrors; or root `.app-update.json` / `donations.json` (init runs `scripts/sync-stack-config.py`)
-2. 🔲 [HUMAN] Approve ADR-0001 and BUILD_PLAN Sprint 1 for your stack
+1. 🔲 [HUMAN] Fill stack config (`app-update.json`, `donations.json`) or root copies; init runs `scripts/sync-stack-config.py`
+2. 🔲 [HUMAN] Approve ADR-0001 and Sprint 1 for your stack
 
 ### Sprint 2+ — Incremental Features
 
-> One vertical slice at a time. See `docs/FEATURE_MODULES.md`. Reference exemplars: `docs/features/settings.md` (Sprint 2), About (Sprint 1).
-
-**Agent rule:** After every `[AGENT]` step → `bash scripts/watch-agent-gates.sh --once --autofix --step <scaffold|tests|wire>`.
+One vertical slice at a time. [`docs/FEATURE_MODULES.md`](docs/FEATURE_MODULES.md). After each `[AGENT]` step: `watch-agent-gates --once --autofix --scope auto`. After the feature (or sprint) is all ✅: `smoke-sprint --require` before the next feature.
 
 #### Per-feature Sequential (steps 1–2: lock API)
 
-1. 🔲 [AGENT] Copy `docs/features/_template.md` → `docs/features/{name}.md`; refine acceptance criteria
-2. 🔲 [AGENT] Scaffold feature container (public API boundary only)
+1. 🔲 [AGENT] Copy `docs/features/_template.md` → `docs/features/{name}.md`
+2. 🔲 [AGENT] Scaffold feature container (public API only)
 
 #### Per-feature Parallel (safe after Sequential step 2)
 
-| Task                      | Owner | Isolated scope                                                                    |
-| ------------------------- | ----- | --------------------------------------------------------------------------------- |
-| Logic + unit tests        | AGENT | `examples/{stack}/src/{feature}/` or stack equivalent                             |
-| View + i18n               | AGENT | `examples/{stack}/src/components/` or `ui/{feature}/`, `locales/` / `strings.xml` |
-| Feature spec + acceptance | AGENT | `docs/features/{feature}.md`                                                      |
-| E2e / instrumented smoke  | AGENT | `examples/{stack}/e2e/` or `examples/{stack}/**/androidTest/`                     |
+| Task | Owner | Isolated scope |
+| ---- | ----- | -------------- |
+| Logic + unit tests | AGENT | `examples/{stack}/src/{feature}/` or stack equivalent |
+| View + i18n | AGENT | `examples/{stack}/src/components/` or `ui/{feature}/`, locales / `strings.xml` |
+| Feature spec + acceptance | AGENT | `docs/features/{feature}.md` |
+| E2e / instrumented smoke | AGENT | `examples/{stack}/e2e/` or `androidTest/` |
+
 #### Per-feature Sequential (steps 3–4: after Parallel merge)
 
-1. 🔲 [AGENT] Unit tests for feature pure logic (skip if Parallel agent completed)
-2. 🔲 [AGENT] Wire view/adapter; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) ≤10 lines
+1. 🔲 [AGENT] Unit tests for pure logic (skip if Parallel already did)
+2. 🔲 [AGENT] Wire view; composition root ≤10 lines
 
 #### Human & device (after automation)
 
-> Optional product judgment after gates pass.
-
-1. 🔲 [HUMAN] Optional product smoke after `[AUTO]` gate pass
-
-> Gates (`watch-agent-gates.sh`) run Sequential-side after each AGENT step — not in Parallel.
+1. 🔲 [HUMAN] Optional product smoke after gates pass
 
 ---
 
 ## Ongoing Maintenance (recurring)
 
-> **Template maintainer:** `bash scripts/run-maintainer-gates.sh` weekly (omit `--quick` for full CI wait).
+Template weekly: `bash scripts/run-maintainer-gates.sh` (omit `--quick` to wait on CI).
 
 ### Weekly
 
-- 🔲 [AUTO] `cursor-feature-radar.sh` (non-blocking; artifact in weekly-health-check)
-- 🔲 [AUTO] `check-security-triage.sh --wait-ci 300` (Dependabot + CI + Scorecard)
-- 🔲 [AGENT] `/update-deps` locally; triage leftover Dependabot PRs and Scorecard SARIF
-- 🔲 [AUTO] CI matrix + Repo Hygiene + Feature Gate green on `main`
+- 🔲 [AUTO] `cursor-feature-radar.sh` (non-blocking)
+- 🔲 [AUTO] `check-security-triage.sh --wait-ci 300`
+- 🔲 [AGENT] `/update-deps`; leftover Dependabot + Scorecard
+- 🔲 [AUTO] CI + Repo Hygiene + Feature Gate green on `main`
 
 ### Monthly
 
-- 🔲 [AUTO] `simulate-template-upgrade.sh` (also in `weekly-health-check.yml`)
+- 🔲 [AUTO] `simulate-template-upgrade.sh`
 - 🔲 [AUTO] `check-license-compliance.sh` + SBOM on latest release
 - 🔲 [AGENT] Review Dependabot auto-merge PRs (KB-007)
 
 ### Pre-release (every version)
 
-- 🔲 [AUTO] `pre-release-gate.sh --local` before push; full `pre-release-gate.sh` + `run-maintainer-gates.sh` after (`verify-branch-protection.sh`)
-- 🔲 [AUTO] Release Please PR merged; CHANGELOG + manifest bumped
+- 🔲 [AUTO] `pre-release-gate.sh --local` before push; full gate + `run-maintainer-gates.sh` after
+- 🔲 [AUTO] Release Please merged; CHANGELOG + manifest bumped
 
 ### Human (after automation)
 
-> Product approvals after automated pre-release gates pass.
-
 - 🔲 [HUMAN] Approve release tag when product-ready
-- 🔲 [HUMAN] Quarterly Cursor feature radar backlog review (next due 2026-11-15; last pass 2026-08-15)
+- 🔲 [HUMAN] Quarterly Cursor feature radar (next 2026-11-15; last 2026-08-15)
 
 ---
 
-## Archived Sprints
+## Archive
 
-| Sprint                                                            | Status   | Archive                          |
-| ----------------------------------------------------------------- | -------- | -------------------------------- |
-| HUMAN leftover automation                                         | Complete | `COMPLETED_TASKS.md` @ `c61d249` |
-| M46 — /allideas template backlog                                  | Complete | `COMPLETED_TASKS.md` @ `6229822` |
-| M45 — /ideas round 2                                             | Complete | `COMPLETED_TASKS.md`             |
-| M44 — /ideas ship hygiene                                        | Complete | `COMPLETED_TASKS.md`             |
-| v0.25.0 Local-first deps and resource packing                     | Complete | `COMPLETED_TASKS.md` @ `7670444` |
-| M43 — Local resource packing                                      | Complete | `COMPLETED_TASKS.md`             |
-| M42 — Local-first dependency updater                              | Complete | `COMPLETED_TASKS.md`             |
-| v0.24.0 Privacy-first GitHub feedback                             | Complete | `COMPLETED_TASKS.md` @ `c0f0dee` |
-| M41 — Privacy-first GitHub crash and feedback                     | Complete | `COMPLETED_TASKS.md`             |
-| v0.23.0 Continuum donations and updates                           | Complete | `COMPLETED_TASKS.md` @ `b85cd74` |
-| M40 — Donations and updates (Continuum method)                    | Complete | `COMPLETED_TASKS.md`             |
-| v0.22.0 Android same-resolution high-refresh                      | Complete | `COMPLETED_TASKS.md` @ `9a18276` |
-| M39 /ideas Windows PATH + ship hygiene                            | Complete | `COMPLETED_TASKS.md`             |
-| v0.21.0 Windows PATH + Unreleased fold                            | Complete | `COMPLETED_TASKS.md` @ `1525cd6` |
-| M38 /ideas ship-hardening                                         | Complete | `COMPLETED_TASKS.md`             |
-| Coach / M37 / M36 (stale ✅ active-board rows)                     | Complete | `COMPLETED_TASKS.md`             |
-| v0.20.0 first-run backlog + Windows upgrade-sim                   | Complete | `COMPLETED_TASKS.md` @ `b570f07` |
-| v0.19.0 portable first-run release                                | Complete | `COMPLETED_TASKS.md` @ `2bef8ac` |
-| v0.18.3 Compose BOM release                                       | Complete | `COMPLETED_TASKS.md` @ `013e688` |
-| v0.18.2 Scorecard + Dependabot release                            | Complete | `COMPLETED_TASKS.md` @ `7d46e68` |
-| M35 HUMAN — Scorecard + Dependabot + radar                        | Complete | `COMPLETED_TASKS.md`             |
-| v0.18.1 Windows Python resolver release                           | Complete | `COMPLETED_TASKS.md` @ `fe80fea` |
-| M35 — Audit 2026-08-15                                            | Complete | `COMPLETED_TASKS.md`             |
-| v0.18.0 prior-art thin steals release                             | Complete | `COMPLETED_TASKS.md` @ `3f0b5a3` |
-| M34 — Prior-art thin steals                                       | Complete | `COMPLETED_TASKS.md`             |
-| v0.17.0 branding kit release                                      | Complete | `COMPLETED_TASKS.md` @ `701cd24` |
-| v0.15.2 release                                                   | Complete | `COMPLETED_TASKS.md` @ `634d06d` |
-| v0.15.0 release                                                   | Complete | `COMPLETED_TASKS.md` @ `2e010ae` |
-| M33 — Cursor 3.9–3.11 + local-first compute                       | Complete | `COMPLETED_TASKS.md` @ `5d2d129` |
-| v0.14.1 release                                                   | Complete | `COMPLETED_TASKS.md` @ `a6c6be1` |
-| M32 — Audit 2026-07-12                                              | Complete | `COMPLETED_TASKS.md` @ `e532c20` |
-| v0.14.0 release                                                   | Complete | `COMPLETED_TASKS.md` @ `4b94298` |
-| v0.13.2 release                                                   | Complete | `COMPLETED_TASKS.md` @ `ff8e4e6` |
-| M31 — Audit 2026-07-01                                            | Complete | `COMPLETED_TASKS.md`             |
-| M30 — Cursor FOSS integration + feature radar                     | Complete | `COMPLETED_TASKS.md` @ `508a541` |
-| M19–M29 — Cursor modes, batch commands, maintain, v0.11.0 release | Complete | `COMPLETED_TASKS.md`             |
-| v0.10.0 release (`36a02e4`)                                       | Complete | `COMPLETED_TASKS.md`             |
-| M5–M18 maintainer sprints (seq + P2)                              | Complete | `COMPLETED_TASKS.md` @ `d6b92a2` |
-| Child Sprint 2 starter scaffold                                   | Complete | `COMPLETED_TASKS.md`             |
-| v0.9.0 release (`fd699bc`)                                        | Complete | `COMPLETED_TASKS.md`             |
+Older sprints and releases: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).

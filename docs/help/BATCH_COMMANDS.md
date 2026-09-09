@@ -25,7 +25,7 @@ Bookmark this page for when you come back after a break. **Print every command:*
 | `/ideas` | Ranked backlog of in-scope next features (does not implement) |
 | `/allideas` | Complete in-scope dump to fill BUILD_PLAN (does not implement until you say `board`) |
 | `/verify` | After your changes, before opening a pull request |
-| `/build` | Run BUILD_PLAN end-to-end — per-row gates only dirty stacks; wrap-up `/gates` is full |
+| `/build` | Run BUILD_PLAN end-to-end — per-row gates only dirty stacks; wrap-up smokes every ✅ row then `/gates` |
 | `/ship` | Publish a release to GitHub (runs checks, push, post-release) |
 | `/maintain` | Weekly health pass — security, dependencies, full review |
 **Worked example — new project:** clone your repo → open your agent → in Cursor type `/bootstrap` (elsewhere: ask it to follow `docs/help/TOUR.md` after init). The agent walks through init, stack setup, GitHub settings, validation gates, and `/tour`. Type `/coach` later for the next recommended action.

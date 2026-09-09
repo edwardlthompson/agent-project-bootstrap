@@ -50,6 +50,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 
 ## Session Retrospectives
 
+| 2026-09-09 | Sprint smoke + board | Slim BUILD_PLAN; M51–M57 = allideas 1–55; `smoke-sprint --require` before next sprint | Do not chain sprints until every ✅ row is smoked (startup + load order) |
 | 2026-09-09 | M49 Settings chrome | Home chrome is Settings-only; sectioned menus + dropdowns; ThemeToggle removed | Do not put theme/About/donate back in the header; chips are not settings enums |
 | 2026-09-05 | v1.1.0 /ship | Merged #90/#92/#94; tagged v1.1.0 + GitHub Release; SBOM/OpenVEX on tag; #86 RP blocked on workflow approve; #93 Linux DX pending | Prefer agent release PR when RP workflows need [HUMAN] approve; Unreleased empty before tag |
 | 2026-09-01 | M47 Cline-first + GP nav | Cline first-run (no keys); web History + Android BackHandler pop one route; persist gp.nav.v1 | Do not put Codex on /tour /prerelease /ship; device Back smoke is [ADB] |

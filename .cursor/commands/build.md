@@ -72,9 +72,10 @@ Re-run `build-sprint-status.sh --json` and continue 1a.
 
 When `sprint_agent_auto_complete` for current sprint:
 
-1. @.cursor/commands/gates.md — full local validation
-2. @.cursor/commands/cleanup.md — archive ✅ rows (including auto-completed HUMAN/ADB); backlog items stay open on board
-3. Print brief summary: sprint name, rows completed, rows automated, rows backlogged (`HUMAN_BACKLOG.md`), and pointer to grouped **Human & device (after automation)** section for manual follow-up
+1. `python3 scripts/agent-run.py smoke-sprint --require --sprint "<sprint title>"` — re-smoke **every** ✅ row (no errors/crashes; startup + load order). Exit ≠ 0 → do **not** mark the sprint done or chain to the next sprint; leave the last row 🔲/❌ and `/fix`.
+2. @.cursor/commands/gates.md — full local validation (includes `smoke-sprint --if-complete`)
+3. @.cursor/commands/cleanup.md — archive ✅ rows (including auto-completed HUMAN/ADB); backlog items stay open on board
+4. Print brief summary: sprint name, rows completed, rows automated, rows backlogged (`HUMAN_BACKLOG.md`), and pointer to grouped **Human & device (after automation)** section for manual follow-up
 
 ## Step 3 — Chain to next sprint
 

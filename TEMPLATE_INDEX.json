@@ -1756,6 +1756,27 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/smoke-sprint.sh",
+      "purpose": "After a sprint is all done, smoke every checked BUILD_PLAN row (startup + load order)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/smoke-sprint.ps1",
+      "purpose": "Windows wrapper for smoke-sprint.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/SPRINT_SMOKE.md",
+      "purpose": "Sprint wrap smoke gate: every checked row, no crashes, startup and load order",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/feature-gate.sh",
       "purpose": "Hygiene + encoding + stack lint/test/build smoke gate",
       "read_when": "milestone_boundary",
@@ -2543,7 +2564,7 @@
     }
   },
   "roadmap": {
-    "active": "BUILD_PLAN.md \u2014 M46 /allideas backlog + human leftovers",
+    "active": "BUILD_PLAN.md \u2014 M50 chrome follow-through; M51\u2013M57 allideas queue; sprint smoke gate",
     "completed_archive": "COMPLETED_TASKS.md",
     "batch_commands": [
       ".cursor/commands/audit.md",

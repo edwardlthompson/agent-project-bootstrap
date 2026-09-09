@@ -55,6 +55,7 @@ python3 scripts/agent-run.py verify
 python3 scripts/agent-run.py validate-bootstrap --quick
 python3 scripts/agent-run.py feature-gate --stack <active>
 python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto
+python3 scripts/agent-run.py smoke-sprint --require
 python3 scripts/agent-run.py check-repo-hygiene
 
 ```
@@ -100,7 +101,7 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 - On milestone end: update `AGENT_MEMORY.md`, append to `DECISION_LOG.md` or `docs/adr/`
 - On 3-strike failure: halt and escalate to human
 - On context bloat: write `.cursor-session-state`, ask human to clear chat
-- Sprint 2+ features: after each AGENT step run `scripts/watch-agent-gates.sh --once --autofix --scope auto` (see `docs/FEATURE_MODULES.md`). Sprint wrap-up `/gates` stays full `feature-gate --stack multi`.
+- Sprint 2+ features: after each AGENT step run `scripts/watch-agent-gates.sh --once --autofix --scope auto` (see `docs/FEATURE_MODULES.md`). After the sprint (or feature) is all ✅, `smoke-sprint --require` must pass before the next sprint — every ✅ row smoked, no errors/crashes, startup + load order (`docs/SPRINT_SMOKE.md`). `/gates` stays full `feature-gate --stack multi` plus `smoke-sprint --if-complete`.
 - Repo hygiene: track source only; run `scripts/check-repo-hygiene.sh` before push (see `docs/REPO_HYGIENE.md`)
 - Log significant agent actions in `DECISION_LOG.md` at milestone boundaries
 

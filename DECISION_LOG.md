@@ -23,6 +23,13 @@
 
 ## Entries
 
+### 2026-09-09 — Sprint smoke before the next sprint
+- **Status:** Accepted
+- **Context:** Agents checked off BUILD_PLAN rows and moved on. The board was also too wordy to scan.
+- **Decision:** `/build` wrap and `/gates` run `smoke-sprint`. Every ✅ `[AGENT]`/`[AUTO]` row in the finished sprint must pass with no errors/crashes; the report records startup time and load order. Agents do not start the next sprint until it exits 0. BUILD_PLAN stays short; detail lives in `docs/SPRINT_SMOKE.md`.
+- **Alternatives considered:** Per-row `smoke-stack` alias only (rejected: that is feature-gate, not app startup). Require an emulator for every wrap (rejected: `[ADB]` leftovers; manifest + HTTP + CLI still prove load order).
+- **Consequences:** `.cursor/sprint-smoke.json` is gitignored. Device TalkBack stays `[ADB]`.
+
 ### 2026-09-09 — M49: Settings-only chrome and sectioned menus
 - **Status:** Accepted
 - **Context:** Golden Path home chrome had Settings, About, donate, and a theme toggle; Settings used chips for exclusive enums. Material 3 app bars keep one or two trailing actions; Settings IA is grouped lists with dropdowns, not chip clouds.

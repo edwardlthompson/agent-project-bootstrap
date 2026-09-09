@@ -53,7 +53,8 @@ Status markers: 🔲 open · ✅ done · ❌ blocked (see `BUILD_PLAN.md` legend
 - 🔲 `[AGENT]` Unit tests for pure logic (or written fallback command in the feature spec)
 - 🔲 `[AGENT]` View wired; composition root (`appBootstrap.ts` / `GoldenPathApp.kt`) diff ≤10 lines
 - 🔲 `[AUTO]` `bash scripts/watch-agent-gates.sh --once --autofix --scope auto`
-- 🔲 `[HUMAN]` Manual smoke happy path; approve before next feature
+- 🔲 `[AUTO]` After the last row is ✅: `python3 scripts/agent-run.py smoke-sprint --require` (every ✅ item; startup + load order; no crashes)
+- 🔲 `[HUMAN]` Optional product smoke; agents do not wait on this to start the next feature if sprint smoke passed
 
 ## Autonomous agent protocol
 
@@ -88,6 +89,7 @@ Progress file: `.cursor/agent-progress.json` (gitignored). See `.cursor-session-
 | `scripts/watch-agent-gates.sh` | Gate loop with autofix + progress tracking (`--scope auto` dirty stacks; `--scope full` or `/gates` for all stacks) |
 | `scripts/agent-progress.sh` | Read/write agent progress JSON |
 | `scripts/smoke-stack.sh` | Alias for `feature-gate.sh` |
+| `scripts/smoke-sprint.sh` | After a sprint is all ✅: re-smoke every checked row; startup + load order (`docs/SPRINT_SMOKE.md`) |
 **CI-only gates (not in local `feature-gate.sh`):** Playwright e2e, Lighthouse budgets, bundle-size, license compliance — see `.github/workflows/ci.yml`. Use `watch-agent-gates.sh --wait-ci 300` after push.
 
 ## Anti-patterns
