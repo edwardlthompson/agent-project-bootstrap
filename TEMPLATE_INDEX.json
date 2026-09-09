@@ -2421,6 +2421,27 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-lightroom-sdk-playbook.sh",
+      "purpose": "Gate: Lightroom SDK bump playbook and Info.lua/README versions",
+      "read_when": "lightroom_quality_gate",
+      "update_when": "lightroom_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/lightroom_sdk_playbook.py",
+      "purpose": "Assert LIGHTROOM_SDK_BUMP.md and version table lockstep",
+      "read_when": "lightroom_quality_gate",
+      "update_when": "lightroom_tooling_change",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/LIGHTROOM_SDK_BUMP.md",
+      "purpose": "How to bump LrSdkVersion with a HUMAN Plug-in Manager test",
+      "read_when": "lightroom_quality_gate",
+      "update_when": "lightroom_tooling_change",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-lightroom-lua.sh",
       "purpose": "Gate: Lightroom Lua Lr* lint and optional luacheck",
       "read_when": "lightroom_quality_gate",

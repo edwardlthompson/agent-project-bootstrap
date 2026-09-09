@@ -29,6 +29,7 @@ Lightroom plugins are optional; when active, `scripts/feature-gate.sh --stack li
 | Hygiene + encoding | `bash scripts/feature-gate.sh --stack multi` |
 | SDK compliance | `bash scripts/verify-lightroom.sh` |
 | Lua lint | `bash scripts/check-lightroom-lua.sh` (`.luacheckrc` + Lr* import rules) |
+| SDK bump playbook | `bash scripts/check-lightroom-sdk-playbook.sh` + [`docs/LIGHTROOM_SDK_BUMP.md`](../../docs/LIGHTROOM_SDK_BUMP.md) |
 
 ## Owner Labels for This Module
 

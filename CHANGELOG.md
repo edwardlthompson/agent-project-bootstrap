@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **lightroom:** SDK bump playbook (`docs/LIGHTROOM_SDK_BUMP.md`) with Info.lua/README version lock
 * **lightroom:** second Lr* factory (`LrMetadataTagsetFactory` / `MetadataTagset.lua`)
 * **lightroom:** Lua lint gate for Lr* imports (`scripts/check-lightroom-lua.sh`)
 * **android:** upload-key signing + rollback runbook (`docs/ANDROID_SIGNING.md`) and env-only Gradle signing

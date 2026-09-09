@@ -230,6 +230,15 @@
         "run go test in examples/go"
       ]
     },
+    "lightroom-sdk-playbook": {
+      "means": "Lightroom SDK playbook is missing or Info.lua versions drifted from the README table.",
+      "run": "bash scripts/check-lightroom-sdk-playbook.sh",
+      "why": "Classic SDK bumps must stay documented and HUMAN-tested.",
+      "suggested": [
+        "keep Info.lua versions matching examples/lightroom/README.md",
+        "run bash scripts/check-lightroom-sdk-playbook.sh"
+      ]
+    },
     "lightroom-lua-lint": {
       "means": "Lightroom Lua used generic require() or a non-Lr* import.",
       "run": "bash scripts/check-lightroom-lua.sh",

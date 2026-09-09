@@ -133,6 +133,7 @@ fail_gate() {
     android-signing-runbook) SUGGESTED=("keep docs/ANDROID_SIGNING.md env vars and rollback" "run bash scripts/check-android-signing-runbook.sh") ;;
     lightroom-sdk) SUGGESTED=("run scripts/verify-lightroom.sh") ;;
     lightroom-lua-lint) SUGGESTED=("keep Lr* imports only in examples/lightroom" "run bash scripts/check-lightroom-lua.sh") ;;
+    lightroom-sdk-playbook) SUGGESTED=("keep Info.lua versions matching examples/lightroom/README.md" "run bash scripts/check-lightroom-sdk-playbook.sh") ;;
     node-lint) SUGGESTED=("fix lint in examples/node" "run npm run format in examples/node if format script exists") ;;
     node-format) SUGGESTED=("run npm run format in examples/node") ;;
     node-test) SUGGESTED=("fix tests in examples/node") ;;
@@ -409,6 +410,7 @@ fi
 if should_run lightroom && [ -f examples/lightroom/Info.lua ]; then
   run_cmd lightroom-sdk bash scripts/verify-lightroom.sh
   run_cmd lightroom-lua-lint bash scripts/check-lightroom-lua.sh
+  run_cmd lightroom-sdk-playbook bash scripts/check-lightroom-sdk-playbook.sh
 fi
 fi
 
