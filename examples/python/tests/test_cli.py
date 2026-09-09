@@ -34,3 +34,10 @@ def test_main_about(capsys: pytest.CaptureFixture[str]) -> None:
     out = capsys.readouterr().out
     assert "0.1.0" in out
     assert "donate" in out
+
+
+def test_main_feedback(capsys: pytest.CaptureFixture[str], monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("GITHUB_REPO", "acme/app")
+    with patch.object(sys, "argv", ["hello", "--feedback", "--kind", "bug", "--title", "Crash"]):
+        main()
+    assert "github.com/acme/app/issues/new" in capsys.readouterr().out
