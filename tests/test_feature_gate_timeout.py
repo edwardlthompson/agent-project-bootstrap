@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parent.parent
 class FeatureGateTimeoutTests(unittest.TestCase):
     def test_stage_maps_and_overrides(self) -> None:
         self.assertEqual(stack_for_stage("android-test"), "android")
+        self.assertEqual(stack_for_stage("android-compile-androidtest"), "android")
         self.assertEqual(stack_for_stage("web-lint"), "web")
         self.assertEqual(stack_for_stage("hygiene"), "docs")
         self.assertEqual(timeout_seconds("android", {}), 600)

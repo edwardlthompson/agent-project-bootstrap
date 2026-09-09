@@ -73,8 +73,9 @@ After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.
 
 | Stage | Command |
 |-------|---------|
-| Unit + compile | `./gradlew test` in `examples/android/` |
-Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
+| Unit | `./gradlew test` in `examples/android/` |
+| Instrumented compile | `./gradlew :app:compileDebugAndroidTestKotlin` (no emulator) |
+Requires `JAVA_HOME` and an Android SDK locally; gate skips when the SDK is missing. Do **not** run `connectedDebugAndroidTest` here — that stays `/emulator` and CI `android-instrumented`.
 
 ## Owner Labels for This Module
 

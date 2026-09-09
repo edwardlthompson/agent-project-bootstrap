@@ -110,6 +110,15 @@
         "run ./gradlew test in examples/android"
       ]
     },
+    "android-compile-androidtest": {
+      "means": "Instrumented Android tests failed to compile.",
+      "run": "./gradlew :app:compileDebugAndroidTestKotlin in examples/android",
+      "why": "Compile instrumented tests in feature-gate without an emulator.",
+      "suggested": [
+        "fix androidTest compile errors",
+        "run ./gradlew :app:compileDebugAndroidTestKotlin in examples/android"
+      ]
+    },
     "design-cohesion": {
       "means": "Design tokens or i18n keys are out of sync.",
       "run": "bash scripts/check-design-cohesion.sh",

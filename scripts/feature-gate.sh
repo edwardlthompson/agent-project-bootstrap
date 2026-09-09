@@ -328,6 +328,10 @@ if should_run android && [ -f examples/android/gradlew ]; then
     gradle_extra="$("$PY" "$ROOT/scripts/lib/gradle_offline.py" --args --root "$ROOT" 2>/dev/null || true)"
     # shellcheck disable=SC2086
     run_in_dir examples/android android-test ./gradlew $gradle_extra test --parallel --quiet
+    # Compile instrumented tests without starting an emulator.
+    # shellcheck disable=SC2086
+    run_in_dir examples/android android-compile-androidtest \
+      ./gradlew $gradle_extra :app:compileDebugAndroidTestKotlin --parallel --quiet
   fi
 fi
 

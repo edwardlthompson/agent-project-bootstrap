@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
 * **ui:** `check-design-cohesion` fails if home chrome grows Theme/About/donate or Settings uses FilterChip for theme
+* **android:** feature-gate compiles instrumented tests (`:app:compileDebugAndroidTestKotlin`) without an emulator
 
 ### Changed
 

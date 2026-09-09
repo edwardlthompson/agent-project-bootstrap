@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 63 · AUTO 7 · HUMAN 4 · ADB 2 · **76 open**
+**Remaining:** AGENT 62 · AUTO 7 · HUMAN 4 · ADB 2 · **75 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -35,7 +35,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 <!-- parallel_exception: overlapping scripts, docs, web, and Android — Sequential order -->
 
 1. ✅ [AGENT] Chrome + chip regression gate in `check-design-cohesion`
-2. 🔲 [AGENT] Compile Android instrumented tests in feature-gate (no emulator)
+2. ✅ [AGENT] Compile Android instrumented tests in feature-gate (no emulator)
 3. 🔲 [AGENT] Android Settings Data export/import (web Data parity)
 4. 🔲 [AGENT] Child `BUILD_PLAN_TEMPLATE.md` Sprint 1: lock Settings-only chrome
 5. 🔲 [AGENT] Second locale catalog (web + Android)
