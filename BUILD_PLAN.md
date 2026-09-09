@@ -28,22 +28,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** M51. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** M52. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-> **M50** archived in COMPLETED_TASKS.md @ `5496013`.
-
-### M51 — CLI / API
-
-<!-- parallel_exception: shared contract then per-stack ports -->
-
-1. ✅ [AGENT] Shared JSON About/donate/update (Node, Python, Rust, Go)
-2. ✅ [AGENT] Node GitHub feedback HTTP route
-3. ✅ [AGENT] Python `--feedback` CLI
-4. ✅ [AGENT] Rust/Go version from Cargo.toml / module
-5. ✅ [AGENT] Rust/Go JSON logs + readiness
-6. ✅ [AGENT] Node OpenAPI spec + contract tests
-7. ✅ [AGENT] Python OpenAPI + JSON logging
-8. ✅ [AGENT] Python mypy in pre-commit
+> **M51** archived in COMPLETED_TASKS.md @ `80fe6f4`.
 
 ### M52 — UI, a11y, nav proof
 
@@ -129,7 +116,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
-Done on this board: **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

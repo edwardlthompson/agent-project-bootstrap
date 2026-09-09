@@ -2,6 +2,17 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M51 — CLI / API (2026-09-09)
+
+- ✅ [AGENT] Shared JSON About/donate/update (Node, Python, Rust, Go)
+- ✅ [AGENT] Node GitHub feedback HTTP route
+- ✅ [AGENT] Python `--feedback` CLI
+- ✅ [AGENT] Rust/Go version from Cargo.toml / module
+- ✅ [AGENT] Rust/Go JSON logs + readiness
+- ✅ [AGENT] Node OpenAPI spec + contract tests
+- ✅ [AGENT] Python OpenAPI + JSON logging
+- ✅ [AGENT] Python mypy in pre-commit
+
 ## M50 — Chrome follow-through (2026-09-09)
 
 - ✅ [AGENT] Chrome + chip regression gate in `check-design-cohesion`
