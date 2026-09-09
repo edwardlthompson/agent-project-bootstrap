@@ -11,6 +11,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextClearance
+import androidx.compose.ui.test.performTextInput
 import dev.foss.goldenpath.ui.about.AboutTestTags
 import org.junit.Rule
 import org.junit.Test
@@ -43,6 +45,18 @@ class GoldenPathUiTest {
         composeTestRule.onNodeWithText("Version, updates, and ways to support development")
             .assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Back").performClick()
+    }
+
+    @Test
+    fun settingsSearchHidesNonMatchingSections() {
+        composeTestRule.dismissLaunchPrompts()
+        composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.onNodeWithTag("settings-search").performTextInput("privacy")
+        composeTestRule.onNodeWithText("Privacy").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Appearance").assertDoesNotExist()
+        composeTestRule.onNodeWithTag("settings-search").performTextClearance()
+        composeTestRule.onNodeWithTag("settings-search").performTextInput("zzzz-no-match")
+        composeTestRule.onNodeWithTag("settings-search-empty").assertIsDisplayed()
     }
 
     @Test

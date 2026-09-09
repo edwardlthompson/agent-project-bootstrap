@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import dev.foss.goldenpath.R
 import dev.foss.goldenpath.display.highRefreshScroll
+import dev.foss.goldenpath.settings.SettingsSearch
 import dev.foss.goldenpath.ui.insets.bottomInsetPadding
 import dev.foss.goldenpath.ui.theme.SpacingMd
 import dev.foss.goldenpath.ui.theme.SpacingSm
@@ -51,6 +52,22 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     var themeMenuOpen by remember { mutableStateOf(false) }
+    var query by remember { mutableStateOf("") }
+    val appearance = stringResource(R.string.settings_section_appearance)
+    val themeLabel = stringResource(R.string.settings_theme_label)
+    val privacy = stringResource(R.string.settings_section_privacy)
+    val saveCrashesLabel = stringResource(R.string.settings_feedback_save_crashes)
+    val data = stringResource(R.string.settings_section_data)
+    val exportLabel = stringResource(R.string.settings_export)
+    val importLabel = stringResource(R.string.settings_import)
+    val about = stringResource(R.string.settings_section_about)
+    val appInfo = stringResource(R.string.settings_about)
+    val aboutHint = stringResource(R.string.settings_about_hint)
+    val showAppearance = SettingsSearch.matches(query, appearance, themeLabel)
+    val showPrivacy = SettingsSearch.matches(query, privacy, saveCrashesLabel)
+    val showData = SettingsSearch.matches(query, data, exportLabel, importLabel)
+    val showAbout = SettingsSearch.matches(query, about, appInfo, aboutHint)
+    val showEmpty = query.isNotBlank() && !showAppearance && !showPrivacy && !showData && !showAbout
     val scrollState = rememberScrollState(initial = scrollY)
     LaunchedEffect(scrollState.value) { onScroll(scrollState.value) }
     Column(
@@ -62,7 +79,24 @@ fun SettingsScreen(
             .bottomInsetPadding(),
         verticalArrangement = Arrangement.spacedBy(SpacingMd),
     ) {
-        SectionLabel(stringResource(R.string.settings_section_appearance))
+        OutlinedTextField(
+            value = query,
+            onValueChange = { query = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag("settings-search"),
+            label = { Text(stringResource(R.string.settings_search)) },
+            singleLine = true,
+        )
+        if (showEmpty) {
+            Text(
+                text = stringResource(R.string.settings_search_empty),
+                modifier = Modifier.testTag("settings-search-empty"),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        if (showAppearance) {
+        SectionLabel(appearance)
         ExposedDropdownMenuBox(
             expanded = themeMenuOpen,
             onExpandedChange = { themeMenuOpen = it },
@@ -92,21 +126,25 @@ fun SettingsScreen(
                 }
             }
         }
+        }
+        if (showPrivacy) {
         HorizontalDivider()
-        SectionLabel(stringResource(R.string.settings_section_privacy))
+        SectionLabel(privacy)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(R.string.settings_feedback_save_crashes),
+                text = saveCrashesLabel,
                 modifier = Modifier
                     .weight(1f)
                     .padding(end = SpacingSm),
             )
             Switch(checked = saveCrashes, onCheckedChange = onSaveCrashes)
         }
+        }
+        if (showData) {
         HorizontalDivider()
         SettingsDataSection(
             themeMode = themeMode,
@@ -114,8 +152,10 @@ fun SettingsScreen(
             onThemeModeSelect = onThemeModeSelect,
             onSaveCrashes = onSaveCrashes,
         )
+        }
+        if (showAbout) {
         HorizontalDivider()
-        SectionLabel(stringResource(R.string.settings_section_about))
+        SectionLabel(about)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -126,9 +166,9 @@ fun SettingsScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(text = stringResource(R.string.settings_about))
+                Text(text = appInfo)
                 Text(
-                    text = stringResource(R.string.settings_about_hint),
+                    text = aboutHint,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -137,6 +177,7 @@ fun SettingsScreen(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = null,
             )
+        }
         }
     }
 }

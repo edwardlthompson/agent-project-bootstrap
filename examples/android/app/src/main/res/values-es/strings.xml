@@ -43,6 +43,8 @@
     <string name="settings_about">Información de la app</string>
     <string name="settings_about_hint">Versión, actualizaciones y formas de apoyar el desarrollo</string>
     <string name="settings_close">Cerrar ajustes</string>
+    <string name="settings_search">Buscar ajustes</string>
+    <string name="settings_search_empty">Ningún ajuste coincide con esa búsqueda.</string>
     <string name="settings_theme_label">Tema</string>
     <string name="settings_theme_mode_system">Tema del sistema</string>
     <string name="settings_theme_mode_light">Tema claro</string>

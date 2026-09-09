@@ -16,6 +16,7 @@ describe("i18n", () => {
     expect(getLocale()).toBe("es");
     expect(t("app.greeting")).toBe("¡Hola, FOSS!");
     expect(t("settings.open")).toBe("Ajustes");
+    expect(t("settings.search")).toBe("Buscar ajustes");
   });
 
   it("ignores unsupported locale and keeps English", () => {

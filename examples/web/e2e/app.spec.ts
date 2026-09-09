@@ -135,6 +135,18 @@ test("feedback panel visual snapshot", async ({ page }) => {
   await expect(panel).toHaveScreenshot("feedback-panel.png", SNAPSHOT);
 });
 
+test("settings search filters groups", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Settings" }).click();
+  const panel = page.getByTestId("settings-panel");
+  await expect(panel.getByRole("heading", { name: "Appearance" })).toBeVisible();
+  await page.getByTestId("settings-search").fill("privacy");
+  await expect(panel.getByRole("heading", { name: "Privacy" })).toBeVisible();
+  await expect(panel.getByRole("heading", { name: "Appearance" })).toHaveCount(0);
+  await page.getByTestId("settings-search").fill("zzzz-no-match");
+  await expect(page.getByTestId("settings-search-empty")).toBeVisible();
+});
+
 test("opens settings panel and toggles theme", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Settings" }).click();

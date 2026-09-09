@@ -40,6 +40,8 @@
   "settings.about": "Información de la app",
   "settings.about_hint": "Versión, actualizaciones y formas de apoyar el desarrollo",
   "settings.close": "Cerrar ajustes",
+  "settings.search": "Buscar ajustes",
+  "settings.search.empty": "Ningún ajuste coincide con esa búsqueda.",
   "settings.theme.label": "Tema",
   "settings.theme.mode.system": "Tema del sistema",
   "settings.theme.mode.light": "Tema claro",
