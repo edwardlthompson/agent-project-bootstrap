@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **android:** FOSS UnifiedPush sample (PackageManager discovery, MESSAGE receiver, no FCM)
 * **android:** release R8 minify/shrink, R8 Configuration Analyzer docs, and Android 17 memory-limit hooks
 * **docs:** optional Grok Bot ops for Android platform/R8/memory scouting (`docs/GROK_BOTS.md`)
 * **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)

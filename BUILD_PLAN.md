@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 35 · AUTO 7 · HUMAN 4 · ADB 2 · **48 open**
+**Remaining:** AGENT 34 · AUTO 7 · HUMAN 4 · ADB 2 · **47 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -42,7 +42,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 4. ✅ [AGENT] F-Droid build recipe YAML
 5. ✅ [AGENT] Fastlane full metadata
 6. ✅ [AGENT] F-Droid AntiFeatures template
-7. 🔲 [AGENT] UnifiedPush sample
+7. ✅ [AGENT] UnifiedPush sample
 8. 🔲 [AGENT] Android signing + rollback runbook
 
 ### M54 — Catalog + Lightroom
