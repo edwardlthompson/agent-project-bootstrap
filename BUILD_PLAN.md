@@ -28,22 +28,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** M52. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** M53. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-> **M51** archived in COMPLETED_TASKS.md @ `80fe6f4`.
-
-### M52 — UI, a11y, nav proof
-
-<!-- parallel_exception: shared Settings/a11y contract across web and Android -->
-
-1. ✅ [AGENT] Settings/About/Feedback visual snapshots
-2. ✅ [AGENT] Settings in-panel search
-3. ✅ [AGENT] Settings export schema migrations
-4. ✅ [AGENT] Android RTL/locale instrumented stress
-5. ✅ [AGENT] Android TalkBack + keyboard smoke
-6. ✅ [AGENT] Compose a11y lint gate
-7. ✅ [AGENT] Lighthouse a11y + best-practices floors
-8. ✅ [AGENT] Android nav-stack property tests
+> **M52** archived in COMPLETED_TASKS.md @ `c4c6d23`.
 
 ### M53 — Android distribution
 
@@ -116,7 +103,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
-Done on this board: **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

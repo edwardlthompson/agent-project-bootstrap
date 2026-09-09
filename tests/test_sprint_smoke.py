@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 import tempfile
 import unittest
@@ -102,13 +103,33 @@ class SprintSmokeTests(unittest.TestCase):
         for sprint in sprints:
             if sprint.title.startswith(("M51", "M52", "M53", "M54", "M55", "M56", "M57")):
                 queued.extend(sprint.agent_auto)
-        self.assertEqual(len(queued), 55)
+        archived = _archived_idea_rows(
+            (ROOT / "COMPLETED_TASKS.md").read_text(encoding="utf-8")
+        )
+        self.assertEqual(len(queued) + archived, 55)
 
     def test_build_and_gates_require_smoke(self) -> None:
         build = (ROOT / ".cursor/commands/build.md").read_text(encoding="utf-8")
         gates = (ROOT / ".cursor/commands/gates.md").read_text(encoding="utf-8")
         self.assertIn("smoke-sprint --require", build)
         self.assertIn("smoke-sprint", gates)
+
+
+_IDEA_SPRINTS = tuple(f"M{n}" for n in range(51, 58))
+_ARCHIVE_ROW = re.compile(r"^- ✅ \[(AGENT|AUTO)\]")
+
+
+def _archived_idea_rows(text: str) -> int:
+    count = 0
+    active = False
+    for line in text.splitlines():
+        if line.startswith("## "):
+            token = line[3:].split()[0]
+            active = token in _IDEA_SPRINTS
+            continue
+        if active and _ARCHIVE_ROW.match(line):
+            count += 1
+    return count
 
 
 def _ns(

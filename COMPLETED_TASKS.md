@@ -2,6 +2,17 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M52 — UI, a11y, nav proof (2026-09-09)
+
+- ✅ [AGENT] Settings/About/Feedback visual snapshots
+- ✅ [AGENT] Settings in-panel search
+- ✅ [AGENT] Settings export schema migrations
+- ✅ [AGENT] Android RTL/locale instrumented stress
+- ✅ [AGENT] Android TalkBack + keyboard smoke
+- ✅ [AGENT] Compose a11y lint gate
+- ✅ [AGENT] Lighthouse a11y + best-practices floors
+- ✅ [AGENT] Android nav-stack property tests
+
 ## M51 — CLI / API (2026-09-09)
 
 - ✅ [AGENT] Shared JSON About/donate/update (Node, Python, Rust, Go)
