@@ -76,13 +76,21 @@ def load(root: Path | None = None) -> dict:
     return data if isinstance(data, dict) else {}
 
 
+def batched(fields: dict[str, str], size: int) -> list[dict[str, str]]:
+    items = list(fields.items())
+    return [dict(items[i : i + size]) for i in range(0, len(items), size)] or [{}]
+
+
 def main() -> int:
     data = load()
-    for section in ("passing", "baseline-1", "silver"):
+    for section, size in (("passing", 36), ("baseline-1", 50), ("silver", 50)):
         fields = proposals(data, section)
-        print(f"# {section} ({len(fields)} fields)")
-        print(apply_url(section, fields))
-        print()
+        parts = batched(fields, size)
+        for index, part in enumerate(parts, start=1):
+            label = section if len(parts) == 1 else f"{section} {index}/{len(parts)}"
+            print(f"# {label} ({len(part)} fields)")
+            print(apply_url(section, part))
+            print()
     return 0
 
 
