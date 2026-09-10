@@ -210,7 +210,8 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-cursor-automations.sh \
   check-cursor-cloud-hooks.sh \
   check-cursor-canvas.sh \
-  check-cursor-cli.sh
+  check-cursor-cli.sh \
+  check-tour-coach-chrome.sh
 then
   ERRORS=$((ERRORS + 1))
 fi
