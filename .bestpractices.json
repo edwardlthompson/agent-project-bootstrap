@@ -1,5 +1,8 @@
 {
   "homepage_url": "https://github.com/edwardlthompson/agent-project-bootstrap",
+  "homepage_url_status": "Met",
+  "homepage_url_justification": "https://github.com/edwardlthompson/agent-project-bootstrap",
+  "report_url": "https://github.com/edwardlthompson/agent-project-bootstrap/issues",
   "description_good_status": "Met",
   "description_good_justification": "README and docs/START_HERE.md describe a FOSS GitHub template that gives coding agents a shared AGENTS.md contract, CI, and a Golden Path.",
   "interact_status": "Met",

@@ -9,6 +9,18 @@ ROOT = Path(__file__).resolve().parents[2]
 REPO = "https://github.com/edwardlthompson/agent-project-bootstrap"
 BASE = "https://www.bestpractices.dev/en/projects"
 JUSTIFY_MAX = 80
+ISSUES = f"{REPO}/issues"
+HUMAN_LEFTOVER = {
+    "homepage_url_status": "Met",
+    "homepage_url_justification": REPO,
+    "report_url": ISSUES,
+    "report_url_status": "Met",
+    "report_url_justification": ISSUES,
+    "know_secure_design_status": "Met",
+    "know_secure_design_justification": "docs/THREAT_MODEL.md + SECURITY.md; primary maintainer",
+    "know_common_errors_status": "Met",
+    "know_common_errors_justification": "Gitleaks, boundary validation, Dependabot / update-deps --audit",
+}
 PASSING_PREFIXES = (
     "description_good",
     "interact",
@@ -91,6 +103,9 @@ def main() -> int:
             print(f"# {label} ({len(part)} fields)")
             print(apply_url(section, part))
             print()
+    print(f"# passing leftovers ({len(HUMAN_LEFTOVER)} fields)")
+    print(apply_url("passing", HUMAN_LEFTOVER))
+    print()
     return 0
 
 

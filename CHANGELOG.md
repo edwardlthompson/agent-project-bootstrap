@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** leftover OpenSSF apply URL for the last four Passing MUST rows (96% → 100%)
 * **docs:** `bestpractices_apply.py` prints as=edit URLs for project 14564
 * **security:** OpenSSF Best Practices badge (project 14564) and `.bestpractices.json` proposals
 * **ci:** sanitize GitHub branch names and release tags before interpolation
