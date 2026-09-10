@@ -419,6 +419,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "docs/GROK_BOTS.md",
+      "purpose": "Optional commercial Grok Bot ops (not on the FOSS path)",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "docs/WINGET.md",
       "purpose": "Winget publish runbook for child desktop installers",
       "read_when": "milestone_boundary",

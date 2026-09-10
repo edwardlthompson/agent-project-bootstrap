@@ -60,6 +60,7 @@ REQUIRED=(
   docs/FIRST_30_DAYS.md
   docs/first-30-days.json
   docs/WINGET.md
+  docs/GROK_BOTS.md
   docs/AGENT_PORTABILITY.md
   docs/help/TOUR.md
   docs/help/IDEAS.md
