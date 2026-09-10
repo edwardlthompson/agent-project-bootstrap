@@ -18,7 +18,7 @@ pwsh scripts/setup-github-repo.ps1
 
 ```
 
-Requires `gh` CLI authenticated with admin access. On API `422` (plan or permission limits), the script prints a manual UI checklist. Re-run after fixing permissions.
+Requires `gh` CLI authenticated with admin access. On API `422` (plan or permission limits), the script prints a manual UI checklist. Re-run after fixing permissions. Optional `AUTOMERGE_TOKEN` or `SETUP_AUTOMERGE_TOKEN=1` calls `scripts/setup-automerge-token.sh`; missing token is a NOTE, not a setup failure.
 
 5. Configure branch protection on `main` requiring status checks: **CI**, **Security Scan**, **CodeQL**, **Repo Hygiene**, **Feature Gate**, **Template Upgrade Simulation (Windows)** (`scripts/setup-github-repo.sh` sets these via API; desired-state copy: [`.github/settings.yml`](../.github/settings.yml); verify in Settings -> Branches)
 
@@ -131,7 +131,7 @@ When the product exposes agents, run the compact walk in [`THREAT_MODEL.md`](THR
 | `schemas/golden-path/openvex.example.json` | OpenVEX template attached next to `sbom.cyclonedx.json` |
 | `scripts/pre-release-gate.sh` | `--local` for `/prerelease`/`/ship`; default (full GH) for `/regress` and `release.yml` |
 | `.github/workflows/scorecard.yml` | OpenSSF Scorecard SARIF upload |
-| `scripts/setup-github-repo.sh` | One-time Dependabot + reporting + branch protection setup |
+| `scripts/setup-github-repo.sh` | One-time Dependabot + reporting + branch protection + optional AUTOMERGE_TOKEN |
 | `scripts/setup-automerge-token.sh` | Set `AUTOMERGE_TOKEN` secret from env or `gh auth token` |
 | `scripts/verify-branch-protection.sh` | Post-setup branch protection + strict/force-push verification |
 | `scripts/verify-reproducible-apk.sh` | Local reproducible APK hash check (also in `run-maintainer-gates.sh` full mode) |

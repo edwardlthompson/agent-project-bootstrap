@@ -1176,7 +1176,7 @@
     },
     {
       "path": "scripts/setup-github-repo.sh",
-      "purpose": "Idempotent gh api: Dependabot alerts, private reporting, branch protection",
+      "purpose": "Idempotent gh api: Dependabot alerts, private reporting, branch protection, optional AUTOMERGE_TOKEN",
       "read_when": "bootstrap_session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
