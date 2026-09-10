@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** print cheat sheet audit (`scope="col"`, Settings-only `/tour`/`/coach` captions)
 * **docs:** `/tour` and COACH teach Settings-only home chrome
 * **docs:** Cursor CLI local-loop recipe (zero-key gates; optional billed CLI)
 * **docs:** Canvas vs Design Mode walkthrough (`docs/CURSOR_CANVAS.md`)
