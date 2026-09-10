@@ -2,6 +2,17 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M55 — CI + security (2026-09-10)
+
+- ✅ [AGENT] Dependabot Cargo + Go
+- ✅ [AGENT] Scorecard SARIF auto-classifier
+- ✅ [AGENT] Semgrep prompt-injection pack
+- ✅ [AGENT] Optional Nix flake CI
+- ✅ [AGENT] Radar → BUILD_PLAN draft
+- ✅ [AGENT] AUTOMERGE_TOKEN in setup-github-repo
+- ✅ [AGENT] GlitchTip/Bugsink stub (not a live crash-proxy)
+- ✅ [AGENT] Cross-stack sanitizer fixture CI job
+
 ## M54 — Catalog + Lightroom (2026-09-09)
 
 - ✅ [AGENT] Lightroom Lua lint

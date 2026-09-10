@@ -28,22 +28,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** M55. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** M56. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-> **M54** archived in COMPLETED_TASKS.md @ `4c6fb21`.
-
-### M55 — CI + security
-
-<!-- parallel_exception: shared CI/security config -->
-
-1. ✅ [AGENT] Dependabot Cargo + Go
-2. ✅ [AGENT] Scorecard SARIF auto-classifier
-3. ✅ [AGENT] Semgrep prompt-injection pack
-4. ✅ [AGENT] Optional Nix flake CI
-5. ✅ [AGENT] Radar → BUILD_PLAN draft
-6. ✅ [AGENT] AUTOMERGE_TOKEN in setup-github-repo
-7. ✅ [AGENT] GlitchTip/Bugsink stub (not a live crash-proxy)
-8. ✅ [AGENT] Cross-stack sanitizer fixture CI job
+> **M55** archived in COMPLETED_TASKS.md @ `c9ab417`.
 
 ### M56 — Desktop packaging
 
@@ -78,7 +65,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
-Done on this board: **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 
