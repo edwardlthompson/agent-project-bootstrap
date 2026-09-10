@@ -44,7 +44,7 @@ Recommended cadence: **Monday** (aligned with scheduled security scans and `heal
 | 4 | AUTO | CI (Trivy, CodeQL, matrix tests) validates merges |
 | 5 | HUMAN | Merge PR or escalate deferred items |
 | 6 | AUTO | Review `weekly-health-check.yml` weekly run (Monday 07:00 UTC); confirm CI + Security Scan + CodeQL green on main |
-| 7 | AUTO | Run `bash scripts/check-security-triage.sh --wait-ci 300` (Dependabot + workflows + OpenSSF Scorecard) |
+| 7 | AUTO | `check-security-triage.sh` also runs in `weekly-health-check.yml` (Monday). Local leftover: `bash scripts/check-security-triage.sh --wait-ci 300` |
 ## OpenSSF Scorecard
 
 - Workflow: `.github/workflows/scorecard.yml` (`name: OpenSSF Scorecard`)

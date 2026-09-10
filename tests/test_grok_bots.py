@@ -14,12 +14,18 @@ class GrokBotsTests(unittest.TestCase):
         self.assertIn("destructive-ops", text)
         self.assertIn("FOSS alternative", text)
         self.assertIn("Android platform scout", text)
+        self.assertIn("Maintainer weekly", text)
+        self.assertIn("weekly-health-check.yml", text)
 
     def test_wired(self) -> None:
         boot = (ROOT / "scripts" / "validate-bootstrap.sh").read_text(encoding="utf-8")
         self.assertIn("docs/GROK_BOTS.md", boot)
         start = (ROOT / "docs" / "START_HERE.md").read_text(encoding="utf-8")
         self.assertIn("GROK_BOTS.md", start)
+        weekly = (ROOT / ".github" / "workflows" / "weekly-health-check.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("check-security-triage.sh", weekly)
 
 
 if __name__ == "__main__":

@@ -45,6 +45,8 @@ Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55*
 
 Template weekly: `bash scripts/run-maintainer-gates.sh` (omit `--quick` to wait on CI).
 
+Most **AUTO** rows already run on GitHub Monday cron (`weekly-health-check.yml`, `security.yml`, `scorecard.yml`, `codeql.yml`). **AGENT** `/update-deps` and Dependabot review need a person or a commercial timer (Grok Bot 4–5 or Cursor Automations). **HUMAN** release-tag approve stays a person. Schedule: [`docs/GROK_BOTS.md`](docs/GROK_BOTS.md), [`docs/CURSOR_AUTOMATIONS.commercial.md`](docs/CURSOR_AUTOMATIONS.commercial.md).
+
 ### Weekly
 
 - 🔲 [AUTO] `cursor-feature-radar.sh` (non-blocking)

@@ -28,7 +28,20 @@ Automations run agents on schedules or repository events. FOSS bootstrap keeps t
 
 Always-on commercial teammates (shared cloud computer). Use for scheduled Android/R8/memory scouting — not for `/feature` coding. Prompts and deny-list: [`GROK_BOTS.md`](GROK_BOTS.md).
 
-### 3. Webhook → gate report
+### 3. Weekly maintain (BUILD_PLAN Ongoing)
+
+- **Trigger:** cron Monday 07:30 UTC (after GitHub Weekly Health Check)
+- **Action:** Dry-run `/update-deps`, open one `weekly-maintain` tracking issue
+- **Deny:** `git push`, `--apply`, release tags
+- **FOSS alternative:** `/maintain` + `.github/workflows/weekly-health-check.yml`
+
+### 4. Monthly Dependabot review (KB-007)
+
+- **Trigger:** cron 1st of month 08:00 UTC
+- **Action:** Comment on leftover Dependabot PRs; do not merge
+- **FOSS alternative:** `/dependabot` when you are at the keyboard
+
+### 5. Webhook → gate report
 
 - **Trigger:** HTTPS webhook (deploy or external monitor)
 - **Action:** Run `python3 scripts/agent-run.py validate-bootstrap --quick` in the Cloud environment and post a pass/fail summary

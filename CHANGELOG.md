@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** Grok Bot + Cursor Automation recipes for weekly/monthly BUILD_PLAN maintain
+* **ci:** Weekly Health Check runs `check-security-triage.sh`
 * **docs:** OpenSSF project 14564 is passing; README already carries the live badge
 * **docs:** leftover OpenSSF apply URL for `vulnerability_report_private` (URL required)
 * **docs:** forced project-14564 edit URL so leftover Met+URL can overwrite prose

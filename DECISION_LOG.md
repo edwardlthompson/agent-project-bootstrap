@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-10 — Maintainer schedule (GitHub cron + optional Cloud timers)
+- **Status:** Accepted
+- **Context:** Recurring BUILD_PLAN AUTO/AGENT rows should keep running after the maintainer leaves the Cloud Agent session.
+- **Decision:** Keep GitHub Monday cron as the FOSS default (Weekly Health Check now includes `check-security-triage.sh`). Add disabled Grok Bot 4–5 and Cursor Automation crons for `/update-deps` dry-run and KB-007 review. No `git push`, no `--apply`, no live `.cursor/automations.yaml` on the FOSS path.
+- **Alternatives considered:** Require Grok Bots to ship (rejected). Auto-apply dependency bumps from a Bot (rejected: needs a human). Mark release-tag HUMAN as AUTO (rejected).
+- **Consequences:** AUTO weekly rows can close when Weekly Health Check is green. AGENT `/update-deps` still needs `/maintain` or a commercial timer. ADB leftovers stay on the host with the phones.
+
 ### 2026-09-10 — OpenSSF passing + Ollama declined
 - **Status:** Accepted
 - **Context:** Project 14564 reached 100% Passing. Maintainer does not want Ollama on this template. Cloud agent has no USB/adb for the two local phones.
