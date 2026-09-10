@@ -12,6 +12,8 @@ NEEDLES = (
     "microsoft/winget-pkgs",
     "[HUMAN]",
     "packaging/winget/example/manifest.yaml",
+    "arm64",
+    "x64",
 )
 EXAMPLE_KEYS = (
     "PackageIdentifier:",
@@ -32,6 +34,8 @@ def check_example(root: Path) -> list[str]:
         errors.append(f"{EXAMPLE.as_posix()} must use the placeholder SHA-256")
     if "example.com" not in text:
         errors.append(f"{EXAMPLE.as_posix()} must use an example.com InstallerUrl")
+    if "Architecture: x64" not in text or "Architecture: arm64" not in text:
+        errors.append(f"{EXAMPLE.as_posix()} must list x64 and arm64 installers")
     return errors
 
 

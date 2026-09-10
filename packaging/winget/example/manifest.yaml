@@ -12,5 +12,9 @@ Installers:
     InstallerType: zip
     InstallerUrl: https://example.com/releases/0.0.0/goldenpath-win-x64.zip
     InstallerSha256: 0000000000000000000000000000000000000000000000000000000000000000
+  - Architecture: arm64
+    InstallerType: zip
+    InstallerUrl: https://example.com/releases/0.0.0/goldenpath-win-arm64.zip
+    InstallerSha256: 0000000000000000000000000000000000000000000000000000000000000000
 ManifestType: singleton
 ManifestVersion: 1.6.0

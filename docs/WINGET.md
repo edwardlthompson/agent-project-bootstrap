@@ -12,6 +12,17 @@ bash scripts/validate-winget-stub.sh packaging/winget/example/manifest.yaml
 
 Do not file a Winget PR for this template using that example.
 
+## Multi-arch
+
+Ship **one installer row per architecture**. Typical Windows children list `x64` and `arm64`.
+
+- Each row needs its own `InstallerUrl` and `InstallerSha256`.
+- Do not reuse one hash for both architectures.
+- Optional `x86` only when you actually ship a 32-bit build.
+- Hash the Release asset after it exists. Never invent a digest.
+
+The committed example shows both `x64` and `arm64` with placeholder hashes.
+
 ## Generate the stub
 
 ```bash
