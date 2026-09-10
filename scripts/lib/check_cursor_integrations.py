@@ -19,6 +19,8 @@ SKILLS = (
     "update-deps",
     "best-of-n",
     "local-models",
+    "emulator",
+    "adr",
 )
 AGENTS = ("verifier", "gate-fixer", "explorer")
 COMMAND_SKILL = {
@@ -29,6 +31,8 @@ COMMAND_SKILL = {
     "feature.md": ("feature-vertical-slice",),
     "update-deps.md": ("update-deps",),
     "best-of-n.md": ("best-of-n",),
+    "emulator.md": ("emulator",),
+    "adr.md": ("adr",),
 }
 
 FOSS_EXAMPLES = (

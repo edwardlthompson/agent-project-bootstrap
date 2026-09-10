@@ -1,5 +1,7 @@
 # Local Android emulator (host GPU)
 
+> Skills: `.cursor/skills/emulator/`
+
 Run AOSP instrumented tests on this machine. Do **not** `git push`. Do **not** `adb reboot` or wipe a device this script did not start. `/ship` does not require this.
 
 ## Run

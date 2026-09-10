@@ -135,7 +135,7 @@ Activate only the modules matching your stack. See `modules/*/MODULE.md`.
 Shipped in template (see `docs/CURSOR_INTEGRATIONS.md`):
 
 - **Hooks** — `.cursor/hooks.json` enforces destructive-ops + UTF-8 (fail-open; `/push` session override)
-- **Skills** — `.cursor/skills/` companions for `/gates`, `/scope`, `/fix`, hygiene, Sprint 0, features, canvas, `/update-deps`, `/best-of-n`, local models
+- **Skills** — `.cursor/skills/` companions for `/gates`, `/scope`, `/fix`, hygiene, Sprint 0, features, canvas, `/update-deps`, `/best-of-n`, local models, `/emulator`, `/adr`
 - **Subagents (3)** — `.cursor/agents/` verifier, gate-fixer, explorer
 - **Local compute first** — `.cursor/rules/local-compute.mdc`: This Computer + parallel Task/worktrees/`/best-of-n`; RAM-capped parallel `feature-gate` stacks; optional `/emulator`; Linux DX in `docs/LINUX_DEV.md`
 - **Worktrees** — `.cursor/worktrees.json` + fail-soft OS setup (`/worktree`, `/best-of-n`)

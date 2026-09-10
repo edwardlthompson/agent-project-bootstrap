@@ -11,7 +11,7 @@ After `scripts/init-project.sh --distribution-tier foss`:
 | Rules | `.cursor/rules/*.mdc` | Shipped (16). `alwaysApply: true` is allowlisted in `scripts/lib/cursor_rule_audit.py`; glob-scoped rules must set `alwaysApply: false`. |
 | Commands | `.cursor/commands/*.md` | Shipped (33) |
 | Hooks | `.cursor/hooks.json` + `.cursor/hooks/` | Shipped |
-| Skills | `.cursor/skills/` (11) | Shipped |
+| Skills | `.cursor/skills/` (13) | Shipped |
 | Subagents | `.cursor/agents/` (3) | Shipped |
 | Modes | `docs/CURSOR_MODES.md` | Shipped |
 | Worktrees | `.cursor/worktrees.json` + OS setup scripts | Shipped |
@@ -124,6 +124,8 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 | `best-of-n` | `/best-of-n` |
 | `local-models` | `docs/LOCAL_MODELS.md` |
 | `linux-dev` | `docs/LINUX_DEV.md` |
+| `emulator` | `/emulator` |
+| `adr` | `/adr` |
 ## Subagents
 
 | Agent | Role |

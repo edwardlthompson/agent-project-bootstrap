@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 13 · AUTO 7 · HUMAN 4 · ADB 2 · **26 open**
+**Remaining:** AGENT 12 · AUTO 7 · HUMAN 4 · ADB 2 · **25 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -38,7 +38,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 1. ✅ [AGENT] Land `docs/GROK_BOTS.md` on main
 2. ✅ [AGENT] Plugin marketplace runbook
-3. 🔲 [AGENT] Skills for `/emulator` and `/adr`
+3. ✅ [AGENT] Skills for `/emulator` and `/adr`
 4. 🔲 [AGENT] Refresh `CURSOR_FEATURE_REGISTRY.json`
 5. 🔲 [AGENT] Commercial Automations YAML
 6. 🔲 [AGENT] Commercial Cloud hook merge test
