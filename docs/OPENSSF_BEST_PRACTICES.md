@@ -2,24 +2,21 @@
 
 Public entry: [project 14564](https://www.bestpractices.dev/en/projects/14564) (formerly CII).
 
-Live JSON (2026-09-10): **96% Passing**, Baseline-1 **0%**, `badge_level: in_progress`. Homepage URL is set. `.bestpractices.json` is a proposal file; the site only re-reads it from `main` after **Save (and continue) 🤖**.
+Live JSON (2026-09-10): **99% Passing**, Baseline-1 **0%**, `badge_level: in_progress`. Homepage URL is set. `.bestpractices.json` is a proposal file; the site only re-reads it from `main` after **Save (and continue) 🤖**.
 
 Regenerate apply links: `python3 scripts/lib/bestpractices_apply.py`
 
-## The 4% Passing gap (do this next)
+## The 1% Passing gap (do this next)
 
-Four Passing MUST rows are still `?`. One short leftover URL fills them as yellow 🤖 proposals. Review, then **Save and Continue**:
+`vulnerability_report_private` requires **Met** plus a URL (not prose). Open `# passing leftovers`, review the yellow 🤖 field, then **Save and Continue**:
 
 `python3 scripts/lib/bestpractices_apply.py` → print `# passing leftovers`
 
-| Criterion | Click | Paste this |
-|-----------|-------|------------|
-| `homepage_url` | **Met** | `https://github.com/edwardlthompson/agent-project-bootstrap` |
-| `report_url` | **Met** | `https://github.com/edwardlthompson/agent-project-bootstrap/issues` |
-| `know_secure_design` | **Met** if you designed security for this repo | `docs/THREAT_MODEL.md` + `SECURITY.md`; primary maintainer |
-| `know_common_errors` | **Met** if you know injection, secret leak, and supply-chain mistakes | Gitleaks, input validation at boundaries, Dependabot/`update-deps --audit` |
+| Criterion | Click | Paste this URL |
+|-----------|-------|----------------|
+| `vulnerability_report_private` | **Met** | `https://github.com/edwardlthompson/agent-project-bootstrap/security/advisories/new` |
 
-`achieve_passing` stays **Unmet** until those four are Met. Do **not** start Silver/Gold until the Passing badge is green.
+`SECURITY.md` now contains that same private-report URL. `achieve_passing` stays **Unmet** until this row is Met with a URL. Do **not** start Silver/Gold until the Passing badge is green.
 
 ## After Passing is 100%
 

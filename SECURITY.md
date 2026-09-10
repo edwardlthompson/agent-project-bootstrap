@@ -20,12 +20,16 @@ Use GitHub Issues: <https://github.com/edwardlthompson/agent-project-bootstrap/i
 
 **Do not** open public GitHub issues for security vulnerabilities.
 
-1. Use GitHub **Private vulnerability reporting** (Security → Advisories → Report a vulnerability), or
-2. Email the maintainers listed in `CODEOWNERS` with:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Impact assessment
-   - Suggested fix (if any)
+Send a private report (GitHub keeps it non-public):
+
+<https://github.com/edwardlthompson/agent-project-bootstrap/security/advisories/new>
+
+That is **Security → Advisories → Report a vulnerability**. If you cannot use GitHub, email the maintainers listed in `CODEOWNERS` with:
+
+- Description of the vulnerability
+- Steps to reproduce
+- Impact assessment
+- Suggested fix (if any)
 
 ## Response Timeline
 

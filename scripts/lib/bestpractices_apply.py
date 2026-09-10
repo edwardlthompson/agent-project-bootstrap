@@ -10,16 +10,10 @@ REPO = "https://github.com/edwardlthompson/agent-project-bootstrap"
 BASE = "https://www.bestpractices.dev/en/projects"
 JUSTIFY_MAX = 80
 ISSUES = f"{REPO}/issues"
+PRIVATE_REPORT = f"{REPO}/security/advisories/new"
 HUMAN_LEFTOVER = {
-    "homepage_url_status": "Met",
-    "homepage_url_justification": REPO,
-    "report_url": ISSUES,
-    "report_url_status": "Met",
-    "report_url_justification": ISSUES,
-    "know_secure_design_status": "Met",
-    "know_secure_design_justification": "docs/THREAT_MODEL.md + SECURITY.md; primary maintainer",
-    "know_common_errors_status": "Met",
-    "know_common_errors_justification": "Gitleaks, boundary validation, Dependabot / update-deps --audit",
+    "vulnerability_report_private_status": "Met",
+    "vulnerability_report_private_justification": PRIVATE_REPORT,
 }
 PASSING_PREFIXES = (
     "description_good",
@@ -70,7 +64,11 @@ def proposals(data: dict, section: str) -> dict[str, str]:
         value = "" if raw is None else str(raw).strip()
         if not value or value in {"?", "unknown"}:
             continue
-        if key.endswith("_justification") and len(value) > JUSTIFY_MAX:
+        if (
+            key.endswith("_justification")
+            and len(value) > JUSTIFY_MAX
+            and not value.startswith("http")
+        ):
             value = value[: JUSTIFY_MAX - 1] + "…"
         out[form_key(key)] = value
     return out

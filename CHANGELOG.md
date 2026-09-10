@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** leftover OpenSSF apply URL for `vulnerability_report_private` (URL required)
 * **docs:** leftover OpenSSF apply URL for the last four Passing MUST rows (96% → 100%)
 * **docs:** `bestpractices_apply.py` prints as=edit URLs for project 14564
 * **security:** OpenSSF Best Practices badge (project 14564) and `.bestpractices.json` proposals
@@ -81,6 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* **security:** `SECURITY.md` names the GitHub private advisory URL (`/security/advisories/new`)
 * **smoke:** treat `/tour` and other slash commands as commands, not doc paths
 * **smoke:** resolve bare filenames such as `feature-catalog.json` under `schemas/` during sprint smoke
 

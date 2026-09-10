@@ -9,7 +9,13 @@ LIB = Path(__file__).resolve().parent.parent / "scripts" / "lib"
 if str(LIB) not in sys.path:
     sys.path.insert(0, str(LIB))
 
-from bestpractices_apply import HUMAN_LEFTOVER, form_key, load, proposals  # noqa: E402
+from bestpractices_apply import (  # noqa: E402
+    HUMAN_LEFTOVER,
+    PRIVATE_REPORT,
+    form_key,
+    load,
+    proposals,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -38,11 +44,27 @@ class BestpracticesApplyTests(unittest.TestCase):
         )
         self.assertNotIn("know_secure_design_status", fields)
 
+    def test_private_report_is_url(self) -> None:
+        fields = proposals(load(ROOT), "passing")
+        justification = fields.get("vulnerability_report_private_justification", "")
+        self.assertTrue(justification.startswith("https://"))
+        self.assertEqual(justification, PRIVATE_REPORT)
+        self.assertIn("/security/advisories/new", justification)
+        security = (ROOT / "SECURITY.md").read_text(encoding="utf-8")
+        self.assertIn(PRIVATE_REPORT, security)
+
     def test_human_leftover_keys(self) -> None:
-        self.assertEqual(HUMAN_LEFTOVER["know_secure_design_status"], "Met")
-        self.assertEqual(HUMAN_LEFTOVER["know_common_errors_status"], "Met")
-        self.assertEqual(HUMAN_LEFTOVER["homepage_url_status"], "Met")
-        self.assertEqual(HUMAN_LEFTOVER["report_url_status"], "Met")
+        self.assertEqual(HUMAN_LEFTOVER["vulnerability_report_private_status"], "Met")
+        self.assertEqual(HUMAN_LEFTOVER["vulnerability_report_private_justification"], PRIVATE_REPORT)
+        self.assertNotIn("know_secure_design_status", HUMAN_LEFTOVER)
+
+    def test_url_justification_not_truncated(self) -> None:
+        long_url = "https://example.invalid/" + ("x" * 80)
+        fields = proposals(
+            {"vulnerability_report_private_justification": long_url},
+            "passing",
+        )
+        self.assertEqual(fields["vulnerability_report_private_justification"], long_url)
 
 
 if __name__ == "__main__":

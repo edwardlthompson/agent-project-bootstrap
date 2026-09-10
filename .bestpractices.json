@@ -34,7 +34,7 @@
   "vulnerability_report_process_status": "Met",
   "vulnerability_report_process_justification": "https://github.com/edwardlthompson/agent-project-bootstrap/blob/main/SECURITY.md",
   "vulnerability_report_private_status": "Met",
-  "vulnerability_report_private_justification": "GitHub Private vulnerability reporting; do not file public issues. SECURITY.md.",
+  "vulnerability_report_private_justification": "https://github.com/edwardlthompson/agent-project-bootstrap/security/advisories/new",
   "vulnerability_report_response_status": "N/A",
   "vulnerability_report_response_justification": "No private vulnerability reports received in the last 6 months.",
   "build_status": "Met",
