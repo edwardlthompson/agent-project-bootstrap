@@ -36,3 +36,7 @@ linux-dev:
 
 android-instrumented:
     python3 scripts/agent-run.py run-android-emulator-local
+
+# Needs Android SDK. HTML: examples/android/app/build/reports/r8/r8-config-analyzer-release.html
+android-r8-analyze:
+    cd examples/android && ./gradlew :app:analyzeReleaseR8Config

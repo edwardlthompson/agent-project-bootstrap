@@ -101,6 +101,7 @@ Product **Design Mode** (Agents Window browser: click/draw/voice on live UI) app
 | Term | Means | Not the same as |
 |------|--------|-----------------|
 | **Cloud Agents** | Paid remote VMs (formerly “Background Agents”) | Local Agent Mode |
+| **Grok Bots** | Optional xAI/Cursor always-on teammates ([`GROK_BOTS.md`](GROK_BOTS.md)) | Cloud Agents, Automations, Cline first-run |
 | **Automations Memories** | Cloud Automations persistence (`MEMORIES.md`-style) | [`AGENT_MEMORY.md`](../AGENT_MEMORY.md) or `.cursor-session-state` |
 | Built-in **`/plan`** | Product Plan Mode toggle / CLI plan | Batch [`.cursor/commands/plan.md`](../.cursor/commands/plan.md) orchestrator |
 | **`/plan` batch command** | Repo BUILD_PLAN planning recipe | Cursor Plan Mode UI |

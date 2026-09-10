@@ -60,6 +60,8 @@ Accessibility: toggle labels come from i18n keys (`theme.toggle.label`, `theme.m
 
 Allowed FOSS dependencies: `androidx.compose.material3`, `androidx.compose.material:material-icons-extended`, `androidx.datastore`. **Never** add `com.google.android.gms` or Firebase.
 
+Compose 1.12 (BOM `2026.08.00`): brand colors stay in tokens — do not replace `Color.kt` with `MeshGradientPainter`. Skip `Modifier.onFirstVisible` (deprecated). Credential Manager text-field autofill is commercial-only.
+
 ## Web (CSS variables)
 
 - Import `design-tokens.css` in `style.css`.

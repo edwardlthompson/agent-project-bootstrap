@@ -24,6 +24,10 @@ Automations run agents on schedules or repository events. FOSS bootstrap keeps t
 - **Action:** Summarize Dependabot alerts + open BUILD_PLAN 🔲 rows into one tracking issue
 - **FOSS alternative:** `/maintain` + `docs/SECURITY_TRIAGE.md`
 
+## Grok Bots
+
+Always-on commercial teammates (shared cloud computer). Use for scheduled Android/R8/memory scouting — not for `/feature` coding. Prompts and deny-list: [`GROK_BOTS.md`](GROK_BOTS.md).
+
 ### 3. Webhook → gate report
 
 - **Trigger:** HTTPS webhook (deploy or external monitor)

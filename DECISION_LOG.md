@@ -15,13 +15,14 @@
 
 ```
 
-## 2026-09-05 — Ship v1.1.0 without Release Please bot merge
-
-- **Decision:** Cut v1.1.0 via agent PR #94 + annotated tag/GitHub Release after #86 stayed `action_required` on workflows.
-- **Why:** Cloud agent cannot approve first-time/bot workflow runs (403); product commits already on main.
-- **Revisit:** [HUMAN] approve workflows on future Release Please PRs, or keep agent release-prep path documented.
-
 ## Entries
+
+### 2026-09-09 — Android runtime budget (R8 + memory limits) and optional Grok Bots
+- **Status:** Accepted
+- **Context:** Compose August 2026 is already on BOM `2026.08.00`. Android 17 enforces per-app memory limits. Tinder’s R8 analyzer case showed broad keep rules can leave R8 mostly idle. xAI Grok Bots are always-on commercial teammates, not a FOSS requirement.
+- **Decision:** Turn Golden Path `assembleRelease` R8 on with `proguard-android-optimize.txt` and a narrow keep file; add `GoldenPathApplication` limiter/trim hooks; document Compose 1.12 don’ts and optional Grok Bot prompts. No Credential Manager or Play Services on the FOSS path.
+- **Alternatives considered:** Keep minify off for readable stacks (rejected: memory + cold start). Require Grok Bots (rejected: Cloud-only default). Coil in Golden Path (rejected: no image pipeline yet).
+- **Consequences:** Release builds are slower; retrace with mapping.txt; structure tests lock minify/no-largeHeap/no-broad-keep.
 
 ### 2026-09-01 — M47 wrap-up: Cline first-run and stack nav
 - **Status:** Accepted
