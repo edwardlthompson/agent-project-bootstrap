@@ -13,7 +13,7 @@ if str(LIB) not in sys.path:
     sys.path.insert(0, str(LIB))
 
 from sprint_smoke import run  # noqa: E402
-from sprint_smoke_map import infer_probes  # noqa: E402
+from sprint_smoke_map import backtick_paths, infer_probes  # noqa: E402
 from sprint_smoke_parse import find_sprint, parse_sprints  # noqa: E402
 from sprint_smoke_probes import probe_docs  # noqa: E402
 
@@ -61,6 +61,11 @@ class SprintSmokeTests(unittest.TestCase):
         self.assertIn("android", infer_probes("Android TalkBack + keyboard smoke"))
         self.assertIn("node", infer_probes("Node OpenAPI spec + contract tests"))
         self.assertIn("docs", infer_probes("Winget multi-arch docs"))
+
+    def test_slash_commands_are_not_doc_paths(self) -> None:
+        self.assertEqual(backtick_paths("Skills for `/emulator` and `/adr`"), [])
+        self.assertEqual(backtick_paths("`/tour` + COACH: Settings-only chrome"), [])
+        self.assertEqual(backtick_paths("Land `docs/GROK_BOTS.md` on main"), ["docs/GROK_BOTS.md"])
 
     def test_docs_probe_resolves_catalog_basename(self) -> None:
         self.assertTrue(probe_docs(ROOT, ["feature-catalog.json"]).ok)

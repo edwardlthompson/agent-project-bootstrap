@@ -92,10 +92,18 @@ def probes_for_items(items: Iterable[SmokeItem]) -> dict[str, list[str]]:
     return {f"{item.number}:{item.task}": infer_probes(item.task) for item in items}
 
 
+def _is_slash_command(text: str) -> bool:
+    token = text.split()[0] if text else ""
+    return token.startswith("/") and token.count("/") == 1 and "." not in token
+
+
 def backtick_paths(task: str) -> list[str]:
     paths: list[str] = []
     for raw in _BACKTICK.findall(task):
         text = raw.strip()
-        if "/" in text or text.endswith((".md", ".json", ".yml", ".yaml", ".html")):
-            paths.append(text.split()[0])
+        token = text.split()[0] if text else ""
+        if _is_slash_command(token):
+            continue
+        if "/" in text or token.endswith((".md", ".json", ".yml", ".yaml", ".html")):
+            paths.append(token)
     return paths

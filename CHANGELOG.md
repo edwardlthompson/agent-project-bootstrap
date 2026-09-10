@@ -77,6 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* **smoke:** treat `/tour` and other slash commands as commands, not doc paths
 * **smoke:** resolve bare filenames such as `feature-catalog.json` under `schemas/` during sprint smoke
 
 ### Changed
