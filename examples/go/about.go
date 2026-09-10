@@ -2,10 +2,7 @@ package main
 
 import "encoding/json"
 
-const (
-	AppVersion = "0.1.0"
-	DonateURL  = "https://github.com/sponsors"
-)
+const DonateURL = "https://github.com/sponsors"
 
 // AboutUpdate is the shared update stub on the About JSON payload.
 type AboutUpdate struct {

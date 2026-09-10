@@ -5,6 +5,9 @@ import (
 	"strings"
 )
 
+// AppVersion is the stub fallback when build info has no release tag.
+const AppVersion = "0.1.0"
+
 // Version returns the module version from build info, or the stub fallback.
 func Version() string {
 	info, ok := debug.ReadBuildInfo()

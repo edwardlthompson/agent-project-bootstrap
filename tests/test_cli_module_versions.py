@@ -24,6 +24,7 @@ class CliModuleVersionTests(unittest.TestCase):
         version = version_path.read_text(encoding="utf-8")
         mod = (ROOT / "examples/go/go.mod").read_text(encoding="utf-8")
         self.assertIn("debug.ReadBuildInfo", version)
+        self.assertIn("const AppVersion", version)
         self.assertIn("module github.com/example/agent-bootstrap-hello", mod)
 
 

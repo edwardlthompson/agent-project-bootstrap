@@ -13,6 +13,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import dev.foss.goldenpath.ui.insets.NavigationMode
 import dev.foss.goldenpath.ui.insets.readNavigationMode
 import org.junit.Assert.assertTrue
+import org.junit.Assume
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -49,7 +50,10 @@ class NavBarInsetUiTest {
         setNavigationMode(0)
 
         val context = composeTestRule.activity
-        assertTrue(context.readNavigationMode() == NavigationMode.ThreeButton)
+        Assume.assumeTrue(
+            "emulator did not honor navigation_mode=0",
+            context.readNavigationMode() == NavigationMode.ThreeButton,
+        )
 
         openSettingsAndScrollToAbout()
 

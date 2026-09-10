@@ -2,6 +2,7 @@ package dev.foss.goldenpath
 
 import android.content.Context
 import android.content.res.Configuration
+import android.os.LocaleList
 import android.view.View
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -32,7 +33,7 @@ class LocaleRtlUiTest {
     private fun contextFor(locale: Locale): Context {
         val base = ApplicationProvider.getApplicationContext<Context>()
         val config = Configuration(base.resources.configuration)
-        config.setLocale(locale)
+        config.setLocales(LocaleList(locale))
         config.setLayoutDirection(locale)
         return base.createConfigurationContext(config)
     }
