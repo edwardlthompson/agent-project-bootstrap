@@ -405,6 +405,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-ci-gaps.sh",
+      "purpose": "Gate: living ci-gap registry stays aligned with the issue form",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-readme-mermaid.sh",
       "purpose": "Gate: generated README preview includes a mermaid flowchart",
       "read_when": "milestone_boundary",
@@ -1045,6 +1052,20 @@
       "path": "schemas/batch-commands-print.json",
       "purpose": "Novice captions for the print cheat sheet renderer",
       "read_when": "validation",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "schemas/ci-gaps.json",
+      "purpose": "Living registry of accepted CI skips and open ci-gap rows",
+      "read_when": "validation",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/CI_GAPS.md",
+      "purpose": "Human-readable index of the living ci-gap registry",
+      "read_when": "prompt_needed",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     },

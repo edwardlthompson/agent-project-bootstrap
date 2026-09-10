@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 3 · AUTO 7 · HUMAN 4 · ADB 2 · **16 open**
+**Remaining:** AGENT 2 · AUTO 7 · HUMAN 4 · ADB 2 · **15 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -48,7 +48,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 10. ✅ [AGENT] `batch-commands-print.html` audit
 11. ✅ [AGENT] `check-template-gaps` optional-stack rows
 12. ✅ [AGENT] ADR-0001 architecture-pick gate
-13. 🔲 [AGENT] Living `ci-gap` registry
+13. ✅ [AGENT] Living `ci-gap` registry
 
 ### Waiting on a person
 

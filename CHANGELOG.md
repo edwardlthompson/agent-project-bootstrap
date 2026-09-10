@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **ci:** living `ci-gap` registry (`schemas/ci-gaps.json`) aligned with the issue form
 * **docs:** ADR-0001 architecture-pick gate (MVVM/Clean/Hexagonal stay open)
 * **docs:** `check-template-gaps` lists rust/go/lightroom as optional stack rows
 * **docs:** print cheat sheet audit (`scope="col"`, Settings-only `/tour`/`/coach` captions)

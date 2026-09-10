@@ -203,6 +203,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-ideas-discussion.sh \
   check-adr-command.sh \
   check-adr-architecture.sh \
+  check-ci-gaps.sh \
   check-readme-mermaid.sh \
   check-social-preview.sh \
   check-fdroid-screenshots.sh \
