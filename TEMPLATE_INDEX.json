@@ -419,6 +419,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-cursor-automations.sh",
+      "purpose": "Gate: commercial Automations YAML example stays disabled",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-cursor-marketplace.sh",
       "purpose": "Gate: Cursor marketplace runbook stays FOSS-default local pack",
       "read_when": "milestone_boundary",

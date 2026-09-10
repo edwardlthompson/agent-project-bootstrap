@@ -206,7 +206,8 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-social-preview.sh \
   check-fdroid-screenshots.sh \
   check-winget-runbook.sh \
-  check-cursor-marketplace.sh
+  check-cursor-marketplace.sh \
+  check-cursor-automations.sh
 then
   ERRORS=$((ERRORS + 1))
 fi

@@ -37,6 +37,7 @@ Thumbs.db
 .cursor/mcp-audit.log
 .cursor/environment.json
 .cursor/sandbox.json
+.cursor/automations.yaml
 CURSOR_RADAR_REPORT.md
 CURSOR_RADAR_BACKLOG.md
 CURSOR_RADAR_SUGGESTIONS.md
