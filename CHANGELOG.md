@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.1.0...v1.2.0) (2026-09-10)
+
+
+### Added
+
+* **android:** turn on release R8 and Android 17 memory hooks ([#95](https://github.com/edwardlthompson/agent-project-bootstrap/issues/95)) ([eeb783e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/eeb783e63cdffeb7e0f5b3c7d949a92d9a10fb4f))
+* **ui:** Settings-only chrome and glanceable menus ([#96](https://github.com/edwardlthompson/agent-project-bootstrap/issues/96)) ([a8ce80b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/a8ce80b0c316cf604fa2cde31bcb71f933904b42))
+
 ## [Unreleased]
 
 ### Added
