@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-10 — M57 Cursor + docs wrap
+- **Status:** Accepted
+- **Context:** Maintainer `/build` finished Cursor docs (Grok Bots, marketplace, skills, registry, Automations YAML, Cloud hooks, Canvas, CLI loop, Settings-only tour/coach, print-sheet audit, optional-stack gaps, ADR-0001 pick gate, living ci-gap registry). Sprint smoke first treated `/tour` `/emulator` `/adr` as file paths.
+- **Decision:** Archive M57. `backtick_paths` skips slash-command tokens. Home chrome stays Settings-only. ADR-0001 stays an open child pick. `ci-ok` still must not `needs` nix.
+- **Alternatives considered:** Pre-select Hexagonal on the template (rejected: child Sprint 1 pick). Make Nix a required `ci-ok` job (rejected: skipped ≠ success).
+- **Consequences:** Idea sprints M51–M57 are archived (55 rows). Recurring weekly/monthly and HUMAN/ADB leftovers remain. Device nav smoke and Ollama stay backlogged.
+
 ### 2026-09-09 — M54 Catalog + Lightroom wrap
 - **Status:** Accepted
 - **Context:** Maintainer `/build` finished Lightroom lint/tagset/SDK playbook and catalog sync. Sprint smoke failed when a task mentioned `feature-catalog.json` as a repo-root path.

@@ -2,6 +2,22 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M57 — Cursor + docs (2026-09-10)
+
+- ✅ [AGENT] Land `docs/GROK_BOTS.md` on main
+- ✅ [AGENT] Plugin marketplace runbook
+- ✅ [AGENT] Skills for `/emulator` and `/adr`
+- ✅ [AGENT] Refresh `CURSOR_FEATURE_REGISTRY.json`
+- ✅ [AGENT] Commercial Automations YAML
+- ✅ [AGENT] Commercial Cloud hook merge test
+- ✅ [AGENT] Canvas / design-mode walkthrough
+- ✅ [AGENT] Cursor CLI local-loop recipe
+- ✅ [AGENT] `/tour` + COACH: Settings-only chrome
+- ✅ [AGENT] `batch-commands-print.html` audit
+- ✅ [AGENT] `check-template-gaps` optional-stack rows
+- ✅ [AGENT] ADR-0001 architecture-pick gate
+- ✅ [AGENT] Living `ci-gap` registry
+
 ## M56 — Desktop packaging (2026-09-10)
 
 - ✅ [AGENT] Winget manifest example

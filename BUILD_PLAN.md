@@ -28,27 +28,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** M57. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** weekly / monthly. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-> **M56** archived in COMPLETED_TASKS.md @ `5e52d16`.
-
-### M57 — Cursor + docs
-
-<!-- parallel_exception: registry/docs are one overlapping slice -->
-
-1. ✅ [AGENT] Land `docs/GROK_BOTS.md` on main
-2. ✅ [AGENT] Plugin marketplace runbook
-3. ✅ [AGENT] Skills for `/emulator` and `/adr`
-4. ✅ [AGENT] Refresh `CURSOR_FEATURE_REGISTRY.json`
-5. ✅ [AGENT] Commercial Automations YAML
-6. ✅ [AGENT] Commercial Cloud hook merge test
-7. ✅ [AGENT] Canvas / design-mode walkthrough
-8. ✅ [AGENT] Cursor CLI local-loop recipe
-9. ✅ [AGENT] `/tour` + COACH: Settings-only chrome
-10. ✅ [AGENT] `batch-commands-print.html` audit
-11. ✅ [AGENT] `check-template-gaps` optional-stack rows
-12. ✅ [AGENT] ADR-0001 architecture-pick gate
-13. ✅ [AGENT] Living `ci-gap` registry
+> **M57** archived in COMPLETED_TASKS.md @ `e65513d`.
 
 ### Waiting on a person
 
@@ -57,7 +39,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 4. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
-Done on this board: **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 
