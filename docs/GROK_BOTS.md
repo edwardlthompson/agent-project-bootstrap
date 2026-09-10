@@ -6,13 +6,13 @@ Official overview: [Grok Bot docs](https://docs.x.ai/grok-bot/overview). Sign-in
 
 ## When to use
 
-| Use a Grok Bot | Stay local (default) |
-|----------------|----------------------|
-| Recurring ops that should run while you are offline | `/gates`, `/feature`, `/fix`, coding, BUILD_PLAN rows |
-| Digest Android platform posts and open `enhancement` issues | Day-to-day Agent/Cline in this repo |
-| Scheduled R8 score snapshots when a cloud VM has the Android SDK | First-run onboarding (`docs/help/CLINE.md`) |
+| Use a Grok Bot | Stay local / GitHub (default) |
+|----------------|------------------------------|
+| Recurring `/maintain` while you are offline | Monday cron already runs most AUTO rows |
+| Digest Android/R8 posts into `enhancement` issues | `/gates`, `/feature`, `/fix` on This Computer |
+| Scheduled R8 snapshots when a cloud VM has an SDK | First-run onboarding (`docs/help/CLINE.md`) |
 
-Local compute first: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-compute.mdc). Grok Bots are Cloud. They complement [Automations](CURSOR_AUTOMATIONS.commercial.md); they do not replace slash commands.
+Local compute first: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-compute.mdc). Timed Cloud Agents: [Automations](CURSOR_AUTOMATIONS.commercial.md). FOSS cron: `.github/workflows/weekly-health-check.yml` (Monday 07:00 UTC).
 
 ## Security (non-negotiable)
 
@@ -24,7 +24,7 @@ Local compute first: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-
 
 ## Bots that help this template
 
-Copy the prompt into a new Bot. Grant repo **read** (and issue create if you want intake). Do not grant write to `main`.
+Copy the prompt into a new Bot. Grant repo **read** (and issue create). Do not grant write to `main`.
 
 ### 1. Android platform scout
 
@@ -34,16 +34,22 @@ Weekly: read Compose BOM / AGP / memory-limit posts, compare to `examples/androi
 
 On demand or weekly: `cd examples/android && ./gradlew :app:analyzeReleaseR8Config`. Report shrinking / optimization / obfuscation scores and the five keep rules that block the most code. Flag `-keep public class *` and subsumed rules. Do not add broad keeps to “fix” a crash without a reflection proof.
 
-HTML report (AGP 9.3+): `app/build/reports/r8/r8-config-analyzer-release.html`. Full release builds also write `app/build/outputs/mapping/release/configanalyzer.html`.
-
 ### 3. Runtime-budget checker
 
 Confirm release `isMinifyEnabled` + `isShrinkResources`, `proguard-android-optimize.txt`, no `largeHeap`, no `android.enableR8.fullMode=false`. Point at `docs/features/android-runtime-budget.md`. Suggest `[ADB]` memory-limiter adb tests; do not invent Play Console telemetry.
 
+### 4. Maintainer weekly (BUILD_PLAN Ongoing)
+
+Fallback only when Monday **Weekly Health Check** is red: run `python3 scripts/agent-run.py update-deps` (dry-run only). Open one tracking issue titled `weekly-maintain YYYY-MM-DD`. Do not `--apply`. Do not `git push`. Do not put cron chores back on `BUILD_PLAN.md`.
+
+### 5. Maintainer monthly (KB-007)
+
+First Monday: list open Dependabot PRs (`gh pr list --label dependencies`). Comment which are safe to auto-merge vs need a human. Confirm `simulate-template-upgrade.sh` and license/SBOM jobs on the latest release. Do not merge. Do not approve a release tag.
+
 ## FOSS alternative
 
-`python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto` plus `/maintain`. Child repos that never pay for Cursor Cloud skip this file.
+GitHub already schedules radar, upgrade-sim, CI wait, Security Scan, Scorecard, and CodeQL. Local leftover: `/maintain`. Child repos that never pay for Cursor Cloud skip Bots 1–5.
 
 ## Activation
 
-Commercial tier checklist: [`CURSOR_COMMERCIAL_ACTIVATION.md`](CURSOR_COMMERCIAL_ACTIVATION.md). Create Bots in the Grok Bot app; keep project law in `AGENTS.md`.
+Commercial checklist: [`CURSOR_COMMERCIAL_ACTIVATION.md`](CURSOR_COMMERCIAL_ACTIVATION.md). Create Bots in the Grok Bot app; keep project law in `AGENTS.md`.

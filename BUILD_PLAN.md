@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 2 · AUTO 7 · HUMAN 2 · ADB 2 · **13 open**
+**Remaining:** AGENT 0 · AUTO 0 · HUMAN 0 · ADB 2 · **2 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -28,7 +28,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** weekly / monthly. Last ship **v1.1.0**. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** v1.1.0 shipped. Recurring work is Monday cron, not this board. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
 > **M57** archived in COMPLETED_TASKS.md @ `e65513d`.
 
@@ -41,32 +41,11 @@ Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55*
 
 ---
 
-## Ongoing Maintenance (recurring)
+## Ongoing Maintenance
 
-Template weekly: `bash scripts/run-maintainer-gates.sh` (omit `--quick` to wait on CI).
+Not a checklist. GitHub Monday 07:00 UTC (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim, radar, `update-deps` dry-run, Dependabot leftover list, and latest-release SBOM. `/ship` owns pre-release and the release tag.
 
-### Weekly
-
-- 🔲 [AUTO] `cursor-feature-radar.sh` (non-blocking)
-- 🔲 [AUTO] `check-security-triage.sh --wait-ci 300`
-- 🔲 [AGENT] `/update-deps`; leftover Dependabot + Scorecard
-- 🔲 [AUTO] CI + Repo Hygiene + Feature Gate green on `main`
-
-### Monthly
-
-- 🔲 [AUTO] `simulate-template-upgrade.sh`
-- 🔲 [AUTO] `check-license-compliance.sh` + SBOM on latest release
-- 🔲 [AGENT] Review Dependabot auto-merge PRs (KB-007)
-
-### Pre-release (every version)
-
-- 🔲 [AUTO] `pre-release-gate.sh --local` before push; full gate + `run-maintainer-gates.sh` after
-- 🔲 [AUTO] Release Please merged; CHANGELOG + manifest bumped
-
-### Human (after automation)
-
-- 🔲 [HUMAN] Approve release tag when product-ready
-- 🔲 [HUMAN] Quarterly Cursor feature radar (next 2026-11-15; last 2026-08-15)
+If Monday cron is red: Cursor Automation `weekly-maintain`, then Grok Bot 4–5. Do not put those chores back on this board. [`docs/GROK_BOTS.md`](docs/GROK_BOTS.md) · [`docs/CURSOR_AUTOMATIONS.commercial.md`](docs/CURSOR_AUTOMATIONS.commercial.md)
 
 ---
 

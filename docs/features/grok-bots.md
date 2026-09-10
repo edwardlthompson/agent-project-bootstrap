@@ -7,6 +7,7 @@
 - ✅ `docs/GROK_BOTS.md` exists with FOSS alternative and destructive-ops deny
 - ✅ `validate-bootstrap.sh` requires the file
 - ✅ `docs/START_HERE.md` links it as optional commercial
+- ✅ Maintainer weekly/monthly Bot prompts exist; GitHub Monday cron stays the FOSS default
 
 ## Smoke scenario
 

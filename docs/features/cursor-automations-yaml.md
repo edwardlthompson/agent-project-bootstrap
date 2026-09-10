@@ -7,6 +7,7 @@
 - ✅ `.cursor/automations.commercial.example.yaml` ships `enabled: false`
 - ✅ Recipes deny `git push` and treat webhooks as untrusted
 - ✅ Live `.cursor/automations.yaml` is not committed
+- ✅ Example includes disabled `weekly-maintain` and `monthly-dependabot-review` crons
 
 ## Smoke scenario
 
