@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 16 · AUTO 7 · HUMAN 4 · ADB 2 · **29 open**
+**Remaining:** AGENT 15 · AUTO 7 · HUMAN 4 · ADB 2 · **28 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -38,7 +38,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 1. ✅ [AGENT] Winget manifest example
 2. ✅ [AGENT] Winget multi-arch docs
-3. 🔲 [AGENT] Desktop binary + Winget publish loop
+3. ✅ [AGENT] Desktop binary + Winget publish loop
 
 ### M57 — Cursor + docs
 

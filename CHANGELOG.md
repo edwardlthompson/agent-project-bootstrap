@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **packaging:** Winget publish loop hashes installer files and never submits
 * **packaging:** Winget example and stub list x64 and arm64 installers
 * **packaging:** committed Winget singleton example (`packaging/winget/example/manifest.yaml`)
 * **ci:** always-on sanitizer fixture parity job (`check-sanitize-fixtures.sh`)

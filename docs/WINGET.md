@@ -49,6 +49,19 @@ Do not commit live installer URLs that embed tokens. Do not commit `.env`.
 3. Open a PR. Winget validation bots must pass.
 4. `[HUMAN]` owns the publish click. Agents may draft the YAML only.
 
+## Local publish loop
+
+Hash real installer files, write a stub, and validate. The loop **does not submit**.
+
+```bash
+WINGET_INSTALLER_X64=dist/app-x64.zip WINGET_INSTALLER_ARM64=dist/app-arm64.zip \
+  bash scripts/winget-publish-loop.sh
+# No Windows assets yet:
+bash scripts/winget-publish-loop.sh --dry-run
+```
+
+Output: `dist/winget-loop/manifest.stub.yaml` (gitignored). `[HUMAN]` replaces `InstallerUrl` with GitHub Release HTTPS assets, then opens the `microsoft/winget-pkgs` PR.
+
 ## Template vs child
 
 On **this** template, the stub is an example. Do not file a Winget PR for `agent-project-bootstrap`. Child desktop apps follow this runbook after `/prerelease` and a GitHub Release with the installer attached.

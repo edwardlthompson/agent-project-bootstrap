@@ -14,6 +14,7 @@ NEEDLES = (
     "packaging/winget/example/manifest.yaml",
     "arm64",
     "x64",
+    "winget-publish-loop.sh",
 )
 EXAMPLE_KEYS = (
     "PackageIdentifier:",

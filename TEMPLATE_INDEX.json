@@ -1476,6 +1476,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/winget-publish-loop.sh",
+      "purpose": "Hash desktop installer files into a Winget stub (no submit)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/generate-winget-manifest.sh",
       "purpose": "Generate Winget manifest YAML stub",
       "read_when": "milestone_boundary",
