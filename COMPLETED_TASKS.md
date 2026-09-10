@@ -2,6 +2,12 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M56 — Desktop packaging (2026-09-10)
+
+- ✅ [AGENT] Winget manifest example
+- ✅ [AGENT] Winget multi-arch docs
+- ✅ [AGENT] Desktop binary + Winget publish loop
+
 ## M55 — CI + security (2026-09-10)
 
 - ✅ [AGENT] Dependabot Cargo + Go
