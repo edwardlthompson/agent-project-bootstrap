@@ -61,6 +61,7 @@ REQUIRED=(
   docs/first-30-days.json
   docs/WINGET.md
   docs/GROK_BOTS.md
+  docs/CURSOR_MARKETPLACE.md
   docs/AGENT_PORTABILITY.md
   docs/help/TOUR.md
   docs/help/IDEAS.md
@@ -204,7 +205,8 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-readme-mermaid.sh \
   check-social-preview.sh \
   check-fdroid-screenshots.sh \
-  check-winget-runbook.sh
+  check-winget-runbook.sh \
+  check-cursor-marketplace.sh
 then
   ERRORS=$((ERRORS + 1))
 fi

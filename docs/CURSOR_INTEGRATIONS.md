@@ -152,6 +152,8 @@ Then symlink **`dist/cursor-plugin`** → `~/.cursor/plugins/local/agent-project
 
 ## Optional marketplace (not default)
 
+Runbook: [`CURSOR_MARKETPLACE.md`](CURSOR_MARKETPLACE.md).
+
 Child repos **may** add [wshobson/agents](https://github.com/wshobson/agents) as a Cursor marketplace. Do **not** install it by default — 200+ agents would drown context and fight “one feature per agent” plus local-compute-first.
 
 FOSS default stays the local `.cursor/` pack above. If a child repo opts in, pick plugins that **complement** (not replace) shipped commands:
