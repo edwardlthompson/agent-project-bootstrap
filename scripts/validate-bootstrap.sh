@@ -202,6 +202,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-template-upgrade-form.sh \
   check-ideas-discussion.sh \
   check-adr-command.sh \
+  check-adr-architecture.sh \
   check-readme-mermaid.sh \
   check-social-preview.sh \
   check-fdroid-screenshots.sh \

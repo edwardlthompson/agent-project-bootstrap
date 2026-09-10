@@ -398,6 +398,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-adr-architecture.sh",
+      "purpose": "Gate: ADR-0001 stays an open MVVM/Clean/Hexagonal pick",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-readme-mermaid.sh",
       "purpose": "Gate: generated README preview includes a mermaid flowchart",
       "read_when": "milestone_boundary",
