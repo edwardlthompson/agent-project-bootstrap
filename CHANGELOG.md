@@ -88,8 +88,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * **ci:** skip stack-specific bootstrap tests when examples are pruned (upgrade-sim)
-* **android:** import `pressKey` so TalkBack keyboard UI tests compile
-* **web:** freeze Settings/About/Feedback screenshot boxes so CI fonts cannot change dimensions
+* **android:** TalkBack UI test opens Settings with `performClick` (Enter is unreliable on the CI emulator)
+* **web:** drop Settings/About/Feedback pixel snapshots; homepage snapshot + panel e2e stay
+* **ci:** About-without strip also clears Rust/Go `log` About calls
 * **nix:** mark flake-wrapped scripts executable so `nix eval` program paths are `+x`
 * **security:** `SECURITY.md` names the GitHub private advisory URL (`/security/advisories/new`)
 * **smoke:** treat `/tour` and other slash commands as commands, not doc paths

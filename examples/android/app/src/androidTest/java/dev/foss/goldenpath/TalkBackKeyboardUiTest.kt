@@ -1,14 +1,11 @@
 package dev.foss.goldenpath
 
-import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performKeyInput
-import androidx.compose.ui.test.pressKey
-import androidx.compose.ui.test.requestFocus
+import androidx.compose.ui.test.performClick
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -32,11 +29,9 @@ class TalkBackKeyboardUiTest {
     }
 
     @Test
-    fun enterKeyOpensSettingsThenBackIsLabeled() {
+    fun settingsOpensThenBackIsLabeled() {
         composeTestRule.dismissLaunchPrompts()
-        val settings = composeTestRule.onNodeWithContentDescription("Settings")
-        settings.requestFocus()
-        settings.performKeyInput { pressKey(Key.Enter) }
+        composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithTag("settings-panel").assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Back")

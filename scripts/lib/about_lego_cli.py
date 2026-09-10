@@ -13,7 +13,9 @@ TRACKED = (
     "examples/rust/src/lib.rs",
     "examples/rust/src/main.rs",
     "examples/rust/src/about.rs",
+    "examples/rust/src/log.rs",
     "examples/go/main.go",
+    "examples/go/log.go",
     "examples/go/about.go",
     "examples/go/about_test.go",
     "examples/node/src/app.ts",
@@ -69,8 +71,26 @@ def strip(root: Path) -> None:
     lib = (root / "examples/rust/src/lib.rs").read_text(encoding="utf-8")
     write_lf(root / "examples/rust/src/lib.rs", lib.replace("pub mod about;\n", ""))
     _copy_stub("rust-main.rs", root / "examples/rust/src/main.rs")
+    rust_log = root / "examples/rust/src/log.rs"
+    if rust_log.is_file():
+        write_lf(
+            rust_log,
+            rust_log.read_text(encoding="utf-8").replace(
+                '    let _ = writeln!(stdout, "{}", crate::about::summary());\n',
+                "",
+            ),
+        )
     (root / "examples/go/about.go").unlink(missing_ok=True)
     _copy_stub("go-main.go", root / "examples/go/main.go")
+    go_log = root / "examples/go/log.go"
+    if go_log.is_file():
+        write_lf(
+            go_log,
+            go_log.read_text(encoding="utf-8").replace(
+                "\tfmt.Fprintln(stdout, AboutSummary())\n",
+                "",
+            ),
+        )
     go_test = root / "examples/go/about_test.go"
     write_lf(go_test, _drop(go_test.read_text(encoding="utf-8"), r"\nfunc TestAboutSummary\([\s\S]*?\n\}\n"))
     for rel in ("examples/node/src/about.ts", "examples/node/src/about.test.ts"):

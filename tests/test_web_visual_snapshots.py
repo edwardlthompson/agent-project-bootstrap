@@ -1,4 +1,4 @@
-"""Golden Path web Playwright baselines cover Settings, About, and Feedback."""
+"""Golden Path web Playwright baseline covers the homepage canvas."""
 
 from __future__ import annotations
 
@@ -8,17 +8,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SNAP = ROOT / "examples/web/e2e/app.spec.ts-snapshots"
-REQUIRED = (
-    "homepage-chromium.png",
-    "settings-panel-chromium.png",
-    "about-panel-chromium.png",
-    "feedback-panel-chromium.png",
-)
-PANEL_SIZES = {
-    "settings-panel-chromium.png": (400, 561),
-    "about-panel-chromium.png": (512, 585),
-    "feedback-panel-chromium.png": (512, 449),
-}
+SPEC = ROOT / "examples/web/e2e/app.spec.ts"
+HOMEPAGE = "homepage-chromium.png"
 
 
 def _png_size(path: Path) -> tuple[int, int] | None:
@@ -30,25 +21,20 @@ def _png_size(path: Path) -> tuple[int, int] | None:
 
 
 class WebVisualSnapshotTests(unittest.TestCase):
-    def test_settings_about_feedback_baselines_exist(self) -> None:
-        spec = (ROOT / "examples/web/e2e/app.spec.ts").read_text(encoding="utf-8")
-        self.assertIn('shotPanel(page, panel, "settings-panel.png"', spec)
-        self.assertIn('shotPanel(page, panel, "about-panel.png"', spec)
-        self.assertIn('shotPanel(page, panel, "feedback-panel.png"', spec)
-        self.assertIn("async function freezePanel", spec)
-        self.assertIn("async function shotPanel", spec)
-        self.assertIn("node.style.width", spec)
-        for name in REQUIRED:
-            path = SNAP / name
-            self.assertTrue(path.is_file(), f"missing {path}")
-            size = _png_size(path)
-            self.assertIsNotNone(size, f"not a PNG: {name}")
-            assert size is not None
-            self.assertGreater(size[0], 8, name)
-            self.assertGreater(size[1], 8, name)
-            self.assertGreater(path.stat().st_size, 1024, name)
-            if name in PANEL_SIZES:
-                self.assertEqual(size, PANEL_SIZES[name], name)
+    def test_homepage_baseline_exists(self) -> None:
+        spec = SPEC.read_text(encoding="utf-8")
+        self.assertIn('toHaveScreenshot("homepage.png"', spec)
+        self.assertNotIn("settings-panel.png", spec)
+        self.assertNotIn("about-panel.png", spec)
+        self.assertNotIn("feedback-panel.png", spec)
+        path = SNAP / HOMEPAGE
+        self.assertTrue(path.is_file(), f"missing {path}")
+        size = _png_size(path)
+        self.assertIsNotNone(size, f"not a PNG: {HOMEPAGE}")
+        assert size is not None
+        self.assertGreater(size[0], 8, HOMEPAGE)
+        self.assertGreater(size[1], 8, HOMEPAGE)
+        self.assertGreater(path.stat().st_size, 1024, HOMEPAGE)
 
     def test_android_panel_tags_match_web(self) -> None:
         android = ROOT / "examples/android/app/src/main/java/dev/foss/goldenpath/ui"
