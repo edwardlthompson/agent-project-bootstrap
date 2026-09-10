@@ -419,6 +419,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-cursor-canvas.sh",
+      "purpose": "Gate: Canvas / Design Mode walkthrough stays complete",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-cursor-cloud-hooks.sh",
       "purpose": "Gate: commercial Cloud hook merge keeps FOSS shell/encoding hooks",
       "read_when": "milestone_boundary",

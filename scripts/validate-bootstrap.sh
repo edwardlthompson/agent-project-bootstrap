@@ -208,7 +208,8 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-winget-runbook.sh \
   check-cursor-marketplace.sh \
   check-cursor-automations.sh \
-  check-cursor-cloud-hooks.sh
+  check-cursor-cloud-hooks.sh \
+  check-cursor-canvas.sh
 then
   ERRORS=$((ERRORS + 1))
 fi
