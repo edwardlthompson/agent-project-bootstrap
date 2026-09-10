@@ -28,7 +28,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** v1.1.0 shipped. #95 R8 + Android 17 memory is on `main`. Recurring work is Monday cron, not this board. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** v1.1.0 shipped. #95 R8 + #96 Settings chrome are on `main`. Recurring work is Monday cron, not this board. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
 > **M57** archived in COMPLETED_TASKS.md @ `e65513d`.
 

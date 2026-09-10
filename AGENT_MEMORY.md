@@ -53,7 +53,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 | 2026-09-10 | BUILD_PLAN declutter | Recurring AUTO/AGENT chores left the board; Monday cron owns them | Do not put weekly/monthly 🔲 rows back on BUILD_PLAN or the child template |
 | 2026-09-10 | OpenSSF passing | Project 14564 passing; README badge live; Ollama leftover rejected | Do not require Ollama on this template; ADB leftovers need the host with the phones |
 | 2026-09-10 | M57 Cursor + docs | Grok Bots, marketplace, skills, registry, Automations, Cloud hooks, Canvas, CLI loop, Settings-only tour/print, optional-stack gaps, ADR-0001 gate, ci-gap registry | Do not treat `/tour` backticks as file paths; do not pre-select ADR-0001 |
-| 2026-09-10 | #95 on main | Android R8 + Android 17 memory hooks merged to main | Keep minify/shrink and GoldenPathApplication limiter/trim; no broad keep rules |
+| 2026-09-10 | #95/#96 on main | R8 + memory (#95); Settings-only chrome (#96) | Keep minify/shrink + Settings-only chrome; no header ThemeToggle/About/donate |
 | 2026-09-09 | M54 Catalog + Lightroom | Lua lint, tagset factory, SDK bump playbook; MODULE sync; catalog navigation + lightroom-plugin | Do not treat bare `feature-catalog.json` as a repo-root path in smoke |
 | 2026-09-09 | M53 Android distribution | Landed PR #95 R8; F-Droid/Fastlane/AntiFeatures; UnifiedPush sample; signing runbook | Do not commit keystores or add FCM on the FOSS path |
 | 2026-09-09 | Child BUILD_PLAN template | `BUILD_PLAN_TEMPLATE.md` is the product board model; tallies on both plans | Do not put a child playbook back inside this repo’s BUILD_PLAN.md |
