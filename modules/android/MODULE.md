@@ -49,6 +49,35 @@ Default locale: English only (`res/values/strings.xml`). Add `res/values-{lang}/
 Shared key naming with web: `app.title`, `settings.theme.mode.*`, `settings.section.*` — see [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md). For website folder conventions in multi-stack repos, see [`docs/WEB_PROJECT_LAYOUT.md`](../../docs/WEB_PROJECT_LAYOUT.md).
 
 - ✅ In-app AboutScreen with format-locked APK update stub and donations (Settings → About only — never TopAppBar; see `docs/help/DONATIONS.md`)
+## Compose 1.12 floor (August 2026)
+
+Golden Path pins Compose BOM `2026.08.00` (Compose 1.12) with `compileSdk` / `targetSdk` 37. AGP is already ≥ 9.2 (required) and ≥ 9.3 (R8 Configuration Analyzer). Child apps:
+
+- Do **not** use deprecated `Modifier.onFirstVisible` — use `Modifier.onVisibilityChanged`
+- Keep brand color in design tokens; `MeshGradientPainter` is optional decoration, not a token replacement
+- Credential Manager / `credentialRequest` semantics stay **off** the FOSS path (Play Services–adjacent). Commercial only: `COMMERCIAL.md`
+- Prefer keyed `SideEffect` over `LaunchedEffect` when you do not need a coroutine; animation tests may use `hasPendingWork` / `runWithoutImplicitWait`
+
+## Runtime budget (R8 + Android 17 memory)
+
+Release builds **must** run R8 (`isMinifyEnabled` + `isShrinkResources` + `proguard-android-optimize.txt`). Broad keep rules such as `-keep public class * { public protected *; }` block optimization even when minify is on. Audit with:
+
+```bash
+cd examples/android && ./gradlew :app:analyzeReleaseR8Config
+# or: just android-r8-analyze
+```
+
+Reports: `app/build/reports/r8/r8-config-analyzer-release.html` (task) and `app/build/outputs/mapping/release/configanalyzer.html` (assembleRelease). Retrace crashes with `mapping.txt`. Do not set `android.enableR8.fullMode=false` or `-dontobfuscate`.
+
+Android 17 enforces per-app memory limits. Golden Path:
+
+- Uses `GoldenPathApplication` (no `android:largeHeap`)
+- Trims on `TRIM_MEMORY_UI_HIDDEN` and `TRIM_MEMORY_BACKGROUND` only
+- Detects limiter kills via `ApplicationExitInfo` description `MemoryLimiter:AnonSwap` (`REASON_OTHER`) — never poll `ActivityManager.getMemoryInfo`
+- Child image pipelines: Coil (Compose) or Glide; downsample; prefer vectors
+
+Device simulation of limits is `[ADB]`. Optional commercial Grok Bot prompts: [`docs/GROK_BOTS.md`](../../docs/GROK_BOTS.md). Feature spec: [`docs/features/android-runtime-budget.md`](../../docs/features/android-runtime-budget.md).
+
 ## Golden Path Reference
 
 See `examples/android/` for FOSS Gradle/Kotlin skeleton. CI runs `./gradlew assembleDebug` on every push to `main`.
@@ -106,6 +135,7 @@ Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
 
 - 🔲 Install release APK on physical device or emulator: `adb install -r app/build/outputs/apk/release/*.apk`
 - 🔲 Smoke test cold start, core flow, offline behavior, and notification path (if applicable)
+- 🔲 Confirm release was minified (mapping.txt present); optional `:app:analyzeReleaseR8Config` scores not regressed
 - 🔲 Capture `adb logcat` during smoke test; confirm no crash stack traces
 - 🔲 Uninstall/reinstall upgrade path from previous release version
 

@@ -1092,7 +1092,7 @@
     },
     {
       "path": ".github/workflows/dependency-review.yml",
-      "purpose": "PR dependency review \u2014 fail on new High/Critical vulnerabilities",
+      "purpose": "PR dependency review — fail on new High/Critical vulnerabilities",
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1806,7 +1806,7 @@
     },
     {
       "path": "scripts/run-codex-review.sh",
-      "purpose": "Local Codex CLI review \u2192 CODE_REVIEW.md",
+      "purpose": "Local Codex CLI review → CODE_REVIEW.md",
       "read_when": "audit",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -2503,6 +2503,34 @@
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "docs/GROK_BOTS.md",
+      "purpose": "Optional commercial Grok Bot prompts for Android/R8/memory ops",
+      "read_when": "cursor_setup",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/adr/0003-android-runtime-budget.md",
+      "purpose": "R8 full mode plus Android 17 memory-limit Golden Path decision",
+      "read_when": "architectural_decision",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/android-runtime-budget.md",
+      "purpose": "Golden Path R8 minify and memory-limit feature spec",
+      "read_when": "feature_work",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "examples/android/app/proguard-rules.pro",
+      "purpose": "Narrow release R8 keep attributes (no package-wide keeps)",
+      "read_when": "android_release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     }
   ],
   "modules": {
@@ -2543,7 +2571,7 @@
     }
   },
   "roadmap": {
-    "active": "BUILD_PLAN.md \u2014 M46 /allideas backlog + human leftovers",
+    "active": "BUILD_PLAN.md — M48 Android runtime budget + Grok Bot ops; HUMAN leftovers",
     "completed_archive": "COMPLETED_TASKS.md",
     "batch_commands": [
       ".cursor/commands/audit.md",
