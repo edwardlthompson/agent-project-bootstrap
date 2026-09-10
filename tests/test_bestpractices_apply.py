@@ -12,6 +12,7 @@ if str(LIB) not in sys.path:
 from bestpractices_apply import (  # noqa: E402
     HUMAN_LEFTOVER,
     PRIVATE_REPORT,
+    apply_url,
     form_key,
     load,
     proposals,
@@ -65,6 +66,12 @@ class BestpracticesApplyTests(unittest.TestCase):
             "passing",
         )
         self.assertEqual(fields["vulnerability_report_private_justification"], long_url)
+
+    def test_forced_leftover_uses_project_edit(self) -> None:
+        url = apply_url("passing", HUMAN_LEFTOVER, overrides="vulnerability_report_private_*")
+        self.assertIn("/14564/passing/edit?", url)
+        self.assertIn("overrides=vulnerability_report_private_", url)
+        self.assertIn("security%2Fadvisories%2Fnew", url)
 
 
 if __name__ == "__main__":

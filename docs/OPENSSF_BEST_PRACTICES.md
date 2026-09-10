@@ -2,21 +2,23 @@
 
 Public entry: [project 14564](https://www.bestpractices.dev/en/projects/14564) (formerly CII).
 
-Live JSON (2026-09-10): **99% Passing**, Baseline-1 **0%**, `badge_level: in_progress`. Homepage URL is set. `.bestpractices.json` is a proposal file; the site only re-reads it from `main` after **Save (and continue) 🤖**.
+Live JSON (2026-09-10): **99% Passing** because `vulnerability_report_private` is Met with prose and **no `https://`**. BadgeApp does not count Met without a URL. Do **not** choose N/A: this repo supports private HTTPS reports (GitHub Advisories). N/A is only for projects that never accept private reports.
 
 Regenerate apply links: `python3 scripts/lib/bestpractices_apply.py`
 
 ## The 1% Passing gap (do this next)
 
-`vulnerability_report_private` requires **Met** plus a URL (not prose). Open `# passing leftovers`, review the yellow 🤖 field, then **Save and Continue**:
+The last apply link was **unforced**, so it did not overwrite the existing prose (blue ≠). Use the **forced** leftover URL (orange ⚠️), then **Save and Continue**:
 
 `python3 scripts/lib/bestpractices_apply.py` → print `# passing leftovers`
 
-| Criterion | Click | Paste this URL |
-|-----------|-------|----------------|
-| `vulnerability_report_private` | **Met** | `https://github.com/edwardlthompson/agent-project-bootstrap/security/advisories/new` |
+Or edit [project 14564 Passing](https://www.bestpractices.dev/en/projects/14564/passing/edit) by hand:
 
-`SECURITY.md` now contains that same private-report URL. `achieve_passing` stays **Unmet** until this row is Met with a URL. Do **not** start Silver/Gold until the Passing badge is green.
+| Criterion | Click | Replace the justification with this URL only |
+|-----------|-------|----------------------------------------------|
+| `vulnerability_report_private` | **Met** (not N/A) | `https://github.com/edwardlthompson/agent-project-bootstrap/security/advisories/new` |
+
+That page is a private defect report over HTTPS/TLS. `SECURITY.md` documents the same URL.
 
 ## After Passing is 100%
 
@@ -30,5 +32,4 @@ Regenerate apply links: `python3 scripts/lib/bestpractices_apply.py`
 - Two-person review / signed git tags / 80–90% coverage (Silver/Gold) unless they are actually true.
 - Crypto rows are **N/A** (this template does not implement crypto).
 - `vulnerability_report_response` is **N/A** until you receive a private report.
-
-Do not invent Met answers. Status `?` in `.bestpractices.json` is ignored on purpose. `know_secure_design` / `know_common_errors` stay out of that file; they appear only on the leftover apply URL for human review.
+- `vulnerability_report_private` is **not** N/A while GitHub private reporting is offered.

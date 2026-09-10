@@ -8,6 +8,7 @@ from urllib.parse import urlencode
 ROOT = Path(__file__).resolve().parents[2]
 REPO = "https://github.com/edwardlthompson/agent-project-bootstrap"
 BASE = "https://www.bestpractices.dev/en/projects"
+PROJECT_ID = 14564
 JUSTIFY_MAX = 80
 ISSUES = f"{REPO}/issues"
 PRIVATE_REPORT = f"{REPO}/security/advisories/new"
@@ -74,10 +75,15 @@ def proposals(data: dict, section: str) -> dict[str, str]:
     return out
 
 
-def apply_url(section: str, fields: dict[str, str]) -> str:
-    query = {"as": "edit", "section": section, "url": REPO}
-    query.update(fields)
-    return f"{BASE}?{urlencode(query)}"
+def apply_url(
+    section: str,
+    fields: dict[str, str],
+    overrides: str | None = None,
+) -> str:
+    query = dict(fields)
+    if overrides:
+        query["overrides"] = overrides
+    return f"{BASE}/{PROJECT_ID}/{section}/edit?{urlencode(query)}"
 
 
 def load(root: Path | None = None) -> dict:
@@ -101,8 +107,8 @@ def main() -> int:
             print(f"# {label} ({len(part)} fields)")
             print(apply_url(section, part))
             print()
-    print(f"# passing leftovers ({len(HUMAN_LEFTOVER)} fields)")
-    print(apply_url("passing", HUMAN_LEFTOVER))
+    print(f"# passing leftovers ({len(HUMAN_LEFTOVER)} fields, forced)")
+    print(apply_url("passing", HUMAN_LEFTOVER, overrides="vulnerability_report_private_*"))
     print()
     return 0
 
