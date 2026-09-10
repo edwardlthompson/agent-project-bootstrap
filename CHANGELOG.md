@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **ci:** optional path-filtered Nix flake job (`nix flake show`, not a required check)
 * **security:** FOSS Semgrep prompt-injection pack (jailbreak phrases + shell sinks)
 * **security:** Scorecard SARIF auto-classifier (`scripts/lib/scorecard_sarif.py`)
 * **ci:** weekly Dependabot backup for Cargo (`examples/rust`) and Go (`examples/go`)
