@@ -27,7 +27,6 @@
 | View | `AppShell.ts` | `GoldenPathApp.kt` / `GoldenPathScreen.kt` |
 | Tests | `examples/web/src/nav/*.test.ts`, `appBootstrap.test.ts`, `AppShell.test.ts` | `src/test/.../ui/nav/NavTest.kt`, `NavBackTest.kt`, `NavStoreTest.kt` |
 | Wiring | `appBootstrap.ts` + `src/nav/controller.ts` | `GoldenPathApp.kt` (`BackHandler` + `NavPreferences`) |
-
 ## Tests
 
 - Automated: yes — web: `examples/web/src/nav/*.test.ts`, `AppShell.test.ts`, `appBootstrap.test.ts`; Android: `NavTest.kt`, `NavBackTest.kt`, `NavStoreTest.kt`
@@ -44,7 +43,7 @@ Required when Automated is **no**. Still name the smoke command when tests exist
 
 - ✅ Web history stack + persist wired in AppShell (M47 row 3)
 - ✅ Android BackHandler + persist wired in Golden Path UI (M47 row 4; unit tests)
-- 🔲 [ADB] instrumented Back smoke on device/emulator (SDK missing in this cloud agent)
+- ✅ [ADB] instrumented Back smoke on device/emulator (Espresso 3.7 + OnePlus 12 API 36)
 - ✅ Shared `NavState` + unit tests (this row)
 
 ## Notes

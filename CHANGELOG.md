@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+* **android:** pin Espresso 3.7.0 so instrumented Compose tests work on Android 16 (InputManager.getInstance removed)
+* **android:** Golden Path nav Back smoke asserts Settings→home and system Back stays in-app
+
 ### Added
 
 * **docs:** BUILD_PLAN Ongoing Maintenance is a cron pointer, not a 🔲 chore list

@@ -13,6 +13,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
+import androidx.test.espresso.Espresso
 import dev.foss.goldenpath.ui.about.AboutTestTags
 import org.junit.Rule
 import org.junit.Test
@@ -45,6 +46,12 @@ class GoldenPathUiTest {
         composeTestRule.onNodeWithText("Version, updates, and ways to support development")
             .assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Back").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("home-status").assertIsDisplayed()
+        // Home has no nav Back icon; system Back must stay in-app (NavBack finishActivity=false).
+        Espresso.pressBack()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("home-status").assertIsDisplayed()
     }
 
     @Test
@@ -97,6 +104,20 @@ class GoldenPathUiTest {
         composeTestRule.onNodeWithText("Choose an action").performScrollTo().performClick()
         composeTestRule.onNodeWithText("Report a bug").performClick()
         composeTestRule.onNodeWithTag("feedback-panel").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Report a bug").assertIsDisplayed()
+        // Title + action chip both say "Report a bug"; require at least one visible.
+        check(composeTestRule.onAllNodesWithText("Report a bug").fetchSemanticsNodes().isNotEmpty())
+        // Stack is home → settings → about → feedback; Back pops each level; home Back is no-op.
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("about-panel").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("settings-panel").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("home-status").assertIsDisplayed()
+        Espresso.pressBack()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("home-status").assertIsDisplayed()
     }
 }

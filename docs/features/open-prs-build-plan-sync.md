@@ -14,7 +14,7 @@
 
 1. _Given_ open Dependabot PR #N
 2. _When_ `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` runs
-3. _Then_ BUILD_PLAN lists `- 🔲 [AUTO] Merge Dependabot [#N](...)`
+3. _Then_ BUILD_PLAN lists a Dependabot row such as ``- 🔲 [AUTO] Merge Dependabot #N`` with the PR URL
 
 ## Container map
 

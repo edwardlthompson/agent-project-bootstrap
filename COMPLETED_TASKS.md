@@ -2,6 +2,10 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Waiting on a person — nav smoke (2026-09-10)
+
+- ✅ [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
+
 ## Waiting on a person — ADB SDK (2026-09-10)
 
 - ✅ [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
