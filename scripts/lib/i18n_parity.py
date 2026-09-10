@@ -60,7 +60,32 @@ def check_repo(root: Path | None = None) -> list[str]:
     )
     if not isinstance(web, dict):
         return ["en.json must be a JSON object"]
-    return check_files(web, android, allow)
+    errors = check_files(web, android, allow)
+    errors.extend(check_second_locale(base, web, android))
+    return errors
+
+
+def check_same_keys(left: set[str], right: set[str], right_label: str) -> list[str]:
+    errors = [f"{right_label} missing {key!r}" for key in sorted(left - right)]
+    errors.extend(f"{right_label} extra {key!r}" for key in sorted(right - left))
+    return errors
+
+
+def check_second_locale(base: Path, web: dict, android: set[str]) -> list[str]:
+    errors: list[str] = []
+    es_web = base / "examples/web/src/locales/es.json"
+    if es_web.is_file():
+        extra = json.loads(es_web.read_text(encoding="utf-8"))
+        if not isinstance(extra, dict):
+            errors.append("es.json must be a JSON object")
+        else:
+            errors.extend(check_same_keys(set(web), set(extra), "es.json"))
+    es_android = base / "examples/android/app/src/main/res/values-es/strings.xml"
+    if es_android.is_file():
+        errors.extend(
+            check_same_keys(android, android_names(es_android.read_text(encoding="utf-8")), "values-es")
+        )
+    return errors
 
 
 def main() -> int:

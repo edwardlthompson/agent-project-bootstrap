@@ -1,0 +1,16 @@
+# F-Droid AntiFeatures template for child apps.
+# Golden Path FOSS default: none. Uncomment only what a child product actually has.
+# https://f-droid.org/docs/Anti-Features/
+#
+# AntiFeatures:
+#   - Ads
+#   - Tracking
+#   - NonFreeNet
+#   - NonFreeAdd
+#   - NonFreeDep
+#   - NonFreeAssets
+#   - UpstreamNonFree
+#   - DisabledAlgorithm
+#   - KnownVuln
+#   - NSFW
+AntiFeatures: []

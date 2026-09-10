@@ -6,12 +6,15 @@ import android.os.Build
 import android.util.Log
 import dev.foss.goldenpath.crashcapture.CrashCapture
 import dev.foss.goldenpath.memory.MemoryBudget
+import dev.foss.goldenpath.push.UnifiedPushConfig
+import dev.foss.goldenpath.push.UnifiedPushDistributors
 
 class GoldenPathApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         CrashCapture.install(this)
         recordLimiterExit()
+        logUnifiedPush()
     }
 
     override fun onTrimMemory(level: Int) {
@@ -35,7 +38,15 @@ class GoldenPathApplication : Application() {
         }
     }
 
+    private fun logUnifiedPush() {
+        val state = UnifiedPushConfig.state(UnifiedPushDistributors.installedPackages(packageManager), null)
+        if (!state.enabled) {
+            Log.d(TAG_PUSH, "no UnifiedPush distributor")
+        }
+    }
+
     companion object {
         private const val TAG = "GpMemory"
+        private const val TAG_PUSH = "GpPush"
     }
 }

@@ -31,7 +31,7 @@ npm ci
 npm test          # Vitest unit tests (maxWorkers 50%; override with VITEST_MAX_WORKERS=1 if a race appears)
 npm run build     # Production build → dist/
 npm run preview   # Preview server
-npx playwright test  # E2E + axe + visual snapshots
+npx playwright test  # E2E + axe + home/Settings/About/Feedback snapshots
 npm run lighthouse   # Lighthouse CI budgets
 
 ```

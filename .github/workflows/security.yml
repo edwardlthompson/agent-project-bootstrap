@@ -50,7 +50,7 @@ jobs:
           python3 -m pip install --user semgrep
           echo "${HOME}/.local/bin" >> "${GITHUB_PATH}"
       - name: Scan FOSS rules (no SaaS)
-        run: semgrep --config .semgrep.yml --metrics=off --error
+        run: semgrep --config .semgrep.yml --config .semgrep/prompt-injection.yml --metrics=off --error
         env:
           SEMGREP_SEND_METRICS: "off"
 

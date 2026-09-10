@@ -15,14 +15,14 @@ Execute the BUILD_PLAN **without asking the user questions, presenting options, 
 
 ## Step 0 — Load sprint state
 
-Use `--lane auto` (not `child`): on this template it selects Ongoing Maintenance; on child repos it still walks the Child Repo Playbook.
+Use `--lane auto` (not `child`): on this template it selects the maintainer board; on child repos it walks `BUILD_PLAN.md` (installed from `BUILD_PLAN_TEMPLATE.md`).
 
 ```bash
 python3 scripts/agent-run.py build-sprint-status --json --lane auto
 
 ```
 
-`auto` uses the child playbook on product repos and the Template Maintainer board on this template. Pass `--lane child` only when you mean Sprint 0+.
+`auto` uses the product board on child repos and the Template Maintainer board on this template. Pass `--lane child` to walk `BUILD_PLAN_TEMPLATE.md` on this repo (Sprint 0+).
 
 Write `.cursor-session-state.json` fields: `active_sprint`, `build_plan_lane`, `autonomous_mode: true`.
 
@@ -72,9 +72,10 @@ Re-run `build-sprint-status.sh --json` and continue 1a.
 
 When `sprint_agent_auto_complete` for current sprint:
 
-1. @.cursor/commands/gates.md — full local validation
-2. @.cursor/commands/cleanup.md — archive ✅ rows (including auto-completed HUMAN/ADB); backlog items stay open on board
-3. Print brief summary: sprint name, rows completed, rows automated, rows backlogged (`HUMAN_BACKLOG.md`), and pointer to grouped **Human & device (after automation)** section for manual follow-up
+1. `python3 scripts/agent-run.py smoke-sprint --require --sprint "<sprint title>"` — re-smoke **every** ✅ row (no errors/crashes; startup + load order). Exit ≠ 0 → do **not** mark the sprint done or chain to the next sprint; leave the last row 🔲/❌ and `/fix`.
+2. @.cursor/commands/gates.md — full local validation (includes `smoke-sprint --if-complete`)
+3. @.cursor/commands/cleanup.md — archive ✅ rows (including auto-completed HUMAN/ADB); backlog items stay open on board
+4. Print brief summary: sprint name, rows completed, rows automated, rows backlogged (`HUMAN_BACKLOG.md`), and pointer to grouped **Human & device (after automation)** section for manual follow-up
 
 ## Step 3 — Chain to next sprint
 

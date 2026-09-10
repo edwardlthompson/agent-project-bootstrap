@@ -47,3 +47,19 @@ updates:
         versions: [">=2.3.30"]
       - dependency-name: "org.jetbrains.kotlin:*"
         versions: [">=2.3.30"]
+
+  - package-ecosystem: cargo
+    directory: /examples/rust
+    schedule:
+      interval: weekly
+    groups:
+      rust-dependencies:
+        patterns: ["*"]
+
+  - package-ecosystem: gomod
+    directory: /examples/go
+    schedule:
+      interval: weekly
+    groups:
+      go-dependencies:
+        patterns: ["*"]

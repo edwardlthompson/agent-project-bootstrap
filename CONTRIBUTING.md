@@ -24,6 +24,19 @@ Thank you for helping. Read [`docs/BEST_PRACTICES.md`](docs/BEST_PRACTICES.md) i
 4. Make changes; run `bash scripts/verify.sh` locally (or the VS Code **Verify** task).
 5. Open a PR using the provided template.
 
+## Requirements for acceptable contributions
+
+- Follow Conventional Commits (enforced by the `commit-msg` hook).
+- Stay in the active feature container; do not batch unrelated BUILD_PLAN rows.
+- Add or update automated tests for `[AGENT]` feature work, or document why tests are not feasible in `docs/features/{name}.md`.
+- Run `bash scripts/verify.sh` (or `python3 scripts/agent-run.py verify`) before you open the PR.
+- Do not commit secrets, `.env`, or keystores. Do not add proprietary SDKs on the FOSS path.
+- Coding style: existing stack linters (Biome, ruff, Android lint). Max 300 lines static data, 150 lines pure logic.
+
+## Subprojects
+
+Runnable Golden Path code lives under `examples/{web,python,android,node,rust,go,lightroom}`. Stack guides are `modules/{stack}/MODULE.md`. Optional rust/go/lightroom: [`docs/OPTIONAL_STACKS.md`](docs/OPTIONAL_STACKS.md).
+
 ## Recommended branching (GitHub Flow)
 
 Short-lived branches, one concern per PR, merge to `main` when required checks are green. Do not force-push `main`. Required checks (via `scripts/setup-github-repo.sh`): **CI**, **Security Scan**, **CodeQL**, **Repo Hygiene**, **Feature Gate**, **Template Upgrade Simulation (Windows)**.

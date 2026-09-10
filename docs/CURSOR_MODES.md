@@ -94,7 +94,7 @@ Use `/side`, `/btw`, or the Agents Window plus button for a durable side convers
 
 ## Design Mode
 
-Product **Design Mode** (Agents Window browser: click/draw/voice on live UI) applies when the active stack includes **web/PWA**. Do not use it for Android/Python-only work. See [Design Mode docs](https://cursor.com/docs/agent/design-mode).
+Product **Design Mode** (Agents Window browser: click/draw/voice on live UI) applies when the active stack includes **web/PWA**. Do not use it for Android/Python-only work. Walkthrough: [`CURSOR_CANVAS.md`](CURSOR_CANVAS.md). Official: [Design Mode docs](https://cursor.com/docs/agent/design-mode).
 
 ## Naming disambiguation
 

@@ -40,6 +40,8 @@
   "settings.about": "App info",
   "settings.about_hint": "Version, updates, and ways to support development",
   "settings.close": "Close settings",
+  "settings.search": "Search settings",
+  "settings.search.empty": "No settings match that search.",
   "settings.theme.label": "Theme",
   "settings.theme.mode.system": "System theme",
   "settings.theme.mode.light": "Light theme",

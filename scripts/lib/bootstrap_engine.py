@@ -64,6 +64,7 @@ def default_config(
             "post_welcome_issue": False,
         },
         "crash_proxy": {"enabled": False},
+        "crash_inbox": {"enabled": False, "provider": "none"},
     }
 
 

@@ -17,6 +17,9 @@ uv run ruff format --check .
 uv run mypy src
 uv run hello FOSS
 uv run hello --about
+uv run hello --ready
+uv run hello --openapi
+uv run hello --feedback --kind bug
 
 ```
 

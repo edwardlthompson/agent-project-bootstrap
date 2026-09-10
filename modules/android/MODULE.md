@@ -44,7 +44,7 @@ Strings are separate from styles. Theme colors and spacing live in `ui/theme/`; 
 | Strings | `res/values/strings.xml` | `stringResource(R.string.*)` in Compose |
 | Styles | `ui/theme/` (generated `Color.kt`, `Type.kt`, `Dimens.kt`) | `MaterialTheme.colorScheme`, `Dimens.kt` |
 | Forbidden | Kotlin string literals in composables | Use `stringResource`, not `Text("...")` |
-Default locale: English only (`res/values/strings.xml`). Add `res/values-{lang}/strings.xml` when shipping translations. Plurals: `res/values/plurals.xml` when needed.
+Default locale: English (`res/values/strings.xml`). Second catalog: Spanish (`res/values-es/strings.xml`). Plurals: `res/values/plurals.xml` when needed.
 
 Shared key naming with web: `app.title`, `settings.theme.mode.*`, `settings.section.*` — see [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md). For website folder conventions in multi-stack repos, see [`docs/WEB_PROJECT_LAYOUT.md`](../../docs/WEB_PROJECT_LAYOUT.md).
 
@@ -102,8 +102,9 @@ After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.
 
 | Stage | Command |
 |-------|---------|
-| Unit + compile | `./gradlew test` in `examples/android/` |
-Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
+| Unit | `./gradlew test` in `examples/android/` |
+| Instrumented compile | `./gradlew :app:compileDebugAndroidTestKotlin` (no emulator) |
+Requires `JAVA_HOME` and an Android SDK locally; gate skips when the SDK is missing. Do **not** run `connectedDebugAndroidTest` here — that stays `/emulator` and CI `android-instrumented`.
 
 ## Owner Labels for This Module
 
@@ -113,6 +114,7 @@ Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
 | Emulator/device testing, F-Droid submit | ADB |
 | FOSS dependency audit approval | HUMAN |
 | CI Gradle compile / structure validation | AUTO |
+
 ## F-Droid Submission Dry-Run Checklist
 
 `[ADB]` dry-run before first F-Droid release. Full metadata lives under `examples/android/metadata/` when present.
@@ -127,9 +129,13 @@ Requires `JAVA_HOME` locally; gate exits `2` when Java is missing.
 ### Metadata and policy
 
 - 🔲 Complete F-Droid `metadata/` (`summary`, `description`, `license`, `sourceCode`, `build` blocks)
-- 🔲 Screenshots and feature graphic paths valid (Fastlane or manual `metadata/en-US/`)
+- 🔲 Copy `examples/android/metadata/dev.foss.goldenpath.yml` into the fdroiddata recipe
+- 🔲 Screenshots and feature graphic paths valid (Fastlane `fastlane/metadata/android/en-US/` or manual `metadata/en-US/`)
+- 🔲 Keep `examples/android/metadata/antifeatures.yml` empty (`AntiFeatures: []`) unless an AntiFeature applies
 - 🔲 Version code/name align with `CHANGELOG` and tag
 - 🔲 Anti-feature flags accurate (ads, tracking, non-free network services)
+- 🔲 Signing and rollback: [`docs/ANDROID_SIGNING.md`](../../docs/ANDROID_SIGNING.md)
+- 🔲 UnifiedPush sample or document that the app has no push (`docs/features/unifiedpush.md`)
 
 ### Device verification (ADB)
 

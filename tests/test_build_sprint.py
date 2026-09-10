@@ -134,6 +134,35 @@ class RepoModeTests(unittest.TestCase):
             self.assertEqual(status["lane"], "child")
             self.assertIn("init-project", status["next_row"]["task"])
 
+    def test_auto_lane_child_slim_board(self) -> None:
+        plan = """# Build Plan
+
+### Sprint 0 — Customize
+
+1. 🔲 [AGENT] Run init-project
+2. 🔲 [HUMAN] Use this template
+
+## Ongoing Maintenance
+
+- 🔲 [AUTO] CI green on `main`
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "bootstrap.config.json").write_text(
+                json.dumps(
+                    {
+                        "project_name": "notes-app",
+                        "purpose": "Offline notes",
+                        "stack": "web",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (root / "BUILD_PLAN.md").write_text(plan, encoding="utf-8")
+            status = build_status(root, lane="auto")
+            self.assertEqual(status["lane"], "child")
+            self.assertIn("init-project", status["next_row"]["task"])
+
     def test_build_command_uses_auto_lane(self) -> None:
         text = (
             Path(__file__).resolve().parent.parent / ".cursor" / "commands" / "build.md"

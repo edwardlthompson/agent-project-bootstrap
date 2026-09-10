@@ -18,7 +18,7 @@ pwsh scripts/setup-github-repo.ps1
 
 ```
 
-Requires `gh` CLI authenticated with admin access. On API `422` (plan or permission limits), the script prints a manual UI checklist. Re-run after fixing permissions.
+Requires `gh` CLI authenticated with admin access. On API `422` (plan or permission limits), the script prints a manual UI checklist. Re-run after fixing permissions. Optional `AUTOMERGE_TOKEN` or `SETUP_AUTOMERGE_TOKEN=1` calls `scripts/setup-automerge-token.sh`; missing token is a NOTE, not a setup failure.
 
 5. Configure branch protection on `main` requiring status checks: **CI**, **Security Scan**, **CodeQL**, **Repo Hygiene**, **Feature Gate**, **Template Upgrade Simulation (Windows)** (`scripts/setup-github-repo.sh` sets these via API; desired-state copy: [`.github/settings.yml`](../.github/settings.yml); verify in Settings -> Branches)
 
@@ -44,13 +44,14 @@ Recommended cadence: **Monday** (aligned with scheduled security scans and `heal
 | 4 | AUTO | CI (Trivy, CodeQL, matrix tests) validates merges |
 | 5 | HUMAN | Merge PR or escalate deferred items |
 | 6 | AUTO | Review `weekly-health-check.yml` weekly run (Monday 07:00 UTC); confirm CI + Security Scan + CodeQL green on main |
-| 7 | AUTO | Run `bash scripts/check-security-triage.sh --wait-ci 300` (Dependabot + workflows + OpenSSF Scorecard) |
+| 7 | AUTO | `check-security-triage.sh` also runs in `weekly-health-check.yml` (Monday). Local leftover: `bash scripts/check-security-triage.sh --wait-ci 300` |
 ## OpenSSF Scorecard
 
 - Workflow: `.github/workflows/scorecard.yml` (`name: OpenSSF Scorecard`)
 - Weekly triage: `check-security-triage.sh` reports latest Scorecard run conclusion
 - Pre-release: `pre-release-gate.sh` invokes `check-security-triage.sh --strict` (fails on missing/failed Scorecard)
 - SARIF: Scorecard uploads findings to **Security → Code scanning**; triage open items into BUILD_PLAN `[AGENT]` rows or dismiss with rationale in DECISION_LOG.md
+- Classifier: `python3 scripts/lib/scorecard_sarif.py results.sarif` (also `bash scripts/check-scorecard-sarif-classifier.sh`) maps checks to fix / dismiss / defer using the table below
 
 ### SARIF triage (M35 / 2026-08-15)
 
@@ -123,14 +124,14 @@ When the product exposes agents, run the compact walk in [`THREAT_MODEL.md`](THR
 | `scripts/update-deps.sh` | Local dry-run / apply / audit (`upd-cli==0.6.2`) |
 | `.github/workflows/security.yml` | Trivy filesystem scan |
 | `.github/workflows/codeql.yml` | CodeQL static analysis |
-| `.github/workflows/weekly-health-check.yml` | Weekly CI + Security Scan + CodeQL status on main |
+| `.github/workflows/weekly-health-check.yml` | Monday cron: CI wait, security triage, upgrade-sim, radar, update-deps dry-run, Dependabot leftover list, latest-release SBOM |
 | `scripts/validate-workflow-actions.sh` | Resolve action refs via GitHub API |
 | `scripts/check-workflow-action-ref-format.sh` | Local bare-semver guard |
 | `scripts/check-security-triage.sh` | Weekly Dependabot + workflow + Scorecard gate |
 | `schemas/golden-path/openvex.example.json` | OpenVEX template attached next to `sbom.cyclonedx.json` |
 | `scripts/pre-release-gate.sh` | `--local` for `/prerelease`/`/ship`; default (full GH) for `/regress` and `release.yml` |
 | `.github/workflows/scorecard.yml` | OpenSSF Scorecard SARIF upload |
-| `scripts/setup-github-repo.sh` | One-time Dependabot + reporting + branch protection setup |
+| `scripts/setup-github-repo.sh` | One-time Dependabot + reporting + branch protection + optional AUTOMERGE_TOKEN |
 | `scripts/setup-automerge-token.sh` | Set `AUTOMERGE_TOKEN` secret from env or `gh auth token` |
 | `scripts/verify-branch-protection.sh` | Post-setup branch protection + strict/force-push verification |
 | `scripts/verify-reproducible-apk.sh` | Local reproducible APK hash check (also in `run-maintainer-gates.sh` full mode) |

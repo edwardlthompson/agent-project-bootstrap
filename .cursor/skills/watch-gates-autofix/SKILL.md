@@ -26,4 +26,6 @@ Exit 1: read `.cursor/agent-progress.json` and gate JSON; fix lint/tests in acti
 
 Exit 2: halt and escalate per `docs/FOR_AGENTS.md`.
 
+Sprint wrap (all AGENT/AUTO rows ✅): `python3 scripts/agent-run.py smoke-sprint --require` — do not start the next sprint until it passes.
+
 Optional: `python3 scripts/agent-run.py feature-autofix` for mechanical fixers within feature container.

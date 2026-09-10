@@ -24,6 +24,14 @@ class NixFlakeTests(unittest.TestCase):
         ignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
         self.assertIn("\nresult\n", ignore)
 
+    def test_ci_job_is_optional(self) -> None:
+        ci = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+        self.assertIn("Nix flake (optional)", ci)
+        self.assertIn("outputs.nix", ci)
+        self.assertIn("cachix/install-nix-action@", ci)
+        ok = ci.split("ci-ok:", 1)[-1]
+        self.assertNotIn("- nix", ok)
+
 
 if __name__ == "__main__":
     unittest.main()

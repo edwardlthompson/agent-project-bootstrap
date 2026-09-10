@@ -45,7 +45,7 @@ Exclude heavy dirs from Trackers/Recoll/ baloo if they scan your tree.
 Install host tools once (distro packages, [uv](https://docs.astral.sh/uv/), [mise](https://mise.jdx.dev/), or [asdf](https://asdf-vm.com/)):
 
 - Python 3.11+, Node 22+, JDK 17+, Android cmdline-tools when on the Android stack
-- Optional: `just`, `pre-commit`, `shellcheck`, `actionlint`
+- Optional: `just`, `pre-commit`, `shellcheck`, `actionlint`, [Nix](https://nixos.org) (`nix run .#verify` wraps `scripts/verify.sh`; CI job is path-filtered)
 
 Worktrees should **reuse** those tools and user-level caches. Prefer fail-soft `.cursor/setup-worktree-unix.sh` (see [`PARALLEL_AGENT_SCOPES.md`](PARALLEL_AGENT_SCOPES.md)) over copying entire SDKs per worktree.
 

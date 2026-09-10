@@ -1,43 +1,35 @@
-"""Web and Android sanitizer fixtures must stay identical."""
+"""Web, Android, and CLI sanitizer fixtures must stay aligned."""
 from __future__ import annotations
 
-from pathlib import Path
+import sys
+import tempfile
 import unittest
+from pathlib import Path
+
+LIB = Path(__file__).resolve().parent.parent / "scripts" / "lib"
+if str(LIB) not in sys.path:
+    sys.path.insert(0, str(LIB))
+
+from sanitize_fixtures import check_repo  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-CANON = ROOT / "schemas" / "golden-path" / "sanitize-fixtures.json"
-ANDROID = (
-    ROOT
-    / "examples"
-    / "android"
-    / "app"
-    / "src"
-    / "test"
-    / "resources"
-    / "sanitize-fixtures.json"
-)
-WEB = (
-    ROOT
-    / "examples"
-    / "web"
-    / "src"
-    / "privacy-report"
-    / "sanitize-fixtures.json"
-)
 
 
 class SanitizeFixtureParityTests(unittest.TestCase):
-    def test_copies_match_canonical(self) -> None:
-        canon = CANON.read_bytes()
-        if ANDROID.is_file():
-            self.assertEqual(canon, ANDROID.read_bytes())
-        if WEB.is_file():
-            self.assertEqual(canon, WEB.read_bytes())
-        if not ANDROID.is_file() and not WEB.is_file():
-            self.skipTest("stack sanitizer copies pruned")
-        text = CANON.read_text(encoding="utf-8")
-        self.assertIn("<redacted-injection>", text)
-        self.assertIn("Ignore previous", text)
+    def test_repo(self) -> None:
+        self.assertEqual(check_repo(ROOT), [])
+
+    def test_wired(self) -> None:
+        text = (ROOT / "scripts" / "validate-bootstrap.sh").read_text(encoding="utf-8")
+        self.assertIn("check-sanitize-fixtures.sh", text)
+        ci = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+        self.assertIn("sanitize-fixtures:", ci)
+        self.assertIn("check-sanitize-fixtures.sh", ci)
+
+    def test_missing_canon_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            errors = check_repo(Path(tmp))
+            self.assertTrue(any("sanitize-fixtures.json" in e for e in errors))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <issue id="ContentDescription" severity="error" />
+    <issue id="ClickableViewAccessibility" severity="error" />
+    <issue id="LabelFor" severity="error" />
+    <issue id="KeyboardInaccessibleWidget" severity="error" />
+</lint>

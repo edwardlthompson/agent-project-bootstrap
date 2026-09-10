@@ -11,6 +11,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextClearance
+import androidx.compose.ui.test.performTextInput
 import dev.foss.goldenpath.ui.about.AboutTestTags
 import org.junit.Rule
 import org.junit.Test
@@ -28,16 +30,33 @@ class GoldenPathUiTest {
     @Test
     fun opensSettingsPanelWithThemeDropdown() {
         composeTestRule.dismissLaunchPrompts()
+        composeTestRule.onNodeWithTag("home-status").assertIsDisplayed()
         composeTestRule.onAllNodesWithContentDescription("About").assertCountEquals(0)
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.onNodeWithTag("settings-panel").assertIsDisplayed()
         composeTestRule.onNodeWithText("Settings").assertIsDisplayed()
         composeTestRule.onNodeWithText("Appearance").assertIsDisplayed()
         composeTestRule.onNodeWithText("Theme").assertIsDisplayed()
         composeTestRule.onNodeWithText("System theme").performClick()
         composeTestRule.onNodeWithText("Dark theme").performClick()
+        composeTestRule.onNodeWithText("Data").performScrollTo().assertIsDisplayed()
+        composeTestRule.onNodeWithTag("settings-export").performScrollTo().assertIsDisplayed()
+        composeTestRule.onNodeWithTag("settings-import").performScrollTo().assertIsDisplayed()
         composeTestRule.onNodeWithText("Version, updates, and ways to support development")
             .assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Back").performClick()
+    }
+
+    @Test
+    fun settingsSearchHidesNonMatchingSections() {
+        composeTestRule.dismissLaunchPrompts()
+        composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.onNodeWithTag("settings-search").performTextInput("privacy")
+        composeTestRule.onNodeWithText("Privacy").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Appearance").assertDoesNotExist()
+        composeTestRule.onNodeWithTag("settings-search").performTextClearance()
+        composeTestRule.onNodeWithTag("settings-search").performTextInput("zzzz-no-match")
+        composeTestRule.onNodeWithTag("settings-search-empty").assertIsDisplayed()
     }
 
     @Test
@@ -45,6 +64,7 @@ class GoldenPathUiTest {
         composeTestRule.dismissLaunchPrompts()
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.onNodeWithText("App info").performScrollTo().performClick()
+        composeTestRule.onNodeWithTag("about-panel").assertIsDisplayed()
         composeTestRule.onNodeWithText("About").assertIsDisplayed()
         composeTestRule.onNodeWithText("Installed format: apk").assertIsDisplayed()
     }
@@ -67,5 +87,16 @@ class GoldenPathUiTest {
             .size
         check(linkCount >= 2) { "expected multiple donation links under About, got $linkCount" }
         composeTestRule.onAllNodesWithText("Donate via Venmo").assertCountEquals(1)
+    }
+
+    @Test
+    fun opensFeedbackPanelFromAbout() {
+        composeTestRule.dismissLaunchPrompts()
+        composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.onNodeWithTag("settings-about").performScrollTo().performClick()
+        composeTestRule.onNodeWithText("Choose an action").performScrollTo().performClick()
+        composeTestRule.onNodeWithText("Report a bug").performClick()
+        composeTestRule.onNodeWithTag("feedback-panel").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Report a bug").assertIsDisplayed()
     }
 }

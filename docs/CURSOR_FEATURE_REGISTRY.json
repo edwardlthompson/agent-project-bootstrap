@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-07-21",
+  "updated_at": "2026-09-10",
   "entries": [
     {
       "id": "rules.mdc",
@@ -130,6 +130,22 @@
       "doc_url": "https://cursor.com/docs/context/skills",
       "template_status": "shipped",
       "last_seen": "2026-08-27"
+    },
+    {
+      "id": "skills.emulator",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-09-10"
+    },
+    {
+      "id": "skills.adr",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-09-10"
     },
     {
       "id": "skills.codex-review",

@@ -32,5 +32,9 @@
   },
   "crash_proxy": {
     "enabled": false
+  },
+  "crash_inbox": {
+    "enabled": false,
+    "provider": "none"
   }
 }

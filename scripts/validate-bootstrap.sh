@@ -19,6 +19,7 @@ REQUIRED=(
   SECURITY.md
   CODE_OF_CONDUCT.md
   BUILD_PLAN.md
+  BUILD_PLAN_TEMPLATE.md
   AGENTS.md
   AGENT_MEMORY.md
   docs/START_HERE.md
@@ -59,6 +60,8 @@ REQUIRED=(
   docs/FIRST_30_DAYS.md
   docs/first-30-days.json
   docs/WINGET.md
+  docs/GROK_BOTS.md
+  docs/CURSOR_MARKETPLACE.md
   docs/AGENT_PORTABILITY.md
   docs/help/TOUR.md
   docs/help/IDEAS.md
@@ -159,6 +162,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-batch-commands.sh \
   check-cursor-hooks.sh \
   check-build-plan-parallel.sh \
+  check-build-plan-tally.sh \
   check-template-version-sync.sh \
   validate-template-index.sh \
   check-bootstrap-engine.sh \
@@ -191,15 +195,26 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-semgrep.sh \
   check-mcp-allowlist.sh \
   check-crash-payload-allowlist.sh \
+  check-crash-inbox.sh \
+  check-sanitize-fixtures.sh \
   check-first-30-days.sh \
   check-contributing-agent.sh \
   check-template-upgrade-form.sh \
   check-ideas-discussion.sh \
   check-adr-command.sh \
+  check-adr-architecture.sh \
+  check-ci-gaps.sh \
+  check-ci-refs.sh \
   check-readme-mermaid.sh \
   check-social-preview.sh \
   check-fdroid-screenshots.sh \
-  check-winget-runbook.sh
+  check-winget-runbook.sh \
+  check-cursor-marketplace.sh \
+  check-cursor-automations.sh \
+  check-cursor-cloud-hooks.sh \
+  check-cursor-canvas.sh \
+  check-cursor-cli.sh \
+  check-tour-coach-chrome.sh
 then
   ERRORS=$((ERRORS + 1))
 fi

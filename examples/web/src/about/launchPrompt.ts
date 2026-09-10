@@ -17,9 +17,11 @@ export function createLaunchPromptDialog(
 
   const accept = document.createElement("button");
   accept.type = "button";
+  accept.className = "gp-launch-accept";
   accept.dataset.testid = "launch-accept";
   const decline = document.createElement("button");
   decline.type = "button";
+  decline.className = "gp-launch-decline";
   decline.dataset.testid = "launch-decline";
 
   if (prompt.kind === "donate") {

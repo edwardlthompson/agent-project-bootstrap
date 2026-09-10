@@ -17,12 +17,69 @@
 
 ## Entries
 
+### 2026-09-10 — Declutter BUILD_PLAN recurring chores
+- **Status:** Accepted
+- **Context:** AUTO weekly/monthly rows stayed 🔲 forever even though Monday cron already ran them, which made both boards look unfinished.
+- **Decision:** Strip 🔲 chores from `BUILD_PLAN.md` and `BUILD_PLAN_TEMPLATE.md` Ongoing Maintenance. GitHub Monday cron is the owner (now includes `update-deps` dry-run, Dependabot leftover list, latest-release SBOM). Cursor Automation then Grok Bots are fallbacks only. `/ship` owns pre-release and the tag.
+- **Alternatives considered:** Keep standing 🔲 AUTO rows and auto-tick them (rejected: still looks like homework). Require Grok Bots (rejected: FOSS default is Actions).
+- **Consequences:** Maintainer remaining tally is ADB leftovers only. Child board is Sprint 0–2 plus optional ADB. Do not put cron chores back on either plan.
+
+### 2026-09-10 — Maintainer schedule (GitHub cron + optional Cloud timers)
+- **Status:** Accepted
+- **Context:** Recurring BUILD_PLAN AUTO/AGENT rows should keep running after the maintainer leaves the Cloud Agent session.
+- **Decision:** Keep GitHub Monday cron as the FOSS default (Weekly Health Check now includes `check-security-triage.sh`). Add disabled Grok Bot 4–5 and Cursor Automation crons for `/update-deps` dry-run and KB-007 review. No `git push`, no `--apply`, no live `.cursor/automations.yaml` on the FOSS path.
+- **Alternatives considered:** Require Grok Bots to ship (rejected). Auto-apply dependency bumps from a Bot (rejected: needs a human). Mark release-tag HUMAN as AUTO (rejected).
+- **Consequences:** AUTO weekly rows can close when Weekly Health Check is green. AGENT `/update-deps` still needs `/maintain` or a commercial timer. ADB leftovers stay on the host with the phones.
+
+### 2026-09-10 — OpenSSF passing + Ollama declined
+- **Status:** Accepted
+- **Context:** Project 14564 reached 100% Passing. Maintainer does not want Ollama on this template. Cloud agent has no USB/adb for the two local phones.
+- **Decision:** Keep the live Best Practices badge in README. Archive CII as done. Reject the Ollama HUMAN leftover. Leave ADB SDK + device nav smoke on the board for the host that has the phones.
+- **Alternatives considered:** Require Ollama for `/ship` or local-compute (rejected). Mark ADB rows done without a device (rejected: no adb on this VM). Start Silver/Gold (rejected: coverage and two-person review are not true).
+- **Consequences:** Waiting-on-a-person is ADB-only. Child repos may still follow `docs/LOCAL_MODELS.md`. Baseline-1 stays optional.
+
+### 2026-09-10 — M57 Cursor + docs wrap
+- **Status:** Accepted
+- **Context:** Maintainer `/build` finished Cursor docs (Grok Bots, marketplace, skills, registry, Automations YAML, Cloud hooks, Canvas, CLI loop, Settings-only tour/coach, print-sheet audit, optional-stack gaps, ADR-0001 pick gate, living ci-gap registry). Sprint smoke first treated `/tour` `/emulator` `/adr` as file paths.
+- **Decision:** Archive M57. `backtick_paths` skips slash-command tokens. Home chrome stays Settings-only. ADR-0001 stays an open child pick. `ci-ok` still must not `needs` nix.
+- **Alternatives considered:** Pre-select Hexagonal on the template (rejected: child Sprint 1 pick). Make Nix a required `ci-ok` job (rejected: skipped ≠ success).
+- **Consequences:** Idea sprints M51–M57 are archived (55 rows). Recurring weekly/monthly and HUMAN/ADB leftovers remain. Device nav smoke and Ollama stay backlogged.
+
+### 2026-09-09 — M54 Catalog + Lightroom wrap
+- **Status:** Accepted
+- **Context:** Maintainer `/build` finished Lightroom lint/tagset/SDK playbook and catalog sync. Sprint smoke failed when a task mentioned `feature-catalog.json` as a repo-root path.
+- **Decision:** Archive M54. `probe_docs` resolves bare filenames under `schemas/`, `docs/`, `examples/`, `modules/`, and `scripts/`.
+- **Alternatives considered:** Fail smoke unless every backtick is a repo-relative path (rejected: board tasks name the file, not the folder).
+- **Consequences:** Next AGENT row is M55 Dependabot Cargo + Go. Lightroom Plug-in Manager load stays `[HUMAN]`.
+
+### 2026-09-09 — M53 Android distribution wrap
+- **Status:** Accepted
+- **Context:** Maintainer `/build` finished the Android release path (R8, reproducible APK, F-Droid, Fastlane, AntiFeatures, UnifiedPush, signing runbook).
+- **Decision:** Archive M53 in `COMPLETED_TASKS.md`. UnifiedPush stays PackageManager-only (no Maven connector, no FCM). Signing uses env vars and `docs/ANDROID_SIGNING.md`; CI `android-release` stays unsigned for hash compare.
+- **Alternatives considered:** Add `org.unifiedpush.android:connector` (rejected: extra Maven dep). Check a dummy keystore into examples (rejected: secrets).
+- **Consequences:** Next AGENT row is M54 Lightroom Lua lint. Device UnifiedPush and real upload keys stay `[ADB]`/`[HUMAN]`.
+
+### 2026-09-09 — Separate child BUILD_PLAN template
+- **Status:** Accepted
+- **Context:** The child playbook at the bottom of `BUILD_PLAN.md` did not match the slim maintainer board. Children need the same look and `/build` behavior.
+- **Decision:** `BUILD_PLAN_TEMPLATE.md` is the child model (canon on `/upgrade`). `init-project` copies it onto `BUILD_PLAN.md` when the repo is not this template. Both files start with a generated remaining tally (AGENT / AUTO / HUMAN / ADB). This repo’s live board stays `BUILD_PLAN.md` only.
+- **Alternatives considered:** Keep a Child Repo Playbook section (rejected: two layouts in one file). Overwrite child `BUILD_PLAN.md` on every upgrade (rejected: mixed; live rows stay).
+- **Consequences:** `--lane child` on this template reads `BUILD_PLAN_TEMPLATE.md`. Tally gate: `check-build-plan-tally.sh`.
+
+### 2026-09-09 — Sprint smoke before the next sprint
+- **Status:** Accepted
+- **Context:** Agents checked off BUILD_PLAN rows and moved on. The board was also too wordy to scan.
+- **Decision:** `/build` wrap and `/gates` run `smoke-sprint`. Every ✅ `[AGENT]`/`[AUTO]` row in the finished sprint must pass with no errors/crashes; the report records startup time and load order. Agents do not start the next sprint until it exits 0. BUILD_PLAN stays short; detail lives in `docs/SPRINT_SMOKE.md`.
+- **Alternatives considered:** Per-row `smoke-stack` alias only (rejected: that is feature-gate, not app startup). Require an emulator for every wrap (rejected: `[ADB]` leftovers; manifest + HTTP + CLI still prove load order).
+- **Consequences:** `.cursor/sprint-smoke.json` is gitignored. Device TalkBack stays `[ADB]`.
+
 ### 2026-09-09 — M49: Settings-only chrome and sectioned menus
 - **Status:** Accepted
 - **Context:** Golden Path home chrome had Settings, About, donate, and a theme toggle; Settings used chips for exclusive enums. Material 3 app bars keep one or two trailing actions; Settings IA is grouped lists with dropdowns, not chip clouds.
 - **Decision:** Home chrome is **Settings only**. Theme, About, and donate live under Settings → App info. Exclusive choices use dropdowns. Sections sort Appearance → Privacy → Data → About (then App → Support → Feedback).
 - **Alternatives considered:** Quiet header donate (rejected: duplicates About). Header theme toggle plus Settings control (rejected: two places). FilterChips for theme (rejected: chips are filters).
 - **Consequences:** `ThemeToggle` removed. Agents follow `docs/DESIGN_GUIDE.md` Chrome and menus. Donate walkthrough no longer allows a web header control.
+
 
 ### 2026-09-09 — Android runtime budget (R8 + memory limits) and optional Grok Bots
 - **Status:** Accepted

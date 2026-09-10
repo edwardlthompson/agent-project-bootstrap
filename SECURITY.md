@@ -12,16 +12,24 @@ Supported template version: see `.template-version` on `main`. Security fixes ap
 
 See [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) and [`docs/PRIVACY.md`](docs/PRIVACY.md) for data-boundary expectations.
 
+## Public defects (not vulnerabilities)
+
+Use GitHub Issues: <https://github.com/edwardlthompson/agent-project-bootstrap/issues> — see [`SUPPORT.md`](SUPPORT.md). That archive is searchable.
+
 ## Reporting a Vulnerability
 
 **Do not** open public GitHub issues for security vulnerabilities.
 
-1. Use GitHub **Private vulnerability reporting** (Security → Advisories → Report a vulnerability), or
-2. Email the maintainers listed in `CODEOWNERS` with:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Impact assessment
-   - Suggested fix (if any)
+Send a private report (GitHub keeps it non-public):
+
+<https://github.com/edwardlthompson/agent-project-bootstrap/security/advisories/new>
+
+That is **Security → Advisories → Report a vulnerability**. If you cannot use GitHub, email the maintainers listed in `CODEOWNERS` with:
+
+- Description of the vulnerability
+- Steps to reproduce
+- Impact assessment
+- Suggested fix (if any)
 
 ## Response Timeline
 

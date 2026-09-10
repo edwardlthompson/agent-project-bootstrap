@@ -43,6 +43,8 @@
     <string name="settings_about">App info</string>
     <string name="settings_about_hint">Version, updates, and ways to support development</string>
     <string name="settings_close">Close settings</string>
+    <string name="settings_search">Search settings</string>
+    <string name="settings_search_empty">No settings match that search.</string>
     <string name="settings_theme_label">Theme</string>
     <string name="settings_theme_mode_system">System theme</string>
     <string name="settings_theme_mode_light">Light theme</string>

@@ -28,7 +28,7 @@
     "tour": {
       "kind": "step",
       "group": "start",
-      "caption": "A 10-minute walkthrough of how this project works."
+      "caption": "A 10-minute walkthrough. Home chrome is Settings-only."
     },
     "init": {
       "kind": "step",
@@ -53,7 +53,7 @@
     "coach": {
       "kind": "step",
       "group": "start",
-      "caption": "Ask what to do next and why."
+      "caption": "Ask what to do next. Theme, About, and donate stay in Settings (Settings-only)."
     },
     "ideas": {
       "kind": "step",

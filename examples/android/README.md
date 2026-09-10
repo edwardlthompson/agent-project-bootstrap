@@ -67,6 +67,10 @@ Local host-GPU path (skips if SDK missing): `python3 scripts/agent-run.py run-an
 - `SOURCE_DATE_EPOCH` for reproducible builds
 - Pinned Gradle wrapper SHA-256 in `gradle/wrapper/gradle-wrapper.properties`
 
+## Signing and rollback
+
+Upload keystores stay outside git. Optional env-based release signing and rollback steps: [`docs/ANDROID_SIGNING.md`](../../docs/ANDROID_SIGNING.md).
+
 ## F-Droid notes
 
 Document dependency hashes and reproducible build verification steps in your project's `AGENT_MEMORY.md` when activating module A.

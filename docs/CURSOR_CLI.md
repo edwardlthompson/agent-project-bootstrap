@@ -15,6 +15,25 @@ Follow [Cursor CLI overview](https://cursor.com/docs/cli/overview.md) and [headl
 
 Prefer restricted autonomy: edit only when needed; deny `git push` (project [`.cursor/permissions.json`](../.cursor/permissions.json) + hooks).
 
+## Local loop (no Cloud)
+
+Zero-key path (always works on This Computer):
+
+```bash
+python3 scripts/agent-run.py validate-bootstrap --quick
+python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto
+python3 scripts/agent-run.py render-gates-status
+```
+
+Optional billed CLI when `CURSOR_API_KEY` is set (never commit it):
+
+```bash
+# After local install — deny git push in the prompt
+cursor agent --print "Run python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto. Do not git push."
+```
+
+Do not add `push` workflow triggers for this loop. Do not skip hooks.
+
 ## GitHub Actions (opt-in)
 
 The example workflow is **outside** `.github/workflows/` so CI never auto-runs it:

@@ -5,7 +5,7 @@
 3. **Why / coach:** `docs/BEST_PRACTICES.md` · 30-day playbook `docs/FIRST_30_DAYS.md` · `/coach` · backlog `/ideas` (`docs/help/IDEAS.md`) · full dump `/allideas` (`docs/help/ALLIDEAS.md`) · first-run `/tour` (`docs/help/TOUR.md` in other IDEs) · portability `docs/AGENT_PORTABILITY.md`
 4. **Bootstrap mode:** `docs/INITIALIZATION_PROMPT.md`
 5. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json`
-6. **Task board:** `BUILD_PLAN.md` (Sequential before Parallel) — status: 🔲 open · ✅ done · ❌ blocked
+6. **Task board:** `BUILD_PLAN.md` (this template’s live board). Child products copy `BUILD_PLAN_TEMPLATE.md`. Status: 🔲 open · ✅ done · ❌ blocked
 7. **Parallel dispatch:** parallel-first BUILD_PLAN; `/build` automates HUMAN/ADB first, backlogs failures to `HUMAN_BACKLOG.md`, never halts on human labels — `scripts/build-sprint-status.sh --lane auto` (child playbook on product repos; Template Maintainer board on this template)
 8. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries
 
@@ -55,6 +55,7 @@ python3 scripts/agent-run.py verify
 python3 scripts/agent-run.py validate-bootstrap --quick
 python3 scripts/agent-run.py feature-gate --stack <active>
 python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto
+python3 scripts/agent-run.py smoke-sprint --require
 python3 scripts/agent-run.py check-repo-hygiene
 
 ```
@@ -100,7 +101,7 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 - On milestone end: update `AGENT_MEMORY.md`, append to `DECISION_LOG.md` or `docs/adr/`
 - On 3-strike failure: halt and escalate to human
 - On context bloat: write `.cursor-session-state`, ask human to clear chat
-- Sprint 2+ features: after each AGENT step run `scripts/watch-agent-gates.sh --once --autofix --scope auto` (see `docs/FEATURE_MODULES.md`). Sprint wrap-up `/gates` stays full `feature-gate --stack multi`.
+- Sprint 2+ features: after each AGENT step run `scripts/watch-agent-gates.sh --once --autofix --scope auto` (see `docs/FEATURE_MODULES.md`). After the sprint (or feature) is all ✅, `smoke-sprint --require` must pass before the next sprint — every ✅ row smoked, no errors/crashes, startup + load order (`docs/SPRINT_SMOKE.md`). `/gates` stays full `feature-gate --stack multi` plus `smoke-sprint --if-complete`.
 - Repo hygiene: track source only; run `scripts/check-repo-hygiene.sh` before push (see `docs/REPO_HYGIENE.md`)
 - Log significant agent actions in `DECISION_LOG.md` at milestone boundaries
 
@@ -134,7 +135,7 @@ Activate only the modules matching your stack. See `modules/*/MODULE.md`.
 Shipped in template (see `docs/CURSOR_INTEGRATIONS.md`):
 
 - **Hooks** — `.cursor/hooks.json` enforces destructive-ops + UTF-8 (fail-open; `/push` session override)
-- **Skills** — `.cursor/skills/` companions for `/gates`, `/scope`, `/fix`, hygiene, Sprint 0, features, canvas, `/update-deps`, `/best-of-n`, local models
+- **Skills** — `.cursor/skills/` companions for `/gates`, `/scope`, `/fix`, hygiene, Sprint 0, features, canvas, `/update-deps`, `/best-of-n`, local models, `/emulator`, `/adr`
 - **Subagents (3)** — `.cursor/agents/` verifier, gate-fixer, explorer
 - **Local compute first** — `.cursor/rules/local-compute.mdc`: This Computer + parallel Task/worktrees/`/best-of-n`; RAM-capped parallel `feature-gate` stacks; optional `/emulator`; Linux DX in `docs/LINUX_DEV.md`
 - **Worktrees** — `.cursor/worktrees.json` + fail-soft OS setup (`/worktree`, `/best-of-n`)

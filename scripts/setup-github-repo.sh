@@ -56,6 +56,10 @@ MANUAL SETUP CHECKLIST (GitHub UI - API returned 422 or insufficient permissions
   5c. Do not attach GitHub Environments to CI, Security Scan, or CodeQL
      (github-pages on Pages deploy is the exception)
   6. Re-run: bash scripts/setup-github-repo.sh
+  7. (Optional) Settings → Secrets → Actions → AUTOMERGE_TOKEN
+     PAT with contents + workflow so Dependabot/Release Please merges trigger push CI
+     AUTOMERGE_TOKEN=... bash scripts/setup-automerge-token.sh
+     Or: SETUP_AUTOMERGE_TOKEN=1 bash scripts/setup-github-repo.sh
 EOF
 }
 
@@ -198,8 +202,22 @@ ensure_discussions_qa() {
   "$PY" "$ROOT/scripts/lib/discussions_qa.py" "$REPO"
 }
 
+maybe_setup_automerge_token() {
+  if [ -n "${AUTOMERGE_TOKEN:-}" ] || [ "${SETUP_AUTOMERGE_TOKEN:-}" = "1" ]; then
+    if bash "$ROOT/scripts/setup-automerge-token.sh"; then
+      echo "OK   AUTOMERGE_TOKEN repo secret set"
+    else
+      echo "NOTE AUTOMERGE_TOKEN helper failed — re-run: bash scripts/setup-automerge-token.sh"
+    fi
+    return 0
+  fi
+  echo "NOTE Optional AUTOMERGE_TOKEN not set. Dependabot/Release Please merges may skip push CI."
+  echo "     AUTOMERGE_TOKEN=... bash scripts/setup-automerge-token.sh"
+}
+
 warn_required_check_environments
 ensure_discussions_qa
+maybe_setup_automerge_token
 
 if [ "$TRANSIENT" -gt 0 ]; then
   echo "Transient errors after retries ($TRANSIENT); re-run later"

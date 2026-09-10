@@ -15,7 +15,7 @@
 - 🔲 Enable `tsc --noEmit` and Vitest in CI
 - 🔲 Review `examples/node/` Golden Path stub (Hono minimal API)
 - 🔲 Add health/readiness route per `docs/RUNBOOK.md`
-- 🔲 Wire OpenAPI or schema-first contracts if exposing public API
+- ✅ Wire OpenAPI or schema-first contracts if exposing public API (`examples/node/openapi.json`)
 - 🔲 Add stack to `.github/dependabot.yml`
 
 ## Golden Path Reference
@@ -30,7 +30,6 @@ After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.
 |-------|---------|
 | Lint | `npm run lint` in `examples/node/` |
 | Unit | `npm test` |
-
 ## Owner Labels for This Module
 
 | Task type | Label |

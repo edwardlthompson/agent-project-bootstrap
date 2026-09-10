@@ -94,6 +94,13 @@ class PreCommitHookTests(unittest.TestCase):
             self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
             self.assertIn("commit-msg hook missing", proc.stdout + proc.stderr)
 
+    def test_python_mypy_hook_is_wired(self) -> None:
+        cfg = (ROOT / ".pre-commit-config.yaml").read_text(encoding="utf-8")
+        self.assertIn("id: python-mypy", cfg)
+        self.assertIn("scripts/run-python-mypy.sh", cfg)
+        script = (ROOT / "scripts/run-python-mypy.sh").read_text(encoding="utf-8")
+        self.assertIn("uv run mypy src", script)
+
 
 if __name__ == "__main__":
     unittest.main()
