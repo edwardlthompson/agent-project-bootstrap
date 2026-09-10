@@ -24,7 +24,7 @@ Local compute first: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-
 
 ## Bots that help this template
 
-Copy the prompt into a new Bot. Grant repo **read** (and issue create). Do not grant write to `main`.
+Copy the prompt into a new Bot. Grant repo **read** (and issue create if you want intake). Do not grant write to `main`.
 
 ### 1. Android platform scout
 
@@ -33,6 +33,9 @@ Weekly: read Compose BOM / AGP / memory-limit posts, compare to `examples/androi
 ### 2. R8 configuration reviewer
 
 On demand or weekly: `cd examples/android && ./gradlew :app:analyzeReleaseR8Config`. Report shrinking / optimization / obfuscation scores and the five keep rules that block the most code. Flag `-keep public class *` and subsumed rules. Do not add broad keeps to “fix” a crash without a reflection proof.
+
+HTML report (AGP 9.3+): `app/build/reports/r8/r8-config-analyzer-release.html`. Full release builds also write `app/build/outputs/mapping/release/configanalyzer.html`.
+
 
 ### 3. Runtime-budget checker
 
@@ -53,3 +56,4 @@ GitHub already schedules radar, upgrade-sim, CI wait, Security Scan, Scorecard, 
 ## Activation
 
 Commercial checklist: [`CURSOR_COMMERCIAL_ACTIVATION.md`](CURSOR_COMMERCIAL_ACTIVATION.md). Create Bots in the Grok Bot app; keep project law in `AGENTS.md`.
+

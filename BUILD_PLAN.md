@@ -28,7 +28,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** v1.1.0 shipped. Recurring work is Monday cron, not this board. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** v1.1.0 shipped. #95 R8 + Android 17 memory is on `main`. Recurring work is Monday cron, not this board. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
 > **M57** archived in COMPLETED_TASKS.md @ `e65513d`.
 
@@ -37,7 +37,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 1. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 2. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
-Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

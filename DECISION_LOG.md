@@ -80,6 +80,7 @@
 - **Alternatives considered:** Quiet header donate (rejected: duplicates About). Header theme toggle plus Settings control (rejected: two places). FilterChips for theme (rejected: chips are filters).
 - **Consequences:** `ThemeToggle` removed. Agents follow `docs/DESIGN_GUIDE.md` Chrome and menus. Donate walkthrough no longer allows a web header control.
 
+
 ### 2026-09-09 — Android runtime budget (R8 + memory limits) and optional Grok Bots
 - **Status:** Accepted
 - **Context:** Compose August 2026 is already on BOM `2026.08.00`. Android 17 enforces per-app memory limits. Tinder’s R8 analyzer case showed broad keep rules can leave R8 mostly idle. xAI Grok Bots are always-on commercial teammates, not a FOSS requirement.
