@@ -434,15 +434,7 @@ jobs:
           arch: x86_64
           target: default
           disable-animations: true
-          script: |
-            set -euo pipefail
-            cd examples/android
-            chmod +x gradlew
-            if ! ./gradlew connectedDebugAndroidTest --no-daemon; then
-              echo '--- androidTest XML ---'
-              find app/build/outputs/androidTest-results -name '*.xml' -print -exec cat {} \; || true
-              exit 1
-            fi
+          script: cd examples/android && chmod +x gradlew && ./gradlew connectedDebugAndroidTest --no-daemon
 
   coverage-comment:
     name: PR Coverage Summary

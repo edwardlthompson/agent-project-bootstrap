@@ -66,6 +66,14 @@ def _drop(text: str, pattern: str) -> str:
     return patched
 
 
+def _drop_all(text: str, pattern: str) -> str:
+    while True:
+        patched, n = re.subn(pattern, "\n", text, count=1, flags=re.S)
+        if n == 0:
+            return text
+        text = patched
+
+
 def strip(root: Path) -> None:
     (root / "examples/rust/src/about.rs").unlink(missing_ok=True)
     lib = (root / "examples/rust/src/lib.rs").read_text(encoding="utf-8")
@@ -92,7 +100,10 @@ def strip(root: Path) -> None:
             ),
         )
     go_test = root / "examples/go/about_test.go"
-    write_lf(go_test, _drop(go_test.read_text(encoding="utf-8"), r"\nfunc TestAboutSummary\([\s\S]*?\n\}\n"))
+    write_lf(
+        go_test,
+        _drop_all(go_test.read_text(encoding="utf-8"), r"\nfunc TestAbout[A-Za-z0-9]*\([\s\S]*?\n\}\n"),
+    )
     for rel in ("examples/node/src/about.ts", "examples/node/src/about.test.ts"):
         (root / rel).unlink(missing_ok=True)
     _copy_stub("node-app.ts", root / "examples/node/src/app.ts")
