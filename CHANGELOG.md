@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **cursor:** radar writes a gitignored BUILD_PLAN draft for score ≥ 9 (never edits the live board)
 * **ci:** optional path-filtered Nix flake job (`nix flake show`, not a required check)
 * **security:** FOSS Semgrep prompt-injection pack (jailbreak phrases + shell sinks)
 * **security:** Scorecard SARIF auto-classifier (`scripts/lib/scorecard_sarif.py`)

@@ -172,7 +172,7 @@ See [`CURSOR_CLI.md`](CURSOR_CLI.md). Example workflow lives under `.github/work
 - Registry: [`CURSOR_FEATURE_REGISTRY.json`](CURSOR_FEATURE_REGISTRY.json)
 - Rubric: [`CURSOR_FEATURE_RADAR.md`](CURSOR_FEATURE_RADAR.md)
 - Script: `python3 scripts/agent-run.py cursor-feature-radar`
-- Outputs: gitignored `CURSOR_RADAR_REPORT.md`, `CURSOR_RADAR_BACKLOG.md`
+- Outputs: gitignored `CURSOR_RADAR_REPORT.md`, `CURSOR_RADAR_BACKLOG.md`, `CURSOR_RADAR_BUILD_PLAN_DRAFT.md`
 
 ## Switch tier later
 
