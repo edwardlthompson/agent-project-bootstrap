@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **cursor:** refresh `CURSOR_FEATURE_REGISTRY.json` (skill ids + updated_at)
 * **cursor:** skills for `/emulator` and `/adr`
 * **docs:** Cursor plugin marketplace runbook (local pack default; no unsigned install)
 * **docs:** land optional Grok Bot ops (`docs/GROK_BOTS.md`) as a required bootstrap file
