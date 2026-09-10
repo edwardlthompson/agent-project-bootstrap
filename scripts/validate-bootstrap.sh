@@ -194,6 +194,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-mcp-allowlist.sh \
   check-crash-payload-allowlist.sh \
   check-crash-inbox.sh \
+  check-sanitize-fixtures.sh \
   check-first-30-days.sh \
   check-contributing-agent.sh \
   check-template-upgrade-form.sh \

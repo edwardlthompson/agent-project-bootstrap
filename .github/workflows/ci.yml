@@ -656,6 +656,14 @@ jobs:
           prog="$(nix --extra-experimental-features "nix-command flakes" eval --raw .#apps.x86_64-linux.verify.program)"
           test -x "$prog"
 
+  sanitize-fixtures:
+    name: Sanitizer fixture parity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Cross-stack sanitizer fixtures
+        run: bash scripts/check-sanitize-fixtures.sh
+
   ci-ok:
     name: CI
     runs-on: ubuntu-latest
@@ -665,6 +673,7 @@ jobs:
       - feature-gate
       - upgrade-simulation-windows
       - validate-bootstrap
+      - sanitize-fixtures
     steps:
       - name: Require core CI jobs
         run: |
@@ -672,3 +681,4 @@ jobs:
           test "${{ needs.feature-gate.result }}" = "success"
           test "${{ needs.upgrade-simulation-windows.result }}" = "success"
           test "${{ needs.validate-bootstrap.result }}" = "success"
+          test "${{ needs.sanitize-fixtures.result }}" = "success"
