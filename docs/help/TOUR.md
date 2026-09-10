@@ -32,6 +32,8 @@ Open the README for your stack under `examples/{stack}/`. If you have not chosen
 
 That folder is the runnable slice you copy for the next feature.
 
+Home chrome is **Settings-only**. Theme, About, and donate live in Settings/About — not in the header.
+
 **Paste prompt:** `Read the active examples/{stack}/README.md (or examples/web) and summarize how I run tests.`
 
 ## 4. Week 1 (2 min)

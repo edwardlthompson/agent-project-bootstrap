@@ -43,6 +43,7 @@ Run `bash scripts/verify.sh` before marking a BUILD_PLAN row complete.
 
 `python3 scripts/agent-run.py validate-bootstrap --quick`
 `python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto`
+`python3 scripts/agent-run.py smoke-sprint --require`
 `python3 scripts/agent-run.py update-deps`
 `python3 scripts/agent-run.py check-local-compute`
 """
@@ -61,6 +62,7 @@ Do not complete a feature task without corresponding tests, or an explicit justi
 
 - Follow BUILD_PLAN Sequential then Parallel
 - Run `python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto` after AGENT steps
+- After a sprint is all ✅, run `python3 scripts/agent-run.py smoke-sprint --require` before the next sprint
 - Keep edits inside the active feature container
 
 ## Do not

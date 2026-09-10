@@ -19,6 +19,7 @@ Read docs/help/COACH.md and tell me the next recommended action and why. Do not 
 4. Name the **next recommended action** in one sentence, then the **industry reason** (link the matching BEST_PRACTICES subsection).
 5. Offer a walkthrough of the first 3–4 open rows in `docs/FIRST_30_DAYS.md`, or a 7-day slice if time-boxed. If Week 1 is still open, offer [`TOUR.md`](TOUR.md) before inventing a custom onboarding. For a complete feature dump, offer [`ALLIDEAS.md`](ALLIDEAS.md).
 6. Do not dump whole memory files. Do not update `AGENT_MEMORY.md` unless this is a milestone.
+7. Home chrome stays **Settings-only**. If a next action would put Theme or donate in the header, send it to Settings/About instead.
 
 Word list: [`GLOSSARY.md`](GLOSSARY.md).
 

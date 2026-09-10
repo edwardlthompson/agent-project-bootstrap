@@ -10,13 +10,102 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** BUILD_PLAN Ongoing Maintenance is a cron pointer, not a 🔲 chore list
+* **docs:** Grok Bot + Cursor Automation recipes for weekly/monthly BUILD_PLAN maintain
+* **ci:** Weekly Health Check runs `check-security-triage.sh`
+* **docs:** OpenSSF project 14564 is passing; README already carries the live badge
+* **docs:** leftover OpenSSF apply URL for `vulnerability_report_private` (URL required)
+* **docs:** forced project-14564 edit URL so leftover Met+URL can overwrite prose
+* **docs:** leftover OpenSSF apply URL for the last four Passing MUST rows (96% → 100%)
+* **docs:** `bestpractices_apply.py` prints as=edit URLs for project 14564
+* **security:** OpenSSF Best Practices badge (project 14564) and `.bestpractices.json` proposals
+* **ci:** sanitize GitHub branch names and release tags before interpolation
+* **ci:** living `ci-gap` registry (`schemas/ci-gaps.json`) aligned with the issue form
+* **docs:** ADR-0001 architecture-pick gate (MVVM/Clean/Hexagonal stay open)
+* **docs:** `check-template-gaps` lists rust/go/lightroom as optional stack rows
+* **docs:** print cheat sheet audit (`scope="col"`, Settings-only `/tour`/`/coach` captions)
+* **docs:** `/tour` and COACH teach Settings-only home chrome
+* **docs:** Cursor CLI local-loop recipe (zero-key gates; optional billed CLI)
+* **docs:** Canvas vs Design Mode walkthrough (`docs/CURSOR_CANVAS.md`)
+* **cursor:** Cloud hook merge keeps FOSS shell/encoding hooks
+* **cursor:** commercial Automations YAML example (disabled on the FOSS path)
+* **cursor:** refresh `CURSOR_FEATURE_REGISTRY.json` (skill ids + updated_at)
+* **cursor:** skills for `/emulator` and `/adr`
+* **docs:** Cursor plugin marketplace runbook (local pack default; no unsigned install)
+* **docs:** land optional Grok Bot ops (`docs/GROK_BOTS.md`) as a required bootstrap file
+* **packaging:** Winget publish loop hashes installer files and never submits
+* **packaging:** Winget example and stub list x64 and arm64 installers
+* **packaging:** committed Winget singleton example (`packaging/winget/example/manifest.yaml`)
+* **ci:** always-on sanitizer fixture parity job (`check-sanitize-fixtures.sh`)
+* **privacy:** GlitchTip/Bugsink crash-inbox stub stays disabled (`docs/CRASH_INBOX.md`; not a live crash-proxy)
+* **ci:** `setup-github-repo.sh` optionally sets `AUTOMERGE_TOKEN` (NOTE if unset; never fails setup)
+* **cursor:** radar writes a gitignored BUILD_PLAN draft for score ≥ 9 (never edits the live board)
+* **ci:** optional path-filtered Nix flake job (`nix flake show`, not a required check)
+* **security:** FOSS Semgrep prompt-injection pack (jailbreak phrases + shell sinks)
+* **security:** Scorecard SARIF auto-classifier (`scripts/lib/scorecard_sarif.py`)
+* **ci:** weekly Dependabot backup for Cargo (`examples/rust`) and Go (`examples/go`)
+* **docs:** catalog optional Lightroom stack (`lightroom-plugin`) for upgrade gap reports
+* **docs:** add `navigation` to `feature-catalog.json`
+* **docs:** sync Android MODULE F-Droid rows (recipe, Fastlane, AntiFeatures, signing, UnifiedPush)
+* **docs:** sync web MODULE.md checklists with Settings-only chrome, es.json, snapshots, Lighthouse floors
+* **lightroom:** SDK bump playbook (`docs/LIGHTROOM_SDK_BUMP.md`) with Info.lua/README version lock
+* **lightroom:** second Lr* factory (`LrMetadataTagsetFactory` / `MetadataTagset.lua`)
+* **lightroom:** Lua lint gate for Lr* imports (`scripts/check-lightroom-lua.sh`)
+* **android:** upload-key signing + rollback runbook (`docs/ANDROID_SIGNING.md`) and env-only Gradle signing
+* **android:** FOSS UnifiedPush sample (PackageManager discovery, MESSAGE receiver, no FCM)
 * **android:** release R8 minify/shrink, R8 Configuration Analyzer docs, and Android 17 memory-limit hooks
 * **docs:** optional Grok Bot ops for Android platform/R8/memory scouting (`docs/GROK_BOTS.md`)
+* **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
+* **ui:** `check-design-cohesion` fails if home chrome grows Theme/About/donate or Settings uses FilterChip for theme
+* **android:** feature-gate compiles instrumented tests (`:app:compileDebugAndroidTestKotlin`) without an emulator
+* **android:** Settings Data group exports and imports the same JSON bundle as web
+* **docs:** Child Sprint 1 locks Settings-only chrome via `check-design-cohesion`
+* **i18n:** Spanish catalog on web (`es.json`) and Android (`values-es`)
+* **ui:** Home first-canvas is one status card (greeting + online/offline), no extra chrome
+* **ui:** Tokenize launch-prompt buttons for dark-mode contrast
+* **cli:** Shared About/donate/update JSON payload for Node, Python, Rust, and Go
+* **node:** `GET /feedback` builds a GitHub issue-form URL
+* **python:** `--feedback` prints a GitHub issue-form URL
+* **cli:** Rust About version from Cargo.toml; Go version from module build info
+* **cli:** Rust/Go `--ready` JSON probe and structured JSON logs on stderr
+* **node:** OpenAPI 3.1 spec at `GET /openapi.json` with route contract tests
+* **python:** OpenAPI document (`--openapi`), `--ready`, and JSON logs on stderr
+* **python:** pre-commit runs `uv run mypy src` for `examples/python/`
+* **ui:** Playwright snapshots for Settings, About, and Feedback panels
+* **ui:** In-panel Settings search filters sections on web and Android
+* **ui:** Settings export migrates unversioned and legacy darkMode JSON to v1
+* **android:** Spanish locale + Arabic RTL stress tests (instrumented + Robolectric)
+* **android:** TalkBack names + Enter-key Settings smoke in instrumented tests
+* **android:** Compose a11y lint IDs are errors in `lint.xml` and feature-gate
+* **ui:** Feature-gate enforces Lighthouse a11y 0.95 and best-practices 0.9 floors
+* **android:** Property tests for the nav stack (Home root, drain-to-home)
+* **android:** Feature-gate and CI run the release R8 structure tests
+* **android:** Feature-gate checks SOURCE_DATE_EPOCH reproducible APK wiring
+* **android:** F-Droid build recipe at `metadata/dev.foss.goldenpath.yml`
+* **android:** Fastlane en-US listing files plus a FOSS-only `metadata` lane
+* **android:** F-Droid AntiFeatures template defaults to none on the FOSS path
+
+### Fixed
+
+* **ci:** skip stack-specific bootstrap tests when examples are pruned (upgrade-sim)
+* **android:** TalkBack UI test opens Settings with `performClick` (Enter is unreliable on the CI emulator)
+* **web:** drop Settings/About/Feedback pixel snapshots; homepage snapshot + panel e2e stay
+* **ci:** About-without drops Node OpenAPI/feedback HTTP tests and Python `test_openapi` (greet-only stubs)
+* **ci:** About-without drops every Go `TestAbout*` (not only `TestAboutSummary`)
+* **ci:** About-without keeps Go `AppVersion` on `version.go` (not the About file)
+* **ci:** About-without strip also clears Rust/Go `log` About calls
+* **nix:** mark flake-wrapped scripts executable so `nix eval` program paths are `+x`
+* **security:** `SECURITY.md` names the GitHub private advisory URL (`/security/advisories/new`)
+* **smoke:** treat `/tour` and other slash commands as commands, not doc paths
+* **smoke:** resolve bare filenames such as `feature-catalog.json` under `schemas/` during sprint smoke
 
 ### Changed
 
+* **docs:** this template does not require Ollama (maintainer declined; recipe stays for child repos)
 * **android:** Compose 1.12 floor notes (BOM already `2026.08.00`); Credential Manager stays off the FOSS path
-* **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
+* **ui:** Home chrome is Settings-only; theme, About, and donate live in sectioned Settings/About menus with dropdowns (not chips)
+* **docs:** Slimmer BUILD_PLAN; queued allideas 1–55 as M51–M57; sprint wrap must `smoke-sprint --require` before the next sprint
+* **docs:** Child board lives in `BUILD_PLAN_TEMPLATE.md`; both plans open with a remaining-item tally
 
 ### Changed
 
@@ -46,11 +135,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.25.0...v1.0.0) (2026-08-28)
 
-
 ### chore
 
 * **release:** prepare v1.0.0 release ([6e037a2](https://github.com/edwardlthompson/agent-project-bootstrap/commit/6e037a237aaa62c9b6c4514264ca527437056e21))
-
 
 ### Added
 
@@ -81,7 +168,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **security:** add FOSS Semgrep rules without SaaS upload ([43a09be](https://github.com/edwardlthompson/agent-project-bootstrap/commit/43a09be567d867c57eb8761e62809367834f182d))
 * **security:** add Gitleaks baseline for fixture secrets ([ad9f7b5](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ad9f7b5621d12db11a7e7a95849155426ef6db0a))
 * **security:** redact prompt-injection phrases in crash text ([4be4cff](https://github.com/edwardlthompson/agent-project-bootstrap/commit/4be4cff05cd2fb8c57e3aeb09a488454f8264718))
-
 
 ### Fixed
 

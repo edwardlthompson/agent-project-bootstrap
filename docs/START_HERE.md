@@ -23,6 +23,8 @@ In Cursor, type **`/`** in Agent chat. Start with **[docs/help/BATCH_COMMANDS.md
 
 In Windsurf, Antigravity, or any other agent: ask it to read [`docs/help/TOUR.md`](help/TOUR.md) (first run) or [`docs/help/COACH.md`](help/COACH.md) (what next).
 
+Optional commercial Grok Bots (not required to build or ship): [`GROK_BOTS.md`](GROK_BOTS.md). OpenSSF Best Practices (project 14564): [`OPENSSF_BEST_PRACTICES.md`](OPENSSF_BEST_PRACTICES.md).
+
 ## Bootstrap Read Order
 
 1. `README.md`
@@ -64,7 +66,7 @@ flowchart TD
 
 - After **Sprint 0** sign-off: stop treating `docs/INITIALIZATION_PROMPT.md` as the daily read. Follow BUILD_PLAN Sequential, then `/feature` for Sprint 2+ (`docs/features/{name}.md` from `_template.md`, locked API, then Parallel slices).
 - Working notes go in gitignored `scratchpad.md` (copy `scratchpad.md.example`). **Reset** on sprint/phase change. Persistent memory stays in `AGENT_MEMORY.md`.
-- Child playbook: [`BUILD_PLAN.md`](../BUILD_PLAN.md) — same phase notes under Child Repo Playbook.
+- Child board model: [`BUILD_PLAN_TEMPLATE.md`](../BUILD_PLAN_TEMPLATE.md) — becomes `BUILD_PLAN.md` after init. This repo’s live board stays [`BUILD_PLAN.md`](../BUILD_PLAN.md).
 
 ## Do Not Read Yet
 

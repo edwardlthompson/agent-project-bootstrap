@@ -125,6 +125,8 @@ bash scripts/watch-agent-gates.sh --interval 60 --max-attempts 10 --autofix --sc
 
 Mechanical fixers run first via `feature-autofix.sh`. Push to remote still requires human approval (`destructive-ops.mdc`).
 
+After the last AGENT/AUTO row in a sprint is ✅, run `python3 scripts/agent-run.py smoke-sprint --require` before the next sprint (`docs/SPRINT_SMOKE.md`).
+
 See `docs/FEATURE_MODULES.md`.
 
 ## Failure Playbook

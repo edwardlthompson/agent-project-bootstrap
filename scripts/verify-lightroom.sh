@@ -10,7 +10,9 @@ fi
 test -f "$DIR/Info.lua"
 grep -q 'LrSdkVersion' "$DIR/Info.lua"
 grep -q 'LrExportServiceProvider' "$DIR/Info.lua"
+grep -q 'LrMetadataTagsetFactory' "$DIR/Info.lua"
 grep -q 'processRenderedPhotos' "$DIR/ExportServiceProvider.lua"
+grep -q 'com.example.fossplugin.tagset' "$DIR/MetadataTagset.lua"
 while IFS= read -r -d '' f; do
   if grep -nE "require\s*\(\s*['\"]" "$f" | grep -vE '^[[:space:]]*--'; then
     echo "ERROR: Generic Lua require() forbidden in $f (use Lr* SDK only)"

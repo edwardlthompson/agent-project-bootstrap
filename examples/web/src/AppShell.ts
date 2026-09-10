@@ -53,8 +53,10 @@ export function createAppShell(
           }
         </div>
       </div>
-      <p class="gp-headline">${t("app.greeting")}</p>
-      <p class="gp-body" data-testid="status">${t(statusKey)}</p>
+      <section class="gp-status-card" data-testid="home-status">
+        <p class="gp-headline">${t("app.greeting")}</p>
+        <p class="gp-body" data-testid="status">${t(statusKey)}</p>
+      </section>
       <div data-panel-mount></div>
     </main>
   `;

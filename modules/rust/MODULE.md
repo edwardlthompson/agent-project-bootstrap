@@ -13,6 +13,7 @@
 - 🔲 Copy or keep `examples/rust/` Golden Path stub
 - 🔲 Set edition and MSRV in `Cargo.toml`
 - 🔲 Enable `cargo test` and clippy in CI
+- 🔲 Add cargo to `.github/dependabot.yml` (`directory: /examples/rust`)
 - 🔲 Document MSRV in `AGENT_MEMORY.md`
 
 ## Golden Path Reference

@@ -109,6 +109,7 @@ fail_gate() {
     web-format) SUGGESTED=("run npm run format in examples/web") ;;
     web-test) SUGGESTED=("fix failing vitest in src/{feature}/" "run npm test in examples/web") ;;
     web-build) SUGGESTED=("fix build errors" "run npm run build in examples/web") ;;
+    web-lighthouse-floors) SUGGESTED=("restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json" "keep categories:best-practices minScore at least 0.9") ;;
     python-lint) SUGGESTED=("run uv run ruff check --fix in examples/python") ;;
     python-format) SUGGESTED=("run uv run ruff format in examples/python") ;;
     python-type) SUGGESTED=("fix mypy/pyright errors in examples/python") ;;
@@ -126,7 +127,13 @@ fail_gate() {
     go-fmt) SUGGESTED=("run gofmt -w in examples/go") ;;
     go-test) SUGGESTED=("run go test in examples/go") ;;
     android-fdroid) SUGGESTED=("run scripts/verify-fdroid-metadata.sh") ;;
+    android-compose-a11y) SUGGESTED=("restore examples/android/app/lint.xml a11y issue ids" "keep lint.error ContentDescription in app/build.gradle.kts") ;;
+    android-r8) SUGGESTED=("keep isMinifyEnabled = true and proguard-android-optimize.txt" "run bash scripts/check-android-r8.sh") ;;
+    android-reproducible-apk) SUGGESTED=("keep SOURCE_DATE_EPOCH=1700000000 on CI android-release" "run bash scripts/check-reproducible-apk.sh") ;;
+    android-signing-runbook) SUGGESTED=("keep docs/ANDROID_SIGNING.md env vars and rollback" "run bash scripts/check-android-signing-runbook.sh") ;;
     lightroom-sdk) SUGGESTED=("run scripts/verify-lightroom.sh") ;;
+    lightroom-lua-lint) SUGGESTED=("keep Lr* imports only in examples/lightroom" "run bash scripts/check-lightroom-lua.sh") ;;
+    lightroom-sdk-playbook) SUGGESTED=("keep Info.lua versions matching examples/lightroom/README.md" "run bash scripts/check-lightroom-sdk-playbook.sh") ;;
     node-lint) SUGGESTED=("fix lint in examples/node" "run npm run format in examples/node if format script exists") ;;
     node-format) SUGGESTED=("run npm run format in examples/node") ;;
     node-test) SUGGESTED=("fix tests in examples/node") ;;
@@ -283,6 +290,7 @@ if should_run web && [ -f examples/web/package.json ]; then
     fi
     run_in_dir examples/web web-test npm test
     run_in_dir examples/web web-build npm run build
+    run_cmd web-lighthouse-floors bash scripts/check-lighthouse-floors.sh
   fi
 fi
 
@@ -328,11 +336,31 @@ if should_run android && [ -f examples/android/gradlew ]; then
     gradle_extra="$("$PY" "$ROOT/scripts/lib/gradle_offline.py" --args --root "$ROOT" 2>/dev/null || true)"
     # shellcheck disable=SC2086
     run_in_dir examples/android android-test ./gradlew $gradle_extra test --parallel --quiet
+    # Compile instrumented tests without starting an emulator.
+    # shellcheck disable=SC2086
+    run_in_dir examples/android android-compile-androidtest \
+      ./gradlew $gradle_extra :app:compileDebugAndroidTestKotlin --parallel --quiet
   fi
 fi
 
 if should_run android && [ -d examples/android/metadata ]; then
   run_cmd android-fdroid bash scripts/verify-fdroid-metadata.sh
+fi
+
+if should_run android && [ -f examples/android/app/lint.xml ]; then
+  run_cmd android-compose-a11y bash scripts/check-compose-a11y-lint.sh
+fi
+
+if should_run android && [ -f examples/android/app/proguard-rules.pro ]; then
+  run_cmd android-r8 bash scripts/check-android-r8.sh
+fi
+
+if should_run android && [ -f scripts/verify-reproducible-apk.sh ]; then
+  run_cmd android-reproducible-apk bash scripts/check-reproducible-apk.sh
+fi
+
+if should_run android && [ -f scripts/check-android-signing-runbook.sh ]; then
+  run_cmd android-signing-runbook bash scripts/check-android-signing-runbook.sh
 fi
 
 if should_run node && [ -f examples/node/package.json ]; then
@@ -381,6 +409,8 @@ fi
 
 if should_run lightroom && [ -f examples/lightroom/Info.lua ]; then
   run_cmd lightroom-sdk bash scripts/verify-lightroom.sh
+  run_cmd lightroom-lua-lint bash scripts/check-lightroom-lua.sh
+  run_cmd lightroom-sdk-playbook bash scripts/check-lightroom-sdk-playbook.sh
 fi
 fi
 

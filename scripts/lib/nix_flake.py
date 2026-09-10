@@ -11,6 +11,12 @@ REQUIRED = (
     "scripts/feature-gate.sh",
     "scripts/update-deps.sh",
 )
+CI_REQUIRED = (
+    "Nix flake (optional)",
+    "check-nix-flake.sh",
+    "cachix/install-nix-action",
+    "flake show",
+)
 
 
 def check_repo(root: Path) -> list[str]:
@@ -22,6 +28,12 @@ def check_repo(root: Path) -> list[str]:
     for needle in FORBIDDEN:
         if needle in text:
             errors.append(f"flake must not wrap {needle}")
+    ci = (root / ".github/workflows/ci.yml").read_text(encoding="utf-8") if (root / ".github/workflows/ci.yml").is_file() else ""
+    for snip in CI_REQUIRED:
+        if snip not in ci:
+            errors.append(f"ci.yml nix job must include {snip}")
+    if "needs:\n      - nix" in ci or "- nix\n" in ci.split("ci-ok:", 1)[-1]:
+        errors.append("ci-ok must not require the optional nix job")
     return errors
 
 

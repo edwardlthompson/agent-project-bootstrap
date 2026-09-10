@@ -13,17 +13,21 @@ TRACKED = (
     "examples/rust/src/lib.rs",
     "examples/rust/src/main.rs",
     "examples/rust/src/about.rs",
+    "examples/rust/src/log.rs",
     "examples/go/main.go",
+    "examples/go/log.go",
     "examples/go/about.go",
     "examples/go/about_test.go",
     "examples/node/src/app.ts",
     "examples/node/src/about.ts",
     "examples/node/src/about.test.ts",
     "examples/node/src/app.test.ts",
+    "examples/node/src/openapi.test.ts",
     "examples/python/src/hello/cli.py",
     "examples/python/src/hello/about.py",
     "examples/python/tests/test_about.py",
     "examples/python/tests/test_cli.py",
+    "examples/python/tests/test_openapi.py",
 )
 
 
@@ -64,28 +68,48 @@ def _drop(text: str, pattern: str) -> str:
     return patched
 
 
+def _drop_all(text: str, pattern: str) -> str:
+    while True:
+        patched, n = re.subn(pattern, "\n", text, count=1, flags=re.S)
+        if n == 0:
+            return text
+        text = patched
+
+
+def _unlink(root: Path, *rels: str) -> None:
+    for rel in rels:
+        (root / rel).unlink(missing_ok=True)
+
+
+def _cut(path: Path, needle: str) -> None:
+    if path.is_file():
+        write_lf(path, path.read_text(encoding="utf-8").replace(needle, ""))
+
+
 def strip(root: Path) -> None:
-    (root / "examples/rust/src/about.rs").unlink(missing_ok=True)
+    _unlink(root, "examples/rust/src/about.rs", "examples/go/about.go")
     lib = (root / "examples/rust/src/lib.rs").read_text(encoding="utf-8")
     write_lf(root / "examples/rust/src/lib.rs", lib.replace("pub mod about;\n", ""))
     _copy_stub("rust-main.rs", root / "examples/rust/src/main.rs")
-    (root / "examples/go/about.go").unlink(missing_ok=True)
+    _cut(root / "examples/rust/src/log.rs", '    let _ = writeln!(stdout, "{}", crate::about::summary());\n')
     _copy_stub("go-main.go", root / "examples/go/main.go")
+    _cut(root / "examples/go/log.go", "\tfmt.Fprintln(stdout, AboutSummary())\n")
     go_test = root / "examples/go/about_test.go"
-    write_lf(go_test, _drop(go_test.read_text(encoding="utf-8"), r"\nfunc TestAboutSummary\([\s\S]*?\n\}\n"))
-    for rel in ("examples/node/src/about.ts", "examples/node/src/about.test.ts"):
-        (root / rel).unlink(missing_ok=True)
+    write_lf(go_test, _drop_all(go_test.read_text(encoding="utf-8"), r"\nfunc TestAbout[A-Za-z0-9]*\([\s\S]*?\n\}\n"))
+    _unlink(root, "examples/node/src/about.ts", "examples/node/src/about.test.ts", "examples/node/src/openapi.test.ts")
     _copy_stub("node-app.ts", root / "examples/node/src/app.ts")
     node_test = root / "examples/node/src/app.test.ts"
-    write_lf(
-        node_test,
-        _drop(node_test.read_text(encoding="utf-8"), r"\n  it\(\"returns About payload\"[\s\S]*?\n  \}\);\n"),
+    text = _drop_all(
+        node_test.read_text(encoding="utf-8"),
+        r"\n  it\(\"(?:returns About payload|returns a GitHub feedback URL)[\s\S]*?\n  \}\);\n",
     )
-    for rel in ("examples/python/src/hello/about.py", "examples/python/tests/test_about.py"):
-        (root / rel).unlink(missing_ok=True)
+    write_lf(node_test, re.sub(r"\n+\n\}\);\s*\Z", "\n});\n", text))
+    _unlink(root, "examples/python/src/hello/about.py", "examples/python/tests/test_about.py")
     _copy_stub("python-cli.py", root / "examples/python/src/hello/cli.py")
+    _copy_stub("python-test-openapi.py", root / "examples/python/tests/test_openapi.py")
     py_test = root / "examples/python/tests/test_cli.py"
-    write_lf(py_test, _drop(py_test.read_text(encoding="utf-8"), r"\n\ndef test_main_about[\s\S]*\Z"))
+    text = _drop(py_test.read_text(encoding="utf-8"), r"\n\ndef test_main_about[\s\S]*\Z")
+    write_lf(py_test, text.replace("import json\n", "").rstrip() + "\n")
 
 
 def main() -> None:

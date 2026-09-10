@@ -22,7 +22,10 @@ class SemgrepFossTests(unittest.TestCase):
         text = (ROOT / "scripts" / "validate-bootstrap.sh").read_text(encoding="utf-8")
         self.assertIn("check-semgrep.sh", text)
         security = (ROOT / ".github" / "workflows" / "security.yml").read_text(encoding="utf-8")
-        self.assertIn("semgrep --config .semgrep.yml", security)
+        self.assertIn(
+            "semgrep --config .semgrep.yml --config .semgrep/prompt-injection.yml",
+            security,
+        )
         self.assertNotIn("python3 -m semgrep", security)
 
 

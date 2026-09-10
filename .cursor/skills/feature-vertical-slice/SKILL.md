@@ -18,3 +18,5 @@ python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto
 ```
 
 On exit `2`, switch to Debug Mode or escalate. Do not batch multiple feature rows.
+
+When the feature (or sprint) is all ✅: `python3 scripts/agent-run.py smoke-sprint --require` before the next feature.

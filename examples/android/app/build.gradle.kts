@@ -51,6 +51,19 @@ android {
         }
     }
 
+    val uploadStoreFile = System.getenv("GOLDENPATH_UPLOAD_STORE_FILE")
+    if (!uploadStoreFile.isNullOrBlank()) {
+        signingConfigs.create("upload") {
+            storeFile = file(uploadStoreFile)
+            storePassword = System.getenv("GOLDENPATH_UPLOAD_STORE_PASSWORD").orEmpty()
+            keyAlias = System.getenv("GOLDENPATH_UPLOAD_KEY_ALIAS") ?: "upload"
+            keyPassword = System.getenv("GOLDENPATH_UPLOAD_KEY_PASSWORD").orEmpty()
+        }
+        buildTypes.named("release").configure {
+            signingConfig = signingConfigs.getByName("upload")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -62,6 +75,15 @@ android {
     }
     testOptions {
         unitTests.isIncludeAndroidResources = true
+    }
+
+    lint {
+        abortOnError = true
+        lintConfig = file("lint.xml")
+        error += "ContentDescription"
+        error += "ClickableViewAccessibility"
+        error += "LabelFor"
+        error += "KeyboardInaccessibleWidget"
     }
 }
 

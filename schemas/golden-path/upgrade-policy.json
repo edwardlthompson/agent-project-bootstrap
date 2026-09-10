@@ -24,6 +24,8 @@
     {"glob": "RELEASE_NOTES.md.example", "policy": "canon", "owner": "AGENT"},
     {"glob": "scratchpad.md.example", "policy": "canon", "owner": "AGENT"},
     {"glob": "docs/features/_handoff.md", "policy": "canon", "owner": "AGENT"},
+    {"glob": "BUILD_PLAN_TEMPLATE.md", "policy": "canon", "owner": "AGENT"},
+    {"glob": "BUILD_PLAN.md", "policy": "mixed", "owner": "HUMAN"},
     {"glob": "scripts/", "policy": "canon", "owner": "AGENT"},
     {"glob": "CLAUDE.md", "policy": "canon", "owner": "AGENT"},
     {"glob": "GEMINI.md", "policy": "canon", "owner": "AGENT"},

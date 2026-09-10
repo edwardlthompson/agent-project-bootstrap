@@ -23,7 +23,7 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 9. Run `scripts/validate-template-index.sh`
 10. Merge Release Please PR; **release published** event attaches SBOM assets automatically
 11. Update repo About if description changed
-12. Weekly CVE triage completed within last 7 days (`docs/SECURITY_TRIAGE.md`)
+12. Latest **Weekly Health Check** (Monday cron) is green (`docs/SECURITY_TRIAGE.md`)
 13. Zero open Critical/High Dependabot alerts (or documented exception with linked issue)
 14. `THIRD_PARTY_LICENSES.md` reviewed; SBOM attached to release
 15. Move completed Sprint M* items to `COMPLETED_TASKS.md`
@@ -44,7 +44,7 @@ Encourage `template_improvement` issues. Triage labels:
 
 - `agent-confusion` — agent could not self-route
 - `token-waste` — unnecessary files read
-- `ci-gap` — missing quality gate
+- `ci-gap` — missing quality gate (living registry: [`docs/CI_GAPS.md`](CI_GAPS.md), [`schemas/ci-gaps.json`](../schemas/ci-gaps.json))
 - `module-request` — new ecosystem module
 
 ## Coach layer

@@ -1,10 +1,18 @@
 import en from "../locales/en.json";
+import es from "../locales/es.json";
 
 const catalogs: Record<string, Record<string, string>> = {
   en: en as Record<string, string>,
+  es: es as Record<string, string>,
 };
 
-let currentLocale = "en";
+function preferredLocale(): string {
+  const raw = typeof navigator === "undefined" ? "en" : navigator.language;
+  const lang = raw.slice(0, 2).toLowerCase();
+  return lang in catalogs ? lang : "en";
+}
+
+let currentLocale = preferredLocale();
 
 export function getLocale(): string {
   return currentLocale;

@@ -27,4 +27,19 @@ describe("createApp", () => {
     expect(body).toMatchObject({ version: "0.1.0" });
     expect(String(body.summary)).toContain("donate");
   });
+
+  it("returns a GitHub feedback URL for a real repo", async () => {
+    const prev = process.env.GITHUB_REPO;
+    process.env.GITHUB_REPO = "acme/app";
+    const res = await createApp().request("/feedback?kind=bug&title=Crash");
+    if (prev === undefined) {
+      delete process.env.GITHUB_REPO;
+    } else {
+      process.env.GITHUB_REPO = prev;
+    }
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { kind: string; url: string };
+    expect(body.kind).toBe("bug");
+    expect(body.url).toContain("github.com/acme/app/issues/new");
+  });
 });

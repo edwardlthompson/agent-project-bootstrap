@@ -5,6 +5,8 @@ import json
 import sys
 from pathlib import Path
 
+from batch_commands_print_audit import audit_html
+
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "schemas" / "batch-commands-print.json"
 HTML_PATH = ROOT / "docs" / "help" / "batch-commands-print.html"
@@ -69,7 +71,10 @@ def render(cmds: dict) -> str:
         if not rows:
             continue
         heading = '<h2 class="break">' if group == "start" else "<h2>"
-        parts.append(f"{heading}{title}</h2>\n<table>\n<tr><th>Type this</th><th>When to use it</th></tr>\n")
+        parts.append(
+            f"{heading}{title}</h2>\n<table>\n"
+            '<tr><th scope="col">Type this</th><th scope="col">When to use it</th></tr>\n'
+        )
         for name, meta in rows:
             cap = str(meta.get("caption") or "").replace("<", "&lt;")
             parts.append(f"<tr><td><code>/{name}</code></td><td>{cap}</td></tr>\n")
@@ -100,6 +105,7 @@ def check(root: Path, names: set[str]) -> list[str]:
     expected = render(cmds)
     if html.replace("\r\n", "\n") != expected.replace("\r\n", "\n"):
         errors.append("print HTML stale; run: python3 scripts/lib/batch_commands_print.py --write")
+    errors.extend(audit_html(html, cmds))
     return errors
 
 

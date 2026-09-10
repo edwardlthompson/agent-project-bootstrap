@@ -11,7 +11,7 @@ After `scripts/init-project.sh --distribution-tier foss`:
 | Rules | `.cursor/rules/*.mdc` | Shipped (16). `alwaysApply: true` is allowlisted in `scripts/lib/cursor_rule_audit.py`; glob-scoped rules must set `alwaysApply: false`. |
 | Commands | `.cursor/commands/*.md` | Shipped (33) |
 | Hooks | `.cursor/hooks.json` + `.cursor/hooks/` | Shipped |
-| Skills | `.cursor/skills/` (11) | Shipped |
+| Skills | `.cursor/skills/` (13) | Shipped |
 | Subagents | `.cursor/agents/` (3) | Shipped |
 | Modes | `docs/CURSOR_MODES.md` | Shipped |
 | Worktrees | `.cursor/worktrees.json` + OS setup scripts | Shipped |
@@ -117,13 +117,15 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 | `parallel-scope` | `/scope` |
 | `watch-gates-autofix` | `/fix` |
 | `check-repo-hygiene` | `/gates`, `/audit` |
-| `sprint0-signoff` | Sprint 0 Child Repo Playbook |
+| `sprint0-signoff` | Sprint 0 on `BUILD_PLAN_TEMPLATE.md` |
 | `feature-vertical-slice` | `/feature` |
 | `canvas-bootstrap-status` | `/gates` (Canvas; markdown fallback) |
 | `update-deps` | `/update-deps`, `/ship` |
 | `best-of-n` | `/best-of-n` |
 | `local-models` | `docs/LOCAL_MODELS.md` |
 | `linux-dev` | `docs/LINUX_DEV.md` |
+| `emulator` | `/emulator` |
+| `adr` | `/adr` |
 ## Subagents
 
 | Agent | Role |
@@ -152,6 +154,8 @@ Then symlink **`dist/cursor-plugin`** → `~/.cursor/plugins/local/agent-project
 
 ## Optional marketplace (not default)
 
+Runbook: [`CURSOR_MARKETPLACE.md`](CURSOR_MARKETPLACE.md).
+
 Child repos **may** add [wshobson/agents](https://github.com/wshobson/agents) as a Cursor marketplace. Do **not** install it by default — 200+ agents would drown context and fight “one feature per agent” plus local-compute-first.
 
 FOSS default stays the local `.cursor/` pack above. If a child repo opts in, pick plugins that **complement** (not replace) shipped commands:
@@ -172,7 +176,7 @@ See [`CURSOR_CLI.md`](CURSOR_CLI.md). Example workflow lives under `.github/work
 - Registry: [`CURSOR_FEATURE_REGISTRY.json`](CURSOR_FEATURE_REGISTRY.json)
 - Rubric: [`CURSOR_FEATURE_RADAR.md`](CURSOR_FEATURE_RADAR.md)
 - Script: `python3 scripts/agent-run.py cursor-feature-radar`
-- Outputs: gitignored `CURSOR_RADAR_REPORT.md`, `CURSOR_RADAR_BACKLOG.md`
+- Outputs: gitignored `CURSOR_RADAR_REPORT.md`, `CURSOR_RADAR_BACKLOG.md`, `CURSOR_RADAR_BUILD_PLAN_DRAFT.md`
 
 ## Switch tier later
 

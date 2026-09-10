@@ -2,6 +2,97 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Human leftovers (2026-09-10)
+
+- ✅ [HUMAN] CII / OpenSSF Best Practices (project 14564 passing; README badge)
+- ❌ [HUMAN] Optional: Ollama at `http://127.0.0.1:11434/v1` — rejected; this template does not use a local LLM server
+
+## M57 — Cursor + docs (2026-09-10)
+
+- ✅ [AGENT] Land `docs/GROK_BOTS.md` on main
+- ✅ [AGENT] Plugin marketplace runbook
+- ✅ [AGENT] Skills for `/emulator` and `/adr`
+- ✅ [AGENT] Refresh `CURSOR_FEATURE_REGISTRY.json`
+- ✅ [AGENT] Commercial Automations YAML
+- ✅ [AGENT] Commercial Cloud hook merge test
+- ✅ [AGENT] Canvas / design-mode walkthrough
+- ✅ [AGENT] Cursor CLI local-loop recipe
+- ✅ [AGENT] `/tour` + COACH: Settings-only chrome
+- ✅ [AGENT] `batch-commands-print.html` audit
+- ✅ [AGENT] `check-template-gaps` optional-stack rows
+- ✅ [AGENT] ADR-0001 architecture-pick gate
+- ✅ [AGENT] Living `ci-gap` registry
+
+## M56 — Desktop packaging (2026-09-10)
+
+- ✅ [AGENT] Winget manifest example
+- ✅ [AGENT] Winget multi-arch docs
+- ✅ [AGENT] Desktop binary + Winget publish loop
+
+## M55 — CI + security (2026-09-10)
+
+- ✅ [AGENT] Dependabot Cargo + Go
+- ✅ [AGENT] Scorecard SARIF auto-classifier
+- ✅ [AGENT] Semgrep prompt-injection pack
+- ✅ [AGENT] Optional Nix flake CI
+- ✅ [AGENT] Radar → BUILD_PLAN draft
+- ✅ [AGENT] AUTOMERGE_TOKEN in setup-github-repo
+- ✅ [AGENT] GlitchTip/Bugsink stub (not a live crash-proxy)
+- ✅ [AGENT] Cross-stack sanitizer fixture CI job
+
+## M54 — Catalog + Lightroom (2026-09-09)
+
+- ✅ [AGENT] Lightroom Lua lint
+- ✅ [AGENT] Second Lr* plugin entry
+- ✅ [AGENT] Lightroom SDK bump playbook
+- ✅ [AGENT] Sync web MODULE.md checklists
+- ✅ [AGENT] Sync Android MODULE F-Droid rows
+- ✅ [AGENT] Add `navigation` to `schemas/golden-path/feature-catalog.json`
+- ✅ [AGENT] Feature-catalog optional stacks (Lightroom)
+
+## M53 — Android distribution (2026-09-09)
+
+- ✅ [AGENT] Land android runtime-budget branch (PR #95)
+- ✅ [AGENT] R8 analyzer in CI / feature-gate
+- ✅ [AGENT] Reproducible APK in feature-gate
+- ✅ [AGENT] F-Droid build recipe YAML
+- ✅ [AGENT] Fastlane full metadata
+- ✅ [AGENT] F-Droid AntiFeatures template
+- ✅ [AGENT] UnifiedPush sample
+- ✅ [AGENT] Android signing + rollback runbook
+
+## M52 — UI, a11y, nav proof (2026-09-09)
+
+- ✅ [AGENT] Settings/About/Feedback visual snapshots
+- ✅ [AGENT] Settings in-panel search
+- ✅ [AGENT] Settings export schema migrations
+- ✅ [AGENT] Android RTL/locale instrumented stress
+- ✅ [AGENT] Android TalkBack + keyboard smoke
+- ✅ [AGENT] Compose a11y lint gate
+- ✅ [AGENT] Lighthouse a11y + best-practices floors
+- ✅ [AGENT] Android nav-stack property tests
+
+## M51 — CLI / API (2026-09-09)
+
+- ✅ [AGENT] Shared JSON About/donate/update (Node, Python, Rust, Go)
+- ✅ [AGENT] Node GitHub feedback HTTP route
+- ✅ [AGENT] Python `--feedback` CLI
+- ✅ [AGENT] Rust/Go version from Cargo.toml / module
+- ✅ [AGENT] Rust/Go JSON logs + readiness
+- ✅ [AGENT] Node OpenAPI spec + contract tests
+- ✅ [AGENT] Python OpenAPI + JSON logging
+- ✅ [AGENT] Python mypy in pre-commit
+
+## M50 — Chrome follow-through (2026-09-09)
+
+- ✅ [AGENT] Chrome + chip regression gate in `check-design-cohesion`
+- ✅ [AGENT] Compile Android instrumented tests in feature-gate (no emulator)
+- ✅ [AGENT] Android Settings Data export/import (web Data parity)
+- ✅ [AGENT] Child `BUILD_PLAN_TEMPLATE.md` Sprint 1: lock Settings-only chrome
+- ✅ [AGENT] Second locale catalog (web + Android)
+- ✅ [AGENT] Home first-canvas empty state (no new chrome)
+- ✅ [AGENT] Tokenize launch-prompt buttons (dark-mode contrast)
+
 ## v1.0.0 First stable template (2026-08-28)
 
 - ✅ [AUTO] Merge Release Please PR #82 — [v1.0.0](https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v1.0.0) published @ `3dae768`

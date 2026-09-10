@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+default_platform(:android)
+
+platform :android do
+  desc "Check Fastlane listing files (no store upload on the FOSS path)"
+  lane :metadata do
+    root = File.expand_path("metadata/android/en-US", __dir__)
+    %w[title.txt short_description.txt full_description.txt].each do |name|
+      path = File.join(root, name)
+      UI.user_error!("missing #{path}") unless File.size?(path)
+    end
+    UI.success("Fastlane en-US listing files are present")
+  end
+end

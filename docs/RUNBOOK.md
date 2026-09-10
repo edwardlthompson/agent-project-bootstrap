@@ -33,6 +33,8 @@ Static PWAs and CLIs may skip HTTP endpoints; document stack-specific checks ins
 2. Confirm health checks pass
 3. Log incident in `DECISION_LOG.md` if user-impacting
 
+Android APK/AAB signing and store rollback: [`docs/ANDROID_SIGNING.md`](ANDROID_SIGNING.md).
+
 ## Common Failures
 
 | Symptom | Check | Fix |
@@ -57,7 +59,7 @@ Static PWAs and CLIs may skip HTTP endpoints; document stack-specific checks ins
 
 ## Escalation
 
-1. Check `BUILD_PLAN.md` Ongoing Maintenance
+1. Check the latest **Weekly Health Check** run (Monday cron)
 2. Review `docs/SECURITY_TRIAGE.md` for security issues
 3. Contact maintainers in `.github/CODEOWNERS`
 

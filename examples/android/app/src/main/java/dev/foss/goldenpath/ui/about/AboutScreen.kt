@@ -59,6 +59,7 @@ fun AboutScreen(
     LaunchedEffect(scrollState.value) { onScroll(scrollState.value) }
     Column(
         modifier = modifier
+            .testTag("about-panel")
             .highRefreshScroll()
             .verticalScroll(scrollState)
             .padding(SpacingMd)

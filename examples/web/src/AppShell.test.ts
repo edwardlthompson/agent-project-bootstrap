@@ -61,6 +61,8 @@ describe("createAppShell nav render", () => {
     expect(root.querySelector("[data-about-open]")).toBeNull();
     expect(root.querySelector("[data-donate-open]")).toBeNull();
     expect(root.querySelector(".gp-theme-toggle")).toBeNull();
+    expect(root.querySelector("[data-testid='home-status']")).toBeTruthy();
+    expect(root.querySelectorAll(".gp-status-card").length).toBe(1);
   });
 
   it("hides Settings in the header on inner routes", () => {

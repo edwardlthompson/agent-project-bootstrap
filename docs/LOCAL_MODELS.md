@@ -1,6 +1,6 @@
 # Local models (no cloud keys)
 
-Use a local OpenAI-compatible server so Cursor Chat can stay on this machine. The template never stores keys and never writes Cursor `settings.json`.
+Use a local OpenAI-compatible server so Cursor Chat can stay on this machine. The template never stores keys and never writes Cursor `settings.json`. This template repo does **not** require Ollama (maintainer declined 2026-09-10). The recipe below is for child repos that want a local model.
 
 ## What this is (and is not)
 

@@ -2,6 +2,7 @@
 
 pub mod about;
 pub mod crash;
+pub mod log;
 
 pub fn greet() -> &'static str {
     "hello FOSS"

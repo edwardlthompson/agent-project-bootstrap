@@ -1,5 +1,7 @@
 # Architecture Decision Record
 
+> Skills: `.cursor/skills/adr/`
+
 Record one decision in `docs/adr/`. This is not `/plan` (feature approach) and not `/coach` (what next).
 
 Other IDEs: the same recipe is `docs/help/ADR.md`.

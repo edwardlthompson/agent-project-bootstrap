@@ -51,6 +51,16 @@ main {
   color: var(--gp-color-on-surface);
 }
 
+.gp-status-card {
+  margin-block-start: var(--gp-space-lg);
+  padding: var(--gp-space-lg);
+  border: 1px solid var(--gp-color-outline);
+  border-radius: var(--gp-radius-md);
+  background: var(--gp-color-surface-variant);
+  color: var(--gp-color-on-surface-variant);
+  text-align: start;
+}
+
 .gp-headline {
   font-size: var(--gp-text-headline-medium-size);
   font-weight: var(--gp-text-headline-medium-weight);
@@ -64,7 +74,7 @@ main {
   font-weight: var(--gp-text-body-medium-weight);
   line-height: var(--gp-text-body-medium-line);
   color: var(--gp-color-on-surface-variant);
-  margin-block-start: var(--gp-space-lg);
+  margin-block-start: var(--gp-space-md);
   opacity: 0.9;
 }
 
@@ -102,7 +112,8 @@ main {
 .gp-settings-close,
 .gp-about-apply,
 .gp-settings-actions button,
-.gp-feedback-panel button {
+.gp-feedback-panel button,
+.gp-launch-actions button {
   min-height: 2.75rem;
   padding-inline: var(--gp-space-md);
   padding-block: var(--gp-space-sm);
@@ -120,9 +131,16 @@ main {
 .gp-about-apply:hover,
 .gp-settings-actions button:hover,
 .gp-feedback-panel button:hover,
-.gp-settings-nav:hover {
+.gp-settings-nav:hover,
+.gp-launch-actions button:hover {
   background: var(--gp-color-primary-container);
   color: var(--gp-color-on-primary-container);
+}
+
+.gp-launch-actions .gp-launch-accept {
+  background: var(--gp-color-primary);
+  color: var(--gp-color-on-primary);
+  border-color: var(--gp-color-primary);
 }
 
 .gp-settings-btn:focus-visible,
@@ -132,8 +150,10 @@ main {
 .gp-settings-actions button:focus-visible,
 .gp-feedback-panel button:focus-visible,
 .gp-settings-nav:focus-visible,
+.gp-launch-actions button:focus-visible,
 .gp-settings-row select:focus-visible,
-.gp-settings-row input:focus-visible {
+.gp-settings-row input:focus-visible,
+.gp-settings-search input:focus-visible {
   outline: 2px solid var(--gp-color-primary);
   outline-offset: 2px;
 }
@@ -159,6 +179,27 @@ main {
 .gp-about-header h2,
 .gp-settings-header h2 {
   margin: 0;
+}
+
+.gp-settings-search {
+  display: block;
+  margin-block: var(--gp-space-sm) var(--gp-space-md);
+}
+
+.gp-settings-search input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding-inline: var(--gp-space-sm);
+  border-radius: var(--gp-radius-md);
+  border: 1px solid var(--gp-color-outline);
+  background: var(--gp-color-surface);
+  color: var(--gp-color-on-surface);
+  font: inherit;
+}
+
+.gp-settings-search-empty {
+  margin: 0 0 var(--gp-space-md);
+  color: var(--gp-color-on-surface-variant);
 }
 
 .gp-settings-group + .gp-settings-group,

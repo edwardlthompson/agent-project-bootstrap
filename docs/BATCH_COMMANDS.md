@@ -10,7 +10,7 @@
 |---------|-------|-------------|----------------|-------|
 | `/bootstrap` | init → prune → setup → gates | Agent | 42 | No |
 | `/verify` | docs → gates → ci | Agent | 43 | No |
-| `/build` | Autonomous BUILD_PLAN sprint chain — per-row `--scope auto` gates; wrap-up `/gates` is full | Agent | 44 | No |
+| `/build` | Autonomous BUILD_PLAN sprint chain — per-row `--scope auto` gates; wrap-up `smoke-sprint --require` then `/gates` | Agent | 44 | No |
 | `/ship` | update-deps → prerelease (`--local`) → push → regress | Agent | 45 | **Yes** |
 | `/maintain` | triage → update-deps → dependabot → audit | Agent | 46 | No |
 ## Atomic commands
