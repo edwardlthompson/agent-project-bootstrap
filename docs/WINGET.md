@@ -1,6 +1,16 @@
 # Winget publish runbook
 
-Use this when a **child** repo ships a native Windows installer. This template only generates a stub. `[HUMAN]` opens the `microsoft/winget-pkgs` PR.
+Use this when a **child** repo ships a native Windows installer. This template ships a committed example at `packaging/winget/example/manifest.yaml` and can generate a stub. `[HUMAN]` opens the `microsoft/winget-pkgs` PR.
+
+## Example
+
+`packaging/winget/example/manifest.yaml` is a singleton with an `example.com` URL and a placeholder SHA-256. Validate it without submitting:
+
+```bash
+bash scripts/validate-winget-stub.sh packaging/winget/example/manifest.yaml
+```
+
+Do not file a Winget PR for this template using that example.
 
 ## Generate the stub
 

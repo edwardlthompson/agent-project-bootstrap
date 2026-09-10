@@ -18,6 +18,13 @@ class WingetRunbookTests(unittest.TestCase):
     def test_repo(self) -> None:
         self.assertEqual(check_repo(ROOT), [])
 
+    def test_example_validates(self) -> None:
+        example = ROOT / "packaging" / "winget" / "example" / "manifest.yaml"
+        self.assertTrue(example.is_file())
+        text = example.read_text(encoding="utf-8")
+        self.assertIn("Foss.GoldenPath", text)
+        self.assertIn("example.com", text)
+
     def test_wired(self) -> None:
         text = (ROOT / "scripts" / "validate-bootstrap.sh").read_text(encoding="utf-8")
         self.assertIn("check-winget-runbook.sh", text)
