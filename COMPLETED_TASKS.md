@@ -2,6 +2,10 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Human leftovers (2026-09-10)
+
+- ✅ [HUMAN] CII Best Practices checklist (login + public badge)
+
 ## M57 — Cursor + docs (2026-09-10)
 
 - ✅ [AGENT] Land `docs/GROK_BOTS.md` on main

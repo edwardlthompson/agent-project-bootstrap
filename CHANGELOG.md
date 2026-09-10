@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **security:** OpenSSF Best Practices badge (project 14564) and `.bestpractices.json` proposals
+* **ci:** sanitize GitHub branch names and release tags before interpolation
 * **ci:** living `ci-gap` registry (`schemas/ci-gaps.json`) aligned with the issue form
 * **docs:** ADR-0001 architecture-pick gate (MVVM/Clean/Hexagonal stay open)
 * **docs:** `check-template-gaps` lists rust/go/lightroom as optional stack rows

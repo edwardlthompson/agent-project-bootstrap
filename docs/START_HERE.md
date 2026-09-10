@@ -23,7 +23,7 @@ In Cursor, type **`/`** in Agent chat. Start with **[docs/help/BATCH_COMMANDS.md
 
 In Windsurf, Antigravity, or any other agent: ask it to read [`docs/help/TOUR.md`](help/TOUR.md) (first run) or [`docs/help/COACH.md`](help/COACH.md) (what next).
 
-Optional commercial Grok Bots (not required to build or ship): [`GROK_BOTS.md`](GROK_BOTS.md).
+Optional commercial Grok Bots (not required to build or ship): [`GROK_BOTS.md`](GROK_BOTS.md). OpenSSF Best Practices (project 14564): [`OPENSSF_BEST_PRACTICES.md`](OPENSSF_BEST_PRACTICES.md).
 
 ## Bootstrap Read Order
 

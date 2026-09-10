@@ -142,6 +142,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Validate branch name
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: bash scripts/check-ci-refs.sh --branch
       - name: Check tracked artifacts and repo config
         run: bash scripts/check-repo-hygiene.sh
 

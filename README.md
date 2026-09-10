@@ -5,6 +5,7 @@
 ![FOSS](https://img.shields.io/badge/FOSS-no_tracking-656d76?style=flat-square)
 [![CI](https://img.shields.io/github/actions/workflow/status/edwardlthompson/agent-project-bootstrap/ci.yml?style=flat-square&label=CI)](https://github.com/edwardlthompson/agent-project-bootstrap/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/edwardlthompson/agent-project-bootstrap/badge)](https://securityscorecards.dev/viewer/?uri=github.com/edwardlthompson/agent-project-bootstrap)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/14564/badge)](https://www.bestpractices.dev/projects/14564)
 [![Open in GitHub Codespaces](https://img.shields.io/badge/Codespaces-Open-181717?style=flat-square&logo=github)](https://codespaces.new/edwardlthompson/agent-project-bootstrap)
 
 **Ship a FOSS app with an agent that already knows the rules.**
@@ -12,6 +13,8 @@
 Most templates hand you empty folders. This one hands you a working contract: one [`AGENTS.md`](AGENTS.md) that Cursor, Windsurf, Antigravity, Claude Code, Copilot, Aider, Cline, and Continue all follow — plus CI, security, and a 10-minute tour so a first-time human is not lost.
 
 Click **Use this template**, run init, then type `/tour` (or ask any agent to read [`docs/help/TOUR.md`](docs/help/TOUR.md)). You leave Sprint 0 with a checklist, a Golden Path you can run, and gates that say *what failed* and *what to run*.
+
+**Obtain, feedback, contribute.** Clone or **Use this template** from [the GitHub repo](https://github.com/edwardlthompson/agent-project-bootstrap). Bugs and ideas: [`SUPPORT.md`](SUPPORT.md) (GitHub Issues / Discussions). Vulnerabilities: [`SECURITY.md`](SECURITY.md) (private advisory, not a public issue). Patches: [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Why this exists
 

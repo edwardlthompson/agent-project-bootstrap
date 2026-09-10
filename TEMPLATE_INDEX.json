@@ -412,6 +412,27 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-ci-refs.sh",
+      "purpose": "Gate: sanitize CI branch names and release tags",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".bestpractices.json",
+      "purpose": "Proposed OpenSSF Best Practices answers for project 14564",
+      "read_when": "validation",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/OPENSSF_BEST_PRACTICES.md",
+      "purpose": "How maintainers apply the Best Practices badge JSON",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-readme-mermaid.sh",
       "purpose": "Gate: generated README preview includes a mermaid flowchart",
       "read_when": "milestone_boundary",

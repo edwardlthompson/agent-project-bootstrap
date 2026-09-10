@@ -26,6 +26,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Validate CI refs
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: bash scripts/check-ci-refs.sh --release
+
       - name: Verify tag matches .template-version
         run: |
           TAG="${GITHUB_REF#refs/tags/v}"
@@ -49,6 +54,12 @@ jobs:
       id-token: write
       attestations: write
     steps:
+      - name: Validate CI refs
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: bash scripts/check-ci-refs.sh --release
+
       - name: Resolve release tag
         id: tag
         env:

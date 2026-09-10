@@ -204,6 +204,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-adr-command.sh \
   check-adr-architecture.sh \
   check-ci-gaps.sh \
+  check-ci-refs.sh \
   check-readme-mermaid.sh \
   check-social-preview.sh \
   check-fdroid-screenshots.sh \

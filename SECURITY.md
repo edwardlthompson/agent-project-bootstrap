@@ -12,6 +12,10 @@ Supported template version: see `.template-version` on `main`. Security fixes ap
 
 See [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) and [`docs/PRIVACY.md`](docs/PRIVACY.md) for data-boundary expectations.
 
+## Public defects (not vulnerabilities)
+
+Use GitHub Issues: <https://github.com/edwardlthompson/agent-project-bootstrap/issues> — see [`SUPPORT.md`](SUPPORT.md). That archive is searchable.
+
 ## Reporting a Vulnerability
 
 **Do not** open public GitHub issues for security vulnerabilities.
