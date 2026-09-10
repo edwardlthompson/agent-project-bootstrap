@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 8 · AUTO 7 · HUMAN 4 · ADB 2 · **21 open**
+**Remaining:** AGENT 7 · AUTO 7 · HUMAN 4 · ADB 2 · **20 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -43,7 +43,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 5. ✅ [AGENT] Commercial Automations YAML
 6. ✅ [AGENT] Commercial Cloud hook merge test
 7. ✅ [AGENT] Canvas / design-mode walkthrough
-8. 🔲 [AGENT] Cursor CLI local-loop recipe
+8. ✅ [AGENT] Cursor CLI local-loop recipe
 9. 🔲 [AGENT] `/tour` + COACH: Settings-only chrome
 10. 🔲 [AGENT] `batch-commands-print.html` audit
 11. 🔲 [AGENT] `check-template-gaps` optional-stack rows

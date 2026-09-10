@@ -209,7 +209,8 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-cursor-marketplace.sh \
   check-cursor-automations.sh \
   check-cursor-cloud-hooks.sh \
-  check-cursor-canvas.sh
+  check-cursor-canvas.sh \
+  check-cursor-cli.sh
 then
   ERRORS=$((ERRORS + 1))
 fi

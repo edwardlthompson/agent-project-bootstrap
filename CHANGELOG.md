@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** Cursor CLI local-loop recipe (zero-key gates; optional billed CLI)
 * **docs:** Canvas vs Design Mode walkthrough (`docs/CURSOR_CANVAS.md`)
 * **cursor:** Cloud hook merge keeps FOSS shell/encoding hooks
 * **cursor:** commercial Automations YAML example (disabled on the FOSS path)
