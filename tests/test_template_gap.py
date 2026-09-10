@@ -118,6 +118,47 @@ class TemplateGapTests(unittest.TestCase):
             self.assertTrue(any("template-update" in s for s in data["skip"]))
             self.assertEqual(data["files"], [])
 
+    def test_optional_stacks_not_required_on_web(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".template-version").write_text("0.21.0\n", encoding="utf-8")
+            (root / ".template-update.json").write_text(
+                json.dumps({"upstream": "acme/tpl"}), encoding="utf-8"
+            )
+            schema = root / "schemas" / "golden-path"
+            schema.mkdir(parents=True)
+            (schema / "upgrade-policy.json").write_text(
+                (ROOT / "schemas/golden-path/upgrade-policy.json").read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            (schema / "feature-catalog.json").write_text(
+                (ROOT / "schemas/golden-path/feature-catalog.json").read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            (root / ".cursor").mkdir()
+            (root / ".cursor/stack-selection.json").write_text(
+                json.dumps({"stack": "web"}), encoding="utf-8"
+            )
+            data = report(root, compare=lambda *_a, **_k: ([], ""), latest_fn=lambda _u: ("0.26.0", ""))
+            rows = data["optional_stacks"]
+            self.assertEqual({r["id"] for r in rows}, {"rust", "go", "lightroom"})
+            self.assertTrue(all(r["required"] is False for r in rows))
+            self.assertNotIn("lightroom-plugin", {g["id"] for g in data["features"]})
+
+    def test_optional_stack_required_when_selected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".cursor").mkdir()
+            (root / ".cursor/stack-selection.json").write_text(
+                json.dumps({"stack": "rust"}), encoding="utf-8"
+            )
+            (root / "examples" / "rust").mkdir(parents=True)
+            data = report(root, compare=lambda *_a, **_k: ([], ""), latest_fn=lambda _u: ("", ""))
+            rust = next(r for r in data["optional_stacks"] if r["id"] == "rust")
+            self.assertTrue(rust["present"])
+            self.assertTrue(rust["required"])
+            self.assertFalse(next(r for r in data["optional_stacks"] if r["id"] == "go")["required"])
+
     def test_upgrade_command_refuses_do_all(self) -> None:
         cmd = (ROOT / ".cursor/commands/upgrade.md").read_text(encoding="utf-8")
         help_twin = (ROOT / "docs/help/UPGRADE.md").read_text(encoding="utf-8")

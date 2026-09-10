@@ -1,6 +1,6 @@
 # Optional Stack Modules
 
-The init script stack picker (`web` / `python` / `android` / `node` / `multi` / `none`) does **not** include optional ecosystems (rust, go, lightroom). Enable them manually when needed. `schemas/golden-path/feature-catalog.json` lists Lightroom as `lightroom-plugin` so `/upgrade` gap reports skip it on web/Android-only children.
+The init script stack picker (`web` / `python` / `android` / `node` / `multi` / `none`) does **not** include optional ecosystems (rust, go, lightroom). Enable them manually when needed. `schemas/golden-path/feature-catalog.json` lists Lightroom as `lightroom-plugin` so `/upgrade` gap reports skip it on web/Android-only children. `check-template-gaps` also emits `optional_stacks` rows for rust, go, and lightroom. Those rows are informational (`required: false`) unless the child's selected stack is that ecosystem.
 
 | Module | Guide | Example | When to keep |
 |--------|-------|---------|--------------|
