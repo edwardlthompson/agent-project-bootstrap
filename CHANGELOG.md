@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **cursor:** Cloud hook merge keeps FOSS shell/encoding hooks
 * **cursor:** commercial Automations YAML example (disabled on the FOSS path)
 * **cursor:** refresh `CURSOR_FEATURE_REGISTRY.json` (skill ids + updated_at)
 * **cursor:** skills for `/emulator` and `/adr`

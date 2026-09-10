@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 10 · AUTO 7 · HUMAN 4 · ADB 2 · **23 open**
+**Remaining:** AGENT 9 · AUTO 7 · HUMAN 4 · ADB 2 · **22 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -41,7 +41,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. ✅ [AGENT] Skills for `/emulator` and `/adr`
 4. ✅ [AGENT] Refresh `CURSOR_FEATURE_REGISTRY.json`
 5. ✅ [AGENT] Commercial Automations YAML
-6. 🔲 [AGENT] Commercial Cloud hook merge test
+6. ✅ [AGENT] Commercial Cloud hook merge test
 7. 🔲 [AGENT] Canvas / design-mode walkthrough
 8. 🔲 [AGENT] Cursor CLI local-loop recipe
 9. 🔲 [AGENT] `/tour` + COACH: Settings-only chrome
