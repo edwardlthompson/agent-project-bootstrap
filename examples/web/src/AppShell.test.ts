@@ -42,24 +42,32 @@ describe("createAppShell nav render", () => {
     expect(cb.onPop).toHaveBeenCalledTimes(2);
   });
 
-  it("About report-bug pushes feedback instead of flattening", () => {
+  it("About feedback dropdown pushes instead of flattening", () => {
     const cb = handlers();
     const root = document.createElement("div");
     createAppShell(root, { ...baseState(), nav: push(homeNav(), "about") }, cb);
-    root.querySelector<HTMLButtonElement>("[data-testid='about-report-bug']")?.click();
+    const select = root.querySelector<HTMLSelectElement>("[data-testid='about-feedback']");
+    expect(select).toBeTruthy();
+    select!.value = "bug";
+    select!.dispatchEvent(new Event("change"));
     expect(cb.onPushRoute).toHaveBeenCalledWith("feedback", "bug");
     expect(cb.onPop).not.toHaveBeenCalled();
   });
 
-  it("header About toggles via onPop when already on about", () => {
-    const cb = handlers();
+  it("home chrome is Settings only", () => {
     const root = document.createElement("div");
-    createAppShell(root, { ...baseState(), nav: push(homeNav(), "about") }, cb);
-    root
-      .querySelector("[data-about-open]")
-      ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-    expect(cb.onPop).toHaveBeenCalledTimes(1);
-    expect(cb.onPushRoute).not.toHaveBeenCalled();
+    createAppShell(root, baseState(), handlers());
+    expect(root.querySelector("[data-settings-open]")).toBeTruthy();
+    expect(root.querySelector("[data-about-open]")).toBeNull();
+    expect(root.querySelector("[data-donate-open]")).toBeNull();
+    expect(root.querySelector(".gp-theme-toggle")).toBeNull();
+  });
+
+  it("hides Settings in the header on inner routes", () => {
+    const root = document.createElement("div");
+    createAppShell(root, { ...baseState(), nav: push(homeNav(), "settings") }, handlers());
+    expect(root.querySelector("[data-settings-open]")).toBeNull();
+    expect(root.querySelector("[data-testid='settings-panel']")).toBeTruthy();
   });
 
   it("restores persisted panel scroll", () => {

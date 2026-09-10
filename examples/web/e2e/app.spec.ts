@@ -31,10 +31,11 @@ test("rtl dir places the title after header actions", async ({ page }) => {
   expect(title!.x).toBeGreaterThan(actions!.x);
 });
 
-test("reduced motion shortens theme-toggle transitions", async ({ page }) => {
+test("reduced motion shortens settings control transitions", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  const duration = await page.locator(".gp-theme-toggle").evaluate((el) => {
+  await page.getByRole("button", { name: "Settings" }).click();
+  const duration = await page.locator("[data-settings-theme]").evaluate((el) => {
     return Number.parseFloat(getComputedStyle(el).transitionDuration);
   });
   expect(duration).toBeLessThan(0.02);
@@ -60,19 +61,13 @@ test("keyboard-only opens Settings, About, and Feedback", async ({ page }) => {
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("settings-panel")).toHaveCount(0);
 
-  await tabUntil(page, "About");
+  await tabUntil(page, "Settings");
+  await page.keyboard.press("Enter");
+  await tabUntil(page, "App info");
   await page.keyboard.press("Enter");
   await expect(page.getByTestId("about-panel")).toBeVisible();
 
-  const bug = page.getByRole("button", { name: "Report a bug" });
-  for (let i = 0; i < 12; i++) {
-    if (await bug.evaluate((el) => el === document.activeElement)) {
-      break;
-    }
-    await page.keyboard.press("Tab");
-  }
-  await expect(bug).toBeFocused();
-  await page.keyboard.press("Enter");
+  await page.getByTestId("about-feedback").selectOption("bug");
   await expect(page.getByTestId("feedback-panel")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("feedback-panel")).toHaveCount(0);
@@ -95,7 +90,8 @@ test("passes accessibility audit with settings panel open", async ({ page }) => 
 
 test("passes accessibility audit with about panel open", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "About" }).click();
+  await page.getByRole("button", { name: "Settings" }).click();
+  await page.getByTestId("settings-panel").getByRole("button", { name: "App info" }).click();
   await expect(page.getByTestId("about-panel")).toBeVisible();
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
@@ -110,7 +106,9 @@ test("homepage visual snapshot", async ({ page }) => {
 test("opens settings panel and toggles theme", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Settings" }).click();
-  await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
+  await expect(
+    page.getByTestId("settings-panel").getByRole("heading", { name: "Settings" }),
+  ).toBeVisible();
   await page.locator("[data-settings-theme]").selectOption("dark");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });
@@ -124,31 +122,29 @@ test("persists dark theme after reload", async ({ page }) => {
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });
 
-test("opens about panel with donate link", async ({ page }) => {
+test("opens About from Settings with donate links", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "About" }).click();
-  await expect(page.getByRole("heading", { name: "About" })).toBeVisible();
+  await page.getByRole("button", { name: "Settings" }).click();
+  const settings = page.getByTestId("settings-panel");
+  await expect(settings).toBeVisible();
+  await settings.getByRole("button", { name: "App info" }).click();
+  await expect(page.getByTestId("about-panel")).toBeVisible();
   await expect(page.getByTestId("about-status")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Support development" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Donate via Venmo" })).toHaveAttribute(
     "href",
     "https://venmo.com/code?user_id=1857304970395648420",
   );
 });
 
-test("opens About from Settings with donate links", async ({ page }) => {
+test("keeps donate, About, and theme out of the header", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Settings" }).click();
-  const settings = page.getByTestId("settings-panel");
-  await expect(settings).toBeVisible();
-  await settings.getByRole("button", { name: "About" }).click();
-  await expect(page.getByTestId("about-panel")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Support development" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Donate via Venmo" })).toBeVisible();
-});
-
-test("shows quiet donate action in the header", async ({ page }) => {
-  await page.goto("/");
-  await expect(page.getByRole("button", { name: "Donate via Venmo" })).toBeVisible();
+  const header = page.locator(".gp-header");
+  await expect(header.getByRole("button", { name: "Settings" })).toBeVisible();
+  await expect(header.getByRole("button", { name: "Donate via Venmo" })).toHaveCount(0);
+  await expect(page.locator("[data-about-open]")).toHaveCount(0);
+  await expect(page.locator("[data-donate-open]")).toHaveCount(0);
+  await expect(page.locator(".gp-theme-toggle")).toHaveCount(0);
 });
 
 test.describe("donate nudge", () => {

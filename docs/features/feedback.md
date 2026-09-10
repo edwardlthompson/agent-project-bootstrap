@@ -12,7 +12,7 @@
 ## Smoke scenario
 
 1. Given crash-capture is off
-2. When the user opens About and Report a bug, types a description
+2. When the user opens Settings → App info and chooses Report a bug, types a description
 3. Then they can copy sanitized markdown; Open GitHub is enabled only when description or stack exists
 
 ## Container map

@@ -3,6 +3,7 @@ package dev.foss.goldenpath
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -25,21 +26,25 @@ class GoldenPathUiTest {
         .around(composeTestRule)
 
     @Test
-    fun opensSettingsPanelWithThemeAndUpdateControls() {
+    fun opensSettingsPanelWithThemeDropdown() {
         composeTestRule.dismissLaunchPrompts()
+        composeTestRule.onAllNodesWithContentDescription("About").assertCountEquals(0)
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.onNodeWithText("Settings").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Appearance").assertIsDisplayed()
         composeTestRule.onNodeWithText("Theme").assertIsDisplayed()
+        composeTestRule.onNodeWithText("System theme").performClick()
+        composeTestRule.onNodeWithText("Dark theme").performClick()
         composeTestRule.onNodeWithText("Version, updates, and ways to support development")
             .assertIsDisplayed()
-        composeTestRule.onNodeWithText("Dark theme").performClick()
-        composeTestRule.onNodeWithText("Close settings").performScrollTo().performClick()
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
     }
 
     @Test
     fun opensAboutPanelWithVersion() {
         composeTestRule.dismissLaunchPrompts()
-        composeTestRule.onNodeWithContentDescription("About").performClick()
+        composeTestRule.onNodeWithContentDescription("Settings").performClick()
+        composeTestRule.onNodeWithText("App info").performScrollTo().performClick()
         composeTestRule.onNodeWithText("About").assertIsDisplayed()
         composeTestRule.onNodeWithText("Installed format: apk").assertIsDisplayed()
     }
@@ -51,7 +56,7 @@ class GoldenPathUiTest {
         composeTestRule.onAllNodesWithTag(AboutTestTags.DONATION_LINK).assertCountEquals(0)
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithText("About", substring = false).performScrollTo().performClick()
+        composeTestRule.onNodeWithTag("settings-about").performScrollTo().performClick()
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithTag(AboutTestTags.DONATIONS_HEADING)
             .performScrollTo()

@@ -1,13 +1,13 @@
 # Donations setup walkthrough
 
-> Configure in-app donate links and GitHub funding. Android shows donate **only under Settings → About** (and the About info icon) — never in the TopAppBar / titlebar.
+> Configure in-app donate links and GitHub funding. Donate appears **only under Settings → App info (About)** — never in the header / TopAppBar / titlebar.
 
 ## Where donate appears
 
 | Surface | Web | Android |
 |---------|-----|---------|
-| About panel | Yes — all `donations.json` links | Yes — Settings → **About**, or the About info icon |
-| Quiet header / titlebar | Optional quiet header button (web only) | **No** — do not put Venmo (or any donate) in `TopAppBar` |
+| About panel | Yes — all `donations.json` links | Yes — Settings → **App info** |
+| Quiet header / titlebar | **No** — do not put Venmo (or any donate) in the header | **No** — do not put Venmo (or any donate) in `TopAppBar` |
 | Once-per-version launch note | Optional ethical nudge after a version change | Same |
 | Update / Install dialog | Never | Never |
 
@@ -136,4 +136,4 @@ python3 scripts/agent-run.py feature-gate --stack android
 python3 scripts/agent-run.py verify
 ```
 
-Confirm locally: home titlebar has no Donate label; Settings → About lists every `donations.json` link.
+Confirm locally: home header / titlebar has no Donate, About, or theme control; Settings → App info lists every `donations.json` link.

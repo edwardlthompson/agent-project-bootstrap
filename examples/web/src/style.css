@@ -51,29 +51,6 @@ main {
   color: var(--gp-color-on-surface);
 }
 
-.gp-theme-toggle {
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  padding: var(--gp-space-sm);
-  border-radius: var(--gp-radius-md);
-  border: 1px solid var(--gp-color-outline);
-  background: var(--gp-color-surface-variant);
-  color: var(--gp-color-on-surface-variant);
-  cursor: pointer;
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-.gp-theme-toggle:hover {
-  background: var(--gp-color-primary-container);
-  color: var(--gp-color-on-primary-container);
-}
-
-.gp-theme-toggle:focus-visible {
-  outline: 2px solid var(--gp-color-primary);
-  outline-offset: 2px;
-}
-
 .gp-headline {
   font-size: var(--gp-text-headline-medium-size);
   font-weight: var(--gp-text-headline-medium-weight);
@@ -92,23 +69,11 @@ main {
 }
 
 .gp-update-banner {
-  font-size: var(--gp-text-body-small-size);
-  font-weight: var(--gp-text-body-small-weight);
-  line-height: var(--gp-text-body-small-line);
+  font-size: var(--gp-text-label-large-size);
+  font-weight: var(--gp-text-label-large-weight);
+  line-height: var(--gp-text-label-large-line);
   color: var(--gp-color-tertiary);
   margin-block-start: var(--gp-space-md);
-}
-
-
-.gp-donate-btn {
-  min-height: 2.75rem;
-  padding-inline: var(--gp-space-md);
-  padding-block: var(--gp-space-sm);
-  border-radius: var(--gp-radius-md);
-  border: 1px solid var(--gp-color-outline);
-  background: transparent;
-  color: var(--gp-color-on-surface);
-  cursor: pointer;
 }
 
 .gp-launch-dialog {
@@ -126,51 +91,56 @@ main {
   margin-block-start: var(--gp-space-md);
 }
 
-.gp-about-btn {
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  padding: var(--gp-space-sm);
-  border-radius: var(--gp-radius-md);
-  border: 1px solid var(--gp-color-outline);
-  background: var(--gp-color-surface-variant);
-  color: var(--gp-color-on-surface-variant);
-  cursor: pointer;
-}
-
-.gp-about-panel {
-  margin-block-start: var(--gp-space-lg);
-  padding: var(--gp-space-md);
-  border: 1px solid var(--gp-color-outline);
-  border-radius: var(--gp-radius-md);
-  text-align: start;
-}
-
-.gp-about-header {
+.gp-header-actions {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: var(--gp-space-sm);
 }
 
-.gp-about-interval select {
-  margin-inline-start: var(--gp-space-sm);
-}
-
-.gp-about-donate-links {
-  padding-inline-start: var(--gp-space-lg);
-}
-
-.gp-settings-btn {
-  min-width: 2.75rem;
+.gp-settings-btn,
+.gp-about-close,
+.gp-settings-close,
+.gp-about-apply,
+.gp-settings-actions button,
+.gp-feedback-panel button {
   min-height: 2.75rem;
-  padding: var(--gp-space-sm);
+  padding-inline: var(--gp-space-md);
+  padding-block: var(--gp-space-sm);
   border-radius: var(--gp-radius-md);
   border: 1px solid var(--gp-color-outline);
   background: var(--gp-color-surface-variant);
   color: var(--gp-color-on-surface-variant);
   cursor: pointer;
+  font: inherit;
 }
 
-.gp-settings-panel {
+.gp-settings-btn:hover,
+.gp-about-close:hover,
+.gp-settings-close:hover,
+.gp-about-apply:hover,
+.gp-settings-actions button:hover,
+.gp-feedback-panel button:hover,
+.gp-settings-nav:hover {
+  background: var(--gp-color-primary-container);
+  color: var(--gp-color-on-primary-container);
+}
+
+.gp-settings-btn:focus-visible,
+.gp-about-close:focus-visible,
+.gp-settings-close:focus-visible,
+.gp-about-apply:focus-visible,
+.gp-settings-actions button:focus-visible,
+.gp-feedback-panel button:focus-visible,
+.gp-settings-nav:focus-visible,
+.gp-settings-row select:focus-visible,
+.gp-settings-row input:focus-visible {
+  outline: 2px solid var(--gp-color-primary);
+  outline-offset: 2px;
+}
+
+.gp-about-panel,
+.gp-settings-panel,
+.gp-feedback-panel {
   margin-block-start: var(--gp-space-lg);
   padding: var(--gp-space-md);
   border: 1px solid var(--gp-color-outline);
@@ -178,14 +148,89 @@ main {
   text-align: start;
 }
 
+.gp-about-header,
 .gp-settings-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--gp-space-sm);
 }
 
-.gp-settings-field select {
-  margin-inline-start: var(--gp-space-sm);
+.gp-about-header h2,
+.gp-settings-header h2 {
+  margin: 0;
+}
+
+.gp-settings-group + .gp-settings-group,
+.gp-about-group + .gp-about-group {
+  margin-block-start: var(--gp-space-md);
+  padding-block-start: var(--gp-space-md);
+  border-block-start: 1px solid var(--gp-color-outline);
+}
+
+.gp-settings-group h3,
+.gp-about-group h3 {
+  margin: 0 0 var(--gp-space-sm);
+  font-size: var(--gp-text-label-large-size);
+  font-weight: var(--gp-text-label-large-weight);
+  line-height: var(--gp-text-label-large-line);
+  color: var(--gp-color-on-surface-variant);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.gp-about-group h4 {
+  margin: 0 0 var(--gp-space-sm);
+  font-size: var(--gp-text-body-medium-size);
+  font-weight: var(--gp-text-body-medium-weight);
+}
+
+.gp-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gp-space-md);
+  min-height: 2.75rem;
+}
+
+.gp-settings-row select {
+  min-height: 2.75rem;
+  min-width: 10rem;
+  max-width: 100%;
+  padding-inline: var(--gp-space-sm);
+  border-radius: var(--gp-radius-md);
+  border: 1px solid var(--gp-color-outline);
+  background: var(--gp-color-surface);
+  color: var(--gp-color-on-surface);
+  font: inherit;
+}
+
+.gp-settings-actions {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.gp-settings-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gp-space-xs);
+  width: 100%;
+  min-height: 2.75rem;
+  padding-block: var(--gp-space-sm);
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+  color: var(--gp-color-on-surface);
+  cursor: pointer;
+  font: inherit;
+  text-align: start;
+}
+
+.gp-settings-hint {
+  font-size: var(--gp-text-body-medium-size);
+  line-height: var(--gp-text-body-medium-line);
+  color: var(--gp-color-on-surface-variant);
 }
 
 .gp-settings-toggle {
@@ -194,4 +239,14 @@ main {
   gap: var(--gp-space-sm);
 }
 
-.gp-header-actions { display: flex; align-items: center; gap: var(--gp-space-sm); }
+.gp-about-donate-links {
+  padding-inline-start: var(--gp-space-lg);
+}
+
+.gp-about-panel a {
+  color: var(--gp-color-primary);
+}
+
+.gp-about-interval select {
+  margin-inline-start: var(--gp-space-sm);
+}

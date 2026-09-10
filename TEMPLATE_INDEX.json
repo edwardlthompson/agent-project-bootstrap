@@ -1252,6 +1252,13 @@
       "owner": "agent+human"
     },
     {
+      "path": "docs/adr/0004-settings-chrome.md",
+      "purpose": "Minimal home chrome and sectioned Settings/About menus",
+      "read_when": "feature_work",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "docs/PARALLEL_AGENT_SCOPES.md",
       "purpose": "Isolated scopes for BUILD_PLAN Parallel agents",
       "read_when": "session_start",
@@ -1582,7 +1589,7 @@
     },
     {
       "path": "docs/DESIGN_GUIDE.md",
-      "purpose": "Cross-stack design system, theme toggle, i18n rules",
+      "purpose": "Cross-stack design system, Settings chrome, i18n rules",
       "read_when": "ui_work",
       "update_when": "design_change",
       "owner": "agent+human"
@@ -1989,6 +1996,13 @@
     {
       "path": "docs/features/settings.md",
       "purpose": "Settings vertical slice acceptance criteria (Sprint 2 exemplar)",
+      "read_when": "feature_work",
+      "update_when": "feature_work",
+      "owner": "human+agent"
+    },
+    {
+      "path": "docs/features/settings-chrome.md",
+      "purpose": "Minimal chrome and glanceable Settings/About menu IA",
       "read_when": "feature_work",
       "update_when": "feature_work",
       "owner": "human+agent"

@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **android:** Compose 1.12 floor notes (BOM already `2026.08.00`); Credential Manager stays off the FOSS path
 * **docs:** Linux developer optimizations guide (`docs/LINUX_DEV.md`, `.envrc.example`, `just linux-dev`)
 
+### Changed
+
+* **ui:** Home chrome is Settings-only; theme, About, and donate live in sectioned Settings/About menus with dropdowns (not chips)
+
 ## [1.1.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.0.0...v1.1.0) (2026-09-05)
 
 ### Added

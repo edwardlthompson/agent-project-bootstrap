@@ -151,7 +151,6 @@ def write_lf(path: Path, text: str) -> None:
 write_lf(
     web.joinpath("main.ts"),
     """import "./style.css";
-import { createThemeToggle } from "./components/ThemeToggle";
 import { isOnline } from "./greet";
 import { t } from "./i18n";
 import { initTheme } from "./theme";
@@ -173,8 +172,6 @@ function render(): void {
       <p class="gp-body" data-testid="status">${t(statusKey)}</p>
     </main>
   `;
-  const actions = root.querySelector<HTMLDivElement>(".gp-header-actions");
-  if (actions) actions.insertBefore(createThemeToggle(), actions.firstChild);
 }
 
 initTheme();

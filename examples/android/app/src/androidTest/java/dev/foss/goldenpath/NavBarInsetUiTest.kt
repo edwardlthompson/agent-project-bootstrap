@@ -3,6 +3,7 @@ package dev.foss.goldenpath
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -34,60 +35,60 @@ class NavBarInsetUiTest {
         composeTestRule.dismissLaunchPrompts()
     }
 
-    private fun openSettingsAndScrollToClose() {
+    private fun openSettingsAndScrollToAbout() {
         composeTestRule.dismissLaunchPrompts()
         composeTestRule.onNodeWithContentDescription("Settings").performClick()
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Settings").assertIsDisplayed()
-        // About + hint lengthen Settings; Close can sit below the fold on tall nav bars.
-        composeTestRule.onNodeWithText("Close settings").performScrollTo().assertIsDisplayed()
+        // About row is last; it can sit below the fold on tall nav bars.
+        composeTestRule.onNodeWithTag("settings-about").performScrollTo().assertIsDisplayed()
     }
 
     @Test
-    fun closeButtonClearsNavigationBar_threeButton() {
+    fun aboutRowClearsNavigationBar_threeButton() {
         setNavigationMode(0)
 
         val context = composeTestRule.activity
         assertTrue(context.readNavigationMode() == NavigationMode.ThreeButton)
 
-        openSettingsAndScrollToClose()
+        openSettingsAndScrollToAbout()
 
         val decorView = context.window.decorView
         val navInset = ViewCompat.getRootWindowInsets(decorView)
             ?.getInsets(WindowInsetsCompat.Type.navigationBars())
             ?.bottom ?: 0
         val screenHeight = decorView.height
-        val buttonBottom = composeTestRule.onNodeWithText("Close settings")
+        val rowBottom = composeTestRule.onNodeWithTag("settings-about")
             .fetchSemanticsNode()
             .boundsInRoot
             .bottom
 
         val minClearance = if (navInset > 0) navInset else 48
         assertTrue(
-            "Close button bottom ($buttonBottom) should be above nav bar (screen=$screenHeight inset=$navInset)",
-            buttonBottom <= screenHeight - minClearance + 8,
+            "About row bottom ($rowBottom) should be above nav bar (screen=$screenHeight inset=$navInset)",
+            rowBottom <= screenHeight - minClearance + 8,
         )
     }
 
     @Test
-    fun closeButtonClearsNavigationBar_gesture() {
+    fun aboutRowClearsNavigationBar_gesture() {
         setNavigationMode(2)
 
-        openSettingsAndScrollToClose()
+        openSettingsAndScrollToAbout()
 
         val decorView = composeTestRule.activity.window.decorView
         val navInset = ViewCompat.getRootWindowInsets(decorView)
             ?.getInsets(WindowInsetsCompat.Type.navigationBars())
             ?.bottom ?: 0
         val screenHeight = decorView.height
-        val buttonBottom = composeTestRule.onNodeWithText("Close settings")
+        val rowBottom = composeTestRule.onNodeWithTag("settings-about")
             .fetchSemanticsNode()
             .boundsInRoot
             .bottom
 
         assertTrue(
-            "Close button bottom ($buttonBottom) should clear gesture nav inset ($navInset)",
-            buttonBottom <= screenHeight - navInset + 8,
+            "About row bottom ($rowBottom) should clear gesture nav inset ($navInset)",
+            rowBottom <= screenHeight - navInset + 8,
         )
     }
 }

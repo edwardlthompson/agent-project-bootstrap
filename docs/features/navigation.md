@@ -16,7 +16,7 @@
 ## Smoke scenario
 
 1. _Given_ the Golden Path is at home
-2. _When_ the user opens About, then Report bug
+2. _When_ the user opens Settings → App info, then chooses Report a bug
 3. _Then_ the stack is home → about → feedback; first Back shows About; second Back is home; neither Back leaves the app
 
 ## Container map

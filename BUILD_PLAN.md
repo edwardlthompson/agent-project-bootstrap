@@ -55,13 +55,35 @@ grep '\[AUTO\]' BUILD_PLAN.md
 
 **Autonomous `/build`:** Runs all `[AGENT]`/`[AUTO]` and Parallel work first, then attempts the grouped **Human & device (after automation)** section via `scripts/attempt-build-plan-row.sh`. Success marks ✅; failure appends `HUMAN_BACKLOG.md` and continues — never halts on human labels. Humans review the grouped section (and backlog) after automation finishes. Status: `bash scripts/build-sprint-status.sh --json`.
 
-> **Template maintainer:** **M48** Sequential AGENT rows (Android runtime budget + optional Grok Bots). M47 AGENT archived below as done. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.1.0**. **Child repos:** copy the playbook.
+> **Template maintainer:** **M50** Sequential AGENT (chrome follow-through). M49 and M48 done. HUMAN leftovers that still need a person: CII, optional Ollama, Android SDK. Last ship **v1.1.0**. **Child repos:** copy the playbook.
 
 ---
 
 ## Template Maintainer — Active Board
 
-> **v1.1.0** published. **M48** Sequential AGENT rows below (R8 + Android 17 memory + Grok Bot ops). **M47** Cline-first + Golden Path nav is done. Still open: CII login, optional Ollama, Android SDK licenses.
+> **v1.1.0** published. **M50** Sequential AGENT rows below (chrome follow-through). **M49** and **M48** done. **M47** AGENT/AUTO archived below. Closed HUMAN leftovers archived in COMPLETED_TASKS.md @ `c61d249`. Still open: CII login, optional Ollama, Android SDK licenses. **M45** and **M44** archived in COMPLETED_TASKS.md. **v0.25.0** archived in COMPLETED_TASKS.md @ `7670444`. **v0.24.0** archived in COMPLETED_TASKS.md @ `c0f0dee`.
+
+### M50 — Golden Path chrome follow-through (Sequential)
+
+> Queued from `/ideas` 1–7. Home chrome stays Settings-only; gates and stack parity catch regressions.
+
+<!-- parallel_exception: overlapping scripts, docs, web, and Android slices — run Sequential in listed order -->
+
+1. 🔲 [AGENT] Chrome + chip regression gate in `check-design-cohesion` (no header ThemeToggle/About/donate; no FilterChip theme)
+2. 🔲 [AGENT] Compile Android instrumented tests in feature-gate without an emulator (`:app:compileDebugAndroidTestKotlin`)
+3. 🔲 [AGENT] Android Settings Data export/import parity with the web Data group
+4. 🔲 [AGENT] Child playbook Sprint 1: lock Settings-only chrome (Settings → App info; no header icons)
+5. 🔲 [AGENT] Second locale catalog for i18n layout stress (web + Android)
+6. 🔲 [AGENT] Home first-canvas empty state (one status card; no new chrome)
+7. 🔲 [AGENT] Tokenize launch-prompt buttons with design tokens (dark-mode contrast)
+
+### M49 — Minimal chrome + glanceable Settings menus (Sequential)
+
+> Home chrome is one Settings action. Theme, About, and donate live in sectioned Settings/About with dropdowns (not chips).
+
+<!-- parallel_exception: one overlapping chrome/IA slice across web, Android, i18n, and design docs -->
+
+1. ✅ [AGENT] Minimal home chrome + sectioned Settings/About menus (dropdowns, not chips); tests; DESIGN_GUIDE
 
 ### M48 — Android runtime budget + optional Grok Bots (Sequential)
 

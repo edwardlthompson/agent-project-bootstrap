@@ -1,28 +1,44 @@
 package dev.foss.goldenpath.ui.settings
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.FilterChip
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import dev.foss.goldenpath.R
 import dev.foss.goldenpath.display.highRefreshScroll
 import dev.foss.goldenpath.ui.insets.bottomInsetPadding
 import dev.foss.goldenpath.ui.theme.SpacingMd
+import dev.foss.goldenpath.ui.theme.SpacingSm
 import dev.foss.goldenpath.ui.theme.ThemeMode
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     themeMode: ThemeMode,
@@ -30,57 +46,104 @@ fun SettingsScreen(
     saveCrashes: Boolean,
     onSaveCrashes: (Boolean) -> Unit,
     onOpenAbout: () -> Unit = {},
-    onBack: () -> Unit,
     scrollY: Int = 0,
     onScroll: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
+    var themeMenuOpen by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState(initial = scrollY)
     LaunchedEffect(scrollState.value) { onScroll(scrollState.value) }
     Column(
         modifier = modifier
             .highRefreshScroll()
             .verticalScroll(scrollState)
-            .padding(SpacingMd),
+            .padding(SpacingMd)
+            .bottomInsetPadding(),
         verticalArrangement = Arrangement.spacedBy(SpacingMd),
     ) {
-        Text(
-            text = stringResource(R.string.settings_title),
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Text(text = stringResource(R.string.settings_theme_label))
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(SpacingMd)) {
-            ThemeMode.entries.forEach { mode ->
-                FilterChip(
-                    selected = themeMode == mode,
-                    onClick = { onThemeModeSelect(mode) },
-                    label = {
-                        Text(
-                            when (mode) {
-                                ThemeMode.System -> stringResource(R.string.settings_theme_mode_system)
-                                ThemeMode.Light -> stringResource(R.string.settings_theme_mode_light)
-                                ThemeMode.Dark -> stringResource(R.string.settings_theme_mode_dark)
-                            },
-                        )
-                    },
-                )
+        SectionLabel(stringResource(R.string.settings_section_appearance))
+        ExposedDropdownMenuBox(
+            expanded = themeMenuOpen,
+            onExpandedChange = { themeMenuOpen = it },
+        ) {
+            OutlinedTextField(
+                modifier = Modifier
+                    .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
+                    .fillMaxWidth(),
+                readOnly = true,
+                value = stringResource(themeModeLabel(themeMode)),
+                onValueChange = {},
+                label = { Text(stringResource(R.string.settings_theme_label)) },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = themeMenuOpen) },
+            )
+            ExposedDropdownMenu(
+                expanded = themeMenuOpen,
+                onDismissRequest = { themeMenuOpen = false },
+            ) {
+                ThemeMode.entries.forEach { mode ->
+                    DropdownMenuItem(
+                        text = { Text(stringResource(themeModeLabel(mode))) },
+                        onClick = {
+                            onThemeModeSelect(mode)
+                            themeMenuOpen = false
+                        },
+                    )
+                }
             }
         }
-        Text(text = stringResource(R.string.settings_feedback_save_crashes))
-        Switch(checked = saveCrashes, onCheckedChange = onSaveCrashes)
-        Button(onClick = onOpenAbout) {
-            Text(stringResource(R.string.settings_about))
-        }
-        Text(
-            text = stringResource(R.string.settings_about_hint),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Button(
-            onClick = onBack,
-            modifier = Modifier.bottomInsetPadding(),
+        HorizontalDivider()
+        SectionLabel(stringResource(R.string.settings_section_privacy))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(stringResource(R.string.settings_close))
+            Text(
+                text = stringResource(R.string.settings_feedback_save_crashes),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = SpacingSm),
+            )
+            Switch(checked = saveCrashes, onCheckedChange = onSaveCrashes)
+        }
+        HorizontalDivider()
+        SectionLabel(stringResource(R.string.settings_section_about))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag("settings-about")
+                .clickable(onClick = onOpenAbout)
+                .padding(vertical = SpacingSm),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(text = stringResource(R.string.settings_about))
+                Text(
+                    text = stringResource(R.string.settings_about_hint),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = null,
+            )
         }
     }
+}
+
+@Composable
+private fun SectionLabel(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+}
+
+private fun themeModeLabel(mode: ThemeMode): Int = when (mode) {
+    ThemeMode.System -> R.string.settings_theme_mode_system
+    ThemeMode.Light -> R.string.settings_theme_mode_light
+    ThemeMode.Dark -> R.string.settings_theme_mode_dark
 }
