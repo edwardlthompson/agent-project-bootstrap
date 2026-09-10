@@ -2624,6 +2624,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-crash-inbox.sh",
+      "purpose": "Gate: GlitchTip/Bugsink crash-inbox stub stays disabled with no live DSN",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-crash-payload-allowlist.sh",
       "purpose": "Gate: crash payload allowlist tests exist on every sanitizing stack",
       "read_when": "milestone_boundary",

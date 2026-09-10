@@ -193,6 +193,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-semgrep.sh \
   check-mcp-allowlist.sh \
   check-crash-payload-allowlist.sh \
+  check-crash-inbox.sh \
   check-first-30-days.sh \
   check-contributing-agent.sh \
   check-template-upgrade-form.sh \

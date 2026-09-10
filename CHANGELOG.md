@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **privacy:** GlitchTip/Bugsink crash-inbox stub stays disabled (`docs/CRASH_INBOX.md`; not a live crash-proxy)
 * **ci:** `setup-github-repo.sh` optionally sets `AUTOMERGE_TOKEN` (NOTE if unset; never fails setup)
 * **cursor:** radar writes a gitignored BUILD_PLAN draft for score ≥ 9 (never edits the live board)
 * **ci:** optional path-filtered Nix flake job (`nix flake show`, not a required check)
