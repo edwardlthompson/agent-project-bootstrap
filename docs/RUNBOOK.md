@@ -59,7 +59,7 @@ Android APK/AAB signing and store rollback: [`docs/ANDROID_SIGNING.md`](ANDROID_
 
 ## Escalation
 
-1. Check `BUILD_PLAN.md` Ongoing Maintenance
+1. Check the latest **Weekly Health Check** run (Monday cron)
 2. Review `docs/SECURITY_TRIAGE.md` for security issues
 3. Contact maintainers in `.github/CODEOWNERS`
 

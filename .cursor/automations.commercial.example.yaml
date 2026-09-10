@@ -32,11 +32,10 @@ recipes:
     tools: [read, issue]
     deny: [git push, force-push, skip-hooks]
     prompt: |
-      BUILD_PLAN Ongoing weekly. After GitHub Weekly Health Check:
-      run python3 scripts/agent-run.py update-deps (dry-run only).
-      Open one tracking issue weekly-maintain YYYY-MM-DD with the dry-run,
-      leftover Dependabot/Scorecard, and security-triage/radar status.
-      Do not --apply. Do not git push. Do not archive BUILD_PLAN rows.
+      Fallback only if Monday Weekly Health Check is red.
+      Run python3 scripts/agent-run.py update-deps (dry-run only).
+      Open one tracking issue weekly-maintain YYYY-MM-DD.
+      Do not --apply. Do not git push. Do not put cron chores on BUILD_PLAN.
       FOSS alternative: /maintain plus .github/workflows/weekly-health-check.yml.
   - id: monthly-dependabot-review
     trigger:

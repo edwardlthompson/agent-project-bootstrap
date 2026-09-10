@@ -40,7 +40,7 @@ Confirm release `isMinifyEnabled` + `isShrinkResources`, `proguard-android-optim
 
 ### 4. Maintainer weekly (BUILD_PLAN Ongoing)
 
-Monday after GitHub Weekly Health Check: run `python3 scripts/agent-run.py update-deps` (dry-run only). Open one tracking issue titled `weekly-maintain YYYY-MM-DD` with: dry-run diff, leftover Dependabot/Scorecard, and whether `check-security-triage.sh` / radar artifacts passed. Do not `--apply`. Do not `git push`. Do not archive BUILD_PLAN rows.
+Fallback only when Monday **Weekly Health Check** is red: run `python3 scripts/agent-run.py update-deps` (dry-run only). Open one tracking issue titled `weekly-maintain YYYY-MM-DD`. Do not `--apply`. Do not `git push`. Do not put cron chores back on `BUILD_PLAN.md`.
 
 ### 5. Maintainer monthly (KB-007)
 

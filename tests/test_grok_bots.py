@@ -26,6 +26,8 @@ class GrokBotsTests(unittest.TestCase):
             encoding="utf-8"
         )
         self.assertIn("check-security-triage.sh", weekly)
+        self.assertIn("update-deps", weekly)
+        self.assertIn("wait-release-sbom.sh", weekly)
 
 
 if __name__ == "__main__":

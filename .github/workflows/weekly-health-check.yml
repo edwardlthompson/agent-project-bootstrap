@@ -67,6 +67,24 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: bash scripts/check-security-triage.sh
 
+      - name: Dependency dry-run
+        continue-on-error: true
+        run: |
+          python3 -m pip install --quiet "upd-cli==0.6.2"
+          python3 scripts/agent-run.py update-deps
+
+      - name: Dependabot leftover list
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr list --label dependencies --state open --json number,title,url \
+            --jq '"Open Dependabot PRs: " + (length|tostring), (.[] | "- #\(.number) \(.title) \(.url)")'
+
+      - name: Latest release SBOM
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/wait-release-sbom.sh --wait 15
+
       - name: Simulate template upgrade path
         env:
           GH_TOKEN: ${{ github.token }}

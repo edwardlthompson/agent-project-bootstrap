@@ -124,7 +124,7 @@ When the product exposes agents, run the compact walk in [`THREAT_MODEL.md`](THR
 | `scripts/update-deps.sh` | Local dry-run / apply / audit (`upd-cli==0.6.2`) |
 | `.github/workflows/security.yml` | Trivy filesystem scan |
 | `.github/workflows/codeql.yml` | CodeQL static analysis |
-| `.github/workflows/weekly-health-check.yml` | Weekly CI + Security Scan + CodeQL status on main |
+| `.github/workflows/weekly-health-check.yml` | Monday cron: CI wait, security triage, upgrade-sim, radar, update-deps dry-run, Dependabot leftover list, latest-release SBOM |
 | `scripts/validate-workflow-actions.sh` | Resolve action refs via GitHub API |
 | `scripts/check-workflow-action-ref-format.sh` | Local bare-semver guard |
 | `scripts/check-security-triage.sh` | Weekly Dependabot + workflow + Scorecard gate |

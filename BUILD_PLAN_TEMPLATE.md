@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 11 · AUTO 4 · HUMAN 9 · ADB 1 · **25 open**
+**Remaining:** AGENT 10 · AUTO 1 · HUMAN 8 · ADB 1 · **20 open**
 <!-- /remaining-tally -->
 
 Live board for a product repo. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
@@ -71,21 +71,11 @@ Copy this shape when you add sprints: `### Sprint N — title`, then numbered ro
 
 ---
 
-## Ongoing Maintenance (recurring)
+## Ongoing Maintenance
 
-### Weekly
+Not a checklist. GitHub Monday cron (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim, radar, `update-deps` dry-run, Dependabot leftover list, and latest-release SBOM. `/ship` owns pre-release and the release tag.
 
-- 🔲 [AUTO] CI + Repo Hygiene + Feature Gate green on `main`
-- 🔲 [AGENT] `/update-deps`; leftover Dependabot
-
-### Monthly
-
-- 🔲 [AUTO] `check-license-compliance.sh` + SBOM on latest release
-
-### Pre-release (every version)
-
-- 🔲 [AUTO] `pre-release-gate.sh --local` before push
-- 🔲 [HUMAN] Approve release tag when product-ready
+If Monday cron is red: Cursor Automation `weekly-maintain`, then Grok Bot 4–5. Do not put those chores back on this board. [`docs/GROK_BOTS.md`](docs/GROK_BOTS.md) · [`docs/CURSOR_AUTOMATIONS.commercial.md`](docs/CURSOR_AUTOMATIONS.commercial.md)
 
 ---
 

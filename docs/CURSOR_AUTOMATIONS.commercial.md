@@ -30,9 +30,9 @@ Always-on commercial teammates (shared cloud computer). Use for scheduled Androi
 
 ### 3. Weekly maintain (BUILD_PLAN Ongoing)
 
-- **Trigger:** cron Monday 07:30 UTC (after GitHub Weekly Health Check)
+- **Trigger:** cron Monday 07:30 UTC — **only if** Weekly Health Check is red
 - **Action:** Dry-run `/update-deps`, open one `weekly-maintain` tracking issue
-- **Deny:** `git push`, `--apply`, release tags
+- **Deny:** `git push`, `--apply`, putting chores back on `BUILD_PLAN.md`
 - **FOSS alternative:** `/maintain` + `.github/workflows/weekly-health-check.yml`
 
 ### 4. Monthly Dependabot review (KB-007)

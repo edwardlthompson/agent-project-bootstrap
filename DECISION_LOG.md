@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-10 — Declutter BUILD_PLAN recurring chores
+- **Status:** Accepted
+- **Context:** AUTO weekly/monthly rows stayed 🔲 forever even though Monday cron already ran them, which made both boards look unfinished.
+- **Decision:** Strip 🔲 chores from `BUILD_PLAN.md` and `BUILD_PLAN_TEMPLATE.md` Ongoing Maintenance. GitHub Monday cron is the owner (now includes `update-deps` dry-run, Dependabot leftover list, latest-release SBOM). Cursor Automation then Grok Bots are fallbacks only. `/ship` owns pre-release and the tag.
+- **Alternatives considered:** Keep standing 🔲 AUTO rows and auto-tick them (rejected: still looks like homework). Require Grok Bots (rejected: FOSS default is Actions).
+- **Consequences:** Maintainer remaining tally is ADB leftovers only. Child board is Sprint 0–2 plus optional ADB. Do not put cron chores back on either plan.
+
 ### 2026-09-10 — Maintainer schedule (GitHub cron + optional Cloud timers)
 - **Status:** Accepted
 - **Context:** Recurring BUILD_PLAN AUTO/AGENT rows should keep running after the maintainer leaves the Cloud Agent session.

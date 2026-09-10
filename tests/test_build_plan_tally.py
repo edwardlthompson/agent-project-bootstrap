@@ -55,6 +55,15 @@ class TallyTests(unittest.TestCase):
             self.assertIn("<!-- remaining-tally -->", text)
             self.assertNotIn("#### Sequential", text)
 
+    def test_maintenance_has_no_checkboxes(self) -> None:
+        for name in ("BUILD_PLAN.md", "BUILD_PLAN_TEMPLATE.md"):
+            text = (ROOT / name).read_text(encoding="utf-8")
+            start = text.index("## Ongoing Maintenance")
+            end = text.index("## Archive", start)
+            section = text[start:end]
+            self.assertIn("Not a checklist", section)
+            self.assertNotIn("🔲", section)
+
     def test_install_replaces_maintainer_board(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
