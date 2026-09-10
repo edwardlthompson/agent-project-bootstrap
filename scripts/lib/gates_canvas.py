@@ -22,11 +22,18 @@ def next_open_row(root: Path) -> str:
     if not path.is_file():
         return "(no BUILD_PLAN.md)"
     for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        # Skip prose that mentions [AGENT] (e.g. Format legend); only numbered/dash rows.
+        if not (stripped[:1].isdigit() or stripped.startswith("-")):
+            continue
         if "🔲" in line and "[AGENT]" in line:
-            return line.strip()[:120]
+            return stripped[:120]
     for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not (stripped[:1].isdigit() or stripped.startswith("-")):
+            continue
         if "🔲" in line:
-            return line.strip()[:120]
+            return stripped[:120]
     return "(no open rows)"
 
 

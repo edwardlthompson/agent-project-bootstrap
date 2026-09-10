@@ -95,7 +95,7 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 
 ## Session Protocol
 
-- On session start: read `START_HERE.md`, pick mode via `docs/CURSOR_MODES.md` (roles if your IDE uses other names), then `BUILD_PLAN.md` Sequential lane. If `CHANGELOG.md` `[Unreleased]` has list items, say so in one line. Name the next 🔲 `[AGENT]` row (or say the AGENT board is empty).
+- On session start: read `START_HERE.md`, pick mode via `docs/CURSOR_MODES.md` (roles if your IDE uses other names), then `BUILD_PLAN.md` Sequential lane. If `CHANGELOG.md` `[Unreleased]` has list items, say so in one line. When `gh` is available, run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` before naming the next 🔲 `[AGENT]` row (or say the AGENT board is empty). After Cloud Agent work on another machine, run `/resume` (or bare `resume`) instead of reconstructing context by hand.
 - If your tool has no slash commands, use `docs/help/*.md` (start with `docs/help/TOUR.md`)
 - When creating or significantly changing a file, state one sentence of why (see `docs/BEST_PRACTICES.md` and `/coach`)
 - On milestone end: update `AGENT_MEMORY.md`, append to `DECISION_LOG.md` or `docs/adr/`

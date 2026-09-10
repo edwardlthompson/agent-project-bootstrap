@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · AUTO 0 · HUMAN 0 · ADB 2 · **2 open**
+**Remaining:** AGENT 0 · AUTO 0 · HUMAN 0 · ADB 1 · **1 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -28,14 +28,21 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** v1.1.0 shipped. #95 R8 + #96 Settings chrome are on `main`. Recurring work is Monday cron, not this board. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** **v1.2.0** shipped. Open Dependabot / Release Please PRs sync into the block below (`sync-open-prs-build-plan`). After Cloud work, type `/resume` on the PC. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
 > **M57** archived in COMPLETED_TASKS.md @ `e65513d`.
 
+### Open PRs (synced)
+
+> Auto-managed. Do not hand-edit rows inside the markers. Run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` (or `/resume` / `/dependabot`).
+
+<!-- open-prs-sync:begin -->
+_No open Dependabot or Release Please PRs._
+<!-- open-prs-sync:end -->
+
 ### Waiting on a person
 
-1. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
-2. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
+1. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
 Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
@@ -43,7 +50,9 @@ Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55*
 
 ## Ongoing Maintenance
 
-Not a checklist. GitHub Monday 07:00 UTC (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim, radar, `update-deps` dry-run, Dependabot leftover list, and latest-release SBOM. `/ship` owns pre-release and the release tag.
+Not a checklist. GitHub Monday 07:00 UTC (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim, radar, `update-deps` dry-run, Dependabot leftover list, open-PR BUILD_PLAN sync, and latest-release SBOM. `/ship` owns pre-release and the release tag.
+
+Open Dependabot / Release Please PRs are mirrored into **Open PRs (synced)** above — that is allowed board automation, not a standing chore row. After Cloud Agents, use `/resume` on This Computer.
 
 If Monday cron is red: Cursor Automation `weekly-maintain`, then Grok Bot 4–5. Do not put those chores back on this board. [`docs/GROK_BOTS.md`](docs/GROK_BOTS.md) · [`docs/CURSOR_AUTOMATIONS.commercial.md`](docs/CURSOR_AUTOMATIONS.commercial.md)
 

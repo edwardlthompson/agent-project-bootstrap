@@ -29,6 +29,12 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 15. Move completed Sprint M* items to `COMPLETED_TASKS.md`
 16. Desktop installer children: follow [`docs/WINGET.md`](WINGET.md) before a `microsoft/winget-pkgs` PR
 
+## Open PRs on the board + Cloud → PC
+
+Dependabot and Release Please PRs sync into the **Open PRs (synced)** block on `BUILD_PLAN.md` via `scripts/sync-open-prs-build-plan.sh` (weekly health + PR lifecycle workflow). Do not hand-edit that block.
+
+After Cloud Agent sessions, maintainers on This Computer should run **`/resume`** so the PC agent fetches, refreshes the sync block, lists leftover `cursor/*` PRs, and names the next `[AGENT]` row. Do not rely on `/compact` session state across machines (gitignored).
+
 ## Safe Edit Zones
 
 | Zone | Risk | Notes |

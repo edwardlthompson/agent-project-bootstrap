@@ -29,11 +29,13 @@ jobs:
     name: Weekly Workflow Health
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       actions: write
       security-events: read
     steps:
       - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify CI + Security Scan + CodeQL green on HEAD
         env:
@@ -79,6 +81,27 @@ jobs:
         run: |
           gh pr list --label dependencies --state open --json number,title,url \
             --jq '"Open Dependabot PRs: " + (length|tostring), (.[] | "- #\(.number) \(.title) \(.url)")'
+
+      - name: Sync open PRs into BUILD_PLAN
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          bash scripts/sync-open-prs-build-plan.sh --apply
+          if git diff --quiet -- BUILD_PLAN.md; then
+            echo "No BUILD_PLAN open-prs-sync changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add BUILD_PLAN.md
+          git commit -m "chore(build-plan): sync open Dependabot and release PRs"
+          if git push; then
+            exit 0
+          fi
+          echo "Push rejected; retry once after pull --rebase"
+          git pull --rebase
+          git push
 
       - name: Latest release SBOM
         env:

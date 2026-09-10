@@ -2846,6 +2846,62 @@
       "read_when": "android_release",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sync-open-prs-build-plan.sh",
+      "purpose": "Mirror open Dependabot/Release Please PRs into BUILD_PLAN managed block",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/sync_open_prs_build_plan.py",
+      "purpose": "Classify and rewrite open-prs-sync BUILD_PLAN markers",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/resume-handoff.sh",
+      "purpose": "Cloud to PC handoff digest (fetch, sync open PRs, next AGENT row)",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/resume_handoff.py",
+      "purpose": "Implement /resume digests and cursor/* PR listing",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/sync-open-prs-build-plan.yml",
+      "purpose": "On Dependabot/Release Please PR events, sync BUILD_PLAN open-prs block",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/commands/resume.md",
+      "purpose": "Slash command: pick up after Cloud Agent on This Computer",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/open-prs-build-plan-sync.md",
+      "purpose": "Feature slice: auto-sync Dependabot/release PRs onto BUILD_PLAN",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/resume-handoff.md",
+      "purpose": "Feature slice: /resume Cloud to PC handoff",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     }
   ],
   "modules": {

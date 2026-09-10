@@ -2,6 +2,10 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Waiting on a person — ADB SDK (2026-09-10)
+
+- ✅ [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
+
 ## Human leftovers (2026-09-10)
 
 - ✅ [HUMAN] CII / OpenSSF Best Practices (project 14564 passing; README badge)

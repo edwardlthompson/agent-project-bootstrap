@@ -48,7 +48,7 @@ Grouped by life moment (not every command — use `/` menu for the full list).
 
 `/ship` runs `/update-deps` then `/prerelease` — one command for local bumps, autofix, local gates, push, and regress. Third-party/autonomous work for a new user is Cline in Cursor (human-in-the-loop diffs), not a paid CLI.
 
-**Long sessions:** `/compact` (save checkpoint before clearing chat) · `/restore` (load checkpoint)
+**Long sessions:** `/compact` (save checkpoint before clearing chat) · `/restore` (load checkpoint) · `/resume` (after Cloud Agent work on another machine)
 
 **Print this list:** open [`docs/help/batch-commands-print.html`](batch-commands-print.html) in a browser and use Print (Ctrl+P). Novice wording, every command, no PDF required.
 
@@ -58,7 +58,7 @@ Grouped by life moment (not every command — use `/` menu for the full list).
 
 ## Coming back after a break?
 
-Same menu: type **`/`** in Agent chat. Supers like `/verify` or `/bootstrap` are a good refresher. Keep this file bookmarked.
+Same menu: type **`/`** in Agent chat. Supers like `/verify` or `/bootstrap` are a good refresher. Keep this file bookmarked. After Cloud Agents, type **`/resume`** so the PC agent fetches, syncs open Dependabot/release PRs onto BUILD_PLAN, lists leftover `cursor/*` PRs, and names the next AGENT row.
 
 ## Bare words (optional)
 

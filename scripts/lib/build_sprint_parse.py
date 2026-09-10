@@ -129,7 +129,7 @@ def parse_numbered_board(
         if line.startswith("### "):
             sprint = line.strip().lstrip("#").strip()
             continue
-        match = ROW_NUMBERED.match(line)
+        match = ROW_NUMBERED.match(line) or ROW_BULLET.match(line)
         if not match:
             continue
         row = PlanRow(

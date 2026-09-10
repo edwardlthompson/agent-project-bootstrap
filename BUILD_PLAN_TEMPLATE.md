@@ -6,7 +6,7 @@
 
 Live board for a product repo. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 
-**Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts  
+**Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts
 **State:** 🔲 open · ✅ done · ❌ blocked — reason
 
 Format: `🔲 [AGENT] Short task`. Sequential `[AGENT]` first. Parallel scopes: [`docs/PARALLEL_AGENT_SCOPES.md`](docs/PARALLEL_AGENT_SCOPES.md). `/build` tries HUMAN/ADB after automation; failures go to `HUMAN_BACKLOG.md`.
@@ -21,6 +21,7 @@ After the **last** `[AGENT]`/`[AUTO]` row in a sprint is ✅, do **not** start t
 
 ```bash
 python3 scripts/agent-run.py smoke-sprint --require
+
 ```
 
 That command re-smokes **every** ✅ row: no errors or crashes, plus startup time and load order. Details: [`docs/SPRINT_SMOKE.md`](docs/SPRINT_SMOKE.md). Fail → leave the last row open or ❌; fix; re-run. `/gates` wrap-up includes the same check.
@@ -69,11 +70,19 @@ Copy this shape when you add sprints: `### Sprint N — title`, then numbered ro
 
 1. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
 
+### Open PRs (synced)
+
+> Auto-managed on product repos too. Do not hand-edit rows inside the markers.
+
+<!-- open-prs-sync:begin -->
+_No open Dependabot or Release Please PRs._
+<!-- open-prs-sync:end -->
+
 ---
 
 ## Ongoing Maintenance
 
-Not a checklist. GitHub Monday cron (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim, radar, `update-deps` dry-run, Dependabot leftover list, and latest-release SBOM. `/ship` owns pre-release and the release tag.
+Not a checklist. GitHub Monday cron (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim, radar, `update-deps` dry-run, Dependabot leftover list, open-PR BUILD_PLAN sync, and latest-release SBOM. `/ship` owns pre-release and the release tag.
 
 If Monday cron is red: Cursor Automation `weekly-maintain`, then Grok Bot 4–5. Do not put those chores back on this board. [`docs/GROK_BOTS.md`](docs/GROK_BOTS.md) · [`docs/CURSOR_AUTOMATIONS.commercial.md`](docs/CURSOR_AUTOMATIONS.commercial.md)
 

@@ -57,7 +57,7 @@ HUMAN_RULES: list[tuple[re.Pattern[str], str, object]] = [
 ]
 
 ADB_RULES: list[tuple[re.Pattern[str], str, object]] = [
-    (re.compile(r"instrumented|connectedDebugAndroidTest|\badb\b", re.I), "adb", automate_adb_instrumented),
+    (re.compile(r"instrumented|connectedDebugAndroidTest|\badb\b|nav smoke|Golden Path nav", re.I), "adb", automate_adb_instrumented),
     (re.compile(r"F-Droid|device dry-run", re.I), "adb", automate_fdroid_dry_run),
     (re.compile(r"emulator|Android SDK", re.I), "adb", automate_android_sdk_smoke),
 ]
