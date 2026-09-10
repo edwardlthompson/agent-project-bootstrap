@@ -14,6 +14,11 @@ REQUIRED = (
     "about-panel-chromium.png",
     "feedback-panel-chromium.png",
 )
+PANEL_SIZES = {
+    "settings-panel-chromium.png": (400, 561),
+    "about-panel-chromium.png": (512, 585),
+    "feedback-panel-chromium.png": (512, 449),
+}
 
 
 def _png_size(path: Path) -> tuple[int, int] | None:
@@ -27,9 +32,12 @@ def _png_size(path: Path) -> tuple[int, int] | None:
 class WebVisualSnapshotTests(unittest.TestCase):
     def test_settings_about_feedback_baselines_exist(self) -> None:
         spec = (ROOT / "examples/web/e2e/app.spec.ts").read_text(encoding="utf-8")
-        self.assertIn('toHaveScreenshot("settings-panel.png"', spec)
-        self.assertIn('toHaveScreenshot("about-panel.png"', spec)
-        self.assertIn('toHaveScreenshot("feedback-panel.png"', spec)
+        self.assertIn('shotPanel(page, panel, "settings-panel.png"', spec)
+        self.assertIn('shotPanel(page, panel, "about-panel.png"', spec)
+        self.assertIn('shotPanel(page, panel, "feedback-panel.png"', spec)
+        self.assertIn("async function freezePanel", spec)
+        self.assertIn("async function shotPanel", spec)
+        self.assertIn("node.style.width", spec)
         for name in REQUIRED:
             path = SNAP / name
             self.assertTrue(path.is_file(), f"missing {path}")
@@ -39,10 +47,15 @@ class WebVisualSnapshotTests(unittest.TestCase):
             self.assertGreater(size[0], 8, name)
             self.assertGreater(size[1], 8, name)
             self.assertGreater(path.stat().st_size, 1024, name)
+            if name in PANEL_SIZES:
+                self.assertEqual(size, PANEL_SIZES[name], name)
 
     def test_android_panel_tags_match_web(self) -> None:
         android = ROOT / "examples/android/app/src/main/java/dev/foss/goldenpath/ui"
-        settings = (android / "settings/SettingsScreen.kt").read_text(encoding="utf-8")
+        settings_path = android / "settings/SettingsScreen.kt"
+        if not settings_path.is_file():
+            self.skipTest("android example pruned")
+        settings = settings_path.read_text(encoding="utf-8")
         about = (android / "about/AboutScreen.kt").read_text(encoding="utf-8")
         feedback = (android / "feedback/FeedbackScreen.kt").read_text(encoding="utf-8")
         self.assertIn('testTag("settings-panel")', settings)

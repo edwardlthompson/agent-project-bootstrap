@@ -11,6 +11,8 @@ FL = ROOT / "examples/android/fastlane"
 
 class FastlaneMetadataTests(unittest.TestCase):
     def test_en_us_listing_and_foss_lane(self) -> None:
+        if not FL.is_dir():
+            self.skipTest("android example pruned")
         locale = FL / "metadata/android/en-US"
         for name in ("title.txt", "short_description.txt", "full_description.txt"):
             self.assertTrue((locale / name).stat().st_size > 0, name)

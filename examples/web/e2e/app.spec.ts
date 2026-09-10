@@ -105,13 +105,50 @@ test("homepage visual snapshot", async ({ page }) => {
 
 const SNAPSHOT = { maxDiffPixelRatio: 0.02, animations: "disabled" as const };
 
+/** Lock box so CI vs local fonts cannot change screenshot dimensions. */
+async function freezePanel(
+  panel: ReturnType<Page["getByTestId"]>,
+  width: number,
+  height: number,
+): Promise<void> {
+  await panel.evaluate(
+    (el, box) => {
+      const node = el as HTMLElement;
+      node.style.width = `${box.width}px`;
+      node.style.maxWidth = `${box.width}px`;
+      node.style.height = `${box.height}px`;
+      node.style.maxHeight = `${box.height}px`;
+      node.style.overflow = "hidden";
+      node.style.boxSizing = "border-box";
+    },
+    { width, height },
+  );
+}
+
+async function shotPanel(
+  _page: Page,
+  panel: ReturnType<Page["getByTestId"]>,
+  name: string,
+  width: number,
+  height: number,
+): Promise<void> {
+  await freezePanel(panel, width, height);
+  await expect
+    .poll(async () => {
+      const box = await panel.boundingBox();
+      return box ? Math.round(box.width) : 0;
+    })
+    .toBe(width);
+  await expect(panel).toHaveScreenshot(name, SNAPSHOT);
+}
+
 test("settings panel visual snapshot", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await page.getByRole("button", { name: "Settings" }).click();
   const panel = page.getByTestId("settings-panel");
   await expect(panel).toBeVisible();
-  await expect(panel).toHaveScreenshot("settings-panel.png", SNAPSHOT);
+  await shotPanel(page, panel, "settings-panel.png", 400, 560);
 });
 
 test("about panel visual snapshot", async ({ page }) => {
@@ -121,7 +158,7 @@ test("about panel visual snapshot", async ({ page }) => {
   await page.getByTestId("settings-panel").getByRole("button", { name: "App info" }).click();
   const panel = page.getByTestId("about-panel");
   await expect(panel).toBeVisible();
-  await expect(panel).toHaveScreenshot("about-panel.png", SNAPSHOT);
+  await shotPanel(page, panel, "about-panel.png", 512, 584);
 });
 
 test("feedback panel visual snapshot", async ({ page }) => {
@@ -132,7 +169,7 @@ test("feedback panel visual snapshot", async ({ page }) => {
   await page.getByTestId("about-feedback").selectOption("bug");
   const panel = page.getByTestId("feedback-panel");
   await expect(panel).toBeVisible();
-  await expect(panel).toHaveScreenshot("feedback-panel.png", SNAPSHOT);
+  await shotPanel(page, panel, "feedback-panel.png", 512, 448);
 });
 
 test("settings search filters groups", async ({ page }) => {

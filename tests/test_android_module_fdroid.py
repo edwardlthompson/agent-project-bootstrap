@@ -11,6 +11,8 @@ MODULE = ROOT / "modules/android/MODULE.md"
 
 class AndroidModuleFdroidTests(unittest.TestCase):
     def test_fdroid_rows_name_shipped_paths(self) -> None:
+        if not MODULE.is_file():
+            self.skipTest("android module pruned")
         text = MODULE.read_text(encoding="utf-8")
         self.assertIn("dev.foss.goldenpath.yml", text)
         self.assertIn("antifeatures.yml", text)

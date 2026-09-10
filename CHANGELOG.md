@@ -87,6 +87,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* **ci:** skip stack-specific bootstrap tests when examples are pruned (upgrade-sim)
+* **android:** import `pressKey` so TalkBack keyboard UI tests compile
+* **web:** freeze Settings/About/Feedback screenshot boxes so CI fonts cannot change dimensions
+* **nix:** mark flake-wrapped scripts executable so `nix eval` program paths are `+x`
 * **security:** `SECURITY.md` names the GitHub private advisory URL (`/security/advisories/new`)
 * **smoke:** treat `/tour` and other slash commands as commands, not doc paths
 * **smoke:** resolve bare filenames such as `feature-catalog.json` under `schemas/` during sprint smoke

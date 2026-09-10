@@ -58,14 +58,16 @@ def check(root: Path) -> list[str]:
     ops = _read(root, "docs/RUNBOOK.md")
     if "ANDROID_SIGNING.md" not in ops:
         errors.append("docs/RUNBOOK.md must link ANDROID_SIGNING.md")
-    readme = _read(root, "examples/android/README.md")
-    if "ANDROID_SIGNING.md" not in readme:
-        errors.append("examples/android/README.md must link ANDROID_SIGNING.md")
-    gradle = _read(root, "examples/android/app/build.gradle.kts")
-    if "GOLDENPATH_UPLOAD_STORE_FILE" not in gradle:
-        errors.append("app/build.gradle.kts must read GOLDENPATH_UPLOAD_STORE_FILE")
-    if 'storePassword = "' in gradle or "storePassword = '" in gradle:
-        errors.append("app/build.gradle.kts must not hardcode storePassword")
+    android = root / "examples/android"
+    if android.is_dir():
+        readme = _read(root, "examples/android/README.md")
+        if "ANDROID_SIGNING.md" not in readme:
+            errors.append("examples/android/README.md must link ANDROID_SIGNING.md")
+        gradle = _read(root, "examples/android/app/build.gradle.kts")
+        if "GOLDENPATH_UPLOAD_STORE_FILE" not in gradle:
+            errors.append("app/build.gradle.kts must read GOLDENPATH_UPLOAD_STORE_FILE")
+        if 'storePassword = "' in gradle or "storePassword = '" in gradle:
+            errors.append("app/build.gradle.kts must not hardcode storePassword")
     ignore = _read(root, ".gitignore")
     for pattern in KEY_GLOBS:
         if pattern not in ignore:

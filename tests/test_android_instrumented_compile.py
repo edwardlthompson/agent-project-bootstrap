@@ -20,7 +20,10 @@ class AndroidInstrumentedCompileTests(unittest.TestCase):
         self.assertIn("android-compile-androidtest", hints)
 
     def test_module_docs_name_compile_stage(self) -> None:
-        docs = (ROOT / "modules/android/MODULE.md").read_text(encoding="utf-8")
+        path = ROOT / "modules/android/MODULE.md"
+        if not path.is_file():
+            self.skipTest("android module pruned")
+        docs = path.read_text(encoding="utf-8")
         self.assertIn("compileDebugAndroidTestKotlin", docs)
         self.assertIn("no emulator", docs.lower())
 

@@ -12,14 +12,19 @@ SCREEN = ROOT / "examples/android/app/src/main/java/dev/foss/goldenpath/ui/Golde
 
 class AndroidTalkBackKeyboardTests(unittest.TestCase):
     def test_instrumented_uses_content_description_and_enter(self) -> None:
+        if not TEST.is_file():
+            self.skipTest("android example pruned")
         text = TEST.read_text(encoding="utf-8")
         self.assertIn("onNodeWithContentDescription", text)
         self.assertIn("Settings", text)
         self.assertIn("Back", text)
         self.assertIn("performKeyInput", text)
+        self.assertIn("import androidx.compose.ui.test.pressKey", text)
         self.assertIn("Key.Enter", text)
 
     def test_chrome_icons_have_content_descriptions(self) -> None:
+        if not SCREEN.is_file():
+            self.skipTest("android example pruned")
         text = SCREEN.read_text(encoding="utf-8")
         self.assertIn("contentDescription = stringResource(R.string.settings_open)", text)
         self.assertIn("contentDescription = stringResource(R.string.nav_back)", text)
