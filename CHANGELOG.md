@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **docs:** OpenSSF project 14564 is passing; README already carries the live badge
 * **docs:** leftover OpenSSF apply URL for `vulnerability_report_private` (URL required)
 * **docs:** forced project-14564 edit URL so leftover Met+URL can overwrite prose
 * **docs:** leftover OpenSSF apply URL for the last four Passing MUST rows (96% → 100%)
@@ -89,6 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+* **docs:** this template does not require Ollama (maintainer declined; recipe stays for child repos)
 * **android:** Compose 1.12 floor notes (BOM already `2026.08.00`); Credential Manager stays off the FOSS path
 * **ui:** Home chrome is Settings-only; theme, About, and donate live in sectioned Settings/About menus with dropdowns (not chips)
 * **docs:** Slimmer BUILD_PLAN; queued allideas 1–55 as M51–M57; sprint wrap must `smoke-sprint --require` before the next sprint

@@ -36,7 +36,11 @@ class CiRefsTests(unittest.TestCase):
         boot = (ROOT / "scripts/validate-bootstrap.sh").read_text(encoding="utf-8")
         self.assertIn("check-ci-refs.sh", boot)
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("bestpractices.dev/projects/14564", readme)
+        self.assertIn(
+            "[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/14564/badge)]"
+            "(https://www.bestpractices.dev/projects/14564)",
+            readme,
+        )
 
 
 if __name__ == "__main__":

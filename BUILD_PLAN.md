@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 2 · AUTO 7 · HUMAN 3 · ADB 2 · **14 open**
+**Remaining:** AGENT 2 · AUTO 7 · HUMAN 2 · ADB 2 · **13 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -34,9 +34,8 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ### Waiting on a person
 
-1. 🔲 [HUMAN] Optional: Ollama at `http://127.0.0.1:11434/v1` (`docs/LOCAL_MODELS.md`)
-2. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
-3. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
+1. 🔲 [ADB] Optional: Android SDK licenses + first AVD (`/emulator`)
+2. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
 
 Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 

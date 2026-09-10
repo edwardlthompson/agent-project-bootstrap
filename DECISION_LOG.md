@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-10 — OpenSSF passing + Ollama declined
+- **Status:** Accepted
+- **Context:** Project 14564 reached 100% Passing. Maintainer does not want Ollama on this template. Cloud agent has no USB/adb for the two local phones.
+- **Decision:** Keep the live Best Practices badge in README. Archive CII as done. Reject the Ollama HUMAN leftover. Leave ADB SDK + device nav smoke on the board for the host that has the phones.
+- **Alternatives considered:** Require Ollama for `/ship` or local-compute (rejected). Mark ADB rows done without a device (rejected: no adb on this VM). Start Silver/Gold (rejected: coverage and two-person review are not true).
+- **Consequences:** Waiting-on-a-person is ADB-only. Child repos may still follow `docs/LOCAL_MODELS.md`. Baseline-1 stays optional.
+
 ### 2026-09-10 — M57 Cursor + docs wrap
 - **Status:** Accepted
 - **Context:** Maintainer `/build` finished Cursor docs (Grok Bots, marketplace, skills, registry, Automations YAML, Cloud hooks, Canvas, CLI loop, Settings-only tour/coach, print-sheet audit, optional-stack gaps, ADR-0001 pick gate, living ci-gap registry). Sprint smoke first treated `/tour` `/emulator` `/adr` as file paths.

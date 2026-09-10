@@ -4,7 +4,8 @@
 
 ## Human leftovers (2026-09-10)
 
-- ✅ [HUMAN] CII Best Practices checklist (login + public badge)
+- ✅ [HUMAN] CII / OpenSSF Best Practices (project 14564 passing; README badge)
+- ❌ [HUMAN] Optional: Ollama at `http://127.0.0.1:11434/v1` — rejected; this template does not use a local LLM server
 
 ## M57 — Cursor + docs (2026-09-10)
 

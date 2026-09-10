@@ -50,6 +50,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 
 ## Session Retrospectives
 
+| 2026-09-10 | OpenSSF passing | Project 14564 passing; README badge live; Ollama leftover rejected | Do not require Ollama on this template; ADB leftovers need the host with the phones |
 | 2026-09-10 | M57 Cursor + docs | Grok Bots, marketplace, skills, registry, Automations, Cloud hooks, Canvas, CLI loop, Settings-only tour/print, optional-stack gaps, ADR-0001 gate, ci-gap registry | Do not treat `/tour` backticks as file paths; do not pre-select ADR-0001 |
 | 2026-09-09 | M54 Catalog + Lightroom | Lua lint, tagset factory, SDK bump playbook; MODULE sync; catalog navigation + lightroom-plugin | Do not treat bare `feature-catalog.json` as a repo-root path in smoke |
 | 2026-09-09 | M53 Android distribution | Landed PR #95 R8; F-Droid/Fastlane/AntiFeatures; UnifiedPush sample; signing runbook | Do not commit keystores or add FCM on the FOSS path |
