@@ -17,17 +17,21 @@ CLI_TRACKED=(
   examples/rust/src/lib.rs
   examples/rust/src/main.rs
   examples/rust/src/about.rs
+  examples/rust/src/log.rs
   examples/go/main.go
+  examples/go/log.go
   examples/go/about.go
   examples/go/about_test.go
   examples/node/src/app.ts
   examples/node/src/about.ts
   examples/node/src/about.test.ts
   examples/node/src/app.test.ts
+  examples/node/src/openapi.test.ts
   examples/python/src/hello/cli.py
   examples/python/src/hello/about.py
   examples/python/tests/test_about.py
   examples/python/tests/test_cli.py
+  examples/python/tests/test_openapi.py
 )
 
 ABOUT_TRACKED=(
