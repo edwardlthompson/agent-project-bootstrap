@@ -28,8 +28,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** **v1.3.0** shipped. **M61** archived · next allideas batch when ready. Open PRs sync below. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** **v1.4.0** shipped. **M61** archived · next allideas batch when ready. Open PRs + Template gaps sync below. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
+> **v1.4.0** release archived in COMPLETED_TASKS.md @ `f105c3b`.
 > **v1.3.0** release archived in COMPLETED_TASKS.md @ `7ca6dbf`.
 > **M61** archived in COMPLETED_TASKS.md @ `ca0edfb`.
 > **M60** archived in COMPLETED_TASKS.md @ `ca0edfb`.
@@ -58,7 +59,7 @@ _No template gaps; .template-version matches upstream (or template maintainer N/
 
 1. 🔲 [HUMAN] Lightroom Plug-in Manager load smoke (#29)
 
-Done on this board: **v1.3.0** · **M61** back/nav/gates · **M60** CI clarity · **M59** CI harden · **M58** ship CI + Espresso · **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **v1.4.0** · **v1.3.0** · **M61** back/nav/gates · **M60** CI clarity · **M59** CI harden · **M58** ship CI + Espresso · **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

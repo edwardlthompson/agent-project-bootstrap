@@ -2,6 +2,11 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v1.4.0 release (2026-09-11)
+
+- ✅ [AGENT] Merge release [#107](https://github.com/edwardlthompson/agent-project-bootstrap/pull/107) (chore(main): release 1.4.0)
+- ✅ [AGENT] Monday child template-gap BUILD_PLAN sync (plan-only)
+
 ## v1.3.0 release (2026-09-11)
 
 - ✅ [AGENT] Merge release [#106](https://github.com/edwardlthompson/agent-project-bootstrap/pull/106) (chore(main): release 1.3.0)

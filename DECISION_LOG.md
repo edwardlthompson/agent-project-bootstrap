@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-11 — v1.4.0 /ship (template-gap BUILD_PLAN sync)
+- **Status:** Accepted
+- **Context:** Child repos needed Monday automation to list Canon/Mixed/Sacred/feature gaps on BUILD_PLAN without auto-applying Sacred overwrites.
+- **Decision:** Child-only `sync-template-gaps-build-plan` on weekly-health; template keeps upgrade-sim; Sacred → `[HUMAN]`; file rows capped at 40; humans still name `/upgrade` numbers before apply.
+- **Alternatives considered:** Auto-copy Canon on cron (rejected: same plan-only rule as `/upgrade`). Always run upgrade-sim on children (rejected: pruned stacks break sim).
+- **Consequences:** Markers required on child BUILD_PLAN; Lightroom (#29) still HUMAN.
+
 ### 2026-09-11 — v1.3.0 /push
 - **Status:** Accepted
 - **Context:** Release Please #106 blocked on red CI after `chore(release): prepare v1.3.0`; instrumented Assume counted as failure; LHCI INP auditRan=0 under staticDistDir.
