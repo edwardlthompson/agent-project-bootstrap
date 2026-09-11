@@ -108,6 +108,8 @@ class ShellContractTests(unittest.TestCase):
         bash = _bash()
         if not bash:
             self.skipTest("bash not available")
+        if not (ROOT / "examples" / "go" / "go.mod").is_file():
+            self.skipTest("go example pruned")
         if shutil.which("go"):
             self.skipTest("go is installed")
         proc = subprocess.run(
