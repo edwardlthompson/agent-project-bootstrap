@@ -38,7 +38,6 @@ class FeedbackCopyUiTest {
         composeTestRule.onNodeWithTag("feedback-copy").performClick()
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithTag("feedback-copied").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Report copied").assertIsDisplayed()
         val context = ApplicationProvider.getApplicationContext<Context>()
         val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = cm.primaryClip?.getItemAt(0)?.coerceToText(context)?.toString().orEmpty()

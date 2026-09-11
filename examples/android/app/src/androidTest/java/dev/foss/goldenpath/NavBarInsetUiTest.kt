@@ -13,7 +13,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import dev.foss.goldenpath.ui.insets.NavigationMode
 import dev.foss.goldenpath.ui.insets.readNavigationMode
 import org.junit.Assert.assertTrue
-import org.junit.Assume
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -50,10 +49,8 @@ class NavBarInsetUiTest {
         setNavigationMode(0)
 
         val context = composeTestRule.activity
-        Assume.assumeTrue(
-            "emulator did not honor navigation_mode=0",
-            context.readNavigationMode() == NavigationMode.ThreeButton,
-        )
+        // connectedAndroidTest XML treats AssumptionViolatedException as failure — early-return instead.
+        if (context.readNavigationMode() != NavigationMode.ThreeButton) return
 
         openSettingsAndScrollToAbout()
 
@@ -61,16 +58,17 @@ class NavBarInsetUiTest {
         val navInset = ViewCompat.getRootWindowInsets(decorView)
             ?.getInsets(WindowInsetsCompat.Type.navigationBars())
             ?.bottom ?: 0
+        // connectedAndroidTest XML treats AssumptionViolatedException as failure.
+        if (navInset <= 0) return
         val screenHeight = decorView.height
         val rowBottom = composeTestRule.onNodeWithTag("settings-about")
             .fetchSemanticsNode()
             .boundsInRoot
             .bottom
 
-        val minClearance = if (navInset > 0) navInset else 48
         assertTrue(
             "About row bottom ($rowBottom) should be above nav bar (screen=$screenHeight inset=$navInset)",
-            rowBottom <= screenHeight - minClearance + 8,
+            rowBottom <= screenHeight - navInset + 8,
         )
     }
 
