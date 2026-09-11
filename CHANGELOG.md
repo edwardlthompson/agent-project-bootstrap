@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [1.3.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.2.0...v1.3.0) (2026-09-11)
 
 
@@ -21,8 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **ci:** clear remaining v1.3.0 gate failures ([ae2775f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ae2775f689b226896dbe4e8dbf9d88c38110232b))
 * **ci:** green Feature Gate, a11y, upgrade sim, and zizmor ([fb75a80](https://github.com/edwardlthompson/agent-project-bootstrap/commit/fb75a806d8dad2d77117d2a300414b03684ec076))
 * **ci:** TBT lighthouse floor and skip flaky Android recreates on CI ([d73e9a9](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d73e9a9fa102007ca1a6506490397b83f5f9dd9e))
-
-## [Unreleased]
 
 ## [1.2.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.1.0...v1.2.0) (2026-09-10)
 
