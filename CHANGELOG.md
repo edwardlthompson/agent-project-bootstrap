@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.3.0...v1.4.0) (2026-09-11)
+
+
+### Added
+
+* **build:** sync Monday template gaps into BUILD_PLAN ([1b528f4](https://github.com/edwardlthompson/agent-project-bootstrap/commit/1b528f483f7206c4acaf2eb19921e009ef91e96b))
+
 ## [1.3.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.2.0...v1.3.0) (2026-09-11)
 
 ### Added
