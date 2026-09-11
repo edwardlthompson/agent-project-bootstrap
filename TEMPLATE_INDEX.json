@@ -2916,6 +2916,41 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/sync-template-gaps-build-plan.sh",
+      "purpose": "Mirror parent template gaps into BUILD_PLAN managed block (plan-only)",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/sync_template_gaps_build_plan.py",
+      "purpose": "Rewrite template-gaps-sync BUILD_PLAN markers from gap report",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/sync_template_gaps_render.py",
+      "purpose": "Render Canon/Mixed/Sacred/feature rows for template-gaps-sync",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/repo_mode.py",
+      "purpose": "Print template|child for weekly-health workflow branching",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/template-gaps-build-plan-sync.md",
+      "purpose": "Feature slice: Monday child template-gap BUILD_PLAN sync",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/resume-handoff.sh",
       "purpose": "Cloud to PC handoff digest (fetch, sync open PRs, next AGENT row)",
       "read_when": "session_start",

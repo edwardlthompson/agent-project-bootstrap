@@ -78,11 +78,19 @@ Copy this shape when you add sprints: `### Sprint N — title`, then numbered ro
 _No open Dependabot or Release Please PRs._
 <!-- open-prs-sync:end -->
 
+### Template gaps (synced)
+
+> Auto-managed Monday cron + `sync-template-gaps-build-plan`. Do not hand-edit inside markers. Plan-only — run `/upgrade` then name item numbers.
+
+<!-- template-gaps-sync:begin -->
+_No template gaps; .template-version matches upstream (or template maintainer N/A)._
+<!-- template-gaps-sync:end -->
+
 ---
 
 ## Ongoing Maintenance
 
-Not a checklist. GitHub Monday cron (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim, radar, `update-deps` dry-run, Dependabot leftover list, open-PR BUILD_PLAN sync, and latest-release SBOM. `/ship` owns pre-release and the release tag.
+Not a checklist. GitHub Monday cron (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, parent template-gap BUILD_PLAN sync (this child board), radar, `update-deps` dry-run, Dependabot leftover list, open-PR BUILD_PLAN sync, and latest-release SBOM. Upgrade-sim stays on the template maintainer repo. `/ship` owns pre-release and the release tag.
 
 If Monday cron is red: Cursor Automation `weekly-maintain`, then Grok Bot 4–5. Do not put those chores back on this board. [`docs/GROK_BOTS.md`](docs/GROK_BOTS.md) · [`docs/CURSOR_AUTOMATIONS.commercial.md`](docs/CURSOR_AUTOMATIONS.commercial.md)
 

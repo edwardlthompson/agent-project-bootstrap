@@ -28,6 +28,8 @@ class GrokBotsTests(unittest.TestCase):
         self.assertIn("check-security-triage.sh", weekly)
         self.assertIn("update-deps", weekly)
         self.assertIn("wait-release-sbom.sh", weekly)
+        self.assertIn("sync-template-gaps-build-plan.sh", weekly)
+        self.assertIn("repo_mode.py", weekly)
 
 
 if __name__ == "__main__":

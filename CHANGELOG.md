@@ -10,11 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.2.0...v1.3.0) (2026-09-11)
 
-
 ### Added
 
 * **build:** sync open PRs into BUILD_PLAN and add /resume handoff ([868d655](https://github.com/edwardlthompson/agent-project-bootstrap/commit/868d6556ee26b96e830150e5dcb68f3c3cddd549))
-
 
 ### Fixed
 

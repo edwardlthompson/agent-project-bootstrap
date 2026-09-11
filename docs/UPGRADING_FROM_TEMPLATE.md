@@ -1,12 +1,12 @@
 # Upgrading From Template
 
-Child repos do not auto-sync with the upstream template. Use this guide when the update checker notifies you of a new release.
+Child repos do not auto-merge file copies from the upstream template. Monday GitHub cron (`weekly-health-check.yml`) **does** refresh a managed **Template gaps (synced)** block on `BUILD_PLAN.md` from `check-template-gaps` (plan-only). Use this guide when that block (or the update checker) shows you are behind.
 
 In Cursor, type `/upgrade`. On a **child** the agent compares this project to the template and writes a plan. It does not apply changes until you name item numbers. Other IDEs: [`docs/help/UPGRADE.md`](help/UPGRADE.md). On **this** template repo, `/upgrade` still runs the upgrade simulation.
 
 ## Step 1: Read the Notification
 
-Run `scripts/check-template-updates.sh` or check the devcontainer postStart output. The agent entry is `/upgrade` (also runs `check-template-gaps`).
+Run `scripts/check-template-updates.sh` or check the devcontainer postStart output. On a child, also open **Template gaps (synced)** on `BUILD_PLAN.md` (Monday cron via `sync-template-gaps-build-plan`). The agent entry is `/upgrade` (also runs `check-template-gaps`).
 
 ## Step 2: Review CHANGELOG
 

@@ -134,6 +134,7 @@ def report(root: Path, *, compare=None, latest_fn=None) -> dict:
     ]
     return {
         "ok": not skip, "current": version, "latest": latest, "stack": stack,
+        "upstream": upstream,
         "skip": skip, "warning": cmp_err or rel_err or "", "files": classified,
         "apply": recommended_apply(classified), "features": feature_gaps(root, catalog, stack),
         "optional_stacks": optional,

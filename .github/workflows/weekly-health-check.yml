@@ -15,6 +15,7 @@ jobs:
       contents: read
     outputs:
       android: ${{ steps.stacks.outputs.android }}
+      repo_mode: ${{ steps.mode.outputs.repo_mode }}
     steps:
       - uses: actions/checkout@v7
       - id: stacks
@@ -24,10 +25,16 @@ jobs:
           else
             echo "android=false" >> "$GITHUB_OUTPUT"
           fi
+      - id: mode
+        run: |
+          MODE="$(python3 scripts/lib/repo_mode.py .)"
+          echo "repo_mode=${MODE}" >> "$GITHUB_OUTPUT"
+          echo "Detected repo mode: ${MODE}"
 
   health:
     name: Weekly Workflow Health
     runs-on: ubuntu-latest
+    needs: detect-stacks
     permissions:
       contents: write
       actions: write
@@ -103,12 +110,35 @@ jobs:
           git pull --rebase
           git push
 
+      - name: Sync template gaps into BUILD_PLAN (child)
+        if: needs.detect-stacks.outputs.repo_mode == 'child'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          bash scripts/sync-template-gaps-build-plan.sh --apply
+          if git diff --quiet -- BUILD_PLAN.md; then
+            echo "No BUILD_PLAN template-gaps-sync changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add BUILD_PLAN.md
+          git commit -m "chore(build-plan): sync template gaps from parent"
+          if git push; then
+            exit 0
+          fi
+          echo "Push rejected; retry once after pull --rebase"
+          git pull --rebase
+          git push
+
       - name: Latest release SBOM
         env:
           GH_TOKEN: ${{ github.token }}
         run: bash scripts/wait-release-sbom.sh --wait 15
 
       - name: Simulate template upgrade path
+        if: needs.detect-stacks.outputs.repo_mode == 'template'
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
@@ -117,6 +147,8 @@ jobs:
   upgrade-windows:
     name: Weekly Upgrade Simulation (Windows)
     runs-on: windows-latest
+    needs: detect-stacks
+    if: needs.detect-stacks.outputs.repo_mode == 'template'
     permissions:
       contents: read
     steps:

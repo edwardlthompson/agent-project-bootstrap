@@ -46,6 +46,14 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 _No open Dependabot or Release Please PRs._
 <!-- open-prs-sync:end -->
 
+### Template gaps (synced)
+
+> Auto-managed Monday cron + `sync-template-gaps-build-plan`. Do not hand-edit inside markers. Plan-only — run `/upgrade` then name item numbers.
+
+<!-- template-gaps-sync:begin -->
+_No template gaps; .template-version matches upstream (or template maintainer N/A)._
+<!-- template-gaps-sync:end -->
+
 ### Waiting on a person
 
 1. 🔲 [HUMAN] Lightroom Plug-in Manager load smoke (#29)
@@ -56,9 +64,9 @@ Done on this board: **v1.3.0** · **M61** back/nav/gates · **M60** CI clarity �
 
 ## Ongoing Maintenance
 
-Not a checklist. GitHub Monday 07:00 UTC (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim, radar, `update-deps` dry-run, Dependabot leftover list, open-PR BUILD_PLAN sync, and latest-release SBOM. `/ship` owns pre-release and the release tag.
+Not a checklist. GitHub Monday 07:00 UTC (`.github/workflows/weekly-health-check.yml`) already runs CI wait, security triage, upgrade-sim (template) or parent template-gap BUILD_PLAN sync (child), radar, `update-deps` dry-run, Dependabot leftover list, open-PR BUILD_PLAN sync, and latest-release SBOM. `/ship` owns pre-release and the release tag.
 
-Open Dependabot / Release Please PRs are mirrored into **Open PRs (synced)** above — that is allowed board automation, not a standing chore row. After Cloud Agents, use `/resume` on This Computer.
+Open Dependabot / Release Please PRs are mirrored into **Open PRs (synced)** above; child catch-up rows land in **Template gaps (synced)** — allowed board automation, not standing chore rows. After Cloud Agents, use `/resume` on This Computer.
 
 If Monday cron is red: Cursor Automation `weekly-maintain`, then Grok Bot 4–5. Do not put those chores back on this board. [`docs/GROK_BOTS.md`](docs/GROK_BOTS.md) · [`docs/CURSOR_AUTOMATIONS.commercial.md`](docs/CURSOR_AUTOMATIONS.commercial.md)
 

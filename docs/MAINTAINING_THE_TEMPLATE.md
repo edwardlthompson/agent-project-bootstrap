@@ -33,6 +33,8 @@ Playbook for template maintainers optimizing agent-project-bootstrap over time.
 
 Dependabot and Release Please PRs sync into the **Open PRs (synced)** block on `BUILD_PLAN.md` via `scripts/sync-open-prs-build-plan.sh` (weekly health + PR lifecycle workflow). Do not hand-edit that block.
 
+Child product repos (not this template) also get a Monday **Template gaps (synced)** block via `scripts/sync-template-gaps-build-plan.sh` — plan-only; Sacred never auto-overwritten. This maintainer repo keeps upgrade-sim on weekly health instead.
+
 After Cloud Agent sessions, maintainers on This Computer should run **`/resume`** so the PC agent fetches, refreshes the sync block, lists leftover `cursor/*` PRs, and names the next `[AGENT]` row. Do not rely on `/compact` session state across machines (gitignored).
 
 ## Safe Edit Zones
