@@ -12,6 +12,8 @@ GO = ROOT / "modules/go/MODULE.md"
 
 class RustGoModuleChecklistTests(unittest.TestCase):
     def test_rust_activation_checklist(self) -> None:
+        if not RUST.is_file():
+            self.skipTest("rust module pruned")
         text = RUST.read_text(encoding="utf-8")
         self.assertIn("## Activation Checklist", text)
         self.assertIn("examples/rust/", text)
@@ -21,6 +23,8 @@ class RustGoModuleChecklistTests(unittest.TestCase):
         self.assertIn("child-activation", text.lower())
 
     def test_go_activation_checklist(self) -> None:
+        if not GO.is_file():
+            self.skipTest("go module pruned")
         text = GO.read_text(encoding="utf-8")
         self.assertIn("## Activation Checklist", text)
         self.assertIn("examples/go/", text)
@@ -30,6 +34,8 @@ class RustGoModuleChecklistTests(unittest.TestCase):
         self.assertIn("child-activation", text.lower())
 
     def test_examples_present_on_template(self) -> None:
+        if not (ROOT / "modules/rust").is_dir() or not (ROOT / "modules/go").is_dir():
+            self.skipTest("rust/go modules pruned")
         self.assertTrue((ROOT / "examples/rust").is_dir())
         self.assertTrue((ROOT / "examples/go").is_dir())
 

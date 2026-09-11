@@ -17,10 +17,10 @@ jobs:
   sync:
     name: Sync BUILD_PLAN open PRs
     runs-on: ubuntu-latest
-    # Dependabot + Release Please only (not every feature PR)
+    # Prefer PR author over github.actor (zizmor bot-conditions).
     if: >
       github.event_name == 'workflow_dispatch' ||
-      github.actor == 'dependabot[bot]' ||
+      github.event.pull_request.user.login == 'dependabot[bot]' ||
       startsWith(github.head_ref || '', 'release-please') ||
       startsWith(github.event.pull_request.head.ref || '', 'release-please') ||
       startsWith(github.event.pull_request.title || '', 'chore(main): release') ||
@@ -41,6 +41,7 @@ jobs:
       - name: Commit and push if changed
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           if git diff --quiet -- BUILD_PLAN.md; then
             echo "No BUILD_PLAN open-prs-sync changes"
@@ -50,9 +51,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add BUILD_PLAN.md
           git commit -m "chore(build-plan): sync open Dependabot and release PRs"
-          if git push origin HEAD:"${{ github.event.repository.default_branch }}"; then
+          if git push origin "HEAD:$DEFAULT_BRANCH"; then
             exit 0
           fi
           echo "Push rejected; retry once after pull --rebase"
-          git pull --rebase origin "${{ github.event.repository.default_branch }}"
-          git push origin HEAD:"${{ github.event.repository.default_branch }}"
+          git pull --rebase origin "$DEFAULT_BRANCH"
+          git push origin "HEAD:$DEFAULT_BRANCH"

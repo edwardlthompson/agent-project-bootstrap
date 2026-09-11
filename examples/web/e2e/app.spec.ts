@@ -172,7 +172,13 @@ test("arabic locale forces rtl even when strings fall back", async ({ page }) =>
   });
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+  // Dismiss opt-in prompts so the header geometry is measurable.
+  const decline = page.getByTestId("launch-decline");
+  if (await decline.isVisible().catch(() => false)) {
+    await decline.click();
+  }
   await expect(page.getByRole("button", { name: "Settings" })).toBeVisible();
+  await expect(page.locator(".gp-title")).toBeVisible();
   const title = await page.locator(".gp-title").boundingBox();
   const actions = await page.locator(".gp-header-actions").boundingBox();
   expect(title).toBeTruthy();

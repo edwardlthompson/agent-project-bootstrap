@@ -10,6 +10,9 @@ HTTPS = re.compile(r"^https://github\.com/[^\s]+$")
 
 
 def check_repo(root: Path) -> list[str]:
+    # Child prune may remove the Android Golden Path entirely.
+    if not (root / "examples" / "android").is_dir():
+        return []
     path = root / META
     if not path.is_file():
         return [f"MISSING: {META.as_posix()}"]

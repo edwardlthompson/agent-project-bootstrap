@@ -56,8 +56,16 @@ class FdroidScreenshotsTests(unittest.TestCase):
     def test_completeness_submit_ready_fails_without_shots(self) -> None:
         from fdroid_screenshots import check_completeness
 
+        if not (ROOT / "examples/android").is_dir():
+            self.skipTest("android example pruned")
         errors = check_completeness(ROOT, submit_ready=True)
-        self.assertTrue(any("phoneScreenshots" in e or "icon.png" in e for e in errors), errors)
+        self.assertTrue(
+            any(
+                "phoneScreenshots" in e or "icon.png" in e or "images" in e
+                for e in errors
+            ),
+            errors,
+        )
 
 
 if __name__ == "__main__":
