@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.4.0...v1.4.1) (2026-09-11)
+
+
+### Fixed
+
+* **ci:** skip go-missing gate test when go example pruned ([0805ffe](https://github.com/edwardlthompson/agent-project-bootstrap/commit/0805ffea511e31b444f22a33386ef1177f7a4ad6))
+
 ## [1.4.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.3.0...v1.4.0) (2026-09-11)
 
 
