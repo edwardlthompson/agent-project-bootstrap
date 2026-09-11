@@ -2,6 +2,12 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v1.3.0 release (2026-09-11)
+
+- ✅ [AGENT] Merge release [#106](https://github.com/edwardlthompson/agent-project-bootstrap/pull/106) (chore(main): release 1.3.0)
+- ✅ [HUMAN] Approve/merge Release Please 1.3.0 when workflows allow (#4)
+- ✅ [ADB] UnifiedPush end-to-end with FOSS distributor (#16)
+
 ## Waiting on a person — HUMAN/ADB auto (2026-09-10)
 
 - ✅ [HUMAN] Private vulnerability reporting dry-run (#42)

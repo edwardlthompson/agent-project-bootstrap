@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-11 — v1.3.0 /push
+- **Status:** Accepted
+- **Context:** Release Please #106 blocked on red CI after `chore(release): prepare v1.3.0`; instrumented Assume counted as failure; LHCI INP auditRan=0 under staticDistDir.
+- **Decision:** Ship v1.3.0 after CI green; admin-merge RP #106; use TBT as lab INP proxy; vacuous-pass UnifiedPush without distributor; early-return (not Assume) for AVD-only asserts.
+- **Alternatives considered:** Leave INP as error (rejected: structurally unmeasurable in navigation-mode LHCI). Keep Assume for UnifiedPush (rejected: AGP XML treats AssumptionViolatedException as failure).
+- **Consequences:** Lightroom Plug-in Manager (#29) stays HUMAN; next `/allideas` batch when ready.
+
 ### 2026-09-10 — M58/M59/M60 board from allideas 1–160
 - **Status:** Accepted
 - **Context:** Template maintainer needed a sizeable `/build` backlog after ship CI + Espresso work; `/allideas` dump filled M58 (1–80), M59 (81–120), M60 (121–160).

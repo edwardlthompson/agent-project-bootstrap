@@ -50,6 +50,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 
 ## Session Retrospectives
 
+| 2026-09-11 | v1.3.0 /push | RP #106 admin-merged; tag+release live; CI green after TBT + instrumented soft skips | Lightroom (#29) stays HUMAN; do not use JUnit Assume on connectedAndroidTest |
 | 2026-09-10 | M58–M61 /build | Espresso 3.7 + agent DX; M58–M61 archived; KB-023 path spaces; Release Please #106 open | Do not fold Unreleased until /push+/ship; merge RP is HUMAN |
 | 2026-09-10 | M58 Espresso + Android 16 | Pin Espresso 3.7; nav Back smoke on phone; Release checkout order; agent-run PATH/micromamba | Do not empty Unreleased mid-sprint; `/push` then `/ship` owns fold; no `/dev/kvm` → use physical device |
 | 2026-09-10 | BUILD_PLAN declutter | Recurring AUTO/AGENT chores left the board; Monday cron owns them | Do not put weekly/monthly 🔲 rows back on BUILD_PLAN or the child template |
