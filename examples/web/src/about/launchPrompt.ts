@@ -40,6 +40,8 @@ export function createLaunchPromptDialog(
   decline.addEventListener("click", () => onChoose(false));
   actions.append(accept, decline);
   dialog.append(title, body, actions);
+  // Accessible name before role=dialog (axe aria-dialog-name)
+  dialog.setAttribute("aria-label", title.textContent || "Launch prompt");
   bindPanelDialog(dialog, () => onChoose(false));
   return dialog;
 }

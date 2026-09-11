@@ -23,8 +23,11 @@ class AgentRunEnvTests(unittest.TestCase):
         self.assertEqual(env["FOO"], "bar")
 
     def test_unix_local_bin_prepended(self) -> None:
+        import os
         import tempfile
 
+        if os.name == "nt":
+            self.skipTest("unix_tool_dirs is a no-op on Windows")
         with tempfile.TemporaryDirectory() as tmp:
             home = Path(tmp)
             local_bin = home / ".local" / "bin"

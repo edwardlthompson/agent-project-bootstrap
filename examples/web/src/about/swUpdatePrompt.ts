@@ -31,6 +31,8 @@ export function watchWaitingWorker(
 export function createSwUpdatePrompt(onApply: () => void, onDismiss: () => void): HTMLElement {
   const dialog = document.createElement("div");
   dialog.role = "dialog";
+  dialog.setAttribute("aria-modal", "true");
+  dialog.setAttribute("aria-label", "Offline update ready");
   dialog.dataset.testid = SW_UPDATE_PROMPT_TESTID;
   dialog.className = "gp-sw-update-prompt";
   const body = document.createElement("p");

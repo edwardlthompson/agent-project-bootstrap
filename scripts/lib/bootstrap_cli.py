@@ -17,7 +17,7 @@ from bootstrap_engine import (
 from bootstrap_post import create_welcome_issue, ensure_git_repo, install_deps, run_stack_tests
 from project_checklist import write_checklist
 from child_build_plan import install_child_build_plan
-from stamp_project import stamp_agents_md, stamp_first_30_days
+from stamp_project import stamp_agents_md, stamp_first_30_days, stamp_template_index
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -93,6 +93,11 @@ def run(argv: list[str] | None = None) -> int:
         )
         if days:
             print(f"Stamped {days}")
+        index = stamp_template_index(
+            root, name=cfg["project_name"], purpose=cfg["purpose"], stack=stack
+        )
+        if index:
+            print(f"Stamped {index}")
         print(f"Wrote {root / 'bootstrap.config.json'}")
         installed = install_child_build_plan(root)
         if installed:

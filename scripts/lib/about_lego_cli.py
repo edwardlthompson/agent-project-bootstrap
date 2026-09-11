@@ -18,6 +18,8 @@ TRACKED = (
     "examples/go/log.go",
     "examples/go/about.go",
     "examples/go/about_test.go",
+    "examples/go/http_about.go",
+    "examples/go/http_about_test.go",
     "examples/node/src/app.ts",
     "examples/node/src/about.ts",
     "examples/node/src/about.test.ts",
@@ -88,7 +90,13 @@ def _cut(path: Path, needle: str) -> None:
 
 
 def strip(root: Path) -> None:
-    _unlink(root, "examples/rust/src/about.rs", "examples/go/about.go")
+    _unlink(
+        root,
+        "examples/rust/src/about.rs",
+        "examples/go/about.go",
+        "examples/go/http_about.go",
+        "examples/go/http_about_test.go",
+    )
     lib = (root / "examples/rust/src/lib.rs").read_text(encoding="utf-8")
     write_lf(root / "examples/rust/src/lib.rs", lib.replace("pub mod about;\n", ""))
     _copy_stub("rust-main.rs", root / "examples/rust/src/main.rs")
