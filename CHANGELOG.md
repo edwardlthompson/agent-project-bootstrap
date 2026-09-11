@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.2.0...v1.3.0) (2026-09-11)
+
+
+### Added
+
+* **build:** sync open PRs into BUILD_PLAN and add /resume handoff ([868d655](https://github.com/edwardlthompson/agent-project-bootstrap/commit/868d6556ee26b96e830150e5dcb68f3c3cddd549))
+
+
+### Fixed
+
+* **android:** Espresso 3.7 for Android 16 + nav Back smoke ([ca0edfb](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ca0edfb56b0073628111601e1cfc0449aa0378e0))
+* **android:** stop instrumented CI fails from Assume and brittle asserts ([c05c71e](https://github.com/edwardlthompson/agent-project-bootstrap/commit/c05c71e01f4b05a3b98383315b32e3366c82d434))
+* **ci:** clear remaining v1.3.0 gate failures ([ae2775f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/ae2775f689b226896dbe4e8dbf9d88c38110232b))
+* **ci:** green Feature Gate, a11y, upgrade sim, and zizmor ([fb75a80](https://github.com/edwardlthompson/agent-project-bootstrap/commit/fb75a806d8dad2d77117d2a300414b03684ec076))
+* **ci:** TBT lighthouse floor and skip flaky Android recreates on CI ([d73e9a9](https://github.com/edwardlthompson/agent-project-bootstrap/commit/d73e9a9fa102007ca1a6506490397b83f5f9dd9e))
+
 ## [Unreleased]
 
 ## [1.2.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.1.0...v1.2.0) (2026-09-10)
