@@ -1,7 +1,7 @@
 # agent-project-bootstrap
 
 ![MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
-![Template](https://img.shields.io/badge/template-1.3.0-0969da?style=flat-square)
+![Template](https://img.shields.io/badge/template-1.4.0-0969da?style=flat-square)
 ![FOSS](https://img.shields.io/badge/FOSS-no_tracking-656d76?style=flat-square)
 [![CI](https://img.shields.io/github/actions/workflow/status/edwardlthompson/agent-project-bootstrap/ci.yml?style=flat-square&label=CI)](https://github.com/edwardlthompson/agent-project-bootstrap/actions/workflows/ci.yml)
 [![Pages demo](https://img.shields.io/badge/Pages-demo-0969da?style=flat-square)](https://edwardlthompson.github.io/agent-project-bootstrap/)
@@ -492,4 +492,4 @@ Repo description draft for the short About preview: [`docs/GITHUB_ABOUT.md`](doc
 
 ## Maintainer Release
 
-Current template version: **1.3.0** (see `.template-version`, Release Please, and `scripts/pre-release-gate.sh`).
+Current template version: **1.4.0** (see `.template-version`, Release Please, and `scripts/pre-release-gate.sh`).
