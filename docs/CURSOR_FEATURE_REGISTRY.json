@@ -140,6 +140,14 @@
       "last_seen": "2026-09-10"
     },
     {
+      "id": "skills.espresso-android16",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-09-10"
+    },
+    {
       "id": "skills.adr",
       "category": "skills",
       "distribution_tier": "both",

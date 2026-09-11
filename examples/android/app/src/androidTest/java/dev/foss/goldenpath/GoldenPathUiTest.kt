@@ -2,7 +2,7 @@ package dev.foss.goldenpath
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
@@ -25,6 +25,7 @@ class GoldenPathUiTest {
     @get:Rule
     val rules: RuleChain = RuleChain
         .outerRule(ClearUiPrefsRule())
+        .around(DisableAnimationsRule())
         .around(FailureEvidenceRule { composeTestRule })
         .around(composeTestRule)
 

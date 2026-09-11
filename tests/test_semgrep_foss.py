@@ -18,6 +18,12 @@ class SemgrepFossTests(unittest.TestCase):
     def test_config(self) -> None:
         self.assertEqual(check_config(ROOT), [])
 
+    def test_android16_reflective_notes(self) -> None:
+        text = (ROOT / ".semgrep/prompt-injection.yml").read_text(encoding="utf-8")
+        self.assertIn("Android 16", text)
+        self.assertIn("Class.forName", text)
+        self.assertIn("addJavascriptInterface", text)
+
     def test_wired(self) -> None:
         text = (ROOT / "scripts" / "validate-bootstrap.sh").read_text(encoding="utf-8")
         self.assertIn("check-semgrep.sh", text)

@@ -118,6 +118,11 @@
               "version": { "type": ["string", "null"] },
               "url": { "type": ["string", "null"] }
             }
+          },
+          "installed_format": {
+            "type": "string",
+            "description": "Optional installer format hint (apk|aab|msi|…)",
+            "enum": ["apk", "aab", "msi", "exe", "unknown"]
           }
         }
       },

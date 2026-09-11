@@ -32,6 +32,8 @@ Requires `gh` CLI authenticated with admin access. On API `422` (plan or permiss
 
 `dependabot.yml` is weekly **backup** version-update PRs. Day-to-day bumps: `python3 scripts/agent-run.py update-deps`. **Dependabot alerts** are a separate GitHub setting for CVE advisories — still enable them. Local HIGH+ findings from `update-deps --audit` block `pre-release-gate.sh --local` (`/prerelease` / `/ship`). GitHub alert counts still block the **default** `pre-release-gate.sh` used by `/regress`.
 
+**Optional-stack groups health:** Cargo and Go ecosystems use weekly groups `rust-dependencies` and `go-dependencies` under `/examples/rust` and `/examples/go`. If those groups disappear from `.github/dependabot.yml`, optional-stack Dependabot noise returns as one PR per crate/module — restore the groups (see `docs/features/dependabot-cargo-go.md`).
+
 ## Weekly Triage Pass
 
 Recommended cadence: **Monday** (aligned with scheduled security scans and `health-check.yml`).
@@ -127,6 +129,13 @@ When the product exposes agents, run the compact walk in [`THREAT_MODEL.md`](THR
 | `.github/workflows/weekly-health-check.yml` | Monday cron: CI wait, security triage, upgrade-sim, radar, update-deps dry-run, Dependabot leftover list, latest-release SBOM |
 | `scripts/validate-workflow-actions.sh` | Resolve action refs via GitHub API |
 | `scripts/check-workflow-action-ref-format.sh` | Local bare-semver guard |
+### CodeQL Compose navigation
+
+Default **java-kotlin** CodeQL queries analyze Android sources under `examples/android`. They do **not** yet replace a dedicated Compose Navigation query pack for deep-link injection, unsafe `NavController` pops, or argument type confusion. Until such a pack is pinned in `codeql.yml`:
+
+1. Prefer typed nav args and single-activity routes already in Golden Path.
+2. Map navigation findings from manual review / instrumented Back matrix into BUILD_PLAN `[AGENT]` rows.
+3. Do not disable CodeQL to “quiet” Compose noise — fix or document false positives in `SECURITY_TRIAGE.md`.
 | `scripts/check-security-triage.sh` | Weekly Dependabot + workflow + Scorecard gate |
 | `schemas/golden-path/openvex.example.json` | OpenVEX template attached next to `sbom.cyclonedx.json` |
 | `scripts/pre-release-gate.sh` | `--local` for `/prerelease`/`/ship`; default (full GH) for `/regress` and `release.yml` |

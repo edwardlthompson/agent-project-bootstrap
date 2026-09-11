@@ -28,6 +28,7 @@
 
 ## Data We Do Not Collect
 
+- **No GitHub Pages analytics** and **no default product telemetry** — the Pages demo and Golden Path apps ship without trackers (gate: `scripts/check-pages-analytics.sh`). Opt-in only if a child product adds an explicit consent path.
 - No tracking without explicit opt-in
 - No sale of personal data
 - No PII in logs without user consent

@@ -4,5 +4,6 @@
 
 | Deferred | Sprint | Owner | Task | Reason |
 |----------|--------|-------|------|--------|
-
-Declined 2026-09-10: optional Ollama on this template (maintainer). Recipe stays in `docs/LOCAL_MODELS.md` for child repos. Quarterly radar is Monday cron (`cursor-feature-radar.sh`), not a board row.
+| 2026-09-11 | Open PRs (synced) | AGENT | Merge release [#106](https://github.com/edwardlthompson/agent-project-bootstrap/pull/106) (chore(main): release 1.3.0) | Branch protection blocks merge; `--auto` requested; needs `/push` + green required checks |
+| 2026-09-11 | Waiting on a person | HUMAN | Approve/merge Release Please 1.3.0 when workflows allow (#4) | Same as #106 — branch protection |
+| 2026-09-11 | Waiting on a person | HUMAN | Lightroom Plug-in Manager load smoke (#29) | SDK verify passed; needs Adobe Lightroom on a desktop |

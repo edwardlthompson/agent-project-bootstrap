@@ -7,6 +7,7 @@ Run Sprint 0 / pre-push validation (Git Bash on Windows), then **always** report
 ```bash
 python3 scripts/agent-run.py check-local-compute
 python3 scripts/agent-run.py validate-bootstrap --quick
+python3 scripts/agent-run.py check-cursor-hooks -- --smoke
 python3 scripts/agent-run.py feature-gate --stack multi
 python3 scripts/agent-run.py smoke-sprint --if-complete
 python3 scripts/agent-run.py check-repo-hygiene
@@ -14,6 +15,8 @@ python3 scripts/agent-run.py run-android-emulator-local -- --if-device
 python3 scripts/agent-run.py render-gates-status
 
 ```
+
+`check-cursor-hooks --smoke` covers destructive-ops + UTF-8 hook wiring (fail-open honesty still applies).
 
 `check-local-compute` is INFO (exit 0 unless misconfig). Emulator `--if-device` SKIPs when no adb device — it will not download system images.
 

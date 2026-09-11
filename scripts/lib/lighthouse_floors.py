@@ -1,4 +1,4 @@
-"""Keep Lighthouse accessibility and best-practices floors from regressing."""
+"""Keep Lighthouse accessibility, best-practices, and web-vitals floors from regressing."""
 
 from __future__ import annotations
 
@@ -6,9 +6,17 @@ import json
 import sys
 from pathlib import Path
 
+# Re-baselined after Settings-only IA (M58 #22): keep error floors, do not warn-only.
 FLOORS = {
+    "categories:performance": 0.9,
     "categories:accessibility": 0.95,
     "categories:best-practices": 0.9,
+}
+
+# Core Web Vitals budgets (ms) — INP + LCP for feature-gate (#93).
+VITALS = {
+    "largest-contentful-paint": 2500,
+    "interaction-to-next-paint": 200,
 }
 
 
@@ -27,6 +35,14 @@ def check(root: Path) -> list[str]:
         score = spec[1].get("minScore") if isinstance(spec[1], dict) else None
         if not isinstance(score, (int, float)) or score < floor:
             errors.append(f"{key} minScore must be >= {floor}, got {score}")
+    for key, budget in VITALS.items():
+        spec = assertions.get(key)
+        if not isinstance(spec, list) or len(spec) < 2 or spec[0] != "error":
+            errors.append(f"{key} must be an error assertion with maxNumericValue")
+            continue
+        value = spec[1].get("maxNumericValue") if isinstance(spec[1], dict) else None
+        if not isinstance(value, (int, float)) or value > budget:
+            errors.append(f"{key} maxNumericValue must be <= {budget}, got {value}")
     return errors
 
 
@@ -35,7 +51,7 @@ def main() -> int:
     if errors:
         print("\n".join(errors))
         return 1
-    print("Lighthouse a11y and best-practices floors passed")
+    print("Lighthouse performance/a11y/best-practices/INP/LCP floors passed")
     return 0
 
 

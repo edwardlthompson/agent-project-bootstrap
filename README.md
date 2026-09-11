@@ -4,6 +4,7 @@
 ![Template](https://img.shields.io/badge/template-1.2.0-0969da?style=flat-square)
 ![FOSS](https://img.shields.io/badge/FOSS-no_tracking-656d76?style=flat-square)
 [![CI](https://img.shields.io/github/actions/workflow/status/edwardlthompson/agent-project-bootstrap/ci.yml?style=flat-square&label=CI)](https://github.com/edwardlthompson/agent-project-bootstrap/actions/workflows/ci.yml)
+[![Pages demo](https://img.shields.io/badge/Pages-demo-0969da?style=flat-square)](https://edwardlthompson.github.io/agent-project-bootstrap/)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/edwardlthompson/agent-project-bootstrap/badge)](https://securityscorecards.dev/viewer/?uri=github.com/edwardlthompson/agent-project-bootstrap)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/14564/badge)](https://www.bestpractices.dev/projects/14564)
 [![Open in GitHub Codespaces](https://img.shields.io/badge/Codespaces-Open-181717?style=flat-square&logo=github)](https://codespaces.new/edwardlthompson/agent-project-bootstrap)

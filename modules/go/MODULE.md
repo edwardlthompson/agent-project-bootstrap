@@ -10,10 +10,12 @@
 
 ## Activation Checklist
 
+> **Child-activation:** After `init-project` with Go kept (or restored from `--keep-optional`), run this list before the first Go PR. Gate: `python3 -m unittest tests.test_rust_go_module_checklist`.
+
 - 🔲 Copy or keep `examples/go/` Golden Path stub
 - 🔲 Set Go version in `go.mod` and CI
 - 🔲 Enable vet/fmt/test in CI
-- 🔲 Add gomod to `.github/dependabot.yml` (`directory: /examples/go`)
+- 🔲 Add gomod to `.github/dependabot.yml` (`directory: /examples/go`, group `go-dependencies`)
 - 🔲 Document Go version in `AGENT_MEMORY.md`
 
 ## Golden Path Reference

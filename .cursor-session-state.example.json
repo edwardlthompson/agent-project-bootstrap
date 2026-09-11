@@ -3,7 +3,7 @@
   "version": 1,
   "saved_at": "2026-06-13T12:00:00Z",
   "mode": "bootstrap",
-  "$comment_mode": "Repo mode (bootstrap|reference) — not Cursor Ask/Plan/Agent/Debug; see docs/CURSOR_MODES.md",
+  "$comment_mode": "Repo mode (bootstrap|reference) \u2014 not Cursor Ask/Plan/Agent/Debug; see docs/CURSOR_MODES.md",
   "stack": "web",
   "active_sprint": "0",
   "sequential_step": 8,
@@ -23,5 +23,6 @@
   "unreleased_has_entries": false,
   "unreleased_excerpt": [],
   "open_human_adb_rows": [],
-  "notes": "Optional free-text checkpoint. Mirror .cursor/agent-progress.json when running watch-agent-gates. parallel_tasks_in_flight: [{ id, task, scope, branch, status }]. destructive_ops_approved: set by /push or /ship via /compact (e.g. [\"git push\"]). unreleased_* and open_human_adb_rows: written by python3 scripts/agent-run.py compact-session-state."
+  "last_ci_conclusion": "CI: no failed required checks on recent main runs",
+  "notes": "Optional free-text checkpoint. Mirror .cursor/agent-progress.json when running watch-agent-gates. parallel_tasks_in_flight: [{ id, task, scope, branch, status }]. destructive_ops_approved: set by /push or /ship via /compact (e.g. [\"git push\"]). unreleased_*, open_human_adb_rows, and last_ci_conclusion: written by python3 scripts/agent-run.py compact-session-state."
 }

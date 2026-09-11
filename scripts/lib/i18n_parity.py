@@ -47,6 +47,16 @@ def check_files(web: dict, android: set[str], allow: dict) -> list[str]:
     return errors
 
 
+def check_nav_back(web: dict, android: set[str]) -> list[str]:
+    """Nav Back must exist on both platforms (Settings stack chrome)."""
+    errors: list[str] = []
+    if "nav.back" not in web:
+        errors.append("web locales missing required key 'nav.back'")
+    if "nav_back" not in android:
+        errors.append("Android strings missing required name 'nav_back'")
+    return errors
+
+
 def check_repo(root: Path | None = None) -> list[str]:
     base = root or ROOT
     web_path = base / "examples/web/src/locales/en.json"
@@ -60,7 +70,8 @@ def check_repo(root: Path | None = None) -> list[str]:
     )
     if not isinstance(web, dict):
         return ["en.json must be a JSON object"]
-    errors = check_files(web, android, allow)
+    errors = check_nav_back(web, android)
+    errors.extend(check_files(web, android, allow))
     errors.extend(check_second_locale(base, web, android))
     return errors
 

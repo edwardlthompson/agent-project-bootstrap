@@ -28,6 +28,10 @@ Bookmark this page for when you come back after a break. **Print every command:*
 | `/build` | Run BUILD_PLAN end-to-end — per-row gates only dirty stacks; wrap-up smokes every ✅ row then `/gates` |
 | `/ship` | Publish a release to GitHub (runs checks, push, post-release) |
 | `/maintain` | Weekly health pass — security, dependencies, full review |
+**If CI is red:** run `/fix` or `/ci` + `/gates` and get required checks green **before** `/ideas` or `/allideas`. A red Monday cron or failing `main` is not a backlog brainstorming day.
+
+**Ship-first (M58/M59):** If `[Unreleased]` has notes and open AGENT/AUTO is zero, run `/ship` (or `/prerelease`) before `/allideas`. M58 = Espresso/ship CI; M59 = CI harden + stacks.
+
 **Worked example — new project:** clone your repo → open your agent → in Cursor type `/bootstrap` (elsewhere: ask it to follow `docs/help/TOUR.md` after init). The agent walks through init, stack setup, GitHub settings, validation gates, and `/tour`. Type `/coach` later for the next recommended action.
 
 ## When you need one step
@@ -56,6 +60,14 @@ Grouped by life moment (not every command — use `/` menu for the full list).
 
 `/push` and `/ship` **push code to GitHub**. Only run them when you intend to publish. `/ship` is the full path (local dep update → pre-release checks → push → post-release verification). Use `/prerelease` alone if you want checks without pushing yet.
 
+After a GitHub Release tag, wait for SBOM + OpenVEX assets (Release workflow can lag):
+
+```bash
+python3 scripts/agent-run.py wait-release-sbom -- --wait 300
+# or: bash scripts/wait-release-sbom.sh v1.2.1 --wait 300
+
+```
+
 ## Coming back after a break?
 
 Same menu: type **`/`** in Agent chat. Supers like `/verify` or `/bootstrap` are a good refresher. Keep this file bookmarked. After Cloud Agents, type **`/resume`** so the PC agent fetches, syncs open Dependabot/release PRs onto BUILD_PLAN, lists leftover `cursor/*` PRs, and names the next AGENT row.
@@ -67,3 +79,9 @@ You can type a single word like `audit` instead of `/audit`. Slash commands are 
 ---
 
 Advanced registry (maintainers): [docs/BATCH_COMMANDS.md](../BATCH_COMMANDS.md)
+
+## `/allideas` → board → `/build`
+
+1. Type `/allideas` for a full dump.
+2. Reply `board` or name numbers to fill `BUILD_PLAN.md`.
+3. Type `/build` to execute (no approval pause). Archive with `/cleanup` after smoke.

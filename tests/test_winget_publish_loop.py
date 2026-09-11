@@ -43,6 +43,8 @@ class WingetPublishLoopTests(unittest.TestCase):
         self.assertIn("Does not submit", sh)
         self.assertIn("validate-winget-stub.sh", sh)
         self.assertIn("[HUMAN]", sh)
+        self.assertIn("--from-release", sh)
+        self.assertIn("gh release download", sh)
 
 
 if __name__ == "__main__":

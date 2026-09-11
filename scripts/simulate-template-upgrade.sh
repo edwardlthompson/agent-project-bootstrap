@@ -150,6 +150,11 @@ done
 child_quick
 echo "Prune-optional smoke passed"
 
+# After prune-optional, child must still be able to re-validate bootstrap (upgrade path).
+echo "==> Re-run child_quick on pruned optional stacks (upgrade-sim continuity)"
+child_quick
+echo "Pruned optional-stack upgrade continuity passed"
+
 echo "==> Non-interactive init smoke (PowerShell)"
 if ! command -v pwsh >/dev/null 2>&1; then
   echo "SKIP PowerShell init smoke (pwsh not on PATH)"
@@ -168,6 +173,14 @@ else
 
   child_quick
   echo "PowerShell init smoke passed"
+fi
+
+echo "==> Assert Espresso pin survives upgrade-sim tree"
+if [ -f examples/android/app/build.gradle.kts ]; then
+  if ! grep -Eq 'espresso-core:3\.(7|[89]|[1-9][0-9])\.' examples/android/app/build.gradle.kts; then
+    echo "FAIL: espresso-core must be >= 3.7.0 after upgrade-sim"
+    exit 1
+  fi
 fi
 
 echo "Upgrade simulation passed"

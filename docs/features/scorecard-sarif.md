@@ -22,11 +22,10 @@
 | View | N/A |
 | Tests | `tests/test_scorecard_sarif.py` |
 | Wiring | `.github/workflows/scorecard.yml` Classify SARIF step |
-
 ## Tests
 
 - Automated: yes — rule table + fixture SARIF
-- Coverage: unknown check, empty runs, docs needles
+- Coverage: unknown check, empty runs, docs needles, golden fixtures under `tests/fixtures/scorecard/`
 
 ## Fallback validation
 

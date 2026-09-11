@@ -27,7 +27,12 @@ class WingetStubTests(unittest.TestCase):
             path = Path(tmp) / "manifest.stub.yaml"
             path.write_text(
                 "PackageIdentifier: Ex.App\nPackageVersion: 1.0.0\n"
-                "ManifestVersion: 1.6.0\nLicense: MIT\nInstallerSha256: abc\n",
+                "ManifestVersion: 1.6.0\nLicense: MIT\nInstallerSha256: abc\n"
+                "Installers:\n"
+                "  - Architecture: x64\n"
+                "    InstallerUrl: https://example.com/x64.zip\n"
+                "  - Architecture: arm64\n"
+                "    InstallerUrl: https://example.com/arm64.zip\n",
                 encoding="utf-8",
             )
             proc = subprocess.run(

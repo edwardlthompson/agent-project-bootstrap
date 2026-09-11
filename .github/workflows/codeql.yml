@@ -50,6 +50,9 @@ jobs:
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
+      # Default java-kotlin queries cover Android; Compose Navigation deep-link /
+      # NavController misuse stays mostly manual until a dedicated query pack —
+      # see docs/SECURITY_TRIAGE.md § CodeQL Compose navigation.
       - name: Initialize CodeQL (Android)
         if: matrix.language == 'java-kotlin'
         uses: github/codeql-action/init@v4

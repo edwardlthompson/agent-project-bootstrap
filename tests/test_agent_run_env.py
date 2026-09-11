@@ -19,5 +19,16 @@ class AgentRunEnvTests(unittest.TestCase):
         self.assertTrue(env["PATH"] == "/usr/bin" or env["PATH"].endswith("/usr/bin"))
 
     def test_keeps_unrelated_keys(self) -> None:
-        env = child_env({"FOO": "bar", "PATH": "x"})
+        env = child_env({"FOO": "bar", "PATH": "x", "HOME": "/tmp"})
         self.assertEqual(env["FOO"], "bar")
+
+    def test_unix_local_bin_prepended(self) -> None:
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            local_bin = home / ".local" / "bin"
+            local_bin.mkdir(parents=True)
+            env = child_env({"PATH": "/usr/bin", "HOME": str(home)})
+            self.assertTrue(env["PATH"].startswith(str(local_bin)))
+            self.assertIn("/usr/bin", env["PATH"])

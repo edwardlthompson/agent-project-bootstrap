@@ -1,5 +1,7 @@
 # Self-hosted crash inbox stub (GlitchTip / Bugsink)
 
+> **stub only until DPIA** — disabled on the FOSS template; do not enable without `docs/PRIVACY.md` DPIA.
+
 Golden Path crash filing stays on GitHub Issues ([PRIVACY.md](PRIVACY.md), [ADR-0002](adr/0002-privacy-github-feedback.md)). A self-hosted GlitchTip or Bugsink inbox is a **disabled** stub. It is **not a live crash-proxy**.
 
 ## Status
@@ -16,7 +18,6 @@ Golden Path crash filing stays on GitHub Issues ([PRIVACY.md](PRIVACY.md), [ADR-
 | `none` | Template default |
 | `glitchtip` | Self-hosted FOSS inbox (Sentry-compatible protocol) |
 | `bugsink` | Self-hosted FOSS crash inbox |
-
 ## [HUMAN] before enable
 
 1. Complete the DPIA checklist in [PRIVACY.md](PRIVACY.md).

@@ -111,6 +111,36 @@ echo "stack=$STACK"
 
 has() { command -v "$1" >/dev/null 2>&1; }
 
+link_platform_tools() {
+  local sdk=""
+  local dest="$WT/.cursor/platform-tools"
+  for key in ANDROID_HOME ANDROID_SDK_ROOT; do
+    eval "val=\${$key:-}"
+    if [ -n "$val" ] && [ -d "$val/platform-tools" ]; then
+      sdk="$val/platform-tools"
+      break
+    fi
+  done
+  if [ -z "$sdk" ]; then
+    for candidate in "$HOME/Android/Sdk/platform-tools" "$HOME/.local/android/platform-tools"; do
+      if [ -d "$candidate" ]; then
+        sdk="$candidate"
+        break
+      fi
+    done
+  fi
+  if [ -z "$sdk" ]; then
+    echo "SKIP platform-tools symlink (SDK not found)"
+    return 0
+  fi
+  mkdir -p "$WT/.cursor"
+  if [ -L "$dest" ] || [ -d "$dest" ]; then
+    echo "OK platform-tools already present at $dest"
+    return 0
+  fi
+  ln -s "$sdk" "$dest" && echo "OK linked platform-tools -> $sdk" || echo "SKIP platform-tools symlink (non-fatal)"
+}
+
 install_npm_dir() {
   local dir="$1"
   if [ ! -f "$dir/package.json" ]; then
@@ -191,12 +221,14 @@ case "$STACK" in
     install_uv_dir "$WT/examples/python"
     ;;
   android)
+    link_platform_tools
     install_gradle_dir "$WT/examples/android"
     ;;
   multi|*)
     install_npm_dir "$WT/examples/web"
     install_npm_dir "$WT/examples/node"
     install_uv_dir "$WT/examples/python"
+    link_platform_tools
     install_gradle_dir "$WT/examples/android"
     ;;
 esac

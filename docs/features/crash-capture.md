@@ -40,3 +40,7 @@ Unit tests for queue-at-most-one, sanitize-before-persist, opt-in false, no re-e
 
 - Web: `sessionStorage` unless save-crashes is on (`localStorage`)
 - Android: one app-internal file; chain previous `UncaughtExceptionHandler`
+
+## WorkManager-free crash trim
+
+Golden Path Android crash capture stays **in-process** (sanitize + optional local pending file). Do **not** add WorkManager / JobScheduler upload workers on the FOSS path — that expands background network surface and conflicts with “stub only until DPIA”. Trim stacks in the capture path; upload stays opt-in after DPIA (`docs/CRASH_INBOX.md`).

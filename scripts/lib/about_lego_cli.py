@@ -26,6 +26,7 @@ TRACKED = (
     "examples/python/src/hello/cli.py",
     "examples/python/src/hello/about.py",
     "examples/python/tests/test_about.py",
+    "examples/python/tests/test_about_parity.py",
     "examples/python/tests/test_cli.py",
     "examples/python/tests/test_openapi.py",
 )
@@ -104,7 +105,7 @@ def strip(root: Path) -> None:
         r"\n  it\(\"(?:returns About payload|returns a GitHub feedback URL)[\s\S]*?\n  \}\);\n",
     )
     write_lf(node_test, re.sub(r"\n+\n\}\);\s*\Z", "\n});\n", text))
-    _unlink(root, "examples/python/src/hello/about.py", "examples/python/tests/test_about.py")
+    _unlink(root, "examples/python/src/hello/about.py", "examples/python/tests/test_about.py", "examples/python/tests/test_about_parity.py")
     _copy_stub("python-cli.py", root / "examples/python/src/hello/cli.py")
     _copy_stub("python-test-openapi.py", root / "examples/python/tests/test_openapi.py")
     py_test = root / "examples/python/tests/test_cli.py"

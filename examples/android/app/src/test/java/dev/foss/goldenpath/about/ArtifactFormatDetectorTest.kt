@@ -5,7 +5,18 @@ import org.junit.Test
 
 class ArtifactFormatDetectorTest {
     @Test
-    fun detectAndroidFormat_returnsApk() {
+    fun defaultsToApk() {
         assertEquals("apk", ArtifactFormatDetector.detectAndroidFormat())
+    }
+
+    @Test
+    fun splitNamesHintAppBundle() {
+        assertEquals("aab", ArtifactFormatDetector.detectAndroidFormat(splitNames = arrayOf("config.xxhdpi")))
+    }
+
+    @Test
+    fun labelNormalizesBundleAliases() {
+        assertEquals("aab", ArtifactFormatDetector.labelFor("app-bundle"))
+        assertEquals("apk", ArtifactFormatDetector.labelFor("APK"))
     }
 }

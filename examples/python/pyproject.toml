@@ -41,6 +41,7 @@ select = ["E", "F", "I", "UP", "B"]
 [tool.mypy]
 strict = true
 python_version = "3.11"
+# About + crash modules stay under strict (hello.about, hello.crash) — no per-module relax.
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

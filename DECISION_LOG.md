@@ -17,6 +17,34 @@
 
 ## Entries
 
+### 2026-09-10 — M58/M59/M60 board from allideas 1–160
+- **Status:** Accepted
+- **Context:** Template maintainer needed a sizeable `/build` backlog after ship CI + Espresso work; `/allideas` dump filled M58 (1–80), M59 (81–120), M60 (121–160).
+- **Decision:** Keep three sequential milestones on `BUILD_PLAN.md`; archive each to `COMPLETED_TASKS.md` after `smoke-sprint --require`. Open PRs sync stays auto-managed; Release Please merge stays HUMAN.
+- **Alternatives considered:** One mega-sprint (rejected: smoke/gate lock). Only Android rows (rejected: CI/docs/a11y belong on the same board).
+- **Consequences:** M61 holds 161–200; do not start M61 until M60 smoke ✅.
+
+### 2026-09-10 — Archive stale HUMAN_BACKLOG prose
+- **Status:** Accepted
+- **Context:** `HUMAN_BACKLOG.md` held free-form notes (declined Ollama on template; quarterly radar ownership) that are not deferred automation rows.
+- **Decision:** Keep the backlog table empty unless `/build` automation fails a HUMAN/ADB row. Move standing policy into this log: optional Ollama stays in `docs/LOCAL_MODELS.md` for child repos; quarterly radar remains Monday cron (`cursor-feature-radar.sh`), not a board row.
+- **Alternatives considered:** Leave prose in HUMAN_BACKLOG (rejected: confuses automation deferred items). Put Ollama back on BUILD_PLAN (rejected: maintainer declined).
+- **Consequences:** Agents only append table rows via `build-backlog add`. Narrative policy lives here or in docs.
+
+### 2026-09-10 — Pin Espresso 3.7 for Android 16 (API 36)
+- **Status:** Accepted
+- **Context:** Compose instrumented tests failed on API 36 with missing `InputManager.getInstance`; CI emu and phones needed a stable AndroidX Test pin.
+- **Decision:** Pin `androidx.test.espresso:espresso-core:3.7.0` in Golden Path Android; add `check-espresso-android16` gate + KB-022. Keep nav Back smoke on a physical device when KVM is absent.
+- **Alternatives considered:** Wait for an official test-bom (rejected: not a drop-in). Disable instrumented CI (rejected: ships broken nav).
+- **Consequences:** Do not downgrade Espresso for convenience; `/push` needed for `main` CI green.
+
+### 2026-09-10 — Defer Unreleased fold until /ship after Espresso land
+- **Status:** Accepted
+- **Context:** `/build` M58 row asked to fold Unreleased and cut Release Please while 180+ AGENT rows remained and commits were only local (`ahead 2`, no `/push`).
+- **Decision:** Do not empty `[Unreleased]` or cut a patch until `/push` (or `/ship`) publishes the Espresso 3.7 + CI fixes. `/ship` owns fold + Release Please. After push, wait with `python3 scripts/agent-run.py wait-release-sbom -- --wait 300`.
+- **Alternatives considered:** Fold now and open RP mid-sprint (rejected: incomplete board). Mark fold row blocked forever (rejected: process must stay clear).
+- **Consequences:** M58 continues on This Computer; human runs `/push` then `/ship` for the Android 16 / Release checkout fixes.
+
 ### 2026-09-10 — Declutter BUILD_PLAN recurring chores
 - **Status:** Accepted
 - **Context:** AUTO weekly/monthly rows stayed 🔲 forever even though Monday cron already ran them, which made both boards look unfinished.
@@ -79,7 +107,6 @@
 - **Decision:** Home chrome is **Settings only**. Theme, About, and donate live under Settings → App info. Exclusive choices use dropdowns. Sections sort Appearance → Privacy → Data → About (then App → Support → Feedback).
 - **Alternatives considered:** Quiet header donate (rejected: duplicates About). Header theme toggle plus Settings control (rejected: two places). FilterChips for theme (rejected: chips are filters).
 - **Consequences:** `ThemeToggle` removed. Agents follow `docs/DESIGN_GUIDE.md` Chrome and menus. Donate walkthrough no longer allows a web header control.
-
 
 ### 2026-09-09 — Android runtime budget (R8 + memory limits) and optional Grok Bots
 - **Status:** Accepted
@@ -474,3 +501,15 @@ _Seed template ADR: `docs/adr/0000-template-baseline.md`. Child repos use `docs/
 - **Decision:** Ship all three with Golden Path stubs, MODULE.md guides, and path-gated CI jobs (`lightroom`, `rust`, `go`) that skip when child repos remove the directories
 - **Alternatives considered:** Lightroom-only (rejected: Rust/Go stubs are low-cost and popular); defer all optional modules (rejected: COMPLETED_TASKS M3 work already landed)
 - **Consequences:** Template CI runs more jobs on `main`; child repos can delete unused `examples/` folders to skip jobs via `hashFiles` guards
+
+### 2026-09-10 — M61 board from allideas 161–200
+- **Status:** Accepted
+- **Context:** After M58–M60 archive, `/allideas` dump 161–200 filled maintainer milestone M61 (back/nav, gates, template inherit).
+- **Decision:** Execute M61 AGENT rows via `/build`; keep Open PRs sync + Release Please merge as HUMAN; archive M61 after `smoke-sprint --require`. Pointer: allideas dump → this log (M58–M61).
+- **Alternatives considered:** Fold 161–200 into M60 (rejected: smoke already passed). Skip device HUMAN/ADB (rejected: backlog instead).
+- **Consequences:** Prefer archive M58 before opening M62 (#199). Do not push from `/build` without `/push`.
+## /push prepare 1.3.0 (2026-09-11)
+
+- What: Commit outstanding M58–M61 + waiting-row automation + UnifiedPush E2E; empty CHANGELOG Unreleased; push main; merge RP #106.
+- Validated: `pre-release-gate.sh --local`, `verify-about-feature-gate.sh`, license compliance, repo hygiene, README health.
+- Deferred: Lightroom Plug-in Manager load (needs Adobe); RP merge waits on required checks after push.

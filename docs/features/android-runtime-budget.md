@@ -24,7 +24,6 @@
 | View | N/A (no new UI) |
 | Tests | `memory/MemoryBudgetTest.kt`, `tests/test_android_runtime_budget.py` |
 | Wiring | `GoldenPathApplication` + manifest `android:name` (≤10 lines of feature wiring) |
-
 ## Tests
 
 - Automated: yes — JUnit `MemoryBudgetTest` + Python structure tests
@@ -43,4 +42,18 @@ See `docs/FEATURE_MODULES.md`. Device memory-limiter adb simulation stays `[ADB]
 
 - Retrace release crashes with `app/build/outputs/mapping/release/mapping.txt`
 - Analyzer: [R8 Configuration Analyzer](https://developer.android.com/topic/performance/app-optimization/r8-configuration-analyzer)
+
+### Upload `mapping.txt` to GitHub Releases (FOSS)
+
+Do **not** commit mapping files. Attach them as a Release asset next to the APK/AAB (same tag as SBOM):
+
+```bash
+# after assembleRelease
+MAP=examples/android/app/build/outputs/mapping/release/mapping.txt
+TAG=v1.2.3   # match the GitHub Release
+gh release upload "$TAG" "$MAP" --clobber
+
+```
+
+Wire optionally in `.github/workflows/release.yml` after the Android release job produces the mapping artifact. Keep the file out of git (`**/mapping.txt` already ignored via build outputs).
 - Grok Bot prompts: [`docs/GROK_BOTS.md`](../GROK_BOTS.md)

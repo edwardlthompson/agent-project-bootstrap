@@ -54,6 +54,11 @@ def scopes_overlap(a: str, b: str) -> bool:
     return pa == pb or pa.startswith(pb + "/") or pb.startswith(pa + "/")
 
 
+def _under_android(scope: str) -> bool:
+    p = normalize_scope(scope)
+    return p == "examples/android" or p.startswith("examples/android/")
+
+
 def find_overlaps(scopes: list[str]) -> list[str]:
     errors: list[str] = []
     for i, a in enumerate(scopes):
@@ -62,6 +67,9 @@ def find_overlaps(scopes: list[str]) -> list[str]:
                 continue
             if scopes_overlap(a, b):
                 errors.append(f"overlap: {a!r} vs {b!r}")
+            elif _under_android(a) and _under_android(b):
+                # Android Golden Path is one exclusive scope — sibling paths still conflict.
+                errors.append(f"overlap: examples/android exclusive ({a!r} vs {b!r})")
     return errors
 
 

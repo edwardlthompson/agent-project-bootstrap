@@ -75,12 +75,15 @@ class ResumeHandoffTests(unittest.TestCase):
                 gh_error=None,
                 fetch_note="ok",
                 branch_notes=[],
+                ci_line="CI red: failed required checks: CI",
             )
             self.assertIn("Next BUILD_PLAN row:", digest)
             self.assertIn("[AGENT] Do the next thing", digest)
+            self.assertIn("CHANGELOG [Unreleased] has entries: yes", digest)
+            self.assertIn("CI red: failed required checks: CI", digest)
+            self.assertIn("Handoff: dirty Unreleased", digest)
             self.assertIn("#8", digest)
             self.assertIn("cursor/cloud", digest)
-            self.assertIn("CHANGELOG [Unreleased] has entries: yes", digest)
 
     def test_resume_with_mocks(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

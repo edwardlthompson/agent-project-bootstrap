@@ -25,7 +25,8 @@ echo "--- CI (best effort) ---"
 if command -v gh >/dev/null 2>&1; then
   python3 "$ROOT/scripts/lib/health_ci.py" || true
 else
-  echo "WARN: gh not installed; skip remote CI. After push: bash scripts/check-github-ci.sh --wait 300"
+  echo "WARN: gh not installed; CI section skipped (fail-soft). Local gates still apply via /gates."
+  echo "After push: bash scripts/check-github-ci.sh --wait 300"
 fi
 
 echo ""

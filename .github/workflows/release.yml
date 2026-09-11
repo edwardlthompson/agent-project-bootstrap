@@ -54,12 +54,6 @@ jobs:
       id-token: write
       attestations: write
     steps:
-      - name: Validate CI refs
-        env:
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-          INPUT_TAG: ${{ inputs.tag }}
-        run: bash scripts/check-ci-refs.sh --release
-
       - name: Resolve release tag
         id: tag
         env:
@@ -79,6 +73,12 @@ jobs:
         with:
           # SBOM backfill (workflow_dispatch + tag input): build from main, upload to existing tag
           ref: ${{ inputs.tag != '' && github.ref || steps.tag.outputs.tag || github.ref }}
+
+      - name: Validate CI refs
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: bash scripts/check-ci-refs.sh --release
 
       - name: Finalize release tag from .template-version
         if: steps.tag.outputs.tag == ''

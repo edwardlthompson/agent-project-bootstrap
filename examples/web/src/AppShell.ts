@@ -1,6 +1,7 @@
 import { APP_VERSION } from "./about/aboutSession";
 import { createLaunchPromptDialog } from "./about/launchPrompt";
 import type { LaunchPrompt } from "./about/runAppUpdates";
+import { createSwUpdatePrompt } from "./about/swUpdatePrompt";
 import type { DonationConfig } from "./about/types";
 import { createAboutPanel } from "./components/AboutPanel";
 import { createFeedbackPanel } from "./components/FeedbackPanel";
@@ -19,6 +20,8 @@ export type AppShellState = {
   donations: DonationConfig;
   launchPrompt: LaunchPrompt | null;
   releaseRepo?: string;
+  canApplyUpdate?: boolean;
+  showSwUpdatePrompt?: boolean;
 };
 
 export type AppShellCallbacks = {
@@ -80,6 +83,18 @@ export function createAppShell(
     return;
   }
 
+  if (atHome && state.showSwUpdatePrompt) {
+    mount.appendChild(
+      createSwUpdatePrompt(
+        () => {
+          callbacks.onApplyUpdate?.();
+          callbacks.onState({ showSwUpdatePrompt: false, canApplyUpdate: true });
+        },
+        () => callbacks.onState({ showSwUpdatePrompt: false }),
+      ),
+    );
+  }
+
   if (route === "feedback") {
     const panel = createFeedbackPanel(state.nav.feedbackKind ?? "bug", {
       onClose: callbacks.onPop,
@@ -111,7 +126,7 @@ export function createAppShell(
         version: APP_VERSION,
         updateStatus: state.updateStatus,
         donations: state.donations,
-        canApplyUpdate: callbacks.canApplyUpdate,
+        canApplyUpdate: state.canApplyUpdate ?? callbacks.canApplyUpdate,
       },
       callbacks.onPop,
       callbacks.onApplyUpdate,

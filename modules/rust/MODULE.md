@@ -10,10 +10,12 @@
 
 ## Activation Checklist
 
+> **Child-activation:** After `init-project` with Rust kept (or restored from `--keep-optional`), run this list before the first Rust PR. Gate: `python3 -m unittest tests.test_rust_go_module_checklist`.
+
 - 🔲 Copy or keep `examples/rust/` Golden Path stub
 - 🔲 Set edition and MSRV in `Cargo.toml`
 - 🔲 Enable `cargo test` and clippy in CI
-- 🔲 Add cargo to `.github/dependabot.yml` (`directory: /examples/rust`)
+- 🔲 Add cargo to `.github/dependabot.yml` (`directory: /examples/rust`, group `rust-dependencies`)
 - 🔲 Document MSRV in `AGENT_MEMORY.md`
 
 ## Golden Path Reference

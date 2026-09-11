@@ -105,3 +105,11 @@ flowchart LR
 ## First 30 days
 
 Follow [`FIRST_30_DAYS.md`](FIRST_30_DAYS.md). `/coach` will point at the next open row and why it matters. For a ranked list of possible next features, `/ideas` or [`help/IDEAS.md`](help/IDEAS.md). For a complete dump to fill BUILD_PLAN, `/allideas` or [`help/ALLIDEAS.md`](help/ALLIDEAS.md).
+
+## Instrumented ≠ unit tests
+
+| Kind | Runs on | Good for | Not a substitute for |
+|------|---------|----------|----------------------|
+| Unit (`./gradlew test`, Vitest, pytest) | JVM / Node | Pure logic, i18n, allowlists | System Back, insets, TalkBack |
+| Instrumented (`connectedDebugAndroidTest`) | Device / emulator | Nav Back, Compose UI, density | Fast PR feedback when no KVM |
+Espresso 3.7+ is required on API 36+. A green unit suite never proves predictive-back or inset behavior — keep one instrumented smoke per nav milestone.

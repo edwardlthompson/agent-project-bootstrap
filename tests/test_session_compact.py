@@ -42,6 +42,10 @@ class SessionCompactTests(unittest.TestCase):
         example = (ROOT / ".cursor-session-state.example.json").read_text(encoding="utf-8")
         self.assertIn("unreleased_excerpt", example)
         self.assertIn("open_human_adb_rows", example)
+        self.assertIn("last_ci_conclusion", example)
+        compact_lib = (ROOT / "scripts/lib/session_compact.py").read_text(encoding="utf-8")
+        self.assertIn("last_ci_conclusion", compact_lib)
+        self.assertIn("ci_red_one_liner", compact_lib)
 
 
 if __name__ == "__main__":

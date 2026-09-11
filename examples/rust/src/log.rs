@@ -20,6 +20,16 @@ fn json_str(value: &str) -> String {
 }
 
 pub fn run(args: &[String], stdout: &mut impl Write, stderr: &mut impl Write) -> i32 {
+    if args.iter().any(|a| a == "--version" || a == "-V") {
+        let _ = writeln!(stdout, "{}", env!("CARGO_PKG_VERSION"));
+        return 0;
+    }
+    if args.iter().any(|a| a == "--crash-stub") {
+        let sample = "user@example.com boom token=secret";
+        let cleaned = crate::crash::sanitize(sample);
+        let _ = writeln!(stdout, "{cleaned}");
+        return 0;
+    }
     if args.iter().any(|a| a == "--ready") {
         let _ = writeln!(stderr, "{}", log_json("info", "ready"));
         let _ = writeln!(stdout, "{}", ready_json());
@@ -53,5 +63,27 @@ mod tests {
         let log = String::from_utf8_lossy(&err);
         assert!(log.contains("\"msg\":\"ready\""));
         assert!(log.contains("\"level\":\"info\""));
+    }
+
+    #[test]
+    fn version_flag_prints_pkg_version() {
+        let mut out = Vec::new();
+        let mut err = Vec::new();
+        assert_eq!(run(&["--version".into()], &mut out, &mut err), 0);
+        assert_eq!(
+            String::from_utf8_lossy(&out).trim(),
+            env!("CARGO_PKG_VERSION")
+        );
+    }
+
+    #[test]
+    fn crash_stub_redacts_pii() {
+        let mut out = Vec::new();
+        let mut err = Vec::new();
+        assert_eq!(run(&["--crash-stub".into()], &mut out, &mut err), 0);
+        let text = String::from_utf8_lossy(&out);
+        assert!(text.contains("<redacted-email>"));
+        assert!(!text.contains("user@example.com"));
+        assert!(text.contains("<redacted-secret>"));
     }
 }

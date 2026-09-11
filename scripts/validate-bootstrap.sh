@@ -165,6 +165,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-build-plan-tally.sh \
   check-template-version-sync.sh \
   validate-template-index.sh \
+  check-project-card-index.sh \
   check-bootstrap-engine.sh \
   check-agent-adapters.sh \
   check-env.sh \
@@ -186,12 +187,17 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-github-settings-yml.sh \
   check-merge-queue-docs.sh \
   check-pages-analytics.sh \
+  check-pages-demo-link.sh \
+  check-web-import-hygiene.sh \
   check-readme-badges.sh \
   check-playwright-cache.sh \
   check-android-cmdline-tools.sh \
+  check-android-sdk-licenses.sh \
+  check-fdroid-metadata-links.sh \
   check-nix-flake.sh \
   check-auto-review.sh \
   check-gitleaks-baseline.sh \
+  check-android-sdk-secrets.sh \
   check-semgrep.sh \
   check-mcp-allowlist.sh \
   check-crash-payload-allowlist.sh \

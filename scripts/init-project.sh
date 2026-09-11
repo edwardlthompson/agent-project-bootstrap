@@ -343,6 +343,23 @@ else
 fi
 
 python3 scripts/init-stack-sync.py "$STACK" "$ROOT" "$PRUNED"
+
+# Linux/macOS: write gitignored local.properties when Android SDK is present.
+if [ -d "$ROOT/examples/android" ]; then
+  python3 - "$ROOT" << 'PY'
+import sys
+from pathlib import Path
+from init_extras import detect_android_sdk, write_android_local_properties
+root = Path(sys.argv[1])
+sdk = detect_android_sdk()
+path = write_android_local_properties(root, sdk)
+if path:
+    print(f"Detected Android SDK at {sdk}; wrote {path.relative_to(root)} (gitignored)")
+elif sdk is None:
+    print("NOTE: no Android SDK detected (set ANDROID_HOME or install under ~/Android/Sdk); see docs/LINUX_DEV.md")
+PY
+fi
+
 COPY_COMM=""
 if [ "$DISTRIBUTION_TIER" = "commercial" ]; then
   COPY_COMM="--copy-commercial"

@@ -22,6 +22,12 @@ class GitleaksBaselineTests(unittest.TestCase):
         text = (ROOT / "scripts" / "validate-bootstrap.sh").read_text(encoding="utf-8")
         self.assertIn("check-gitleaks-baseline.sh", text)
 
+    def test_allowlist_excludes_sdk_paths(self) -> None:
+        text = (ROOT / ".gitleaks.toml").read_text(encoding="utf-8")
+        block = text.split("[allowlist]", 1)[1].split("\n[", 1)[0]
+        for banned in ("Android/Sdk", "micromamba", ".local/android", "keystore"):
+            self.assertNotIn(banned, block)
+
 
 if __name__ == "__main__":
     unittest.main()

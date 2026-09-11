@@ -171,7 +171,6 @@
 | **Cause** | Node 25+ enables a global Web Storage stub without `--localstorage-file`; jsdom skips installing real Storage and the stub shadows it |
 | **Fix** | Vitest `setupFiles: ["src/test/setup-localStorage.ts"]` installs in-memory Storage when `getItem` is missing |
 | **Prevention** | Keep the setup file; do not rely on Node’s experimental `localStorage` in browser-unit tests |
-
 ### KB-021 — Broad R8 keep rules hide minify “on”
 
 | Field | Detail |
@@ -180,3 +179,27 @@
 | **Cause** | A library or `proguard-rules.pro` ships `-keep public class * { public protected *; }` (or `-dontoptimize` / `enableR8.fullMode=false`) |
 | **Fix** | Run `./gradlew :app:analyzeReleaseR8Config`; narrow or remove the subsuming keep; keep `proguard-android-optimize.txt` |
 | **Prevention** | Structure tests forbid broad keeps and `largeHeap`; see ADR-0003 and `docs/features/android-runtime-budget.md` |
+### KB-022 — Android 16 Compose UI: `InputManager.getInstance` / Espresso
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | `connectedDebugAndroidTest` fails on API 36 with `NoSuchMethodError` / missing `InputManager.getInstance` inside Compose or Espresso |
+| **Cause** | Older Espresso (pre-3.7) still calls removed reflective APIs on Android 16 |
+| **Fix** | Pin `androidx.test.espresso:espresso-core:3.7.0` (and keep the AndroidX Test line aligned). Gate: `scripts/check-espresso-android16.sh` |
+| **Prevention** | Do not bump Espresso down for “BOM convenience”; there is no official `androidx.test:test-bom` substitute that replaces this pin. Prefer a physical API 36 device when `/dev/kvm` is missing |
+### KB-023 — Android unit tests fail when checkout path has spaces
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | `:app:testDebugUnitTest` fails with `NoSuchFileException` / `EOFException` on `…/test-results/…/in-progress-results-*.bin` |
+| **Cause** | AGP/Gradle binary test-result writer breaks when the absolute project path contains spaces |
+| **Fix** | `examples/android/settings.gradle.kts` remaps `layout.buildDirectory` to `~/.cache/goldenpath-android-build/` (or `GOLDENPATH_ANDROID_BUILD_DIR`) when the root path has spaces. Or clone into a path without spaces / use a symlink |
+| **Prevention** | Prefer space-free clone paths on Linux; keep the settings remapping on the template |
+### KB-024 — Windows upgrade-sim flake quarantine
+
+| Field | Value |
+|-------|-------|
+| **Symptom** | Required check `Template Upgrade Simulation (Windows)` fails once then passes on re-run; often hook/`EINVAL`/temp-dir races |
+| **Cause** | Ephemeral runner FS + commit-msg / UTF-8 / clone path length on Windows |
+| **Fix** | Quarantine: re-run the failing job once via `gh run rerun <id> --failed`. If it fails twice, treat as real — capture `simulate-template-upgrade` log and open a BUILD_PLAN row. Do not remove the check from `required-checks.json`. |
+| **Prevention** | Keep upgrade-sim sacred files UTF-8; avoid writing under locked paths; see `docs/CI_REQUIRED_CHECKS.md` |

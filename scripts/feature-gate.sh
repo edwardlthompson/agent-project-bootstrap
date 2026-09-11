@@ -56,18 +56,33 @@ GATES_PASSED=()
 emit_json() {
   local ok="$1" code="$2"
   if [ "$JSON" = true ]; then
-    local gp_json
-    gp_json="$($PY -c 'import json,sys; print(json.dumps(sys.argv[1:]))' "${GATES_PASSED[@]}")"
-    $PY - "$ok" "$code" "$FAILED_STAGE" "$LOG_TAIL" "$STEP" "$gp_json" "${SUGGESTED[@]}" << 'PY'
+    local gp_json sk_json
+    gp_json="$($PY -c 'import json,sys; print(json.dumps(sys.argv[1:]))' "${GATES_PASSED[@]:-}")"
+    sk_json="$($PY -c 'import json,sys; print(json.dumps(sys.argv[1:]))' "${SKIPPED_GATES[@]:-}")"
+    $PY - "$ok" "$code" "$FAILED_STAGE" "$LOG_TAIL" "$STEP" "$gp_json" "$sk_json" "${SUGGESTED[@]}" << 'PY'
 import json, sys
 ok, code = sys.argv[1], int(sys.argv[2])
 failed = sys.argv[3] if len(sys.argv) > 3 else ""
 log_tail = sys.argv[4] if len(sys.argv) > 4 else ""
 step = sys.argv[5] if len(sys.argv) > 5 else ""
 gp = json.loads(sys.argv[6]) if len(sys.argv) > 6 and sys.argv[6] else []
-fixes = sys.argv[7:] if len(sys.argv) > 7 else []
+skipped_raw = json.loads(sys.argv[7]) if len(sys.argv) > 7 and sys.argv[7] else []
+fixes = sys.argv[8:] if len(sys.argv) > 8 else []
 sys.path.insert(0, "scripts/lib")
 from gate_hints import format_human
+
+def skip_entry(msg: str) -> dict:
+    reason = msg
+    module = None
+    low = msg.lower()
+    if "rust" in low or "cargo" in low:
+        module = "modules/rust/MODULE.md"
+        reason = "optional rust stack inactive or cargo missing — see MODULE.md Activation Checklist"
+    elif "go " in low or "go)" in low or low.startswith("skipping go"):
+        module = "modules/go/MODULE.md"
+        reason = "optional go stack inactive or go missing — see MODULE.md Activation Checklist"
+    return {"message": msg, "reason": reason, "module_md": module}
+
 print(json.dumps({
     "ok": ok == "true",
     "exit_code": code,
@@ -75,6 +90,7 @@ print(json.dumps({
     "failed_stage": failed or None,
     "log_tail": log_tail[:2000] if log_tail else None,
     "gates_passed": gp,
+    "skipped": [skip_entry(m) for m in skipped_raw if m],
     "suggested_fixes": fixes,
     "human_hint": format_human(failed, log_tail) if failed else None,
 }, indent=2))
@@ -109,7 +125,8 @@ fail_gate() {
     web-format) SUGGESTED=("run npm run format in examples/web") ;;
     web-test) SUGGESTED=("fix failing vitest in src/{feature}/" "run npm test in examples/web") ;;
     web-build) SUGGESTED=("fix build errors" "run npm run build in examples/web") ;;
-    web-lighthouse-floors) SUGGESTED=("restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json" "keep categories:best-practices minScore at least 0.9") ;;
+    web-lighthouse-floors) SUGGESTED=("restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json" "keep categories:best-practices minScore at least 0.9" "keep categories:performance minScore at least 0.9" "keep largest-contentful-paint maxNumericValue <= 2500" "keep interaction-to-next-paint maxNumericValue <= 200") ;;
+    web-sw-cache-budget) SUGGESTED=("trim examples/web/public/sw.js PRECACHE list" "keep shell assets under SW_CACHE_MAX_BYTES (default 256KiB)" "run bash scripts/check-sw-cache-budget.sh") ;;
     python-lint) SUGGESTED=("run uv run ruff check --fix in examples/python") ;;
     python-format) SUGGESTED=("run uv run ruff format in examples/python") ;;
     python-type) SUGGESTED=("fix mypy/pyright errors in examples/python") ;;
@@ -127,6 +144,7 @@ fail_gate() {
     go-fmt) SUGGESTED=("run gofmt -w in examples/go") ;;
     go-test) SUGGESTED=("run go test in examples/go") ;;
     android-fdroid) SUGGESTED=("run scripts/verify-fdroid-metadata.sh") ;;
+    android-espresso-16) SUGGESTED=("pin espresso-core:3.7.0 in examples/android/app/build.gradle.kts" "run bash scripts/check-espresso-android16.sh") ;;
     android-compose-a11y) SUGGESTED=("restore examples/android/app/lint.xml a11y issue ids" "keep lint.error ContentDescription in app/build.gradle.kts") ;;
     android-r8) SUGGESTED=("keep isMinifyEnabled = true and proguard-android-optimize.txt" "run bash scripts/check-android-r8.sh") ;;
     android-reproducible-apk) SUGGESTED=("keep SOURCE_DATE_EPOCH=1700000000 on CI android-release" "run bash scripts/check-reproducible-apk.sh") ;;
@@ -134,6 +152,7 @@ fail_gate() {
     lightroom-sdk) SUGGESTED=("run scripts/verify-lightroom.sh") ;;
     lightroom-lua-lint) SUGGESTED=("keep Lr* imports only in examples/lightroom" "run bash scripts/check-lightroom-lua.sh") ;;
     lightroom-sdk-playbook) SUGGESTED=("keep Info.lua versions matching examples/lightroom/README.md" "run bash scripts/check-lightroom-sdk-playbook.sh") ;;
+    lightroom-tagset-fuzz) SUGGESTED=("keep MetadataTagset.lua reverse-DNS items" "run bash scripts/check-lightroom-tagset-fuzz.sh") ;;
     node-lint) SUGGESTED=("fix lint in examples/node" "run npm run format in examples/node if format script exists") ;;
     node-format) SUGGESTED=("run npm run format in examples/node") ;;
     node-test) SUGGESTED=("fix tests in examples/node") ;;
@@ -186,12 +205,21 @@ should_run() {
   [ "$STACK" = "multi" ] || [ "$STACK" = "none" ] || [ "$STACK" = "$s" ]
 }
 
+SKIP_HINT_SHOWN=false
+SKIPPED_GATES=()
+
 skip_or_block() {
   local msg="$1"
   # Single-stack callers use block_env when the required toolchain is missing.
   # For multi/none, missing optional toolchains are always skips — even under --strict
   # (--strict only enables design-cohesion + about-feature-gate for multi).
   log "$msg"
+  SKIPPED_GATES+=("$msg")
+  if [ "$SKIP_HINT_SHOWN" = false ]; then
+    SKIP_HINT_SHOWN=true
+    log "HINT: install missing tools once (Node 22+npm, uv, JDK17, Android SDK) — see docs/LINUX_DEV.md; agent-run also prepends ~/.local/bin"
+    log "HINT: optional Go/Rust MODULE.md skip reasons appear in feature-gate --json skipped[]"
+  fi
 }
 
 run_cmd() {
@@ -289,8 +317,10 @@ if should_run web && [ -f examples/web/package.json ]; then
       run_in_dir examples/web web-format npm run format:check
     fi
     run_in_dir examples/web web-test npm test
+  run_cmd locale-pack-budget bash scripts/check-locale-pack-budget.sh
     run_in_dir examples/web web-build npm run build
     run_cmd web-lighthouse-floors bash scripts/check-lighthouse-floors.sh
+    run_cmd web-sw-cache-budget bash scripts/check-sw-cache-budget.sh
   fi
 fi
 
@@ -343,12 +373,20 @@ if should_run android && [ -f examples/android/gradlew ]; then
   fi
 fi
 
+if should_run android && [ -f examples/android/app/build.gradle.kts ]; then
+  run_cmd android-espresso-16 bash scripts/check-espresso-android16.sh
+fi
+
 if should_run android && [ -d examples/android/metadata ]; then
   run_cmd android-fdroid bash scripts/verify-fdroid-metadata.sh
 fi
 
 if should_run android && [ -f examples/android/app/lint.xml ]; then
   run_cmd android-compose-a11y bash scripts/check-compose-a11y-lint.sh
+fi
+
+if should_run android && [ -f schemas/golden-path/app-version.json ]; then
+  run_cmd android-app-version bash scripts/check-golden-path-app-version.sh
 fi
 
 if should_run android && [ -f examples/android/app/proguard-rules.pro ]; then
@@ -411,6 +449,7 @@ if should_run lightroom && [ -f examples/lightroom/Info.lua ]; then
   run_cmd lightroom-sdk bash scripts/verify-lightroom.sh
   run_cmd lightroom-lua-lint bash scripts/check-lightroom-lua.sh
   run_cmd lightroom-sdk-playbook bash scripts/check-lightroom-sdk-playbook.sh
+  run_cmd lightroom-tagset-fuzz bash scripts/check-lightroom-tagset-fuzz.sh
 fi
 fi
 

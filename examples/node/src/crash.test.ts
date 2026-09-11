@@ -1,6 +1,23 @@
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import { describe, expect, it } from "vitest";
 
 import { sanitizeCrashPayload, sanitizeCrashText } from "./crash.js";
+
+const fixturePath = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "../../../schemas/golden-path/sanitize-fixtures.json",
+);
+
+type SanitizeFixture = {
+  stack: string;
+  must_not_contain: string[];
+  must_contain: string[];
+};
+
+const fixture = JSON.parse(readFileSync(fixturePath, "utf8")) as SanitizeFixture;
 
 describe("sanitizeCrashText", () => {
   it("redacts email, home paths, and tokens", () => {
@@ -23,6 +40,16 @@ describe("sanitizeCrashText", () => {
     expect(got).not.toContain("<<SYS>>");
     expect(got).not.toContain("[INST]");
     expect(got).toContain("<redacted-injection>");
+  });
+
+  it("passes shared golden-path sanitize fixtures", () => {
+    const got = sanitizeCrashText(fixture.stack);
+    for (const needle of fixture.must_not_contain) {
+      expect(got).not.toContain(needle);
+    }
+    for (const needle of fixture.must_contain) {
+      expect(got).toContain(needle);
+    }
   });
 
   it("sanitizes crash JSON payload fields", () => {

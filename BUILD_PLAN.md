@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · AUTO 0 · HUMAN 0 · ADB 1 · **1 open**
+**Remaining:** AGENT 1 · AUTO 0 · HUMAN 2 · ADB 0 · **3 open**
 <!-- /remaining-tally -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
@@ -28,23 +28,30 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** **v1.2.0** shipped. Open Dependabot / Release Please PRs sync into the block below (`sync-open-prs-build-plan`). After Cloud work, type `/resume` on the PC. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** **v1.2.0** shipped. **M61** archived · next allideas batch when ready. Open PRs sync below. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-> **M57** archived in COMPLETED_TASKS.md @ `e65513d`.
+> **M61** archived in COMPLETED_TASKS.md @ `ca0edfb`.
+> **M60** archived in COMPLETED_TASKS.md @ `ca0edfb`.
+> **M59** archived in COMPLETED_TASKS.md @ `ca0edfb`.
+> **M58** archived in COMPLETED_TASKS.md @ `ca0edfb`.
+> **M57** archived in COMPLETED_TASKS.md @ `e65513d`. Nav smoke ADB archived 2026-09-10.
+> **Waiting HUMAN/ADB auto** archived in COMPLETED_TASKS.md @ `ca0edfb`.
 
 ### Open PRs (synced)
 
 > Auto-managed. Do not hand-edit rows inside the markers. Run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` (or `/resume` / `/dependabot`).
 
 <!-- open-prs-sync:begin -->
-_No open Dependabot or Release Please PRs._
+- 🔲 [AGENT] Merge release [#106](https://github.com/edwardlthompson/agent-project-bootstrap/pull/106) (chore(main): release 1.3.0)
 <!-- open-prs-sync:end -->
 
 ### Waiting on a person
 
-1. 🔲 [ADB] Golden Path nav smoke on device (Settings Back → home; second Back stays)
+1. 🔲 [HUMAN] Approve/merge Release Please 1.3.0 when workflows allow (#4)
+2. 🔲 [HUMAN] Lightroom Plug-in Manager load smoke (#29)
+3. ✅ [ADB] UnifiedPush end-to-end with FOSS distributor (#16)
 
-Done on this board: **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M61** back/nav/gates · **M60** CI clarity · **M59** CI harden · **M58** ship CI + Espresso · **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

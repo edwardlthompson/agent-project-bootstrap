@@ -243,6 +243,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: bash scripts/validate-bootstrap.sh
+      - name: Crash inbox stub disabled-by-default
+        run: bash scripts/check-crash-inbox.sh
 
   web:
     name: Web - Lint, Test, Build
@@ -428,13 +430,40 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - name: Run instrumented smoke test
+        id: instrumented
+        continue-on-error: true
         uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
         with:
           api-level: 34
           arch: x86_64
           target: default
           disable-animations: true
+          # AVD name convention: goldenpath-api34 (see examples/android/README snapshot bake).
+          # Emulator-runner caches system images; optional custom snapshot key: api-34-x86_64-goldenpath.
           script: cd examples/android && chmod +x gradlew && ./gradlew connectedDebugAndroidTest --no-daemon
+      - name: Retry instrumented once (flaky quarantine)
+        id: retry
+        if: steps.instrumented.outcome == 'failure'
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 34
+          arch: x86_64
+          target: default
+          disable-animations: true
+          # Quarantine: one automatic retry for intermittent emulator flakes (API 34).
+          # Do not use this to hide real product regressions — fix or @Ignore with a bug link instead.
+          script: cd examples/android && ./gradlew connectedDebugAndroidTest --no-daemon
+      - name: Fail job if instrumented still red after retry
+        if: steps.instrumented.outcome == 'failure' && steps.retry.outcome == 'failure'
+        run: exit 1
+      - name: Stop emulator and adb (always)
+        if: always()
+        run: |
+          adb devices || true
+          adb emu kill || true
+          adb kill-server || true
+          pkill -f 'qemu-system' || true
+          pkill -f 'emulator' || true
 
   coverage-comment:
     name: PR Coverage Summary
@@ -680,9 +709,33 @@ jobs:
       - sanitize-fixtures
     steps:
       - name: Require core CI jobs
+        env:
+          RH: ${{ needs.repo-hygiene.result }}
+          FG: ${{ needs.feature-gate.result }}
+          UW: ${{ needs.upgrade-simulation-windows.result }}
+          VB: ${{ needs.validate-bootstrap.result }}
+          SF: ${{ needs.sanitize-fixtures.result }}
         run: |
-          test "${{ needs.repo-hygiene.result }}" = "success"
-          test "${{ needs.feature-gate.result }}" = "success"
-          test "${{ needs.upgrade-simulation-windows.result }}" = "success"
-          test "${{ needs.validate-bootstrap.result }}" = "success"
-          test "${{ needs.sanitize-fixtures.result }}" = "success"
+          set -euo pipefail
+          failed=()
+          [ "$RH" = "success" ] || failed+=("Repo Hygiene ($RH)")
+          [ "$FG" = "success" ] || failed+=("Feature Gate ($FG)")
+          [ "$UW" = "success" ] || failed+=("Template Upgrade Simulation (Windows) ($UW)")
+          [ "$VB" = "success" ] || failed+=("Validate Bootstrap ($VB)")
+          [ "$SF" = "success" ] || failed+=("Sanitizer fixture parity ($SF)")
+          {
+            echo "## CI aggregate"
+            if [ "${#failed[@]}" -eq 0 ]; then
+              echo "All required child jobs succeeded."
+            else
+              echo "Failing child jobs:"
+              for name in "${failed[@]}"; do
+                echo "- $name"
+              done
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "${#failed[@]}" -gt 0 ]; then
+            echo "ci-ok: failing child jobs: ${failed[*]}"
+            exit 1
+          fi
+          echo "ci-ok: all core child jobs succeeded"

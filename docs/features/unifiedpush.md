@@ -4,7 +4,7 @@
 
 ## Acceptance criteria
 
-- ✅ Distributor discovery via `org.unifiedpush.android.distributor.REGISTER`
+- ✅ Distributor discovery via `org.unifiedpush.android.distributor.REGISTER` (activities + broadcast receivers; ntfy)
 - ✅ Message receiver listens for `org.unifiedpush.android.connector.MESSAGE`
 - ✅ `usesProprietaryPush()` is always false
 - ✅ Registration stays off until a distributor package is present
@@ -21,7 +21,7 @@
 |-------|------|
 | Logic | `examples/android/app/src/main/java/dev/foss/goldenpath/push/` |
 | View | N/A (no new chrome) |
-| Tests | `push/UnifiedPushConfigTest.kt`, `tests/test_unifiedpush_sample.py` |
+| Tests | `push/UnifiedPushConfigTest.kt`, `UnifiedPushDistributorUiTest`, `tests/test_unifiedpush_sample.py` |
 | Wiring | `GoldenPathApplication.logUnifiedPush` + manifest receiver/`queries` |
 
 ## Tests

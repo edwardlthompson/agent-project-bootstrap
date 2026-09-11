@@ -50,6 +50,8 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 
 ## Session Retrospectives
 
+| 2026-09-10 | M58–M61 /build | Espresso 3.7 + agent DX; M58–M61 archived; KB-023 path spaces; Release Please #106 open | Do not fold Unreleased until /push+/ship; merge RP is HUMAN |
+| 2026-09-10 | M58 Espresso + Android 16 | Pin Espresso 3.7; nav Back smoke on phone; Release checkout order; agent-run PATH/micromamba | Do not empty Unreleased mid-sprint; `/push` then `/ship` owns fold; no `/dev/kvm` → use physical device |
 | 2026-09-10 | BUILD_PLAN declutter | Recurring AUTO/AGENT chores left the board; Monday cron owns them | Do not put weekly/monthly 🔲 rows back on BUILD_PLAN or the child template |
 | 2026-09-10 | OpenSSF passing | Project 14564 passing; README badge live; Ollama leftover rejected | Do not require Ollama on this template; ADB leftovers need the host with the phones |
 | 2026-09-10 | M57 Cursor + docs | Grok Bots, marketplace, skills, registry, Automations, Cloud hooks, Canvas, CLI loop, Settings-only tour/print, optional-stack gaps, ADR-0001 gate, ci-gap registry | Do not treat `/tour` backticks as file paths; do not pre-select ADR-0001 |
@@ -110,3 +112,12 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 - **Source template:** `edwardlthompson/agent-project-bootstrap` (self-maintained)
 - **Template version:** `1.2.0` (see `.template-version`)
 - **Last update check:** See `.template-update.json`
+
+### Retrospective — 2026-09-10 (M61)
+
+- M61 allideas 161–200 AGENT rows ✅; smoke-sprint passed; archived @ `ca0edfb`. Open PR #106 merge stays HUMAN.
+## Milestone 2026-09-11 — /push toward 1.3.0
+
+- Folded Unreleased; pushing main for Release Please #106.
+- UnifiedPush ntfy E2E + BroadcastReceiver discovery; HUMAN/ADB waiting automation.
+- About lego: Rust CARGO_PKG_VERSION; Python test_about_parity split.

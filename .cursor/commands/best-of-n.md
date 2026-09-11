@@ -19,7 +19,11 @@ Use Cursor’s `/best-of-n` (or the models picker) with N worktrees. Setup scrip
 
 Models come from the **Cursor picker** (cloud or the user’s local Ollama override). See `docs/LOCAL_MODELS.md` — do not invent API keys.
 
-## 3. Apply the winner
+## 3. Android serial isolation
+
+When racing Android instrumented work across worktrees, set a **distinct** `ANDROID_SERIAL` (or `ANDROID_SERIAL_<worktree>`) per runner so `adb` never targets another agent’s emulator. Example: worktree A → `emulator-5554`, worktree B → `emulator-5556`. Do not share one serial across N runners. Skip `/emulator` races when only one KVM slot exists (`check-local-compute`).
+
+## 4. Apply the winner
 
 Keep one worktree. Remove extras when done. Parallel-lock leftovers under `.cursor/worktrees/` (not Cursor native worktrees): `python3 scripts/agent-run.py gc-worktrees -- --apply`. Run `python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto` on the winner.
 

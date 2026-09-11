@@ -8,6 +8,11 @@ describe("settings search", () => {
     expect(tokensMatch("privacy", "Appearance Theme")).toBe(false);
   });
 
+  it("matches diacritics-insensitive queries", () => {
+    expect(tokensMatch("informacion", "Información del app")).toBe(true);
+    expect(tokensMatch("café", "Cafe settings")).toBe(true);
+  });
+
   it("hides groups and shows empty state", () => {
     const a = document.createElement("section");
     a.dataset.settingsHaystack = "Appearance Theme";

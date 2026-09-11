@@ -8,6 +8,7 @@ import {
 import { applyPwaUpdate } from "./about/applyUpdate";
 import { loadDonations, primaryDonateUrl } from "./about/donations";
 import { decideLaunchPrompt, type LaunchPrompt } from "./about/runAppUpdates";
+import { hasWaitingWorker, watchWaitingWorker } from "./about/swUpdatePrompt";
 import { markUpdateChecked, markVersionSeen } from "./about/updatePrefs";
 import { assetUrl } from "./assetUrl";
 import { installCrashHandler } from "./crash-capture/installHandler";
@@ -21,6 +22,7 @@ import {
   loadNav,
   syncHistoryToNav,
 } from "./nav";
+import { runNavTransition } from "./nav/viewTransitions";
 import { shareTargetDescription } from "./share-target";
 import { initTheme, subscribeThemeChange } from "./theme";
 
@@ -45,6 +47,8 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
     updateStatus: t("about.update.current"),
     donations: { enabled: false, message: "", links: [] },
     launchPrompt: null,
+    canApplyUpdate: false,
+    showSwUpdatePrompt: false,
   };
 
   function applyNav(next: typeof intent.nav): void {
@@ -58,22 +62,24 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
   }
 
   function render(): void {
-    createAppShell(appRoot, state, {
-      onState: (patch) => {
-        state = { ...state, ...patch };
-        render();
-      },
-      onPushRoute: (route, kind) => {
-        const next = navCtl.pushRoute(route, kind);
-        if (next) applyNav(next);
-      },
-      onPop: () => navCtl.popFromUi(),
-      onApplyUpdate: () => {
-        void handleApplyUpdate();
-      },
-      onDonate: openDonate,
-      onLaunchPrompt: handleLaunchPrompt,
-      canApplyUpdate: false,
+    runNavTransition(() => {
+      createAppShell(appRoot, state, {
+        onState: (patch) => {
+          state = { ...state, ...patch };
+          render();
+        },
+        onPushRoute: (route, kind) => {
+          const next = navCtl.pushRoute(route, kind);
+          if (next) applyNav(next);
+        },
+        onPop: () => navCtl.popFromUi(),
+        onApplyUpdate: () => {
+          void handleApplyUpdate();
+        },
+        onDonate: openDonate,
+        onLaunchPrompt: handleLaunchPrompt,
+        canApplyUpdate: state.canApplyUpdate,
+      });
     });
   }
 
@@ -83,7 +89,12 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
     if (!registration) return;
     const applied = await applyPwaUpdate(registration);
     if (applied) {
-      state = { ...state, updateStatus: t("about.update.restarting") };
+      state = {
+        ...state,
+        updateStatus: t("about.update.restarting"),
+        canApplyUpdate: false,
+        showSwUpdatePrompt: false,
+      };
       render();
     }
   }
@@ -138,7 +149,25 @@ export function bootstrapApp(appRoot: HTMLDivElement): void {
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-      navigator.serviceWorker.register(assetUrl("sw.js")).catch(() => {});
+      void navigator.serviceWorker
+        .register(assetUrl("sw.js"))
+        .then((registration) => {
+          const syncWaiting = (waiting: boolean) => {
+            if (!waiting) return;
+            // Opt-in only: surface Apply in About + home prompt; never auto SKIP_WAITING.
+            state = {
+              ...state,
+              canApplyUpdate: true,
+              showSwUpdatePrompt: true,
+              updateStatus: t("about.update.available"),
+            };
+            render();
+          };
+          if (hasWaitingWorker(registration)) syncWaiting(true);
+          watchWaitingWorker(registration, syncWaiting);
+          void registration.update().catch(() => {});
+        })
+        .catch(() => {});
     });
   }
 }

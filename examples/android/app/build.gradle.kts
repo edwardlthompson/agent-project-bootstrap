@@ -27,6 +27,15 @@ val syncExemplarAssets = tasks.register("syncExemplarAssets") {
 
 tasks.named("preBuild").configure { dependsOn(syncExemplarAssets) }
 
+fun readGoldenPathAppVersion(): String {
+    val file = rootProject.file("../../schemas/golden-path/app-version.json")
+    check(file.isFile) { "Missing Golden Path app version SoT: ${file.invariantSeparatorsPath}" }
+    val match = Regex(""""version"\s*:\s*"([^"]+)"""").find(file.readText())
+    val version = match?.groupValues?.get(1)?.trim().orEmpty()
+    check(version.isNotEmpty()) { "schemas/golden-path/app-version.json missing version" }
+    return version
+}
+
 android {
     namespace = "dev.foss.goldenpath"
     compileSdk = 37
@@ -36,8 +45,9 @@ android {
         minSdk = 26
         targetSdk = 37
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = readGoldenPathAppVersion()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
     }
 
     buildTypes {
@@ -75,6 +85,8 @@ android {
     }
     testOptions {
         unitTests.isIncludeAndroidResources = true
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        animationsDisabled = true
     }
 
     lint {
@@ -110,9 +122,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.3.0")
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test:rules:1.7.0")
-    // Espresso 3.7+ uses getSystemService (Android 16 removed InputManager.getInstance).
+    // Pin AndroidX Test line (no official test-bom). Espresso 3.7+ required on API 36+.
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestUtil("androidx.test:orchestrator:1.6.1")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

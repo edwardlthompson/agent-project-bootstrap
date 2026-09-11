@@ -88,6 +88,15 @@ Progress file: `.cursor/agent-progress.json` (gitignored). See `.cursor-session-
 | `scripts/apply-suggested-gate-fixes.sh` | Allowlisted `failed_stage` → safe fixer commands |
 | `scripts/watch-agent-gates.sh` | Gate loop with autofix + progress tracking (`--scope auto` dirty stacks; `--scope full` or `/gates` for all stacks) |
 | `scripts/agent-progress.sh` | Read/write agent progress JSON |
+After an **environment** fix (pre-commit install, JDK/SDK/PATH bootstrap) that caused gate failures unrelated to product code, clear the halt counter before retrying:
+
+```bash
+python3 scripts/agent-run.py agent-progress reset-strikes
+# or: bash scripts/agent-progress.sh reset-strikes
+
+```
+
+Do **not** use this to bypass a real 3-strike product bug — only after the env root cause is fixed.
 | `scripts/smoke-stack.sh` | Alias for `feature-gate.sh` |
 | `scripts/smoke-sprint.sh` | After a sprint is all ✅: re-smoke every checked row; startup + load order (`docs/SPRINT_SMOKE.md`) |
 **CI-only gates (not in local `feature-gate.sh`):** Playwright e2e, Lighthouse budgets, bundle-size, license compliance — see `.github/workflows/ci.yml`. Use `watch-agent-gates.sh --wait-ci 300` after push.
@@ -107,3 +116,16 @@ Progress file: `.cursor/agent-progress.json` (gitignored). See `.cursor-session-
 - [`.cursor/rules/feature-modules.mdc`](../.cursor/rules/feature-modules.mdc)
 - [`BUILD_PLAN.md`](../BUILD_PLAN.md) — this template’s live board
 - [`BUILD_PLAN_TEMPLATE.md`](../BUILD_PLAN_TEMPLATE.md) — child product board (Sprint 0–2+)
+
+## Android-first waves (`FEATURE_GATE_ONLY`)
+
+When a dirty tree only needs Android (or a short list) before a full multi-stack gate:
+
+```bash
+FEATURE_GATE_ONLY=android python3 scripts/agent-run.py feature-gate --stack multi
+# or after autofix retry of a failed stack:
+FEATURE_GATE_ONLY=android,web python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto
+
+```
+
+`/gates` and `/prerelease` stay full (unset `FEATURE_GATE_ONLY`). Use android-first waves after Espresso/nav rows; then run full multi before sprint smoke.

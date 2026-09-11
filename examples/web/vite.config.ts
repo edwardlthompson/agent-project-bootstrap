@@ -22,7 +22,9 @@ const CSP =
   "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://api.github.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'";
 
 const SECURITY_HEADERS: Record<string, string> = {
+  // Enforce in preview; Pages meta stays enforcing. Report-Only documents dual-mode path.
   "Content-Security-Policy": `${CSP}; frame-ancestors 'none'`,
+  "Content-Security-Policy-Report-Only": `${CSP}; frame-ancestors 'none'`,
   "Referrer-Policy": "no-referrer",
   "Permissions-Policy":
     "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",

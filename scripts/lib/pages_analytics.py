@@ -21,6 +21,7 @@ NEEDLES = (
     "vite_analytics",
 )
 SKIP_PARTS = ("node_modules", "dist-ssr", ".vite")
+SKIP_SUFFIXES = (".test.ts", ".test.js", ".spec.ts", ".spec.js")
 SCAN = (
     Path("examples/web/index.html"),
     Path("examples/web/src"),
@@ -37,8 +38,11 @@ def _iter_files(root: Path) -> list[Path]:
             out.append(path)
         elif path.is_dir():
             for child in path.rglob("*"):
-                if child.is_file() and not any(p in child.parts for p in SKIP_PARTS):
-                    out.append(child)
+                if not child.is_file() or any(p in child.parts for p in SKIP_PARTS):
+                    continue
+                if child.name.endswith(SKIP_SUFFIXES):
+                    continue
+                out.append(child)
     return out
 
 

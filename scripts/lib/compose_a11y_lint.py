@@ -12,6 +12,8 @@ REQUIRED = (
     "KeyboardInaccessibleWidget",
 )
 
+SCREEN = Path("examples/android/app/src/main/java/dev/foss/goldenpath/ui/GoldenPathScreen.kt")
+
 
 def check(root: Path) -> list[str]:
     lint_xml = root / "examples/android/app/lint.xml"
@@ -30,6 +32,24 @@ def check(root: Path) -> list[str]:
             errors.append(f"lint.xml missing error issue {issue}")
         if f'error += "{issue}"' not in kts:
             errors.append(f"build.gradle.kts lint.error missing {issue}")
+
+    screen = root / SCREEN
+    if screen.is_file():
+        src = screen.read_text(encoding="utf-8")
+        if "if (!atHome)" not in src:
+            errors.append("GoldenPathScreen.kt must gate Back icon with if (!atHome)")
+        if "R.string.nav_back" not in src or "contentDescription" not in src:
+            errors.append(
+                "GoldenPathScreen.kt must set Back contentDescription to stringResource(R.string.nav_back)"
+            )
+        # Back description must appear inside the !atHome navigationIcon branch.
+        if "if (!atHome)" in src:
+            after = src.split("if (!atHome)", 1)[1]
+            branch = after.split("actions =", 1)[0]
+            if "nav_back" not in branch or "contentDescription" not in branch:
+                errors.append(
+                    "Back contentDescription (nav_back) must live inside the !atHome navigationIcon branch"
+                )
     return errors
 
 

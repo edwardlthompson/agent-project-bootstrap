@@ -1,9 +1,13 @@
-/** Filter Settings groups by a case-insensitive substring. */
+/** Filter Settings groups by a case-insensitive substring (diacritics-insensitive). */
+
+function stripDiacritics(text: string): string {
+  return text.normalize("NFD").replace(/\p{M}+/gu, "");
+}
 
 export function tokensMatch(query: string, haystack: string): boolean {
-  const needle = query.trim().toLowerCase();
+  const needle = stripDiacritics(query.trim()).toLowerCase();
   if (!needle) return true;
-  return haystack.toLowerCase().includes(needle);
+  return stripDiacritics(haystack).toLowerCase().includes(needle);
 }
 
 export function applySettingsSearch(

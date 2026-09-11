@@ -8,6 +8,8 @@ disable-model-invocation: false
 
 See also: `.cursor/commands/fix.md`
 
+**Espresso before emulator reinstall:** on Android 16 `InputManager.getInstance` failures, bump `espresso-core` to ≥3.7.0 (`.cursor/skills/espresso-android16`) before deleting AVDs or re-downloading system images.
+
 Print strike/stage **first**:
 
 ```bash

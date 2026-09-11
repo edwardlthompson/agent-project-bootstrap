@@ -1,5 +1,5 @@
 {
-  description = "Optional wrappers for existing agent-project-bootstrap scripts (not a second generator CLI).";
+  description = "Optional wrappers for existing agent-project-bootstrap scripts (not a second generator CLI). .#verify runs scripts/verify.sh only — missing toolchains/pruned stacks are skipped by that script, not by Nix.";
 
   outputs =
     { self }:

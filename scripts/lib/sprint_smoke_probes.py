@@ -44,8 +44,20 @@ def load_budget(root: Path) -> dict[str, int]:
 def _time_cmd(argv: list[str], cwd: Path | None) -> tuple[int, float, str]:
     start = time.perf_counter()
     try:
+        from agent_run_env import child_env
+
+        env = child_env()
+    except ImportError:
+        env = None
+    try:
         proc = subprocess.run(
-            argv, cwd=cwd, capture_output=True, text=True, timeout=20, check=False
+            argv,
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            timeout=20,
+            check=False,
+            env=env,
         )
     except (OSError, subprocess.TimeoutExpired) as exc:
         return 1, (time.perf_counter() - start) * 1000, str(exc)

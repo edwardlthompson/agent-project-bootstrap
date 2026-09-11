@@ -57,6 +57,24 @@ class PreflightTests(unittest.TestCase):
                 errors, _warnings = preflight("none")
         self.assertTrue(any("git" in e.lower() for e in errors))
 
+    def test_android_sdk_skip_env(self) -> None:
+        with patch("bootstrap_engine.tool_present", side_effect=lambda n: n in ("git", "java")):
+            with patch("bootstrap_engine.python_present", return_value=True):
+                with patch("bootstrap_engine.android_sdk_present", return_value=False):
+                    with patch.dict("os.environ", {"SKIP_ANDROID_SDK": "1"}, clear=False):
+                        errors, warnings = preflight("android", strict=True)
+        self.assertEqual(errors, [])
+        self.assertTrue(any("SKIP_ANDROID_SDK" in w for w in warnings))
+
+    def test_android_sdk_missing_warns(self) -> None:
+        with patch("bootstrap_engine.tool_present", side_effect=lambda n: n in ("git", "java")):
+            with patch("bootstrap_engine.python_present", return_value=True):
+                with patch("bootstrap_engine.android_sdk_present", return_value=False):
+                    with patch.dict("os.environ", {"SKIP_ANDROID_SDK": ""}, clear=False):
+                        errors, warnings = preflight("android", strict=False)
+        self.assertEqual(errors, [])
+        self.assertTrue(any("Android SDK" in w for w in warnings))
+
     def test_missing_docker_is_warning(self) -> None:
         with patch("bootstrap_engine.tool_present", side_effect=lambda n: n == "git"):
             with patch("bootstrap_engine.python_present", return_value=True):

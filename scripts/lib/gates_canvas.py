@@ -5,6 +5,20 @@ import json
 import os
 from pathlib import Path
 
+from gates_canvas_health import ci_status_one_liner, dirty_tree_one_liner, fix_banner
+
+__all__ = [
+    "canvas_dir",
+    "ci_status_one_liner",
+    "dirty_tree_one_liner",
+    "fix_banner",
+    "load_gate_rows",
+    "markdown_report",
+    "next_open_row",
+    "stack_tier",
+    "write_status",
+]
+
 
 def stack_tier(root: Path) -> tuple[str, str]:
     path = root / ".cursor" / "stack-selection.json"
@@ -21,18 +35,16 @@ def next_open_row(root: Path) -> str:
     path = root / "BUILD_PLAN.md"
     if not path.is_file():
         return "(no BUILD_PLAN.md)"
-    for line in path.read_text(encoding="utf-8").splitlines():
-        stripped = line.strip()
-        # Skip prose that mentions [AGENT] (e.g. Format legend); only numbered/dash rows.
-        if not (stripped[:1].isdigit() or stripped.startswith("-")):
-            continue
-        if "🔲" in line and "[AGENT]" in line:
-            return stripped[:120]
-    for line in path.read_text(encoding="utf-8").splitlines():
-        stripped = line.strip()
-        if not (stripped[:1].isdigit() or stripped.startswith("-")):
-            continue
-        if "🔲" in line:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    for prefer_agent in (True, False):
+        for line in lines:
+            stripped = line.strip()
+            if not (stripped[:1].isdigit() or stripped.startswith("-")):
+                continue
+            if "🔲" not in line:
+                continue
+            if prefer_agent and "[AGENT]" not in line:
+                continue
             return stripped[:120]
     return "(no open rows)"
 
@@ -45,13 +57,14 @@ def markdown_report(root: Path, extra_rows: list[tuple[str, str]]) -> str:
         f"- Stack: `{stack}`",
         f"- Tier: `{tier}`",
         f"- Next BUILD_PLAN row: {next_open_row(root)}",
+        f"- {ci_status_one_liner(root)}",
+        f"- {dirty_tree_one_liner(root)}",
         "",
         "| Gate | Result |",
         "| --- | --- |",
+        *[f"| {name} | {result} |" for name, result in extra_rows],
+        "",
     ]
-    for name, result in extra_rows:
-        lines.append(f"| {name} | {result} |")
-    lines.append("")
     return "\n".join(lines)
 
 
@@ -86,52 +99,44 @@ def _canvas_source(rows: list[tuple[str, str]]) -> str:
     )
 
 
+def _with_sw_budget(root: Path, rows: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    try:
+        from sw_cache_budget import summary_row
+    except ImportError:
+        return rows
+    sw_row = summary_row(root)
+    if sw_row is None or any(name == "sw-cache-budget" for name, _ in rows):
+        return rows
+    return [*rows, sw_row]
+
+
 def load_gate_rows(root: Path) -> list[tuple[str, str]]:
     path = root / ".cursor" / "last-feature-gate.json"
     if not path.is_file():
-        return [("render-gates-status", "Pass")]
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return [("last-feature-gate.json", "Fail")]
-    rows = [(str(name), "Pass") for name in data.get("gates_passed") or []]
-    stage = data.get("failed_stage")
-    if stage:
-        rows.append((str(stage), "Fail"))
-    if not rows:
-        rows = [("feature-gate", "Pass" if data.get("ok") else "Fail")]
-    return rows
+        rows: list[tuple[str, str]] = [("render-gates-status", "Pass")]
+    else:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            rows = [("last-feature-gate.json", "Fail")]
+        else:
+            rows = [(str(name), "Pass") for name in data.get("gates_passed") or []]
+            stage = data.get("failed_stage")
+            if stage:
+                rows.append((str(stage), "Fail"))
+            if not rows:
+                rows = [("feature-gate", "Pass" if data.get("ok") else "Fail")]
+    return _with_sw_budget(root, rows)
 
 
 def write_status(root: Path, extra_rows: list[tuple[str, str]] | None = None) -> Path:
-    rows = extra_rows if extra_rows is not None else load_gate_rows(root)
-    md = markdown_report(root, rows)
+    rows = load_gate_rows(root) if extra_rows is None else _with_sw_budget(root, list(extra_rows))
     dest = root / ".cursor" / "gates-status.md"
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(md, encoding="utf-8", newline="\n")
+    dest.write_text(markdown_report(root, rows), encoding="utf-8", newline="\n")
     canvases = canvas_dir()
     if canvases is not None:
         (canvases / "gates-status.canvas.tsx").write_text(
             _canvas_source(rows), encoding="utf-8", newline="\n"
         )
     return dest
-
-
-def _json_file(path: Path) -> dict:
-    if not path.is_file():
-        return {}
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return {}
-    return data if isinstance(data, dict) else {}
-
-
-def fix_banner(root: Path) -> str:
-    strikes = _json_file(root / ".cursor" / "agent-progress.json").get("strikes", 0)
-    try:
-        strikes_n = int(strikes)
-    except (TypeError, ValueError):
-        strikes_n = 0
-    stage = _json_file(root / ".cursor" / "last-feature-gate.json").get("failed_stage") or "none"
-    return f"strikes={strikes_n}\nfailed_stage={stage}\n"

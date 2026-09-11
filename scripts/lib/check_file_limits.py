@@ -31,6 +31,7 @@ STATIC_SKIP = {
 LOGIC_SKIP_PREFIX = (
     "examples/web/src/components/",
     "examples/web/src/main.ts",
+    "examples/web/src/appBootstrap.ts",
 )
 LIB_ALLOWLIST: set[str] = set()
 

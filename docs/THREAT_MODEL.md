@@ -69,3 +69,23 @@ Link mitigations to `BUILD_PLAN.md` and `docs/SECURITY_TRIAGE.md` weekly triage.
 
 - `[HUMAN]` Review at each milestone boundary
 - `[AGENT]` Update when architecture or data flows change (append ADR reference)
+
+## Appendix — Android 16 / InputManager reflection
+
+Compose UI tests on **API 36 (Android 16)** can fail when older Espresso still calls removed reflective APIs (`InputManager.getInstance`). That is a **supply-chain / test-harness** risk on the FOSS path: a green local API 34 emulator can hide a red CI or physical-device run.
+
+| Threat | Mitigation |
+|--------|------------|
+| Tampering / false confidence | Pin `androidx.test.espresso:espresso-core` **≥ 3.7.0** in Golden Path Gradle; gate with `check-espresso-android16` |
+| Elevation via reflective sinks | Prefer Espresso 3.7+ over emulator reinstall; Semgrep pack notes reflective-API sinks (manual Kotlin review until rules land) |
+| Denial of agent progress | Gate-fixer / `/fix` skill: Espresso bump before wiping AVDs — see KB-022 and `.cursor/skills/espresso-android16/` |
+Do **not** treat InputManager reflection as an app attack surface for Golden Path UI code; treat it as a **test dependency pin** invariant. Nav Back smoke still uses Espresso `pressBack()` where system Back is under test.
+
+## Appendix — USB debugging / adbkey lifecycle
+
+| Asset | Risk | Control |
+|-------|------|---------|
+| `~/.android/adbkey` (+ `.pub`) | Device auth material; theft enables USB debugging sessions | Never commit; never set `ADB_VENDOR_KEYS` in git or CI logs; gate: `check-android-sdk-secrets` |
+| Vendor keys via `ADB_VENDOR_KEYS` | Same as adbkey when used for CI device farms | Out of scope for FOSS template CI; document in child runbooks only |
+| `local.properties` `sdk.dir` | Machine path leak | gitignored + Gitleaks |
+Rotate compromised adb keys by removing `~/.android/adbkey*` and re-authorizing devices. Do not paste keys into Issues or agent prompts.

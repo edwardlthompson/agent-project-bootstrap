@@ -29,6 +29,9 @@ class OpenVexTests(unittest.TestCase):
         self.assertIn('"${FILES[@]}"', release)
         self.assertNotIn("cat .template-version", release)
         self.assertIn("openvex.json", wait)
+        self.assertIn("--require", wait)
+        self.assertIn("--once", wait)
+        self.assertIn("gh release view", wait)
         ignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
         self.assertIn("openvex.json", ignore)
 

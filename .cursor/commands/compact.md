@@ -14,6 +14,6 @@ python3 scripts/agent-run.py compact-session-state
 
 ```
 
-That writes `unreleased_has_entries`, `unreleased_excerpt`, and `open_human_adb_rows`. Use schema in `.cursor-session-state.example.json`. Do not commit this file (gitignored).
+That writes `unreleased_has_entries`, `unreleased_excerpt`, `open_human_adb_rows`, and `last_ci_conclusion` (one-line CI status from `gh run list` / required checks). Use schema in `.cursor-session-state.example.json`. Do not commit this file (gitignored).
 
 Begin now.

@@ -8,6 +8,7 @@ Use this when a **child** repo ships a native Windows installer. This template s
 
 ```bash
 bash scripts/validate-winget-stub.sh packaging/winget/example/manifest.yaml
+
 ```
 
 Do not file a Winget PR for this template using that example.
@@ -28,6 +29,7 @@ The committed example shows both `x64` and `arm64` with placeholder hashes.
 ```bash
 bash scripts/generate-winget-manifest.sh Example.Publisher.App 1.2.3 packaging/winget
 bash scripts/validate-winget-stub.sh packaging/winget/manifest.stub.yaml
+
 ```
 
 `generate-winget-manifest.sh` writes `PackageIdentifier`, `PackageVersion`, `License`, and `InstallerSha256`. `validate-winget-stub.sh` fails if those keys are missing. A missing file is a skip (CI generates the stub in `release.yml` before the check).
@@ -56,9 +58,14 @@ Hash real installer files, write a stub, and validate. The loop **does not submi
 ```bash
 WINGET_INSTALLER_X64=dist/app-x64.zip WINGET_INSTALLER_ARM64=dist/app-arm64.zip \
   bash scripts/winget-publish-loop.sh
-# No Windows assets yet:
+# Prefer hashing real GitHub Release assets when present:
+bash scripts/winget-publish-loop.sh --dry-run --from-release
+# No Windows assets yet (packs a local zip):
 bash scripts/winget-publish-loop.sh --dry-run
+
 ```
+
+`--from-release` uses `gh release download` for the latest tag’s `.zip`/`.msi`/`.exe` assets when any exist. If the latest Release has **no** installers (common on this template), it prints a NOTE and falls back to the packed dry-run zip so the loop still validates.
 
 Output: `dist/winget-loop/manifest.stub.yaml` (gitignored). `[HUMAN]` replaces `InstallerUrl` with GitHub Release HTTPS assets, then opens the `microsoft/winget-pkgs` PR.
 

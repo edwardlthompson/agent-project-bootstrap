@@ -6,6 +6,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+from health_ci import ci_red_one_liner
 from health_notes import unreleased_has_entries
 from parallel_lock_gc import gc_parallel_lock
 
@@ -58,6 +59,7 @@ def merge_compact(root: Path, extra: dict[str, object] | None = None) -> dict[st
     data["unreleased_has_entries"] = unreleased_has_entries(root)
     data["unreleased_excerpt"] = unreleased_excerpt(root)
     data["open_human_adb_rows"] = open_human_adb_rows(root)
+    data["last_ci_conclusion"] = ci_red_one_liner(root)
     if extra:
         data.update(extra)
     state_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
@@ -70,7 +72,11 @@ def main() -> int:
     gc = gc_parallel_lock(root)
     n_u = len(data.get("unreleased_excerpt") or [])
     n_h = len(data.get("open_human_adb_rows") or [])
-    print(f"session compact: unreleased_items={n_u} human_adb_rows={n_h} parallel_lock={gc}")
+    ci = data.get("last_ci_conclusion") or ""
+    print(
+        f"session compact: unreleased_items={n_u} human_adb_rows={n_h} "
+        f"parallel_lock={gc} last_ci={ci}"
+    )
     return 0
 
 

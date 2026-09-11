@@ -17,6 +17,12 @@ BLOCK = re.compile(
     re.DOTALL,
 )
 MARKERS = "<!-- remaining-tally -->\n{body}\n<!-- /remaining-tally -->"
+# Standing Monday-cron chores must not return as 🔲 rows under Ongoing Maintenance.
+CHORE_HINT = re.compile(
+    r"(weekly|/maintain|monday\s+cron|update-deps\s+dry-run|dependabot\s+leftover|"
+    r"latest-release\s+sbom|security\s+triage)",
+    re.I,
+)
 
 
 def count_remaining(text: str) -> dict[str, int]:
@@ -55,11 +61,39 @@ def apply_tally(text: str) -> str:
     return f"{block}\n\n{text}"
 
 
+def maintenance_section(text: str) -> str:
+    start = text.find("## Ongoing Maintenance")
+    if start < 0:
+        return ""
+    end = text.find("## Archive", start)
+    return text[start:end] if end > start else text[start:]
+
+
+def weekly_chore_errors(text: str) -> list[str]:
+    """Forbid standing weekly/Monday chore open rows under Ongoing Maintenance."""
+    section = maintenance_section(text)
+    if not section:
+        return []
+    errors: list[str] = []
+    for line in section.splitlines():
+        stripped = line.strip()
+        if "🔲" not in stripped:
+            continue
+        if "[AUTO]" in stripped or "[AGENT]" in stripped or CHORE_HINT.search(stripped):
+            errors.append(f"Ongoing Maintenance open row forbidden: {stripped[:100]}")
+    return errors
+
+
 def refresh_file(path: Path, *, check: bool) -> int:
     if not path.is_file():
         print(f"SKIP: {path} missing", file=sys.stderr)
         return 0
     raw = path.read_text(encoding="utf-8")
+    chore_errs = weekly_chore_errors(raw)
+    if chore_errs:
+        for err in chore_errs:
+            print(f"FAIL: {path.name}: {err}", file=sys.stderr)
+        return 1
     updated = apply_tally(raw)
     if raw == updated:
         print(f"OK: {path.name} tally")

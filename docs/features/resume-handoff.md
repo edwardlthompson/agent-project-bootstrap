@@ -5,7 +5,7 @@
 ## Acceptance criteria
 
 - ✅ `/resume` runs `resume-handoff` (fetch + open-PR sync + digest)
-- ✅ Digest names next `🔲 [AGENT]` row, Unreleased flag, Dependabot/release PRs, and open `cursor/*` PRs
+- ✅ Digest names next `🔲 [AGENT]` row, dirty Unreleased flag, CI-red one-liner (failed required checks), Dependabot/release PRs, and open `cursor/*` PRs
 - ✅ Never resets a dirty tree; never relies on gitignored `/compact` state across machines
 - ✅ `sessionStart` fail-open nudge mentions `/resume` after Cloud
 
@@ -23,7 +23,6 @@
 | View | `.cursor/commands/resume.md` |
 | Tests | `tests/test_resume_handoff.py` |
 | Wiring | `scripts/resume-handoff.sh`, `session_start_context.py`, batch-commands registry |
-
 ## Tests
 
 - Automated: yes — cursor PR filter + digest contents + mocked resume

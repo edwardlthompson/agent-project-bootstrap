@@ -8,6 +8,8 @@ REQUIRED = (
     "useDefault",
     "sanitize-fixtures",
     "[allowlist]",
+    "android-local-properties-sdk-dir",
+    "sdk\\.dir",
 )
 
 

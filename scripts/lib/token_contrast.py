@@ -19,6 +19,9 @@ PAIRS = (
     ("surface", "onSurface", 4.5),
     ("surfaceVariant", "onSurfaceVariant", 4.5),
     ("outline", "surface", 3.0),
+    # Settings dropdowns (web `.gp-settings-row select`): onSurface on surface, both modes.
+    ("onSurface", "surface", 4.5),
+    ("onSurfaceVariant", "surfaceVariant", 4.5),
 )
 
 

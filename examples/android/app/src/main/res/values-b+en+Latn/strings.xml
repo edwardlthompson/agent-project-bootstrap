@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BCP-47 script-tag qualifier smoke (en-Latn); keep parity with values/strings.xml keys used in tests -->
+    <string name="settings_section_appearance">Appearance</string>
+</resources>

@@ -65,6 +65,22 @@ def _inotify_watches() -> int | None:
         return None
 
 
+def _avd_present(sdk: str | None) -> bool:
+    if not sdk:
+        return False
+    home = Path.home()
+    candidates = [
+        home / ".android" / "avd",
+        Path(sdk) / ".android" / "avd",
+    ]
+    for base in candidates:
+        if not base.is_dir():
+            continue
+        if any(base.glob("*.ini")) or any(base.iterdir()):
+            return True
+    return False
+
+
 def main() -> int:
     bad = _jobs_misconfig()
     if bad:
@@ -88,8 +104,15 @@ def main() -> int:
     ollama = "up" if ollama_up() else "down"
     sdk = _sdk() or "none"
     adb = "yes" if _adb() else "no"
+    kvm = _kvm()
     print(f"cpus={cpu} ram_gb={ram if ram is not None else 'unknown'} jobs={jobs} slots={slots}")
-    print(f"ollama={ollama} emulator_gpu=unknown sdk={sdk} adb={adb} kvm={_kvm()}")
+    print(f"ollama={ollama} emulator_gpu=unknown sdk={sdk} adb={adb} kvm={kvm}")
+    if kvm == "no" and _avd_present(None if sdk == "none" else sdk):
+        print(
+            "WARN: AVD present but /dev/kvm missing — /emulator will skip; use a USB device "
+            "(docs/LINUX_DEV.md)",
+            file=sys.stderr,
+        )
     watches = _inotify_watches()
     if watches is not None:
         print(f"inotify_max_user_watches={watches}")

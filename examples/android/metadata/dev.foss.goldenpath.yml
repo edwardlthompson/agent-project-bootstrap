@@ -4,6 +4,8 @@ Categories:
   - Development
 License: MIT
 AntiFeatures: []
+# UnifiedPush FOSS sample: keep AntiFeatures empty unless a child adds proprietary push.
+# See metadata/antifeatures.yml for the refresh notes after UnifiedPush.
 WebSite: https://github.com/edwardlthompson/agent-project-bootstrap
 SourceCode: https://github.com/edwardlthompson/agent-project-bootstrap
 IssueTracker: https://github.com/edwardlthompson/agent-project-bootstrap/issues

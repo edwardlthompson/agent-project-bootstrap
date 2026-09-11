@@ -1,0 +1,21 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "rules": [
+            {
+              "id": "p",
+              "name": "PinnedDependencies"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "p"
+        }
+      ]
+    }
+  ]
+}

@@ -10,6 +10,7 @@ The Golden Path stub targets Lightroom Classic **13.x**. Values live in `example
 |-------|------|
 | `LrSdkVersion` | SDK you develop against (Adobe's current Classic SDK) |
 | `LrSdkMinimumVersion` | Oldest Classic you still claim to load |
+**Pin + checksum (FOSS stub only):** this repo does **not** vendor Adobe SDK headers. Pin is the `LrSdkVersion` / `LrSdkMinimumVersion` pair in `Info.lua`. Integrity check: `sha256sum examples/lightroom/Info.lua` must match the value recorded in `examples/lightroom/SDK_PIN.sha256` (updated only when the HUMAN-approved SDK bump edits `Info.lua`).
 
 ## When to bump
 

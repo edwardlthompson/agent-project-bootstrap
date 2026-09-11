@@ -1,0 +1,21 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "rules": [
+            {
+              "id": "b",
+              "name": "Binary-Artifacts"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "b"
+        }
+      ]
+    }
+  ]
+}

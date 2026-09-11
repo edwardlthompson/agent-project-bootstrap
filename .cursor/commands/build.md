@@ -26,6 +26,8 @@ python3 scripts/agent-run.py build-sprint-status --json --lane auto
 
 Write `.cursor-session-state.json` fields: `active_sprint`, `build_plan_lane`, `autonomous_mode: true`.
 
+**Open PRs sync (once):** if `gh` is available, run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --check`. On exit **0**, print one line (`Open PRs sync current`) and **do not** `--apply` — avoids rewriting an already-✅ / empty Open PRs block every loop. Only run `--apply` when `--check` reports stale. Do **not** re-sync on every Step 1a iteration.
+
 If `all_sprints_agent_auto_complete: true` → print summary (include `HUMAN_BACKLOG.md` path if items exist) and exit.
 
 ## Step 1 — Sprint execution loop

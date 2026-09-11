@@ -4,6 +4,8 @@ Public entry: [project 14564](https://www.bestpractices.dev/en/projects/14564) (
 
 Live JSON (2026-09-10): **100% Passing**, `badge_level: passing`, `achieve_passing: Met`. The README hero already links the live badge. `.bestpractices.json` remains a proposal file for later Baseline/Silver edits.
 
+Machine-written gap list (no fake Silver claims): [`OPENSSF_GAP_LIST.md`](OPENSSF_GAP_LIST.md).
+
 Regenerate apply links: `python3 scripts/lib/bestpractices_apply.py`
 
 ## Passing is done

@@ -17,5 +17,5 @@ python3 scripts/agent-run.py check-repo-hygiene
 
 ```
 
-3. **Always** render a **Canvas** (interactive React artifact beside chat) showing: stack, tier, each gate pass/fail, next BUILD_PLAN open row. Run `python3 scripts/agent-run.py render-gates-status` so `.cursor/gates-status.md` (and a canvas file when `CURSOR_CANVAS_DIR` is set) exists. This is the default `/gates` report — not optional.
+3. **Always** render a **Canvas** (interactive React artifact beside chat) showing: stack, tier, each gate pass/fail, next BUILD_PLAN open row, **CI red one-liner**, and **dirty tree** summary. Run `python3 scripts/agent-run.py render-gates-status` so `.cursor/gates-status.md` (and a canvas file when `CURSOR_CANVAS_DIR` is set) exists. This is the default `/gates` report — not optional.
 4. If Canvas tooling is unavailable, fall back to a markdown gate table in chat — do not fail the skill.

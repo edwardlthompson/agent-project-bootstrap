@@ -197,15 +197,58 @@ function Install-GradleDir([string]$Dir) {
   }
 }
 
+function Link-PlatformTools {
+  $dest = Join-Path $Wt '.cursor\platform-tools'
+  $sdk = $null
+  foreach ($key in @('ANDROID_HOME', 'ANDROID_SDK_ROOT')) {
+    $val = [Environment]::GetEnvironmentVariable($key)
+    if ($val -and (Test-Path -LiteralPath (Join-Path $val 'platform-tools') -PathType Container)) {
+      $sdk = Join-Path $val 'platform-tools'
+      break
+    }
+  }
+  if (-not $sdk) {
+    $local = Join-Path $env:LOCALAPPDATA 'Android\Sdk\platform-tools'
+    if (Test-Path -LiteralPath $local -PathType Container) { $sdk = $local }
+  }
+  if (-not $sdk) {
+    Write-Host 'SKIP platform-tools symlink (SDK not found)'
+    return
+  }
+  $cursorDir = Join-Path $Wt '.cursor'
+  if (-not (Test-Path -LiteralPath $cursorDir)) {
+    New-Item -ItemType Directory -Path $cursorDir -Force | Out-Null
+  }
+  if (Test-Path -LiteralPath $dest) {
+    Write-Host "OK platform-tools already present at $dest"
+    return
+  }
+  try {
+    New-Item -ItemType SymbolicLink -Path $dest -Target $sdk -ErrorAction Stop | Out-Null
+    Write-Host "OK linked platform-tools -> $sdk"
+  } catch {
+    try {
+      cmd /c mklink /J "`"$dest`"" "`"$sdk`"" | Out-Null
+      Write-Host "OK junction platform-tools -> $sdk"
+    } catch {
+      Write-Host 'SKIP platform-tools symlink (non-fatal)'
+    }
+  }
+}
+
 switch ($Stack) {
   'web' { Install-NpmDir (Join-Path $Wt 'examples\web') }
   'node' { Install-NpmDir (Join-Path $Wt 'examples\node') }
   'python' { Install-UvDir (Join-Path $Wt 'examples\python') }
-  'android' { Install-GradleDir (Join-Path $Wt 'examples\android') }
+  'android' {
+    Link-PlatformTools
+    Install-GradleDir (Join-Path $Wt 'examples\android')
+  }
   Default {
     Install-NpmDir (Join-Path $Wt 'examples\web')
     Install-NpmDir (Join-Path $Wt 'examples\node')
     Install-UvDir (Join-Path $Wt 'examples\python')
+    Link-PlatformTools
     Install-GradleDir (Join-Path $Wt 'examples\android')
   }
 }

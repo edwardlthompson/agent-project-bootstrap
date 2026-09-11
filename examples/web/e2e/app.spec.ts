@@ -74,6 +74,24 @@ test("keyboard-only opens Settings, About, and Feedback", async ({ page }) => {
   await expect(page.getByTestId("about-panel")).toBeVisible();
 });
 
+test("keyboard-only walks Settings IA sections", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("body").click({ position: { x: 0, y: 0 } });
+  await tabUntil(page, "Settings");
+  await page.keyboard.press("Enter");
+  await expect(page.getByTestId("settings-panel")).toBeVisible();
+  await expect(page.getByText("Appearance")).toBeVisible();
+  await expect(page.getByText("Privacy")).toBeVisible();
+  await expect(page.getByText("Data")).toBeVisible();
+  await page.getByTestId("settings-search").fill("about");
+  await expect(page.locator(".gp-settings-group").filter({ hasText: "Appearance" })).toBeHidden();
+  await expect(page.getByRole("button", { name: "App info" })).toBeVisible();
+  await page.getByRole("button", { name: "App info" }).click();
+  await expect(page.getByTestId("about-panel")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByTestId("about-panel")).toHaveCount(0);
+});
+
 test("passes accessibility audit", async ({ page }) => {
   await page.goto("/");
   const results = await new AxeBuilder({ page }).analyze();
@@ -101,6 +119,65 @@ test("homepage visual snapshot", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("main")).toBeVisible();
   await expect(page).toHaveScreenshot("homepage.png", { maxDiffPixelRatio: 0.02 });
+});
+
+test("settings-only chrome visual snapshot", async ({ page }) => {
+  await page.goto("/");
+  const header = page.locator(".gp-header");
+  await expect(header.getByRole("button", { name: "Settings" })).toBeVisible();
+  await expect(header.getByRole("button", { name: "Donate via Venmo" })).toHaveCount(0);
+  await expect(page.locator("[data-about-open]")).toHaveCount(0);
+  await expect(page.locator(".gp-theme-toggle")).toHaveCount(0);
+  await expect(page).toHaveScreenshot("settings-only-chrome.png", { maxDiffPixelRatio: 0.02 });
+});
+
+test("share-target opens feature feedback with prefill", async ({ page }) => {
+  await page.goto("/?title=Clip&text=hello&url=https%3A%2F%2Fexample.com");
+  await expect(page.getByTestId("feedback-panel")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Request a feature" })).toBeVisible();
+  const description = page.getByTestId("feedback-description");
+  await expect(description).toHaveValue("Clip\nhello\nhttps://example.com");
+});
+
+test("restores persisted nav from gp.nav.v1", async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      "gp.nav.v1",
+      JSON.stringify({
+        stack: ["home", "settings"],
+        feedbackKind: null,
+        scroll: {},
+        promptOpen: false,
+      }),
+    );
+  });
+  await page.goto("/");
+  await expect(page.getByTestId("settings-panel")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
+});
+
+test("spanish locale loads settings search label", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "language", { get: () => "es-ES" });
+  });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Ajustes" }).click();
+  await expect(page.getByTestId("settings-search")).toHaveAttribute("aria-label", "Buscar ajustes");
+  await expect(page.getByRole("heading", { name: "Privacidad" })).toBeVisible();
+});
+
+test("arabic locale forces rtl even when strings fall back", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "language", { get: () => "ar" });
+  });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+  await expect(page.getByRole("button", { name: "Settings" })).toBeVisible();
+  const title = await page.locator(".gp-title").boundingBox();
+  const actions = await page.locator(".gp-header-actions").boundingBox();
+  expect(title).toBeTruthy();
+  expect(actions).toBeTruthy();
+  expect(title!.x).toBeGreaterThan(actions!.x);
 });
 
 test("settings search filters groups", async ({ page }) => {

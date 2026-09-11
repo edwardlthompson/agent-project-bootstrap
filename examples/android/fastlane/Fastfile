@@ -3,6 +3,7 @@
 default_platform(:android)
 
 platform :android do
+  # FOSS: no `supply` / Play upload lanes. metadata is local file checks only.
   desc "Check Fastlane listing files (no store upload on the FOSS path)"
   lane :metadata do
     root = File.expand_path("metadata/android/en-US", __dir__)

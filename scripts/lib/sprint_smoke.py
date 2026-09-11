@@ -31,7 +31,12 @@ def run(root: Path, args: argparse.Namespace) -> int:
     sprints = parse_sprints(text)
     sprint = find_sprint(sprints, args.sprint)
     if sprint is None:
-        print("FAIL: no matching sprint", file=sys.stderr)
+        titles = ", ".join(s.title for s in sprints) or "(none)"
+        wanted = args.sprint or "(auto)"
+        print(
+            f"FAIL: no matching sprint for {wanted!r}; known ### headers: {titles}",
+            file=sys.stderr,
+        )
         return 2
     if args.if_complete and not sprint.complete:
         print(f"SKIP: {sprint.title} still has open AGENT/AUTO rows")
@@ -89,6 +94,10 @@ def run(root: Path, args: argparse.Namespace) -> int:
         print("FAIL: sprint smoke — errors, crashes, or budget", file=sys.stderr)
         return 1
     print(f"PASS: {sprint.title} smoked ({len(item_rows)} items)")
+    print(
+        "REMINDER: Update AGENT_MEMORY.md at this milestone boundary "
+        "(Persistent Context + retrospective only; see AGENTS.md Session Protocol)."
+    )
     return 0
 
 

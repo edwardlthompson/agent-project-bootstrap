@@ -36,6 +36,14 @@ class I18nParityTests(unittest.TestCase):
         errors = check_files({"about.close": "Close about"}, set(), {"android_only": []})
         self.assertTrue(any("about_close" in e for e in errors))
 
+    def test_nav_back_required(self) -> None:
+        from i18n_parity import check_nav_back
+
+        self.assertEqual(check_nav_back({"nav.back": "Back"}, {"nav_back"}), [])
+        miss = check_nav_back({}, set())
+        self.assertTrue(any("nav.back" in e for e in miss))
+        self.assertTrue(any("nav_back" in e for e in miss))
+
     def test_alias_and_allowlist(self) -> None:
         errors = check_files(
             {"about.update.install": "Install"},

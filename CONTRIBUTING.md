@@ -39,7 +39,13 @@ Runnable Golden Path code lives under `examples/{web,python,android,node,rust,go
 
 ## Recommended branching (GitHub Flow)
 
-Short-lived branches, one concern per PR, merge to `main` when required checks are green. Do not force-push `main`. Required checks (via `scripts/setup-github-repo.sh`): **CI**, **Security Scan**, **CodeQL**, **Repo Hygiene**, **Feature Gate**, **Template Upgrade Simulation (Windows)**.
+Short-lived branches, one concern per PR, merge to `main` when required checks are green. Do not force-push `main`. Required checks (via `scripts/setup-github-repo.sh`): **CI**, **Security Scan**, **CodeQL**, **Repo Hygiene**, **Feature Gate**, **Template Upgrade Simulation (Windows)**. Full map (merge-blocking vs informational): [`docs/CI_REQUIRED_CHECKS.md`](docs/CI_REQUIRED_CHECKS.md).
+
+### Tag protection and Environments (honesty)
+
+- **Tag protection** on `v*` is optional maintainer setup — this template does **not** claim GitHub tag rules are enabled out of the box. Confirm under Settings → Tags before treating a tag as immutable.
+- **Environments** (for example `github-pages`) gate deploy approvals only. Attaching Environments to required-check workflows can deadlock merges; keep Environments on deploy/release jobs, not on **CI** / **Security Scan** / **CodeQL**.
+- Release Please opens a release PR; merging it still needs a human (or `/ship`) — see Waiting-on-a-person rows for Release Please.
 
 ## Commit messages
 

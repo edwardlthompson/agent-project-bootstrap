@@ -28,5 +28,12 @@ Required check names come from [`.github/required-checks.json`](../.github/requi
 | Merge queue on by default | No |
 | Required checks listed | Yes, in `.github/settings.yml` |
 | `/push` uses the queue | No — `/push` is a local commit + `git push` after [HUMAN] |
-
 Related: [`docs/SECURITY_TRIAGE.md`](SECURITY_TRIAGE.md), [`docs/PACKAGE_ATTESTATION.md`](PACKAGE_ATTESTATION.md).
+
+## Required checks vs local `/gates`
+
+| Layer | What runs | Blocks merge? |
+|-------|-----------|---------------|
+| Branch protection / merge queue | Names in `.github/required-checks.json` (CI, Security Scan, CodeQL, Repo Hygiene, Feature Gate, Windows upgrade-sim) | Yes, when configured |
+| Local `/gates` | `validate-bootstrap --quick`, `check-cursor-hooks --smoke`, full `feature-gate --stack multi`, `smoke-sprint --if-complete`, hygiene | Local only — stricter than GitHub required set |
+Do not treat a green merge-queue required set as a substitute for local `/gates` before `/ship`. See [`docs/CI_REQUIRED_CHECKS.md`](CI_REQUIRED_CHECKS.md).

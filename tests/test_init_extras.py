@@ -11,9 +11,11 @@ if str(LIB) not in sys.path:
     sys.path.insert(0, str(LIB))
 
 from init_extras import (  # noqa: E402
+    detect_android_sdk,
     donation_url_usable,
     gh_topics_command,
     merge_topics,
+    write_android_local_properties,
     write_funding_yml,
     write_topics,
 )
@@ -51,6 +53,26 @@ class TopicsTests(unittest.TestCase):
             about.write_text("# About\n", encoding="utf-8")
             self.assertIsNone(write_topics(root, []))
             self.assertEqual(about.read_text(encoding="utf-8"), "# About\n")
+
+
+class AndroidSdkDetectTests(unittest.TestCase):
+    def test_detect_from_env(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            sdk = home / "Android" / "Sdk"
+            (sdk / "platform-tools").mkdir(parents=True)
+            found = detect_android_sdk(home=home, env={})
+            self.assertEqual(found, sdk)
+            root = home / "repo"
+            (root / "examples" / "android").mkdir(parents=True)
+            path = write_android_local_properties(root, sdk)
+            assert path is not None
+            self.assertIn("sdk.dir=", path.read_text(encoding="utf-8"))
+
+    def test_skip_without_android_example(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.assertIsNone(write_android_local_properties(root, Path(tmp) / "Sdk"))
 
 
 if __name__ == "__main__":

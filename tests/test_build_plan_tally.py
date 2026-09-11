@@ -64,6 +64,14 @@ class TallyTests(unittest.TestCase):
             self.assertIn("Not a checklist", section)
             self.assertNotIn("🔲", section)
 
+    def test_weekly_chore_heuristic(self) -> None:
+        from build_plan_tally import weekly_chore_errors  # noqa: E402
+
+        bad = "## Ongoing Maintenance\n\n- 🔲 [AUTO] Weekly Dependabot leftover\n\n## Archive\n"
+        self.assertTrue(weekly_chore_errors(bad))
+        good = "## Ongoing Maintenance\n\nNot a checklist. Monday cron owns it.\n\n## Archive\n"
+        self.assertEqual(weekly_chore_errors(good), [])
+
     def test_install_replaces_maintainer_board(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -22,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import dev.foss.goldenpath.R
 import dev.foss.goldenpath.about.AppUpdates
 import dev.foss.goldenpath.about.DonationsConfig
@@ -108,6 +110,7 @@ fun GoldenPathScreen(
                 releaseRepo = releaseRepo,
                 stack = pendingStack,
                 onBack = onFeedbackClose,
+                snackbarHostState = snackbarHostState,
                 scrollY = Nav.restoreScroll(nav, GpRoute.Feedback),
                 onScroll = { onScroll(GpRoute.Feedback, it) },
                 modifier = panelMod,
@@ -140,10 +143,14 @@ fun GoldenPathScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
+                val statusDesc = stringResource(
+                    if (isOnline) R.string.home_status_online_a11y else R.string.home_status_offline_a11y,
+                )
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .testTag("home-status"),
+                        .testTag("home-status")
+                        .semantics { contentDescription = statusDesc },
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant,
                     ),

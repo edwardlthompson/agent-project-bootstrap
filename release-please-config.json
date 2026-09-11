@@ -5,8 +5,15 @@
       "release-type": "simple",
       "changelog-path": "CHANGELOG.md",
       "extra-files": [
-        ".template-version",
-        "TEMPLATE_INDEX.json",
+        {
+          "type": "generic",
+          "path": ".template-version"
+        },
+        {
+          "type": "json",
+          "path": "TEMPLATE_INDEX.json",
+          "jsonpath": "$.template_version"
+        },
         {
           "type": "yaml",
           "path": "CITATION.cff",
@@ -26,6 +33,20 @@
     { "type": "feat", "section": "Added" },
     { "type": "fix", "section": "Fixed" },
     { "type": "perf", "section": "Changed" },
-    { "type": "revert", "section": "Changed" }
+    { "type": "revert", "section": "Changed" },
+    { "type": "docs", "section": "Documentation", "hidden": true },
+    { "type": "chore", "section": "Miscellaneous", "hidden": true },
+    { "type": "ci", "section": "Miscellaneous", "hidden": true },
+    { "type": "test", "section": "Miscellaneous", "hidden": true }
+  ],
+  "exclude-paths": [
+    "docs/**",
+    "docs/help/**",
+    ".cursor/commands/**",
+    ".cursor/skills/**",
+    ".cursor/agents/**",
+    "CONTRIBUTING.md",
+    "SUPPORT.md",
+    "CODE_OF_CONDUCT.md"
   ]
 }

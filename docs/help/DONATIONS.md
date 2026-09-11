@@ -10,7 +10,6 @@
 | Quiet header / titlebar | **No** — do not put Venmo (or any donate) in the header | **No** — do not put Venmo (or any donate) in `TopAppBar` |
 | Once-per-version launch note | Optional ethical nudge after a version change | Same |
 | Update / Install dialog | Never | Never |
-
 Contract: [`docs/features/donations-updates.md`](../features/donations-updates.md). Schema: [`schemas/golden-path/donations.schema.json`](../../schemas/golden-path/donations.schema.json).
 
 ## 1. Edit `donations.json`
@@ -23,6 +22,7 @@ Contract: [`docs/features/donations-updates.md`](../features/donations-updates.m
 bash scripts/sync-exemplar-config.sh
 # or after init with a URL:
 python3 scripts/sync-stack-config.py . OWNER/REPO 'https://your-donate-url'
+
 ```
 
 Android also loads `donations.json.example` at runtime if the live asset was never synced; Web `loadDonations` does the same for `/donations.json.example`.
@@ -61,6 +61,7 @@ Example with Venmo plus international options:
     }
   ]
 }
+
 ```
 
 Hide the block entirely with `"enabled": false` or an empty `links` array.
@@ -88,6 +89,7 @@ ko_fi: YOUR_USERNAME
 custom:
   - https://venmo.com/code?user_id=1857304970395648420
   - https://paypal.me/YOUR_HANDLE
+
 ```
 
 Supported keys (see GitHub docs): `github`, `patreon`, `open_collective`, `ko_fi`, `tidelift`, `community_bridge`, `liberapay`, `issuehunt`, `lfx_crowdfunding`, `polar`, `buy_me_a_coffee`, `thanks_dev`, `custom`.
@@ -110,12 +112,15 @@ Pick what matches your bank/country. Add each as another `links[]` entry (and op
 | **PayPal.me** | Broad consumer reach | `https://paypal.me/HANDLE` | Fees vary by country; use `custom:` |
 | **Venmo** | US peers | Venmo code / profile URL | Default Golden Path example; US-centric |
 | **Stripe Payment Link** | Cards worldwide | `https://buy.stripe.com/...` | No proprietary SDK in-app — open URL in browser only |
-
 Rules for this template:
 
 - External browser / Custom Tabs only — no proprietary in-app payment SDKs on the FOSS path.
 - No donation tracking or dark patterns ([`docs/features/donations-updates.md`](../features/donations-updates.md)).
 - Prefer HTTPS URLs that work without an app install when possible.
+
+### International placeholders review (example file)
+
+`donations.json.example` keeps **placeholders** (`YOUR_GITHUB_USERNAME`, `YOUR_USERNAME`, `YOUR_COLLECTIVE`, `YOUR_HANDLE`) for Sponsors / Liberapay / Open Collective / PayPal so children do not ship a maintainer’s personal links by accident. The Venmo example URL is the Golden Path US demo only — replace or remove it for non-US products. `init_extras.donation_url_usable` rejects `[INSERT …]` placeholders so FUNDING.yml is not written from blank init prompts. Gate: `tests/test_donations_placeholders.py`.
 
 ## 4. Android placement checklist (agents)
 
@@ -134,6 +139,7 @@ bash scripts/sync-exemplar-config.sh
 python3 scripts/agent-run.py feature-gate --stack android
 # or full:
 python3 scripts/agent-run.py verify
+
 ```
 
 Confirm locally: home header / titlebar has no Donate, About, or theme control; Settings → App info lists every `donations.json` link.

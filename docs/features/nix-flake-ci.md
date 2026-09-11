@@ -22,7 +22,6 @@
 | View | N/A |
 | Tests | `tests/test_nix_flake.py` |
 | Wiring | `.github/workflows/ci.yml` `nix` job |
-
 ## Tests
 
 - Automated: yes — flake snippets + ci-ok must not require nix
@@ -36,3 +35,7 @@
 ## Definition of Done
 
 See `docs/FEATURE_MODULES.md`.
+
+## `nix run .#verify` and skipped stacks
+
+`nix run .#verify` only wraps `scripts/verify.sh`. It does **not** install Node/JDK/Android SDK or run every Golden Path stack. Stacks pruned from the child (or missing toolchains) are skipped by the underlying scripts with SKIP/WARN lines — treat Nix as an optional launcher, not a full `/gates` substitute. See `flake.nix` description comment.

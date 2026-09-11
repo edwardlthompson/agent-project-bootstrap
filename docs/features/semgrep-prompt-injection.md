@@ -6,6 +6,7 @@
 
 - ✅ `.semgrep/prompt-injection.yml` is FOSS-only (no `SEMGREP_APP_TOKEN`)
 - ✅ Rules cover ignore-previous jailbreaks, `shell=True`, and `os.system`
+- ✅ Pack header documents Android 16 / reflective-API sink notes (manual review until Kotlin rules land)
 - ✅ `security.yml` and `check-semgrep.sh` load the pack beside `.semgrep.yml`
 
 ## Smoke scenario
@@ -22,7 +23,6 @@
 | View | N/A |
 | Tests | `tests/test_semgrep_foss.py` |
 | Wiring | `.github/workflows/security.yml` + `scripts/lib/semgrep_foss.py` |
-
 ## Tests
 
 - Automated: yes — config/CI phrase lock

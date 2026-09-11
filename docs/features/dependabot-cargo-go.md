@@ -6,6 +6,7 @@
 
 - ✅ `.github/dependabot.yml` has `cargo` at `/examples/rust` and `gomod` at `/examples/go`
 - ✅ Both stay `interval: weekly` (local `/update-deps` remains primary)
+- ✅ Groups `rust-dependencies` / `go-dependencies` stay present (health note in `SECURITY_TRIAGE.md`)
 - ✅ Rust and Go MODULE checklists mention the ecosystems
 
 ## Smoke scenario
@@ -22,7 +23,6 @@
 | View | N/A |
 | Tests | `tests/test_dependabot_optional_stacks.py` |
 | Wiring | `.github/dependabot.yml` |
-
 ## Tests
 
 - Automated: yes — YAML phrase lock

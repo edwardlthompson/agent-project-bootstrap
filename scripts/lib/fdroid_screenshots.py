@@ -1,4 +1,4 @@
-"""Fail F-Droid listing checks when screenshot files are dummies."""
+"""Fail F-Droid listing checks when screenshot files are dummies or incomplete."""
 from __future__ import annotations
 
 import struct
@@ -25,6 +25,22 @@ def _is_dummy_name(name: str) -> bool:
     return any(part in lower for part in DUMMY_NAME)
 
 
+def _valid_shots(folder: Path) -> list[Path]:
+    shots: list[Path] = []
+    if not folder.is_dir():
+        return shots
+    for shot in folder.iterdir():
+        if not shot.is_file() or shot.name.startswith("."):
+            continue
+        if _is_dummy_name(shot.name):
+            continue
+        size = _png_size(shot)
+        if size is None or min(size) <= 8:
+            continue
+        shots.append(shot)
+    return shots
+
+
 def check_tree(root: Path) -> list[str]:
     errors: list[str] = []
     for base in ROOTS:
@@ -49,14 +65,39 @@ def check_tree(root: Path) -> list[str]:
     return errors
 
 
-def main() -> int:
-    errors = check_tree(Path.cwd())
+def check_completeness(root: Path, *, submit_ready: bool = False) -> list[str]:
+    """Scaffold: empty dirs OK. Submit-ready: icon.png + >=1 phoneScreenshots PNG."""
+    if not submit_ready:
+        return []
+    errors: list[str] = []
+    meta = root / "examples" / "android" / "metadata" / "en-US" / "images"
+    if not meta.is_dir():
+        return ["missing examples/android/metadata/en-US/images for submit-ready"]
+    icon = meta / "icon.png"
+    if not icon.is_file() or _png_size(icon) is None:
+        errors.append("submit-ready requires images/icon.png")
+    phones = meta / "phoneScreenshots"
+    if not _valid_shots(phones):
+        errors.append("submit-ready requires >=1 non-dummy phoneScreenshots PNG")
+    return errors
+
+
+def main(argv: list[str] | None = None) -> int:
+    import sys
+
+    args = argv if argv is not None else sys.argv[1:]
+    submit = "--submit-ready" in args
+    root = Path.cwd()
+    errors = check_tree(root) + check_completeness(root, submit_ready=submit)
     if errors:
-        print("F-Droid screenshot dummy check failed:")
+        print("F-Droid screenshot check failed:")
         for item in errors:
             print(f"  {item}")
         return 1
-    print("F-Droid screenshot dummy check passed")
+    if submit:
+        print("F-Droid screenshot submit-ready check passed")
+    else:
+        print("F-Droid screenshot dummy check passed")
     return 0
 
 

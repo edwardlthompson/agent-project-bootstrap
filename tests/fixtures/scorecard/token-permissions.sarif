@@ -1,0 +1,21 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "rules": [
+            {
+              "id": "t",
+              "name": "TokenPermissions"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "t"
+        }
+      ]
+    }
+  ]
+}

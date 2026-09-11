@@ -4,6 +4,10 @@
 
 Autonomous feature step with auto-fix.
 
+## Android 16 / Espresso first
+
+If instrumented Compose fails with `InputManager.getInstance` (or similar API 36 reflection), **prefer bumping Espresso to 3.7.0+** (`/.cursor/skills/espresso-android16/`) before reinstalling the emulator image or wiping an AVD. Reinstall is last resort after the pin + `check-espresso-android16` pass.
+
 ## Step 0 — Print strike and stage first
 
 Run this **before** the gate loop. Do not skip it.

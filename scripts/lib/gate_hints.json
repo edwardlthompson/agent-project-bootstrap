@@ -37,12 +37,24 @@
       ]
     },
     "web-lighthouse-floors": {
-      "means": "Lighthouse accessibility or best-practices floors dropped.",
+      "means": "Lighthouse performance, accessibility, best-practices, or web-vitals (INP/LCP) floors dropped.",
       "run": "bash scripts/check-lighthouse-floors.sh",
-      "why": "CI Lighthouse assertions must stay error floors, not warnings.",
+      "why": "CI Lighthouse assertions must stay error floors, not warnings (Settings IA re-baseline + INP/LCP budgets).",
       "suggested": [
+        "restore categories:performance minScore 0.9 in examples/web/.lighthouserc.json",
         "restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json",
-        "keep categories:best-practices minScore at least 0.9"
+        "keep categories:best-practices minScore at least 0.9",
+        "keep largest-contentful-paint maxNumericValue <= 2500",
+        "keep interaction-to-next-paint maxNumericValue <= 200"
+      ]
+    },
+    "web-sw-cache-budget": {
+      "means": "Service-worker PRECACHE shell exceeds the offline cache budget.",
+      "run": "bash scripts/check-sw-cache-budget.sh",
+      "why": "PWA offline-first shell must stay within the /gates canvas budget.",
+      "suggested": [
+        "trim examples/web/public/sw.js PRECACHE entries",
+        "keep shell assets under SW_CACHE_MAX_BYTES (default 256KiB)"
       ]
     },
     "web-build": {
@@ -153,6 +165,15 @@
       "suggested": [
         "keep isMinifyEnabled = true and proguard-android-optimize.txt",
         "run bash scripts/check-android-r8.sh"
+      ]
+    },
+    "android-espresso-16": {
+      "means": "Espresso is pinned below 3.7.0 (breaks Compose UI tests on Android 16).",
+      "run": "bash scripts/check-espresso-android16.sh",
+      "why": "API 36 removed InputManager.getInstance; Espresso 3.7 uses getSystemService.",
+      "suggested": [
+        "set androidTestImplementation(\"androidx.test.espresso:espresso-core:3.7.0\")",
+        "run bash scripts/check-espresso-android16.sh"
       ]
     },
     "android-compose-a11y": {

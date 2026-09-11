@@ -47,6 +47,21 @@ class ScorecardSarifTests(unittest.TestCase):
             path.write_text(json.dumps({"runs": []}), encoding="utf-8")
             self.assertEqual(classify(json.loads(path.read_text(encoding="utf-8"))), [])
 
+    def test_golden_fixtures(self) -> None:
+        fixtures = ROOT / "tests" / "fixtures" / "scorecard"
+        expected = {
+            "token-permissions.sarif": [("TokenPermissions", "fix", "AGENT")],
+            "pinned-dependencies.sarif": [("PinnedDependencies", "dismiss", "HUMAN")],
+            "binary-artifacts.sarif": [("Binary-Artifacts", "defer", "HUMAN")],
+            "empty.sarif": [],
+        }
+        for name, want in expected.items():
+            path = fixtures / name
+            self.assertTrue(path.is_file(), name)
+            rows = classify(json.loads(path.read_text(encoding="utf-8")))
+            got = [(r["check"], r["action"], r["owner"]) for r in rows]
+            self.assertEqual(got, want, name)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,7 +9,7 @@
 | Rules (`.mdc`) | `.cursor/rules/` | both |
 | Slash commands (36) | `.cursor/commands/` | both |
 | Hooks | `.cursor/hooks.json` | both |
-| Skills (13) | `.cursor/skills/` | both |
+| Skills (14) | `.cursor/skills/` | both |
 | Subagents (3) | `.cursor/agents/` | both |
 | Worktrees | `.cursor/worktrees.json` | both |
 | Auto-review permissions | `.cursor/permissions.json` | both |

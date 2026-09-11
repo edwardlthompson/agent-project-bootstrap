@@ -2,6 +2,10 @@
 # Golden Path FOSS default: none. Uncomment only what a child product actually has.
 # https://f-droid.org/docs/Anti-Features/
 #
+# UnifiedPush sample (FOSS distributor hook): does NOT imply NonFreeNet or NonFreeDep.
+# Only add NonFreeNet if a child hard-requires a proprietary push / closed network API.
+# Only add NonFreeDep if a proprietary SDK ships on the production path.
+#
 # AntiFeatures:
 #   - Ads
 #   - Tracking

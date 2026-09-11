@@ -15,4 +15,18 @@ class SettingsSearchTest {
         assertTrue(SettingsSearch.matches("THEME", "Appearance", "Theme"))
         assertFalse(SettingsSearch.matches("privacy", "Appearance", "Theme"))
     }
+
+    @Test
+    fun matchesDiacriticsInsensitive() {
+        assertTrue(SettingsSearch.matches("informacion", "Información"))
+        assertTrue(SettingsSearch.matches("información", "Informacion"))
+        assertTrue(SettingsSearch.matches("cafe", "Café"))
+    }
+
+    @Test
+    fun fuzzyAllowsOneEditOnTokens() {
+        assertTrue(SettingsSearch.fuzzyMatches("privcy", "Privacy", "crashes"))
+        assertTrue(SettingsSearch.fuzzyMatches("theeme", "Appearance", "Theme"))
+        assertFalse(SettingsSearch.fuzzyMatches("zzzz", "Appearance", "Theme"))
+    }
 }

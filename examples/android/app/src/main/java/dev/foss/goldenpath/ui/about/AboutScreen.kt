@@ -24,10 +24,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import dev.foss.goldenpath.R
+import dev.foss.goldenpath.about.DonateIntents
 import dev.foss.goldenpath.about.DonationsConfig
 import dev.foss.goldenpath.display.highRefreshScroll
 import dev.foss.goldenpath.ui.insets.LocalNavigationMode
@@ -51,7 +52,7 @@ fun AboutScreen(
     onScroll: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    val uriHandler = LocalUriHandler.current
+    val context = LocalContext.current
     val navMode = LocalNavigationMode.current
     val insetDp = navigationBarInsetBottomDp()
     val scrollState = rememberScrollState(initial = scrollY)
@@ -99,7 +100,11 @@ fun AboutScreen(
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .testTag(AboutTestTags.DONATION_LINK)
-                        .clickable { uriHandler.openUri(link.url) },
+                        .clickable {
+                            runCatching {
+                                context.startActivity(DonateIntents.viewUrl(link.url))
+                            }
+                        },
                 )
             }
         }

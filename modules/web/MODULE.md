@@ -46,10 +46,15 @@ Default locale: English (`src/locales/en.json`). Second catalog: Spanish (`src/l
 - 🔲 Implement offline-first service worker
 - 🔲 Configure Lighthouse CI budgets (`.lighthouserc.json`) with `numberOfRuns: 3` and median assertion; keep `minScore: 0.9` for performance (do not lower budget for CI flake)
 - ✅ Lighthouse a11y ≥ 0.95 and best-practices ≥ 0.9 (`scripts/check-lighthouse-floors.sh`)
+- ✅ Lighthouse performance ≥ 0.9 error floor (Settings IA re-baseline)
+- ✅ Offline SW precache budget on `/gates` canvas (`scripts/check-sw-cache-budget.sh`)
 - 🔲 Set up axe-core accessibility tests in Playwright
 - 🔲 Review `examples/web/` Golden Path stub
 - ✅ Settings/About/Feedback visual snapshots (`examples/web/e2e`)
 - ✅ Settings-only home chrome (`scripts/check-design-cohesion.sh`)
+- ✅ Settings-only chrome Playwright baseline (`settings-only-chrome.png`)
+- ✅ Share-target + `gp.nav.v1` restore Playwright e2e
+- ✅ Web RTL locale smoke (Spanish catalog + Arabic dir; LocaleRtlUiTest parity)
 - 🔲 Enforce bundle size budgets in CI
 - 🔲 Keyboard-only navigation smoke test checklist
 - 🔲 Respect `prefers-reduced-motion` and `prefers-color-scheme`
@@ -79,7 +84,7 @@ After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.
 | Build smoke | `npm run build` |
 | Chrome cohesion | `bash scripts/check-design-cohesion.sh` |
 | Lighthouse floors | `bash scripts/check-lighthouse-floors.sh` |
-
+| SW cache budget | `bash scripts/check-sw-cache-budget.sh` |
 E2E (`npx playwright test`) remains a milestone gate, not every feature row.
 
 ## Owner Labels for This Module

@@ -4,6 +4,15 @@
 
 Read @docs/PARALLEL_AGENT_SCOPES.md and the active BUILD_PLAN Parallel table.
 
+## 0. Dry-run ownership (optional first)
+
+```bash
+python3 scripts/agent-run.py check-parallel-scope -- --dry-run
+
+```
+
+Prints each Parallel AGENT scope owner and any file-ownership conflicts before writing the lock.
+
 ## 1. Preconditions
 
 - Sequential schema-lock steps for the active sprint/feature are complete.

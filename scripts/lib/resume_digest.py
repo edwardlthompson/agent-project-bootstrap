@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from gates_canvas import next_open_row
+from health_ci import ci_red_one_liner
 from health_notes import unreleased_has_entries
 from sync_open_prs_render import classify_pr
 
@@ -28,7 +29,9 @@ def format_digest(
     gh_error: str | None,
     fetch_note: str,
     branch_notes: list[str],
+    ci_line: str | None = None,
 ) -> str:
+    dirty_unreleased = unreleased_has_entries(root)
     lines = [
         "# Resume handoff (Cloud -> PC)",
         "",
@@ -38,8 +41,15 @@ def format_digest(
         lines.append(f"- {note}")
     lines.append(
         f"- CHANGELOG [Unreleased] has entries: "
-        f"{'yes' if unreleased_has_entries(root) else 'no'}"
+        f"{'yes' if dirty_unreleased else 'no'}"
     )
+    if ci_line is None:
+        ci_line = ci_red_one_liner(root) if gh_error is None else f"CI: skipped ({gh_error})"
+    lines.append(f"- {ci_line}")
+    if dirty_unreleased or (ci_line and "CI red" in ci_line):
+        lines.append(
+            "- Handoff: dirty Unreleased and/or CI red — fix or /ship before filling ideas."
+        )
     lines.append(f"- Next BUILD_PLAN row: {next_open_row(root)}")
     lines.append("")
     lines.append("## Open Dependabot / Release Please")

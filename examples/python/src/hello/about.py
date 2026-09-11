@@ -2,10 +2,20 @@
 
 from __future__ import annotations
 
+from importlib.metadata import PackageNotFoundError, version
 from typing import TypedDict
 
-APP_VERSION = "0.1.0"
 DONATE_URL = "https://github.com/sponsors"
+
+
+def _package_version() -> str:
+    try:
+        return version("golden-path-python")
+    except PackageNotFoundError:
+        return "0.1.0"
+
+
+APP_VERSION = _package_version()
 
 
 class AboutUpdate(TypedDict):

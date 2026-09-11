@@ -16,6 +16,12 @@ from crash_inbox import check_repo, check_stub  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 
 
+class CrashInboxBannerTests(unittest.TestCase):
+    def test_docs_banner_stub_until_dpia(self) -> None:
+        text = (ROOT / "docs" / "CRASH_INBOX.md").read_text(encoding="utf-8")
+        self.assertIn("stub only until DPIA", text)
+
+
 class CrashInboxTests(unittest.TestCase):
     def test_repo(self) -> None:
         self.assertEqual(check_repo(ROOT), [])
@@ -32,6 +38,9 @@ class CrashInboxTests(unittest.TestCase):
             (ROOT / "schemas/golden-path/crash-inbox.example.json").read_text(encoding="utf-8")
         )
         self.assertIs(example["enabled"], False)
+        ci = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+        self.assertIn("check-crash-inbox.sh", ci)
+        self.assertIn("Crash inbox stub disabled-by-default", ci)
 
     def test_missing_example_fails(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

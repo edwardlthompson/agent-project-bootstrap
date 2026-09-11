@@ -61,7 +61,6 @@ Sort for scan, not exploration. Section headers + dividers; no chip clouds.
 | 2 | Privacy (switches) | Support (donate links, when enabled) |
 | 3 | Data (export/import when the stack has it) | Feedback (dropdown: bug / feature) |
 | 4 | About (navigation row → App info) | |
-
 ### Control vocabulary
 
 | Need | Use | Do not use |
@@ -70,7 +69,6 @@ Sort for scan, not exploration. Section headers + dividers; no chip clouds.
 | Boolean | Switch on the row | Extra toolbar toggles |
 | Navigate to a screen | Full-width row + short hint | Duplicate header icons |
 | Filters / tags on a collection | Chips | Settings enums |
-
 Touch targets stay ≥ 44px / 2.75rem. Section labels use title-small / uppercase label color (`onSurfaceVariant`) so rows stay the readable layer.
 
 ## Android (Compose Material 3)
@@ -100,7 +98,7 @@ Compose 1.12 (BOM `2026.08.00`): brand colors stay in tokens — do not replace 
 - Import `design-tokens.css` in `style.css`.
 - Use `var(--gp-color-*)`, `var(--gp-space-*)`, `var(--gp-text-*)`.
 - Layout: `margin-inline`, `padding-block`, `text-align: start` for RTL safety.
-- Respect `prefers-reduced-motion: reduce` (see `style.css`).
+- Respect `prefers-reduced-motion: reduce` (see `style.css`) for **theme and nav transitions** — zero non-essential motion when the user prefers reduced motion.
 - Contrast: `python3 scripts/agent-run.py check-token-contrast` (WCAG 2.2 AA on token pairs).
 - Initialize theme with `initTheme()` before first paint when possible.
 

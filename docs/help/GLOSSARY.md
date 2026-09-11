@@ -34,6 +34,13 @@ Status uses those emoji. Do not convert them to GitHub `- [ ]` checkboxes. Legen
 | **Feature gate** | Stack tests for the active Golden Path. `/build` uses `--scope auto` (dirty stacks); `/gates` is full multi-stack. |
 | **Sprint smoke** | After a sprint is all ✅, `smoke-sprint --require` re-checks every row (no crashes; startup + load order) before the next sprint. |
 | **3-strike** | After three failed auto-fixes, stop and ask a human. `/debug` reads `strikes` in `.cursor/agent-progress.json`. |
+## Android test words
+
+| Term | Meaning |
+|------|---------|
+| **Espresso** | AndroidX UI test library used by instrumented tests. On Android 16 (API 36) pin **3.7.0+** — older Espresso calls removed `InputManager.getInstance`. See KB-022. |
+| **Instrumented** | Tests that run on a device or emulator (`connectedDebugAndroidTest`), not JVM unit tests. |
+| **AVD** | Android Virtual Device — the emulator image/profile CI or `/emulator` boots for instrumented runs. |
 ## Destructive ops
 
 `git push`, production deploys, and history rewrites need a human or an explicit `/push` / `/ship`. See [`.cursor/rules/destructive-ops.mdc`](../../.cursor/rules/destructive-ops.mdc).

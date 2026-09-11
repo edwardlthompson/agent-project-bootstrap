@@ -63,10 +63,10 @@ fun SettingsScreen(
     val about = stringResource(R.string.settings_section_about)
     val appInfo = stringResource(R.string.settings_about)
     val aboutHint = stringResource(R.string.settings_about_hint)
-    val showAppearance = SettingsSearch.matches(query, appearance, themeLabel)
-    val showPrivacy = SettingsSearch.matches(query, privacy, saveCrashesLabel)
-    val showData = SettingsSearch.matches(query, data, exportLabel, importLabel)
-    val showAbout = SettingsSearch.matches(query, about, appInfo, aboutHint)
+    val showAppearance = SettingsSearch.fuzzyMatches(query, appearance, themeLabel)
+    val showPrivacy = SettingsSearch.fuzzyMatches(query, privacy, saveCrashesLabel)
+    val showData = SettingsSearch.fuzzyMatches(query, data, exportLabel, importLabel)
+    val showAbout = SettingsSearch.fuzzyMatches(query, about, appInfo, aboutHint)
     val showEmpty = query.isNotBlank() && !showAppearance && !showPrivacy && !showData && !showAbout
     val scrollState = rememberScrollState(initial = scrollY)
     LaunchedEffect(scrollState.value) { onScroll(scrollState.value) }
@@ -90,7 +90,7 @@ fun SettingsScreen(
         )
         if (showEmpty) {
             Text(
-                text = stringResource(R.string.settings_search_empty),
+                text = stringResource(R.string.settings_search_empty_hint),
                 modifier = Modifier.testTag("settings-search-empty"),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

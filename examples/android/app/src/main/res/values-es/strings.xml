@@ -61,9 +61,16 @@
     <string name="feedback_feature_title">Pedir una función</string>
     <string name="feedback_description">Descripción</string>
     <string name="feedback_copy">Copiar informe</string>
+    <string name="feedback_copied">Informe copiado</string>
     <string name="feedback_open">Abrir GitHub</string>
     <string name="feedback_discard">Descartar</string>
     <string name="feedback_offline">Estás sin conexión. Copiar sigue funcionando; Abrir GitHub necesita red.</string>
     <string name="feedback_clipboard_hint">Revisa la vista previa sanitizada. El portapapeles del sistema puede conservar una copia después de Descartar.</string>
     <string name="feedback_crash_title">La app se recuperó. ¿Revisar y enviar un informe?</string>
+    <string name="home_status_online_a11y">Estado: en línea</string>
+    <string name="home_status_offline_a11y">Estado: sin conexión</string>
+    <string name="settings_search_empty_hint">Ningún ajuste coincide</string>
+    <string name="feedback_discard_confirm">¿Descartar este comentario?</string>
+    <string name="feedback_discard_confirm_yes">Descartar</string>
+    <string name="feedback_discard_confirm_no">Seguir editando</string>
 </resources>

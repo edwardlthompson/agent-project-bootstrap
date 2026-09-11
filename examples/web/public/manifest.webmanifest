@@ -29,5 +29,10 @@
       "type": "image/svg+xml",
       "purpose": "any"
     }
+  ],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "browser"
   ]
 }
