@@ -13,10 +13,10 @@ FLOORS = {
     "categories:best-practices": 0.9,
 }
 
-# Core Web Vitals budgets (ms) — INP + LCP for feature-gate (#93).
+# Core Web Vitals budgets (ms) — LCP + TBT (lab INP proxy; navigation-mode LH has no INP).
 VITALS = {
     "largest-contentful-paint": 2500,
-    "interaction-to-next-paint": 200,
+    "total-blocking-time": 300,
 }
 
 
@@ -51,7 +51,7 @@ def main() -> int:
     if errors:
         print("\n".join(errors))
         return 1
-    print("Lighthouse performance/a11y/best-practices/INP/LCP floors passed")
+    print("Lighthouse performance/a11y/best-practices/TBT/LCP floors passed")
     return 0
 
 

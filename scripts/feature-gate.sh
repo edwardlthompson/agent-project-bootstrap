@@ -125,7 +125,7 @@ fail_gate() {
     web-format) SUGGESTED=("run npm run format in examples/web") ;;
     web-test) SUGGESTED=("fix failing vitest in src/{feature}/" "run npm test in examples/web") ;;
     web-build) SUGGESTED=("fix build errors" "run npm run build in examples/web") ;;
-    web-lighthouse-floors) SUGGESTED=("restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json" "keep categories:best-practices minScore at least 0.9" "keep categories:performance minScore at least 0.9" "keep largest-contentful-paint maxNumericValue <= 2500" "keep interaction-to-next-paint maxNumericValue <= 200") ;;
+    web-lighthouse-floors) SUGGESTED=("restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json" "keep categories:best-practices minScore at least 0.9" "keep categories:performance minScore at least 0.9" "keep largest-contentful-paint maxNumericValue <= 2500" "keep total-blocking-time maxNumericValue <= 300 (lab INP proxy)") ;;
     web-sw-cache-budget) SUGGESTED=("trim examples/web/public/sw.js PRECACHE list" "keep shell assets under SW_CACHE_MAX_BYTES (default 256KiB)" "run bash scripts/check-sw-cache-budget.sh") ;;
     python-lint) SUGGESTED=("run uv run ruff check --fix in examples/python") ;;
     python-format) SUGGESTED=("run uv run ruff format in examples/python") ;;

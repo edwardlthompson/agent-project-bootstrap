@@ -37,15 +37,15 @@
       ]
     },
     "web-lighthouse-floors": {
-      "means": "Lighthouse performance, accessibility, best-practices, or web-vitals (INP/LCP) floors dropped.",
+      "means": "Lighthouse performance, accessibility, best-practices, or web-vitals (TBT/LCP) floors dropped.",
       "run": "bash scripts/check-lighthouse-floors.sh",
-      "why": "CI Lighthouse assertions must stay error floors, not warnings (Settings IA re-baseline + INP/LCP budgets).",
+      "why": "CI Lighthouse assertions must stay error floors, not warnings (Settings IA re-baseline + TBT/LCP budgets).",
       "suggested": [
         "restore categories:performance minScore 0.9 in examples/web/.lighthouserc.json",
         "restore categories:accessibility minScore 0.95 in examples/web/.lighthouserc.json",
         "keep categories:best-practices minScore at least 0.9",
         "keep largest-contentful-paint maxNumericValue <= 2500",
-        "keep interaction-to-next-paint maxNumericValue <= 200"
+        "keep total-blocking-time maxNumericValue <= 300 (lab INP proxy)"
       ]
     },
     "web-sw-cache-budget": {

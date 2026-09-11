@@ -441,6 +441,16 @@ jobs:
           # AVD name convention: goldenpath-api34 (see examples/android/README snapshot bake).
           # Emulator-runner caches system images; optional custom snapshot key: api-34-x86_64-goldenpath.
           script: cd examples/android && chmod +x gradlew && ./gradlew connectedDebugAndroidTest --no-daemon
+      - name: Upload instrumented reports (always)
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: android-instrumented-reports
+          path: |
+            examples/android/app/build/reports/androidTests/
+            examples/android/app/build/outputs/androidTest-results/
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Retry instrumented once (flaky quarantine)
         id: retry
         if: steps.instrumented.outcome == 'failure'
