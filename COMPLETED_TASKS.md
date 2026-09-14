@@ -2,6 +2,11 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v1.5.0 release (2026-09-14)
+
+- ✅ [AGENT] Merge release [#108](https://github.com/edwardlthompson/agent-project-bootstrap/pull/108) (chore(main): release 1.5.0)
+- ✅ [AGENT] Sacred `AGENT.md` brief + Cycles icon factory + Lightroom #29 Lua/SDK gates
+
 ## Waiting on a person — Lightroom #29 (2026-09-13)
 
 - ✅ [AUTO] Lightroom Plug-in Manager load smoke (#29) — Lua/SDK/tagset gates replace Adobe host click for the Golden Path stub

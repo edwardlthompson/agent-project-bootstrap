@@ -10,6 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 EX = ROOT / "examples" / "blender"
 SCHEMA = ROOT / "schemas" / "golden-path" / "icon-manifest.schema.json"
+if not (EX / "cli.py").is_file():
+    raise unittest.SkipTest("blender example pruned")
 if str(EX) not in sys.path:
     sys.path.insert(0, str(EX))
 

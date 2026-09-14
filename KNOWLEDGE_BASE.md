@@ -203,3 +203,11 @@
 | **Cause** | Ephemeral runner FS + commit-msg / UTF-8 / clone path length on Windows |
 | **Fix** | Quarantine: re-run the failing job once via `gh run rerun <id> --failed`. If it fails twice, treat as real — capture `simulate-template-upgrade` log and open a BUILD_PLAN row. Do not remove the check from `required-checks.json`. |
 | **Prevention** | Keep upgrade-sim sacred files UTF-8; avoid writing under locked paths; see `docs/CI_REQUIRED_CHECKS.md` |
+### KB-025 — Blender icon tests must skip before importing `cli`
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | Template Upgrade Simulation (Linux and Windows) fails in child-prune: `ModuleNotFoundError: No module named 'cli'` from `tests/test_blender_icon_factory.py` |
+| **Cause** | Optional `examples/blender` is pruned; unittest still discovers the test module and imports `cli` at load time |
+| **Fix** | Raise `unittest.SkipTest("blender example pruned")` before `from cli import` when `examples/blender/cli.py` is missing |
+| **Prevention** | Optional-stack tests that import example code must skip at import time (same pattern as Lightroom file reads, but imports cannot wait until `setUp`) |

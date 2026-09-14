@@ -32,6 +32,11 @@ class UpgradeSimSacredTests(unittest.TestCase):
         self.assertIn("child_quick", text)
         self.assertIn("BOOTSTRAP_UPGRADE_SIM=1", text)
 
+    def test_blender_icon_factory_skips_when_example_pruned(self) -> None:
+        text = (ROOT / "tests/test_blender_icon_factory.py").read_text(encoding="utf-8")
+        self.assertIn('raise unittest.SkipTest("blender example pruned")', text)
+        self.assertLess(text.index("SkipTest"), text.index("from cli import"))
+
 
 if __name__ == "__main__":
     unittest.main()

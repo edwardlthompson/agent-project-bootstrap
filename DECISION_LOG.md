@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-14 — v1.5.0 /ship
+- **Status:** Accepted
+- **Context:** Feat (product brief + Cycles factory) plus Lightroom #29 Lua/SDK gates were on `main`. Open RP #108 was still titled 1.4.1 for the go-missing patch. Dependabot #109 is `actions/setup-java` 5→6 (major).
+- **Decision:** `/ship` to **1.5.0**. Apply `fast-check` 4.10.0; revert upd’s `vcodeql-bundle-*` CodeQL pin. Do not merge stale 1.4.1. Leave #109. Skip blender icon tests at import when the example is pruned (upgrade-sim child-prune).
+- **Alternatives considered:** Merge #108 as 1.4.1 then cut 1.5.0 (rejected: feat already on the same train). Apply Java 6 (rejected: major; `/update-deps` cap is patch/minor).
+- **Consequences:** Tag **v1.5.0**; SBOM + OpenVEX on the GitHub Release. Copy `AGENT.md.example` before child init.
+
 ### 2026-09-13 — Lightroom #29 HUMAN smoke → agent gates
 - **Status:** Accepted
 - **Context:** Plug-in Manager load was the last open HUMAN row; Adobe Classic is not on CI or most agent machines. Raster icon export was still labeled HUMAN.

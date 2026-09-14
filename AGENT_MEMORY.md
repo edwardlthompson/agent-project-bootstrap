@@ -7,7 +7,7 @@
 
 | Layer | Technology | Version | Notes |
 |-------|-----------|---------|-------|
-| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Rust/Go) | 1.4.0 | Template maintainer repo |
+| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Blender/Rust/Go) | 1.5.0 | Template maintainer repo |
 | License | MIT | - | Pure FOSS |
 | Distribution | GitHub Releases + GitHub Pages demo | - | F-Droid/Winget stubs for child repos |
 ## Active Modules
@@ -55,6 +55,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 
 ## Session Retrospectives
 
+| 2026-09-14 | v1.5.0 /ship | AGENT.md anti-amnesia + Cycles icon factory; RP #108 as 1.5.0 (not 1.4.1); skip blender tests when pruned | Leave Dependabot #109 (setup-java 5→6 major); skip `cli` import when example pruned |
 | 2026-09-13 | Lightroom #29 + icon QA | Plug-in Manager HUMAN replaced by Lua/SDK gates; blender-icons owns raster export | Do not re-open #29 as HUMAN; Adobe host is optional |
 | 2026-09-11 | v1.4.0 /ship | Monday child template-gap BUILD_PLAN sync; RP #107; patch/minor deps; leave CodeQL `@v4` | Plan-only gaps; Sacred stays HUMAN; no silent `/upgrade` apply |
 | 2026-09-11 | v1.3.0 /push | RP #106 admin-merged; tag+release live; CI green after TBT + instrumented soft skips | Lightroom (#29) stays HUMAN; do not use JUnit Assume on connectedAndroidTest |
@@ -118,7 +119,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 ## Template Provenance
 
 - **Source template:** `edwardlthompson/agent-project-bootstrap` (self-maintained)
-- **Template version:** `1.4.0` (see `.template-version`)
+- **Template version:** `1.5.0` (see `.template-version`)
 - **Last update check:** See `.template-update.json`
 
 ### Retrospective — 2026-09-10 (M61)
