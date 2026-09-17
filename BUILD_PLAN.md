@@ -39,7 +39,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 **Now:** AGENT board empty. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
-> **M64** archived in COMPLETED_TASKS.md @ `3407965`.
+> **M64** archived in COMPLETED_TASKS.md @ `86bc12c`.
 > **M63** archived in COMPLETED_TASKS.md @ `9b7870b`.
 > **v1.6.0** release archived in COMPLETED_TASKS.md @ `d4cb35b`.
 > **M62** archived in COMPLETED_TASKS.md @ `81d165b`.
