@@ -3072,6 +3072,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "docs/adr/0009-cost-diet-brevity.md",
+      "purpose": "ADR: alwaysApply diet, --agent validate, ADHD short replies",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "schemas/golden-path/icon-manifest.schema.json",
       "purpose": "JSON Schema for icon-factory jobs (id, seed, camera, lighting)",
       "read_when": "reference",
@@ -3086,8 +3093,15 @@
       "owner": "maintainer"
     },
     {
+      "path": ".cursor/rules/brief-replies.mdc",
+      "purpose": "Always-on ADHD short-reply law (1–3 sentences)",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": ".cursor/rules/ux-ui.mdc",
-      "purpose": "Always-on UX/UI construction checklist (not review-only)",
+      "purpose": "UX/UI construction checklist (globs on UI paths)",
       "read_when": "ui_work",
       "update_when": "design_change",
       "owner": "maintainer"

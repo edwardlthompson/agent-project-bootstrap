@@ -38,8 +38,17 @@ class ClassifyTests(unittest.TestCase):
         self.assertEqual(d["mode"], "stacks")
         self.assertEqual(d["stacks"], ["android", "web"])
 
-    def test_scripts_are_full(self) -> None:
+    def test_scripts_are_docs_not_full(self) -> None:
         d = classify(["scripts/lib/gate_scope.py"])
+        self.assertEqual(d["mode"], "docs")
+        self.assertEqual(d["stacks"], [])
+
+    def test_rules_are_docs(self) -> None:
+        d = classify([".cursor/rules/brief-replies.mdc"])
+        self.assertEqual(d["mode"], "docs")
+
+    def test_modules_still_full(self) -> None:
+        d = classify(["modules/web/MODULE.md"])
         self.assertEqual(d["mode"], "full")
 
     def test_ephemeral_ignored(self) -> None:
@@ -74,7 +83,8 @@ class CommandContractTests(unittest.TestCase):
         watch = (ROOT / "scripts/watch-agent-gates.sh").read_text(encoding="utf-8")
         self.assertIn("--scope", watch)
         gates = (ROOT / ".cursor/commands/gates.md").read_text(encoding="utf-8")
-        self.assertIn("--stack multi", gates)
+        self.assertIn("--scope auto", gates)
+        self.assertIn("--full", gates)
         fg = (ROOT / "scripts/feature-gate.sh").read_text(encoding="utf-8")
         self.assertIn('STACK" = "docs"', fg)
 

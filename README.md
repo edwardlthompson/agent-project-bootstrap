@@ -11,56 +11,17 @@
 
 **Ship a FOSS app with an agent that already knows the rules.**
 
-Most templates hand you empty folders. This one hands you a working contract: one [`AGENTS.md`](AGENTS.md) that Cursor, Windsurf, Antigravity, Claude Code, Copilot, Aider, Cline, and Continue all follow — plus CI, security, and a 10-minute tour so a first-time human is not lost.
+Click **Use this template**, run init, then `/tour`. One [`AGENTS.md`](AGENTS.md) for every IDE; CI and security on by day one.
 
-Click **Use this template**, run init, then type `/tour` (or ask any agent to read [`docs/help/TOUR.md`](docs/help/TOUR.md)). You leave Sprint 0 with a checklist, a Golden Path you can run, and gates that say *what failed* and *what to run*.
+- **One spec** — Cursor, Windsurf, Claude, Copilot, Cline, and others follow the same contract
+- **Tour + coach** — `/tour`, `/coach`, [`docs/FIRST_30_DAYS.md`](docs/FIRST_30_DAYS.md)
+- **Gates in English** — what failed / what to run
+- **Security default** — Dependabot, CodeQL, secret scanning; no tracking
+- **Golden Paths** — Web, Python, Android, Node (optional stacks too)
 
-**Obtain, feedback, contribute.** Clone or **Use this template** from [the GitHub repo](https://github.com/edwardlthompson/agent-project-bootstrap). Bugs and ideas: [`SUPPORT.md`](SUPPORT.md) (GitHub Issues / Discussions). Vulnerabilities: [`SECURITY.md`](SECURITY.md) (private advisory, not a public issue). Patches: [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Obtain / bugs / vulns / patches: [GitHub](https://github.com/edwardlthompson/agent-project-bootstrap) · [`SUPPORT.md`](SUPPORT.md) · [`SECURITY.md`](SECURITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-## Why this exists
-
-Starting a public project usually means reinventing the license, `SECURITY.md`, CI, issue templates, and agent instructions — then watching each IDE drift. This template is the industry-standard start **and** the *why* ([`docs/BEST_PRACTICES.md`](docs/BEST_PRACTICES.md)). Security is on by default. You edit `AGENTS.md` once; thin adapters stay in sync.
-
-## What you get
-
-- **One spec, every IDE** — `AGENTS.md` plus generated pointers. See [`docs/AGENT_PORTABILITY.md`](docs/AGENT_PORTABILITY.md).
-- **A first-day tour** — `/tour` in Cursor, or `docs/help/TOUR.md` in any other agent.
-- **A coach** — `/coach` plus the 30-day playbook [`docs/FIRST_30_DAYS.md`](docs/FIRST_30_DAYS.md).
-- **Gates that speak English** — failures print What failed / What to run / Why.
-- **Security on day one** — Dependabot, CodeQL, secret scanning, Scorecard. No tracking.
-- **A runnable slice** — Web, Python, Android, and Node Golden Paths (Lightroom, Rust, Go optional).
-- **Labeled work** — `AGENT` / `HUMAN` / `ADB` / `AUTO` so agents do not block on credentials.
-- **Codespaces + VS Code tasks** — Verify, Feature gate, Project health.
-
-## For humans
-
-Start here, then [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`SUPPORT.md`](SUPPORT.md). Questions vs bugs vs vulns are split on purpose. First-month playbook: [`docs/FIRST_30_DAYS.md`](docs/FIRST_30_DAYS.md).
-
-## For agents
-
-Read [`docs/START_HERE.md`](docs/START_HERE.md) and [`AGENTS.md`](AGENTS.md). Cursor: `/tour` or `/bootstrap`. Any other IDE: `Read docs/help/TOUR.md and walk me through it.` Later sessions: `/coach`. For a ranked backlog: `/ideas` or [`docs/help/IDEAS.md`](docs/help/IDEAS.md). For a complete dump: `/allideas` or [`docs/help/ALLIDEAS.md`](docs/help/ALLIDEAS.md).
-
-## Contents
-
-- [Why this exists](#why-this-exists)
-- [What you get](#what-you-get)
-- [Quick Start](#quick-start)
-- [Architecture](#architecture)
-- [Feature summary](#feature-summary)
-- [What gets generated](#what-gets-generated)
-- [Agent shortcuts (cheat sheet)](#agent-shortcuts-cheat-sheet)
-- [Stack Selection](#stack-selection-sprint-0)
-- [What's Included](#whats-included)
-- [BUILD_PLAN Labels](#build_plan-labels)
-- [GitHub Pages Demo](#github-pages-demo)
-- [Template Update Checker](#template-update-checker)
-- [GitHub CI Gate](#github-ci-gate-post-push)
-- [Security](#security)
-- [Supported Stacks](#supported-stacks)
-- [Repository Layout](#repository-layout)
-- [Contributing](#contributing)
-- [GitHub About](#github-about)
-- [Maintainer Release](#maintainer-release)
+**Also:** [Quick Start](#quick-start) · [Architecture](#architecture) · [Stacks](#stack-selection-sprint-0) · [Security](#security) · [Agent shortcuts](docs/help/BATCH_COMMANDS.md) · [Start here](docs/START_HERE.md)
 
 ---
 
@@ -80,19 +41,13 @@ Read [`docs/START_HERE.md`](docs/START_HERE.md) and [`AGENTS.md`](AGENTS.md). Cu
    .\scripts\init-project.ps1
    ```
 
-3. Open your coding agent (Cursor, Windsurf, Antigravity, or another) and paste the bootstrap prompt from [`docs/START_HERE.md`](docs/START_HERE.md). First-time walk: [`docs/help/TOUR.md`](docs/help/TOUR.md) (Cursor: `/tour`).
-
-   **First-time path: Cline (free).** Open this project in Cursor. Install recommended extensions if prompted, or search Extensions for Cline (`saoudrizwan.claude-dev`). Click the Cline icon, Sign In with GitHub (Google/email ok). Do not paste API keys, install Codex, or set `OPENAI_API_KEY`. Set API Provider = Cline and pick a FREE model. Paste: `Read docs/help/TOUR.md and walk me through it. Follow AGENTS.md.` Review every diff; run `python3 scripts/agent-run.py verify` before trusting changes. Full steps: [`docs/help/CLINE.md`](docs/help/CLINE.md).
-
-   Cursor prompt:
+3. Open your agent. First walk: `/tour` or [`docs/help/TOUR.md`](docs/help/TOUR.md). Cline (free): [`docs/help/CLINE.md`](docs/help/CLINE.md).
 
    ```
-   Read @docs/START_HERE.md, @docs/CURSOR_MODES.md, and @docs/INITIALIZATION_PROMPT.md.
-   Pick Cursor mode per CURSOR_MODES.md. Follow Section 8 Startup Sequence.
-   Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels.
+   Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md. Follow BUILD_PLAN Sequential.
    ```
 
-4. **Agent shortcuts:** bookmark **[docs/help/BATCH_COMMANDS.md](docs/help/BATCH_COMMANDS.md)** — in Cursor type `/` (`/tour` · `/bootstrap` · `/verify` · `/build` · `/ship`). Other IDEs: paste the matching `docs/help/` file. *Bookmark it for when you come back after a break.*
+4. Shortcuts: [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md) — `/tour` · `/bootstrap` · `/verify` · `/build` · `/ship`.
 
 Non-interactive (CI / scripts):
 

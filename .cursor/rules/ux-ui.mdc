@@ -1,11 +1,19 @@
 ---
-description: UX/UI construction checklist — follow when shipping any view, copy, nav, or form
-alwaysApply: true
+description: UX/UI construction checklist when editing views, copy, nav, or forms
+alwaysApply: false
+globs:
+  - examples/web/**
+  - examples/android/**
+  - design-tokens/**
+  - branding/**
+  - docs/ux-ui-guidelines.md
+  - docs/DESIGN_GUIDE.md
+  - docs/features/**
 ---
 
 # UX/UI construction (not a review-only doc)
 
-When adding or changing UI, **implement** [`docs/ux-ui-guidelines.md`](../../docs/ux-ui-guidelines.md). Tokens, Settings-only chrome, and no-raw-hex: [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md) and `design-system.mdc`. `/ux-review` uses this same law; it is not a second checklist.
+When adding or changing UI, **implement** [`docs/ux-ui-guidelines.md`](../../docs/ux-ui-guidelines.md). Tokens/chrome: [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md) and `design-system.mdc`. `/ux-review` uses this same law.
 
 ## Must do in the same slice
 
@@ -21,4 +29,4 @@ When adding or changing UI, **implement** [`docs/ux-ui-guidelines.md`](../../doc
 
 ## Gaps
 
-If you cannot fix a violation in this slice, append a `UX-NNN` item to the BUILD_PLAN UX inventory **now** (status `planned` only — never backlog/deferred/later). `/build` does not auto-drain inventory; `/ux-apply UX-NNN` implements one item.
+If you cannot fix a violation in this slice, append a `UX-NNN` item to the BUILD_PLAN UX inventory **now** (status `planned` only). `/ux-apply UX-NNN` implements one item.

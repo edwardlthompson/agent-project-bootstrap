@@ -13,10 +13,15 @@ HINTS = tuple((f"examples/{s}/", (s,)) for s in STACKS) + (
     ("design-tokens/", ("web", "android")),
     ("branding/", ("web", "android")),
 )
+# Cross-stack blast radius only — not every scripts/ edit.
 WIDE_PREFIX = (
-    "scripts/", "tests/", "schemas/", "modules/", ".github/",
-    ".cursor/hooks", ".cursor/rules", ".cursor/agents",
+    "modules/", ".github/",
+    ".cursor/hooks", ".cursor/agents",
     ".cursor-plugin/", ".cursor/plugin",
+)
+# Agent/docs tooling — hygiene/docs gate, not full 8-stack.
+LIGHT_PREFIX = (
+    "scripts/", "tests/", "schemas/", ".cursor/rules/",
 )
 WIDE_NAMES = frozenset(
     "AGENTS.md CLAUDE.md GEMINI.md CONVENTIONS.md .clinerules "
@@ -84,6 +89,8 @@ def classify(paths: list[str] | tuple[str, ...]) -> dict[str, object]:
             p.endswith(".md") and "/" not in p
         ):
             continue
+        if any(p.startswith(d) for d in LIGHT_PREFIX):
+            continue
         wide = True
     if not any_path:
         return {"mode": "docs", "stacks": [], "reason": "no-git-changes"}
@@ -120,7 +127,8 @@ def main(argv: list[str] | None = None) -> int:
             paths = [p for p in args[i + 1].split(",") if p]
             i += 1
         elif a.startswith("--paths="):
-            paths = [p for p in a.split("=", 1)[1].split(",") if p]
+            paths = [p for p in a.split("=", 1)[1].split(",")]
+            paths = [p for p in paths if p]
         i += 1
     result = classify(paths) if paths is not None else classify_repo()
     if fmt == "shell":

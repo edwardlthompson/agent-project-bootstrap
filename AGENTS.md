@@ -1,13 +1,13 @@
 # Agent Router
 
-1. **First read:** `docs/START_HERE.md`
-2. **Cursor modes:** `docs/CURSOR_MODES.md` (Ask / Plan / Agent / Debug routing)
-3. **Why / coach:** `docs/BEST_PRACTICES.md` · 30-day playbook `docs/FIRST_30_DAYS.md` · `/coach` · backlog `/ideas` (`docs/help/IDEAS.md`) · full dump `/allideas` (`docs/help/ALLIDEAS.md`) · first-run `/tour` (`docs/help/TOUR.md` in other IDEs) · portability `docs/AGENT_PORTABILITY.md`
+1. **First read:** hook + `BUILD_PLAN.md` next row (full `docs/START_HERE.md` only on first day / `/tour`)
+2. **Cursor modes:** Ask / Plan / Agent / Debug (`docs/CURSOR_MODES.md` when unsure)
+3. **Why / coach:** `/coach` = one next action · `/tour` · `/ideas` · `/allideas` · `docs/BEST_PRACTICES.md` · `docs/FIRST_30_DAYS.md`
 4. **Bootstrap mode:** `docs/INITIALIZATION_PROMPT.md`
-5. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json`
-6. **Task board:** `BUILD_PLAN.md` (this template’s live board). Child products copy `BUILD_PLAN_TEMPLATE.md`. Status: 🔲 open · ✅ done · ❌ blocked
-7. **Parallel dispatch:** parallel-first BUILD_PLAN; `/build` automates HUMAN/ADB first, backlogs failures to `HUMAN_BACKLOG.md`, never halts on human labels — `scripts/build-sprint-status.sh --lane auto` (child playbook on product repos; Template Maintainer board on this template)
-8. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries. If `AGENT.md` exists, read it before any BUILD_PLAN sprint row (bootstrap never overwrites `AGENT.md`).
+5. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json` (do not load whole index unless `/upgrade`)
+6. **Task board:** `BUILD_PLAN.md` · Status: 🔲 · ✅ · ❌
+7. **Parallel / venue:** `/scope` · Local vs Cloud [ADR-0008](docs/adr/0008-agent-venue.md) · cost diet [ADR-0009](docs/adr/0009-cost-diet-brevity.md)
+8. **Living memory:** `AGENT_MEMORY.md` at milestones only. If `AGENT.md` exists, read before sprint rows.
 
 > Legacy `.cursorrules` is deprecated. Use `.cursor/rules/*.mdc` and this file instead.
 
@@ -75,8 +75,9 @@ Stack tests: web `npm test`; python `uv run pytest`; Android `./gradlew test`. A
 - Conventional Commits for all changes
 - Small, modular functions; keep files within token-optimal size
 - Read-before-write: inspect types/interfaces via `@filename` before editing
-- Cursor mode routing per `docs/CURSOR_MODES.md`; Plan for non-trivial tasks with resolved `### Critique` (Issue→Resolution baked into the plan body)
-- **UI construction:** follow [`docs/ux-ui-guidelines.md`](docs/ux-ui-guidelines.md) for any view, copy, nav, or form (always-on `.cursor/rules/ux-ui.mdc`). Tokens/chrome: [`docs/DESIGN_GUIDE.md`](docs/DESIGN_GUIDE.md). Prefer existing tokens/components; never invent a second visual system; never skip empty/error/loading; never sacrifice a11y for polish. Gaps you cannot fix in this slice: append a `UX-NNN` BUILD_PLAN inventory item immediately (`/ux-review` is the same law, not the first time it appears). `/ux-apply UX-NNN` implements one inventory item; `/build` does not auto-drain UX-NNN.
+- Cursor mode routing per `docs/CURSOR_MODES.md`; Plan for non-trivial tasks with resolved `### Critique`
+- **Brief replies:** 1–3 sentences default (`.cursor/rules/brief-replies.mdc`)
+- **UI construction:** follow [`docs/ux-ui-guidelines.md`](docs/ux-ui-guidelines.md) when editing views (rule loads via globs). Tokens: [`docs/DESIGN_GUIDE.md`](docs/DESIGN_GUIDE.md). Gaps → `UX-NNN` inventory; `/ux-apply UX-NNN`
 
 ## Testing & Quality Enforcement
 
@@ -96,15 +97,13 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 
 ## Session Protocol
 
-- On session start: read `START_HERE.md`, pick mode via `docs/CURSOR_MODES.md` (roles if your IDE uses other names), then `BUILD_PLAN.md` Sequential lane. Prefer next 🔲 `[AGENT][LOCAL]` on This Computer (never claim `[CLOUD]` locally). If you will change UI, also read `docs/ux-ui-guidelines.md` (construction) and `docs/DESIGN_GUIDE.md` (tokens/chrome). If `AGENT.md` exists, read it before any sprint row (do not substitute template About/donate). If `CHANGELOG.md` `[Unreleased]` has list items, say so in one line. When `gh` is available, run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` before naming the next 🔲 `[AGENT]` row (or say the AGENT board is empty). After Cloud Agent work on another machine, run `/resume` (or bare `resume`) instead of reconstructing context by hand. New AGENT rows need `[LOCAL]` or `[CLOUD]` plus `— scope:` ([`docs/adr/0008-agent-venue.md`](docs/adr/0008-agent-venue.md)).
-- If your tool has no slash commands, use `docs/help/*.md` (start with `docs/help/TOUR.md`)
-- When creating or significantly changing a file, state one sentence of why (see `docs/BEST_PRACTICES.md` and `/coach`)
-- On milestone end: update `AGENT_MEMORY.md`, append to `DECISION_LOG.md` or `docs/adr/`
-- On 3-strike failure: halt and escalate to human
-- On context bloat: write `.cursor-session-state`, ask human to clear chat
-- Sprint 2+ features: after each AGENT step run `scripts/watch-agent-gates.sh --once --autofix --scope auto` (see `docs/FEATURE_MODULES.md`). After the sprint (or feature) is all ✅, `smoke-sprint --require` must pass before the next sprint — every ✅ row smoked, no errors/crashes, startup + load order (`docs/SPRINT_SMOKE.md`). `/gates` stays full `feature-gate --stack multi` plus `smoke-sprint --if-complete`.
-- Repo hygiene: track source only; run `scripts/check-repo-hygiene.sh` before push (see `docs/REPO_HYGIENE.md`)
-- Log significant agent actions in `DECISION_LOG.md` at milestone boundaries
+1. Hook context + name next 🔲 `[AGENT][LOCAL]` (or empty board). Mode: Ask/Plan/Agent/Debug.
+2. Unreleased: skim first ~20 lines of CHANGELOG `[Unreleased]` only — do not load the whole file.
+3. UI edits → `docs/ux-ui-guidelines.md`. `AGENT.md` before sprint rows if present.
+4. After each AGENT step: `watch-agent-gates --once --autofix --scope auto` (skip re-running full validate mid-slice if that passed). Sprint complete → `smoke-sprint --require`.
+5. Milestone: update `AGENT_MEMORY.md` / ADR. 3-strike → halt. After Cloud → `/resume`.
+
+Replies: 1–3 sentences default (`.cursor/rules/brief-replies.mdc`). Venue: `[LOCAL]`/`[CLOUD]` + `— scope:` ([ADR-0008](docs/adr/0008-agent-venue.md)). Cost diet: [ADR-0009](docs/adr/0009-cost-diet-brevity.md).
 
 ## Multi-Agent Adapters
 

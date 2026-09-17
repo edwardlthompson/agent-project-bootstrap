@@ -1,6 +1,6 @@
 ---
-description: Prefer local PC parallelism over Cloud when working on This Computer
-alwaysApply: true
+description: Prefer local PC parallelism over Cloud when on This Computer
+alwaysApply: false
 ---
 
 # Local Compute First

@@ -2,6 +2,13 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M64 — Cost diet + ADHD brevity (2026-09-16)
+
+- ✅ [AGENT][LOCAL] brief-replies.mdc + slim AGENTS/core-directives/coach; README + START_HERE above-fold — scope: docs/
+- ✅ [AGENT][LOCAL] Demote alwaysApply rules; ADR-0009; session protocol diet — scope: .cursor/rules/
+- ✅ [AGENT][LOCAL] Narrow gate_scope WIDE_PREFIX; validate-bootstrap --agent; pre-commit remap; tests — scope: scripts/
+- ✅ [AGENT][LOCAL] Retune /gates /build /feature; sessionStart; shorten build/scope/plan/help; CHANGELOG; M64 gates — scope: .cursor/commands/
+
 ## M63 — Local vs Cloud agent venues (2026-09-16)
 
 - ✅ [AGENT][LOCAL] ADR-0008 + PARALLEL/CURSOR/local-compute docs; Local/Cloud lane sections + legend on BUILD_PLAN.md and BUILD_PLAN_TEMPLATE.md — scope: docs/

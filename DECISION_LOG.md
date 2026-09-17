@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-16 — Agent cost diet + ADHD brevity
+- **Status:** Accepted
+- **Context:** Fourteen alwaysApply rules and fat session/gate defaults burned Cursor tokens and wall-clock on every mid-slice edit.
+- **Decision:** Demote fat rules; add `brief-replies.mdc`; slim session protocol; `validate-bootstrap --agent` for pre-commit; LIGHT_PREFIX so scripts/tests/rules dirtiness is docs-mode; `/gates` agent-fast by default (`--full` for multi).
+- **Alternatives considered:** Tokens-only or gates-only (rejected). Gut venue/smoke/gitleaks (rejected).
+- **Consequences:** ADR-0009; sync-cursor-features no longer forces foss alwaysApply; human docs shortened above-fold.
+
 ### 2026-09-16 — LOCAL vs CLOUD BUILD_PLAN venues
 - **Status:** Accepted
 - **Context:** Cloud and This Computer could both claim untagged `[AGENT]` rows; parallel-scope locks are gitignored and invisible to Cloud.

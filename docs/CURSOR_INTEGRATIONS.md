@@ -8,7 +8,7 @@ After `scripts/init-project.sh --distribution-tier foss`:
 
 | Layer | Artifact | Status |
 |-------|----------|--------|
-| Rules | `.cursor/rules/*.mdc` | Shipped (19). `alwaysApply: true` is allowlisted in `scripts/lib/cursor_rule_audit.py`; glob-scoped rules must set `alwaysApply: false`. |
+| Rules | `.cursor/rules/*.mdc` | Shipped (20). Thin `alwaysApply` allowlist in `scripts/lib/cursor_rule_audit.py` (ADR-0009 cost diet); demoted rules use globs/description. |
 | Commands | `.cursor/commands/*.md` | Shipped (45) |
 | Hooks | `.cursor/hooks.json` + `.cursor/hooks/` | Shipped |
 | Skills | `.cursor/skills/` (16) | Shipped |

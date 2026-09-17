@@ -15,7 +15,7 @@ python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto --s
 
 ```
 
-Use `--step tests` or `--step wire` when appropriate. On exit 2, use `/debug` or escalate.
+Do not re-run full `validate-bootstrap` mid-slice if watch already passed. Use `--step tests` or `--step wire` when appropriate. On exit 2, use `/debug` or escalate.
 
 When the active feature block is fully ✅, run `python3 scripts/agent-run.py smoke-sprint --require` before the next feature. Then read @.cursor/commands/cleanup.md — execute fully.
 
