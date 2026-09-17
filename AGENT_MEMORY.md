@@ -7,7 +7,7 @@
 
 | Layer | Technology | Version | Notes |
 |-------|-----------|---------|-------|
-| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Blender/Rust/Go) | 1.6.0 | Template maintainer repo |
+| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Blender/Rust/Go) | 1.7.0 | Template maintainer repo |
 | License | MIT | - | Pure FOSS |
 | Distribution | GitHub Releases + GitHub Pages demo | - | F-Droid/Winget stubs for child repos |
 ## Active Modules
@@ -123,7 +123,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 ## Template Provenance
 
 - **Source template:** `edwardlthompson/agent-project-bootstrap` (self-maintained)
-- **Template version:** `1.6.0` (see `.template-version`)
+- **Template version:** `1.7.0` (see `.template-version`)
 - **Last update check:** See `.template-update.json`
 
 ### Retrospective — 2026-09-10 (M61)
