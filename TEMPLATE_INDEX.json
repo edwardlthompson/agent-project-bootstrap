@@ -1,5 +1,5 @@
 {
-  "template_version": "1.6.0",
+  "template_version": "1.7.0",
   "project": {
     "name": "agent-project-bootstrap",
     "purpose": "GitHub Template for FOSS coding-agent projects",
