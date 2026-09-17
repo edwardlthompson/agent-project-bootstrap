@@ -4,6 +4,8 @@
 
 Execute the active BUILD_PLAN feature row only (one feature per task). See @docs/FEATURE_MODULES.md. View + i18n must meet @docs/ux-ui-guidelines.md (empty/error/loading, one primary CTA, a11y). Definition of Done is not “it renders.”
 
+On This Computer: only `🔲 [AGENT][LOCAL]` rows (`feature/local-<slug>`). Never claim `[CLOUD]`. Row must include `— scope:`. See @docs/adr/0008-agent-venue.md.
+
 When invoked from @.cursor/commands/build.md: execute all open rows for the active feature without stopping; no user prompts.
 
 After each AGENT step:

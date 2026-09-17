@@ -2,6 +2,13 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M63 — Local vs Cloud agent venues (2026-09-16)
+
+- ✅ [AGENT][LOCAL] ADR-0008 + PARALLEL/CURSOR/local-compute docs; Local/Cloud lane sections + legend on BUILD_PLAN.md and BUILD_PLAN_TEMPLATE.md — scope: docs/
+- ✅ [AGENT][LOCAL] agent_venue.py + check-agent-venue.sh + tests; validate-bootstrap; LOCAL vs CLOUD scope overlap — scope: scripts/
+- ✅ [AGENT][LOCAL] build_plan_tally + build_sprint_model; /build /feature /scope /plan /resume venue routing — scope: scripts/
+- ✅ [AGENT][LOCAL] resume Cloud PR overlap; session_start nudge; CHANGELOG Unreleased; M63 gates — scope: scripts/
+
 ## v1.6.0 release (2026-09-15)
 
 - ✅ [AGENT] Merge release [#110](https://github.com/edwardlthompson/agent-project-bootstrap/pull/110) (chore(main): release 1.6.0)

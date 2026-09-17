@@ -17,7 +17,7 @@ from sync_open_prs_build_plan import BEGIN, EMPTY_NOTE, END  # noqa: E402
 PLAN = f"""# Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 1 · AUTO 0 · HUMAN 0 · ADB 0 · **1 open**
+**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **1 open**
 <!-- /remaining-tally -->
 
 ### Open PRs (synced)
@@ -26,7 +26,7 @@ PLAN = f"""# Build Plan
 {EMPTY_NOTE}
 {END}
 
-1. 🔲 [AGENT] Do the next thing
+1. 🔲 [AGENT][LOCAL] Do the next thing — scope: scripts/
 """
 
 
@@ -78,7 +78,7 @@ class ResumeHandoffTests(unittest.TestCase):
                 ci_line="CI red: failed required checks: CI",
             )
             self.assertIn("Next BUILD_PLAN row:", digest)
-            self.assertIn("[AGENT] Do the next thing", digest)
+            self.assertIn("[AGENT][LOCAL] Do the next thing", digest)
             self.assertIn("CHANGELOG [Unreleased] has entries: yes", digest)
             self.assertIn("CI red: failed required checks: CI", digest)
             self.assertIn("Handoff: dirty Unreleased", digest)
@@ -108,7 +108,7 @@ class ResumeHandoffTests(unittest.TestCase):
                 code, digest = resume(root, apply_sync=True)
             self.assertEqual(code, 0)
             self.assertIn("cursor/cloud", digest)
-            self.assertIn("[AGENT] Do the next thing", digest)
+            self.assertIn("[AGENT][LOCAL] Do the next thing", digest)
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@
     {"glob": "docs/help/", "policy": "canon", "owner": "AGENT"},
     {"glob": "docs/ux-ui-guidelines.md", "policy": "canon", "owner": "AGENT"},
     {"glob": "docs/adr/0007-ux-inventory.md", "policy": "canon", "owner": "AGENT"},
+    {"glob": "docs/adr/0008-agent-venue.md", "policy": "canon", "owner": "AGENT"},
     {"glob": "docs/BATCH_COMMANDS.md", "policy": "canon", "owner": "AGENT"},
     {"glob": "CODE_REVIEW.md.example", "policy": "canon", "owner": "AGENT"},
     {"glob": "RELEASE_NOTES.md.example", "policy": "canon", "owner": "AGENT"},

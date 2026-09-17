@@ -168,6 +168,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-build-plan-parallel.sh \
   check-build-plan-tally.sh \
   check-ux-inventory.sh \
+  check-agent-venue.sh \
   check-template-version-sync.sh \
   validate-template-index.sh \
   check-project-card-index.sh \

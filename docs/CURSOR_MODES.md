@@ -101,6 +101,7 @@ Product **Design Mode** (Agents Window browser: click/draw/voice on live UI) app
 | Term | Means | Not the same as |
 |------|--------|-----------------|
 | **Cloud Agents** | Paid remote VMs (formerly “Background Agents”) | Local Agent Mode |
+| **LOCAL / CLOUD venue** | BUILD_PLAN `[AGENT][LOCAL]` vs `[AGENT][CLOUD]` — where work runs ([`adr/0008-agent-venue.md`](adr/0008-agent-venue.md)) | Who labels AGENT/HUMAN/ADB/AUTO |
 | **Grok Bots** | Optional xAI/Cursor always-on teammates ([`GROK_BOTS.md`](GROK_BOTS.md)) | Cloud Agents, Automations, Cline first-run |
 | **Automations Memories** | Cloud Automations persistence (`MEMORIES.md`-style) | [`AGENT_MEMORY.md`](../AGENT_MEMORY.md) or `.cursor-session-state` |
 | Built-in **`/plan`** | Product Plan Mode toggle / CLI plan | Batch [`.cursor/commands/plan.md`](../.cursor/commands/plan.md) orchestrator |
@@ -117,4 +118,4 @@ On **This Computer**, prefer machine parallelism over Cloud Agents:
 | `/worktree` + `/best-of-n` | Isolated local checkouts; multi-model races on hard fixes |
 | Side chats | Research in parallel with the main Agent |
 | Local gates | RAM-capped parallel bootstrap checks + multi-stack `feature-gate` (`BOOTSTRAP_CHECK_JOBS`, `FEATURE_GATE_JOBS`) |
-Rule: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-compute.mdc). Details: [`PARALLEL_AGENT_SCOPES.md`](PARALLEL_AGENT_SCOPES.md), [`CURSOR_INTEGRATIONS.md`](CURSOR_INTEGRATIONS.md), Linux: [`LINUX_DEV.md`](LINUX_DEV.md).
+Rule: [`.cursor/rules/local-compute.mdc`](../.cursor/rules/local-compute.mdc). Details: [`PARALLEL_AGENT_SCOPES.md`](PARALLEL_AGENT_SCOPES.md), [`CURSOR_INTEGRATIONS.md`](CURSOR_INTEGRATIONS.md), Linux: [`LINUX_DEV.md`](LINUX_DEV.md). Venue isolation: [`adr/0008-agent-venue.md`](adr/0008-agent-venue.md) — This Computer claims `[LOCAL]` only; Cloud claims `[CLOUD]` only.

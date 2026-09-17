@@ -20,7 +20,7 @@ PARALLEL_HEADER = re.compile(r"^#{3,4}\s+.*Parallel", re.I | re.MULTILINE)
 SEQUENTIAL_HEADER = re.compile(r"^#{3,4}\s+Sequential", re.I | re.MULTILINE)
 TABLE_ROW = re.compile(r"^\|([^|]+)\|([^|]+)\|([^|]+)\|")
 OPEN_AGENT_SEQ = re.compile(
-    r"^(?:\d+[a-z]?)\.\s+(?:🔲|⬜|\[ \])\s+\[AGENT\]\s+",
+    r"^(?:\d+[a-z]?)\.\s+(?:🔲|⬜|\[ \])\s+\[AGENT\](?:\[(?:LOCAL|CLOUD)\])?\s+",
 )
 AGENT_COUNT_TARGET = re.compile(r"<!--\s*agent_count_target:\s*(\d+)", re.I)
 PARALLEL_EXCEPTION = re.compile(r"<!--\s*parallel_exception:\s*(.+?)\s*-->", re.I)

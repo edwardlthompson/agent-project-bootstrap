@@ -82,10 +82,13 @@ class SyncTemplateGapsTests(unittest.TestCase):
         }
         inner = render_inner(report, template_repo=False)
         self.assertIn("Parent `1.2.0` → `1.3.0` (edwardlthompson/agent-project-bootstrap)", inner)
-        self.assertIn("[AGENT] Canon: scripts/foo.sh", inner)
+        self.assertIn("[AGENT][LOCAL] Canon: scripts/foo.sh", inner)
         self.assertIn("[HUMAN] Sacred: AGENTS.md", inner)
-        self.assertIn("[AGENT] Mixed: docs/spec.md", inner)
-        self.assertIn("[AGENT] Feature gap: [about — About panel](docs/features/about.md)", inner)
+        self.assertIn("[AGENT][LOCAL] Mixed: docs/spec.md", inner)
+        self.assertIn(
+            "[AGENT][LOCAL] Feature gap: [about — About panel](docs/features/about.md)",
+            inner,
+        )
         updated = sync_text(SAMPLE, report, template_repo=False)
         self.assertIn("AGENT 3", updated)
         self.assertIn("HUMAN 1", updated)
@@ -97,7 +100,7 @@ class SyncTemplateGapsTests(unittest.TestCase):
             {"current": "1.0.0", "latest": "1.1.0", "files": files, "features": []},
             template_repo=False,
         )
-        self.assertEqual(inner.count("[AGENT] Canon:"), 40)
+        self.assertEqual(inner.count("[AGENT][LOCAL] Canon:"), 40)
         self.assertIn("…and 5 more", inner)
 
     def test_skip_and_offline(self) -> None:

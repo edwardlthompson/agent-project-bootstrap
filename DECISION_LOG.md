@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-16 — LOCAL vs CLOUD BUILD_PLAN venues
+- **Status:** Accepted
+- **Context:** Cloud and This Computer could both claim untagged `[AGENT]` rows; parallel-scope locks are gitignored and invisible to Cloud.
+- **Decision:** Keep Who (`AGENT`/`HUMAN`/`ADB`/`AUTO`). Add venue tags `[LOCAL]`/`[CLOUD]` with required `— scope:`. Standing Local/Cloud lanes on the board. `check-agent-venue` forbids open LOCAL vs CLOUD path overlap. Local `/build` skips CLOUD; `/resume` blocks LOCAL when Cloud PR files hit LOCAL scopes.
+- **Alternatives considered:** Replace Who with LOCAL/CLOUD (rejected). Rely on parallel-scope-lock across machines (rejected). Add Grok/Cline Whos (rejected: label sprawl).
+- **Consequences:** ADR-0008; child template playbook AGENT rows are `[LOCAL]`; Open PRs release merge and template-gap sync emit venue+scope.
+
 ### 2026-09-15 — v1.6.0 /ship
 - **Status:** Accepted
 - **Context:** M62 UX construction law was on `main` as `feat`. First push (`f532e8b`) failed required CodeQL/Android assemble because `setup-android@v4` still asked for the obsolete SDK `tools` package. Release Please #110 opened for 1.6.0. Admin-merge of #110 created the GitHub Release, then RP GraphQL failed before dispatching `release.yml`, so SBOM assets were missing until a manual workflow_dispatch.

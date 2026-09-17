@@ -1525,8 +1525,22 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-agent-venue.sh",
+      "purpose": "Validate BUILD_PLAN LOCAL/CLOUD venue tags, scopes, and overlap",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/lib/ux_inventory.py",
       "purpose": "Parse UX-NNN inventory blocks; reject forbidden Status words",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/agent_venue.py",
+      "purpose": "Parse LOCAL/CLOUD agent venues; scope exclusivity for Cloud vs Local",
       "read_when": "reference",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -3046,6 +3060,13 @@
     {
       "path": "docs/adr/0007-ux-inventory.md",
       "purpose": "ADR: construction law vs /ux-review vs UX inventory vs sprint rows",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/adr/0008-agent-venue.md",
+      "purpose": "ADR: LOCAL vs CLOUD BUILD_PLAN venues and isolation",
       "read_when": "reference",
       "update_when": "milestone_boundary",
       "owner": "maintainer"

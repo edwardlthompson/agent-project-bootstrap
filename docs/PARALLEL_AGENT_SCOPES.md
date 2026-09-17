@@ -44,6 +44,16 @@ When working on **This Computer**, treat parallel agents + worktrees as the defa
 4. Prefer `/best-of-n` over serial model retries for flaky gates
 5. Prefer local Agent + CLI over Cloud Agents unless the machine is unavailable or commercial Autofix/Automations are intentional
 
+## Local vs Cloud venues (BUILD_PLAN)
+
+Who stays `AGENT` / `HUMAN` / `ADB` / `AUTO`. Venue tags on AGENT rows only:
+
+| Tag | Branch | Who claims |
+|-----|--------|------------|
+| `[LOCAL]` | `feature/local-<slug>` | This Computer `/build` `/feature` `/scope` |
+| `[CLOUD]` | Cursor `cursor/*` | Cursor Cloud Agents only |
+Every open AGENT row needs `— scope: <path-prefix>`. Open LOCAL vs open CLOUD scopes must not prefix-overlap (`check-agent-venue`). Standing queues: **Local agent** and **Cloud agent** sections on BUILD_PLAN. See [`adr/0008-agent-venue.md`](adr/0008-agent-venue.md). After Cloud, `/resume` before claiming a LOCAL row that overlaps Cloud PR files.
+
 Override gate worker count with `BOOTSTRAP_CHECK_JOBS` (see `scripts/lib/run_checks_parallel.py`). On Linux, also apply [`LINUX_DEV.md`](LINUX_DEV.md) (direnv, caches, inotify, worktrees).
 
 ## Sprint 1 (child repo) defaults

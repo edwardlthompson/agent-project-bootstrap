@@ -18,13 +18,13 @@ from child_build_plan import install_child_build_plan  # noqa: E402
 SAMPLE = """# Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · AUTO 0 · HUMAN 0 · ADB 0 · **0 open**
+**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **0 open**
 <!-- /remaining-tally -->
 
 ### Sprint 0
 
-1. 🔲 [AGENT] One
-2. ✅ [AGENT] Done
+1. 🔲 [AGENT][LOCAL] One — scope: scripts/
+2. ✅ [AGENT][LOCAL] Done — scope: scripts/
 3. 🔲 [HUMAN] Two
 4. ❌ [ADB] Blocked
 
@@ -38,10 +38,13 @@ class TallyTests(unittest.TestCase):
     def test_counts_open_and_blocked(self) -> None:
         counts = count_remaining(SAMPLE)
         self.assertEqual(counts["AGENT"], 1)
+        self.assertEqual(counts["LOCAL"], 1)
+        self.assertEqual(counts["CLOUD"], 0)
         self.assertEqual(counts["HUMAN"], 1)
         self.assertEqual(counts["ADB"], 1)
         self.assertEqual(counts["AUTO"], 1)
         self.assertIn("AGENT 1", format_tally(counts))
+        self.assertIn("LOCAL 1", format_tally(counts))
         self.assertIn("**4 open**", format_tally(counts))
 
     def test_apply_updates_block(self) -> None:

@@ -80,7 +80,7 @@ class SyncOpenPrsTests(unittest.TestCase):
         ]
         inner = render_inner(prs)
         self.assertIn("[AUTO] Merge Dependabot [#103]", inner)
-        self.assertIn("[AGENT] Merge release [#102]", inner)
+        self.assertIn("[AGENT][LOCAL] Merge release [#102]", inner)
         self.assertLess(inner.index("[AUTO]"), inner.index("[AGENT]"))
         updated = sync_text(SAMPLE, prs)
         self.assertIn("AUTO 1", updated)

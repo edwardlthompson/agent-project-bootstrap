@@ -10,6 +10,7 @@ Execute the BUILD_PLAN **without asking the user questions, presenting options, 
 - **Never stop** for plan approval — `/build` is self-approving.
 - **Never halt** on `[HUMAN]` or `[ADB]` labels — automate first; backlog only on failure.
 - **Never stop** after a single feature row if the active sprint still has open work.
+- **Venue:** On This Computer claim only `🔲 [AGENT][LOCAL]` (skip `[CLOUD]`). Cloud Agents claim only `[CLOUD]`. Every AGENT row needs `— scope:` ([`docs/adr/0008-agent-venue.md`](../docs/adr/0008-agent-venue.md)).
 - **Do stop** only when: (a) 3-strike gate failure, (b) environment block (exit 2) after autofix, or (c) all actionable rows complete (`all_sprints_agent_auto_complete`).
 - On gate failure: run @.cursor/commands/fix.md autonomously (up to 3 strikes) — do not suggest `/fix` and wait.
 

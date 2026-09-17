@@ -17,6 +17,9 @@ def _next_agent_snip() -> str:
         return ""
     try:
         in_sync = False
+        local_hit = ""
+        any_agent = ""
+        cloud_open = False
         for line in path.read_text(encoding="utf-8").splitlines():
             if "<!-- open-prs-sync:begin -->" in line:
                 in_sync = True
@@ -29,8 +32,20 @@ def _next_agent_snip() -> str:
             stripped = line.strip()
             if not (stripped[:1].isdigit() or stripped.startswith("-")):
                 continue
-            if "🔲" in line and "[AGENT]" in line:
-                return stripped[:80]
+            if "🔲" not in line or "[AGENT]" not in line:
+                continue
+            if "[AGENT][CLOUD]" in line:
+                cloud_open = True
+                continue
+            if "[AGENT][LOCAL]" in line and not local_hit:
+                local_hit = stripped[:80]
+            elif not any_agent:
+                any_agent = stripped[:80]
+        if local_hit:
+            return local_hit + (" (cloud_rows_open)" if cloud_open else "")
+        if cloud_open and not any_agent:
+            return "cloud_rows_open type /resume"
+        return any_agent
     except OSError:
         return ""
     return ""

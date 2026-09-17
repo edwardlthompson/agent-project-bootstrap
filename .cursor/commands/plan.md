@@ -46,6 +46,8 @@ When drafting or extending **BUILD_PLAN.md** sprints, include mandatory **### Pa
 3. **`agent_count_target`** — integer; justify any target `< 2` in one sentence
 4. **Dry-run** — expected output of `python3 scripts/agent-run.py plan-parallel-dispatch --draft BUILD_PLAN.md --suggest`
 
+Every new `[AGENT]` row must include `[LOCAL]` or `[CLOUD]` and `— scope: <path>` ([`docs/adr/0008-agent-venue.md`](../docs/adr/0008-agent-venue.md)). Do not create dual-venue rows.
+
 Apply the decomposition checklist in @BUILD_PLAN.md (multi-stack, logic/view split, tests/docs/CI). **Maximize agent_count** across non-overlapping scopes.
 
 Before asking human approval of BUILD_PLAN changes (standalone `/plan` only), run:

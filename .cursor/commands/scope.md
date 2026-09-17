@@ -4,6 +4,8 @@
 
 Read @docs/PARALLEL_AGENT_SCOPES.md and the active BUILD_PLAN Parallel table.
 
+Parallel Owner cells must be `AGENT[LOCAL]` or `AGENT[CLOUD]` (same venue for the dispatch). This Computer `/scope` only dispatches LOCAL. Branches: `feature/local-<slug>`. See @docs/adr/0008-agent-venue.md.
+
 ## 0. Dry-run ownership (optional first)
 
 ```bash

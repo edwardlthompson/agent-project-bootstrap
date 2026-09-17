@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · AUTO 0 · HUMAN 0 · ADB 0 · **0 open**
+**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **0 open**
 <!-- /remaining-tally -->
 
 ### Product (do not drift)
@@ -15,9 +15,10 @@ _Template maintainer: no product AGENT.md. Children write AGENT.md before init._
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
 
 **Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts
+**Venue (AGENT only):** `[LOCAL]` This Computer · `[CLOUD]` Cursor Cloud — see [`docs/adr/0008-agent-venue.md`](docs/adr/0008-agent-venue.md)
 **State:** 🔲 open · ✅ done · ❌ blocked — reason
 
-Format: `🔲 [AGENT] Short task`. Sequential `[AGENT]` first. Parallel scopes: [`docs/PARALLEL_AGENT_SCOPES.md`](docs/PARALLEL_AGENT_SCOPES.md). `/build` tries HUMAN/ADB after automation; failures go to `HUMAN_BACKLOG.md`.
+Format: `🔲 [AGENT][LOCAL] Short task — scope: path/prefix` (or `[CLOUD]`). Sequential `[AGENT]` first. Parallel scopes: [`docs/PARALLEL_AGENT_SCOPES.md`](docs/PARALLEL_AGENT_SCOPES.md). `/build` on This Computer picks LOCAL only; Cloud picks CLOUD only. HUMAN/ADB after automation → `HUMAN_BACKLOG.md`.
 
 ## Smoke gate (hard stop)
 
@@ -38,6 +39,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 **Now:** AGENT board empty. **v1.6.0** shipped. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
+> **M63** archived in COMPLETED_TASKS.md @ `9b7870b`.
 > **v1.6.0** release archived in COMPLETED_TASKS.md @ `d4cb35b`.
 > **M62** archived in COMPLETED_TASKS.md @ `81d165b`.
 > **v1.5.0** release archived in COMPLETED_TASKS.md @ `9808229`.
@@ -57,6 +59,22 @@ Complete list from construction gaps and `/ux-review`. Status is only planned / 
 <!-- ux-inventory:begin -->
 _No UX inventory items._
 <!-- ux-inventory:end -->
+
+### Local agent (This Computer)
+
+Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path`. `/build` and `/feature` claim these only. Isolation: [`docs/adr/0008-agent-venue.md`](docs/adr/0008-agent-venue.md).
+
+<!-- local-agent-lane:begin -->
+_No local agent items._
+<!-- local-agent-lane:end -->
+
+### Cloud agent (Cursor Cloud)
+
+Standing queue for Cursor Cloud Agents. Rows: `🔲 [AGENT][CLOUD] … — scope: path`. Cloud claims these only (`cursor/*` branches). Never edit Local lane or `[LOCAL]` rows.
+
+<!-- cloud-agent-lane:begin -->
+_No cloud agent items._
+<!-- cloud-agent-lane:end -->
 
 ### Open PRs (synced)
 
@@ -78,7 +96,7 @@ _No template gaps; .template-version matches upstream (or template maintainer N/
 
 _None._ Lightroom stub smoke is `feature-gate --stack lightroom` (Lua/SDK), not Plug-in Manager. Raster icons are `blender-icons` QA, not a HUMAN export.
 
-Done on this board: **v1.6.0** · **M62** UX/UI construction law · **v1.5.0** · **v1.4.0** · **v1.3.0** · **M61** back/nav/gates · **M60** CI clarity · **M59** CI harden · **M58** ship CI + Espresso · **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **M63** Local/Cloud venues · **v1.6.0** · **M62** UX/UI construction law · **v1.5.0** · **v1.4.0** · **v1.3.0** · **M61** back/nav/gates · **M60** CI clarity · **M59** CI harden · **M58** ship CI + Espresso · **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

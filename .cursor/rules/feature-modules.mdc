@@ -11,6 +11,7 @@ alwaysApply: true
 - **Vertical slice** — logic, view, tests, i18n in one container folder
 - **Thin wiring** — composition root (`appBootstrap.ts` / `main.ts`, `GoldenPathApp.kt` / `MainActivity`) ≤10 lines per feature
 - **Sequential before Parallel** — after scaffold step 2, parallel agents may run on **non-overlapping** scopes; orchestrator owns BUILD_PLAN + merge
+- **Venue** — This Computer claims `[AGENT][LOCAL]` only; Cloud claims `[CLOUD]` only; every AGENT row needs `— scope:` (`docs/adr/0008-agent-venue.md`)
 
 ## After every AGENT step
 
