@@ -15,16 +15,16 @@
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",
-    "hono": "^4.13.7"
+    "hono": "^4.13.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.13",
-    "@types/node": "^26.5.1",
-    "@vitest/coverage-v8": "^5.0.0",
-    "fast-check": "^4.10.0",
+    "@biomejs/biome": "^2.5.14",
+    "@types/node": "^26.6.1",
+    "@vitest/coverage-v8": "^5.0.1",
+    "fast-check": "^4.10.1",
     "tsx": "^4.23.13",
     "typescript": "~7.0.2",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.1"
   },
   "overrides": {
     "postcss": ">=8.5.23",
