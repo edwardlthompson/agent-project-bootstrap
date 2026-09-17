@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.7.0...v1.8.0) (2026-09-17)
+
+
+### Added
+
+* **agents:** cost diet and ADHD brevity ([86bc12c](https://github.com/edwardlthompson/agent-project-bootstrap/commit/86bc12c4d3f5081ae2f402a2d538cde73d3c569e))
+
 ## [1.7.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.6.0...v1.7.0) (2026-09-17)
 
 ### Added
