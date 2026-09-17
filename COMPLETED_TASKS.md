@@ -2,6 +2,12 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v1.8.0 release (2026-09-17)
+
+- ✅ [AGENT] Merge release [#112](https://github.com/edwardlthompson/agent-project-bootstrap/pull/112) (chore(main): release 1.8.0)
+- ✅ [AGENT] M64 cost diet + ADHD brevity (ADR-0009)
+- ✅ [AUTO] SBOM + OpenVEX on GitHub Release v1.8.0
+
 ## M64 — Cost diet + ADHD brevity (2026-09-16)
 
 - ✅ [AGENT][LOCAL] brief-replies.mdc + slim AGENTS/core-directives/coach; README + START_HERE above-fold — scope: docs/

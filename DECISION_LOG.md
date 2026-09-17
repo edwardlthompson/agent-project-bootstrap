@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-17 — v1.8.0 /ship
+- **Status:** Accepted
+- **Context:** M64 cost diet was ready to ship; upd offered only bogus CodeQL `vcodeql-bundle-*` pins; first CI on `96c99a7` failed Android instrumented (emulator ColorBuffer flake) then passed on rerun.
+- **Decision:** Ship **1.8.0** via Release Please [#112](https://github.com/edwardlthompson/agent-project-bootstrap/pull/112). Leave CodeQL `@v4`. Skip upd CodeQL “patches”. Rerun failed CI jobs before merge.
+- **Alternatives considered:** Apply CodeQL bundle tags from upd (rejected). Block ship on first instrumented flake (rejected: rerun cleared it).
+- **Consequences:** Tag **v1.8.0** with SBOM+OpenVEX; ADR-0009 brevity defaults on main.
+
 ### 2026-09-16 — Agent cost diet + ADHD brevity
 - **Status:** Accepted
 - **Context:** Fourteen alwaysApply rules and fat session/gate defaults burned Cursor tokens and wall-clock on every mid-slice edit.
