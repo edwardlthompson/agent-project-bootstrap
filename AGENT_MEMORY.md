@@ -55,6 +55,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 
 ## Session Retrospectives
 
+| 2026-10-04 | v1.9.0 /ship | Smart local + Cline workflows; RP #119; Windows large-file hygiene fix; SBOM on tag | Opt-in Ollama never required for CI/ship; admin-merge RP when branch workflows are action_required |
 | 2026-09-17 | v1.8.0 /ship | M64 cost diet; RP #112; flaky Android instrumented rerun; SBOM+OpenVEX on tag | Leave CodeQL `@v4`; rerun failed CI before admin-merge RP |
 | 2026-09-16 | M64 cost diet + brevity | Demote alwaysApply; `brief-replies`; `--agent` pre-commit; LIGHT_PREFIX; ADR-0009 | Do not re-force foss always-on in sync-cursor-features; `/gates --full` for release |
 | 2026-09-16 | M63 Local/Cloud venues | `[AGENT][LOCAL\|CLOUD]` + scope; lanes; `check-agent-venue`; `/resume` overlap | Do not claim CLOUD on This Computer; gitignored parallel lock is not cross-venue |

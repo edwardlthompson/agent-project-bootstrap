@@ -212,6 +212,15 @@
 | **Fix** | Pass `packages: platform-tools` on every `setup-android@v4` step (CI assemble + CodeQL). Do not install `tools` |
 | **Prevention** | New Android workflow jobs must set `packages` explicitly; do not rely on the action default |
 
+### KB-027 — Windows Git Bash hang in large tracked-file check
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | Pre-commit Repo hygiene checks hangs forever on Windows; nested ash scripts/check-large-tracked-files.sh with no git child |
+| **Cause** | Per-file git cat-file / process substitution under Git Bash starves or never completes on large trees |
+| **Fix** | Write git ls-tree -r -l HEAD to a temp file and parse sizes in-process (no process substitution, no per-file cat-file) |
+| **Prevention** | Prefer one plumbing call over N git spawns in hygiene hooks; keep scripts LF; time the gate locally before /ship |
+
 ### KB-025 — Blender icon tests must skip before importing `cli`
 
 | Field | Detail |

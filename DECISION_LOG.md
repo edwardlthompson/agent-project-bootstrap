@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-10-04 — v1.9.0 /ship
+- **Status:** Accepted
+- **Context:** Local-agent + VS Code Cline parity ready; main was 48 commits behind Dependabot/RP history; pre-commit large-file check hung on Windows Git Bash; RP #119 branch workflows stayed ction_required.
+- **Decision:** Ship **1.9.0** via Release Please [#119](https://github.com/edwardlthompson/agent-project-bootstrap/pull/119). Keep local Ollama helpers opt-in. Fix check-large-tracked-files.sh to parse one git ls-tree -l. Admin-merge RP when auto-merge is blocked by unapproved workflow runs.
+- **Alternatives considered:** Require Ollama for /ship (rejected). Wait forever on RP branch CI approvals (rejected: admin merge after main CI green).
+- **Consequences:** Tag **v1.9.0** with SBOM+OpenVEX; .clinerules/ directory + workflows on main.
+
 ### 2026-09-17 — v1.8.0 /ship
 - **Status:** Accepted
 - **Context:** M64 cost diet was ready to ship; upd offered only bogus CodeQL `vcodeql-bundle-*` pins; first CI on `96c99a7` failed Android instrumented (emulator ColorBuffer flake) then passed on rerun.
