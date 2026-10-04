@@ -42,7 +42,7 @@
 - 🔲 `/maintain` or `/triage` + `/update-deps` once (local bumps; GitHub Dependabot leftover + Scorecard awareness)
 - 🔲 Optional: `just local-compute` / `just linux-dev`; follow `docs/LINUX_DEV.md` on Linux (direnv, caches, inotify)
 - 🔲 Optional Android on Linux: one-pager [`LINUX_DEV.md` — Apt-locked hosts + Android on Linux](LINUX_DEV.md#apt-locked-hosts-user-local-jdk--android-sdk) (SDK under `~/Android/Sdk`, udev/RSA once, then `/emulator`)
-- 🔲 Optional: Ollama (`docs/LOCAL_MODELS.md`); `/emulator` if you have an Android SDK
+- 🔲 Optional: Ollama (`docs/LOCAL_MODELS.md`, `docs/help/LOCAL_AGENT.md`, local hygiene in `docs/BEST_PRACTICES.md`); `python3 scripts/agent-run.py recommend-model` / `setup-local`; `/emulator` if you have an Android SDK
 - 🔲 Bookmark `docs/help/BATCH_COMMANDS.md` (`/verify` before every PR)
 
 ## Next recommended action

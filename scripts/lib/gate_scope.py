@@ -24,7 +24,7 @@ LIGHT_PREFIX = (
     "scripts/", "tests/", "schemas/", ".cursor/rules/",
 )
 WIDE_NAMES = frozenset(
-    "AGENTS.md CLAUDE.md GEMINI.md CONVENTIONS.md .clinerules "
+    "AGENTS.md CLAUDE.md GEMINI.md CONVENTIONS.md .clinerules/ "
     "bootstrap.config.json bootstrap.config.json.example TEMPLATE_INDEX.json "
     ".gitignore .cursor/stack-selection.json .cursor/hooks.json "
     ".cursor/permissions.json .cursor/worktrees.json".split()

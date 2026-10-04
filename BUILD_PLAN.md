@@ -78,6 +78,13 @@ Standing queue for Cursor Cloud Agents. Rows: `🔲 [AGENT][CLOUD] … — scope
 _No cloud agent items._
 <!-- cloud-agent-lane:end -->
 
+### M58 — Smart local agent + Cline VS Code parity
+
+1. ✅ [AGENT] Local-model docs + `templates/ollama/` Modelfiles — scope: docs/LOCAL_MODELS.md, docs/help/LOCAL_*.md, templates/ollama/
+2. ✅ [AGENT] `recommend-model` / `setup-local` / `compress-memory` + check-local-compute wire-up — scope: scripts/
+3. ✅ [AGENT] Migrate `.clinerules` → directory, workflows, AGENTS local protocol — scope: .clinerules/, AGENTS.md, scripts/lib/agent_adapters.py
+4. ✅ [AGENT] Tests + CHANGELOG for local-agent / Cline workflows — scope: tests/, CHANGELOG.md
+
 ### Open PRs (synced)
 
 > Auto-managed. Do not hand-edit rows inside the markers. Run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` (or `/resume` / `/dependabot`).
@@ -98,7 +105,7 @@ _No template gaps; .template-version matches upstream (or template maintainer N/
 
 _None._ Lightroom stub smoke is `feature-gate --stack lightroom` (Lua/SDK), not Plug-in Manager. Raster icons are `blender-icons` QA, not a HUMAN export.
 
-Done on this board: **v1.8.0** · **M64** cost/brevity · **M63** Local/Cloud venues · **v1.6.0** · **M62** UX/UI construction law · **v1.5.0** · **v1.4.0** · **v1.3.0** · **M61** back/nav/gates · **M60** CI clarity · **M59** CI harden · **M58** ship CI + Espresso · **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
+Done on this board: **v1.8.0** · **M64** cost/brevity · **M63** Local/Cloud venues · **v1.6.0** · **M62** UX/UI construction law · **v1.5.0** · **v1.4.0** · **v1.3.0** · **M61** back/nav/gates · **M60** CI clarity · **M59** CI harden · **M58** ship CI + Espresso · **M57** Cursor + docs · smart local agent + Cline workflows · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 
 ---
 

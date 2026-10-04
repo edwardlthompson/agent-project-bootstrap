@@ -29,6 +29,15 @@ release-please-dry:
 local-compute:
     python3 scripts/agent-run.py check-local-compute
 
+recommend-model:
+    python3 scripts/agent-run.py recommend-model
+
+setup-local:
+    python3 scripts/agent-run.py setup-local
+
+local-agent:
+    python3 scripts/agent-run.py setup-local
+
 # Print Linux DX checklist pointer (docs/LINUX_DEV.md)
 linux-dev:
     python3 scripts/agent-run.py check-local-compute

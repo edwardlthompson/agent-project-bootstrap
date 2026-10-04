@@ -57,6 +57,10 @@ python3 scripts/agent-run.py feature-gate --stack <active>
 python3 scripts/agent-run.py watch-agent-gates --once --autofix --scope auto
 python3 scripts/agent-run.py smoke-sprint --require
 python3 scripts/agent-run.py check-repo-hygiene
+python3 scripts/agent-run.py check-local-compute
+python3 scripts/agent-run.py recommend-model
+python3 scripts/agent-run.py setup-local
+python3 scripts/agent-run.py compress-memory
 
 ```
 
@@ -97,11 +101,16 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 
 ## Session Protocol
 
-1. Hook context + name next 🔲 `[AGENT][LOCAL]` (or empty board). Mode: Ask/Plan/Agent/Debug.
-2. Unreleased: skim first ~20 lines of CHANGELOG `[Unreleased]` only — do not load the whole file.
+1. Hook context + name next 🔲 `[AGENT][LOCAL]` (or empty board). Mode: Ask/Plan/Agent/Debug. On session start: read `docs/help/SESSION_START.md` (or `START_HERE.md`), pick mode via `docs/CURSOR_MODES.md` (roles if your IDE uses other names), then `BUILD_PLAN.md` Sequential lane. When `gh` is available, run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` before naming the next 🔲 `[AGENT]` row (or say the AGENT board is empty). After Cloud Agent work on another machine, run `/resume` (or bare `resume`) instead of reconstructing context by hand.
+2. Unreleased: skim first ~20 lines of CHANGELOG `[Unreleased]` only — do not load the whole file. If list items exist, say so in one line.
 3. UI edits → `docs/ux-ui-guidelines.md`. `AGENT.md` before sprint rows if present.
-4. After each AGENT step: `watch-agent-gates --once --autofix --scope auto` (skip re-running full validate mid-slice if that passed). Sprint complete → `smoke-sprint --require`.
-5. Milestone: update `AGENT_MEMORY.md` / ADR. 3-strike → halt. After Cloud → `/resume`.
+4. If your tool has no slash commands, use `docs/help/*.md` (start with `docs/help/TOUR.md`). In VS Code + Cline, type `/` for project workflows under `.clinerules/workflows/` (see `docs/help/VSCODE_COMMANDS.md`).
+5. When using Ollama or LM Studio, declare venue `[AGENT][LOCAL]` and prefer Plan mode before Act for non-trivial multi-file work. Opt-in setup: `python3 scripts/agent-run.py recommend-model` / `setup-local` / `compress-memory` (never required for CI, init, or `/ship`).
+6. Context budget: prefer targeted reads (`grep` / slices). Do not re-read the same file more than twice without a write or a new plan. On context bloat: update `.agent/session-state.md` (portable) and/or `.cursor-session-state.json` (Cursor `/compact`); optionally run `python3 scripts/agent-run.py compress-memory`. Read only the last ~20 lines of `AGENT_MEMORY.md` on start — never dump the whole file.
+7. When creating or significantly changing a file, state one sentence of why (see `docs/BEST_PRACTICES.md` and `/coach`).
+8. After each AGENT step: `watch-agent-gates --once --autofix --scope auto` (skip re-running full validate mid-slice if that passed). Sprint complete → `smoke-sprint --require` — every ✅ row smoked, no errors/crashes, startup + load order (`docs/SPRINT_SMOKE.md`). `/gates` stays full `feature-gate --stack multi` plus `smoke-sprint --if-complete`.
+9. Milestone: update `AGENT_MEMORY.md` / ADR; append to `DECISION_LOG.md` or `docs/adr/`. Log significant agent actions at milestone boundaries. 3-strike failure (including identical tool calls or identical error messages) → halt. After Cloud → `/resume`.
+10. Repo hygiene: track source only; run `scripts/check-repo-hygiene.sh` before push (see `docs/REPO_HYGIENE.md`).
 
 Replies: 1–3 sentences default (`.cursor/rules/brief-replies.mdc`). Venue: `[LOCAL]`/`[CLOUD]` + `— scope:` ([ADR-0008](docs/adr/0008-agent-venue.md)). Cost diet: [ADR-0009](docs/adr/0009-cost-diet-brevity.md).
 
@@ -121,7 +130,7 @@ bash scripts/bootstrap-lifecycle.sh --sync-adapters
 | GitHub Copilot | `.github/copilot-instructions.md` |
 | Gemini / Antigravity | `GEMINI.md` (pointer only — never real rules) |
 | Windsurf | `.windsurf/rules/agents-pointer.md` |
-| Cline / Roo | `.clinerules` |
+| Cline / Roo | `.clinerules/AGENTS.md` (+ static `.clinerules/workflows/`) |
 | Aider | `CONVENTIONS.md` |
 | Continue | `.continue/rules/agents.md` |
 Do not hand-edit generated adapters. See `docs/AGENT_PORTABILITY.md`.

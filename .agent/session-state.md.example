@@ -1,0 +1,29 @@
+# Session state (portable)
+
+Copy to `.agent/session-state.md` (gitignored). Cursor `/compact` still owns `.cursor-session-state.json`.
+
+## Current BUILD_PLAN row
+
+- Sprint:
+- Row:
+- Owner: `[AGENT]` / `[AGENT][LOCAL]` / …
+
+## Last 3 decisions / open questions
+
+1.
+2.
+3.
+
+## Files touched this session
+
+-
+
+## Last verification result
+
+- Command:
+- Exit:
+- Notes:
+
+## Venue
+
+- `[AGENT][LOCAL]` / `[CLOUD]` / Cursor Agent:

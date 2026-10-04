@@ -72,6 +72,12 @@ flowchart TD
 - **Why:** Chat context is expensive and evaporates. A small memory file survives session resets without dumping the whole repo into the prompt.
 - **How:** Update **only** at milestones or architectural pivots. Working notes go in gitignored `scratchpad.md`.
 
+## Local agent hygiene (Ollama / Cline)
+
+- **Do:** One focused objective per chat; Plan before Act for multi-file work; externalize state to `.agent/session-state.md` (portable) or `.cursor-session-state.json` (Cursor `/compact`); raise `num_ctx` via `templates/ollama/` Modelfiles; run `recommend-model` / `setup-local` when going fully local.
+- **Why:** Silent context truncation and JSON tool-call loops look like amnesia or infinite retries. See [`docs/LOCAL_MODELS.md`](LOCAL_MODELS.md) and [`docs/help/LOCAL_AGENT.md`](help/LOCAL_AGENT.md).
+- **Anti-pattern:** Relying on a long local chat alone; re-reading the same files in a loop; making Ollama required for CI or `/ship`.
+
 ## Golden Paths
 
 - **What:** Runnable stubs under `examples/{stack}/` plus `modules/{stack}/MODULE.md`.

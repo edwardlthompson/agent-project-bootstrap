@@ -25,10 +25,31 @@ class AdapterWriteTests(unittest.TestCase):
             self.assertIn("copilot-instructions.md", names)
             self.assertIn("GEMINI.md", names)
             self.assertIn("agents-pointer.md", names)
-            self.assertIn(".clinerules", names)
+            self.assertIn("AGENTS.md", names)
+            self.assertTrue(any(p.as_posix().endswith(".clinerules/AGENTS.md") for p in written))
             self.assertIn("CONVENTIONS.md", names)
             self.assertIn("agents.md", names)
             self.assertEqual(len(written), len(ADAPTERS))
+
+    def test_clinerules_file_migrates_and_preserves_workflows(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            legacy = root / ".clinerules"
+            legacy.write_text("legacy pointer\n", encoding="utf-8")
+            # After unlink, create workflows beside AGENTS.md via a second write cycle
+            # First ensure we can migrate file -> dir
+            written = write_adapters(root)
+            self.assertFalse(legacy.is_file())
+            self.assertTrue((root / ".clinerules").is_dir())
+            agents = root / ".clinerules" / "AGENTS.md"
+            self.assertTrue(agents.is_file())
+            self.assertTrue(any(p == agents for p in written))
+            tour = root / ".clinerules" / "workflows" / "tour.md"
+            tour.parent.mkdir(parents=True, exist_ok=True)
+            tour.write_text("# keep me\nFollow `AGENTS.md`.\n", encoding="utf-8")
+            write_adapters(root)
+            self.assertEqual(tour.read_text(encoding="utf-8"), "# keep me\nFollow `AGENTS.md`.\n")
+            self.assertIn("XML", agents.read_text(encoding="utf-8"))
 
     def test_disable_flag_skips_target(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

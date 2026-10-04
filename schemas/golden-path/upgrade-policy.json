@@ -34,7 +34,8 @@
     {"glob": "CLAUDE.md", "policy": "canon", "owner": "AGENT"},
     {"glob": "GEMINI.md", "policy": "canon", "owner": "AGENT"},
     {"glob": "CONVENTIONS.md", "policy": "canon", "owner": "AGENT"},
-    {"glob": ".clinerules", "policy": "canon", "owner": "AGENT"},
+    {"glob": ".clinerules/AGENTS.md", "policy": "canon", "owner": "AGENT"},
+    {"glob": ".clinerules/workflows/", "policy": "canon", "owner": "AGENT"},
     {"glob": ".github/copilot-instructions.md", "policy": "canon", "owner": "AGENT"},
     {"glob": ".windsurf/rules/", "policy": "canon", "owner": "AGENT"},
     {"glob": ".continue/rules/", "policy": "canon", "owner": "AGENT"}

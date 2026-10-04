@@ -108,7 +108,7 @@ After **Use this template** and `scripts/init-project.sh` (or `.ps1`):
 | `.github/copilot-instructions.md` | GitHub Copilot adapter |
 | `GEMINI.md` | Antigravity / Gemini pointer (never real rules) |
 | `.windsurf/rules/agents-pointer.md` | Windsurf pointer |
-| `.clinerules`, `CONVENTIONS.md`, `.continue/rules/agents.md` | Cline, Aider, Continue pointers |
+| `.clinerules/AGENTS.md`, `.clinerules/workflows/`, `CONVENTIONS.md`, `.continue/rules/agents.md` | Cline pointer + workflows; Aider / Continue pointers |
 | `LICENSE` | Rewritten only when `--license Apache-2.0` |
 Shipped in the template (not generated): `docs/spec.md`, `docs/plan.md`, `docs/BEST_PRACTICES.md`, `docs/FIRST_30_DAYS.md`, `docs/AGENT_PORTABILITY.md`, `docs/help/TOUR.md`, `SUPPORT.md`, `CITATION.cff`, `env.schema.json`, `.devcontainer/`, `.vscode/tasks.json`, `.agent/memory/`, `.pre-commit-config.yaml`, CI/security workflows, issue/PR templates. Optional `.github/FUNDING.yml` when a donation URL is set. Optional `just verify` if [just](https://github.com/casey/just) is installed — CI still calls `scripts/verify.sh` directly.
 

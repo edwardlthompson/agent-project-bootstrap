@@ -2554,6 +2554,27 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/recommend-model.sh",
+      "purpose": "Hardware-aware local Ollama model recommendation (opt-in)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/setup-local.sh",
+      "purpose": "Dry-run or apply custom Ollama agent Modelfile create (opt-in)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/compress-memory.sh",
+      "purpose": "Emit Current State paste block from session-state and AGENT_MEMORY",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/release-please-dry.sh",
       "purpose": "Preview next Release Please version without publishing",
       "read_when": "milestone_boundary",
