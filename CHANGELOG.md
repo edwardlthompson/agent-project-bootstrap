@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.8.0...v1.9.0) (2026-10-04)
+
+
+### Added
+
+* **agents:** add smart local programming and Cline workflows ([0245e37](https://github.com/edwardlthompson/agent-project-bootstrap/commit/0245e3744769dae551abceff25af201782aa0c9d))
+
+
+### Fixed
+
+* **ci:** speed large tracked-file hygiene on Windows ([a9bb9cd](https://github.com/edwardlthompson/agent-project-bootstrap/commit/a9bb9cdfb6c0efd25ab744254182e717a27c3c74))
+
 ## [1.8.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.7.0...v1.8.0) (2026-09-17)
 
 
