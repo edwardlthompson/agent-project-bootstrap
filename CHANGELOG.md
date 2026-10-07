@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * **branding:** parent 2D handshake logo + photoreal README splash under `branding/template/`, child `/brand` playbook, splash first-paint rules, Android SplashScreen stub
 
+## [1.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.9.0...v1.10.0) (2026-10-07)
+
+
+### Added
+
+* **branding:** ship parent handshake logo and child /brand playbook ([08ac840](https://github.com/edwardlthompson/agent-project-bootstrap/commit/08ac84007be8069376cc29b6f211ea8c369e54cb))
+
 ## [1.9.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.8.0...v1.9.0) (2026-10-04)
 
 
