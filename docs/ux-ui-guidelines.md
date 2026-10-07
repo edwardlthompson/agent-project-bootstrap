@@ -81,6 +81,8 @@ Reuse existing components. Add tokens rather than special-casing a page. Flag on
 
 Skeletons, last-good cache, no layout shift. Lazy-load below-the-fold images. Delayed taps are UX bugs.
 
+**First-paint continuity:** splash / cold start uses the same mark and surface colors as the first frame (no white↔dark flash). Prefer system SplashScreen / `theme-color` over custom interstitial UIs. See [`branding/BRANDING.md`](../branding/BRANDING.md).
+
 ## Delight (still record; implement after clarity/a11y)
 
 Honest hover/press/success. Empty-state personality that still helps. First-run aha without a 7-step carousel (Skip always available). Command palette / shortcuts for power users.

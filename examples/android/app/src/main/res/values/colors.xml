@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash continuity: match design-tokens surface.light (#F5F5FA) -->
+    <color name="splash_background">#F5F5FA</color>
+</resources>

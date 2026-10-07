@@ -145,7 +145,7 @@ settings.theme.mode.system, settings.theme.mode.light, settings.theme.mode.dark
 
 ## Branding pack
 
-Product identity (logos, pitch copy, official color sheet) lives under [`branding/`](../branding/). See [`branding/BRANDING.md`](../branding/BRANDING.md).
+Product identity (logos, pitch copy, official color sheet) lives under [`branding/`](../branding/). See [`branding/BRANDING.md`](../branding/BRANDING.md). Parent template mark (not synced into apps): [`branding/template/`](../branding/template/). Child rebrand: `/brand`.
 
 | Edit | Then run |
 |------|----------|
@@ -155,6 +155,13 @@ Product identity (logos, pitch copy, official color sheet) lives under [`brandin
 Sync also writes `branding/official-colors.css`, copies web public icons, and emits Android `ic_brand_mark.xml`.
 
 **README modes:** `"mode": "template"` (upstream default) writes only `branding/generated/README.preview.md`. Child repos set `"mode": "product"` so the generator overwrites root `README.md` with a pitch-quality README. Never set product mode on the template itself.
+
+### Splash / first paint
+
+- **Same mark** for favicon, app icon, and Android 12+ SplashScreen (`Theme.GoldenPath.Splash` → `ic_brand_mark`).
+- Background = surface token (`splash_background` day/night); no content gated behind splash; perceived flash ≤ ~300ms.
+- Web: `theme-color` + favicon match tokens so cold start does not flash a different palette.
+- Full rules: [`branding/BRANDING.md`](../branding/BRANDING.md) § Splash / first paint.
 
 ## Extending the system
 

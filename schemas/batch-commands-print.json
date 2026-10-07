@@ -224,6 +224,11 @@
       "kind": "step",
       "group": "build",
       "caption": "Patch the UX/UI construction guidelines (how we build screens), not a review-only file."
+    },
+    "brand": {
+      "kind": "step",
+      "group": "start",
+      "caption": "Replace Golden Path placeholder logos and pitch with your product brand."
     }
   }
 }

@@ -1,5 +1,13 @@
 # agent-project-bootstrap
 
+<p align="center">
+  <img src="branding/template/logo-mark.png" alt="agent-project-bootstrap" width="128" />
+</p>
+
+<p align="center">
+  <img src="branding/template/readme-splash.jpg" alt="Human and agent handshake — Ship a FOSS app with an agent that already knows the rules." width="720" />
+</p>
+
 ![MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 ![Template](https://img.shields.io/badge/template-1.9.0-0969da?style=flat-square)
 ![FOSS](https://img.shields.io/badge/FOSS-no_tracking-656d76?style=flat-square)

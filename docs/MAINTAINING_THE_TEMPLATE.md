@@ -68,8 +68,10 @@ Template CI must pass before every release. The template eats its own dogfood.
 ## Branding pack vs template README
 
 - Upstream template keeps `branding/product.json` `"mode": "template"`. `scripts/generate-project-readme.py` writes **only** `branding/generated/README.preview.md` — never overwrite the template [README.md](../README.md) with the product pitch template.
-- Child repos set `"mode": "product"` during Sprint 0 after filling name/tagline/pitch.
-- Logos and official colors: [`branding/BRANDING.md`](../branding/BRANDING.md). After token or asset edits: `python3 scripts/sync-design-tokens.py`.
+- Child repos set `"mode": "product"` during Sprint 0 after filling name/tagline/pitch (or `/brand`).
+- **Parent kit** (`branding/template/`): 2D handshake logo (`logo-mark.png`) + photoreal README splash (`readme-splash.jpg`) for this template only. Not synced into Golden Path examples. See [`branding/template/IDENTITY.md`](../branding/template/IDENTITY.md).
+- **Child kit** (`branding/assets/` + `product.json`): Golden Path placeholder until `/brand`. Logos and splash rules: [`branding/BRANDING.md`](../branding/BRANDING.md). After token or asset edits: `python3 scripts/sync-design-tokens.py`.
+- Never overwrite `branding/assets/*.svg` with parent art or icon-factory output.
 
 ## README Badges
 

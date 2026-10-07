@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 240" role="img" aria-label="agent-project-bootstrap">
+  <rect width="960" height="240" fill="#0F1419"/>
+  <rect x="48" y="72" width="96" height="96" rx="20" fill="#1A2229"/>
+  <path d="M70 96 L96 120 L70 144" fill="none" stroke="#E8A317" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M96 120 L122 120" fill="none" stroke="#E8A317" stroke-width="7" stroke-linecap="round"/>
+  <path d="M112 104 L128 120 L112 136" fill="none" stroke="#E8A317" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="176" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="40" font-weight="700" fill="#E8EEF2">agent-project-bootstrap</text>
+  <text x="176" y="168" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#E8EEF2" opacity="0.85">Ship a FOSS app with an agent that already knows the rules.</text>
+</svg>

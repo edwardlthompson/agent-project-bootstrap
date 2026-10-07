@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Guardrails concept">
+  <rect width="64" height="64" rx="12" fill="#0F1419"/>
+  <!-- Parallel rails with a clear lane; soft end caps = safe corridor -->
+  <path d="M20 14 L20 50" fill="none" stroke="#E8A317" stroke-width="5" stroke-linecap="round"/>
+  <path d="M44 14 L44 50" fill="none" stroke="#E8A317" stroke-width="5" stroke-linecap="round"/>
+  <path d="M26 28 L38 28" fill="none" stroke="#E8EEF2" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+  <path d="M26 36 L38 36" fill="none" stroke="#E8EEF2" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+</svg>

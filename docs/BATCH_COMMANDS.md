@@ -2,7 +2,7 @@
 
 > Technical catalog for agents and maintainers. **Humans:** start with [docs/help/BATCH_COMMANDS.md](help/BATCH_COMMANDS.md).
 
-45 slash commands: **40 atomic** workflows + **5 super** orchestrators. Bare-word triggers: `.cursor/rules/batch-commands.mdc`. Other IDEs: paste the matching file under `docs/help/` (start with `docs/help/TOUR.md`, `docs/help/IDEAS.md`, or `docs/help/ALLIDEAS.md`). Novice print sheet: [`docs/help/batch-commands-print.html`](help/batch-commands-print.html).
+46 slash commands: **41 atomic** workflows + **5 super** orchestrators. Bare-word triggers: `.cursor/rules/batch-commands.mdc`. Other IDEs: paste the matching file under `docs/help/` (start with `docs/help/TOUR.md`, `docs/help/IDEAS.md`, or `docs/help/ALLIDEAS.md`). Novice print sheet: [`docs/help/batch-commands-print.html`](help/batch-commands-print.html).
 
 ## Super commands
 
@@ -57,10 +57,12 @@
 | `/compare-ui` | `/ux-review --compare` | — | — |
 | `/redesign` | Scoped review; apply only named ids | — | — |
 | `/update-guidelines` | Patch `docs/ux-ui-guidelines.md` (construction) | — | — |
+| `/brand` | Child product rebrand (brief → marks → assets + product.json + sync) | bootstrap | — |
 ## Decision tree
 
 ```
 New repo?           → /bootstrap
+Need product logos? → /brand (after name/tagline)
 Changed code?       → /verify (or /docs if docs-only)
 What next (now)?    → /coach
 What could we add?  → /ideas (ranked 5–8) or /allideas (complete dump)

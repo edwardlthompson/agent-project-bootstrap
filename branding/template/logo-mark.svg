@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="agent-project-bootstrap">
+  <rect width="64" height="64" rx="12" fill="#0F1419"/>
+  <!-- Converging Routes: two paths merge into one forward stroke -->
+  <path d="M14 18 L32 32 L14 46" fill="none" stroke="#E8A317" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 32 L48 32" fill="none" stroke="#E8A317" stroke-width="5" stroke-linecap="round"/>
+  <path d="M42 24 L50 32 L42 40" fill="none" stroke="#E8A317" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

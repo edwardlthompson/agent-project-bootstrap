@@ -19,7 +19,7 @@ Red CI → `/fix` or `/ci` + `/gates` first. Dirty Unreleased + empty AGENT → 
 
 ## By moment
 
-- **Start:** `/tour` · `/init` · `/setup` · `/setup-local` · `/gates` · `/coach`
+- **Start:** `/tour` · `/init` · `/setup` · `/setup-local` · `/gates` · `/coach` · `/brand`
 - **Build:** `/plan` · `/adr` · `/feature` · `/fix` · `/cleanup` · `/scope`
 - **UX:** `/ux-review` · `/ux-apply` · aliases `/ui-review` `/ux-audit` `/ui-audit`
 - **Publish:** `/update-deps` · `/prerelease` · `/push` · `/regress`

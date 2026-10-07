@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Scaffold concept">
+  <rect width="64" height="64" rx="12" fill="#0F1419"/>
+  <!-- Construction frame: corner brackets + one crossbar (unfinished grid) -->
+  <path d="M16 20 L16 16 L28 16" fill="none" stroke="#E8A317" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M36 16 L48 16 L48 20" fill="none" stroke="#E8A317" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M48 44 L48 48 L36 48" fill="none" stroke="#E8A317" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M28 48 L16 48 L16 44" fill="none" stroke="#E8A317" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 32 L44 32" fill="none" stroke="#E8A317" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+  <circle cx="32" cy="32" r="2.5" fill="#E8EEF2"/>
+</svg>

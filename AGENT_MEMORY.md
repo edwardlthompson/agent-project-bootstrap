@@ -137,3 +137,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 - Folded Unreleased; pushing main for Release Please #106.
 - UnifiedPush ntfy E2E + BroadcastReceiver discovery; HUMAN/ADB waiting automation.
 - About lego: Rust CARGO_PKG_VERSION; Python test_about_parity split.
+
+### Retrospective — 2026-10-07 (M65)
+
+- Parent brand: 2D handshake logo + photoreal README splash in `branding/template/` (not synced to GP assets); child `/brand` + splash playbook; Android SplashScreen stub. Keep parent vs child kits separate.

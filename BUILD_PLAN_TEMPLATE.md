@@ -47,7 +47,7 @@ _Template maintainer: no product AGENT.md. Children write AGENT.md before init._
 
 1. 🔲 [AGENT][LOCAL] Copy `AGENT.md.example` → `AGENT.md` and paste the original brief verbatim (before init) — scope: AGENT.md
 2. 🔲 [AGENT][LOCAL] Run `scripts/init-project.sh` or `.ps1` (`--stack`; scripted: `--non-interactive --project-name --purpose`) — scope: scripts/
-3. 🔲 [AGENT][LOCAL] Fill `branding/product.json` (`mode: product`); sync tokens + README — scope: branding/
+3. 🔲 [AGENT][LOCAL] `/brand` (or fill `branding/product.json` `mode: product`); sync tokens + README — scope: branding/
 4. 🔲 [AGENT][LOCAL] Run `scripts/setup-github-repo.sh` (`gh` admin) — scope: scripts/
 5. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap --quick` · `feature-gate --stack <active>` · `check-github-ci --wait 300` (CI, Security Scan, CodeQL) · `check-license-compliance`
 6. 🔲 [HUMAN] Use this template on GitHub

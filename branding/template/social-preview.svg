@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-label="agent-project-bootstrap social preview">
+  <rect width="1280" height="640" fill="#0F1419"/>
+  <rect x="480" y="140" width="160" height="160" rx="32" fill="#1A2229"/>
+  <path d="M516 180 L560 220 L516 260" fill="none" stroke="#E8A317" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M560 220 L604 220" fill="none" stroke="#E8A317" stroke-width="12" stroke-linecap="round"/>
+  <path d="M584 192 L612 220 L584 248" fill="none" stroke="#E8A317" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="640" y="380" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="#E8EEF2">agent-project-bootstrap</text>
+  <text x="640" y="440" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#E8EEF2" opacity="0.85">Ship a FOSS app with an agent that already knows the rules.</text>
+  <text x="640" y="500" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#E8A317">MIT · Agent-ready · CI-guarded</text>
+</svg>

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Cold-start brand splash: icon = synced ic_brand_mark; bg = surface token. See branding/BRANDING.md -->
+    <style name="Theme.GoldenPath.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_brand_mark</item>
+        <item name="postSplashScreenTheme">@style/Theme.GoldenPath</item>
+    </style>
+
     <style name="Theme.GoldenPath" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>

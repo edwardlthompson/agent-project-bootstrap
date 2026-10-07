@@ -106,7 +106,7 @@ BATCH_COMMANDS=(
   bootstrap verify build ship maintain coach tour ideas allideas
   codex-review update-deps best-of-n emulator
   ux-review ux-apply ui-review ux-audit ui-audit a11y-check redesign compare-ui
-  update-guidelines
+  update-guidelines brand
 )
 
 for cmd in "${BATCH_COMMANDS[@]}"; do

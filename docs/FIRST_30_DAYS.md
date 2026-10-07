@@ -16,7 +16,7 @@
 - 🔲 Copy `.env.example` → `.env` (never commit `.env`)
 - 🔲 `pip install pre-commit && pre-commit install --hook-type commit-msg`
 - 🔲 `bash scripts/verify.sh` green locally
-- 🔲 Fill `branding/product.json` if this is a product (then regenerate the README)
+- 🔲 `/brand` (or fill `branding/product.json`) if this is a product; then sync tokens + README
 
 ## Week 2 — Security and GitHub
 

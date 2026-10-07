@@ -39,6 +39,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 **Now:** AGENT board empty. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
+> **M65** parent brand + child `/brand`/splash playbook — board rows ✅; smoke `--sprint M65` passed.
 > **v1.8.0** release archived in COMPLETED_TASKS.md @ `1cafc11`.
 > **M64** archived in COMPLETED_TASKS.md @ `86bc12c`.
 > **M63** archived in COMPLETED_TASKS.md @ `9b7870b`.
@@ -69,6 +70,12 @@ Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path
 <!-- local-agent-lane:begin -->
 _No local agent items._
 <!-- local-agent-lane:end -->
+
+### M65 — Parent brand + child brand/splash playbook
+
+1. ✅ [AGENT][LOCAL] Parent `branding/template/` Converging Routes + README hero — scope: branding/template/, README.md
+2. ✅ [AGENT][LOCAL] Child brand/splash playbook + `/brand` + Sprint 0 pointer — scope: branding/, .cursor/commands/, docs/
+3. ✅ [AGENT][LOCAL] Android SplashScreen stub + DESIGN_GUIDE/ux-ui cross-links — scope: examples/android/, docs/
 
 ### Cloud agent (Cursor Cloud)
 
