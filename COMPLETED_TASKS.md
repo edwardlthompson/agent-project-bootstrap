@@ -2,6 +2,25 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M66 — Shape ecosystem, commercial GP, coverage, deep upgrade (2026-10-16)
+
+- ✅ [AGENT][LOCAL] Ship /shape workflow (command + specs template + tour/cheat sheet) — scope: .cursor/commands/, docs/help/, docs/specs/, docs/PREFERENCES.md
+- ✅ [AGENT][LOCAL] Brief re-anchor: Golden Path About/purpose must echo AGENT.md keywords — scope: scripts/lib/, tests/, .cursor/rules/, docs/help/, .cursor/commands/
+- ✅ [AGENT][LOCAL] Stack MCP recipes (docs + opt-in examples) — scope: docs/, .cursor/, modules/, tests/
+- ✅ [AGENT][LOCAL] Cursor.Directory rule curation playbook — scope: docs/, .cursor/commands/, tests/
+- ✅ [AGENT][LOCAL] Frequent commit/push cadence nudges — scope: .cursor/commands/, docs/help/, docs/PREFERENCES.md, tests/
+- ✅ [AGENT][LOCAL] skills.sh Golden Path pack — scope: docs/SKILLS_RECIPES.md, .cursor/skills/, tests/
+- ✅ [AGENT][LOCAL] Cursor features Oct 2026 registry + docs — scope: docs/CURSOR_*.md, docs/CURSOR_FEATURE_REGISTRY.json, tests/
+- ✅ [AGENT][LOCAL] Commercial Golden Path playbook — scope: docs/COMMERCIAL_GOLDEN_PATH.md, modules/, .cursor/rules/, docs/help/, tests/
+- ✅ [AGENT][LOCAL] Coverage visibility (docs + Android + gates) — scope: docs/COVERAGE.md, examples/, scripts/, tests/
+- ✅ [AGENT][LOCAL] Child deep upgrade (/upgrade --deep) — scope: .cursor/commands/upgrade.md, docs/help/UPGRADE.md, scripts/, tests/
+
+## M65 — Parent brand + child brand/splash playbook (2026-10-16)
+
+- ✅ [AGENT][LOCAL] Parent `branding/template/` Converging Routes + README hero — scope: branding/template/, README.md
+- ✅ [AGENT][LOCAL] Child brand/splash playbook + `/brand` + Sprint 0 pointer — scope: branding/, .cursor/commands/, docs/
+- ✅ [AGENT][LOCAL] Android SplashScreen stub + DESIGN_GUIDE/ux-ui cross-links — scope: examples/android/, docs/
+
 ## v1.8.0 release (2026-09-17)
 
 - ✅ [AGENT] Merge release [#112](https://github.com/edwardlthompson/agent-project-bootstrap/pull/112) (chore(main): release 1.8.0)

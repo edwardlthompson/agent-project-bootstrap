@@ -17,17 +17,17 @@ Cursor users are unaffected: keep using `.cursor/commands/`.
 |--------|--------|-----------------|-------------------|
 | First-run tour | `/tour` | `/tour` | `Read docs/help/TOUR.md and walk me through it. Follow AGENTS.md.` |
 | One next action | `/coach` | `/coach` | `Read docs/help/COACH.md and give me one next action.` |
-| Execute BUILD_PLAN | `/build` | `/build` | `Read BUILD_PLAN.md, take the next open [AGENT] row, and execute it following AGENTS.md.` |
+| Execute BUILD_PLAN | `/build` | `/build` | `Read BUILD_PLAN.md, take the next open [AGENT] row, execute it, then /cleanup when the block is ✅ and show the slim board.` |
 | Verify | `/verify` | `/verify` | `Run python3 scripts/agent-run.py verify and explain the first failure only.` |
 | Ship / release | `/ship` | `/ship` | Follow ship / pre-release docs; surface HUMAN gates. |
 | New project | `/bootstrap` | `/bootstrap` | Point at `docs/INITIALIZATION_PROMPT.md` + init scripts. |
 | Gates | `/gates` | `/gates` | Run validate-bootstrap / feature-gate for the active stack. |
 | Ideas | `/ideas` | `/ideas` | `Read docs/help/IDEAS.md and give a ranked short list (do not implement).` |
+| Shape idea → spec | `/shape` | `/shape` | `Read docs/help/SHAPE.md and shape my idea into docs/specs/ (do not implement).` |
 | Compress context | `/compact` | `/compact` (+ built-in `/smol`) | Summarize durable state into session-state / AGENT_MEMORY. |
 | Local Ollama setup | (docs) | `/setup-local` | `Run python3 scripts/agent-run.py setup-local and follow docs/help/LOCAL_AGENT.md.` |
 | Gate autofix | `/fix` | `/fix` | Follow `.cursor/commands/fix.md` / watch-agent-gates autofix; follow AGENTS.md. |
 | ADR | `/adr` | `/adr` | `Read docs/help/ADR.md and write one ADR under docs/adr/.` |
-
 ## Recovery if `/` fails
 
 1. Paste the portable prompt from the table.

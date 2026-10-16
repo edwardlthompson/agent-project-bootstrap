@@ -122,6 +122,34 @@ class AgentBriefTests(unittest.TestCase):
             errors = check(root)
             self.assertTrue(any("AGENT.md" in e for e in errors), errors)
 
+    def test_about_must_echo_keywords_when_present(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "AGENT.md.example").write_text("x", encoding="utf-8")
+            (root / "AGENT.md").write_text(BRIEF, encoding="utf-8")
+            (root / "bootstrap.config.json").write_text(
+                json.dumps({"project_name": "demo", "purpose": "app", "stack": "web"}),
+                encoding="utf-8",
+            )
+            stamped = render_inner(parse_brief(BRIEF))
+            (root / "BUILD_PLAN.md").write_text(
+                PLAN.replace(EMPTY_NOTE, stamped),
+                encoding="utf-8",
+            )
+            locale = root / "examples/web/src/locales"
+            locale.mkdir(parents=True)
+            (locale / "en.json").write_text(
+                '{"app.title": "Golden Path PWA", "about.title": "About"}',
+                encoding="utf-8",
+            )
+            errors = check(root)
+            self.assertTrue(any("About/purpose" in e for e in errors), errors)
+            (locale / "en.json").write_text(
+                '{"app.title": "neon camera messages tame", "about.title": "About"}',
+                encoding="utf-8",
+            )
+            self.assertEqual(check(root), [])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,16 +16,16 @@
     "lighthouse": "lhci autorun"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.13.0",
+    "@axe-core/playwright": "^4.14.0",
     "@biomejs/biome": "^2.5.15",
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.64.1",
     "fast-check": "^4.10.2",
-    "jsdom": "^30.1.2",
+    "jsdom": "^30.1.3",
     "typescript": "~7.0.2",
-    "vite": "^8.3.3",
-    "vitest": "^5.0.3",
-    "@vitest/coverage-v8": "^5.0.3"
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5",
+    "@vitest/coverage-v8": "^5.0.5"
   },
   "overrides": {
     "tmp": ">=0.2.6",
@@ -39,6 +39,9 @@
     "@puppeteer/browsers": ">=3.2.0",
     "proxy-agent": ">=8.0.2",
     "postcss": ">=8.5.23",
-    "qs": ">=6.16.0"
+    "qs": ">=6.16.0",
+    "proxy-addr": ">=2.0.8",
+    "source-map-js": ">=1.2.2",
+    "compression": ">=1.8.2"
   }
 }

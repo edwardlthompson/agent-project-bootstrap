@@ -142,6 +142,16 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 3. Restart Cursor
 4. Never commit tokens or live `mcp.json`
 
+Stack recipes: [`MCP_RECIPES.md`](MCP_RECIPES.md). External skills catalog: [`SKILLS_RECIPES.md`](SKILLS_RECIPES.md).
+
+## Skills & Custom Modes (FOSS)
+
+- Project skills live under [`.cursor/skills/`](../.cursor/skills/). Agent may auto-apply; pin one as a **Custom Mode** with Alt+Enter (Windows) / Option+Enter (Mac).
+- Useful pins: `shape-idea`, `watch-gates-autofix`, `feature-vertical-slice`.
+- Built-in: `/split-to-prs` (pair with frequent `/push`), `/migrate-to-skills` (opt-in during `/maintain` — do not blindly migrate Sacred batch commands).
+- Optional: Sync Skills for Cloud Agents under Settings → Agents (personal `~/.cursor/skills/` only). Prefer in-repo project skills for children.
+- Remote Control (iOS ↔ local agents) and Cursor Projects: see Cursor changelog — document-only; do not replace BUILD_PLAN.
+
 ## Plugin pack (FOSS local)
 
 Do **not** symlink the repo root into `~/.cursor/plugins/local` (double-loads rules). Pack first:

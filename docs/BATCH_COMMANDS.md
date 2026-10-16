@@ -2,7 +2,7 @@
 
 > Technical catalog for agents and maintainers. **Humans:** start with [docs/help/BATCH_COMMANDS.md](help/BATCH_COMMANDS.md).
 
-46 slash commands: **41 atomic** workflows + **5 super** orchestrators. Bare-word triggers: `.cursor/rules/batch-commands.mdc`. Other IDEs: paste the matching file under `docs/help/` (start with `docs/help/TOUR.md`, `docs/help/IDEAS.md`, or `docs/help/ALLIDEAS.md`). Novice print sheet: [`docs/help/batch-commands-print.html`](help/batch-commands-print.html).
+47 slash commands: **42 atomic** workflows + **5 super** orchestrators. Bare-word triggers: `.cursor/rules/batch-commands.mdc`. Other IDEs: paste the matching file under `docs/help/` (start with `docs/help/TOUR.md`, `docs/help/IDEAS.md`, or `docs/help/ALLIDEAS.md`). Novice print sheet: [`docs/help/batch-commands-print.html`](help/batch-commands-print.html).
 
 ## Super commands
 
@@ -10,7 +10,7 @@
 |---------|-------|-------------|----------------|-------|
 | `/bootstrap` | init → prune → setup → gates | Agent | 42 | No |
 | `/verify` | docs → gates → ci | Agent | 43 | No |
-| `/build` | Autonomous BUILD_PLAN sprint chain — per-row `--scope auto` gates; wrap-up `smoke-sprint --require` then `/gates` | Agent | 44 | No |
+| `/build` | Autonomous BUILD_PLAN sprint chain — per-row `--scope auto` gates; wrap-up `smoke-sprint --require` → `/gates` → **mandatory `/cleanup`** → show slim board | Agent | 44 | No |
 | `/ship` | update-deps → prerelease (`--local`) → push → regress | Agent | 45 | **Yes** |
 | `/maintain` | triage → update-deps → dependabot → audit | Agent | 46 | No |
 ## Atomic commands
@@ -39,6 +39,7 @@
 | `/upgrade` | Child: template gap plan (Canon/Mixed/Sacred + Golden Path). Template: upgrade sim | maintain | 16 |
 | `/setup` | GitHub repo settings | bootstrap | 11 |
 | `/plan` | Feature/ADR plan + resolved Critique (Issue→Resolution) | build | 19 |
+| `/shape` | Rough idea → short `docs/specs/` + one BUILD_PLAN row (no app code) | build | — |
 | `/adr` | Write the next numbered `docs/adr/` record | — | — |
 | `/restore` | Restore from `.cursor-session-state.json` | — | 13 |
 | `/compact` | Save session state before clearing chat | — | 13 |
@@ -66,6 +67,7 @@ Need product logos? → /brand (after name/tagline)
 Changed code?       → /verify (or /docs if docs-only)
 What next (now)?    → /coach
 What could we add?  → /ideas (ranked 5–8) or /allideas (complete dump)
+Rough idea → spec?  → /shape
 Score shipped UI?    → /ux-review (then /ux-apply UX-NNN)
 New feature?        → /build  (or /fix if gates fail)
 Ready to publish?   → /ship   (or /prerelease then /push)
@@ -108,6 +110,6 @@ Validation: `bash scripts/check-batch-commands.sh` (also via `validate-bootstrap
 1. `/allideas` (or `docs/help/ALLIDEAS.md`) — dump in-scope ideas; do not implement yet.
 2. Say `board` / `add all` / name numbers — agent adds 🔲 `[AGENT]` rows to `BUILD_PLAN.md` (cap per sprint; archive prior milestone first).
 3. `/build` — autonomous execution with `--scope auto` gates; HUMAN/ADB attempted after AGENT/AUTO, failures → `HUMAN_BACKLOG.md`.
-4. Sprint wrap: `smoke-sprint --require` → `/gates` → `/cleanup` archive.
+4. Sprint wrap: `smoke-sprint --require` → `/gates` → **mandatory `/cleanup`** archive → show slim BUILD_PLAN (never skip cleanup after a completed block).
 
 Human cheat sheet: [`docs/help/BATCH_COMMANDS.md`](help/BATCH_COMMANDS.md).

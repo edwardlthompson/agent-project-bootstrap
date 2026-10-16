@@ -2001,6 +2001,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/summarize-coverage.sh",
+      "purpose": "Summarize stack coverage reports for FOSS CI/docs",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/summarize_coverage.py",
+      "purpose": "Python implementation for summarize-coverage.sh",
+      "read_when": "contributing",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-repo-hygiene.ps1",
       "purpose": "Windows wrapper for check-repo-hygiene.sh",
       "read_when": "contributing",

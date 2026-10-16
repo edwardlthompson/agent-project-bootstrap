@@ -87,6 +87,10 @@ After each feature step, `scripts/feature-gate.sh` runs (via `watch-agent-gates.
 | SW cache budget | `bash scripts/check-sw-cache-budget.sh` |
 E2E (`npx playwright test`) remains a milestone gate, not every feature row.
 
+## Optional MCP
+
+See [`docs/MCP_RECIPES.md`](../../docs/MCP_RECIPES.md) and [`.cursor/mcp.web.example`](../../.cursor/mcp.web.example).
+
 ## Owner Labels for This Module
 
 | Task type | Label |

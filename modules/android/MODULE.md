@@ -15,6 +15,7 @@
 - 🔲 Review `examples/android/` Golden Path stub
 - 🔲 Add [ADB] tasks to BUILD_PLAN for device/emulator verification
 - 🔲 Document F-Droid metadata path (Fastlane or manual) — validate with `bash scripts/verify-fdroid-metadata.sh`
+- 🔲 Coverage: see [`docs/COVERAGE.md`](../../docs/COVERAGE.md) (optional Kover on unit tests)
 
 ## Operations Checklist
 
@@ -65,6 +66,7 @@ Release builds **must** run R8 (`isMinifyEnabled` + `isShrinkResources` + `progu
 ```bash
 cd examples/android && ./gradlew :app:analyzeReleaseR8Config
 # or: just android-r8-analyze
+
 ```
 
 Reports: `app/build/reports/r8/r8-config-analyzer-release.html` (task) and `app/build/outputs/mapping/release/configanalyzer.html` (assembleRelease). Retrace crashes with `mapping.txt`. Do not set `android.enableR8.fullMode=false` or `-dontobfuscate`.
@@ -114,7 +116,6 @@ Requires `JAVA_HOME` and an Android SDK locally; gate skips when the SDK is miss
 | Emulator/device testing, F-Droid submit | ADB |
 | FOSS dependency audit approval | HUMAN |
 | CI Gradle compile / structure validation | AUTO |
-
 ## F-Droid Submission Dry-Run Checklist
 
 `[ADB]` dry-run before first F-Droid release. Full metadata lives under `examples/android/metadata/` when present.

@@ -2,7 +2,7 @@
 
 1. **First read:** hook + `BUILD_PLAN.md` next row (full `docs/START_HERE.md` only on first day / `/tour`)
 2. **Cursor modes:** Ask / Plan / Agent / Debug (`docs/CURSOR_MODES.md` when unsure)
-3. **Why / coach:** `/coach` = one next action · `/tour` · `/ideas` · `/allideas` · `docs/BEST_PRACTICES.md` · `docs/FIRST_30_DAYS.md`
+3. **Why / coach:** `/coach` = one next action · `/tour` · `/ideas` · `/shape` · `/allideas` · `docs/BEST_PRACTICES.md` · `docs/FIRST_30_DAYS.md`
 4. **Bootstrap mode:** `docs/INITIALIZATION_PROMPT.md`
 5. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json` (do not load whole index unless `/upgrade`)
 6. **Task board:** `BUILD_PLAN.md` · Status: 🔲 · ✅ · ❌
@@ -96,6 +96,7 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 
 - Conventional Commits; never commit secrets or `.env`
 - Security defaults are on: `SECURITY.md`, local `update-deps --audit` before push, Dependabot (backup), CI, CodeQL, secret scanning
+- Also follow `docs/PREFERENCES.md` security risks (API keys, deps, rate limits, input validation, bot abuse, sensitive user info)
 - Destructive ops (`git push`, production deploys) need `[HUMAN]` approval (see `.cursor/rules/destructive-ops.mdc`)
 - Vulnerability reports: `SECURITY.md` (private reporting)
 

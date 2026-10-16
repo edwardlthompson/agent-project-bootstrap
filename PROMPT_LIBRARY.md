@@ -556,7 +556,7 @@ Execute @.cursor/commands/verify.md — docs → gates → ci.
 **Prompt:**
 
 ```
-Execute @.cursor/commands/build.md — autonomous BUILD_PLAN sprint chain; no user approval; chains until HUMAN/ADB block or all AGENT/AUTO complete.
+Execute @.cursor/commands/build.md — autonomous BUILD_PLAN sprint chain; no user approval; wrap-up smoke → gates → mandatory /cleanup → show slim BUILD_PLAN; chains until HUMAN/ADB block or all AGENT/AUTO complete.
 
 ```
 
@@ -589,7 +589,7 @@ Execute @.cursor/commands/maintain.md — radar → triage → update-deps → d
 **Prompt:**
 
 ```
-Execute @.cursor/commands/cleanup.md — archive completed BUILD_PLAN rows and sync COMPLETED_TASKS when sprint is fully ✅.
+Execute @.cursor/commands/cleanup.md — archive completed BUILD_PLAN rows and sync COMPLETED_TASKS when sprint is fully ✅ (always chained at end of /build; may also run alone).
 
 ```
 

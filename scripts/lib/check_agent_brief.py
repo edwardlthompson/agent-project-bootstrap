@@ -9,6 +9,24 @@ from build_sprint_model import is_template_repo
 
 EXAMPLE = "AGENT.md.example"
 
+# User-facing About/purpose surfaces (checked when present + AGENT.md exists).
+ABOUT_GLOBS = (
+    "examples/web/src/locales/en.json",
+    "examples/android/app/src/main/res/values/strings.xml",
+    "examples/node/src/locales/en.json",
+    "examples/python/src/hello/about.py",
+    "branding/product.json",
+)
+
+
+def _about_haystack(root: Path) -> str:
+    chunks: list[str] = []
+    for rel in ABOUT_GLOBS:
+        path = root / rel
+        if path.is_file():
+            chunks.append(path.read_text(encoding="utf-8"))
+    return "\n".join(chunks).lower()
+
 
 def check(root: Path) -> list[str]:
     errors: list[str] = []
@@ -44,6 +62,16 @@ def check(root: Path) -> list[str]:
             errors.append(f"BUILD_PLAN Product block missing keyword {key!r}")
     if inner.strip() == EMPTY_NOTE and keys:
         errors.append("BUILD_PLAN Product block is empty while AGENT.md has a brief")
+    # Child with live brief: About/purpose must echo keywords when those files exist.
+    if not template and keys:
+        about = _about_haystack(root)
+        if about.strip():
+            for key in keys:
+                if key.lower() not in about:
+                    errors.append(
+                        f"About/purpose surfaces missing AGENT.md keyword {key!r} "
+                        "(re-read AGENT.md before Golden Path copy)"
+                    )
     return errors
 
 

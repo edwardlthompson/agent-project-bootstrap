@@ -12,6 +12,7 @@ python3 scripts/agent-run.py watch-agent-gates --once --scope auto
 python3 scripts/agent-run.py smoke-sprint --if-complete
 python3 scripts/agent-run.py check-repo-hygiene
 python3 scripts/agent-run.py render-gates-status
+python3 scripts/agent-run.py summarize-coverage
 
 ```
 
@@ -24,6 +25,7 @@ python3 scripts/agent-run.py smoke-sprint --if-complete
 python3 scripts/agent-run.py check-repo-hygiene
 python3 scripts/agent-run.py run-android-emulator-local -- --if-device
 python3 scripts/agent-run.py render-gates-status
+python3 scripts/agent-run.py summarize-coverage
 
 ```
 

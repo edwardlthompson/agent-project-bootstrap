@@ -1,6 +1,6 @@
 # BUILD_PLAN archive cleanup
 
-Run after BUILD_PLAN execution when local gates pass. Moves finished work off the active board into @COMPLETED_TASKS.md.
+Always invoked at end of `/build` when the sprint/feature block is complete (mandatory wrap-up); may still be run alone. Moves finished work off the active board into @COMPLETED_TASKS.md when local gates pass.
 
 **Do not archive** while any `[AGENT]` or `[AUTO]` row in the active sprint/feature block is still 🔲 or ❌. Rows auto-completed by `/build` automation (✅ HUMAN/ADB) may be archived with AGENT/AUTO work. Items in `HUMAN_BACKLOG.md` stay 🔲 on the board until a human clears them.
 
@@ -19,6 +19,7 @@ Prepend a new dated section at the top of @COMPLETED_TASKS.md (immediately after
 ## {Sprint or feature name} ({YYYY-MM-DD})
 
 - ✅ [OWNER] Original description
+
 ```
 
 Copy every ✅ row from the finished block verbatim (keep owner labels and descriptions).
@@ -52,6 +53,7 @@ python3 scripts/agent-run.py gc-worktrees -- --apply
 
 ```bash
 python3 scripts/check-file-encoding.py BUILD_PLAN.md COMPLETED_TASKS.md
+
 ```
 
 Active board should contain no ✅ rows except backlogged `[HUMAN]`/`[ADB]` items explicitly left open (see `HUMAN_BACKLOG.md`).
