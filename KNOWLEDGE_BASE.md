@@ -229,3 +229,21 @@
 | **Cause** | Optional `examples/blender` is pruned; unittest still discovers the test module and imports `cli` at load time |
 | **Fix** | Raise `unittest.SkipTest("blender example pruned")` before `from cli import` when `examples/blender/cli.py` is missing |
 | **Prevention** | Optional-stack tests that import example code must skip at import time (same pattern as Lightroom file reads, but imports cannot wait until `setUp`) |
+
+### KB-028 — upd rewrites CodeQL `@v4` to invalid `vcodeql-bundle-*`
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | CodeQL job fails at setup: unable to resolve `github/codeql-action@vcodeql-bundle-v2.27.2` |
+| **Cause** | `upd` maps CodeQL floating `@v4` to a bundle tag that is not a valid action ref |
+| **Fix** | Restore `github/codeql-action/{init,analyze,upload-sarif}@v4` (or a real `v4.x.y` tag). Do not accept `vcodeql-bundle-*` from dry-run/apply |
+| **Prevention** | Skip CodeQL pin “patches” from upd; keep `@v4` in workflows; see DECISION_LOG v1.8.0 / v1.10.0 |
+
+### KB-029 — About keyword gate + axe label-content-name-mismatch
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | Upgrade-sim fails `check-agent-brief` (missing camera/messages/…); web Playwright axe fails on settings About nav |
+| **Cause** | Brief keywords enforced while `branding/product.json` stays `mode: template`; button `aria-label` shorter than visible label+hint (axe 4.14) |
+| **Fix** | Enforce About keyword echo only when product mode is `product`. Prefer content-derived accessible names (drop redundant `aria-label` on multi-line nav buttons) |
+| **Prevention** | Keep Golden Path stubs free of product-brief About checks; after axe bumps, re-run settings-panel a11y e2e |
