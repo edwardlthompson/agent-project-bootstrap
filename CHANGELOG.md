@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [1.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.9.0...v1.10.0) (2026-10-16)
 
 
@@ -19,8 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * **ci:** gate About keywords on product mode; fix settings a11y name ([1e6c53f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/1e6c53f397c62e6c87e4cff922e360ef001ad9f4))
 * **ci:** restore codeql-action [@v4](https://github.com/v4) pins after bad upd rewrite ([85ff95f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/85ff95fc1b30167572b4d2897a84fceaa024916e))
-
-## [Unreleased]
 
 ## [1.9.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.8.0...v1.9.0) (2026-10-04)
 
