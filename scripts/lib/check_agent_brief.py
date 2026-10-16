@@ -1,6 +1,7 @@
 """CI anti-amnesia: AGENT.md brief must stay on the BUILD_PLAN Product block."""
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -26,6 +27,18 @@ def _about_haystack(root: Path) -> str:
         if path.is_file():
             chunks.append(path.read_text(encoding="utf-8"))
     return "\n".join(chunks).lower()
+
+
+def _product_mode_active(root: Path) -> bool:
+    """About keyword echo applies after branding leaves template Golden Path stubs."""
+    path = root / "branding" / "product.json"
+    if not path.is_file():
+        return False
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return False
+    return str(data.get("mode") or "").strip().lower() == "product"
 
 
 def check(root: Path) -> list[str]:
@@ -62,8 +75,8 @@ def check(root: Path) -> list[str]:
             errors.append(f"BUILD_PLAN Product block missing keyword {key!r}")
     if inner.strip() == EMPTY_NOTE and keys:
         errors.append("BUILD_PLAN Product block is empty while AGENT.md has a brief")
-    # Child with live brief: About/purpose must echo keywords when those files exist.
-    if not template and keys:
+    # Child in product mode: About/purpose must echo keywords when those files exist.
+    if not template and keys and _product_mode_active(root):
         about = _about_haystack(root)
         if about.strip():
             for key in keys:

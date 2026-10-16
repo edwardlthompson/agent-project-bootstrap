@@ -56,7 +56,7 @@ export function createSettingsPanel(callbacks: SettingsPanelCallbacks): HTMLElem
     </section>
     <section class="gp-settings-group" data-settings-haystack="${t("settings.section.about")} ${t("settings.about")} ${t("settings.about_hint")}">
       <h3>${t("settings.section.about")}</h3>
-      <button type="button" class="gp-settings-nav" data-settings-about aria-label="${t("settings.about")}">
+      <button type="button" class="gp-settings-nav" data-settings-about>
         <span>${t("settings.about")}</span>
         <span class="gp-settings-hint">${t("settings.about_hint")}</span>
       </button>

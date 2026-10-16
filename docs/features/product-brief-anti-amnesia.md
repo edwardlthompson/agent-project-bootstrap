@@ -9,7 +9,7 @@
 - ✅ After init, `BUILD_PLAN.md` Product (do not drift) contains the one-liner and keywords
 - ✅ `check-agent-brief` fails if those strings vanish
 - ✅ Always-on `.cursor/rules/product-brief.mdc` points agents at `AGENT.md` before About/donate
-- ✅ When `AGENT.md` exists on a child, About/purpose surfaces must echo brief keywords (`check-agent-brief`)
+- ✅ When `AGENT.md` exists on a child and `branding/product.json` `mode` is `product`, About/purpose surfaces must echo brief keywords (`check-agent-brief`)
 
 ## Smoke scenario
 
