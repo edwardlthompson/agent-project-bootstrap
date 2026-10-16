@@ -141,3 +141,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 ### Retrospective — 2026-10-07 (M65)
 
 - Parent brand: 2D handshake logo + photoreal README splash in `branding/template/` (not synced to GP assets); child `/brand` + splash playbook; Android SplashScreen stub. Keep parent vs child kits separate.
+
+### Retrospective — 2026-10-16 (v1.10.0 /ship)
+
+- M66 shape/preferences/commercial GP shipped; upd must not rewrite CodeQL `@v4` to `vcodeql-bundle-*`; About keyword echo only when `branding/product.json` mode is `product`; axe 4.14 needs accessible name ⊆ visible text on settings nav.

@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-10-16 — v1.10.0 /ship
+- **Status:** Accepted
+- **Context:** M66 shape ecosystem + PREFERENCES + commercial Golden Path ready; upd applied a bogus CodeQL `vcodeql-bundle-v2.27.2` ref; About keyword gate broke upgrade sims while branding stayed `mode: template`; axe 4.14 flagged settings About nav `aria-label` vs hint text.
+- **Decision:** Ship **1.10.0** via Release Please [#120](https://github.com/edwardlthompson/agent-project-bootstrap/pull/120). Keep CodeQL `@v4`. Gate About keywords on product mode. Prefer content-derived accessible names for multi-line settings nav buttons.
+- **Alternatives considered:** Apply CodeQL bundle tags from upd (rejected). Require About keywords while Golden Path stubs remain (rejected: product mode only).
+- **Consequences:** Tag **v1.10.0** with SBOM+OpenVEX; `/shape`, PREFERENCES, coverage summarize, and commercial GP docs on main.
+
 ### 2026-10-04 — v1.9.0 /ship
 - **Status:** Accepted
 - **Context:** Local-agent + VS Code Cline parity ready; main was 48 commits behind Dependabot/RP history; pre-commit large-file check hung on Windows Git Bash; RP #119 branch workflows stayed ction_required.
