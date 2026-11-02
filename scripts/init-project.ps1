@@ -123,7 +123,7 @@ replacements = [
     ("[INSERT PLATFORM / TECH STACK HERE]", stack),
     ("[INSERT DETAILED APP DESCRIPTION AND GOALS HERE]", purpose),
 ]
-for rel in ("docs/INITIALIZATION_PROMPT.md", "AGENT_MEMORY.md"):
+for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md", "AGENT_MEMORY.md"):
     path = root / rel
     if not path.is_file():
         continue
@@ -307,7 +307,11 @@ dry = sys.argv[3].lower() == "true"
 if not dry:
     stamp_profile(root, profile)
 print(f"profile: {profile}")
-if profile == "core":
+if profile == "full":
+    from init_profile import relocate_memory_logs
+    for line in relocate_memory_logs(root):
+        print(line)
+elif profile == "core":
     for line in apply_core_profile(root, dry_run=dry):
         print(line)
 '@

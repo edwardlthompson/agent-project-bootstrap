@@ -73,6 +73,25 @@ def apply_core_profile(root: Path, *, dry_run: bool = False) -> list[str]:
     return actions
 
 
+def relocate_memory_logs(root: Path) -> list[str]:
+    """Full profile: ensure memory/log live under .agent/."""
+    actions: list[str] = []
+    mapping = {
+        "AGENT_MEMORY.md": ".agent/AGENT_MEMORY.md",
+        "DECISION_LOG.md": ".agent/DECISION_LOG.md",
+    }
+    for src_name, dest_name in mapping.items():
+        src = root / src_name
+        dest = root / dest_name
+        if src.is_file() and not dest.is_file():
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            src.replace(dest)
+            actions.append(f"full: move {src_name} → {dest_name}")
+        elif dest.is_file():
+            actions.append(f"full: keep {dest_name}")
+    return actions
+
+
 def stamp_profile(root: Path, profile: str) -> None:
     path = root / "bootstrap.config.json"
     data: dict = {}

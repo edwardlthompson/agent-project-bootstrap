@@ -50,13 +50,15 @@ def main() -> int:
     else:
         warnings.append("No .agent/session-state.md or .cursor-session-state.json")
 
-    mem = ROOT / "AGENT_MEMORY.md"
+    mem = ROOT / ".agent" / "AGENT_MEMORY.md"
+    if not mem.is_file():
+        mem = ROOT / "AGENT_MEMORY.md"
     if mem.is_file():
         parts.append("## AGENT_MEMORY (last 20 lines)")
         parts.extend(_tail_lines(mem, 20))
         parts.append("")
     else:
-        warnings.append("AGENT_MEMORY.md missing")
+        warnings.append(".agent/AGENT_MEMORY.md missing")
 
     for w in warnings:
         print(f"WARN: {w}", file=sys.stderr)

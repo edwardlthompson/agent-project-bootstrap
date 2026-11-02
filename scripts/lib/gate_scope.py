@@ -31,7 +31,7 @@ WIDE_NAMES = frozenset(
 )
 DOCS_PREFIX = ("docs/", ".cursor/commands/", ".cursor/skills/")
 DOCS_NAMES = frozenset(
-    "BUILD_PLAN.md CHANGELOG.md AGENT_MEMORY.md DECISION_LOG.md "
+    "BUILD_PLAN.md CHANGELOG.md .agent/AGENT_MEMORY.md .agent/DECISION_LOG.md "
     "COMPLETED_TASKS.md HUMAN_BACKLOG.md README.md SUPPORT.md CITATION.cff "
     "PROMPT_LIBRARY.md KNOWLEDGE_BASE.md LICENSE CODE_OF_CONDUCT.md "
     "SECURITY.md CODEOWNERS AGENT.md AGENT.md.example".split()

@@ -25,4 +25,4 @@ Halt after 3 consecutive failed fixes; escalate.
 
 ## Memory / tokens
 
-Update `AGENT_MEMORY.md` only at milestones. Max 300 lines UI+i18n, 150 lines pure logic. Prefer local parallel Task/worktrees over Cloud (`local-compute.mdc` on demand).
+Update `.agent/AGENT_MEMORY.md` only at milestones. Max 300 lines UI+i18n, 150 lines pure logic. Prefer local parallel Task/worktrees over Cloud (`local-compute.mdc` on demand).
