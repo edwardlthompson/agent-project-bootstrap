@@ -19,7 +19,9 @@ param(
     [switch]$KeepOptional = $true,
     [switch]$PruneOptional,
     [switch]$NoLinguist,
-    [switch]$DryRun
+    [switch]$DryRun,
+    [ValidateSet("core", "full")]
+    [string]$Profile = "core"
 )
 
 $Root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
@@ -293,6 +295,22 @@ if (Get-Command gh -ErrorAction SilentlyContinue) {
     Write-Host "  bash scripts/validate-workflow-actions.sh"
     Write-Host "See README.md and docs/SECURITY_TRIAGE.md for setup."
 }
+
+$env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
+python3 - $Root $Profile ($DryRun.IsPresent.ToString().ToLower()) @'
+import sys
+from pathlib import Path
+from init_profile import apply_core_profile, normalize_profile, stamp_profile
+root = Path(sys.argv[1])
+profile = normalize_profile(sys.argv[2])
+dry = sys.argv[3].lower() == "true"
+if not dry:
+    stamp_profile(root, profile)
+print(f"profile: {profile}")
+if profile == "core":
+    for line in apply_core_profile(root, dry_run=dry):
+        print(line)
+'@
 
 Write-Host ""
 Write-Host "=== Done ===" -ForegroundColor Green

@@ -275,6 +275,13 @@ if [ "$SKIP_PREAMBLE" = false ]; then
     GATES_PASSED+=("linguist-attribution")
   fi
 
+  if [ -f scripts/check-profile.sh ]; then
+    if ! bash scripts/check-profile.sh >/dev/null 2>&1; then
+      fail_gate "profile" "$(bash scripts/check-profile.sh 2>&1 | tail -n 20)"
+    fi
+    GATES_PASSED+=("profile")
+  fi
+
   bash scripts/sync-exemplar-config.sh >/dev/null 2>&1 || true
 
   if ! bash scripts/check-file-encoding.sh >/dev/null 2>&1; then

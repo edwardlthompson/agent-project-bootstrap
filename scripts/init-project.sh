@@ -7,7 +7,7 @@
 #   --release-repo OWNER/REPO  --donation-url URL  --codeowner USER
 #   --prune  --no-prune  --non-interactive  --keep-optional  --prune-optional
 #   --license MIT|Apache-2.0  --skip-preflight  --strict-preflight
-#   --topics a,b,c  --no-linguist  --dry-run
+#   --topics a,b,c  --no-linguist  --dry-run  --profile core|full
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -39,7 +39,8 @@ Usage: scripts/init-project.sh [options]
   --strict-preflight     Fail if stack tools (node, uv, java) are missing
   --topics LIST          Comma-separated GitHub topics (3-5 recommended)
   --no-linguist          Skip copying templates/linguist/child.gitattributes
-  --dry-run              Print linguist copy/append action without writing
+  --dry-run              Print linguist/profile actions without writing
+  --profile core|full    core=slim surface (default); full=keep template tree
   -h, --help
 EOF
 }
@@ -61,6 +62,7 @@ STRICT_PREFLIGHT=false
 TOPICS=""
 NO_LINGUIST=false
 DRY_RUN=false
+PROFILE="core"
 while [ $# -gt 0 ]; do
   case "$1" in
     --stack) STACK="${2:-}"; shift 2 ;;
@@ -82,10 +84,18 @@ while [ $# -gt 0 ]; do
     --prune-optional) KEEP_OPTIONAL=false; shift ;;
     --no-linguist) NO_LINGUIST=true; shift ;;
     --dry-run) DRY_RUN=true; shift ;;
+    --profile) PROFILE="${2:-core}"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage >&2; exit 1 ;;
   esac
 done
+case "$PROFILE" in
+  core|full) ;;
+  *)
+    echo "Invalid profile '$PROFILE'; defaulting to core."
+    PROFILE="core"
+    ;;
+esac
 
 case "$DISTRIBUTION_TIER" in
   foss|commercial) ;;
@@ -411,6 +421,24 @@ else
   echo "  bash scripts/validate-workflow-actions.sh"
   echo "See README.md and docs/SECURITY_TRIAGE.md for setup."
 fi
+
+# Profile: stamp + optional core slim (after post hooks so full tooling can run first)
+export PYTHONPATH="$ROOT/scripts/lib${PYTHONPATH:+:$PYTHONPATH}"
+python3 - "$ROOT" "$PROFILE" "$DRY_RUN" <<'PY'
+import sys
+from pathlib import Path
+from init_profile import apply_core_profile, normalize_profile, stamp_profile
+
+root = Path(sys.argv[1])
+profile = normalize_profile(sys.argv[2])
+dry = sys.argv[3].lower() == "true"
+if not dry:
+    stamp_profile(root, profile)
+print(f"profile: {profile}")
+if profile == "core":
+    for line in apply_core_profile(root, dry_run=dry):
+        print(line)
+PY
 
 echo ""
 echo "=== Done ==="

@@ -3267,6 +3267,20 @@
       "read_when": "bootstrap_session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-profile.sh",
+      "purpose": "Validate bootstrap.config.json profile core|full",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/init_profile.py",
+      "purpose": "Init profile core|full apply and check",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     }
   ],
   "modules": {
