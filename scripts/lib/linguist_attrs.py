@@ -18,9 +18,19 @@ def child_template(root: Path) -> Path:
     return root / "templates" / "linguist" / "child.gitattributes"
 
 
-def render_block(template_text: str) -> str:
-    """Return the linguist block body (stack-aware commenting added in a later step)."""
-    text = template_text
+def render_block(stack: str, template_text: str) -> str:
+    """Return the linguist block body; comment scripts/** for python stacks."""
+    lines: list[str] = []
+    for raw in template_text.splitlines():
+        line = raw.rstrip("\n")
+        stripped = line.strip()
+        if stack == "python" and stripped == SCRIPTS_LINE:
+            lines.append(
+                f"# {stripped}  # python stack: keep product scripts in language stats"
+            )
+            continue
+        lines.append(line)
+    text = "\n".join(lines)
     if not text.endswith("\n"):
         text += "\n"
     return text
@@ -37,7 +47,6 @@ def apply_linguist_attrs(
 
     Returns a short human status line (also printed by callers for dry-run).
     """
-    del stack  # reserved for stack-aware attribution
     if skip:
         return "skip linguist (.gitattributes): --no-linguist"
 
@@ -45,7 +54,7 @@ def apply_linguist_attrs(
     if not src.is_file():
         return f"skip linguist: missing {src.as_posix()}"
 
-    block = render_block(src.read_text(encoding="utf-8"))
+    block = render_block(stack, src.read_text(encoding="utf-8"))
     dest = root / ".gitattributes"
     if dest.is_file():
         existing = dest.read_text(encoding="utf-8")

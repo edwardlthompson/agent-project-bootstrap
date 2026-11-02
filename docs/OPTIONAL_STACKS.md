@@ -54,6 +54,12 @@ PowerShell equivalents: `-Prune -KeepOptional` (default) or `-Prune -PruneOption
 
 `scripts/simulate-template-upgrade.sh` runs both paths in CI (`--no-prune` then `--prune --prune-optional`).
 
+## Linguist attribution (language stats)
+
+Init copies `templates/linguist/child.gitattributes` onto `.gitattributes` (append under `# --- linguist ---` when a file already exists). Flags: `--no-linguist` to skip; `--dry-run` prints the copy/append without writing.
+
+**Python stack:** the `scripts/** linguist-vendored` line is commented out so product scripts still count toward GitHub language stats. Other stacks leave that line active so template scaffolding does not dominate.
+
 ## CI behavior
 
 Optional example CI jobs (`rust`, `go`, `lightroom`) and the instrumented Android job run when:
