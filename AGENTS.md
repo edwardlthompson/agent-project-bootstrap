@@ -173,3 +173,13 @@ Router reads `distribution_tier` from `.cursor/stack-selection.json` (set by `in
 - **Web/PWA:** Offline-first service workers; Lighthouse budget gates
 - **Python:** Strict typing (mypy), ruff lint/format, locked dependencies
 - **Lightroom:** Adobe SDK Lua API only (`Lr*` namespaces)
+
+## Session rules
+
+- One repo per session — do not hop projects mid-chat
+- Never create a repo or root file unasked
+- Always run `bash scripts/verify.sh` (or `--quick`) first on session start
+- Changelogs are hand-written — agents draft Unreleased notes; humans own the wording before release
+- Run device smoke for scan / TTS / ephemeris / platform changes (`/emulator` or connected instrumented tests)
+- Prefer deleting to adding
+- Report ambiguity instead of guessing
