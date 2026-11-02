@@ -17,7 +17,9 @@ param(
     [switch]$NoPrune,
     [switch]$NonInteractive,
     [switch]$KeepOptional = $true,
-    [switch]$PruneOptional
+    [switch]$PruneOptional,
+    [switch]$NoLinguist,
+    [switch]$DryRun
 )
 
 $Root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
@@ -246,6 +248,20 @@ if ($Stack -eq "none") {
 }
 
 python3 scripts/init-stack-sync.py $Stack $Root ($Pruned.ToString().ToLower())
+
+# Linguist attribution for child language stats (after prune)
+$env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
+python3 - $Root $Stack ($NoLinguist.IsPresent.ToString().ToLower()) ($DryRun.IsPresent.ToString().ToLower()) @'
+import sys
+from pathlib import Path
+from linguist_attrs import apply_linguist_attrs
+root = Path(sys.argv[1])
+stack = sys.argv[2]
+skip = sys.argv[3].lower() == "true"
+dry = sys.argv[4].lower() == "true"
+print(apply_linguist_attrs(root, stack=stack, dry_run=dry, skip=skip))
+'@
+
 $CopyComm = @()
 if ($DistributionTier -eq "commercial") { $CopyComm = @("--copy-commercial") }
 python3 scripts/sync-cursor-features.py --root $Root --tier $DistributionTier --patch-init @CopyComm

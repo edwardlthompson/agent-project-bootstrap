@@ -7,7 +7,7 @@
 #   --release-repo OWNER/REPO  --donation-url URL  --codeowner USER
 #   --prune  --no-prune  --non-interactive  --keep-optional  --prune-optional
 #   --license MIT|Apache-2.0  --skip-preflight  --strict-preflight
-#   --topics a,b,c
+#   --topics a,b,c  --no-linguist  --dry-run
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -38,6 +38,8 @@ Usage: scripts/init-project.sh [options]
   --skip-preflight       Skip git/Python/tool checks
   --strict-preflight     Fail if stack tools (node, uv, java) are missing
   --topics LIST          Comma-separated GitHub topics (3-5 recommended)
+  --no-linguist          Skip copying templates/linguist/child.gitattributes
+  --dry-run              Print linguist copy/append action without writing
   -h, --help
 EOF
 }
@@ -57,6 +59,8 @@ LICENSE="MIT"
 SKIP_PREFLIGHT=false
 STRICT_PREFLIGHT=false
 TOPICS=""
+NO_LINGUIST=false
+DRY_RUN=false
 while [ $# -gt 0 ]; do
   case "$1" in
     --stack) STACK="${2:-}"; shift 2 ;;
@@ -76,6 +80,8 @@ while [ $# -gt 0 ]; do
     --non-interactive) NONINTERACTIVE=true; shift ;;
     --keep-optional) KEEP_OPTIONAL=true; shift ;;
     --prune-optional) KEEP_OPTIONAL=false; shift ;;
+    --no-linguist) NO_LINGUIST=true; shift ;;
+    --dry-run) DRY_RUN=true; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage >&2; exit 1 ;;
   esac
@@ -343,6 +349,20 @@ else
 fi
 
 python3 scripts/init-stack-sync.py "$STACK" "$ROOT" "$PRUNED"
+
+# Linguist attribution for child language stats (after prune)
+export PYTHONPATH="$ROOT/scripts/lib${PYTHONPATH:+:$PYTHONPATH}"
+python3 - "$ROOT" "$STACK" "$NO_LINGUIST" "$DRY_RUN" <<'PY'
+import sys
+from pathlib import Path
+from linguist_attrs import apply_linguist_attrs
+
+root = Path(sys.argv[1])
+stack = sys.argv[2]
+skip = sys.argv[3].lower() == "true"
+dry = sys.argv[4].lower() == "true"
+print(apply_linguist_attrs(root, stack=stack, dry_run=dry, skip=skip))
+PY
 
 # Linux/macOS: write gitignored local.properties when Android SDK is present.
 if [ -d "$ROOT/examples/android" ]; then
