@@ -360,8 +360,21 @@ fi
 
 python3 scripts/init-stack-sync.py "$STACK" "$ROOT" "$PRUNED"
 
-# Linguist attribution for child language stats (after prune)
+# Default Agent Mode for children (ADR-0010) — balanced
 export PYTHONPATH="$ROOT/scripts/lib${PYTHONPATH:+:$PYTHONPATH}"
+if [ "$DRY_RUN" = true ]; then
+  echo "dry-run agent-mode: write .cursor/agent-mode.json mode=balanced"
+else
+  python3 - "$ROOT" <<'PY'
+import sys
+from pathlib import Path
+from agent_mode import write_mode
+write_mode(Path(sys.argv[1]), "balanced", updated_by="init")
+print("agent-mode: balanced (.cursor/agent-mode.json)")
+PY
+fi
+
+# Linguist attribution for child language stats (after prune)
 python3 - "$ROOT" "$STACK" "$NO_LINGUIST" "$DRY_RUN" <<'PY'
 import sys
 from pathlib import Path

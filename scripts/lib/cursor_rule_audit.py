@@ -7,7 +7,7 @@ from pathlib import Path
 ALLOW = frozenset({
     "main", "core-directives", "cursor-modes", "brief-replies",
     "destructive-ops", "read-before-write", "feature-modules",
-    "repo-hygiene", "product-brief",
+    "repo-hygiene", "product-brief", "agent-mode",
 })
 # On-demand (description/globs); foss/commercial stay mutually exclusive when always-on
 TOGGLE = ("foss-compliance", "commercial-compliance")

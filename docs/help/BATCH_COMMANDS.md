@@ -26,6 +26,7 @@ Red CI → `/fix` or `/ci` + `/gates` first. Dirty Unreleased + empty AGENT → 
 - **Local:** `/best-of-n` · `/emulator` · `/recommend-model` · `/compress-memory` (opt-in Ollama: [`LOCAL_AGENT.md`](LOCAL_AGENT.md))
 - **Maintain:** `/triage` · `/dependabot` · `/audit` · `/upgrade`
 - **Handoff:** `/compact` · `/restore` · `/resume`
+- **Agent mode:** `/lean` · `/balanced` · `/speed` · `/mode` · `/status` ([ADR-0010](../adr/0010-agent-mode-speed-balanced-lean.md))
 
 **Cline path:** Open this project in Cursor or VS Code. Install Cline (`saoudrizwan.claude-dev`). Sign In with GitHub. Prefer FREE model or optional local Ollama ([`LOCAL_AGENT.md`](LOCAL_AGENT.md)). Type `/tour` / `/coach` / `/build` / `/setup-local` after enabling project workflows, or paste: `Read docs/help/TOUR.md and walk me through it. Follow AGENTS.md.` Full steps: [`CLINE.md`](CLINE.md) · cheat sheet: [`VSCODE_COMMANDS.md`](VSCODE_COMMANDS.md).
 

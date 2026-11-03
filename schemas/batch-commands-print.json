@@ -234,6 +234,31 @@
       "kind": "step",
       "group": "start",
       "caption": "Replace Golden Path placeholder logos and pitch with your product brand."
+    },
+    "lean": {
+      "kind": "step",
+      "group": "session",
+      "caption": "Extreme Agent Mode: block Cloud/Grok and convert open CLOUD rows to LOCAL."
+    },
+    "balanced": {
+      "kind": "step",
+      "group": "session",
+      "caption": "Default Agent Mode: LOCAL preferred, Cloud allowed when tagged."
+    },
+    "speed": {
+      "kind": "step",
+      "group": "session",
+      "caption": "Speed Agent Mode: Cloud allowed for fast scoped parallel work."
+    },
+    "mode": {
+      "kind": "step",
+      "group": "session",
+      "caption": "Print the current Agent Mode and one-sentence policy."
+    },
+    "status": {
+      "kind": "step",
+      "group": "session",
+      "caption": "Full repo settings + golden-path status report (read-only)."
     }
   }
 }
