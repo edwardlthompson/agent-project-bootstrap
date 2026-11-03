@@ -149,6 +149,9 @@ jobs:
         run: bash scripts/check-ci-refs.sh --branch
       - name: Check tracked artifacts and repo config
         run: bash scripts/check-repo-hygiene.sh
+      - name: Check Linguist attribution
+        if: hashFiles('scripts/check-linguist-attribution.sh') != ''
+        run: bash scripts/check-linguist-attribution.sh
 
   feature-gate:
     name: Feature Gate

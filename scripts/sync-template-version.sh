@@ -47,7 +47,9 @@ text = re.sub(
 )
 readme.write_text(text, encoding="utf-8")
 
-mem = Path("AGENT_MEMORY.md")
+mem = Path(".agent/AGENT_MEMORY.md")
+if not mem.is_file():
+    mem = Path("AGENT_MEMORY.md")
 mt = mem.read_text(encoding="utf-8")
 mt = re.sub(
     r"(\| Multi-stack template[^\|]+\| )[\d.]+( \| Template maintainer)",

@@ -5,6 +5,7 @@
   "stack": "multi",
   "license": "MIT",
   "distribution_tier": "foss",
+  "profile": "full",
   "agent_adapters": {
     "cursor_rules": true,
     "claude": true,

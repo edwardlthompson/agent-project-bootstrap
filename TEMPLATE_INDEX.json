@@ -678,6 +678,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "templates/linguist/child.gitattributes",
+      "purpose": "Child Linguist attribution block copied onto .gitattributes at init",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/bootstrap-lifecycle.sh",
       "purpose": "Pre/post bootstrap hooks, adapters, checklist, manifest",
       "read_when": "bootstrap_session_start",
@@ -979,7 +986,7 @@
       "owner": "maintainer"
     },
     {
-      "path": "AGENT_MEMORY.md",
+      "path": ".agent/AGENT_MEMORY.md",
       "purpose": "Tech stack, threat model, retrospectives index",
       "read_when": "session_start",
       "update_when": "milestone_boundary",
@@ -1007,7 +1014,7 @@
       "owner": "agent"
     },
     {
-      "path": "DECISION_LOG.md",
+      "path": ".agent/DECISION_LOG.md",
       "purpose": "Append-only decision register",
       "read_when": "architectural_decision",
       "update_when": "architectural_decision",
@@ -1253,7 +1260,7 @@
     },
     {
       "path": ".github/workflows/dependency-review.yml",
-      "purpose": "PR dependency review — fail on new High/Critical vulnerabilities",
+      "purpose": "PR dependency review \u2014 fail on new High/Critical vulnerabilities",
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -2121,7 +2128,7 @@
     },
     {
       "path": "scripts/run-codex-review.sh",
-      "purpose": "Local Codex CLI review → CODE_REVIEW.md",
+      "purpose": "Local Codex CLI review \u2192 CODE_REVIEW.md",
       "read_when": "audit",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -3129,7 +3136,7 @@
     },
     {
       "path": ".cursor/rules/brief-replies.mdc",
-      "purpose": "Always-on ADHD short-reply law (1–3 sentences)",
+      "purpose": "Always-on ADHD short-reply law (1\u20133 sentences)",
       "read_when": "session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -3239,6 +3246,41 @@
       "path": ".github/workflows/sbom-diff-dependabot.yml",
       "role": "gate",
       "notes": "Indexed for TEMPLATE_INDEX completeness"
+    },
+    {
+      "path": "scripts/check-linguist-attribution.sh",
+      "purpose": "Gate child Linguist attribution patterns and dominant language",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/check_linguist_attribution.py",
+      "purpose": "Linguist attribution gate implementation",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/linguist_attrs.py",
+      "purpose": "Apply child Linguist .gitattributes during init",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-profile.sh",
+      "purpose": "Validate bootstrap.config.json profile core|full",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/init_profile.py",
+      "purpose": "Init profile core|full apply and check",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     }
   ],
   "modules": {

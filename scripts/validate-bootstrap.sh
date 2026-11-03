@@ -24,7 +24,7 @@ REQUIRED=(
   BUILD_PLAN_TEMPLATE.md
   AGENTS.md
   AGENT.md.example
-  AGENT_MEMORY.md
+  .agent/AGENT_MEMORY.md
   docs/START_HERE.md
   docs/CURSOR_MODES.md
   docs/INITIALIZATION_PROMPT.md
@@ -163,6 +163,8 @@ if [ "$AGENT" = true ]; then
   if ! python3 scripts/lib/run_checks_parallel.py \
     check-file-encoding.sh \
     check-repo-hygiene.sh \
+    check-profile.sh \
+    check-linguist-attribution.sh \
     check-batch-commands.sh \
     check-cursor-hooks.sh \
     check-build-plan-tally.sh \
@@ -182,6 +184,8 @@ elif ! python3 scripts/lib/run_checks_parallel.py \
   check-markdown-tables.sh \
   check-changelog-unreleased.sh \
   check-repo-hygiene.sh \
+  check-profile.sh \
+  check-linguist-attribution.sh \
   check-batch-commands.sh \
   check-cursor-hooks.sh \
   check-build-plan-parallel.sh \

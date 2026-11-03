@@ -7,7 +7,7 @@
 5. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json` (do not load whole index unless `/upgrade`)
 6. **Task board:** `BUILD_PLAN.md` · Status: 🔲 · ✅ · ❌
 7. **Parallel / venue:** `/scope` · Local vs Cloud [ADR-0008](docs/adr/0008-agent-venue.md) · cost diet [ADR-0009](docs/adr/0009-cost-diet-brevity.md)
-8. **Living memory:** `AGENT_MEMORY.md` at milestones only. If `AGENT.md` exists, read before sprint rows.
+8. **Living memory:** `.agent/AGENT_MEMORY.md` at milestones only. If `AGENT.md` exists, read before sprint rows.
 
 > Legacy `.cursorrules` is deprecated. Use `.cursor/rules/*.mdc` and this file instead.
 
@@ -107,10 +107,10 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 3. UI edits → `docs/ux-ui-guidelines.md`. `AGENT.md` before sprint rows if present.
 4. If your tool has no slash commands, use `docs/help/*.md` (start with `docs/help/TOUR.md`). In VS Code + Cline, type `/` for project workflows under `.clinerules/workflows/` (see `docs/help/VSCODE_COMMANDS.md`).
 5. When using Ollama or LM Studio, declare venue `[AGENT][LOCAL]` and prefer Plan mode before Act for non-trivial multi-file work. Opt-in setup: `python3 scripts/agent-run.py recommend-model` / `setup-local` / `compress-memory` (never required for CI, init, or `/ship`).
-6. Context budget: prefer targeted reads (`grep` / slices). Do not re-read the same file more than twice without a write or a new plan. On context bloat: update `.agent/session-state.md` (portable) and/or `.cursor-session-state.json` (Cursor `/compact`); optionally run `python3 scripts/agent-run.py compress-memory`. Read only the last ~20 lines of `AGENT_MEMORY.md` on start — never dump the whole file.
+6. Context budget: prefer targeted reads (`grep` / slices). Do not re-read the same file more than twice without a write or a new plan. On context bloat: update `.agent/session-state.md` (portable) and/or `.cursor-session-state.json` (Cursor `/compact`); optionally run `python3 scripts/agent-run.py compress-memory`. Read only the last ~20 lines of `.agent/AGENT_MEMORY.md` on start — never dump the whole file.
 7. When creating or significantly changing a file, state one sentence of why (see `docs/BEST_PRACTICES.md` and `/coach`).
 8. After each AGENT step: `watch-agent-gates --once --autofix --scope auto` (skip re-running full validate mid-slice if that passed). Sprint complete → `smoke-sprint --require` — every ✅ row smoked, no errors/crashes, startup + load order (`docs/SPRINT_SMOKE.md`). `/gates` stays full `feature-gate --stack multi` plus `smoke-sprint --if-complete`.
-9. Milestone: update `AGENT_MEMORY.md` / ADR; append to `DECISION_LOG.md` or `docs/adr/`. Log significant agent actions at milestone boundaries. 3-strike failure (including identical tool calls or identical error messages) → halt. After Cloud → `/resume`.
+9. Milestone: update `.agent/AGENT_MEMORY.md` / ADR; append to `.agent/DECISION_LOG.md` or `docs/adr/`. Log significant agent actions at milestone boundaries. 3-strike failure (including identical tool calls or identical error messages) → halt. After Cloud → `/resume`.
 10. Repo hygiene: track source only; run `scripts/check-repo-hygiene.sh` before push (see `docs/REPO_HYGIENE.md`).
 
 Replies: 1–3 sentences default (`.cursor/rules/brief-replies.mdc`). Venue: `[LOCAL]`/`[CLOUD]` + `— scope:` ([ADR-0008](docs/adr/0008-agent-venue.md)). Cost diet: [ADR-0009](docs/adr/0009-cost-diet-brevity.md).
@@ -173,3 +173,13 @@ Router reads `distribution_tier` from `.cursor/stack-selection.json` (set by `in
 - **Web/PWA:** Offline-first service workers; Lighthouse budget gates
 - **Python:** Strict typing (mypy), ruff lint/format, locked dependencies
 - **Lightroom:** Adobe SDK Lua API only (`Lr*` namespaces)
+
+## Session rules
+
+- One repo per session — do not hop projects mid-chat
+- Never create a repo or root file unasked
+- Always run `bash scripts/verify.sh` (or `--quick`) first on session start
+- Changelogs are hand-written — agents draft Unreleased notes; humans own the wording before release
+- Run device smoke for scan / TTS / ephemeris / platform changes (`/emulator` or connected instrumented tests)
+- Prefer deleting to adding
+- Report ambiguity instead of guessing

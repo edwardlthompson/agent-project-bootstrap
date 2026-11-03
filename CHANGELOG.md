@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* **linguist:** child `.gitattributes` template, init copy (`--no-linguist` / `--dry-run`), python stack keeps `scripts/**` countable, and `check-linguist-attribution` in feature-gate + CI
+* **init:** `--profile core|full` (default `core`) with `check-profile` gate; core emits a slim surface, full keeps the catalog
+* **upgrade:** `/upgrade` skill step to append Linguist attribution for existing children
+* **agents:** Session rules (one repo per session, verify-first, hand-written changelogs, prefer delete, report ambiguity)
+
+### Changed
+
+* **memory:** `AGENT_MEMORY.md` and `DECISION_LOG.md` live under `.agent/` on the full profile; README opening leads with the problem and documents What this does not do / Version policy
+* **conventions:** Language attribution section (children vendored; template exempt; gate enforced)
+
+### Chore
+
+* **tags:** local prune to newest 10 semver tags (deleted list in `.agent/DECISION_LOG.md`; remotes unchanged)
+
 ## [1.10.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.9.0...v1.10.0) (2026-10-16)
 
 

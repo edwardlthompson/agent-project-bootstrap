@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-16",
+  "updated_at": "2026-11-02",
   "entries": [
     {
       "id": "rules.mdc",
@@ -90,6 +90,14 @@
       "doc_url": "https://cursor.com/docs/context/skills",
       "template_status": "shipped",
       "last_seen": "2026-07-21"
+    },
+    {
+      "id": "skills.upgrade",
+      "category": "skills",
+      "distribution_tier": "both",
+      "doc_url": "https://cursor.com/docs/context/skills",
+      "template_status": "shipped",
+      "last_seen": "2026-11-02"
     },
     {
       "id": "skills.parallel-scope",

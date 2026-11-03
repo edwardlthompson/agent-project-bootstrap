@@ -17,19 +17,11 @@
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/14564/badge)](https://www.bestpractices.dev/projects/14564)
 [![Open in GitHub Codespaces](https://img.shields.io/badge/Codespaces-Open-181717?style=flat-square&logo=github)](https://codespaces.new/edwardlthompson/agent-project-bootstrap)
 
-**Ship a FOSS app with an agent that already knows the rules.**
-
-Click **Use this template**, run init, then `/tour`. One [`AGENTS.md`](AGENTS.md) for every IDE; CI and security on by day one.
-
-- **One spec** — Cursor, Windsurf, Claude, Copilot, Cline, and others follow the same contract
-- **Tour + coach** — `/tour`, `/coach`, [`docs/FIRST_30_DAYS.md`](docs/FIRST_30_DAYS.md)
-- **Gates in English** — what failed / what to run
-- **Security default** — Dependabot, CodeQL, secret scanning; no tracking
-- **Golden Paths** — Web, Python, Android, Node (optional stacks too)
+Coding agents forget rules, invent folder layouts, and leave FOSS repos without CI or a security baseline. Humans then spend the first week re-teaching the same contract. This GitHub Template fixes that: **Use this template**, run init (`--profile core` by default), then `/tour`. One [`AGENTS.md`](AGENTS.md) drives Cursor, Windsurf, Claude, Copilot, Cline, and others; gates speak plain English; Dependabot, CodeQL, and secret scanning are on by day one. Golden Paths cover Web, Python, Android, and Node. A root tree with 60+ files is the **`full` profile** — useful for maintainers, **not the default**. Prefer `--profile core` unless you need the whole catalog.
 
 Obtain / bugs / vulns / patches: [GitHub](https://github.com/edwardlthompson/agent-project-bootstrap) · [`SUPPORT.md`](SUPPORT.md) · [`SECURITY.md`](SECURITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-**Also:** [Quick Start](#quick-start) · [Architecture](#architecture) · [Stacks](#stack-selection-sprint-0) · [Security](#security) · [Agent shortcuts](docs/help/BATCH_COMMANDS.md) · [Start here](docs/START_HERE.md)
+**Also:** [Quick Start](#quick-start) · [What this does not do](#what-this-does-not-do) · [Version policy](#version-policy) · [Architecture](#architecture) · [Stacks](#stack-selection-sprint-0) · [Security](#security) · [Agent shortcuts](docs/help/BATCH_COMMANDS.md) · [Start here](docs/START_HERE.md)
 
 ---
 
@@ -67,7 +59,22 @@ Non-interactive (CI / scripts):
   --purpose "Offline-first notes" \
   --license MIT
 
+# Optional: keep the full template tree (60+ root files). Default is --profile core.
+# ./scripts/init-project.sh ... --profile full
 ```
+
+## What this does not do
+
+- It is not an app generator CLI, SaaS, or hosted agent runtime.
+- It does not ship proprietary SDKs on the FOSS path or phone home.
+- It does not replace your product brief — children write `AGENT.md` / `docs/spec.md`.
+- It does not auto-merge Sacred files on `/upgrade` (plan first; name the gaps).
+
+## Version policy
+
+- Template version lives in `.template-version` and the README badge; releases are tagged `vMAJOR.MINOR.PATCH`.
+- Children track upgrades with `check-template-updates` / `/upgrade`; do not rewrite published tags.
+- Init default is `--profile core` (slim surface). `--profile full` keeps today’s full tree for maintainers and deep Golden Path work.
 
 ## Architecture
 
@@ -141,7 +148,7 @@ Shipped in the template (not generated): `docs/spec.md`, `docs/plan.md`, `docs/B
 
 During `init-project`, choose `web`, `python`, `android`, `multi`, or `none` (keep all).
 
-Active modules are synced to `AGENT_MEMORY.md` and recorded in `.cursor/stack-selection.json`.
+Active modules are synced to `.agent/AGENT_MEMORY.md` and recorded in `.cursor/stack-selection.json`.
 
 <p>
   <img src="https://img.shields.io/badge/web-stack-646cff?style=flat-square" alt="web" />

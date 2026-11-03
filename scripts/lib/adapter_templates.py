@@ -127,6 +127,8 @@ AIDER = f"""{GENERATED}
 # Aider conventions pointer
 
 {POINTER}
+## Language attribution
+Children mark scaffolding vendored via `.gitattributes` (`templates/linguist/child.gitattributes`). Template exempt; gate enforces.
 """
 
 CONTINUE = f"""{GENERATED}
