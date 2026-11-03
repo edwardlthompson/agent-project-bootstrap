@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.10.0...v1.11.0) (2026-11-03)
+
 ### Added
 
 * **linguist:** child `.gitattributes` template, init copy (`--no-linguist` / `--dry-run`), python stack keeps `scripts/**` countable, and `check-linguist-attribution` in feature-gate + CI
