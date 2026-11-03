@@ -36,3 +36,4 @@ Cursor Cloud Agents and This Computer agents can both claim open `[AGENT]` rows.
 - Child `BUILD_PLAN_TEMPLATE.md` ships both lane stubs; playbook AGENT rows are `[LOCAL]`.
 - `check-agent-venue` is part of `validate-bootstrap --quick`.
 - Tally shows `AGENT · LOCAL · CLOUD · AUTO · HUMAN · ADB` (AGENT = LOCAL+CLOUD; total open does not double-count venue).
+- Repo-wide Agent Mode ([ADR-0010](0010-agent-mode-speed-balanced-lean.md)) can force Lean: open CLOUD→LOCAL and block Cloud execution.

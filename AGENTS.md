@@ -6,7 +6,7 @@
 4. **Bootstrap mode:** `docs/INITIALIZATION_PROMPT.md`
 5. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json` (do not load whole index unless `/upgrade`)
 6. **Task board:** `BUILD_PLAN.md` · Status: 🔲 · ✅ · ❌
-7. **Parallel / venue:** `/scope` · Local vs Cloud [ADR-0008](docs/adr/0008-agent-venue.md) · cost diet [ADR-0009](docs/adr/0009-cost-diet-brevity.md)
+7. **Parallel / venue:** `/scope` · Local vs Cloud [ADR-0008](docs/adr/0008-agent-venue.md) · cost diet [ADR-0009](docs/adr/0009-cost-diet-brevity.md) · Agent Mode `/lean`/`/balanced`/`/speed`/`/mode`/`/status` [ADR-0010](docs/adr/0010-agent-mode-speed-balanced-lean.md)
 8. **Living memory:** `.agent/AGENT_MEMORY.md` at milestones only. If `AGENT.md` exists, read before sprint rows.
 
 > Legacy `.cursorrules` is deprecated. Use `.cursor/rules/*.mdc` and this file instead.
@@ -113,7 +113,7 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 9. Milestone: update `.agent/AGENT_MEMORY.md` / ADR; append to `.agent/DECISION_LOG.md` or `docs/adr/`. Log significant agent actions at milestone boundaries. 3-strike failure (including identical tool calls or identical error messages) → halt. After Cloud → `/resume`.
 10. Repo hygiene: track source only; run `scripts/check-repo-hygiene.sh` before push (see `docs/REPO_HYGIENE.md`).
 
-Replies: 1–3 sentences default (`.cursor/rules/brief-replies.mdc`). Venue: `[LOCAL]`/`[CLOUD]` + `— scope:` ([ADR-0008](docs/adr/0008-agent-venue.md)). Cost diet: [ADR-0009](docs/adr/0009-cost-diet-brevity.md).
+Replies: 1–3 sentences default (`.cursor/rules/brief-replies.mdc`). Venue: `[LOCAL]`/`[CLOUD]` + `— scope:` ([ADR-0008](docs/adr/0008-agent-venue.md)). Cost diet: [ADR-0009](docs/adr/0009-cost-diet-brevity.md). Agent Mode: [ADR-0010](docs/adr/0010-agent-mode-speed-balanced-lean.md) (`.cursor/agent-mode.json`).
 
 ## Multi-Agent Adapters
 

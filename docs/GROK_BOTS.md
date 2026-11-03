@@ -1,6 +1,6 @@
 # Grok Bots (optional commercial)
 
-> Persistent xAI/Cursor AI teammates with a shared cloud Linux computer. **Not** on the FOSS production path. Do not require Grok Bots to build, test, or ship this template.
+> Persistent xAI/Cursor AI teammates with a shared cloud Linux computer. **Not** on the FOSS production path. Do not require Grok Bots to build, test, or ship this template. **Lean Agent Mode** (`/lean`, [ADR-0010](adr/0010-agent-mode-speed-balanced-lean.md)) hard-blocks Grok Bots until you switch to `/balanced` or `/speed`.
 
 Official overview: [Grok Bot docs](https://docs.x.ai/grok-bot/overview). Sign-in uses a Cursor account. Bots keep working when your laptop is closed. All of *your* Bots share one computer (files, browser sessions, logins).
 

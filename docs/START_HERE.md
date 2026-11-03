@@ -16,7 +16,7 @@ Cursor modes: Ask / Plan / Agent / Debug — [`CURSOR_MODES.md`](CURSOR_MODES.md
 | First run | `/tour` | Read [`help/TOUR.md`](help/TOUR.md) |
 | New project | `/bootstrap` | Init + tour |
 | What next | `/coach` | [`help/COACH.md`](help/COACH.md) |
-Cheat sheet: [`help/BATCH_COMMANDS.md`](help/BATCH_COMMANDS.md). UI law: [`ux-ui-guidelines.md`](ux-ui-guidelines.md). Cline (free): [`help/CLINE.md`](help/CLINE.md). Optional Grok bots: [`GROK_BOTS.md`](GROK_BOTS.md).
+Cheat sheet: [`help/BATCH_COMMANDS.md`](help/BATCH_COMMANDS.md). UI law: [`ux-ui-guidelines.md`](ux-ui-guidelines.md). Cline (free): [`help/CLINE.md`](help/CLINE.md). Optional Grok bots: [`GROK_BOTS.md`](GROK_BOTS.md). Agent mode: `/lean` · `/balanced` · `/speed` · `/mode` · `/status` ([ADR-0010](adr/0010-agent-mode-speed-balanced-lean.md)).
 
 On session start: name next 🔲 `[AGENT]` row; say if CHANGELOG `[Unreleased]` has notes (first ~20 lines only).
 

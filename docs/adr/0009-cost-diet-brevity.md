@@ -11,7 +11,7 @@ Fourteen `alwaysApply` Cursor rules plus a “read START_HERE + AGENTS + CURSOR_
 ## Decision
 
 1. **Demote alwaysApply** (keep content): `batch-commands`, `ux-ui` (globs), `windows-encoding`, `local-compute`, `local-deps`, `foss-compliance` (FOSS one-liner stays in `core-directives`; tier sync no longer forces foss always-on).
-2. **Keep thin always-on:** `main`, `core-directives`, `brief-replies`, `destructive-ops`, `feature-modules`, `product-brief`, `repo-hygiene`, `cursor-modes`, `read-before-write`. Commercial tier still flips `commercial-compliance` always-on. **`brief-replies`:** 1–3 sentences / ≤5 bullets; gates = `OK` / `FAIL X — fix Y`.
+2. **Keep thin always-on:** `main`, `core-directives`, `brief-replies`, `destructive-ops`, `feature-modules`, `product-brief`, `repo-hygiene`, `cursor-modes`, `read-before-write`, `agent-mode` (one-line ADR-0010 injection). Commercial tier still flips `commercial-compliance` always-on. **`brief-replies`:** 1–3 sentences / ≤5 bullets; gates = `OK` / `FAIL X — fix Y`.
 3. **Session protocol:** hook + next BUILD_PLAN row + mode name; Unreleased = first ~20 CHANGELOG lines; no mandatory full START_HERE/AGENTS reload every turn.
 4. **`gate_scope` LIGHT_PREFIX:** `scripts/`, `tests/`, `schemas/`, `.cursor/rules/` → docs mode. Wide remains `modules/`, `.github/`, hooks/agents/plugin, adapter roots.
 5. **`validate-bootstrap --agent`:** ~12 core checks for pre-commit. `--quick` / full stay for CI and `/gates --full`.
@@ -35,3 +35,4 @@ Fourteen `alwaysApply` Cursor rules plus a “read START_HERE + AGENTS + CURSOR_
 
 - Cursor turns pay fewer always-on tokens; mid-slice gates stay light on tooling edits.
 - Maintainer `/gates --full` and CI remain release-grade.
+- Repo-wide Agent Mode ([ADR-0010](0010-agent-mode-speed-balanced-lean.md)) layers a Lean extreme for Cloud/Grok spend on top of this diet.

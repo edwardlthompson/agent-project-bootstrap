@@ -1260,7 +1260,7 @@
     },
     {
       "path": ".github/workflows/dependency-review.yml",
-      "purpose": "PR dependency review — fail on new High/Critical vulnerabilities",
+      "purpose": "PR dependency review \u2014 fail on new High/Critical vulnerabilities",
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -2128,7 +2128,7 @@
     },
     {
       "path": "scripts/run-codex-review.sh",
-      "purpose": "Local Codex CLI review → CODE_REVIEW.md",
+      "purpose": "Local Codex CLI review \u2192 CODE_REVIEW.md",
       "read_when": "audit",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -3136,7 +3136,7 @@
     },
     {
       "path": ".cursor/rules/brief-replies.mdc",
-      "purpose": "Always-on ADHD short-reply law (1–3 sentences)",
+      "purpose": "Always-on ADHD short-reply law (1\u20133 sentences)",
       "read_when": "session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -3279,6 +3279,62 @@
       "path": "scripts/lib/init_profile.py",
       "purpose": "Init profile core|full apply and check",
       "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/agent-mode.json",
+      "purpose": "Repo-wide Agent Mode (speed|balanced|lean)",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "agent+human"
+    },
+    {
+      "path": "docs/adr/0010-agent-mode-speed-balanced-lean.md",
+      "purpose": "ADR for Agent Mode",
+      "read_when": "architectural_decision",
+      "update_when": "never",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/agent-mode-switch.md",
+      "purpose": "Feature slice for Agent Mode switch",
+      "read_when": "feature_work",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/repo-status-report.md",
+      "purpose": "Feature slice for /status report",
+      "read_when": "feature_work",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/set-agent-mode.sh",
+      "purpose": "Set Agent Mode and lean CLOUD\u2192LOCAL conversion",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/repo-status.sh",
+      "purpose": "Pure-read /status report",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/agent_mode.py",
+      "purpose": "Agent Mode library",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/repo_status.py",
+      "purpose": "Status report library",
+      "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     }

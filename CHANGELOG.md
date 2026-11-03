@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* **agents:** repo-wide Agent Mode (`speed` / `balanced` / `lean`) with `/lean` `/balanced` `/speed` `/mode` `/status`, ADR-0010, and lean CLOUD→LOCAL conversion
+
 ## [1.11.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.10.0...v1.11.0) (2026-11-03)
 
 ### Added

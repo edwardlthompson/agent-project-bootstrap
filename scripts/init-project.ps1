@@ -251,8 +251,21 @@ if ($Stack -eq "none") {
 
 python3 scripts/init-stack-sync.py $Stack $Root ($Pruned.ToString().ToLower())
 
-# Linguist attribution for child language stats (after prune)
+# Default Agent Mode for children (ADR-0010) — balanced
 $env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
+if ($DryRun) {
+    Write-Host "dry-run agent-mode: write .cursor/agent-mode.json mode=balanced"
+} else {
+    python3 - $Root @'
+import sys
+from pathlib import Path
+from agent_mode import write_mode
+write_mode(Path(sys.argv[1]), "balanced", updated_by="init")
+print("agent-mode: balanced (.cursor/agent-mode.json)")
+'@
+}
+
+# Linguist attribution for child language stats (after prune)
 python3 - $Root $Stack ($NoLinguist.IsPresent.ToString().ToLower()) ($DryRun.IsPresent.ToString().ToLower()) @'
 import sys
 from pathlib import Path
