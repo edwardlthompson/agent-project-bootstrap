@@ -15,10 +15,10 @@
   },
   "dependencies": {
     "@hono/node-server": "^2.1.5",
-    "hono": "^4.13.13"
+    "hono": "^4.13.14"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.15",
+    "@biomejs/biome": "^2.6.3",
     "@types/node": "^26.6.5",
     "@vitest/coverage-v8": "^5.0.5",
     "fast-check": "^4.10.2",
