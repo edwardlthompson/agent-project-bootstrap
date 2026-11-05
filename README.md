@@ -465,3 +465,10 @@ Repo description draft for the short About preview: [`docs/GITHUB_ABOUT.md`](doc
 ## Maintainer Release
 
 Current template version: **1.12.0** (see `.template-version`, Release Please, and `scripts/pre-release-gate.sh`).
+
+## What this is not
+
+- A finished commercial product promise
+- A place for secrets or production credentials
+- An unbounded scope — see README goals above
+
