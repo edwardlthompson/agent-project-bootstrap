@@ -49,7 +49,7 @@ readme.write_text(text, encoding="utf-8")
 
 mem = Path(".agent/AGENT_MEMORY.md")
 if not mem.is_file():
-    mem = Path("AGENT_MEMORY.md")
+    raise SystemExit("missing .agent/AGENT_MEMORY.md")
 mt = mem.read_text(encoding="utf-8")
 mt = re.sub(
     r"(\| Multi-stack template[^\|]+\| )[\d.]+( \| Template maintainer)",
@@ -80,5 +80,5 @@ if citation.is_file():
     write_citation(citation, version)
 PY
 
-echo "Synced template version to ${VERSION} (.template-version, TEMPLATE_INDEX.json, README.md, AGENT_MEMORY.md, CITATION.cff, .cursor-plugin/plugin.json)"
+echo "Synced template version to ${VERSION} (.template-version, TEMPLATE_INDEX.json, README.md, .agent/AGENT_MEMORY.md, CITATION.cff, .cursor-plugin/plugin.json)"
 python3 "$ROOT/scripts/lib/changelog_unreleased.py" --move-first "$ROOT/CHANGELOG.md"

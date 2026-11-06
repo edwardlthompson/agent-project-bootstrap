@@ -82,7 +82,7 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
 To maintain deep context across long-running sessions, create and maintain a unified workspace state. To prevent token waste and "documentation tax," modify these files only at session startups, milestone boundaries, or during major architectural pivots:
 
 - **`AGENTS.md` / `.cursor/rules/`:** Living rules for architecture constraints, coding style, naming conventions, text-based UI layout standards, type-safety guarantees, and ecosystem-specific constraints.
-- **`AGENT_MEMORY.md`:** Centralized index of the tech stack, threat models, persistent context, and retrospectives.
+- **`.agent/AGENT_MEMORY.md`:** Centralized index of the tech stack, threat models, persistent context, and retrospectives (never a root `AGENT_MEMORY.md`).
 - **`docs/adr/` / `DECISION_LOG.md`:** Chronological register tracking major technical trade-offs, accepted architectures, and rejected alternatives. Treat past entries as immutable history; append only.
 - **`KNOWLEDGE_BASE.md`:** Repository of stack-specific edge cases, resolved complex bugs, anti-patterns, and reusable project solutions. Do not populate with generic framework definitions.
 - **`PROMPT_LIBRARY.md`:** Living catalog of highly effective prompt strategies, specialized instructions, and context patterns that yield clean code execution for this specific repository.

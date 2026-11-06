@@ -131,7 +131,7 @@ fi
 
 child_quick
 
-echo "==> Non-interactive init smoke with --prune --prune-optional"
+echo "==> Non-interactive init smoke (golden-path prune default)"
 git clone --quiet "file://$ROOT" "$WORKDIR/child-prune"
 cd "$WORKDIR/child-prune"
 cp -f AGENT.md.example AGENT.md
@@ -140,13 +140,11 @@ bash scripts/init-project.sh \
   --stack web \
   --project-name "Upgrade Sim Prune" \
   --purpose "Prune optional validation" \
-  --prune \
-  --prune-optional \
   --profile full
 
 for path in examples/rust examples/go examples/lightroom examples/blender modules/rust modules/go modules/lightroom modules/blender; do
   if [ -e "$path" ]; then
-    echo "FAIL: $path still present after --prune-optional"
+    echo "FAIL: $path still present after golden-path prune"
     exit 1
   fi
 done
@@ -156,8 +154,20 @@ for path in examples/python examples/android examples/node modules/python module
     exit 1
   fi
 done
+if [ -e AGENT_MEMORY.md ] || [ -e DECISION_LOG.md ]; then
+  echo "FAIL: root memory stubs must not exist (use .agent/)"
+  exit 1
+fi
+if [ ! -f .agent/AGENT_MEMORY.md ]; then
+  echo "FAIL: missing .agent/AGENT_MEMORY.md after init"
+  exit 1
+fi
+if ! grep -q '# --- linguist ---' .gitattributes 2>/dev/null && ! grep -q 'linguist-vendored' .gitattributes; then
+  echo "FAIL: linguist attribution missing from .gitattributes"
+  exit 1
+fi
 child_quick
-echo "Prune-optional smoke passed"
+echo "Golden-path prune smoke passed"
 
 # After prune-optional, child must still be able to re-validate bootstrap (upgrade path).
 echo "==> Re-run child_quick on pruned optional stacks (upgrade-sim continuity)"

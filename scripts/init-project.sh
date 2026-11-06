@@ -28,11 +28,11 @@ Usage: scripts/init-project.sh [options]
   --release-repo OWNER/REPO
   --donation-url URL
   --codeowner USER       GitHub username without @
-  --prune                Prune unused examples/modules without prompting
-  --no-prune             Never prune (overrides --prune)
+  --prune                Force prune (default when a primary stack is decided)
+  --no-prune             Keep all examples/modules (skip golden-path prune)
   --non-interactive      Skip prompts (requires --stack, --project-name, --purpose)
-  --keep-optional        When pruning, keep rust/go/lightroom/blender examples and modules (default)
-  --prune-optional       When pruning, also remove optional stacks (rust/go/lightroom/blender)
+  --keep-optional        When pruning, keep rust/go/lightroom/blender examples and modules
+  --prune-optional       When pruning, also remove optional stacks (default with golden-path prune)
   --distribution-tier T  foss|commercial (default foss)
   --license SPDX         MIT|Apache-2.0 (default MIT)
   --skip-preflight       Skip git/Python/tool checks
@@ -54,7 +54,7 @@ DONATION_URL=""
 CODEOWNER=""
 PRUNE_FLAG=""
 NONINTERACTIVE=false
-KEEP_OPTIONAL=true
+KEEP_OPTIONAL=false
 DISTRIBUTION_TIER="foss"
 LICENSE="MIT"
 SKIP_PREFLIGHT=false
@@ -213,7 +213,7 @@ replacements = [
     ("[INSERT PLATFORM / TECH STACK HERE]", stack),
     ("[INSERT DETAILED APP DESCRIPTION AND GOALS HERE]", purpose),
 ]
-for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md", "AGENT_MEMORY.md"):
+for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md"):
     path = root / rel
     if not path.is_file():
         continue
@@ -221,6 +221,11 @@ for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md", "AGENT_ME
     for old, new in replacements:
         text = text.replace(old, new)
     path.write_text(text, encoding="utf-8")
+# Children never keep root memory stubs
+for stub in ("AGENT_MEMORY.md", "DECISION_LOG.md"):
+    p = root / stub
+    if p.is_file():
+        p.unlink()
 PY
 fi
 
@@ -328,33 +333,22 @@ if cmd:
 PY
 fi
 
-# Prune unused examples/modules
+# Prune unused examples/modules — primary stack decided → golden path only
 PRUNED=false
 if [ "$STACK" = "none" ]; then
   echo "Stack 'none': keeping all examples and modules."
 elif [ "$STACK" = "multi" ]; then
-  if [ "$PRUNE_FLAG" = "yes" ]; then
-    echo "Keeping all examples (multi-stack)."
-  elif [ "$PRUNE_FLAG" = "no" ] || [ "$NONINTERACTIVE" = true ]; then
-    echo "Skipping prune (--no-prune or --non-interactive)."
-  else
-    read -rp "Prune unused examples/modules? (y/N): " PRUNE
-    if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
-      echo "Keeping all examples (multi-stack)."
-    fi
-  fi
+  echo "Stack 'multi': keeping all examples and modules."
+elif [ "$PRUNE_FLAG" = "no" ]; then
+  echo "Skipping prune (--no-prune)."
 else
-  if [ "$PRUNE_FLAG" = "yes" ]; then
-    PRUNED=true
-    prune_primary_stack "$STACK"
-  elif [ "$PRUNE_FLAG" = "no" ] || [ "$NONINTERACTIVE" = true ]; then
-    echo "Skipping prune (--no-prune or --non-interactive)."
+  # Decided primary stack: keep only that golden path (optional stacks dropped unless --keep-optional)
+  PRUNED=true
+  prune_primary_stack "$STACK"
+  if [ "$KEEP_OPTIONAL" = true ]; then
+    echo "Pruned to golden path: $STACK (optional stacks kept)."
   else
-    read -rp "Prune unused examples/modules? (y/N): " PRUNE
-    if [ "$PRUNE" = "y" ] || [ "$PRUNE" = "Y" ]; then
-      PRUNED=true
-      prune_primary_stack "$STACK"
-    fi
+    echo "Pruned to golden path: $STACK (optional stacks removed)."
   fi
 fi
 

@@ -66,11 +66,11 @@ flowchart TD
 
 ```
 
-## AGENT_MEMORY.md
+## `.agent/AGENT_MEMORY.md`
 
-- **What:** Long-term stack, threats, and retrospectives.
+- **What:** Long-term stack, threats, and retrospectives (canonical path is `.agent/`; never root `AGENT_MEMORY.md`).
 - **Why:** Chat context is expensive and evaporates. A small memory file survives session resets without dumping the whole repo into the prompt.
-- **How:** Update **only** at milestones or architectural pivots. Working notes go in gitignored `scratchpad.md`.
+- **How:** Update **only** at milestones or architectural pivots. Working notes go in gitignored `scratchpad.md`. Do not put living memory in `AGENT.md` (that file is the product brief only).
 
 ## Local agent hygiene (Ollama / Cline)
 

@@ -51,8 +51,10 @@ def main() -> int:
         warnings.append("No .agent/session-state.md or .cursor-session-state.json")
 
     mem = ROOT / ".agent" / "AGENT_MEMORY.md"
-    if not mem.is_file():
-        mem = ROOT / "AGENT_MEMORY.md"
+    legacy = ROOT / "AGENT_MEMORY.md"
+    if not mem.is_file() and legacy.is_file():
+        warnings.append("legacy root AGENT_MEMORY.md found; migrate to .agent/")
+        mem = legacy
     if mem.is_file():
         parts.append("## AGENT_MEMORY (last 20 lines)")
         parts.extend(_tail_lines(mem, 20))

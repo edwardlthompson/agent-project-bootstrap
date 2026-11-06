@@ -16,7 +16,7 @@ param(
     [switch]$Prune,
     [switch]$NoPrune,
     [switch]$NonInteractive,
-    [switch]$KeepOptional = $true,
+    [switch]$KeepOptional,
     [switch]$PruneOptional,
     [switch]$NoLinguist,
     [switch]$DryRun,
@@ -32,6 +32,7 @@ $env:PYTHON_BASIC_REPL = "1"
 $env:PYTHONUNBUFFERED = "1"
 if (-not $env:PYTHONIOENCODING) { $env:PYTHONIOENCODING = "utf-8" }
 
+# Golden-path default: drop optional stacks; -KeepOptional retains them
 if ($PruneOptional) { $KeepOptional = $false }
 
 function Write-Utf8NoBom {
@@ -123,7 +124,7 @@ replacements = [
     ("[INSERT PLATFORM / TECH STACK HERE]", stack),
     ("[INSERT DETAILED APP DESCRIPTION AND GOALS HERE]", purpose),
 ]
-for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md", "AGENT_MEMORY.md"):
+for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md"):
     path = root / rel
     if not path.is_file():
         continue
@@ -131,6 +132,10 @@ for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md", "AGENT_ME
     for old, new in replacements:
         text = text.replace(old, new)
     path.write_text(text, encoding="utf-8")
+for stub in ("AGENT_MEMORY.md", "DECISION_LOG.md"):
+    p = root / stub
+    if p.is_file():
+        p.unlink()
 '@
     $placeholderPy | python3 - $Stack $ProjectPurpose $Root
 }
@@ -220,32 +225,21 @@ if cmd:
 '@
 }
 
+# Primary stack decided → golden path only (unless -NoPrune)
 $Pruned = $false
 if ($Stack -eq "none") {
     Write-Host "Stack 'none': keeping all examples and modules."
 } elseif ($Stack -eq "multi") {
-    if ($Prune) {
-        Write-Host "Keeping all examples (multi-stack)."
-    } elseif ($NoPrune -or $NonInteractive) {
-        Write-Host "Skipping prune (-NoPrune or -NonInteractive)."
-    } else {
-        $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
-        if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
-            Write-Host "Keeping all examples (multi-stack)."
-        }
-    }
+    Write-Host "Stack 'multi': keeping all examples and modules."
+} elseif ($NoPrune) {
+    Write-Host "Skipping prune (-NoPrune)."
 } else {
-    if ($Prune) {
-        $Pruned = $true
-        Remove-PrimaryStack $Stack
-    } elseif ($NoPrune -or $NonInteractive) {
-        Write-Host "Skipping prune (-NoPrune or -NonInteractive)."
+    $Pruned = $true
+    Remove-PrimaryStack $Stack
+    if ($KeepOptional) {
+        Write-Host "Pruned to golden path: $Stack (optional stacks kept)."
     } else {
-        $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
-        if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
-            $Pruned = $true
-            Remove-PrimaryStack $Stack
-        }
+        Write-Host "Pruned to golden path: $Stack (optional stacks removed)."
     }
 }
 
