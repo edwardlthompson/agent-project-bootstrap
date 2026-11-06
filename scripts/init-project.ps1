@@ -172,7 +172,9 @@ if ($DonationUrl -and (Test-Path $DonConfig)) {
 }
 
 python3 scripts/sync-stack-config.py $Root $ReleaseRepo $DonationUrl
-$env:PYTHONPATH = (Join-Path $Root "scripts/lib")
+$scriptLib = Join-Path $Root "scripts/lib"
+$sep = [IO.Path]::PathSeparator
+$env:PYTHONPATH = if ($env:PYTHONPATH) { "$scriptLib$sep$($env:PYTHONPATH)" } else { $scriptLib }
 @'
 import sys
 from pathlib import Path
@@ -246,7 +248,9 @@ if ($Stack -eq "none") {
 python3 scripts/init-stack-sync.py $Stack $Root ($Pruned.ToString().ToLower())
 
 # Default Agent Mode for children (ADR-0010) — balanced
-$env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
+$scriptLib = Join-Path $Root "scripts/lib"
+$sep = [IO.Path]::PathSeparator
+$env:PYTHONPATH = if ($env:PYTHONPATH) { "$scriptLib$sep$($env:PYTHONPATH)" } else { $scriptLib }
 if ($DryRun) {
     Write-Host "dry-run agent-mode: write .cursor/agent-mode.json mode=balanced"
 } else {
@@ -303,7 +307,9 @@ if (Get-Command gh -ErrorAction SilentlyContinue) {
     Write-Host "See README.md and docs/SECURITY_TRIAGE.md for setup."
 }
 
-$env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
+$scriptLib = Join-Path $Root "scripts/lib"
+$sep = [IO.Path]::PathSeparator
+$env:PYTHONPATH = if ($env:PYTHONPATH) { "$scriptLib$sep$($env:PYTHONPATH)" } else { $scriptLib }
 @'
 import sys
 from pathlib import Path

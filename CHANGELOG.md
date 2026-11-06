@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **init:** primary stack decided → golden-path prune by default (drop unused + optional stacks); `--no-prune` / `--keep-optional` to retain extras
 * **memory:** children keep living memory only under `.agent/` (root `AGENT_MEMORY.md` / `DECISION_LOG.md` removed on init; `check-profile` rejects root stubs)
 * **linguist:** child attrs also vendor `tests/**` and `templates/**`; attribution gate requires patterns (dominant-language residual is advisory)
-* **init:** PowerShell `init-project.ps1` pipes Python here-strings to stdin (linguist / agent-mode / profile were no-ops on pwsh)
+* **init:** PowerShell `init-project.ps1` pipes Python here-strings to stdin and uses `PathSeparator` for `PYTHONPATH` (linguist/agent-mode were no-ops or `ModuleNotFoundError` on Linux pwsh)
 
 ## [1.12.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.11.0...v1.12.0) (2026-11-03)
 
