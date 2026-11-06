@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * **init:** primary stack decided → golden-path prune by default (drop unused + optional stacks); `--no-prune` / `--keep-optional` to retain extras
 * **memory:** children keep living memory only under `.agent/` (root `AGENT_MEMORY.md` / `DECISION_LOG.md` removed on init; `check-profile` rejects root stubs)
-* **linguist:** child attrs also vendor `tests/**` and `templates/**` so template scaffolding does not dominate language stats after init
+* **linguist:** child attrs also vendor `tests/**` and `templates/**`; attribution gate requires patterns (dominant-language residual is advisory)
 
 ## [1.12.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.11.0...v1.12.0) (2026-11-03)
 
