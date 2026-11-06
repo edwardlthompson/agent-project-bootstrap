@@ -173,14 +173,14 @@ if ($DonationUrl -and (Test-Path $DonConfig)) {
 
 python3 scripts/sync-stack-config.py $Root $ReleaseRepo $DonationUrl
 $env:PYTHONPATH = (Join-Path $Root "scripts/lib")
-python3 - $Root $DonationUrl @'
+@'
 import sys
 from pathlib import Path
 from init_extras import write_funding_yml
 path = write_funding_yml(Path(sys.argv[1]), sys.argv[2])
 if path:
     print(f"Wrote {path} (GitHub shows a Sponsor button from this file)")
-'@
+'@ | python3 - $Root $DonationUrl
 
 if (-not $CodeOwner -and -not $NonInteractive) {
     $CodeOwner = Read-Host "GitHub username for CODEOWNERS (without @)"
@@ -210,7 +210,7 @@ Suggested for GitHub discoverability (Settings → About).
 "@
 [System.IO.File]::WriteAllText((Join-Path $Root "docs/GITHUB_ABOUT.md"), $aboutContent, (New-Object System.Text.UTF8Encoding $false))
 if ($Topics) {
-    python3 - $Root $Topics @'
+    @'
 import sys
 from pathlib import Path
 from init_extras import gh_topics_command, write_topics
@@ -222,7 +222,7 @@ if path:
     print(f"Wrote topics into {path}")
 if cmd:
     print(f"Human: apply topics with: {cmd}")
-'@
+'@ | python3 - $Root $Topics
 }
 
 # Primary stack decided → golden path only (unless -NoPrune)
@@ -250,17 +250,17 @@ $env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { 
 if ($DryRun) {
     Write-Host "dry-run agent-mode: write .cursor/agent-mode.json mode=balanced"
 } else {
-    python3 - $Root @'
+    @'
 import sys
 from pathlib import Path
 from agent_mode import write_mode
 write_mode(Path(sys.argv[1]), "balanced", updated_by="init")
 print("agent-mode: balanced (.cursor/agent-mode.json)")
-'@
+'@ | python3 - $Root
 }
 
 # Linguist attribution for child language stats (after prune)
-python3 - $Root $Stack ($NoLinguist.IsPresent.ToString().ToLower()) ($DryRun.IsPresent.ToString().ToLower()) @'
+@'
 import sys
 from pathlib import Path
 from linguist_attrs import apply_linguist_attrs
@@ -269,7 +269,7 @@ stack = sys.argv[2]
 skip = sys.argv[3].lower() == "true"
 dry = sys.argv[4].lower() == "true"
 print(apply_linguist_attrs(root, stack=stack, dry_run=dry, skip=skip))
-'@
+'@ | python3 - $Root $Stack ($NoLinguist.IsPresent.ToString().ToLower()) ($DryRun.IsPresent.ToString().ToLower())
 
 $CopyComm = @()
 if ($DistributionTier -eq "commercial") { $CopyComm = @("--copy-commercial") }
@@ -304,7 +304,7 @@ if (Get-Command gh -ErrorAction SilentlyContinue) {
 }
 
 $env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
-python3 - $Root $Profile ($DryRun.IsPresent.ToString().ToLower()) @'
+@'
 import sys
 from pathlib import Path
 from init_profile import apply_core_profile, normalize_profile, stamp_profile
@@ -321,7 +321,7 @@ if profile == "full":
 elif profile == "core":
     for line in apply_core_profile(root, dry_run=dry):
         print(line)
-'@
+'@ | python3 - $Root $Profile ($DryRun.IsPresent.ToString().ToLower())
 
 Write-Host ""
 Write-Host "=== Done ===" -ForegroundColor Green
