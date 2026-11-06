@@ -70,11 +70,18 @@ def apply_core_profile(root: Path, *, dry_run: bool = False) -> list[str]:
                 actions.append(f"core: remove {rel}")
                 if not dry_run:
                     child.unlink()
+    # Never leave root memory stubs (canonical is .agent/)
+    for stub in ("AGENT_MEMORY.md", "DECISION_LOG.md"):
+        path = root / stub
+        if path.is_file():
+            actions.append(f"core: remove root {stub}")
+            if not dry_run:
+                path.unlink()
     return actions
 
 
 def relocate_memory_logs(root: Path) -> list[str]:
-    """Full profile: ensure memory/log live under .agent/."""
+    """Full profile: memory/log live only under .agent/ (never root)."""
     actions: list[str] = []
     mapping = {
         "AGENT_MEMORY.md": ".agent/AGENT_MEMORY.md",
@@ -87,6 +94,9 @@ def relocate_memory_logs(root: Path) -> list[str]:
             dest.parent.mkdir(parents=True, exist_ok=True)
             src.replace(dest)
             actions.append(f"full: move {src_name} → {dest_name}")
+        elif src.is_file() and dest.is_file():
+            src.unlink()
+            actions.append(f"full: remove root {src_name} (canonical is {dest_name})")
         elif dest.is_file():
             actions.append(f"full: keep {dest_name}")
     return actions
@@ -117,7 +127,15 @@ def check_profile(root: Path) -> tuple[int, str]:
     if not isinstance(data, dict):
         return 1, "bootstrap.config.json must be an object"
     profile = normalize_profile(str(data.get("profile") or "full"))
+    for stub in ("AGENT_MEMORY.md", "DECISION_LOG.md"):
+        if (root / stub).is_file():
+            return 1, (
+                f"root {stub} must not exist; canonical path is .agent/{stub}. "
+                "Move or delete the root copy."
+            )
     if profile == "full":
+        if not (root / ".agent" / "AGENT_MEMORY.md").is_file():
+            return 1, "profile=full missing .agent/AGENT_MEMORY.md"
         return 0, "OK: profile=full"
     # core: examples/ and modules/ must be absent
     for rel in ("examples", "modules", "docs", "scripts"):

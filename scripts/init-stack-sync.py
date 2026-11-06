@@ -52,9 +52,14 @@ def active_modules(stack: str, root: Path) -> list[str]:
 
 
 def sync_agent_memory(root: Path, stack: str) -> None:
+    """Sync active-module checkboxes. Canonical path: .agent/AGENT_MEMORY.md."""
     path = root / ".agent" / "AGENT_MEMORY.md"
+    legacy = root / "AGENT_MEMORY.md"
+    if not path.is_file() and legacy.is_file():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        legacy.replace(path)
     if not path.is_file():
-        path = root / "AGENT_MEMORY.md"
+        return
     text = path.read_text(encoding="utf-8")
     active = set(active_modules(stack, root))
     for key, label in MODULE_LINES.items():
@@ -62,6 +67,8 @@ def sync_agent_memory(root: Path, stack: str) -> None:
         pattern = rf"^- [✅❌] {re.escape(label)}"
         text = re.sub(pattern, f"- {mark} {label}", text, count=1)
     path.write_text(text, encoding="utf-8")
+    if legacy.is_file():
+        legacy.unlink()
 
 
 def prune_template_index(root: Path) -> None:

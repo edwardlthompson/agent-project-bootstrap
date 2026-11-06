@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-11-05 — Child hygiene: `.agent/` memory + golden-path prune
+- **Status:** Accepted
+- **Context:** After pull from main, children must not keep living memory at repo root, and a decided primary stack must drop unused examples/modules (including optional stacks).
+- **Decision:** Canonical memory is `.agent/AGENT_MEMORY.md` and `.agent/DECISION_LOG.md` only (`AGENT.md` stays the product brief). Init auto-prunes to the chosen golden path for `web`/`python`/`android`/`node`; `--no-prune` / `--keep-optional` are opt-out. `check-profile` rejects root memory stubs. Linguist child attribution still runs after prune.
+- **Alternatives considered:** Keep `--non-interactive` skip-prune (rejected — left full catalogs in children); keep optional stacks by default (rejected — not golden-path only).
+- **Consequences:** Upgrade-sim and probes assert prune + `.agent/` + linguist; docs/commands point at `.agent/` paths.
+
 ### 2026-11-02 — Local tag prune (newest 10 semver)
 - **Status:** Accepted
 - **Context:** Portfolio pass asked to list tags, drop non-semver, and keep only the newest 10.

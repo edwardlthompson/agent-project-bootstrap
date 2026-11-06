@@ -59,8 +59,10 @@ Non-interactive (CI / scripts):
   --purpose "Offline-first notes" \
   --license MIT
 
+# Primary stacks prune to that golden path by default (see docs/OPTIONAL_STACKS.md).
 # Optional: keep the full template tree (60+ root files). Default is --profile core.
 # ./scripts/init-project.sh ... --profile full
+# ./scripts/init-project.sh ... --no-prune   # keep all examples/modules
 ```
 
 ## What this does not do
@@ -184,7 +186,7 @@ Active modules are synced to `.agent/AGENT_MEMORY.md` and recorded in `.cursor/s
 <h4>Memory & decisions</h4>
 <dl>
   <dt>Workspace memory</dt>
-  <dd><a href="AGENT_MEMORY.md"><code>AGENT_MEMORY.md</code></a>, <a href="DECISION_LOG.md"><code>DECISION_LOG.md</code></a>, <a href="KNOWLEDGE_BASE.md"><code>KNOWLEDGE_BASE.md</code></a></dd>
+  <dd><a href=".agent/AGENT_MEMORY.md"><code>.agent/AGENT_MEMORY.md</code></a>, <a href=".agent/DECISION_LOG.md"><code>.agent/DECISION_LOG.md</code></a>, <a href="KNOWLEDGE_BASE.md"><code>KNOWLEDGE_BASE.md</code></a></dd>
 </dl>
 
 <h4>Security & operations</h4>

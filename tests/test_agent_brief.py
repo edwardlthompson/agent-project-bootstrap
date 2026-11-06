@@ -83,7 +83,8 @@ class AgentBriefTests(unittest.TestCase):
             (root / "docs" / "spec.md").write_text(
                 f"# Spec\n{BEGIN}\n{EMPTY_NOTE}\n{END}\n", encoding="utf-8"
             )
-            (root / "AGENT_MEMORY.md").write_text(
+            (root / ".agent").mkdir()
+            (root / ".agent" / "AGENT_MEMORY.md").write_text(
                 f"# Mem\n{BEGIN}\n{EMPTY_NOTE}\n{END}\n", encoding="utf-8"
             )
             written = stamp_root(root)

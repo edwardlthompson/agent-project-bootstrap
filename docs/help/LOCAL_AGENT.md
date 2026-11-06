@@ -29,7 +29,7 @@ python3 scripts/agent-run.py setup-local -- --apply
 3. Keep replies short (1–3 sentences) unless the human asks for more.
 4. Before multi-file work, restate the single next BUILD_PLAN row and the verification command.
 5. Same tool call or same error three times → stop and ask the human.
-6. When context grows long, update `.agent/session-state.md` (and milestone `AGENT_MEMORY.md`) instead of relying on chat history.
+6. When context grows long, update `.agent/session-state.md` (and milestone `.agent/AGENT_MEMORY.md`) instead of relying on chat history.
 
 Template rules: `.clinerules/AGENTS.md` (pointer + short hard block). Source of truth: root [`AGENTS.md`](../../AGENTS.md).
 

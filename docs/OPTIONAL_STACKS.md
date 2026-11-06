@@ -30,29 +30,35 @@ rm -rf modules/rust modules/go modules/lightroom modules/blender
 
 ```
 
-### Non-interactive prune flags
+### Golden-path prune (default)
 
-`--non-interactive` alone **skips** pruning. To prune in scripts, pass `--prune` explicitly.
+When a **primary** stack is decided (`web` / `python` / `android` / `node`), init **prunes** unused examples and modules automatically — including optional stacks — so the child keeps only that golden path. `multi` and `none` keep everything.
 
 | Flag | Effect |
 |------|--------|
-| `--keep-optional` | When pruning, retain `rust` / `go` / `lightroom` / `blender` examples and modules (**default**) |
-| `--prune-optional` | When pruning, also remove optional stacks |
+| `--no-prune` | Keep all examples/modules (skip golden-path prune) |
+| `--keep-optional` | When pruning, retain `rust` / `go` / `lightroom` / `blender` |
+| `--prune-optional` | Explicit alias: drop optional stacks (**default** with golden-path prune) |
+| `--prune` | Force prune (redundant for primary stacks; kept for scripts) |
 
 ```bash
-# Web-only fork; keep optional stacks for later
-bash scripts/init-project.sh --non-interactive --stack web --prune --keep-optional \
+# Web-only fork (default: prune extras + optional)
+bash scripts/init-project.sh --non-interactive --stack web \
   --project-name "My App" --purpose "PWA"
 
-# Web-only fork; drop optional stacks too
-bash scripts/init-project.sh --non-interactive --stack web --prune --prune-optional \
+# Web golden path but keep optional stacks for later
+bash scripts/init-project.sh --non-interactive --stack web --keep-optional \
+  --project-name "My App" --purpose "PWA"
+
+# Keep the full catalog
+bash scripts/init-project.sh --non-interactive --stack web --no-prune \
   --project-name "My App" --purpose "PWA"
 
 ```
 
-PowerShell equivalents: `-Prune -KeepOptional` (default) or `-Prune -PruneOptional`.
+PowerShell equivalents: default prune; `-KeepOptional` or `-NoPrune`.
 
-`scripts/simulate-template-upgrade.sh` runs both paths in CI (`--no-prune` then `--prune --prune-optional`).
+`scripts/simulate-template-upgrade.sh` runs both paths in CI (`--no-prune` then prune with optional removed).
 
 ## Linguist attribution (language stats)
 

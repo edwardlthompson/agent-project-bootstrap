@@ -7,6 +7,8 @@ MARKER = "# --- linguist ---"
 SCRIPTS_LINE = "scripts/** linguist-vendored"
 PATTERNS = (
     "scripts/** linguist-vendored",
+    "tests/** linguist-vendored",
+    "templates/** linguist-vendored",
     "modules/** linguist-documentation",
     "docs/** linguist-documentation",
     "examples/*/build/** linguist-vendored",

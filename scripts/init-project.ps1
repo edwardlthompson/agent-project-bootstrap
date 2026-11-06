@@ -16,7 +16,7 @@ param(
     [switch]$Prune,
     [switch]$NoPrune,
     [switch]$NonInteractive,
-    [switch]$KeepOptional = $true,
+    [switch]$KeepOptional,
     [switch]$PruneOptional,
     [switch]$NoLinguist,
     [switch]$DryRun,
@@ -32,6 +32,7 @@ $env:PYTHON_BASIC_REPL = "1"
 $env:PYTHONUNBUFFERED = "1"
 if (-not $env:PYTHONIOENCODING) { $env:PYTHONIOENCODING = "utf-8" }
 
+# Golden-path default: drop optional stacks; -KeepOptional retains them
 if ($PruneOptional) { $KeepOptional = $false }
 
 function Write-Utf8NoBom {
@@ -123,7 +124,7 @@ replacements = [
     ("[INSERT PLATFORM / TECH STACK HERE]", stack),
     ("[INSERT DETAILED APP DESCRIPTION AND GOALS HERE]", purpose),
 ]
-for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md", "AGENT_MEMORY.md"):
+for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md"):
     path = root / rel
     if not path.is_file():
         continue
@@ -131,6 +132,10 @@ for rel in ("docs/INITIALIZATION_PROMPT.md", ".agent/AGENT_MEMORY.md", "AGENT_ME
     for old, new in replacements:
         text = text.replace(old, new)
     path.write_text(text, encoding="utf-8")
+for stub in ("AGENT_MEMORY.md", "DECISION_LOG.md"):
+    p = root / stub
+    if p.is_file():
+        p.unlink()
 '@
     $placeholderPy | python3 - $Stack $ProjectPurpose $Root
 }
@@ -167,15 +172,17 @@ if ($DonationUrl -and (Test-Path $DonConfig)) {
 }
 
 python3 scripts/sync-stack-config.py $Root $ReleaseRepo $DonationUrl
-$env:PYTHONPATH = (Join-Path $Root "scripts/lib")
-python3 - $Root $DonationUrl @'
+$scriptLib = Join-Path $Root "scripts/lib"
+$sep = [IO.Path]::PathSeparator
+$env:PYTHONPATH = if ($env:PYTHONPATH) { "$scriptLib$sep$($env:PYTHONPATH)" } else { $scriptLib }
+@'
 import sys
 from pathlib import Path
 from init_extras import write_funding_yml
 path = write_funding_yml(Path(sys.argv[1]), sys.argv[2])
 if path:
     print(f"Wrote {path} (GitHub shows a Sponsor button from this file)")
-'@
+'@ | python3 - $Root $DonationUrl
 
 if (-not $CodeOwner -and -not $NonInteractive) {
     $CodeOwner = Read-Host "GitHub username for CODEOWNERS (without @)"
@@ -205,7 +212,7 @@ Suggested for GitHub discoverability (Settings → About).
 "@
 [System.IO.File]::WriteAllText((Join-Path $Root "docs/GITHUB_ABOUT.md"), $aboutContent, (New-Object System.Text.UTF8Encoding $false))
 if ($Topics) {
-    python3 - $Root $Topics @'
+    @'
 import sys
 from pathlib import Path
 from init_extras import gh_topics_command, write_topics
@@ -217,56 +224,47 @@ if path:
     print(f"Wrote topics into {path}")
 if cmd:
     print(f"Human: apply topics with: {cmd}")
-'@
+'@ | python3 - $Root $Topics
 }
 
+# Primary stack decided → golden path only (unless -NoPrune)
 $Pruned = $false
 if ($Stack -eq "none") {
     Write-Host "Stack 'none': keeping all examples and modules."
 } elseif ($Stack -eq "multi") {
-    if ($Prune) {
-        Write-Host "Keeping all examples (multi-stack)."
-    } elseif ($NoPrune -or $NonInteractive) {
-        Write-Host "Skipping prune (-NoPrune or -NonInteractive)."
-    } else {
-        $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
-        if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
-            Write-Host "Keeping all examples (multi-stack)."
-        }
-    }
+    Write-Host "Stack 'multi': keeping all examples and modules."
+} elseif ($NoPrune) {
+    Write-Host "Skipping prune (-NoPrune)."
 } else {
-    if ($Prune) {
-        $Pruned = $true
-        Remove-PrimaryStack $Stack
-    } elseif ($NoPrune -or $NonInteractive) {
-        Write-Host "Skipping prune (-NoPrune or -NonInteractive)."
+    $Pruned = $true
+    Remove-PrimaryStack $Stack
+    if ($KeepOptional) {
+        Write-Host "Pruned to golden path: $Stack (optional stacks kept)."
     } else {
-        $PruneAnswer = Read-Host "Prune unused examples/modules? (y/N)"
-        if ($PruneAnswer -eq "y" -or $PruneAnswer -eq "Y") {
-            $Pruned = $true
-            Remove-PrimaryStack $Stack
-        }
+        Write-Host "Pruned to golden path: $Stack (optional stacks removed)."
     }
 }
 
 python3 scripts/init-stack-sync.py $Stack $Root ($Pruned.ToString().ToLower())
 
 # Default Agent Mode for children (ADR-0010) — balanced
-$env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
+$scriptLib = Join-Path $Root "scripts/lib"
+$sep = [IO.Path]::PathSeparator
+$env:PYTHONPATH = if ($env:PYTHONPATH) { "$scriptLib$sep$($env:PYTHONPATH)" } else { $scriptLib }
 if ($DryRun) {
     Write-Host "dry-run agent-mode: write .cursor/agent-mode.json mode=balanced"
 } else {
-    python3 - $Root @'
+    @'
 import sys
 from pathlib import Path
 from agent_mode import write_mode
 write_mode(Path(sys.argv[1]), "balanced", updated_by="init")
 print("agent-mode: balanced (.cursor/agent-mode.json)")
-'@
+'@ | python3 - $Root
 }
 
 # Linguist attribution for child language stats (after prune)
-python3 - $Root $Stack ($NoLinguist.IsPresent.ToString().ToLower()) ($DryRun.IsPresent.ToString().ToLower()) @'
+@'
 import sys
 from pathlib import Path
 from linguist_attrs import apply_linguist_attrs
@@ -275,7 +273,7 @@ stack = sys.argv[2]
 skip = sys.argv[3].lower() == "true"
 dry = sys.argv[4].lower() == "true"
 print(apply_linguist_attrs(root, stack=stack, dry_run=dry, skip=skip))
-'@
+'@ | python3 - $Root $Stack ($NoLinguist.IsPresent.ToString().ToLower()) ($DryRun.IsPresent.ToString().ToLower())
 
 $CopyComm = @()
 if ($DistributionTier -eq "commercial") { $CopyComm = @("--copy-commercial") }
@@ -309,8 +307,10 @@ if (Get-Command gh -ErrorAction SilentlyContinue) {
     Write-Host "See README.md and docs/SECURITY_TRIAGE.md for setup."
 }
 
-$env:PYTHONPATH = "$(Join-Path $Root 'scripts/lib')" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { "" })
-python3 - $Root $Profile ($DryRun.IsPresent.ToString().ToLower()) @'
+$scriptLib = Join-Path $Root "scripts/lib"
+$sep = [IO.Path]::PathSeparator
+$env:PYTHONPATH = if ($env:PYTHONPATH) { "$scriptLib$sep$($env:PYTHONPATH)" } else { $scriptLib }
+@'
 import sys
 from pathlib import Path
 from init_profile import apply_core_profile, normalize_profile, stamp_profile
@@ -327,7 +327,7 @@ if profile == "full":
 elif profile == "core":
     for line in apply_core_profile(root, dry_run=dry):
         print(line)
-'@
+'@ | python3 - $Root $Profile ($DryRun.IsPresent.ToString().ToLower())
 
 Write-Host ""
 Write-Host "=== Done ===" -ForegroundColor Green

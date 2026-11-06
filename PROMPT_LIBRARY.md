@@ -138,7 +138,7 @@ and branch protection (CI, Security Scan, CodeQL) are enabled on main.
 
 ```
 Init stack selection is in .cursor/stack-selection.json.
-Read AGENT_MEMORY.md active modules (checkboxes synced by init-project).
+Read .agent/AGENT_MEMORY.md active modules (checkboxes synced by init-project).
 Prune examples/ only via init script; never delete LICENSE, CI, or scripts/.
 Confirm TEMPLATE_INDEX modules match checked boxes before Parallel lane.
 

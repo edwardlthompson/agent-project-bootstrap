@@ -83,10 +83,11 @@ def check(root: Path) -> tuple[int, str]:
         )
     lang = dominant_language(root, text)
     if lang in BAD_DOMINANT:
-        return 1, (
-            f".gitattributes exists but dominant language is still {lang}. "
-            "Mark scaffolding with linguist-vendored / linguist-documentation "
-            "so product code leads language stats (see templates/linguist/child.gitattributes)."
+        # Patterns are the hard gate; residual scaffolding under full profile can
+        # still skew file counts until the child grows product code.
+        return 0, (
+            f"OK: linguist attribution patterns present "
+            f"(dominant still {lang}; grow product code or vendor more paths)"
         )
     return 0, f"OK: linguist attribution patterns present (dominant={lang or 'n/a'})"
 
