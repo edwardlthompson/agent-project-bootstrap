@@ -54,6 +54,14 @@ class LinguistAttrsTests(unittest.TestCase):
             self.assertEqual(code, 0, msg)
             attrs = (root / ".gitattributes").read_text(encoding="utf-8")
             self.assertEqual(dominant_language(root, attrs), "TypeScript")
+            # Patterns present is enough even when scaffolding still dominates.
+            (root / "only.py").write_text("x=1\n", encoding="utf-8")
+            for _ in range(5):
+                p = root / f"extra_{_}.py"
+                p.write_text("x=1\n", encoding="utf-8")
+            code2, msg2 = check(root)
+            self.assertEqual(code2, 0, msg2)
+            self.assertIn("patterns present", msg2)
 
 
 if __name__ == "__main__":
