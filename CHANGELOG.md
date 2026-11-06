@@ -6,14 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.12.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.12.0...v1.12.1) (2026-11-06)
-
-
-### Fixed
-
-* **ci:** sync .agent/AGENT_MEMORY.md on Release Please PR ([#137](https://github.com/edwardlthompson/agent-project-bootstrap/issues/137)) ([f31f386](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f31f3868ae91cce4f965510eb9b8fef17ae477f6))
-* **init:** .agent memory + golden-path prune ([#136](https://github.com/edwardlthompson/agent-project-bootstrap/issues/136)) ([7ee8421](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7ee842197169d1f34537c349d0d589cdfdcece35))
-
 ## [Unreleased]
 
 ### Changed
@@ -22,6 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **memory:** children keep living memory only under `.agent/` (root `AGENT_MEMORY.md` / `DECISION_LOG.md` removed on init; `check-profile` rejects root stubs)
 * **linguist:** child attrs also vendor `tests/**` and `templates/**`; attribution gate requires patterns (dominant-language residual is advisory)
 * **init:** PowerShell `init-project.ps1` pipes Python here-strings to stdin and uses `PathSeparator` for `PYTHONPATH` (linguist/agent-mode were no-ops or `ModuleNotFoundError` on Linux pwsh)
+
+## [1.12.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.12.0...v1.12.1) (2026-11-06)
+
+
+### Fixed
+
+* **ci:** sync .agent/AGENT_MEMORY.md on Release Please PR ([#137](https://github.com/edwardlthompson/agent-project-bootstrap/issues/137)) ([f31f386](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f31f3868ae91cce4f965510eb9b8fef17ae477f6))
+* **init:** .agent memory + golden-path prune ([#136](https://github.com/edwardlthompson/agent-project-bootstrap/issues/136)) ([7ee8421](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7ee842197169d1f34537c349d0d589cdfdcece35))
 
 ## [1.12.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.11.0...v1.12.0) (2026-11-03)
 
