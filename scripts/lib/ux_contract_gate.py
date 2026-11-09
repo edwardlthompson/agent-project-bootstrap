@@ -45,9 +45,16 @@ def _load_rule(path: Path) -> dict:
         key = k.strip()
         val = v.strip().strip('"').strip("'")
         if indent >= 2 and key in {"pass", "fail"}:
+            fixtures = data.get("fixtures")
+            if not isinstance(fixtures, dict):
+                data["fixtures"] = {}
             data["fixtures"][key] = val
         elif indent == 0:
-            data[key] = val
+            # Mapping keys with empty values (e.g. `fixtures:`) stay dicts.
+            if not val and key == "fixtures":
+                data["fixtures"] = {}
+            else:
+                data[key] = val
     return data
 
 
