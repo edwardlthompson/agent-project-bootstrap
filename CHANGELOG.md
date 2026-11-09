@@ -6,20 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.13.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.12.1...v1.13.0) (2026-11-09)
-
-
-### Added
-
-* **argus:** foundation, rules, fleet, YOLO, and remote console ([291815f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/291815f76fc517917f16a939f52864907caf7653))
-
-
-### Fixed
-
-* **argus:** skip layout entrypoints for pruned example stacks ([e571561](https://github.com/edwardlthompson/agent-project-bootstrap/commit/e571561f61a54736b64e1f74154a79a4bca8dd90))
-* **argus:** tolerate missing PyYAML in UX rule fixture loader ([aa18b69](https://github.com/edwardlthompson/agent-project-bootstrap/commit/aa18b695650c77a45be98eeb2b6967455be97b29))
-* **deps:** clear web npm audit findings for glob/minimatch ([84bc7b4](https://github.com/edwardlthompson/agent-project-bootstrap/commit/84bc7b43fc52193838a8ea5c234706111a956a6f))
-
 ## [Unreleased]
 
 ### Added
@@ -37,6 +23,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **memory:** children keep living memory only under `.agent/` (root `AGENT_MEMORY.md` / `DECISION_LOG.md` removed on init; `check-profile` rejects root stubs)
 * **linguist:** child attrs also vendor `tests/**` and `templates/**`; attribution gate requires patterns (dominant-language residual is advisory)
 * **init:** PowerShell `init-project.ps1` pipes Python here-strings to stdin and uses `PathSeparator` for `PYTHONPATH` (linguist/agent-mode were no-ops or `ModuleNotFoundError` on Linux pwsh)
+
+## [1.13.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.12.1...v1.13.0) (2026-11-09)
+
+
+### Added
+
+* **argus:** foundation, rules, fleet, YOLO, and remote console ([291815f](https://github.com/edwardlthompson/agent-project-bootstrap/commit/291815f76fc517917f16a939f52864907caf7653))
+
+
+### Fixed
+
+* **argus:** skip layout entrypoints for pruned example stacks ([e571561](https://github.com/edwardlthompson/agent-project-bootstrap/commit/e571561f61a54736b64e1f74154a79a4bca8dd90))
+* **argus:** tolerate missing PyYAML in UX rule fixture loader ([aa18b69](https://github.com/edwardlthompson/agent-project-bootstrap/commit/aa18b695650c77a45be98eeb2b6967455be97b29))
+* **deps:** clear web npm audit findings for glob/minimatch ([84bc7b4](https://github.com/edwardlthompson/agent-project-bootstrap/commit/84bc7b43fc52193838a8ea5c234706111a956a6f))
 
 ## [1.12.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.12.0...v1.12.1) (2026-11-06)
 
