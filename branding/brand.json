@@ -1,0 +1,7 @@
+{
+  "icon": "branding/assets/app-icon-1024.png",
+  "icon_sha256": "ec5e9f9a50291c3e9833cfc1e7bcda87954097bebe26726bb63b0922a9461f99",
+  "source": "owned",
+  "brand_name": "Golden Path",
+  "tokens": "config/tokens.json"
+}

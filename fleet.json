@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "repos": [
+    {
+      "slug": "edwardlthompson/agent-project-bootstrap",
+      "tags": ["web", "android", "shipped"],
+      "added": "2026-11-09",
+      "archived": false
+    }
+  ]
+}

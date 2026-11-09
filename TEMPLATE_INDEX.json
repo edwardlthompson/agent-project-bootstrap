@@ -3121,7 +3121,7 @@
       "owner": "maintainer"
     },
     {
-      "path": "schemas/golden-path/icon-manifest.schema.json",
+      "path": "schemas/golden-path/icon-render-manifest.schema.json",
       "purpose": "JSON Schema for icon-factory jobs (id, seed, camera, lighting)",
       "read_when": "reference",
       "update_when": "milestone_boundary",
@@ -3337,6 +3337,186 @@
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "branding/brand.json",
+      "purpose": "Brand icon contract metadata",
+      "status": "not_started"
+    },
+    {
+      "path": "branding/brand.schema.json",
+      "purpose": "JSON schema for branding/brand.json",
+      "status": "not_started"
+    },
+    {
+      "path": "branding/assets/app-icon-1024.png",
+      "purpose": "Canonical 512x512 app icon PNG",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/BRAND_ICON.md",
+      "purpose": "Brand icon resolution and gate states",
+      "status": "not_started"
+    },
+    {
+      "path": "argus.contract.json",
+      "purpose": "Argus contract_version 2",
+      "status": "not_started"
+    },
+    {
+      "path": ".goldenpath.json",
+      "purpose": "Golden path stacks and orphan classes",
+      "status": "not_started"
+    },
+    {
+      "path": "ux-baseline.json",
+      "purpose": "UX findings baseline (empty = no baseline yet)",
+      "status": "not_started"
+    },
+    {
+      "path": "config/tokens.json",
+      "purpose": "Pointer to design-tokens SoT",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-brand-icon.py",
+      "purpose": "Brand icon gate",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-contract.py",
+      "purpose": "Argus contract gate",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-orphans.py",
+      "purpose": "Orphan gate skeleton",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-ux-contract.py",
+      "purpose": "UX contract gate skeleton",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-layout.py",
+      "purpose": "Layout / goldenpath entrypoint gate",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-brand-icon.sh",
+      "purpose": "Brand icon gate shell twin",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-contract.sh",
+      "purpose": "Argus contract gate shell twin",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-orphans.sh",
+      "purpose": "Orphan gate shell twin",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-ux-contract.sh",
+      "purpose": "UX contract gate shell twin",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/check-layout.sh",
+      "purpose": "Layout gate shell twin",
+      "status": "not_started"
+    },
+    {
+      "path": ".github/workflows/argus-rules-manifest.yml",
+      "purpose": "Publish rules.manifest.json on main",
+      "status": "not_started"
+    },
+    {
+      "path": "argus/rules",
+      "purpose": "Argus rules source of truth",
+      "status": "not_started"
+    },
+    {
+      "path": "rules.manifest.json",
+      "purpose": "Published rules manifest (tree_sha256 + rule list)",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/UX_LAW.md",
+      "purpose": "UX law and contract references",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/LAYOUT.md",
+      "purpose": "Layout law for Argus layout gate",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/CURSOR_DIRECTORY.md",
+      "purpose": "Cursor.Directory playbook (renamed from DIRECTORY_RULES)",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/DIRECTORY_RULES.md",
+      "purpose": "Asset-class directory locations (not Cursor.Directory)",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/RELEASE_TOKENS.md",
+      "purpose": "Release token and keystore checklist",
+      "status": "not_started"
+    },
+    {
+      "path": "fleet.json",
+      "purpose": "Fleet membership (template alone by default)",
+      "status": "not_started"
+    },
+    {
+      "path": "briefs",
+      "purpose": "Fleet brief frontmatter + verify commands",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/FLEET.md",
+      "purpose": "Fleet and fanout planner docs",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/YOLO.md",
+      "purpose": "YOLO runner (off by default; no yolo.on in template)",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/argus-yolo.py",
+      "purpose": "YOLO CLI entrypoint",
+      "status": "not_started"
+    },
+    {
+      "path": "argus.remote.json",
+      "purpose": "Remote console config (enabled false)",
+      "status": "not_started"
+    },
+    {
+      "path": "docs/ARGUS_REMOTE.md",
+      "purpose": "Remote card protocol and quiet hours",
+      "status": "not_started"
+    },
+    {
+      "path": "state/remote.log",
+      "purpose": "Append-only remote command audit log",
+      "status": "not_started"
+    },
+    {
+      "path": "scripts/argus-remote.py",
+      "purpose": "Remote console stub CLI",
+      "status": "not_started"
+    },
+    {
+      "path": ".github/workflows/argus-remote-stub.yml",
+      "purpose": "CI remote status no-op when disabled",
+      "status": "not_started"
     }
   ],
   "modules": {

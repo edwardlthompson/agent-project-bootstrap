@@ -101,6 +101,7 @@ examples/android/captures/
 
 # Logs
 *.log
+!state/remote.log
 
 # Optional Nix (flake.nix wraps scripts/ only)
 result

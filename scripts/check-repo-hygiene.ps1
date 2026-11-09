@@ -14,6 +14,11 @@ function Invoke-Step([scriptblock]$Block) {
 
 Invoke-Step { bash scripts/check-tracked-artifacts.sh }
 Invoke-Step { bash scripts/check-large-tracked-files.sh }
+Invoke-Step { bash scripts/check-brand-icon.sh }
+Invoke-Step { bash scripts/check-contract.sh }
+Invoke-Step { bash scripts/check-orphans.sh }
+Invoke-Step { bash scripts/check-ux-contract.sh }
+Invoke-Step { bash scripts/check-layout.sh }
 
 $required = @("node_modules/", "dist/", ".env", "__pycache__/", "coverage/")
 if (Test-Path ".gitignore") {

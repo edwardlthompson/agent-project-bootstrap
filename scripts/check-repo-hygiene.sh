@@ -15,6 +15,11 @@ run_step() {
 
 run_step bash scripts/check-tracked-artifacts.sh
 run_step bash scripts/check-large-tracked-files.sh
+run_step bash scripts/check-brand-icon.sh
+run_step bash scripts/check-contract.sh
+run_step bash scripts/check-orphans.sh
+run_step bash scripts/check-ux-contract.sh
+run_step bash scripts/check-layout.sh
 
 REQUIRED_IGNORES=(
   node_modules/

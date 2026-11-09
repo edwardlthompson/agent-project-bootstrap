@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "stacks": ["web", "python", "android", "node"],
+  "entrypoints": {
+    "web": ["examples/web/src/main.ts", "examples/web/index.html"],
+    "python": ["examples/python/src"],
+    "android": ["examples/android/app/src/main/java"],
+    "node": ["examples/node/src"]
+  },
+  "orphan_classes": [
+    "GOLDENPATH-ORPHAN-TREE",
+    "GOLDENPATH-STALE-IMPORT",
+    "GOLDENPATH-ORPHAN-DEP",
+    "GOLDENPATH-DEAD-BRANCH",
+    "GOLDENPATH-UNUSED-EXPORT",
+    "GOLDENPATH-UNREACHABLE-ROUTE",
+    "GOLDENPATH-ORPHAN-ASSET",
+    "GOLDENPATH-DEAD-FEATURE-FLAG",
+    "GOLDENPATH-UNUSED-TOKEN"
+  ]
+}

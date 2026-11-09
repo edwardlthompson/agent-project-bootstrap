@@ -4,7 +4,7 @@
 
 ## Acceptance criteria
 
-- ✅ Sample manifest validates against `schemas/golden-path/icon-manifest.schema.json`
+- ✅ Sample manifest validates against `schemas/golden-path/icon-render-manifest.schema.json`
 - ✅ QA gate checks PNG size, RGBA, alpha coverage without a human review of 4000 frames
 - ✅ CI / feature-gate uses Cycles CPU `--limit 1` or skips if Blender is missing
 - ✅ OptiX is `BLENDER_CYCLES_DEVICE=OPTIX` on This Computer only

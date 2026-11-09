@@ -145,3 +145,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 ### Retrospective — 2026-10-16 (v1.10.0 /ship)
 
 - M66 shape/preferences/commercial GP shipped; upd must not rewrite CodeQL `@v4` to `vcodeql-bundle-*`; About keyword echo only when `branding/product.json` mode is `product`; axe 4.14 needs accessible name ⊆ visible text on settings nav.
+
+### Retrospective — 2026-11-09 (Argus Parts 1–5)
+
+- Argus foundation: `brand.json` + `app-icon-1024.png`, contract v2, five hygiene gates; rules SoT + `rules.manifest.json`; fleet/briefs planner; YOLO off by default; remote console `enabled: false`. Template does not ship `yolo.on`.

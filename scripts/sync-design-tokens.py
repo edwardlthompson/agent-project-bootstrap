@@ -21,8 +21,13 @@ REQUIRED_BRAND_ASSETS = (
     "logo-lockup.svg",
     "favicon.svg",
     "app-icon-512.svg",
+    "app-icon-1024.png",
     "readme-hero.svg",
     "social-preview.svg",
+)
+REQUIRED_BRAND_META = (
+    "branding/brand.json",
+    "branding/brand.schema.json",
 )
 
 
@@ -294,6 +299,11 @@ def require_brand_assets(root: Path) -> Path:
     if missing:
         raise FileNotFoundError(
             "missing branding assets: " + ", ".join(missing)
+        )
+    meta_missing = [rel for rel in REQUIRED_BRAND_META if not (root / rel).is_file()]
+    if meta_missing:
+        raise FileNotFoundError(
+            "missing brand metadata: " + ", ".join(meta_missing)
         )
     return assets
 

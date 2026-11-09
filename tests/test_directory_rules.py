@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 class DirectoryRulesTests(unittest.TestCase):
     def test_playbook(self) -> None:
-        text = (ROOT / "docs/DIRECTORY_RULES.md").read_text(encoding="utf-8")
+        text = (ROOT / "docs/CURSOR_DIRECTORY.md").read_text(encoding="utf-8")
         self.assertIn("globs", text)
         self.assertIn("AGENTS.md", text)
         self.assertIn("≤3", text)

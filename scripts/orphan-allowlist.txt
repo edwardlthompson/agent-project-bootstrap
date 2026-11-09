@@ -1,0 +1,4 @@
+# Intentional non-entrypoint paths (one path per line, # comments ok)
+scripts/orphan-allowlist.txt
+templates/
+modules/

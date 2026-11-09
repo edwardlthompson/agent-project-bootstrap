@@ -1,24 +1,12 @@
-# Cursor.Directory rule curation
+# Directory rules (asset classes)
 
-Playbook for [cursor.directory/generate](https://cursor.directory/generate). **AGENTS.md stays Sacred** ([ADR-0005](adr/0005-no-second-memory-tree.md)).
+Machine layout law companion to [`LAYOUT.md`](LAYOUT.md). Cursor.Directory curation lives in [`CURSOR_DIRECTORY.md`](CURSOR_DIRECTORY.md).
 
-## When
+## Rules
 
-Sprint 0 / after stack selection, or when adopting a new stack module.
-
-## Steps
-
-1. Open Directory generate (or a curated catalog) for the **active** Golden Path (e.g. Vite/TypeScript/PWA for `web` — not Next.js unless the child uses Next).
-2. Pick at most **3** useful rules. Prefer stack-scoped practices over always-on law.
-3. Ask the human to confirm before writing files.
-4. Write either:
-   - a short section under `modules/{stack}/MODULE.md`, and/or
-   - `.cursor/rules/{stack}-practices.mdc` with **`globs`** for `examples/{stack}/**` (never blank globs + alwaysApply unless reviewed).
-5. Do **not** overwrite `AGENTS.md`, `AGENT.md`, or invent a second memory tree.
-
-## Checklist (init / bootstrap)
-
-- [ ] Directory rules reviewed for active stack
-- [ ] Human confirmed the shortlist
-- [ ] Any new `.mdc` declares `globs`
-- [ ] Cap ≤3 stack practice files
+1. **Product code** stays under `examples/{active-stack}/` after init prune.
+2. **Docs for humans/agents** stay under `docs/` — never the public website root.
+3. **Brand icons** resolve via [`BRAND_ICON.md`](BRAND_ICON.md); never duplicate SoT icons under `docs/`.
+4. **Generated tokens** are outputs of `scripts/sync-design-tokens.py` — do not hand-edit.
+5. **Orphan exceptions** require `config/orphan-exceptions.yaml` with reason + expiry.
+6. **Allowlisted scripts** for intentional orphans: `scripts/orphan-allowlist.txt`.

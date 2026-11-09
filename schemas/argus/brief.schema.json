@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/agent-project-bootstrap/argus.brief.schema.json",
+  "title": "ArgusBriefFrontmatter",
+  "type": "object",
+  "required": ["brief", "kind", "scope", "verify"],
+  "properties": {
+    "brief": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "enum": ["feature", "fix", "chore", "docs"] },
+    "scope": { "type": "string", "minLength": 1 },
+    "touch": { "type": "array", "items": { "type": "string" } },
+    "expect_files": { "type": "string" },
+    "verify": { "type": "string", "minLength": 1 },
+    "verify_timeout_s": { "type": "integer", "minimum": 1, "default": 120 },
+    "reversible": { "type": "boolean", "default": true },
+    "auto": { "type": "boolean", "default": false }
+  }
+}

@@ -44,9 +44,17 @@ REQUIRED=(
   design-tokens/design-tokens.json
   branding/BRANDING.md
   branding/product.json
+  branding/brand.json
+  branding/brand.schema.json
   branding/assets/logo-mark.svg
+  branding/assets/app-icon-1024.png
   branding/official-colors.css
   branding/generated/README.preview.md
+  argus.contract.json
+  .goldenpath.json
+  ux-baseline.json
+  config/tokens.json
+  docs/BRAND_ICON.md
   docs/help/BATCH_COMMANDS.md
   docs/help/batch-commands-print.html
   docs/help/UPGRADE.md

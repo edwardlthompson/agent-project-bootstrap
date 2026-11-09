@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://edwardlthompson.github.io/agent-project-bootstrap/schemas/golden-path/icon-manifest.schema.json",
+  "$id": "https://edwardlthompson.github.io/agent-project-bootstrap/schemas/golden-path/icon-render-manifest.schema.json",
   "title": "Icon factory manifest",
   "type": "object",
   "additionalProperties": false,

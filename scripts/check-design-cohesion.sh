@@ -21,8 +21,11 @@ for brand_file in \
   branding/BRANDING.md \
   branding/product.json \
   branding/product.schema.json \
+  branding/brand.json \
+  branding/brand.schema.json \
   branding/voice.md \
   branding/assets/logo-mark.svg \
+  branding/assets/app-icon-1024.png \
   branding/official-colors.css \
   branding/generated/README.preview.md \
   branding/templates/README.product.md
