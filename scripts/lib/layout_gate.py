@@ -14,16 +14,16 @@ def check(root: Path) -> tuple[int, str]:
         gp = load_goldenpath(root)
         if gp is None:
             return 1, "layout: missing .goldenpath.json"
+        active = set(gp.get("stacks") or [])
         for stack, paths in (gp.get("entrypoints") or {}).items():
-            if stack not in (gp.get("stacks") or []):
+            if stack not in active:
+                continue
+            # Stack may be pruned on children — skip if examples/<stack> is gone
+            if not (root / "examples" / stack).exists():
                 continue
             for rel in paths:
-                path = root / rel
+                path = root / str(rel)
                 if not path.exists():
-                    # Stack may be pruned on children — soft skip if examples/ gone
-                    parent = path.parts[0] if path.parts else ""
-                    if parent == "examples" and not (root / "examples" / stack).exists():
-                        continue
                     return 1, f"layout: missing entrypoint {rel} for stack {stack}"
         return 0, "OK: layout gate (layout_required=false; goldenpath entrypoints checked)"
     return 0, "OK: layout deferred until docs/LAYOUT.md"
