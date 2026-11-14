@@ -27,3 +27,18 @@ A Cursor planning agent should review these items and fold the useful ones into 
 - [ ] Turn key template rules into hook or CI gates — Enforced gates are more reliable than prose rules the agent may skip. Label: `[AGENT][LOCAL]` · Priority: P3 · https://blog.imjackofitall.com/posts/2026-11-12/
 - [ ] Evaluate mapping BUILD_PLAN owners to issue types/fields — Native issue types/fields now work on personal repos and could mirror the label scheme. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.blog/changelog/2026-11-11-issue-types-and-fields-are-available-for-personal-accounts
 - [ ] Bump uv and Ruff pins in template tooling — Picks up the credential-file permission fix and safer autofixes. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/astral-sh/uv/releases/tag/0.13.8
+
+## 2026-11-14
+
+**News and updates**
+
+- wfx-loot campaign pushed a CI secret stealer into 17,000+ public repos using stolen GitHub credentials since Nov 10; an npm postinstall hook slipped past GitHub's workflow hold. IOCs: wfx-docs branch, .ci-xxxxxx.sh files, build-audit-*.yml workflows. [source](https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/)
+- Node.js November security releases (26.13.1 / 24.22.3 / 22.23.5) fix an unauthenticated HTTP/2 crash and an HTTPS heap leak that can expose TLS keys. [source](https://nodejs.org/en/blog/vulnerability/november-2026-security-releases)
+- Stack Overflow blog: 'Your coding agent shouldn't grade its own homework' — only 9.6% of 1,000 AI-written tests were useful; argues for an independent fresh-context QA agent. [source](https://stackoverflow.blog/2026/11/13/your-coding-agent-shouldn-t-grade-its-own-homework/)
+
+**Tasks for the planning agent**
+
+- [ ] Audit the repo for wfx-loot IOCs — Checks for the wfx-docs branch/PR, .ci-*.sh files, build-audit-*.yml workflows and new npm lifecycle hooks, since the campaign steals CI secrets and Cursor credentials. Label: `[AGENT][LOCAL]` · Priority: P1 · https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
+- [ ] Default template CI installs to --ignore-scripts — Blocks postinstall-hook payloads like wfx-loot in every descendant repo. Label: `[AGENT][LOCAL]` · Priority: P2 · https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
+- [ ] Bump pinned Node to 24.22.3 or 26.13.1 — Picks up fixes for a high-severity HTTP/2 crash and HTTPS heap leak. Label: `[AGENT][LOCAL]` · Priority: P2 · https://nodejs.org/en/blog/vulnerability/november-2026-security-releases
+- [ ] Add an independent-verifier step to /verify — A fresh-context reviewer that cannot edit tests catches what the coding agent's own tests miss. Label: `[AGENT][LOCAL]` · Priority: P3 · https://stackoverflow.blog/2026/11/13/your-coding-agent-shouldn-t-grade-its-own-homework/
