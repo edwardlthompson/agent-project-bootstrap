@@ -19,9 +19,9 @@ A Cursor planning agent should review these items and fold the useful ones into 
 
 **Tasks for the planning agent**
 
-- [ ] Pin and allowlist MCP server packages in templates — Agent/MCP package names are an active npm malware lure, so unpinned `npx -y` in descendant configs is a real risk. Label: `[AGENT][LOCAL]` · Priority: P1 · https://github.com/advisories/GHSA-72xc-q3v8-7grp
-- [ ] Document Dependabot inactive-repo pause in the template — Descendants that go quiet lose Dependabot alerts from Dec 8 unless they get a push. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories
-- [ ] Audit template MCP examples for filesystem/git/fetch servers — If any descendant uses those reference servers, it must move to the patched v2.4.0 releases. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/modelcontextprotocol/servers/releases/tag/v2.4.0
+- [x] Pin and allowlist MCP server packages in templates — Agent/MCP package names are an active npm malware lure, so unpinned `npx -y` in descendant configs is a real risk. Label: `[AGENT][LOCAL]` · Priority: P1 · https://github.com/advisories/GHSA-72xc-q3v8-7grp (synced to BUILD_PLAN)
+- [x] Document Dependabot inactive-repo pause in the template — Descendants that go quiet lose Dependabot alerts from Dec 8 unless they get a push. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories (synced to BUILD_PLAN)
+- [x] Audit template MCP examples for filesystem/git/fetch servers — If any descendant uses those reference servers, it must move to the patched v2.4.0 releases. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/modelcontextprotocol/servers/releases/tag/v2.4.0 (synced to BUILD_PLAN)
 - [ ] Offer Modern Web Guidance as a skill for web descendants — Gives web children an official, versioned agent skill and a legacy-pattern scan. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/GoogleChrome/modern-web-guidance/releases/tag/v1.0.0
 - [ ] Package sprint and update-check procedures as portable skills — Lets every descendant reuse the same procedures across agents. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
 - [ ] Turn key template rules into hook or CI gates — Enforced gates are more reliable than prose rules the agent may skip. Label: `[AGENT][LOCAL]` · Priority: P3 · https://blog.imjackofitall.com/posts/2026-11-12/
@@ -38,7 +38,19 @@ A Cursor planning agent should review these items and fold the useful ones into 
 
 **Tasks for the planning agent**
 
-- [ ] Audit the repo for wfx-loot IOCs — Checks for the wfx-docs branch/PR, .ci-*.sh files, build-audit-*.yml workflows and new npm lifecycle hooks, since the campaign steals CI secrets and Cursor credentials. Label: `[AGENT][LOCAL]` · Priority: P1 · https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
-- [ ] Default template CI installs to --ignore-scripts — Blocks postinstall-hook payloads like wfx-loot in every descendant repo. Label: `[AGENT][LOCAL]` · Priority: P2 · https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
-- [ ] Bump pinned Node to 24.22.3 or 26.13.1 — Picks up fixes for a high-severity HTTP/2 crash and HTTPS heap leak. Label: `[AGENT][LOCAL]` · Priority: P2 · https://nodejs.org/en/blog/vulnerability/november-2026-security-releases
+- [x] Audit the repo for wfx-loot IOCs — Checks for the wfx-docs branch/PR, .ci-*.sh files, build-audit-*.yml workflows and new npm lifecycle hooks, since the campaign steals CI secrets and Cursor credentials. Label: `[AGENT][LOCAL]` · Priority: P1 · https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/ (synced to BUILD_PLAN)
+- [x] Default template CI installs to --ignore-scripts — Blocks postinstall-hook payloads like wfx-loot in every descendant repo. Label: `[AGENT][LOCAL]` · Priority: P2 · https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/ (synced to BUILD_PLAN)
+- [x] Bump pinned Node to 24.22.3 or 26.13.1 — Picks up fixes for a high-severity HTTP/2 crash and HTTPS heap leak. Label: `[AGENT][LOCAL]` · Priority: P2 · https://nodejs.org/en/blog/vulnerability/november-2026-security-releases (synced to BUILD_PLAN)
 - [ ] Add an independent-verifier step to /verify — A fresh-context reviewer that cannot edit tests catches what the coding agent's own tests miss. Label: `[AGENT][LOCAL]` · Priority: P3 · https://stackoverflow.blog/2026/11/13/your-coding-agent-shouldn-t-grade-its-own-homework/
+
+## 2026-11-15
+
+**News and updates**
+
+- Cursor traced its Oct 29 incident to a vendor-exposed key: attackers copied some non-Privacy-Mode agent traces (some with pasted credentials) and briefly planted a backdoored Claude Code extension (2.1.312/2.1.313); contained since Nov 1. [source](https://cursor.com/blog/security-incident-update) · [IOCs](https://cursor.com/blog/claude-code-extension-security-notice)
+- More agent-CLI lures flagged as npm malware: @claudecode/cli and zread CLI (all platform packages); treat any machine that installed them as compromised. [source](https://github.com/advisories/GHSA-vp2q-gp5r-xh5j) · [zread](https://github.com/advisories/GHSA-3429-mj25-c5wf)
+
+**Tasks for the planning agent**
+
+- [x] Add a "never paste secrets into agent chats or support" rule to the AGENTS.md contract — Agent traces can leak, as Cursor's incident showed, and every descendant inherits this contract. Label: `[AGENT][LOCAL]` · Priority: P2 · https://cursor.com/blog/security-incident-update (synced to BUILD_PLAN)
+- [ ] Add @claudecode/cli, zread_cli and @zread/cli-* to the MCP/agent package denylist — Keeps template scripts and descendant MCP configs from installing the newest agent-lure malware. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/advisories/GHSA-vp2q-gp5r-xh5j

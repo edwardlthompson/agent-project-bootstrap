@@ -69,7 +69,13 @@ _No UX inventory items._
 Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path`. `/build` and `/feature` claim these only. Isolation: [`docs/adr/0008-agent-venue.md`](docs/adr/0008-agent-venue.md).
 
 <!-- local-agent-lane:begin -->
-_No local agent items._
+- 🔲 [AGENT][LOCAL] Pin and allowlist MCP server packages in templates — scope: .cursor/ (news P1, 2026-11-13) https://github.com/advisories/GHSA-72xc-q3v8-7grp
+- 🔲 [AGENT][LOCAL] Document Dependabot inactive-repo pause in the template — scope: docs/ (news P2, 2026-11-13) https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories
+- 🔲 [AGENT][LOCAL] Audit template MCP examples for filesystem/git/fetch servers — scope: docs/MCP_RECIPES.md (news P2, 2026-11-13) https://github.com/modelcontextprotocol/servers/releases/tag/v2.4.0
+- 🔲 [AGENT][LOCAL] Audit the repo for wfx-loot IOCs — scope: .github/ (news P1, 2026-11-14) https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
+- 🔲 [AGENT][LOCAL] Default template CI installs to --ignore-scripts — scope: .github/workflows/ (news P2, 2026-11-14) https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
+- 🔲 [AGENT][LOCAL] Bump pinned Node to 24.22.3 or 26.13.1 — scope: examples/node/ (news P2, 2026-11-14) https://nodejs.org/en/blog/vulnerability/november-2026-security-releases
+- 🔲 [AGENT][LOCAL] Add a "never paste secrets into agent chats or support" rule to the AGENTS.md contract — scope: AGENTS.md (news P2, 2026-11-15) https://cursor.com/blog/security-incident-update
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)
