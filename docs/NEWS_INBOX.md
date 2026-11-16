@@ -54,3 +54,17 @@ A Cursor planning agent should review these items and fold the useful ones into 
 
 - [x] Add a "never paste secrets into agent chats or support" rule to the AGENTS.md contract — Agent traces can leak, as Cursor's incident showed, and every descendant inherits this contract. Label: `[AGENT][LOCAL]` · Priority: P2 · https://cursor.com/blog/security-incident-update (synced to BUILD_PLAN)
 - [ ] Add @claudecode/cli, zread_cli and @zread/cli-* to the MCP/agent package denylist — Keeps template scripts and descendant MCP configs from installing the newest agent-lure malware. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/advisories/GHSA-vp2q-gp5r-xh5j
+
+## 2026-11-16
+
+**News and updates**
+
+- GitHub Actions will block `pull_request_target` runs in public repos by default from Dec 2 unless an Actions event policy allows them; today (Nov 16) 12:00–14:00 AST is the second brownout. [source](https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/)
+- Git 2.56.1 (Nov 10) fixes 6 vulnerabilities, including code execution on recursive clone (CVE-2026-111760); backports 2.55.1–2.50.2 and Git for Windows 2.56.1 shipped the same day; GitHub is patching hosted runners. [source](https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/)
+- Google Antigravity 2.32.0 adds Dynamic Workflows: a reviewable, saved Python script fans work out to sub-agents that return JSON-Schema-checked results (SDK 0.1.22 `beta.workflows`). [source](https://antigravity.google/docs/dynamic-workflows/) · [changelog](https://antigravity.google/docs/changelog)
+
+**Tasks for the planning agent**
+
+- [x] Fail validate-workflow-actions on `on: pull_request_target` — The decision log already rejects it, and a check stops descendants from shipping workflows that break when GitHub blocks them on Dec 2. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/ (synced to BUILD_PLAN)
+- [x] Update Git to 2.56.1+ on dev hosts and have the template update checker warn below the patched version — Every descendant is cloned and recursively updated on these hosts, so an old Git is a code-execution risk. Label: `[HUMAN]` · Priority: P2 · https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/ (synced to BUILD_PLAN)
+- [ ] Prototype a saved fan-out script for /verify in the Antigravity adapter docs — One schema-bound reviewer per changed file gives a reviewable, re-runnable verify step for Antigravity users. Label: `[AGENT][LOCAL]` · Priority: P3 · https://antigravity.google/docs/dynamic-workflows/

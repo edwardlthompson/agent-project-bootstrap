@@ -76,6 +76,7 @@ Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path
 - 🔲 [AGENT][LOCAL] Default template CI installs to --ignore-scripts — scope: .github/workflows/ (news P2, 2026-11-14) https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
 - 🔲 [AGENT][LOCAL] Bump pinned Node to 24.22.3 or 26.13.1 — scope: examples/node/ (news P2, 2026-11-14) https://nodejs.org/en/blog/vulnerability/november-2026-security-releases
 - 🔲 [AGENT][LOCAL] Add a "never paste secrets into agent chats or support" rule to the AGENTS.md contract — scope: AGENTS.md (news P2, 2026-11-15) https://cursor.com/blog/security-incident-update
+- 🔲 [AGENT][LOCAL] Fail validate-workflow-actions on `on: pull_request_target` — scope: scripts/validate-workflow-actions.sh (news P2, 2026-11-16) https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)
@@ -107,6 +108,8 @@ _No template gaps; .template-version matches upstream (or template maintainer N/
 _None._ Lightroom stub smoke is `feature-gate --stack lightroom` (Lua/SDK), not Plug-in Manager. Raster icons are `blender-icons` QA, not a HUMAN export.
 
 Done on this board: **M66** shape/commercial/coverage/deep-upgrade · **M65** brand/splash · **v1.8.0** · **M64** cost/brevity · **M63** Local/Cloud venues · **v1.6.0** · **M62** UX/UI construction law · **v1.5.0** · **v1.4.0** · **v1.3.0** · **M61**–**M47** (see archive). Archive: `COMPLETED_TASKS.md`.
+
+- 🔲 [HUMAN] Update Git to 2.56.1+ on dev hosts and have the template update checker warn below the patched version (news P2, 2026-11-16) https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/
 
 ---
 
