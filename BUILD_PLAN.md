@@ -77,6 +77,9 @@ Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path
 - 🔲 [AGENT][LOCAL] Bump pinned Node to 24.22.3 or 26.13.1 — scope: examples/node/ (news P2, 2026-11-14) https://nodejs.org/en/blog/vulnerability/november-2026-security-releases
 - 🔲 [AGENT][LOCAL] Add a "never paste secrets into agent chats or support" rule to the AGENTS.md contract — scope: AGENTS.md (news P2, 2026-11-15) https://cursor.com/blog/security-incident-update
 - 🔲 [AGENT][LOCAL] Fail validate-workflow-actions on `on: pull_request_target` — scope: scripts/validate-workflow-actions.sh (news P2, 2026-11-16) https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/
+- 🔲 [AGENT][LOCAL] Confirm agent-framework 1.26.1/1.26.2 is absent and add a denylist plus .pth hook check — scope: docs/, examples/python/ (news P2, 2026-11-18) https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi
+- 🔲 [AGENT][LOCAL] Upgrade template MCP git/filesystem/everything servers to the v2.5.0 patches — scope: docs/MCP_RECIPES.md (news P2, 2026-11-18) https://github.com/modelcontextprotocol/servers/releases/tag/v2.5.0
+- 🔲 [AGENT][LOCAL] Upgrade MCP Inspector to 2.16.0 or 1.0.6 if the template documents it — scope: docs/ (news P2, 2026-11-18) https://github.com/modelcontextprotocol/inspector/releases/tag/2.16.0
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)

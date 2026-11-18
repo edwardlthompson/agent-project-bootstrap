@@ -68,3 +68,20 @@ A Cursor planning agent should review these items and fold the useful ones into 
 - [x] Fail validate-workflow-actions on `on: pull_request_target` — The decision log already rejects it, and a check stops descendants from shipping workflows that break when GitHub blocks them on Dec 2. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/ (synced to BUILD_PLAN)
 - [x] Update Git to 2.56.1+ on dev hosts and have the template update checker warn below the patched version — Every descendant is cloned and recursively updated on these hosts, so an old Git is a code-execution risk. Label: `[HUMAN]` · Priority: P2 · https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/ (synced to BUILD_PLAN)
 - [ ] Prototype a saved fan-out script for /verify in the Antigravity adapter docs — One schema-bound reviewer per changed file gives a reviewable, re-runnable verify step for Antigravity users. Label: `[AGENT][LOCAL]` · Priority: P3 · https://antigravity.google/docs/dynamic-workflows/
+
+## 2026-11-18
+
+Catch-up for Nov 17–18 (the daily brief did not run those mornings).
+
+**News and updates**
+
+- Both `pull_request_target` brownouts (Nov 9 and Nov 16) have passed, and MultiAppShare-'s `.github/workflows/pr-title.yml` still uses `pull_request_target`. The default block becomes permanent on Dec 2. [source](https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/)
+- Unauthorized PyPI releases 1.26.1 and 1.26.2 of Microsoft's `agent-framework` (Nov 17, now removed) dropped a `.pth` hook that stole env secrets, credential files, and Azure/GitHub OIDC tokens on every Python start. Pin to 1.26.0 or don't install it; treat any hit as compromised. [source](https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi) · [uv 0.13.9](https://github.com/astral-sh/uv/releases/tag/0.13.9) rejects wheels advertised under a different package name.
+- MCP reference servers v2.5.0 fix eight vulnerabilities in `mcp-server-git`, `@modelcontextprotocol/server-filesystem` and `server-everything` (git maintenance/hooks, symlink directory swaps, NAT64 SSRF). Upgrade git to 2026.11.18 and filesystem to 2.4.0 (pin date-versioned installs explicitly). [source](https://github.com/modelcontextprotocol/servers/releases/tag/v2.5.0)
+- MCP Inspector 2.16.0 and 1.0.6 cap SSE line and event size to stop an unbounded-buffer denial of service (GHSA-3xgv-mvj6-g78r). [source](https://github.com/modelcontextprotocol/inspector/releases/tag/2.16.0) · [v1](https://github.com/modelcontextprotocol/inspector/releases/tag/1.0.6)
+
+**Tasks for the planning agent**
+
+- [x] Confirm agent-framework 1.26.1/1.26.2 is absent and add a denylist plus .pth hook check — The template should keep descendants off the compromised releases and teach them to reject unexpected Python startup hooks. Label: `[AGENT][LOCAL]` · Priority: P2 · https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi (synced to BUILD_PLAN)
+- [x] Upgrade template MCP git/filesystem/everything servers to the v2.5.0 patches — v2.4.0 left eight more git/filesystem/SSRF bugs; date-versioned filesystem installs will not move to 2.4.0 on their own. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/modelcontextprotocol/servers/releases/tag/v2.5.0 (synced to BUILD_PLAN)
+- [x] Upgrade MCP Inspector to 2.16.0 or 1.0.6 if the template documents it — A malicious MCP server could previously crash the Inspector proxy with an unbounded SSE stream. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/modelcontextprotocol/inspector/releases/tag/2.16.0 (synced to BUILD_PLAN)
