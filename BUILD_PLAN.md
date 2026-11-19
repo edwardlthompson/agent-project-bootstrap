@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **1 open**
+**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **0 open**
 <!-- /remaining-tally -->
 
 ### Product (do not drift)
@@ -37,7 +37,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** Merge Release Please [#148](https://github.com/edwardlthompson/agent-project-bootstrap/pull/148) (v1.13.1). Dependabot #145/#147 done. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** Board clear (v1.13.1 shipped). After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
 > **News security sprint** (Local agent + Git floor) archived in COMPLETED_TASKS.md @ `a00d5e1` (working tree pending commit).
 > **M66** shape ecosystem + commercial GP + coverage + deep-upgrade — archived in COMPLETED_TASKS.md @ `08ac840`.
@@ -85,10 +85,10 @@ _No cloud agent items._
 
 > Auto-managed. Do not hand-edit rows inside the markers. Run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` (or `/resume` / `/dependabot`).
 >
-> **Triage 2026-11-19:** Dependabot #145/#147 merged. Next: Release Please #148 (v1.13.1).
+> **Triage 2026-11-19:** Dependabot #145/#147 and Release Please #148 (v1.13.1) merged — open-PRs lane empty.
 
 <!-- open-prs-sync:begin -->
-- 🔲 [AGENT][LOCAL] Merge release [#148](https://github.com/edwardlthompson/agent-project-bootstrap/pull/148) (chore(main): release 1.13.1) — scope: .
+_No open Dependabot or Release Please PRs._
 <!-- open-prs-sync:end -->
 
 ### Template gaps (synced)
