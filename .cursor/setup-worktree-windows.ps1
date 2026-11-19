@@ -115,12 +115,12 @@ function Install-NpmDir([string]$Dir) {
   }
   Push-Location $Dir
   try {
-    npm ci --prefer-offline --no-audit --no-fund
+    npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
     if ($LASTEXITCODE -eq 0) {
       Write-Host "OK npm ci in $Dir"
     } else {
       Write-Host "WARN npm ci --prefer-offline failed in $Dir; retry without offline"
-      npm ci --no-audit --no-fund
+      npm ci --ignore-scripts --no-audit --no-fund
       if ($LASTEXITCODE -eq 0) { Write-Host "OK npm ci in $Dir" } else { Write-Host "SKIP npm ci failed in $Dir (non-fatal)" }
     }
   } catch {

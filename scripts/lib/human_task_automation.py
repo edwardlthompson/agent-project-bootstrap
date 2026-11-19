@@ -43,6 +43,7 @@ from human_task_rows import (
     automate_use_template,
 )
 from human_task_release_please import automate_release_please_merge
+from git_min_version import automate_git_min_version
 from human_task_waiting_docs import (
     automate_lightroom_smoke,
     automate_openssf_gap_list,
@@ -80,6 +81,7 @@ HUMAN_RULES: list[tuple[re.Pattern[str], str, object]] = [
     (re.compile(r"Winget submission checklist", re.I), "human", automate_winget_checklist),
     (re.compile(r"Secret scanning push protection", re.I), "human", automate_push_protection),
     (re.compile(r"Pages custom domain", re.I), "human", automate_pages_custom_domain),
+    (re.compile(r"Update Git to 2\.56|git-security-vulnerabilities|template update checker warn", re.I), "human", automate_git_min_version),
 ]
 
 ADB_RULES: list[tuple[re.Pattern[str], str, object]] = [

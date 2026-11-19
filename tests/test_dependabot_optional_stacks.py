@@ -30,6 +30,13 @@ class DependabotOptionalStackTests(unittest.TestCase):
         self.assertIn("rust-dependencies", triage)
         self.assertIn("go-dependencies", triage)
 
+    def test_inactive_repo_pause_documented(self) -> None:
+        triage = (ROOT / "docs/SECURITY_TRIAGE.md").read_text(encoding="utf-8")
+        self.assertIn("Inactive-repo pause", triage)
+        self.assertIn("dependabot-alerts-will-pause-on-inactive-repositories", triage)
+        first30 = (ROOT / "docs/FIRST_30_DAYS.md").read_text(encoding="utf-8")
+        self.assertIn("pauses Dependabot alerts", first30)
+
 
 if __name__ == "__main__":
     unittest.main()

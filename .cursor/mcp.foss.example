@@ -1,15 +1,22 @@
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server:v2.2.0"
+      ],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
       }
     },
     "depsonar": {
       "command": "npx",
-      "args": ["-y", "depsonar@4"]
+      "args": ["-y", "depsonar@4.1.0"]
     }
   }
 }

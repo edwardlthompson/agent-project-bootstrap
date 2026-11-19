@@ -138,9 +138,10 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 ## MCP activation (FOSS)
 
 1. Copy `.cursor/mcp.foss.example` → `.cursor/mcp.json` (gitignored)
-2. Set `GITHUB_TOKEN` in environment (GitHub MCP only; depsonar does not need it)
-3. Restart Cursor
-4. Never commit tokens or live `mcp.json`
+2. Ensure Docker is running (GitHub MCP uses pinned `ghcr.io/github/github-mcp-server`)
+3. Set `GITHUB_TOKEN` in environment (GitHub MCP only; depsonar does not need it)
+4. Restart Cursor
+5. Never commit tokens or live `mcp.json`; never use unpinned `npx -y` MCP packages
 
 Stack recipes: [`MCP_RECIPES.md`](MCP_RECIPES.md). External skills catalog: [`SKILLS_RECIPES.md`](SKILLS_RECIPES.md).
 

@@ -218,7 +218,7 @@ skip_or_block() {
   SKIPPED_GATES+=("$msg")
   if [ "$SKIP_HINT_SHOWN" = false ]; then
     SKIP_HINT_SHOWN=true
-    log "HINT: install missing tools once (Node 22+npm, uv, JDK17, Android SDK) — see docs/LINUX_DEV.md; agent-run also prepends ~/.local/bin"
+    log "HINT: install missing tools once (Node 24.22.3+npm, uv, JDK17, Android SDK) — see docs/LINUX_DEV.md; agent-run also prepends ~/.local/bin"
     log "HINT: optional Go/Rust MODULE.md skip reasons appear in feature-gate --json skipped[]"
   fi
 }

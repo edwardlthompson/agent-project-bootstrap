@@ -10,8 +10,8 @@ Maintainer or child choosing MCP servers for web/android/node/python after init.
 - docs/MCP_RECIPES.md lists recommended MCPs per stack.
 - Opt-in .cursor/mcp.*.example JSON files; never commit live mcp.json.
 - Context7 documented as user-added unless FOSS-reviewed; Chrome DevTools maps to Cursor browser MCP; Next.js is a recipe note only.
-- Extend mcp-allowlist.json only for FOSS-safe servers.
-- Tests: example JSON parses; allowlist servers documented.
+- Extend mcp-allowlist.json only for FOSS-safe servers; pin packages/images; ban known-bad npm names.
+- Tests: example JSON parses; allowlist servers documented; unpinned npx rejected.
 
 ## Out of scope
 New Next.js examples/ stack; Cloud-only MCP defaults.
