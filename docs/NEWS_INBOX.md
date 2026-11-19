@@ -85,3 +85,16 @@ Catch-up for Nov 17–18 (the daily brief did not run those mornings).
 - [x] Confirm agent-framework 1.26.1/1.26.2 is absent and add a denylist plus .pth hook check — The template should keep descendants off the compromised releases and teach them to reject unexpected Python startup hooks. Label: `[AGENT][LOCAL]` · Priority: P2 · https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi (synced to BUILD_PLAN)
 - [x] Upgrade template MCP git/filesystem/everything servers to the v2.5.0 patches — v2.4.0 left eight more git/filesystem/SSRF bugs; date-versioned filesystem installs will not move to 2.4.0 on their own. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/modelcontextprotocol/servers/releases/tag/v2.5.0 (synced to BUILD_PLAN)
 - [x] Upgrade MCP Inspector to 2.16.0 or 1.0.6 if the template documents it — A malicious MCP server could previously crash the Inspector proxy with an unbounded SSE stream. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/modelcontextprotocol/inspector/releases/tag/2.16.0 (synced to BUILD_PLAN)
+
+## 2026-11-19
+
+**News and updates**
+
+- Update on the agent-framework PyPI compromise: Wiz ties the malicious uploads to a stolen Microsoft ESRP release-signing certificate, and a same-day PyPI account was listed on 14 Microsoft projects (including Semantic Kernel and AutoGen). The bad wheels were live 39 minutes (427 downloads); 1.26.2 also requested GitHub Actions/Azure OIDC tokens, so treat them as exposed for workflows with `id-token: write`. No repo here depends on semantic-kernel or autogen; the existing P2s still apply. [source](https://sxz.io/microsoft-agent-framework-pypi-credential-stealer-esrp-certificate-14-projects/)
+- Claude Code 2.1.327/2.1.328: `claude mcp add-json -` reads server JSON from stdin, a bug that deleted other top-level keys from project `.mcp.json` is fixed, and mcp_tool hooks gain `"onFailure": "block"`. [2.1.327](https://github.com/anthropics/claude-code/releases/tag/v2.1.327) · [2.1.328](https://github.com/anthropics/claude-code/releases/tag/v2.1.328)
+- "The App Works. Here Is What the Agent Never Checked.": five holes agent-built apps keep shipping (missing record ownership checks, keys in git, user-controlled admin flags, browser-trusted payments, agents on the live DB). [source](https://lambdalynx.dev/vibe-coding-security/)
+
+**Tasks for the planning agent**
+
+- [ ] Add a Claude Code line to docs/MCP_RECIPES.md: use `claude mcp add-json -` with the same pinned server JSON and require Claude Code 2.1.327+ for project `.mcp.json` edits — older versions silently drop other tools' servers and `$schema` from a shared .mcp.json, and stdin keeps tokens off the command line. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/anthropics/claude-code/releases/tag/v2.1.327
+- [ ] Add an "authz & payments" gate to the /verify checklist for the web/node Golden Path (two-account ownership test, server-side role check, server-verified payments, agent never on the prod DB) — gitleaks/semgrep catch keys but not the logic holes agents skip. Label: `[AGENT][LOCAL]` · Priority: P3 · https://lambdalynx.dev/vibe-coding-security/
