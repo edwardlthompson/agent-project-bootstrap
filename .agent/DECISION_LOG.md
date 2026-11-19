@@ -613,3 +613,16 @@ _Seed template ADR: `docs/adr/0000-template-baseline.md`. Child repos use `docs/
 - What: Commit outstanding M58–M61 + waiting-row automation + UnifiedPush E2E; empty CHANGELOG Unreleased; push main; merge RP #106.
 - Validated: `pre-release-gate.sh --local`, `verify-about-feature-gate.sh`, license compliance, repo hygiene, README health.
 - Deferred: Lightroom Plug-in Manager load (needs Adobe); RP merge waits on required checks after push.
+
+## 2026-11-09 — Argus 1.13.0
+
+- Shipped Argus Parts 1–5 (brand/contract gates, rules manifest, fleet/briefs, YOLO off-by-default, remote disabled).
+- Release: https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v1.13.0
+
+## 2026-11-19 — Security gates + Dependabot + v1.13.1
+
+- What: News security stack (MCP pins, wfx-loot, agent-framework denylist, Git 2.56.1, Node 24.22.3); TEMPLATE_INDEX + prune-safe `test_node_pin`; venue scope `.`/`*`; merge Dependabot #145/#147 and Release Please #148.
+- Validated: `validate-template-index`, `check-agent-venue`, local `feature-gate --stack multi`; required checks green on Dependabot PRs.
+- Release: https://github.com/edwardlthompson/agent-project-bootstrap/releases/tag/v1.13.1 (manual tag after Release Please hit installation API rate limit).
+- Board: open-PRs lane empty; Remaining 0.
+
