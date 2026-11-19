@@ -6,5 +6,21 @@
     "cursor-cloud",
     "cursor-subscriptions",
     "Cursor Slack Tools"
+  ],
+  "packages": {
+    "depsonar": "4.1.0"
+  },
+  "images": {
+    "ghcr.io/github/github-mcp-server": "v2.2.0"
+  },
+  "optional_min_pins": {
+    "@modelcontextprotocol/server-filesystem": "2.4.0",
+    "@modelcontextprotocol/server-everything": "2.3.1",
+    "mcp-server-git": "2026.11.18",
+    "mcp-server-fetch": "2026.11.18"
+  },
+  "banned": [
+    "mcp-server-github",
+    "@modelcontextprotocol/server-github"
   ]
 }

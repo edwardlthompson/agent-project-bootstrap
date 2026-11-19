@@ -15,6 +15,13 @@ if [ ${#files[@]} -eq 0 ]; then
   exit 0
 fi
 
+if grep -nE '^[[:space:]]*(on:[[:space:]]*)?pull_request_target([[:space:]]|:|$)' "${files[@]}"; then
+  echo ""
+  echo "ERROR: on: pull_request_target is forbidden in template workflows."
+  echo "Use pull_request (GitHub blocks untrusted pull_request_target by default from Dec 2026)."
+  exit 1
+fi
+
 if grep -nE 'uses:[[:space:]]*[^[:space:]]+@[0-9]+\.[0-9]' "${files[@]}"; then
   echo ""
   echo "ERROR: Bare semver action refs detected (missing v prefix)."

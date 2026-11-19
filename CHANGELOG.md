@@ -8,22 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-* **argus:** Part 1 foundation — `branding/brand.json` + canonical `app-icon-1024.png`, `argus.contract.json` v2, `.goldenpath.json`, empty `ux-baseline.json`, and five hygiene gates (`check-brand-icon`, `check-contract`, `check-orphans`, `check-ux-contract`, `check-layout`)
-* **argus:** Part 2 — `argus/rules/**` SoT + `rules.manifest.json` publish workflow, `docs/UX_LAW.md` / `LAYOUT.md` / `DIRECTORY_RULES.md`, UX fixtures + orphan allowlist/exceptions, `docs/RELEASE_TOKENS.md`
-* **argus:** Part 3 — `fleet.json` (template only), `briefs/` + fanout planner (`argus-fanout-plan.py`)
-* **argus:** Part 4 — YOLO runner off by default (`docs/YOLO.md`, no `yolo.on` in template)
-* **argus:** Part 5 — `argus.remote.json` disabled + remote stub workflow / `state/remote.log`
-
-### Changed
-
-* **docs:** `DIRECTORY_RULES.md` → `CURSOR_DIRECTORY.md`; Blender schema → `icon-render-manifest.schema.json`
-* **init:** primary stack decided → golden-path prune by default (drop unused + optional stacks); `--no-prune` / `--keep-optional` to retain extras
-* **memory:** children keep living memory only under `.agent/` (root `AGENT_MEMORY.md` / `DECISION_LOG.md` removed on init; `check-profile` rejects root stubs)
-* **linguist:** child attrs also vendor `tests/**` and `templates/**`; attribution gate requires patterns (dominant-language residual is advisory)
-* **init:** PowerShell `init-project.ps1` pipes Python here-strings to stdin and uses `PathSeparator` for `PYTHONPATH` (linguist/agent-mode were no-ops or `ModuleNotFoundError` on Linux pwsh)
-
 ## [1.13.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.12.1...v1.13.0) (2026-11-09)
 
 

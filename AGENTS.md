@@ -32,7 +32,7 @@ This repository is a **GitHub Template** for FOSS projects with coding agents (C
 |------|------|
 | Python 3.11+ | Init, gates, adapters (`scripts/lib/resolve-python.sh`) |
 | Git | Required — preflight fails if missing |
-| Node 22 + npm | Web / Node stacks |
+| Node 24.22.3+ + npm | Web / Node stacks |
 | uv | Python stack |
 | JDK 17+ | Android stack |
 | Local deps | `python3 scripts/agent-run.py update-deps` (dry-run default; `--apply` / `--audit`). Pin `upd-cli==0.6.2`. Prefer `depsonar_*` MCP when enabled. GitHub Dependabot is weekly backup. |
@@ -95,6 +95,7 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 ## Security Guidelines & Commit Conventions
 
 - Conventional Commits; never commit secrets or `.env`
+- **Never paste secrets, tokens, passwords, or private keys into agent chats, support tickets, or issue/PR bodies** — treat chat as logged. Prefer env files, secret stores, and redacted placeholders (`***`). Rotate anything that was pasted. (Cursor security incident guidance, 2026-11.)
 - Security defaults are on: `SECURITY.md`, local `update-deps --audit` before push, Dependabot (backup), CI, CodeQL, secret scanning
 - Also follow `docs/PREFERENCES.md` security risks (API keys, deps, rate limits, input validation, bot abuse, sensitive user info)
 - Destructive ops (`git push`, production deploys) need `[HUMAN]` approval (see `.cursor/rules/destructive-ops.mdc`)
@@ -153,7 +154,7 @@ Shipped in template (see `docs/CURSOR_INTEGRATIONS.md`):
 - **Plugin pack** — `.cursor-plugin/plugin.json` + `scripts/pack-cursor-plugin.*` → `dist/cursor-plugin/`
 - **CLI (opt-in)** — `docs/CURSOR_CLI.md` + `.github/workflow-examples/cursor-agent.yml`
 - **Cline (first-run)** — recommended extension `saoudrizwan.claude-dev`; GitHub sign-in + FREE model; no API keys. See `docs/help/CLINE.md`. Autonomous hands for a new user are Cline in Cursor (human-in-the-loop diffs), not a paid CLI.
-- **Optional MCP** — copy `.cursor/mcp.foss.example` → gitignored `.cursor/mcp.json` (GitHub + pinned `depsonar@4`; GitHub token not required for depsonar)
+- **Optional MCP** — copy `.cursor/mcp.foss.example` → gitignored `.cursor/mcp.json` (pinned `ghcr.io/github/github-mcp-server` via Docker + `depsonar@4.1.0`; never unpinned `npx -y`; GitHub token not required for depsonar)
 
 Validate: `python3 scripts/agent-run.py check-cursor-hooks -- --smoke`, `python3 scripts/agent-run.py check-cursor-integrations -- --tier foss`
 
