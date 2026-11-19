@@ -55,6 +55,8 @@ class AgentVenueTests(unittest.TestCase):
 
     def test_extract_scope(self) -> None:
         self.assertEqual(extract_scope("x — scope: examples/web"), "examples/web")
+        self.assertEqual(extract_scope("Merge release — scope: ."), ".")
+        self.assertEqual(extract_scope("Merge release — scope: *"), "*")
 
     def test_path_under_scope(self) -> None:
         self.assertTrue(path_under_scope("scripts/lib/a.py", "scripts"))

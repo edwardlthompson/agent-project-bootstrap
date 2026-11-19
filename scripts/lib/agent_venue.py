@@ -16,7 +16,8 @@ OPEN_AGENT = re.compile(
     r"^(?:(?:\d+[a-z]?)\.|-)\s+(?P<status>🔲|❌)\s+"
     r"\[AGENT\](?:\[(?P<venue>LOCAL|CLOUD)\])?\s+(?P<body>.+)$"
 )
-SCOPE_TRAILER = re.compile(r"(?:—|--|-)\s*scope:\s*(?P<scope>\S.+?)\s*$", re.I)
+# \S.*? allows single-token scopes like "." / "*" (Release Please open-prs rows).
+SCOPE_TRAILER = re.compile(r"(?:—|--|-)\s*scope:\s*(?P<scope>\S.*?)\s*$", re.I)
 PARALLEL_OWNER = re.compile(r"^\|([^|]+)\|([^|]+)\|([^|]+)\|")
 PARALLEL_HEADER = re.compile(r"^#{3,4}\s+.*Parallel", re.I)
 

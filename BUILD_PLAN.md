@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 2 · HUMAN 0 · ADB 0 · **2 open**
+**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **1 open**
 <!-- /remaining-tally -->
 
 ### Product (do not drift)
@@ -37,7 +37,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** AUTO Dependabot #145/#147 after `/push`; CI confirm in HUMAN_BACKLOG. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** Merge Release Please [#148](https://github.com/edwardlthompson/agent-project-bootstrap/pull/148) (v1.13.1). Dependabot #145/#147 done. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
 > **News security sprint** (Local agent + Git floor) archived in COMPLETED_TASKS.md @ `a00d5e1` (working tree pending commit).
 > **M66** shape ecosystem + commercial GP + coverage + deep-upgrade — archived in COMPLETED_TASKS.md @ `08ac840`.
@@ -85,11 +85,10 @@ _No cloud agent items._
 
 > Auto-managed. Do not hand-edit rows inside the markers. Run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` (or `/resume` / `/dependabot`).
 >
-> **Triage 2026-11-19:** Stale tally + news security stack are local-ready — **commit and `/push`**, then rebase/re-run #145/#147. CI confirm deferred to `HUMAN_BACKLOG.md`.
+> **Triage 2026-11-19:** Dependabot #145/#147 merged. Next: Release Please #148 (v1.13.1).
 
 <!-- open-prs-sync:begin -->
-- 🔲 [AUTO] Merge Dependabot [#147](https://github.com/edwardlthompson/agent-project-bootstrap/pull/147) (chore(deps): Bump the github-actions group with 3 updates)
-- 🔲 [AUTO] Merge Dependabot [#145](https://github.com/edwardlthompson/agent-project-bootstrap/pull/145) (chore(deps-dev): Bump the web-dependencies group in /examples/web with 4 updates)
+- 🔲 [AGENT][LOCAL] Merge release [#148](https://github.com/edwardlthompson/agent-project-bootstrap/pull/148) (chore(main): release 1.13.1) — scope: .
 <!-- open-prs-sync:end -->
 
 ### Template gaps (synced)
