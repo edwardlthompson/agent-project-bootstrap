@@ -11,14 +11,29 @@ PIN = "24.22.3"
 
 class NodePinTests(unittest.TestCase):
     def test_nvmrc(self) -> None:
+        # Skip pruned stack examples (upgrade-sim child-prune).
+        checked = 0
         for rel in ("examples/node/.nvmrc", "examples/web/.nvmrc"):
-            text = (ROOT / rel).read_text(encoding="utf-8").strip()
+            path = ROOT / rel
+            if not path.is_file():
+                continue
+            text = path.read_text(encoding="utf-8").strip()
             self.assertEqual(text, PIN, rel)
+            checked += 1
+        if checked == 0:
+            self.skipTest("no node/web .nvmrc (stack pruned)")
 
     def test_engines(self) -> None:
+        checked = 0
         for rel in ("examples/node/package.json", "examples/web/package.json"):
-            data = json.loads((ROOT / rel).read_text(encoding="utf-8"))
+            path = ROOT / rel
+            if not path.is_file():
+                continue
+            data = json.loads(path.read_text(encoding="utf-8"))
             self.assertIn(PIN, data.get("engines", {}).get("node", ""), rel)
+            checked += 1
+        if checked == 0:
+            self.skipTest("no node/web package.json (stack pruned)")
 
     def test_workflows(self) -> None:
         needle = f'node-version: "{PIN}"'
