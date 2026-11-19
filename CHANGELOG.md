@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.13.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.13.0...v1.13.1) (2026-11-19)
+
+
+### Fixed
+
+* **ci:** index security check scripts in TEMPLATE_INDEX ([6c798ce](https://github.com/edwardlthompson/agent-project-bootstrap/commit/6c798ce2619ead2a8f21d20fedfd3ff2ee670beb))
+* **ci:** skip node pin asserts when examples are pruned ([8e66882](https://github.com/edwardlthompson/agent-project-bootstrap/commit/8e668825a43d6a48f15bbdcfb0d82617cbc25104))
+* **plan:** accept single-char AGENT scopes for Release Please rows ([e302f65](https://github.com/edwardlthompson/agent-project-bootstrap/commit/e302f65c0e74ec31c39ef437274a5aa33d1fa033))
+* **security:** refresh BUILD_PLAN tally and land news security gates ([9d632ba](https://github.com/edwardlthompson/agent-project-bootstrap/commit/9d632ba57a1ea94754829e7b2b1d04c7df4c0bc2))
+
 ## [1.13.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.12.1...v1.13.0) (2026-11-09)
 
 
