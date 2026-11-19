@@ -2197,6 +2197,27 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-wfx-loot-iocs.sh",
+      "purpose": "Fail on wfx-loot IOCs or CI npm ci without --ignore-scripts",
+      "read_when": "security_triage",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-git-min-version.sh",
+      "purpose": "Enforce Git security floor (2.56.1+) for local and CI hosts",
+      "read_when": "security_triage",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-agent-framework-denylist.sh",
+      "purpose": "Fail on compromised agent-framework 1.26.1/1.26.2 or unexpected .pth hooks",
+      "read_when": "security_triage",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-security-triage.sh",
       "purpose": "Weekly Dependabot Critical/High + required workflow triage",
       "read_when": "milestone_boundary",
