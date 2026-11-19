@@ -137,3 +137,4 @@ def automate_lightroom_smoke(root: Path, _cfg: dict) -> AttemptResult:
         "Lightroom stub gates passed (Lua/SDK); Adobe host not required",
         False,
     )
+

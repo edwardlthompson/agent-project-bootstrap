@@ -5,6 +5,16 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+# GitHub blocks untrusted pull_request_target by default (Dec 2026+).
+# Fail closed if any workflow still declares it.
+shopt -s nullglob
+_wf_files=(.github/workflows/*.yml .github/workflows/*.yaml)
+shopt -u nullglob
+if [ "${#_wf_files[@]}" -gt 0 ] && grep -nE '^[[:space:]]*(on:[[:space:]]*)?pull_request_target([[:space:]]|:|$)' "${_wf_files[@]}" 2>/dev/null; then
+  echo "ERROR: on: pull_request_target is forbidden (use pull_request; see GitHub changelog 2026-11-02)"
+  exit 1
+fi
+
 if ! command -v gh >/dev/null 2>&1; then
   echo "ERROR: gh CLI required (https://cli.github.com/)"
   exit 1

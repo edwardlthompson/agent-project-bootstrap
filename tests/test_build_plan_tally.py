@@ -58,6 +58,19 @@ class TallyTests(unittest.TestCase):
             self.assertIn("<!-- remaining-tally -->", text)
             self.assertNotIn("#### Sequential", text)
 
+    def test_repo_build_plan_tally_matches_open_rows(self) -> None:
+        """News/`[skip ci]` commits must not leave Remaining: 0 with open rows (broke #145/#147)."""
+        for name in ("BUILD_PLAN.md", "BUILD_PLAN_TEMPLATE.md"):
+            path = ROOT / name
+            if not path.is_file():
+                continue
+            text = path.read_text(encoding="utf-8")
+            self.assertEqual(
+                apply_tally(text),
+                text,
+                f"{name} tally stale; run refresh-build-plan-tally",
+            )
+
     def test_maintenance_has_no_checkboxes(self) -> None:
         for name in ("BUILD_PLAN.md", "BUILD_PLAN_TEMPLATE.md"):
             text = (ROOT / name).read_text(encoding="utf-8")

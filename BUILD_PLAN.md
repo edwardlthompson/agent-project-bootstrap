@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **0 open**
+**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 2 · HUMAN 0 · ADB 0 · **2 open**
 <!-- /remaining-tally -->
 
 ### Product (do not drift)
@@ -37,8 +37,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** AGENT board empty. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** AUTO Dependabot #145/#147 after `/push`; CI confirm in HUMAN_BACKLOG. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
+> **News security sprint** (Local agent + Git floor) archived in COMPLETED_TASKS.md @ `a00d5e1` (working tree pending commit).
 > **M66** shape ecosystem + commercial GP + coverage + deep-upgrade — archived in COMPLETED_TASKS.md @ `08ac840`.
 > **M65** parent brand + child `/brand`/splash playbook — archived in COMPLETED_TASKS.md @ `08ac840`.
 > **v1.8.0** release archived in COMPLETED_TASKS.md @ `1cafc11`.
@@ -69,17 +70,7 @@ _No UX inventory items._
 Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path`. `/build` and `/feature` claim these only. Isolation: [`docs/adr/0008-agent-venue.md`](docs/adr/0008-agent-venue.md).
 
 <!-- local-agent-lane:begin -->
-- 🔲 [AGENT][LOCAL] Pin and allowlist MCP server packages in templates — scope: .cursor/ (news P1, 2026-11-13) https://github.com/advisories/GHSA-72xc-q3v8-7grp
-- 🔲 [AGENT][LOCAL] Document Dependabot inactive-repo pause in the template — scope: docs/ (news P2, 2026-11-13) https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories
-- 🔲 [AGENT][LOCAL] Audit template MCP examples for filesystem/git/fetch servers — scope: docs/MCP_RECIPES.md (news P2, 2026-11-13) https://github.com/modelcontextprotocol/servers/releases/tag/v2.4.0
-- 🔲 [AGENT][LOCAL] Audit the repo for wfx-loot IOCs — scope: .github/ (news P1, 2026-11-14) https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
-- 🔲 [AGENT][LOCAL] Default template CI installs to --ignore-scripts — scope: .github/workflows/ (news P2, 2026-11-14) https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
-- 🔲 [AGENT][LOCAL] Bump pinned Node to 24.22.3 or 26.13.1 — scope: examples/node/ (news P2, 2026-11-14) https://nodejs.org/en/blog/vulnerability/november-2026-security-releases
-- 🔲 [AGENT][LOCAL] Add a "never paste secrets into agent chats or support" rule to the AGENTS.md contract — scope: AGENTS.md (news P2, 2026-11-15) https://cursor.com/blog/security-incident-update
-- 🔲 [AGENT][LOCAL] Fail validate-workflow-actions on `on: pull_request_target` — scope: scripts/validate-workflow-actions.sh (news P2, 2026-11-16) https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/
-- 🔲 [AGENT][LOCAL] Confirm agent-framework 1.26.1/1.26.2 is absent and add a denylist plus .pth hook check — scope: docs/, examples/python/ (news P2, 2026-11-18) https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi
-- 🔲 [AGENT][LOCAL] Upgrade template MCP git/filesystem/everything servers to the v2.5.0 patches — scope: docs/MCP_RECIPES.md (news P2, 2026-11-18) https://github.com/modelcontextprotocol/servers/releases/tag/v2.5.0
-- 🔲 [AGENT][LOCAL] Upgrade MCP Inspector to 2.16.0 or 1.0.6 if the template documents it — scope: docs/ (news P2, 2026-11-18) https://github.com/modelcontextprotocol/inspector/releases/tag/2.16.0
+_No local agent items._
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)
@@ -93,9 +84,12 @@ _No cloud agent items._
 ### Open PRs (synced)
 
 > Auto-managed. Do not hand-edit rows inside the markers. Run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` (or `/resume` / `/dependabot`).
+>
+> **Triage 2026-11-19:** Stale tally + news security stack are local-ready — **commit and `/push`**, then rebase/re-run #145/#147. CI confirm deferred to `HUMAN_BACKLOG.md`.
 
 <!-- open-prs-sync:begin -->
-_No open Dependabot or Release Please PRs._
+- 🔲 [AUTO] Merge Dependabot [#147](https://github.com/edwardlthompson/agent-project-bootstrap/pull/147) (chore(deps): Bump the github-actions group with 3 updates)
+- 🔲 [AUTO] Merge Dependabot [#145](https://github.com/edwardlthompson/agent-project-bootstrap/pull/145) (chore(deps-dev): Bump the web-dependencies group in /examples/web with 4 updates)
 <!-- open-prs-sync:end -->
 
 ### Template gaps (synced)
@@ -110,9 +104,7 @@ _No template gaps; .template-version matches upstream (or template maintainer N/
 
 _None._ Lightroom stub smoke is `feature-gate --stack lightroom` (Lua/SDK), not Plug-in Manager. Raster icons are `blender-icons` QA, not a HUMAN export.
 
-Done on this board: **M66** shape/commercial/coverage/deep-upgrade · **M65** brand/splash · **v1.8.0** · **M64** cost/brevity · **M63** Local/Cloud venues · **v1.6.0** · **M62** UX/UI construction law · **v1.5.0** · **v1.4.0** · **v1.3.0** · **M61**–**M47** (see archive). Archive: `COMPLETED_TASKS.md`.
-
-- 🔲 [HUMAN] Update Git to 2.56.1+ on dev hosts and have the template update checker warn below the patched version (news P2, 2026-11-16) https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/
+Done on this board: **News security sprint** · **M66** shape/commercial/coverage/deep-upgrade · **M65** brand/splash · **v1.8.0** · **M64** cost/brevity · **M63** Local/Cloud venues · **v1.6.0** · **M62** UX/UI construction law · **v1.5.0** · **v1.4.0** · **v1.3.0** · **M61**–**M47** (see archive). Archive: `COMPLETED_TASKS.md`.
 
 ---
 

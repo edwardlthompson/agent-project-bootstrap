@@ -171,7 +171,7 @@ jobs:
         if: hashFiles('examples/web/package-lock.json') != ''
         uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version: "24.22.3"
           cache: npm
           cache-dependency-path: examples/web/package-lock.json
 
@@ -179,7 +179,7 @@ jobs:
         if: hashFiles('examples/web/package-lock.json') != ''
         run: |
           cd examples/web
-          npm ci
+          npm ci --ignore-scripts
           npm audit --audit-level=high
 
       - name: Setup uv for Python audit
@@ -204,7 +204,7 @@ jobs:
         if: hashFiles('examples/node/package-lock.json') != ''
         uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version: "24.22.3"
           cache: npm
           cache-dependency-path: examples/node/package-lock.json
 
@@ -212,7 +212,7 @@ jobs:
         if: hashFiles('examples/node/package-lock.json') != ''
         run: |
           cd examples/node
-          npm ci
+          npm ci --ignore-scripts
           npm audit --audit-level=high
 
       - name: Cursor feature radar (non-blocking)

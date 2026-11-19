@@ -2,6 +2,22 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## News security sprint — Local agent + Git floor (2026-11-19)
+
+- ✅ [AGENT][LOCAL] Unblock Dependabot #145/#147: fix Validate Bootstrap + Template Upgrade Simulation (Windows) — scope: README.md, scripts/, BUILD_PLAN.md (CI 2026-11-18: aggregate fails on those two jobs; CodeQL/Security Scan/Dependency Review pass)
+- ✅ [AGENT][LOCAL] Pin and allowlist MCP server packages in templates — scope: .cursor/ (news P1, 2026-11-13) https://github.com/advisories/GHSA-72xc-q3v8-7grp
+- ✅ [AGENT][LOCAL] Document Dependabot inactive-repo pause in the template — scope: docs/ (news P2, 2026-11-13) https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories
+- ✅ [AGENT][LOCAL] Audit template MCP examples for filesystem/git/fetch servers — scope: docs/MCP_RECIPES.md (news P2, 2026-11-13) https://github.com/modelcontextprotocol/servers/releases/tag/v2.4.0
+- ✅ [AGENT][LOCAL] Audit the repo for wfx-loot IOCs — scope: .github/ (news P1, 2026-11-14) https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
+- ✅ [AGENT][LOCAL] Default template CI installs to --ignore-scripts — scope: .github/workflows/ (news P2, 2026-11-14) https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/
+- ✅ [AGENT][LOCAL] Bump pinned Node to 24.22.3 or 26.13.1 — scope: examples/node/ (news P2, 2026-11-14) https://nodejs.org/en/blog/vulnerability/november-2026-security-releases
+- ✅ [AGENT][LOCAL] Add a "never paste secrets into agent chats or support" rule to the AGENTS.md contract — scope: AGENTS.md (news P2, 2026-11-15) https://cursor.com/blog/security-incident-update
+- ✅ [AGENT][LOCAL] Fail validate-workflow-actions on `on: pull_request_target` — scope: scripts/validate-workflow-actions.sh (news P2, 2026-11-16) https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/
+- ✅ [AGENT][LOCAL] Confirm agent-framework 1.26.1/1.26.2 is absent and add a denylist plus .pth hook check — scope: docs/, examples/python/ (news P2, 2026-11-18) https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi
+- ✅ [AGENT][LOCAL] Upgrade template MCP git/filesystem/everything servers to the v2.5.0 patches — scope: docs/MCP_RECIPES.md (news P2, 2026-11-18) https://github.com/modelcontextprotocol/servers/releases/tag/v2.5.0
+- ✅ [AGENT][LOCAL] Upgrade MCP Inspector to 2.16.0 or 1.0.6 if the template documents it — scope: docs/ (news P2, 2026-11-18) https://github.com/modelcontextprotocol/inspector/releases/tag/2.16.0
+- ✅ [HUMAN] Update Git to 2.56.1+ on dev hosts and have the template update checker warn below the patched version (news P2, 2026-11-16) https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/
+
 ## M66 — Shape ecosystem, commercial GP, coverage, deep upgrade (2026-10-16)
 
 - ✅ [AGENT][LOCAL] Ship /shape workflow (command + specs template + tour/cheat sheet) — scope: .cursor/commands/, docs/help/, docs/specs/, docs/PREFERENCES.md

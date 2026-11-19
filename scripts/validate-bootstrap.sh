@@ -238,6 +238,9 @@ elif ! python3 scripts/lib/run_checks_parallel.py \
   check-android-sdk-secrets.sh \
   check-semgrep.sh \
   check-mcp-allowlist.sh \
+  check-wfx-loot-iocs.sh \
+  check-agent-framework-denylist.sh \
+  check-git-min-version.sh \
   check-crash-payload-allowlist.sh \
   check-crash-inbox.sh \
   check-sanitize-fixtures.sh \

@@ -30,6 +30,22 @@ Requires `gh` CLI authenticated with admin access. On API `422` (plan or permiss
 
 **Public repos:** Dependabot alerts are free.
 
+### Git ≥ 2.56.1 (Nov 2026)
+
+Recursive-clone / checkout CVEs fixed in 2.56.1 ([announcement](https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/)). Gate: `scripts/check-git-min-version.sh` (WARN locally, FAIL in CI).
+
+### Malicious `agent-framework` 1.26.1 / 1.26.2 (PyPI, Nov 2026)
+
+Unauthorized wheels dropped a `.pth` hook that stole env secrets and cloud tokens on every Python start ([Wiz](https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi)). Do not install those versions; prefer omitting the package or pin `==1.26.0` only if required. Gate: `scripts/check-agent-framework-denylist.sh` (deps text + tracked `.pth` under `examples/python` / `scripts`).
+
+### wfx-loot CI secret stealer (Nov 2026)
+
+Campaign IOCs: `wfx-docs` / `docs/wfx-audit.md` probe PRs, `.ci-*.sh` + `package.json` hooks, `build-audit-*.yml` throwaway workflows, and `Pass runtime` / `Restore cache` injection steps ([GitGuardian](https://blog.gitguardian.com/wfx-loot-a-ci-secret-stealer-pushed-with-stolen-github-credentials/)). Gate: `scripts/check-wfx-loot-iocs.sh`. Template CI uses `npm ci --ignore-scripts` so a planted `postinstall` cannot run during workflows.
+
+### Inactive-repo pause (from 8 Dec 2026)
+
+GitHub **pauses Dependabot alerts** on repositories with **no activity in the past year** ([changelog](https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories)). A single push (or other repo activity) re-enables them. Child templates that go quiet lose the CVE inbox even when alerts were enabled at init — keep a monthly `/maintain` or schedule Monday `weekly-health-check.yml` so the repo stays active. Version-update PRs from `dependabot.yml` also count as activity when they land.
+
 `dependabot.yml` is weekly **backup** version-update PRs. Day-to-day bumps: `python3 scripts/agent-run.py update-deps`. **Dependabot alerts** are a separate GitHub setting for CVE advisories — still enable them. Local HIGH+ findings from `update-deps --audit` block `pre-release-gate.sh --local` (`/prerelease` / `/ship`). GitHub alert counts still block the **default** `pre-release-gate.sh` used by `/regress`.
 
 **Optional-stack groups health:** Cargo and Go ecosystems use weekly groups `rust-dependencies` and `go-dependencies` under `/examples/rust` and `/examples/go`. If those groups disappear from `.github/dependabot.yml`, optional-stack Dependabot noise returns as one PR per crate/module — restore the groups (see `docs/features/dependabot-cargo-go.md`).
