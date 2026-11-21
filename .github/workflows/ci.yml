@@ -710,7 +710,7 @@ jobs:
       - uses: actions/checkout@v7
       - name: Structure gate (no Nix required)
         run: bash scripts/check-nix-flake.sh
-      - uses: cachix/install-nix-action@91f6a0f59e94dfb2cfed0f4000f36a68ead1d20c # v31.11.4
+      - uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
       - name: Evaluate flake apps
         run: |
           nix --extra-experimental-features "nix-command flakes" flake show
