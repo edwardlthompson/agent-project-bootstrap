@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.13.2](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.13.1...v1.13.2) (2026-11-22)
+
+
+### Fixed
+
+* **docs:** blank lines around PARALLEL_AGENT_SCOPES tables (MD058) ([cfa3748](https://github.com/edwardlthompson/agent-project-bootstrap/commit/cfa3748523e4370c34ee32a24197269edfae2af9))
+
 ## [1.13.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.13.0...v1.13.1) (2026-11-19)
 
 
