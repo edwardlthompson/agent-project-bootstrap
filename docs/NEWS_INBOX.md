@@ -114,3 +114,21 @@ Catch-up for Nov 17–18 (the daily brief did not run those mornings).
 - [ ] Point the /ux-review checklist and docs/UX_LAW.md at WCAG 2.2 AA / EN 301 549 v4 and add the 2.2-only criteria (target size minimum, focus not obscured, dragging alternatives, accessible authentication, redundant entry) — APB is the template every repo inherits, and the new children (prism-mail, open-fences) start from it; EU legal pressure on hobby FOSS is low. Label: `[AGENT][LOCAL]` · Priority: P3 · https://www.etsi.org/newsroom/press-releases/etsi-advances-digital-accessibility-across-europe-with-two-standards/
 - [ ] Add a "local HTTP MCP servers" rule to docs/MCP_RECIPES.md: prefer stdio; if a server must speak HTTP, bind loopback, validate Host and Origin, and require a token even in "local" mode — children such as selfchronicle copy this pattern, and the MCP guidance covers pinning but not transport. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/advisories/GHSA-mx6p-3fg7-v6pj
 - [ ] Add a "Restrict deletions" default-branch ruleset and a workflow-path restriction (.github/workflows/**) to the template's repo-hygiene guidance (docs/REPO_HYGIENE.md) so children set them up at init — they block the cover-tracks and silent-workflow steps of a stolen-token takeover at no Actions cost. Label: `[AGENT][LOCAL]` · Priority: P3 · https://socket.dev/blog/hardening-github-actions-against-insider-threats
+
+## 2026-11-25
+
+**News and updates**
+
+- uv 0.13.10 (Nov 24) fixes [GHSA-vjvj-3m3f-fgmm](https://github.com/astral-sh/uv/security/advisories/GHSA-vjvj-3m3f-fgmm) (Low): a crafted ZIP wheel or sdist can install different file contents under uv than under pip, because the two disagree on ZIP data-descriptor sizes. Exploitation needs someone to install an attacker-controlled distribution; PyPI now rejects many of these malformed ZIPs, but local and third-party indexes may not. The open template pin still cites 0.13.8. [0.13.10](https://github.com/astral-sh/uv/releases/tag/0.13.10)
+
+- GitGuardian planted AWS keys in Docker Hub images and saw bots use them in 7.86 seconds; they also argue that provider Zero Data Retention is not a control, because bait prompts leaked keys from three AI providers and those keys were tested within hours. The practical fixes are .dockerignore (so `.gitignore` secrets do not land in image layers), agent-config hygiene, and redaction before a prompt leaves the laptop. [Docker Hub write-up](https://blog.gitguardian.com/docker-hub-secrets-ai-agentsuntitled/) · [ZDR write-up](https://blog.gitguardian.com/zero-data-retention-ai-prompts/)
+
+- Vercel and shadcn released UI SDK, a library of UI behaviors (popup, selection, typeahead, and similar) that agents can compose into components and then operate without clicking through a screenshot. Better Stack's write-up notes that UI SDK can mark a control as needing a person, and in their test UI-SDK agents asked first, but ordinary browser-tool agents clicked through because they never see the mark. [UI SDK](https://ui-sdk.dev) · [GitHub](https://github.com/vercel-labs/ui) · [Better Stack](https://www.youtube.com/watch?v=ubK6Q53jKg8)
+
+**Tasks for the planning agent**
+
+- - [ ] Bump uv pins in template tooling to 0.13.10 or later (supersedes the older 0.13.8 pin) — rejects ZIP members whose descriptor size disagrees with the central directory, so uv and pip cannot be tricked into installing different bytes from the same archive. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/astral-sh/uv/security/advisories/GHSA-vjvj-3m3f-fgmm
+
+- - [ ] Add a template rule that agent and CI Docker builds must use a `.dockerignore` that excludes `.env`, credential files, and agent config, and that `/verify` (or a pre-commit check) flags those paths in image build contexts — `.gitignore` does not apply to `docker build`, and bots are scraping public images for keys in seconds. Label: `[AGENT][LOCAL]` · Priority: P3 · https://blog.gitguardian.com/docker-hub-secrets-ai-agentsuntitled/
+
+- - [ ] Evaluate UI SDK (and its 'needs a person' mark) as an optional recipe for agent-driven settings and approval UIs in the template — useful if descendants start shipping agent-operated interfaces, and the mark is only honored by agents that speak UI SDK. Label: `[AGENT][LOCAL]` · Priority: P3 · https://ui-sdk.dev
