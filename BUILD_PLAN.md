@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **1 open**
+**Remaining:** AGENT 2 · LOCAL 2 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **2 open**
 <!-- /remaining-tally -->
 
 ### Product (do not drift)
@@ -71,6 +71,7 @@ Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path
 
 <!-- local-agent-lane:begin -->
 - 🔲 [AGENT][LOCAL] Bump the Gradle wrapper 9.9.1 → 9.9.2 and commit the regenerated wrapper jar and distributionSha256Sum (4 High security fixes: SFTP host keys, snapshot dependency verification, TestKit temp dir, daemon registry) — scope: examples/android/gradle/wrapper/ (news P2, 2026-11-20) https://docs.gradle.org/9.9.2/release-notes.html
+- 🔲 [AGENT][LOCAL] Raise MCP optional_min_pins and the MCP_RECIPES table to mcp-server-git/mcp-server-fetch 2026.11.27, server-filesystem 2.4.1 (server-memory 2.2.2 if listed) and the Inspector floor to >=2.17.0 / >=1.0.7 — scope: .cursor/mcp-allowlist.json,docs/MCP_RECIPES.md,scripts/lib/mcp_allowlist.py,tests/test_mcp_recipes.py (news P2, 2026-11-27) https://github.com/modelcontextprotocol/servers/releases/tag/v2.6.0
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)
