@@ -19,15 +19,15 @@
     "lighthouse": "lhci autorun"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.14.0",
-    "@biomejs/biome": "^2.6.8",
+    "@axe-core/playwright": "^4.14.1",
+    "@biomejs/biome": "^2.6.9",
     "@lhci/cli": "^0.16.1",
     "@playwright/test": "^1.65.1",
-    "fast-check": "^4.10.2",
+    "fast-check": "^4.11.0",
     "jsdom": "^31.0.1",
     "typescript": "~7.0.2",
     "vite": "^8.3.8",
-    "vitest": "^5.1.0",
+    "vitest": "^5.1.1",
     "@vitest/coverage-v8": "^5.0.5"
   },
   "overrides": {
