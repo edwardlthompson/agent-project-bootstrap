@@ -167,3 +167,13 @@ Catch-up for Nov 17–18 (the daily brief did not run those mornings).
 - [x] Raise MCP optional_min_pins and the MCP_RECIPES table to mcp-server-git / mcp-server-fetch 2026.11.27, server-filesystem 2.4.1 (server-memory 2.2.2 if listed) and the Inspector floor to >=2.17.0 / >=1.0.7 — The template's documented safe pins are one release behind on eight fixed vulnerabilities, and children copy them. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/modelcontextprotocol/servers/releases/tag/v2.6.0 (synced to BUILD_PLAN)
 - [ ] In AGENTS.md, next to the sandbox/boundaries rule, require a blocker report (what was tried, why it looks infeasible) before an agent marks a task impossible or skips it — It turns early give-ups into reviewable evidence instead of silent no-progress runs. Label: `[AGENT][LOCAL]` · Priority: P3 · https://goodhartlabs.com/blog/fable-5-2-tries-less-on-some-hard-tasks-when-a-shortcut-is-available
 - [ ] Add the Play trader-status declaration (deadline 2027-02-01; public phone and address for personal-account traders from 2027-03-01) to the Play Store row in modules/android/COMMERCIAL.md — A commercial-tier child choosing Play should know before publishing that a personal account would publish a home address. Label: `[AGENT][LOCAL]` · Priority: P3 · https://support.google.com/googleplay/android-developer/answer/17594752
+
+## 2026-11-28
+
+**News and updates**
+
+- Gradle [9.9.3](https://github.com/gradle/gradle/releases/tag/v9.9.3) (Nov 27) is a regression-only patch: 9.9.2 failed to start on Windows when GRADLE_USER_HOME sits on an ImDisk RAM disk ([gradle#39909](https://github.com/gradle/gradle/issues/39909)). No new security fixes; 9.9.2's four High fixes are still why the open wrapper-bump row is P2, and Gradle now recommends 9.9.3, so landing on it avoids a second bump. The board row is unchanged. [Release notes](https://docs.gradle.org/9.9.3/release-notes.html)
+
+**Tasks for the planning agent**
+
+- [ ] Use Gradle 9.9.3 rather than 9.9.2 when doing the open wrapper bump — 9.9.3 has the same security fixes plus a Windows startup regression fix, so one bump covers both. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/gradle/gradle/releases/tag/v9.9.3 (BUILD_PLAN row left unchanged)
